@@ -1,0 +1,26 @@
+﻿<Window x:Class="Maker.View.Dialog.MessageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" 
+        Title="{DynamicResource Message}" 
+        Background="#535353"
+        Width="540"
+        Height="380"
+        WindowStartupLocation="CenterScreen"
+           ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <ScrollViewer  Margin="20" VerticalScrollBarVisibility="Auto"  Height="300">
+        <StackPanel  Width="400">
+            <TextBlock FontSize="14"  TextWrapping="Wrap" Name="tbMessage" Margin="0,0,0,0" Foreground="#FFFFFF" ></TextBlock>
+        </StackPanel>
+        </ScrollViewer>
+        <StackPanel>
+            <Button  Click="BtnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}"></Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

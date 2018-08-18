@@ -1,0 +1,18 @@
+﻿<Window x:Class="Update.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Update"
+        mc:Ignorable="d"
+        Background="#535353"
+        Title="Maker更新程序"       
+        WindowStartupLocation="CenterScreen"
+        Width="500" Height="400"
+        Loaded="Window_Loaded"
+        ResizeMode="NoResize">
+    <Grid>
+        <TextBlock Foreground="#FF5A5A" Margin="20" Name="tbHelp" TextWrapping="Wrap" FontSize="16" />
+        <Button  Click="ToUpdate" Foreground="White" FontSize="20"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Background="{x:Null}" BorderBrush="White" Margin="20" >更新</Button>
+    </Grid>
+</Window>

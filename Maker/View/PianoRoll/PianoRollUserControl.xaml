@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Maker.View.PianoRoll.PianoRollUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.PianoRoll"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="20" Background="#535353">
+            <StackPanel Orientation="Horizontal"  Margin="30,30,30,0">
+                <TextBlock  Text="最小单位：" Width="120" Margin="0,0,10,0" Foreground="White" FontSize="20" />
+                <TextBox Name="tbMinimumUnit" Width="50" Text="6" Foreground="White" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
+                <TextBlock  Text="宽度(像素)：" Margin="0,0,10,0" Width="120" Foreground="White" FontSize="20" />
+                <TextBox TextChanged="TextChanged"  Name="tbWidth"   Width="50" Text="6" Foreground="White" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
+                <TextBlock  Text="时间线刻度：" Margin="0,0,10,0" Width="120" Foreground="White" FontSize="20" />
+                <TextBox TextChanged="TextChanged"  Name="tbTimeLine"   Width="50" Text="1" Foreground="White" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
+                <TextBlock  Text="时间字刻度：" Margin="0,0,10,0" Width="120" Foreground="White" FontSize="20" />
+                <TextBox TextChanged="TextChanged"  Name="tbTimeFont"   Width="50" Text="4" Foreground="White" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
+                <CheckBox   Name="cbPen" Content="画笔"   Foreground="White" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
+                <ListBox   Name="lbColor"  MouseDoubleClick="lbColor_MouseDoubleClick"  Foreground="White" FontSize="20"  Background="{x:Null}" BorderBrush="White" />
+            </StackPanel>
+            <TextBlock  TextWrapping="Wrap" Name="tbHelp" Margin="30,10,30,0"  Foreground="White" FontSize="16" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Loaded="StackPanel_Loaded">
+            <ScrollViewer Margin="80,20,0,0" Name="svTime"  HorizontalAlignment="Left" VerticalAlignment="Top"  HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Width="650" >
+                <Canvas Name="cTime" Width="650" Height="40" MouseMove="cMain_MouseMove" MouseDown="cMain_MouseDown" MouseUp="cMain_MouseUp"/>
+            </ScrollViewer>
+            <!--Height="700"-->
+            <StackPanel  Margin="20,0,20,20" Orientation="Horizontal" Name="spMain">
+                <ScrollViewer Name="svNotes" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Top" ScrollChanged="svNotes_ScrollChanged">
+                    <Canvas Name="cNotes" Margin="0,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="2218" />
+                </ScrollViewer>
+                <TextBlock  Name="tbToLeft" Width="30" Height="2208" VerticalAlignment="Top" Background="Cyan" Margin="0,0,0,20" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" Visibility="Collapsed"/>
+                <ScrollViewer Name="svMain" HorizontalScrollBarVisibility="Visible" Width="650" ScrollChanged="svMain_ScrollChanged" Background="#282828">
+                    <Canvas Name="cMain" HorizontalAlignment="Left" VerticalAlignment="Top" Height="2208"  />
+                </ScrollViewer>
+                <TextBlock Name="tbToRight" Margin="0,0,0,20" Background="Magenta" Width="30" Height="2208" VerticalAlignment="Top" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" Visibility="Collapsed"/>
+            </StackPanel>
+        </StackPanel>
+        <!--
+        <ListBox Name="lbMain"  Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="20"  Foreground="White" FontSize="18" Style="{DynamicResource ListBoxStyle1}"  SelectionChanged="lbMain_SelectionChanged" Background="#30FFFFFF"/>
+        -->
+    </Grid>
+</UserControl>

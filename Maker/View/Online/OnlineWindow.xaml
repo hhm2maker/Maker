@@ -1,0 +1,53 @@
+﻿<Window x:Class="Maker.View.Online.OnlineWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Online"
+        mc:Ignorable="d"
+         WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Title="在线浏览库" Height="900" Width="1440">
+    <Grid Background="#FF535353">
+
+        <Border Width="200" HorizontalAlignment="Left" BorderThickness="0,0,2,0" BorderBrush="#AFFFFFFF" >
+            <DockPanel>
+                <Image Margin="20" Source="../../Image/switch.png" Width="30" Height="30" HorizontalAlignment="Left" DockPanel.Dock="Top" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                <ScrollViewer    VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                    <StackPanel HorizontalAlignment="Center" Width="200" >
+                        <StackPanel Orientation="Horizontal" Background="#00FFFFFF" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+                            <Image Margin="20" Source="../../Image/search.png" Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            <TextBlock Foreground="White" FontSize="24" VerticalAlignment="Center">搜索</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Name="m_spFind" Background="#00FFFFFF" Orientation="Horizontal" MouseLeftButtonDown="m_spFind_MouseLeftButtonDown"  MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+                            <Image Margin="20" Source="../../Image/find.png" Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                            <TextBlock  Foreground="White" FontSize="24" VerticalAlignment="Center">发现</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <TextBlock  Margin="20,20,20,0" Foreground="#AFFFFFFF" FontSize="20" VerticalAlignment="Center">功能</TextBlock>
+                
+                            <StackPanel Name="m_spCollection" Background="#00FFFFFF" Orientation="Horizontal" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+                                <Image Margin="20" Name="m_iCollection" Source="../../Image/collection.png" Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                <TextBlock Foreground="White" Name="m_tbCollection" FontSize="24" VerticalAlignment="Center">收藏</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock  Margin="20,20,20,0" Foreground="#AFFFFFFF" FontSize="20" VerticalAlignment="Center">创建的收藏单</TextBlock>
+                            <StackPanel Orientation="Horizontal" Background="#00FFFFFF">
+                                <Image Margin="20"  Name="m_iLove" Source="../../Image/love.png" Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                <TextBlock  Name="m_tbLove" Foreground="White" FontSize="24" VerticalAlignment="Center">最爱</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </DockPanel>
+        </Border>
+        <DockPanel Name="m_dpMain" Width="1200" HorizontalAlignment="Left" Margin="220,20,20,20" />
+    
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,17 @@
+Step1{
+	LightGroup Step1LightGroup = 中心整页扩散.Main();
+	Step1LightGroup = Step1LightGroup.SetAllTime(32);
+	RangeGroup Step4Range = new RangeGroup("16 8",' ','-');
+
+	RangeGroup Step6Range = new RangeGroup("50 25",' ','-');
+	Step1LightGroup = Edit.AccelerationOrDeceleration(Step1LightGroup,Step6Range); 
+}
+Contain{
+	Step1:Step1,Step2,Step3,Step4,Step5,Step6;
+}
+Introduce{
+
+}
+Import{
+	中心整页扩散.lightScript;
+}

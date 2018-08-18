@@ -1,0 +1,25 @@
+﻿<Window x:Class="Maker.View.User.Login.UserInfoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.User.Login"
+        mc:Ignorable="d"
+        Background="#535353"
+        WindowStartupLocation="CenterOwner"
+        Title="{DynamicResource Userinfo}"
+                 Loaded="UserControl_Loaded"
+             Height="300" Width="500">
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Name="spMain" >
+        <StackPanel Orientation="Horizontal" Margin="30,30,0,0" >
+            <Border BorderBrush="#F0F0F0" BorderThickness="3" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+            <Image Name="imgHeadPortrait" Width="200" Height="200" Source="../../../Image/uploadimage.png" RenderOptions.BitmapScalingMode="HighQuality" />
+            </Border>
+            <StackPanel Height="100"  VerticalAlignment="Top" Margin="10,0,0,0">
+                <TextBlock FontSize="20" Name="tbUserName" Foreground="#FFFFFF" Width="200">用户名</TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+
+    </StackPanel>
+</Window>

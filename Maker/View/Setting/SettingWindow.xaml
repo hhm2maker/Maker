@@ -1,0 +1,184 @@
+﻿<Window x:Class="Maker.View.Setting.SettingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Setting"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" 
+        Title="{DynamicResource Setting}" 
+        Background="#535353"
+        Width="660"
+        Height="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../StyleResources/AllDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Orientation="Horizontal" >
+        <ListBox Margin="20,20,0,20" FontSize="14" SelectionChanged="lbCatalog_SelectionChanged" Background="#535353" Foreground="#f0f0f0" Name="lbCatalog" BorderBrush="#FF424242" Width="100">
+            <ListBoxItem Margin="0,3,0,0" Content="{DynamicResource Input}"/>
+            <ListBoxItem Content="{DynamicResource Tool}"/>
+            <ListBoxItem Content="{DynamicResource ColorTab}"/>
+            <ListBoxItem Content="{DynamicResource Test}" />
+            <ListBoxItem Content="{DynamicResource Version}"/>
+            <ListBoxItem Content="{DynamicResource Language}"/>
+            <ListBoxItem Content="{DynamicResource Player}"/>
+            <ListBoxItem Content="{DynamicResource LightScript}"/>
+        </ListBox>
+        <StackPanel  Name="svMain"  HorizontalAlignment="Right"  Width="450">
+            <!--<StackPanel Name="spFile" Orientation="Vertical"  Visibility="Collapsed">
+                <GroupBox  Margin="20,20,20,0" Header="{DynamicResource ProjectDocumentsPath}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <StackPanel Orientation="Horizontal" >
+                            <RadioButton Name="rbProjectDocumentsType_0" GroupName="gnProjectDocumentsType" FontSize="14" Foreground="White" Background="White" HorizontalAlignment="Center"  Checked="ProjectDocumentsType_Checked" Content="{DynamicResource ProjectDocumentsDefaultPath}"></RadioButton>
+                        </StackPanel>
+                        <RadioButton Name="rbProjectDocumentsType_1" GroupName="gnProjectDocumentsType" FontSize="14" HorizontalAlignment="Left" Foreground="White" Background="White"   Margin="0,10,0,0" Checked="ProjectDocumentsType_Checked" Content="{DynamicResource ChangeWithEngineeringDocuments}"></RadioButton>
+                        <DockPanel Margin="0,10,0,0">
+                            <RadioButton Name="rbProjectDocumentsType_2" GroupName="gnProjectDocumentsType" VerticalAlignment="Center" FontSize="14" Width="100" HorizontalAlignment="Left" Foreground="White" Background="White"   Checked="ProjectDocumentsType_Checked" Content="{DynamicResource Customized}"></RadioButton>
+                            <TextBlock Name="tbProjectDocumentsPath" FontSize="14" Foreground="White"   VerticalAlignment="Center" Margin="10,0,10,0" Width="190" Text="{DynamicResource NoLocation}"></TextBlock>
+                            <Button  HorizontalAlignment="Right" Name="btnLocationProjectDocumentsPath" Margin="0,0,10,0"  Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Click="btnLocationProjectDocumentsPath_Click" Content="{DynamicResource Location}"></Button>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>-->
+            <StackPanel Name="spInput" Orientation="Vertical"   Visibility="Collapsed">
+                <GroupBox  Margin="20,20,20,0" Header="{DynamicResource FontAndColor}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel Orientation="Vertical" Margin="5">
+                        <DockPanel >
+                            <TextBlock FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="61" Text="{DynamicResource FontColon}" />
+                            <TextBlock Name="tbFont"  VerticalAlignment="Center" FontSize="14"  Foreground="White"   Margin="10,0,0,0" Width="230" Text="{DynamicResource NoLocation}" />
+                            <Button Name="btnChangeFont" HorizontalAlignment="Right" Margin="0,0,10,0" Click="btnChangeFont_Click" FontSize="14" Width="60" Content="{DynamicResource Change}" Height="25"/>
+                        </DockPanel>
+                        <DockPanel  Margin="0,10,0,0">
+                            <TextBlock FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Width="61" Text="{DynamicResource ColorColon}"/>
+                            <TextBlock Name="tbColor" VerticalAlignment="Center" FontSize="14" Foreground="White"   Margin="10,0,0,0" Width="230" Text="#FF0000"/>
+                            <Button  Name="btnChangeColor" Click="btnChangeColor_Click" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="14" Width="60"  Content="{DynamicResource Change}" Height="25"/>
+                        </DockPanel>
+                        <DockPanel Margin="0,10,0,0">
+                            <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{DynamicResource ExampleTextColon}" />
+                            <TextBlock  Name="tbTest"  FontSize="14" Foreground="White" HorizontalAlignment="Right"  Margin="0,0,10,0" Text="{DynamicResource ThisIsASampleText}"></TextBlock>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Format}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock FontSize="14" Width="65" HorizontalAlignment="Left" Text="{DynamicResource DelimiterColon}"/>
+                            <RadioButton FontSize="14" Name="rbInputFormatDelimiterSpace" GroupName="gnInputFormatDelimiter" Margin="10,0,10,0" HorizontalAlignment="Left" Foreground="White" Background="White" Width="100" Checked="InputFormatDelimiter_Checked" Content="{DynamicResource Space}"/>
+                            <RadioButton FontSize="14" Name="rbInputFormatDelimiterComma" GroupName="gnInputFormatDelimiter" HorizontalAlignment="Left" Foreground="White" Background="White"   Width="100"  Checked="InputFormatDelimiter_Checked" Content="{DynamicResource Comma}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Width="65" FontSize="14" HorizontalAlignment="Left" Text="{DynamicResource RangeColon}"></TextBlock>
+                            <RadioButton FontSize="14" Name="rbInputFormatRangeShortbar" GroupName="gnInputFormatRange" Margin="10,0,10,0" HorizontalAlignment="Left" Foreground="White" Background="White"   Width="100" Checked="InputFormatRange_Checked" Content="{DynamicResource Shortbar}"/>
+                            <RadioButton FontSize="14" Name="rbInputFormatRangeR" GroupName="gnInputFormatRange"  HorizontalAlignment="Left" Foreground="White" Background="White"   Width="100" Checked="InputFormatRange_Checked" Content="r(r)" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spTool" Orientation="Vertical" Visibility="Collapsed">
+                <DockPanel   Margin="20,20,20,0" >
+                    <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left" FontWeight="Bold" Text="{DynamicResource OtherDrawingSoftwarePathColon}" Width="208" />
+                    <TextBlock Name="tbToolOtherDrawingSoftwarePath" FontSize="14" Foreground="White"  VerticalAlignment="Center" Margin="10,0,0,0" Width="120" Text="{DynamicResource NoLocation}" />
+                    <Button Name="btnLocationToolOtherDrawingSoftwarePath" Click="btnLocationToolOtherDrawingSoftwarePath_Click"  HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="14" Width="60" Height="25"  Content="{DynamicResource Location}" />
+                </DockPanel>
+            </StackPanel>
+            <StackPanel Name="spColortab" Orientation="Vertical" Visibility="Collapsed">
+                <GroupBox  Margin="20,20,20,0" Header="{DynamicResource ColorTabPath}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <TextBlock Name="tbColortabPath" VerticalAlignment="Center" FontSize="14" Width="300" Text="{DynamicResource NoLocation}"></TextBlock>
+                            <Button   Name="btnLocationColortabPath" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="14" Width="60" Height="25"  Click="btnLocationColortabPath_Click" Content="{DynamicResource Location}" />
+                        </DockPanel>
+                        <Button  Name="btnEditColortabPath" HorizontalAlignment="Right" Margin="0,10,10,0" FontSize="14" Width="60" Height="25" Click="btnEditColortabPath_Click" Content="{DynamicResource Modify}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spTest" Orientation="Vertical"   VerticalAlignment="Top"  Visibility="Collapsed">
+                <GroupBox  Margin="20,20,20,0" Header="{DynamicResource AreYouWorking}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <CheckBox Checked="cbIsWork_Checked" Unchecked="cbIsWork_Unchecked" FontSize="14"  Name="cbIsWork" Foreground="White" Background="White"  VerticalAlignment="Center" Content="{DynamicResource Yes}" ></CheckBox>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Opacity}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <Slider HorizontalAlignment="Stretch" Name="sOpacity" FontSize="14" IsSnapToTickEnabled="True" LargeChange="5" SmallChange="1" Foreground="White" Maximum="100" Minimum="10" ValueChanged="sOpacity_ValueChanged"   Height="18"></Slider>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource DisplayMode}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <RadioButton Name="rbShowModeLaunchpad" Width="100"  Margin="10,0,10,0" GroupName="gnShowMode" FontSize="14" HorizontalAlignment="Left" Foreground="White" Background="White"   Checked="rbShowModeLaunchpad_Checked">Launchpad</RadioButton>
+                            <RadioButton Name="rbShowModeDataGrid" GroupName="gnShowMode" FontSize="14" HorizontalAlignment="Left" Foreground="White" Background="White"   Checked="rbShowModeDataGrid_Checked" Content="{DynamicResource DataGrid}"></RadioButton>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spVersion" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
+                <DockPanel   Margin="20,20,20,0" >
+                    <TextBlock FontSize="14" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Text="{DynamicResource NowVersionColon}"></TextBlock>
+                    <TextBlock Name="tbNowVersion" FontSize="14" Foreground="White"  VerticalAlignment="Center" Margin="10,0,0,0" Width="220">0.0.0.0</TextBlock>
+                </DockPanel>
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource AutomaticUpdate}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <CheckBox  FontSize="14"   Foreground="White" Background="White"  VerticalAlignment="Center"  Name="cbAutoUpdate" Checked="cbAutoUpdate_Checked" Unchecked="cbAutoUpdate_Unchecked" Content="{DynamicResource Yes}"></CheckBox>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spLanguage" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Language}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel>
+                            <ComboBox  FontSize="14" Name="cbLanguage" BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545"   VerticalAlignment="Center"  Width="200" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged"  Style="{DynamicResource ComboBoxStyle1}" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" >
+                                <ComboBoxItem  Content="{DynamicResource Chinese}"/>
+                                <ComboBoxItem  Content="{DynamicResource English}"/>
+                            </ComboBox>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spPlayer" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Type}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel>
+                            <ComboBox  FontSize="14" Name="cbPlayerType" BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545"   VerticalAlignment="Center"  Width="200" HorizontalAlignment="Left" SelectionChanged="CbPlayerType_SelectionChanged"  Style="{DynamicResource ComboBoxStyle1}" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" >
+                                <ComboBoxItem  Content="{DynamicResource ParagraphLightList}"/>
+                                <ComboBoxItem  Content="{DynamicResource Accurate}"/>
+                                <ComboBoxItem  Content="{DynamicResource ParagraphIntList}"/>
+                            </ComboBox>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Name="spLightScript" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
+                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Paved}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                    <StackPanel  Margin="5">
+                        <DockPanel >
+                            <TextBlock FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Width="61" Text="{DynamicResource ColumnsColon}" />
+                            <TextBox Name="tbPavedColumns"  VerticalAlignment="Center" FontSize="14"  Foreground="White"   Margin="10,0,0,0" Width="290" LostFocus="tbPaved_LostFocus"/>
+                        </DockPanel>
+                        <DockPanel  Margin="0,10,0,0">
+                            <TextBlock FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left" Width="61" Text="{DynamicResource MaxColon}" />
+                            <TextBox Name="tbPavedMax"  VerticalAlignment="Center" FontSize="14"  Foreground="White"   Margin="10,0,0,0" Width="290" LostFocus="tbPaved_LostFocus"/>
+                        </DockPanel>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <Button Name="btnOk" Click="btnOk_Click"  FontSize="14" Width="60"  Margin="0,20,20,20"  Content="{DynamicResource Ok}" Height="25"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

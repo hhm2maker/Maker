@@ -1,0 +1,27 @@
+﻿<Window x:Class="Maker.View.Dialog.ImportPictureDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        xmlns:local1="clr-namespace:Maker.View.Device"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" 
+        Title="{DynamicResource ImportingPicture}" 
+        Background="#535353"
+        Loaded="Window_Loaded"
+        Width="770"
+        Height="820"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <StackPanel Orientation="Vertical">
+        <local1:LaunchpadPro x:Name="mLaunchpad" ></local1:LaunchpadPro>
+        <TextBlock Foreground="#FF5A5A" Margin="5" FontSize="14" Text="{DynamicResource OnlyPreviewFunctionalityForTheTimeBeing}"/>
+        <StackPanel Visibility="Collapsed">
+            <TextBox Name="tbNoColor" Width="80" Text="14"></TextBox>
+            <Button Click="Button_Click_1">第几格颜色不需要</Button>
+            <TextBox Name="tbMyColor" Width="80" Text="127"></TextBox>
+            <Button Click="Button_Click_2">第几格颜色不需要并改成单色</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

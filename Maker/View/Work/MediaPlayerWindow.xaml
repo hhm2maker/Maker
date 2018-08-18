@@ -1,0 +1,24 @@
+﻿<Window x:Class="Maker.View.Work.MediaPlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Work"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+      Height="150" Width="300" Background="#535353"
+          ShowInTaskbar="False" 
+        Title="{DynamicResource MusicPlayer}" 
+        WindowStartupLocation="CenterOwner"
+        StateChanged="Window_StateChanged"
+        >
+    <StackPanel>
+        <TextBlock Name="tbTime" FontSize="16" Foreground="#F0F0F0" HorizontalAlignment="Center" Height="21" Margin="0,40,0,0"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button  Click="ButtonOfOpen_Click" Foreground="White" FontSize="14" Width="60" Height="21" Background="{x:Null}" BorderBrush="White" Margin="0,0,0,0" Content="{DynamicResource Import}"></Button>
+            <Button  Click="ButtonOfPlay_Click" Foreground="White" FontSize="14" Width="60" Height="21" Background="{x:Null}" BorderBrush="White" Margin="0,0,0,0" Content="{DynamicResource Play}"></Button>
+            <Button  Click="ButtonOfPause_Click" Foreground="White" FontSize="14" Width="60" Height="21" Background="{x:Null}" BorderBrush="White" Margin="0,0,0,0" Content="{DynamicResource Pause}"></Button>
+            <Button  Click="ButtonOfStop_Click" Foreground="White" FontSize="14" Width="60" Height="21" Background="{x:Null}" BorderBrush="White" Margin="0,0,0,0" Content="{DynamicResource Stop}"></Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

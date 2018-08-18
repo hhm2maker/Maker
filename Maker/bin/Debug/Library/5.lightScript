@@ -1,0 +1,12 @@
+Step1{
+	LightGroup Step1LightGroup = 6.Main();
+}
+Contain{
+	Step1:Step1;
+}
+Introduce{
+
+}
+Import{
+	6.lightScript;
+}

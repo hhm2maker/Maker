@@ -1,0 +1,34 @@
+﻿<Window x:Class="Maker.View.Dialog.DeveloperListDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" 
+        Title="{DynamicResource DeveloperList}" 
+        Background="#535353"
+        Width="540"
+        Height="150"
+        WindowStartupLocation="CenterScreen"
+           ResizeMode="NoResize"
+       >
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel Margin="20">
+        <StackPanel Orientation="Horizontal"  >
+                <TextBlock FontSize="16" Width="140"  Foreground="#F0F0F0" Text="{DynamicResource Program}"></TextBlock>
+            <TextBlock FontSize="16" Margin="5,0,5,0" Foreground="#F0F0F0" Text=":"></TextBlock>
+            <TextBlock FontSize="16" Text="hhm(Q1248694620)" Foreground="#FF5A5A"></TextBlock>
+        </StackPanel>
+            <TextBlock FontSize="16" Text="真冬" Foreground="#FF5A5A" Margin="155,3,0,0"></TextBlock>
+            <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                <TextBlock FontSize="16" Width="140" Foreground="#F0F0F0" Text="{DynamicResource EnglishLanguage}"></TextBlock>
+                <TextBlock FontSize="16" Margin="5,0,5,0" Foreground="#F0F0F0" Text=":"></TextBlock>
+                <TextBlock FontSize="16" Text="Mr_Launchpadder(Q1459834781)" Foreground="#FF5A5A"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel>
+            <Button  Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}"></Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

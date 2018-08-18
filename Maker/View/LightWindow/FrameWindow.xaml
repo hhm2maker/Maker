@@ -1,0 +1,117 @@
+﻿<Window x:Class="Maker.View.LightWindow.FrameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.LightWindow"
+        xmlns:view="clr-namespace:Maker.View"
+        xmlns:launchpad="clr-namespace:Maker.View.Device"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen"
+        Title="{DynamicResource Frame}" >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="#282828"/>
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}" >
+                            <Border BorderThickness="2" CornerRadius="5,5,5,5" Background="#f5f5f5" BorderBrush="#447740">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#7e7e7e"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#383838"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <Menu FontSize="14" DockPanel.Dock="Top">
+            <MenuItem Header="{DynamicResource WholePage}" FontSize="20"  Foreground="#282828" >
+                <MenuItem Header="{DynamicResource HorizontalFlipping}" Foreground="#282828" Click="btnHorizontalFlipping_Click" />
+                <MenuItem Header="{DynamicResource VerticalFlipping}" Foreground="#282828" Click="btnVerticalFlipping_Click"/>
+                <MenuItem Header="{DynamicResource ClockwiseRotation}" Foreground="#282828" Click="btnClockwise_Click" />
+                <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Foreground="#282828" Click="btnAntiClockwise_Click"  />
+                <Separator />
+                <MenuItem Header="{DynamicResource CopyTo}"  Foreground="#282828" Click="btnCopy_Click"  />
+                <Separator />
+                <MenuItem Header="{DynamicResource Clear}"  Foreground="#282828" Click="btnClear_Click"  />
+            </MenuItem>
+        </Menu>
+        <ScrollViewer  Name="svMain" Background="#f5f5f5">
+            <StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
+                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource TimeColon}" FontSize="22" Height="auto" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto">
+                        <TextBlock   Margin="25,0,5,0" Width="100" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowTimeColon}" />
+                        <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60" FontSize="20" TextAlignment="Center">6666</TextBlock>
+                    </StackPanel>
+                    <StackPanel  Margin="20,25,20,0" Width="auto">
+                        <Button Name="btnLastTimePoint" Width="180" Click="btnLastTimePoint_Click" Content="{DynamicResource LastTimePoint}" />
+                        <Button Name="btnNextTimePoint" Width="180" Click="btnNextTimePoint_Click" Content="{DynamicResource NextTimePoint}" />
+                    </StackPanel>
+                    <StackPanel  Margin="20,15,20,0" Width="auto">
+                        <Button Name="btnInsertTimePoint"  Width="180"  Click="btnInsertTimePoint_Click" Content="{DynamicResource AddTimePoint}" />
+                        <Button Name="btnDeleteTimePoint"   Width="180" Click="btnDeleteTimePoint_Click" Content="{DynamicResource DeleteTimePoint}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto" HorizontalAlignment="Center">
+                        <Button  Name="btnInsertStartTimePoint"   Width="180"   Click="btnInsertStartTimePoint_Click" Content="{DynamicResource StartTimePoint}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20,15,20,0" Width="auto">
+                        <TextBox Name="tbInsertDiyTimePoint" Margin="0,0,10,0" Width="100" FontSize="22" Height="35"  />
+                        <Button Name="btnInsertDiyTimePoint"  Margin="10,0,0,0" Width="100" Click="btnInsertDiyTimePoint_Click" Content="{DynamicResource Add}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto" HorizontalAlignment="Center">
+                        <TextBox Name="tbTimePointCountLeft" FontSize="20" Width="100" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" />
+                        <TextBlock  Name="tbTimePointCount" Width="auto" FontSize="20"  Background="{x:Null}" > / 100</TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
+                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource ColorColon}"  FontSize="22" Height="auto" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto">
+                        <TextBlock   Width="120" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowColorColon}"></TextBlock>
+                        <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center">5</TextBlock>
+                    </StackPanel>
+                    <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
+                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource PositionFourAreaColon}" FontSize="22" Height="auto" FontWeight="Bold" />
+                    <StackPanel Orientation="Horizontal" Margin="10,35,10,0" Width="auto">
+                        <Button Name="btnLeftUp"  Width="120" Click="btnLeftUp_Click" Content="{DynamicResource UpperLeft}" />
+                        <Button Name="btnRightUp"   Width="120" Click="btnRightUp_Click"  Content="{DynamicResource UpperRight}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,10,0" Width="auto">
+                        <Button Name="btnLeftDown"    Width="120" Click="btnLeftDown_Click" Content="{DynamicResource LowerLeft}"/>
+                        <Button Name="btnRightDown"   Width="120" Click="btnRightDown_Click" Content="{DynamicResource LowerRight}"/>
+                    </StackPanel>
+                    <StackPanel  Margin="20,25,20,0" Width="auto">
+                        <Button Name="btnRegionHorizontalFlipping" Width="180" Click="btnRegionHorizontalFlipping_Click" Content="{DynamicResource HorizontalFlipping}"/>
+                        <Button Name="btnRegionVerticalFlipping" Width="180" Click="btnRegionVerticalFlipping_Click" Content="{DynamicResource VerticalFlipping}"/>
+                    </StackPanel>
+                    <StackPanel  Margin="20,15,20,0" Width="auto">
+                        <Button  Name="btnRegionClockwise"  Width="180" Click="btnRegionClockwise_Click" Content="{DynamicResource ClockwiseRotation}"/>
+                        <Button  Name="btnRegionAntiClockwise" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource AntiClockwiseRotation}"/>
+                    </StackPanel>
+                    <StackPanel  Margin="20,25,20,0" Width="auto">
+                        <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
+                        <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" />
+    </DockPanel>
+</Window>

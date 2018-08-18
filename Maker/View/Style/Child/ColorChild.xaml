@@ -1,0 +1,43 @@
+﻿<local:BaseChild
+      x:Class="Maker.View.Style.Child.ColorChild"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.Style.Child"
+             mc:Ignorable="d" 
+             Loaded="BaseChild_Loaded"
+            >
+    <StackPanel Orientation="Vertical" >
+        <GroupBox FontSize="14" Margin="20,20,20,0" Style="{DynamicResource GroupBoxStyle1}">
+            <GroupBox.Header>
+                <RadioButton  Foreground="#F0F0F0" Name="rbColorTypeFormat" Content="{DynamicResource Format}"></RadioButton>
+            </GroupBox.Header>
+            <StackPanel  Margin="5">
+                <ComboBox Name="cbColorFormatType" SelectionChanged="cbColorFormatType_SelectionChanged" Background="#454545" Width="200" HorizontalAlignment="Left" BorderBrush="#666666"  >
+                    <ComboBoxItem IsSelected="True" Content="{DynamicResource YellowGreen}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource CyanBlue}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource PinkWhite}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Customized}"></ComboBoxItem>
+                </ComboBox>
+                <TextBox Background="{x:Null}" Name="tbColorFormatDiy" Margin="0,10,0,0" Visibility="Collapsed" Foreground="White" FontSize="14" ></TextBox>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox  Margin="20,10,20,0"  Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+            <GroupBox.Header>
+                <RadioButton  Name="rbColorTypeShape" Foreground="#F0F0F0" FontSize="14" Content="{DynamicResource Shape}"></RadioButton>
+            </GroupBox.Header>
+            <StackPanel  Margin="5">
+                <ComboBox  Background="#454545" Width="200" Name="cbColorShapeType" SelectionChanged="cbColorShapeType_SelectionChanged" HorizontalAlignment="Left" BorderBrush="#666666"  >
+                    <ComboBoxItem IsSelected="True" Content="{DynamicResource Radial}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Square}"></ComboBoxItem>
+                </ComboBox>
+                <ComboBox  Background="#454545" Width="200" Name="cbColorShapeRadialOrientation"  Margin="0,10,0,0" HorizontalAlignment="Left" BorderBrush="#666666"  >
+                    <ComboBoxItem IsSelected="True" Content="{DynamicResource Vertical}"></ComboBoxItem>
+                    <ComboBoxItem Content="{DynamicResource Horizontal}"></ComboBoxItem>
+                </ComboBox>
+                <TextBox Background="{x:Null}" Margin="0,10,0,0" Foreground="White" FontSize="14" Name="tbColorShapeNumber"></TextBox>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</local:BaseChild>

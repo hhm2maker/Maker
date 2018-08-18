@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Maker.View.User.Login.LoginUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+              Loaded="UserControl_Loaded"
+            Background="#FF535353"
+          Height="500" Width="530"
+             >
+    <StackPanel     HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+            <TextBlock FontSize="20" Width="180"  Foreground="White" Text="{DynamicResource UserNameColon}"/>
+            <TextBox FontSize="20"  Width="240" Background="#AFFFFFFF" Name="m_tbUserName"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+            <TextBlock FontSize="20" Width="180"  Foreground="White" Text="{DynamicResource PasswordColon}"/>
+            <PasswordBox FontSize="20" Name="m_pbPassWord" Width="240" Background="#AFFFFFFF" GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+            <TextBlock FontSize="20" Width="180" Foreground="White" Text="{DynamicResource VerificationCodeColon}"/> 
+
+            <TextBox FontSize="20" Width="120" Margin="0,0,10,0" Background="#AFFFFFFF" Name="m_tbValidCode"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+
+                <Image Name="m_iValidCode" Width="110"  Height="27" MouseLeftButtonDown="m_iValidCode_MouseLeftButtonDown"></Image>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="30" HorizontalAlignment="Center">
+            <Button Margin="0,0,20,0" Name="m_btnLogin" Click="m_btnLogin_Click" FontSize="20" Height="35"  Width="110" Background="#AFFFFFFF" Foreground="#FFFFFF" Content="{DynamicResource Login}"/>
+            <Button   Name="m_btnRegister" Click="m_btnRegister_Click" FontSize="20" Height="35" Width="110" Background="#AFFFFFFF" Foreground="#FFFFFF" Content="{DynamicResource Register}"/>
+        </StackPanel>
+            <TextBlock FontSize="20"  Margin="0,20,0,0"   Name="m_tbHelp" Width="320" Height="76"  TextWrapping="Wrap" Foreground="Red"/>
+        </StackPanel>
+</UserControl>

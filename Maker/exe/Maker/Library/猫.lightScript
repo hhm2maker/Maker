@@ -1,0 +1,8 @@
+Step1{
+	RangeGroup Step1Range = new RangeGroup("28 35 37-39 40 41 43 44-46 48 51 52 55 56-63 64 65 68-70 72 74 75 77-80 83 84 87 88-95 98 99 118-121",' ','-');
+	ColorGroup Step1Color = new ColorGroup("57",' ','-');
+	LightGroup Step1LightGroup =  Create.CreateLightGroup(0,Step1Range,0,36,Step1Color);
+}
+Contain{
+	Step1:Step1;
+}

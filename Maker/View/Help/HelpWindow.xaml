@@ -1,0 +1,30 @@
+﻿<Window x:Class="Maker.View.Help.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Help"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Background="#535353"
+        Title="帮助文档" 
+        Height="660"
+        Width="720"
+        ResizeMode="NoResize"
+        >
+    <DockPanel Margin="10">
+        <TreeView DockPanel.Dock="Left" VerticalAlignment="Top"  HorizontalAlignment="Left" FontSize="24" Background="{x:Null}" BorderBrush="{x:Null}" SelectedItemChanged="TreeView_SelectedItemChanged" Name="tvMain">
+            <TreeViewItem  Name="tviConstitute" Header="构成" Foreground="White"/>
+            <TreeViewItem Name="tviFile" Header="文件区"  Foreground="White"/>
+            <TreeViewItem IsExpanded="True" Name="tviOperation" Header="操作区"  Foreground="White">
+                <TreeViewItem  Name="tviOperationMain" Header="主页"  Foreground="White" FontSize="22"/>
+                <TreeViewItem Name="tviOperationInput" Header="输入绘制"  Foreground="White" FontSize="22"/>
+                <TreeViewItem  Name="tviOperationFrame" Header="逐帧绘制"  Foreground="White" FontSize="22"/>
+            </TreeViewItem>
+            <TreeViewItem Name="tviTool"  Header="工具区"  Foreground="White"/>
+            <TreeViewItem Name="tviSettingAndHelp"  Header="帮助和设置区" Foreground="White"/>
+        </TreeView>
+        <RichTextBox DockPanel.Dock="Left" Name="rtbMain"  Width="490" Height="600" FontSize="20" Foreground="White" Background="{x:Null}" BorderBrush="White" IsReadOnly="True" VerticalScrollBarVisibility="Visible">
+        </RichTextBox>
+    </DockPanel>
+</Window>

@@ -1,0 +1,18 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:BitsOfStuff" 
+  >
+
+  <Storyboard x:Key="txtAboutOnMouseDown">
+    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="txtPopText" Storyboard.TargetProperty="(UIElement.Opacity)">
+      <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+      <SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="0"/>
+      <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1"/>
+      <SplineDoubleKeyFrame KeyTime="00:00:01.5000000" Value="0"/>
+      <SplineDoubleKeyFrame KeyTime="00:00:02" Value="1"/>
+    </DoubleAnimationUsingKeyFrames>
+  </Storyboard>  
+  
+</ResourceDictionary>
+  

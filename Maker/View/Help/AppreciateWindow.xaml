@@ -1,0 +1,18 @@
+﻿<Window x:Class="Maker.View.Help.AppreciateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Help"
+        mc:Ignorable="d"
+        Title="赞赏" 
+        Background="#535353"
+        Height="400"
+        WindowStartupLocation="CenterScreen"
+        Width="500"
+       >
+        <StackPanel   Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="..\..\Image\alipay.png" Width="250" Height="375"></Image>
+            <Image Source="..\..\Image\wxpay.png" Width="250" Height="375"></Image>
+        </StackPanel>
+</Window>

@@ -1,0 +1,32 @@
+﻿<Window x:Class="Maker.View.Help.HelpOverviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Help"
+        mc:Ignorable="d"
+        Background="#535353"
+        Title="{DynamicResource HelpOverview}" Height="300" Width="1020"
+        WindowStartupLocation="CenterOwner"
+        >
+    <Grid  Background="{x:Null}" Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" FontSize="20" Name="lbLeft" Foreground="#F0F0F0" Background="{x:Null}" Width="200" SelectionChanged="ListBox_SelectionChanged">
+            <ListBoxItem Content="{DynamicResource ProjectProducer}"/>
+            <ListBoxItem Content="{DynamicResource Programmer}"/>
+            <ListBoxItem Content="{DynamicResource JoinUs}" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
+        </ListBox>
+        <ListBox Grid.Column="1"  FontSize="18" Foreground="#FFFFFF" Background="{x:Null}" Width="350">
+            <ListBoxItem  Name="lbiNone" Content="{DynamicResource ChooseWhatYouWantToKnow}"/>
+            <ListBoxItem Content="{DynamicResource InstanceDocument}"  Name="lbiInstanceDocument"  Selected="ToHelpWindow"  Visibility="Collapsed"/>
+            <ListBoxItem Content="{DynamicResource DiscardedDocuments}"  Name="lbiOldHelpDocument"   Selected="ToHelpWindow" Visibility="Collapsed"/>
+            <ListBoxItem Content="{DynamicResource FlowChart}"  Name="lbiFlowChart" Selected="DefaultOpenFlowChart" Visibility="Collapsed"/>
+            <ListBoxItem Content="{DynamicResource DeveloperDocumentation}"  Name="lbiDeveloperDocumentation"   Selected="ToHelpWindow" Visibility="Collapsed"/>
+        </ListBox>
+        <WebBrowser Grid.Column="2" Name="wbMain"  Visibility="Hidden" LoadCompleted="wbMain_LoadCompleted"/>
+    </Grid>
+</Window>

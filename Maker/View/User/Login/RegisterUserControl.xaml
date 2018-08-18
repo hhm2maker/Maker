@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Maker.View.User.Login.RegisterUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+           Height="500" Width="530"
+             Loaded="UserControl_Loaded" Background="#FF535353"
+            >
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="20" Width="120" Foreground="White" Text="{DynamicResource UserNameColon}" /> 
+                <TextBox FontSize="20"  Width="240" Background="#AFFFFFFF" Name="m_tbUserName"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <TextBlock FontSize="20" Width="120" Foreground="White" Text="{DynamicResource PasswordColon}" />
+                <PasswordBox FontSize="20"  Width="240" Background="#AFFFFFFF" Name="m_pbPassWord"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <TextBlock FontSize="20" Width="120" Foreground="White">确认密码：</TextBlock>
+                <PasswordBox FontSize="20"  Width="240" Background="#AFFFFFFF"  Name="m_pbPassWordAgain"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <TextBlock FontSize="20" Width="120" Foreground="White">验证码：</TextBlock>
+                <TextBox FontSize="20" Width="120" Margin="0,0,10,0" Background="#AFFFFFFF" Name="m_tbValidCode"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+                <Image Name="m_iValidCode" Width="110"  Height="27" MouseLeftButtonDown="m_iValidCode_MouseLeftButtonDown"></Image>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <TextBlock FontSize="20" Width="120" Foreground="White">邮箱：</TextBlock>
+                <TextBox FontSize="20" Width="240" Name="m_tbEmail" Margin="0,0,10,0" Background="#AFFFFFFF"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <TextBlock FontSize="20" Width="120" Foreground="White">邮箱验证码：</TextBlock>
+                <TextBox FontSize="20" Width="120" Margin="0,0,10,0" Background="#AFFFFFFF" Name="m_tbEmailValidCode"  GotFocus="Input_GotFocus" LostFocus="Input_LostFocus"  />
+                <Button Margin="0,0,20,0" Width="104" Name="m_btnSendEmail" Click="m_btnSendEmail_Click" FontSize="20"    Background="#AFFFFFFF" Foreground="#FFFFFF" >发送验证码</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="30" HorizontalAlignment="Center">
+                <Button Margin="0,0,20,0" Name="m_btnBack" Click="m_btnBack_Click" FontSize="20" Height="35"  Width="110" Background="#AFFFFFFF" Foreground="#FFFFFF" >返回</Button>
+                <Button Name="m_btnRegister"  FontSize="20" Height="35" Width="110" Background="#AFFFFFFF" Foreground="#FFFFFF" Click="m_btnRegister_Click" Content="{DynamicResource Register}"/>
+            </StackPanel>
+            <TextBlock FontSize="20"  Margin="0,20,0,0"   Name="m_tbHelp" Width="320" Height="76"  TextWrapping="Wrap" Foreground="Red"/>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

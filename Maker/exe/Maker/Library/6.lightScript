@@ -1,0 +1,12 @@
+Step1{
+	LightGroup Step1LightGroup = Create.Automatic(RhombusDiffusion,55);
+}
+NoVisible{
+	Step1;
+}
+Contain{
+	Step1:Step1;
+}
+Introduce{
+
+}

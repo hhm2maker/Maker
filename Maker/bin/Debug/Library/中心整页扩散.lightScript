@@ -1,0 +1,90 @@
+左下{
+	RangeGroup Step10Range = new RangeGroup("51-48",' ','-');
+	ColorGroup Step10Color = new ColorGroup("5",' ','-');
+	LightGroup Step10LightGroup = Create.CreateLightGroup(0,Step10Range,16,16,Step10Color);
+	LightGroup Step9LightGroup = Step10LightGroup;
+	Step9LightGroup.SetAttribute(Time,+16);	Step9LightGroup.SetAttribute(Position,-4);
+	LightGroup Step8LightGroup = Step9LightGroup;
+	Step8LightGroup.SetAttribute(Time,+16);	Step8LightGroup.SetAttribute(Position,-4);
+	LightGroup Step7LightGroup = Step8LightGroup;
+	Step7LightGroup.SetAttribute(Time,+16);	Step7LightGroup.SetAttribute(Position,-4);
+	RangeGroup Step6Range = new RangeGroup("51-48",' ','-');
+	ColorGroup Step6Color = new ColorGroup("5",' ','-');
+	LightGroup Step6LightGroup = Create.CreateLightGroup(0,Step6Range,16,16,Step6Color);
+	LightGroup Step5LightGroup = Step6LightGroup;
+	Step5LightGroup.SetAttribute(Time,+16);	Step5LightGroup.SetAttribute(Position,-4);
+	LightGroup Step4LightGroup = Step5LightGroup;
+	Step4LightGroup.SetAttribute(Time,+16);	Step4LightGroup.SetAttribute(Position,-4);
+	RangeGroup Step3Range = new RangeGroup("51-48",' ','-');
+	ColorGroup Step3Color = new ColorGroup("5",' ','-');
+	LightGroup Step3LightGroup = Create.CreateLightGroup(0,Step3Range,16,16,Step3Color);
+	LightGroup Step2LightGroup = Step3LightGroup;
+	Step2LightGroup.SetAttribute(Time,+16);	Step2LightGroup.SetAttribute(Position,-4);
+	RangeGroup 左下Range = new RangeGroup("51-48",' ','-');
+	ColorGroup 左下Color = new ColorGroup("5",' ','-');
+	LightGroup 左下LightGroup = Create.CreateLightGroup(0,左下Range,16,16,左下Color);
+	左下LightGroup.Add(Step2LightGroup);
+	左下LightGroup.Add(Step4LightGroup);
+	左下LightGroup.Add(Step7LightGroup);
+}
+左上 extends 左下{
+	LightGroup 左上LightGroup = Parent;
+	左上LightGroup.SetAttribute(Time,+0);
+	左上LightGroup = Edit.HorizontalFlipping(左上LightGroup);
+}
+右下 extends 左下{
+	LightGroup 右下LightGroup = Parent;
+	右下LightGroup.SetAttribute(Time,+0);
+	右下LightGroup = Edit.VerticalFlipping(右下LightGroup);
+
+}
+右上 extends 左上{
+	LightGroup 右上LightGroup = Parent;
+	右上LightGroup.SetAttribute(Time,+0);
+	右上LightGroup = Edit.VerticalFlipping(右上LightGroup);
+
+}
+外圈{
+	RangeGroup Step12Range = new RangeGroup("104-107",' ','-');
+	ColorGroup Step12Color = new ColorGroup("5",' ','-');
+	LightGroup Step12LightGroup = Create.CreateLightGroup(64,Step12Range,16,16,Step12Color);
+	RangeGroup Step11Range = new RangeGroup("103-100",' ','-');
+	ColorGroup Step11Color = new ColorGroup("5",' ','-');
+	LightGroup Step11LightGroup = Create.CreateLightGroup(64,Step11Range,16,16,Step11Color);
+	RangeGroup Step10Range = new RangeGroup("32-35",' ','-');
+	ColorGroup Step10Color = new ColorGroup("5",' ','-');
+	LightGroup Step10LightGroup = Create.CreateLightGroup(64,Step10Range,16,16,Step10Color);
+	RangeGroup Step9Range = new RangeGroup("31-28",' ','-');
+	ColorGroup Step9Color = new ColorGroup("5",' ','-');
+	LightGroup Step9LightGroup = Create.CreateLightGroup(64,Step9Range,16,16,Step9Color);
+	RangeGroup Step8Range = new RangeGroup("120-123",' ','-');
+	ColorGroup Step8Color = new ColorGroup("5",' ','-');
+	LightGroup Step8LightGroup = Create.CreateLightGroup(64,Step8Range,16,16,Step8Color);
+	RangeGroup Step7Range = new RangeGroup("119-116",' ','-');
+	ColorGroup Step7Color = new ColorGroup("5",' ','-');
+	LightGroup Step7LightGroup = Create.CreateLightGroup(64,Step7Range,16,16,Step7Color);
+	RangeGroup Step6Range = new RangeGroup("111-108",' ','-');
+	ColorGroup Step6Color = new ColorGroup("5",' ','-');
+	LightGroup Step6LightGroup = Create.CreateLightGroup(64,Step6Range,16,16,Step6Color);
+	RangeGroup 外圈Range = new RangeGroup("112-115",' ','-');
+	ColorGroup 外圈Color = new ColorGroup("5",' ','-');
+	LightGroup 外圈LightGroup = Create.CreateLightGroup(64,外圈Range,16,16,外圈Color);
+	外圈LightGroup.Add(Step6LightGroup);
+	外圈LightGroup.Add(Step7LightGroup);
+	外圈LightGroup.Add(Step8LightGroup);
+	外圈LightGroup.Add(Step9LightGroup);
+	外圈LightGroup.Add(Step10LightGroup);
+	外圈LightGroup.Add(Step11LightGroup);
+	外圈LightGroup.Add(Step12LightGroup);
+}
+Contain{
+	左下:左下,Step2,Step3,Step4,Step5,Step6,Step7,Step8,Step9,Step10;
+	左上:左上;
+	右下:右下;
+	右上:右上;
+	外圈:外圈,Step6,Step7,Step8,Step9,Step10,Step11,Step12;
+}
+Introduce{
+标准的中心整页扩散。
+作者：hhm
+}

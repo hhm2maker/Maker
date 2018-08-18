@@ -1,0 +1,298 @@
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+记录时间：2018-07-22 13:33:06,303 线程ID:[1] 日志级别：ERROR 出错类：Maker.MyApp.WpfApp property:[(null)] - 错误描述：System.Windows.Markup.XamlParseException: “在“System.Windows.Markup.StaticResourceHolder”上提供值时引发了异常。”，行号为“50”，行位置为“97”。 ---> System.Exception: 无法找到名为“noEnterColor”的资源。资源名称区分大小写。
+   在 System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   在 MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   在 System.Windows.FrameworkTemplate.LoadTemplateXaml(XamlReader templateReader, XamlObjectWriter currentWriter)
+   在 System.Windows.FrameworkTemplate.LoadTemplateXaml(XamlObjectWriter objectWriter)
+   在 System.Windows.FrameworkTemplate.LoadOptimizedTemplateContent(DependencyObject container, IComponentConnector componentConnector, IStyleConnector styleConnector, List`1 affectedChildren, UncommonField`1 templatedNonFeChildrenField)
+   在 System.Windows.FrameworkTemplate.LoadContent(DependencyObject container, List`1 affectedChildren)
+   在 System.Windows.StyleHelper.ApplyTemplateContent(UncommonField`1 dataField, DependencyObject container, FrameworkElementFactory templateRoot, Int32 lastChildIndex, HybridDictionary childIndexFromChildID, FrameworkTemplate frameworkTemplate)
+   在 System.Windows.FrameworkTemplate.ApplyTemplateContent(UncommonField`1 templateDataField, FrameworkElement container)
+   在 System.Windows.FrameworkElement.ApplyTemplate()
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.WrapPanel.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.StackPanel.StackMeasureHelper(IStackMeasure measureElement, IStackMeasureScrollData scrollData, Size constraint)
+   在 System.Windows.Controls.StackPanel.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.StackPanel.StackMeasureHelper(IStackMeasure measureElement, IStackMeasureScrollData scrollData, Size constraint)
+   在 System.Windows.Controls.StackPanel.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+   在 System.Windows.Controls.ScrollContentPresenter.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.Grid.MeasureCell(Int32 cell, Boolean forceInfinityV)
+   在 System.Windows.Controls.Grid.MeasureCellsGroup(Int32 cellsHead, Size referenceSize, Boolean ignoreDesiredSizeU, Boolean forceInfinityV, Boolean& hasDesiredSizeUChanged)
+   在 System.Windows.Controls.Grid.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.ScrollViewer.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.DockPanel.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 MS.Internal.Helper.MeasureElementWithSingleChild(UIElement element, Size constraint)
+   在 System.Windows.Controls.ContentPresenter.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.Border.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.Control.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.Controls.DockPanel.MeasureOverride(Size constraint)
+   在 System.Windows.FrameworkElement.MeasureCore(Size availableSize)
+   在 System.Windows.UIElement.Measure(Size availableSize)
+   在 System.Windows.ContextLayoutManager.UpdateLayout()
+   在 System.Windows.ContextLayoutManager.UpdateLayoutCallback(Object arg)
+   在 System.Windows.Media.MediaContext.FireInvokeOnRenderCallbacks()
+   在 System.Windows.Media.MediaContext.RenderMessageHandlerCore(Object resizedCompositionTarget)
+   在 System.Windows.Media.MediaContext.RenderMessageHandler(Object resizedCompositionTarget)
+   在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------

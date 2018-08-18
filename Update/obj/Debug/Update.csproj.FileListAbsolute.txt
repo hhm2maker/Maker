@@ -1,0 +1,15 @@
+D:\maker\Maker\Update\bin\Debug\Update.exe.config
+D:\maker\Maker\Update\bin\Debug\Update.exe
+D:\maker\Maker\Update\bin\Debug\Update.pdb
+D:\maker\Maker\Update\obj\Debug\Update.csprojResolveAssemblyReference.cache
+D:\maker\Maker\Update\obj\Debug\MainWindow.g.cs
+D:\maker\Maker\Update\obj\Debug\App.g.cs
+D:\maker\Maker\Update\obj\Debug\Update_MarkupCompile.cache
+D:\maker\Maker\Update\obj\Debug\Update_MarkupCompile.lref
+D:\maker\Maker\Update\obj\Debug\MainWindow.baml
+D:\maker\Maker\Update\obj\Debug\Update.g.resources
+D:\maker\Maker\Update\obj\Debug\Update.Properties.Resources.resources
+D:\maker\Maker\Update\obj\Debug\Update.csproj.GenerateResource.Cache
+D:\maker\Maker\Update\obj\Debug\Update.csproj.CoreCompileInputs.cache
+D:\maker\Maker\Update\obj\Debug\Update.exe
+D:\maker\Maker\Update\obj\Debug\Update.pdb

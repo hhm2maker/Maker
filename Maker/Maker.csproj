@@ -1,0 +1,1202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DCFDDF1E-54B8-48E1-A497-F1A75CDBB9DD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Maker</RootNamespace>
+    <AssemblyName>Maker</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Maker.MyApp.Startup</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing">
+      <HintPath>Dll\Microsoft.Expression.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="Operation">
+      <HintPath>Dll\Operation.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Transitionals">
+      <HintPath>Dll\Transitionals.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Business\FilesNameComparerClass.cs" />
+    <Compile Include="ChildBusiness\MainWindow\Generate\MainWindow.cs" />
+    <Compile Include="Commands\DataCommands.cs" />
+    <Compile Include="Model\StaticConstant.cs" />
+    <Compile Include="MyApp\SingleInstanceApplicationWrapper.cs" />
+    <Compile Include="MyApp\Startup.cs" />
+    <Compile Include="MyApp\WpfApp.cs" />
+    <Compile Include="Bridge\InputUserControlBridge.cs" />
+    <Compile Include="Bridge\MainWindowBridge.cs" />
+    <Compile Include="Business\IniBusiness.cs" />
+    <Compile Include="Business\FileBusiness.cs" />
+    <Compile Include="Business\IniFullBusiness.cs" />
+    <Compile Include="Business\LightBusiness.cs" />
+    <Compile Include="Business\LightScriptBusiness.cs" />
+    <Compile Include="Business\MidiDeviceBusiness.cs" />
+    <Compile Include="Business\StringExtensions.cs" />
+    <Compile Include="Business\UserBusiness.cs" />
+    <Compile Include="ChildBusiness\MainWindow\TreeView\MainWindow.cs" />
+    <Compile Include="ChildBusiness\PlayUserControl\Play\PlayUserControl.cs" />
+    <Compile Include="Model\ExeModel.cs" />
+    <Compile Include="Model\HistoricalModel.cs" />
+    <Compile Include="Model\PageButtonModel.cs" />
+    <Compile Include="NewMainWindow.xaml.cs">
+      <DependentUpon>NewMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\StringUtil.cs" />
+    <Compile Include="View\AboutUserControl.xaml.cs">
+      <DependentUpon>AboutUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CatalogUserControl.xaml.cs">
+      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Catalog\CatalogLightUserControl.xaml.cs">
+      <DependentUpon>CatalogLightUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ColorPanel.cs" />
+    <Compile Include="View\Device\DrawLaunchpadPro.cs" />
+    <Compile Include="View\Device\ICanDraw.cs" />
+    <Compile Include="View\Device\ParagraphLightListPlayerLaunchpadPro.cs" />
+    <Compile Include="View\Device\ParagraphIntListPlayerLaunchpadPro.cs" />
+    <Compile Include="View\Device\IPlay.cs" />
+    <Compile Include="View\Device\LaunchpadPro.cs" />
+    <Compile Include="View\Control\LiveUserControl.xaml.cs">
+      <DependentUpon>LiveUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MethodSet\CreateMethod.cs" />
+    <Compile Include="MethodSet\EditMethod.cs" />
+    <Compile Include="MethodSet\LightGroupMethod.cs" />
+    <Compile Include="Model\MinuteQuoteViewModel.cs" />
+    <Compile Include="Model\ConstantCollection.cs" />
+    <Compile Include="Model\EnumCollection.cs" />
+    <Compile Include="Model\IntCollection.cs" />
+    <Compile Include="Model\Light.cs" />
+    <Compile Include="Model\ThirdPartyModel.cs" />
+    <Compile Include="Parameter\MainWindow.cs" />
+    <Compile Include="Utils\CursorHelper.cs" />
+    <Compile Include="Utils\Encryption.cs" />
+    <Compile Include="Utils\FileRequestUtil.cs" />
+    <Compile Include="Utils\FormItemModel.cs" />
+    <Compile Include="Utils\NoFileRequestUtils.cs" />
+    <Compile Include="Utils\StringExtensions.cs" />
+    <Compile Include="ViewBusiness\GeneralViewBusiness.cs" />
+    <Compile Include="ViewBusiness\InputUserControlViewBusiness.cs" />
+    <Compile Include="ViewBusiness\UIViewBusiness.cs" />
+    <Compile Include="View\Control\MainControlUserControl.xaml.cs">
+      <DependentUpon>MainControlUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Control\MainControlWindow.xaml.cs">
+      <DependentUpon>MainControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Control\NumberUserControl.xaml.cs">
+      <DependentUpon>NumberUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Device\GrowLaunchpad.xaml.cs">
+      <DependentUpon>GrowLaunchpad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Device\NewOrUpdateDeviceWindow.xaml.cs">
+      <DependentUpon>NewOrUpdateDeviceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Device\AccuratePlayerLaunchpadPro.cs" />
+    <Compile Include="View\Device\PlayerLaunchpadPro.cs" />
+    <Compile Include="View\Dialog\AdvancedExportDialog.cs" />
+    <Compile Include="View\Dialog\Automatic\RandomFountainDialog.xaml.cs">
+      <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\BaseDialog.cs" />
+    <Compile Include="View\Dialog\ChangeIntoMotionDialog.xaml.cs">
+      <DependentUpon>ChangeIntoMotionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ChangeTimeDialog.cs" />
+    <Compile Include="View\Dialog\CheckPropertiesDialog.xaml.cs">
+      <DependentUpon>CheckPropertiesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\CollectionDialog.cs" />
+    <Compile Include="View\Dialog\ColorTabDialog.xaml.cs">
+      <DependentUpon>ColorTabDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ControlScriptDialog.xaml.cs">
+      <DependentUpon>ControlScriptDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\CopyRegionDialog.xaml.cs">
+      <DependentUpon>CopyRegionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\DeveloperListDialog.xaml.cs">
+      <DependentUpon>DeveloperListDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\DrawRangeDialog.xaml.cs">
+      <DependentUpon>DrawRangeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\EidtTextDialog.xaml.cs">
+      <DependentUpon>EidtTextDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\FeedbackDialog.xaml.cs">
+      <DependentUpon>FeedbackDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\GetNumberDialog.xaml.cs">
+      <DependentUpon>GetNumberDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\GetStringDialog.xaml.cs">
+      <DependentUpon>GetStringDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ImportLibraryDialog.xaml.cs">
+      <DependentUpon>ImportLibraryDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ImportOrGetDialog.xaml.cs">
+      <DependentUpon>ImportOrGetDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ImportPictureDialog.xaml.cs">
+      <DependentUpon>ImportPictureDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\InterceptTimeDialog.xaml.cs">
+      <DependentUpon>InterceptTimeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\LanguageDialog.xaml.cs">
+      <DependentUpon>LanguageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ListChangeColorDialog.xaml.cs">
+      <DependentUpon>ListChangeColorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\MailDialog.xaml.cs">
+      <DependentUpon>MailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\NewFileDialog.xaml.cs">
+      <DependentUpon>NewFileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\OkOrCancelDialog.xaml.cs">
+      <DependentUpon>OkOrCancelDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Online\UploadDialog.xaml.cs">
+      <DependentUpon>UploadDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\RecordingDialog.xaml.cs">
+      <DependentUpon>RecordingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\AddNewRangeListDialog.cs" />
+    <Compile Include="View\Dialog\Script\Create_CreateLightGroupDialog.xaml.cs">
+      <DependentUpon>Create_CreateLightGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Edit_AnimationDisappearDialog.xaml.cs">
+      <DependentUpon>Edit_AnimationDisappearDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Edit_ChangeTime.xaml.cs">
+      <DependentUpon>Edit_ChangeTime.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Edit_FoldDialog.xaml.cs">
+      <DependentUpon>Edit_FoldDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Edit_OverlapDialog.xaml.cs">
+      <DependentUpon>Edit_OverlapDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Edit_SetEndTimeDialog.xaml.cs">
+      <DependentUpon>Edit_SetEndTimeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\LightGroup_SetAttributeDialog.xaml.cs">
+      <DependentUpon>LightGroup_SetAttributeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\Script\Main_NewColorGroupDialog.xaml.cs">
+      <DependentUpon>Main_NewColorGroupDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ShapeColorDialog.xaml.cs">
+      <DependentUpon>ShapeColorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ShowLightListDialog.xaml.cs">
+      <DependentUpon>ShowLightListDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ShowRangeListDialog.xaml.cs">
+      <DependentUpon>ShowRangeListDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\ThirdPartyDialog.xaml.cs">
+      <DependentUpon>ThirdPartyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\TipDialog.xaml.cs">
+      <DependentUpon>TipDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Help\AppreciateWindow.xaml.cs">
+      <DependentUpon>AppreciateWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
+      <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LightWindow\FrameWindow.xaml.cs">
+      <DependentUpon>FrameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PageUserControl.xaml.cs">
+      <DependentUpon>PageUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PavedLaunchpadWindow.xaml.cs">
+      <DependentUpon>PavedLaunchpadWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PianoRoll\PianoRollUserControl.xaml.cs">
+      <DependentUpon>PianoRollUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlayUserControl.xaml.cs">
+      <DependentUpon>PlayUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Play\TeachingControl.cs" />
+    <Compile Include="View\Test\BeautifulWindow.xaml.cs">
+      <DependentUpon>BeautifulWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Help\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\IBaseView.cs" />
+    <Compile Include="View\Online\Find\FindUserControl.xaml.cs">
+      <DependentUpon>FindUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Online\Find\ProjectMainUserControl.xaml.cs">
+      <DependentUpon>ProjectMainUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Online\Find\ProjectUserControl.xaml.cs">
+      <DependentUpon>ProjectUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Online\Loading\CustomCircularProgressBar.xaml.cs">
+      <DependentUpon>CustomCircularProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Test\Test3DWindow.xaml.cs">
+      <DependentUpon>Test3DWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\Login\LoginUserControl.xaml.cs">
+      <DependentUpon>LoginUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\Login\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\Login\RegisterUserControl.xaml.cs">
+      <DependentUpon>RegisterUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\User\Login\UserInfoDialog.xaml.cs">
+      <DependentUpon>UserInfoDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Online\Model\ProjectInfo.cs" />
+    <Compile Include="View\Online\Model\UserInfo.cs" />
+    <Compile Include="View\Online\OnlineWindow.xaml.cs">
+      <DependentUpon>OnlineWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\DeviceManagementWindow.xaml.cs">
+      <DependentUpon>DeviceManagementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\BaseChild.cs" />
+    <Compile Include="View\Style\Child\ColorChild.xaml.cs">
+      <DependentUpon>ColorChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\ColorOverlayChild.xaml.cs">
+      <DependentUpon>ColorOverlayChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\OtherChild.xaml.cs">
+      <DependentUpon>OtherChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\ShapeChild.xaml.cs">
+      <DependentUpon>ShapeChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\SportOverlayChild.xaml.cs">
+      <DependentUpon>SportOverlayChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\Child\TimeChild.xaml.cs">
+      <DependentUpon>TimeChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Style\StyleWindow.xaml.cs">
+      <DependentUpon>StyleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\CalcTimeWindow.xaml.cs">
+      <DependentUpon>CalcTimeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Utils\FishEyePanel.cs" />
+    <Compile Include="View\Utils\WriteableBitmapTrendLine.cs" />
+    <Compile Include="Loading\LoadingUserControl.xaml.cs">
+      <DependentUpon>LoadingUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoadWindow.xaml.cs">
+      <DependentUpon>LoadWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Lock\EncryptionDecryption.cs" />
+    <Compile Include="Lock\FingerPrint.cs" />
+    <Compile Include="View\PlayerWindow.xaml.cs">
+      <DependentUpon>PlayerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\AVIWriter.cs" />
+    <Compile Include="View\Utils\RoundedCornersPolygon.cs" />
+    <Compile Include="UploadFile\FormItemModel.cs" />
+    <Compile Include="UploadFile\NoFileUtils.cs" />
+    <Compile Include="UploadFile\Util.cs" />
+    <Compile Include="Utils\ValidCode.cs" />
+    <Compile Include="View\WelcomeUserControl.xaml.cs">
+      <DependentUpon>WelcomeUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Work\MediaPlayerWindow.xaml.cs">
+      <DependentUpon>MediaPlayerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Work\WebBrowserUserControl.xaml.cs">
+      <DependentUpon>WebBrowserUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Work\WebBrowserWindow.xaml.cs">
+      <DependentUpon>WebBrowserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MakerpjUserControl.xaml.cs">
+      <DependentUpon>MakerpjUserControl.xaml</DependentUpon>
+    </Compile>
+    <Page Include="NewMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleResources\InputDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\AllDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AboutUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CatalogUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Catalog\CatalogLightUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Control\FrameUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Control\LiveUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Loading\LoadingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StyleResources\MainWindowStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\ExpanderStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\GreyButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\PulseButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\RoundBorderPanelStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StyleResources\StoryBoards.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Control\MainControlUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\InterceptTimeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\MailDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\NewFileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ShowLightListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ThirdPartyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Help\HelpOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LightWindow\FrameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\StringResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Resources\StringResource_zh-CN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="SettingDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Control\MainControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Control\NumberUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Device\GrowLaunchpad.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Device\NewOrUpdateDeviceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Automatic\RandomFountainDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ChangeIntoMotionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\CheckPropertiesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ColorTabDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ControlScriptDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\CopyRegionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\DeveloperListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\DrawRangeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\EidtTextDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\FeedbackDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\GetNumberDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\GetStringDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ImportLibraryDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ImportOrGetDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ImportPictureDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\LanguageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ListChangeColorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\MessageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\OkOrCancelDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Online\UploadDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\RecordingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Create_CreateLightGroupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Edit_AnimationDisappearDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Edit_ChangeTime.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Edit_FoldDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Edit_OverlapDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Edit_SetEndTimeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\LightGroup_SetAttributeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\Script\Main_NewColorGroupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ShapeColorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\ShowRangeListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\TipDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Help\AppreciateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PageUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PavedLaunchpadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PianoRoll\PianoRollUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PlayUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Test\BeautifulWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Help\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="View\Control\FrameUserControl.xaml.cs">
+      <DependentUpon>FrameUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputUserControl.xaml.cs">
+      <DependentUpon>InputUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\PlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Online\Find\FindUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Online\Find\ProjectMainUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Online\Find\ProjectUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Online\Loading\CustomCircularProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Test\Test3DWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\Login\LoginUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\Login\RegisterUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\User\Login\UserInfoDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Online\OnlineWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\DeviceManagementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\SettingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\ColorChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\ColorOverlayChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\OtherChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\ShapeChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\SportOverlayChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\Child\TimeChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Style\StyleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\CalcTimeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WelcomeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Work\MediaPlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Work\WebBrowserUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Work\WebBrowserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MakerpjUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\Management\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\bj.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\record.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\color.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\top.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\other.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\roundcornersheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\Star.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\close.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\box.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\file.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\alipay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\wxpay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\float.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\visible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\novisible.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\forward.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\collection.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\find.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\headportrait.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\love.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\search.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\setting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\switch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\upload.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\max.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\minmax.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\calc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\draw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\uploadimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\remove.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\up.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\branch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\ask.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\directory.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\automatic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\animation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\micolor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\shape.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\time.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\superposition.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\miother.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\thirdparty.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\library.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\redo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\revoke.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\debug.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\introduce.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\mycontent.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\file_setting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\tochild.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\paved.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\locked.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\locked_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\new_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\copy_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\delete_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\merge_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\element.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Image\element_green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

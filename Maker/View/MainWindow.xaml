@@ -1,0 +1,257 @@
+﻿<Window x:Class="Maker.View.Control.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:maker="clr-namespace:Maker"
+        xmlns:src="clr-namespace:Maker.View.Utils"
+        mc:Ignorable="d"
+        Title="Maker" Height="768" Width="1024"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        Name="mainWindow"
+        SizeChanged="MainWindow_SizeChanged"
+        Background="#282828"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Activated="MainWindow_Activated"
+        WindowStartupLocation="CenterScreen"
+        MinWidth="300"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../StyleResources/AllDictionary.xaml" />
+                <ResourceDictionary Source="../StyleResources/MainWindowStyle.xaml" />
+                <ResourceDictionary Source="../StyleResources/Brushes.xaml" />
+                <ResourceDictionary Source="../StyleResources/ExpanderStyles.xaml" />
+                <ResourceDictionary Source="../StyleResources/StoryBoards.xaml" />
+                <ResourceDictionary Source="../StyleResources/RoundBorderPanelStyle.xaml" />
+                <ResourceDictionary Source="../StyleResources/PulseButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel  Background="#535353" Name="dpAllTop" MouseDown="DockPanel_MouseDown" Grid.Row="0" >
+            <Image Source="..\Image\icon.png" Width="25" Height="25" Margin="5" DockPanel.Dock="Left" />
+            <Menu Background="#535353" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
+                <MenuItem Header="{DynamicResource File_}"  FontSize="14" >
+                    <MenuItem Header="{DynamicResource New}" FontSize="14" Foreground="#000000">
+                        <MenuItem Header="{DynamicResource Project}" FontSize="14" Foreground="#000000" Click="NewProject" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Open}" FontSize="14" Foreground="#000000">
+                        <MenuItem Header="{DynamicResource Project}" FontSize="14" Foreground="#000000" Click="OpenProject" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource HomePage}" FontSize="14" Foreground="#000000" Click="ToHomeUserControl" />
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Exit}" FontSize="14" Foreground="#000000" Click="Exit" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Tool_}" FontSize="14">
+                    <MenuItem Header="{DynamicResource Player}" FontSize="14" Foreground="#000000" >
+                        <MenuItem Header="{DynamicResource Manage}" FontSize="14" Foreground="#000000" Click="OpenDeviceManagement"/>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Recording}" Click="OpenRecording" Name="miRecording" IsEnabled="False" FontSize="14" Height="auto" Foreground="#000000"/>
+                    <MenuItem Header="{DynamicResource CalcTime}" Click="OpenCalcTime" FontSize="14" Foreground="#000000"/>
+                    <MenuItem Header="{DynamicResource Max}" FontSize="14" Foreground="#000000">
+                        <MenuItem Header="{DynamicResource CheckSaveFile}"  Click="CheckSaveFile" FontSize="14" Foreground="#000000"/>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource System}" FontSize="14" Foreground="#000000">
+                        <MenuItem Header="{DynamicResource Calc}" Name="btnCalc"  Click="SystemTool" FontSize="14" Foreground="#000000"/>
+                        <MenuItem Header="{DynamicResource Notepad}" Name="btnNotepad"  Click="SystemTool" FontSize="14" Foreground="#000000"/>
+                        <MenuItem Header="{DynamicResource Mspaint}" Name="btnMspaint"  Click="SystemTool" FontSize="14" Foreground="#000000"/>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Test}" FontSize="14" Foreground="#000000" >
+                        <MenuItem Header="3D" Name="miBeautiful"  Click="ToTestWindow" FontSize="14" Foreground="#000000"/>
+                        <MenuItem Header="3D" Name="mi3D"  Click="ToTestWindow" FontSize="14" Foreground="#000000"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Build_}" FontSize="14" Name="miBuild" Click="GenerateExe" IsEnabled="False"/>
+                <MenuItem Header="{DynamicResource Play_}" FontSize="14" Name="miPlay" Click="ToPlayUserControl" IsEnabled="False"/>
+                <MenuItem Header="{DynamicResource Online}" FontSize="14"  Click="ToOnlineWindow" IsEnabled="False"/>
+                <MenuItem Header="{DynamicResource Setting_}" FontSize="14" Click="ToSettingWindow"/>
+                <MenuItem Header="{DynamicResource Window}" FontSize="14" >
+                    <CheckBox Content="{DynamicResource FileManager}" FontSize="14" Foreground="#000000" Name="cbViewFileManager" Checked="ViewFileManager_Checked" Unchecked="ViewFileManager_Unchecked" />
+                </MenuItem>
+                <MenuItem Header="{DynamicResource Help}" FontSize="14"  >
+                    <MenuItem Header="{DynamicResource Feedback}" FontSize="14" Name="miFeedBack"   Click="ToFeedbackDialog" Foreground="#000000"/>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource HelpOverview}" FontSize="14" Click="ToHelpOverview" Foreground="#000000"/>
+
+                    <MenuItem Header="{DynamicResource Attachments}" FontSize="14" Foreground="#000000">
+                        <MenuItem Header="{DynamicResource ColorTab}" FontSize="14" Foreground="#000000">
+                            <MenuItem Header="{DynamicResource Default}" FontSize="14" Foreground="#000000" Click="DefaultOpenColorTab"/>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource PositionTab}" FontSize="14" Foreground="#000000">
+                            <MenuItem Header="{DynamicResource Default}" FontSize="14" Foreground="#000000" Click="DefaultOpenPositionTab" />
+                            <MenuItem Header="{DynamicResource Appoint}" FontSize="14" Foreground="#000000" Click="OtherDrawingSoftware_Click"></MenuItem>
+                        </MenuItem>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource CreateDesktopShortcuts}" FontSize="14"   Click="CreateShortCut" Foreground="#000000"/>
+                    <MenuItem Header="{DynamicResource ChangeOpenMidiFileDefaultModify}" FontSize="14"   Click="ChangeOpenMidiFileDefaultModify" Foreground="#000000"/>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource VisitTheOfficialWebsite}" FontSize="14"  Click="VisitTheOfficialWebsite" Foreground="#000000"/>
+                    <MenuItem Header="{DynamicResource JoinTheQGroup}" FontSize="14"   Click="JoinQQGroup_Click" Foreground="#000000"/>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource Appreciate}" FontSize="14" Click="ToAppreciateWindow" Foreground="#000000"/>
+                    <MenuItem Header="{DynamicResource DeveloperList}" FontSize="14" Click="ToDeveloperListWindow" Foreground="#000000"/>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource FullScreen_}" FontSize="14"  Click="ConcentrateOnMyWork"/>
+            </Menu>
+            <StackPanel  Height="auto" Width="auto" Orientation="Horizontal"  HorizontalAlignment="Right">
+                <Image Width="25" Height="25" Margin="0,0,10,0" MouseLeftButtonDown="MinimizeWindow"  RenderOptions.BitmapScalingMode="HighQuality">
+                    <Image.Source>..\Image\small.png</Image.Source>
+                </Image>
+                <Image Width="20" Height="20" Margin="0,0,10,0" MouseLeftButtonDown="MaximizeWindow" Name="imageMinMax"  RenderOptions.BitmapScalingMode="HighQuality">
+                    <Image.Source>..\Image\minmax.png</Image.Source>
+                </Image>
+                <Image Width="20" Height="20" Margin="0,0,10,0" MouseLeftButtonDown="CloseWindow"  RenderOptions.BitmapScalingMode="HighQuality">
+                    <Image.Source>..\Image\close.png</Image.Source>
+                </Image>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Background="#535353" Name="dpTop" Grid.Row="1">
+            <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                <ComboBox Name="cbDevice" Width="150"  BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" DropDownOpened="CbDevice_DropDownOpened"/>
+                <Button Content="{DynamicResource Import}" FontSize="14" Width="50" Foreground="#6f6f6f" Name="btnImportPlayer" Click="ToPlay" />
+            </ToolBar>
+            <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded" HorizontalAlignment="Right"  MouseEnter="ToolBar_MouseEnter">
+                <Button Click="BtnUserName_Click" Foreground="#6f6f6f" Content="{DynamicResource NotLoggedIn}" IsEnabled="False" FontSize="14" Name="btnUserName"  />
+                <Popup x:Name="popUser" PlacementTarget="{Binding ElementName=btnUserName}" StaysOpen="False" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="0" VerticalOffset="0"  >
+                    <Canvas  Height="130" Width="240" Background="#282828">
+                        <StackPanel  Margin="10" >
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="#282828">
+                                    <Image Name="imgHeadPortrait" Source="../Image/headportrait.png"   Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                    <TextBlock Foreground="White" Width="120" Margin="10,0,0,0" FontSize="16" Name="tbUserName" VerticalAlignment="Center" Text="{DynamicResource NotLoggedIn}"/>
+                                </StackPanel>
+                                <Button Background="{x:Null}" BorderBrush="#FFFFFF" Foreground="#F0F0F0" Width="60" Content="{DynamicResource LogOff}" Click="LogOff"></Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,30,0,0">
+                                <Border BorderThickness="0,0,2,0" BorderBrush="#F0F0F0" Background="#282828" MouseLeftButtonDown="SpUpload_MouseLeftButtonDown" Name="spUpload">
+                                    <StackPanel Width="70"  >
+                                        <TextBlock Name="tbUploadCount" Foreground="White"  FontSize="16" Margin="0,0,0,5" HorizontalAlignment="Center">0</TextBlock>
+                                        <TextBlock Foreground="White"  FontSize="14"  HorizontalAlignment="Center" Text="{DynamicResource Upload}"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border BorderThickness="0,0,2,0" BorderBrush="#F0F0F0">
+                                    <StackPanel Width="70">
+                                        <TextBlock Foreground="White"  FontSize="16" Margin="0,0,0,5" HorizontalAlignment="Center">0</TextBlock>
+                                        <TextBlock Foreground="White"  FontSize="14"  HorizontalAlignment="Center" Text="{DynamicResource Follow2}"/>
+                                    </StackPanel>
+                                </Border>
+                                <StackPanel Width="70">
+                                    <TextBlock Foreground="White"  FontSize="16" Margin="0,0,0,5" HorizontalAlignment="Center">0</TextBlock>
+                                    <TextBlock Foreground="White"  FontSize="14"  HorizontalAlignment="Center" Text="{DynamicResource Fans}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Canvas>
+                </Popup>
+            </ToolBar>
+        </DockPanel>
+        <Grid Grid.Row="2">
+            <Grid Name="gMain" SizeChanged="GMain_SizeChanged">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"  />
+                    <ColumnDefinition Width="3"  />
+                    <ColumnDefinition Width="auto" Name="cdFileManager" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" HorizontalAlignment="Center" >
+
+                    <DockPanel Name="mainDockPanel" SizeChanged="Main_SizeChanged">
+                        <!--<TextBlock HorizontalAlignment="Center" Name="tbNoFile" VerticalAlignment="Center"  Text="{DynamicResource NoFileWasOpened}" FontSize="20" FontWeight="Bold" Foreground="#FFE6E6E6" />-->
+                    </DockPanel>
+                    <DockPanel  Name="gError" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#fefcc8" Visibility="Hidden">
+                        <TextBlock  DockPanel.Dock="Left" Name="tbError" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"  FontSize="16" Foreground="#000000" TextWrapping="Wrap" />
+                        <Image Width="20" Height="20" Margin="5" MouseLeftButtonDown="CloseMsg"  RenderOptions.BitmapScalingMode="HighQuality" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top">
+                            <Image.Source>..\Image\close.png</Image.Source>
+                        </Image>
+                    </DockPanel>
+                </Grid>
+                <GridSplitter Width="3" HorizontalAlignment="Center" Background="Gray" VerticalAlignment="Stretch" Grid.Column="1"/>
+                <Grid Background="#535353"  Height="auto" Grid.Column="2" MinWidth="300">
+                    <TreeView Grid.Row="1" Background="#535353" Name="tvProject" BorderBrush="#4a4a4a" BorderThickness="1" HorizontalAlignment="Stretch"   Height="auto" Margin="10,10,10,20"   FontSize="20" Foreground="White" PreviewMouseDoubleClick="TvProject_PreviewMouseDoubleClick" >
+                        <TreeView.ContextMenu>
+                            <ContextMenu Opened="ContextMenu_Opened" Closed="LbProjectDocumentMenu_Closed" Name="lbProjectDocumentMenu">
+                                <MenuItem Click="NewFile" Header="{DynamicResource New}"/>
+                                <Separator />
+                                <MenuItem Click="RenameFileName" Header="{DynamicResource Rename}"/>
+                                <MenuItem Click="DeleteFile" Header="{DynamicResource Delete}"/>
+                                <Separator />
+                                <MenuItem Header="{DynamicResource Import}"  Name="miImport" IsEnabled="False">
+                                    <MenuItem Header="{DynamicResource MidiFile}"  Click="ImportFile" Name="miMidiFile"/>
+                                    <MenuItem Header="{DynamicResource LightFile}"  Click="ImportFile" Name="miLightFile"/>
+                                    <MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />
+                                </MenuItem>
+                                <MenuItem Header="{DynamicResource Export}"  Name="miExport" IsEnabled="False">
+                                    <MenuItem Header="{DynamicResource MidiFile}"  Click="ExportFile" Name="miExportMidi"/>
+                                    <MenuItem Header="{DynamicResource LightFile}"  Click="ExportFile" Name="miExportLight"/>
+                                    <Separator />
+                                    <MenuItem Header="{DynamicResource Advanced}" Click="ExportFile" Name="miExportAdvanced"/>
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem Click="GoToFile" Header="{DynamicResource OpenFoldersInTheFileResourceManager}"/>
+                            </ContextMenu>
+                        </TreeView.ContextMenu>
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="{x:Type TreeViewItem}">
+                                <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>
+                                <EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
+                </Grid>
+            </Grid>
+            <Grid Name="gInkCanvs" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="3"/>
+                    <RowDefinition Height="0" Name="rdGridInkCanvs"/>
+                </Grid.RowDefinitions>
+                <DockPanel Background="{x:Null}" Grid.Row="0"/>
+                <GridSplitter HorizontalAlignment="Stretch" Background="Gray" VerticalAlignment="Center" Height="3" Grid.Row="1"/>
+                <Grid  Grid.Row="2" Background="#535353" >
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <InkCanvas  Name="icMain" Cursor="Pen" Width="500" Height="500" Background="#282828" />
+                            <GroupBox Margin="10" Style="{DynamicResource GroupBoxStyle1}" Header="{DynamicResource EditingMode}" FontSize="14" Foreground="#F0F0F0" Name="gbEditingMode">
+                                <StackPanel  Margin="5">
+                                    <RadioButton FontSize="14" Foreground="#f0f0f0" Content="{DynamicResource Ink}" Name="rbInk" GroupName="gnEditingMode" IsChecked="True" Checked="ChangeEditingMode"/>
+                                    <RadioButton FontSize="14" Foreground="#f0f0f0" Content="{DynamicResource EraseByPoint}" Name="rbEraseByPoint" GroupName="gnEditingMode" Checked="ChangeEditingMode" Margin="0,5,0,0"/>
+                                    <RadioButton FontSize="14" Foreground="#f0f0f0" Content="{DynamicResource EraseByStroke}" Name="rbEraseByStroke" GroupName="gnEditingMode" Checked="ChangeEditingMode" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical"  >
+                            <Border HorizontalAlignment="Center" >
+                                <src:FishEyePanel >
+                                    <Button  Margin="5"  Content="{DynamicResource Opacity}" Style="{DynamicResource PulseButton}"  FontSize="18" Foreground="#F0F0F0"  Click="ChangeOpacity"/>
+                                    <Button  Margin="5"  Content="{DynamicResource Color}" Style="{DynamicResource PulseButton}"  FontSize="18" Foreground="#F0F0F0"  Click="ChangeColor"/>
+                                    <Button  Margin="5"  Content="{DynamicResource ImageSize}" Style="{DynamicResource PulseButton}"  FontSize="18" Foreground="#F0F0F0" Click="ChangeSize"/>
+                                    <Button  Margin="5"  Content="{DynamicResource IsDisplayMouse}" Style="{DynamicResource PulseButton}"  FontSize="18" Foreground="#F0F0F0" Click="ToDisplayMouse"/>
+                                    <Button  Margin="5"  Content="{DynamicResource Clear}" Style="{DynamicResource PulseButton}"  FontSize="18" Foreground="#F0F0F0" Click="ClearAll"/>
+                                </src:FishEyePanel>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Height="40" Background="#4a4a4a" Name="dpBottom" Grid.Row="3" Visibility="Collapsed">
+            <StackPanel  HorizontalAlignment="Center" Margin="0,0,0,5" Orientation="Horizontal">
+                <Button Content="{DynamicResource Browser}" Background="#4a4a4a" BorderBrush="{x:Null}" FontSize="16" Foreground="#F0F0F0"  Click="ToBrowserWindow"/>
+                <Button Content="{DynamicResource MusicPlayer}" Background="#4a4a4a" BorderBrush="{x:Null}" Margin="10,0,0,0" FontSize="16" Foreground="#F0F0F0"  Click="ToMusicPlayerWindow"/>
+            </StackPanel>
+            <TextBlock Name="tbTime" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="#F0F0F0" Margin="0,0,20,5"/>
+        </Grid>
+    </Grid>
+</Window>

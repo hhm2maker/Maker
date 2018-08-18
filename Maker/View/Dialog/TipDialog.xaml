@@ -1,0 +1,28 @@
+﻿<Window x:Class="Maker.View.Dialog.TipDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        mc:Ignorable="d"
+         Background="#282828"
+        Title="提示"       
+        WindowStartupLocation="CenterScreen"
+        Width="500" Height="420"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded">
+    <DockPanel Margin="20">
+        <StackPanel  Background="#535353" DockPanel.Dock="Top">
+            <TextBlock TextWrapping = "Wrap"  Foreground="#F0F0F0"  FontSize="14" Height="45"  Margin="3,7,3,0" Name="tbTipText" HorizontalAlignment="Center"></TextBlock>
+            <Image Width="450" Height="240" Name="iTipImage" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+        </StackPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="0,20,0,0" Height="24" VerticalAlignment="Top">
+            <CheckBox Checked="cbShowTip_Checked" Unchecked="cbShowTip_Unchecked" VerticalAlignment="Center" Name="cbShowTip" FontSize="14" Foreground="#FFFFFF" IsChecked="True">在启动时显示</CheckBox>
+            <DockPanel DockPanel.Dock="Right" HorizontalAlignment="Right" >
+                <Button Click="LastTip" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White"  HorizontalAlignment="Left">上一条</Button>
+                <Button Click="NextTip" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White"  HorizontalAlignment="Left">下一条</Button>
+                <Button Click="Exit" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White"  HorizontalAlignment="Right">关闭</Button>
+            </DockPanel>
+        </DockPanel>
+    </DockPanel>
+</Window>

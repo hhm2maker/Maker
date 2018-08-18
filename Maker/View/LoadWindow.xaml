@@ -1,0 +1,29 @@
+﻿<Window x:Class="Maker.View.LoadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker"
+        mc:Ignorable="d"
+        Title="Maker"
+        Width="640" Height="410"
+        Loaded="Window_Loaded"
+        AllowsTransparency="True" WindowStyle="None" OpacityMask="White" Background="#282828" WindowStartupLocation="CenterScreen"
+        >
+    <Grid>
+        <Canvas Name="cMain">
+        </Canvas>
+        <Grid >
+            <StackPanel >
+                <TextBlock Foreground="#FFFFFF"  Text="Maker"  FontSize="65" FontFamily="FZLanTingHeiS-UL-GB" FontWeight="Bold" Margin="30,30,0,0"></TextBlock>
+                <TextBlock Foreground="#FFFFFF"  Text="For Live"  FontSize="40" FontFamily="FZLanTingHeiS-UL-GB"  Margin="30,10,0,5"></TextBlock>
+                <TextBlock Foreground="#F0F0F0" Text="灯光绘制软件" FontSize="25"  Margin="30,10,0,0" FontFamily="等线Light" ></TextBlock>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,30">
+                <TextBlock Foreground="#FFFFFF"  Text="LaunchpadLight.com"  FontSize="18"   HorizontalAlignment="Right" FontFamily="Segoe UI"></TextBlock>
+                <TextBlock Foreground="#F0F0F0" Text="By HHM" FontSize="18"  Margin="0,0,0,0"   HorizontalAlignment="Right" FontFamily="Segoe UI"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <!--<Image Stretch="Fill" Source="Image\load_bj.png" Name="imageBg" />-->
+    </Grid>
+</Window>
