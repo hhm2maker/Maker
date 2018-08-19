@@ -22,6 +22,8 @@ namespace Maker
     /// </summary>
     public partial class NewMainWindow : Window
     {
+        public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Light\";
+        public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"LightScript\";
         public NewMainWindow()
         {
             InitializeComponent();

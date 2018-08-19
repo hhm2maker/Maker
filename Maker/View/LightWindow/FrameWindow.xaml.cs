@@ -22,12 +22,18 @@ namespace Maker.View.LightWindow
     /// <summary>
     /// FrameUserControlWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class FrameWindow : Window, ICanDraw
+    public partial class FrameWindow :BaseLightWindow, ICanDraw
     {
-        public FrameWindow(Window mw)
+       
+        public FrameWindow(NewMainWindow mw)
         {
             InitializeComponent();
-        }
+            InitLaunchpadEvent();
+            this.mw = mw;
+
+            hintView = spHintView;
+            mainView = dpMainView;
+         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,7 +49,6 @@ namespace Maker.View.LightWindow
             mLaunchpad.SetMouseLeftButtonDown(SetColor);
             mLaunchpad.SetMouseRightButtonDown(ClearColor);
             mLaunchpad.SetICanDraw(this);
-
         }
         private void ChangeColor(object sender, RoutedEventArgs e)
         {
@@ -123,7 +128,7 @@ namespace Maker.View.LightWindow
         /// <summary>
         /// 获取主窗口数据
         /// </summary>
-        public void SetData(List<Light> mActionBeanList)
+        public override void SetData(List<Light> mActionBeanList)
         {
             ClearFrame();
             liTime = LightBusiness.GetTimeList(mActionBeanList);
@@ -149,7 +154,7 @@ namespace Maker.View.LightWindow
         /// 返回数据
         /// </summary>
         /// <returns>ActionBean集合</returns>
-        public List<Light> GetData()
+        public override List<Light> GetData()
         {
             List<Light> mActionBeanList = new List<Light>();
             Boolean[] b = new Boolean[96];
@@ -390,7 +395,6 @@ namespace Maker.View.LightWindow
             {
                 mLaunchpad.SetNowBrush(StaticConstant.brushList[lbColor.SelectedIndex - 1]);
             }
-
         }
 
         private void btnLeftUp_Click(object sender, RoutedEventArgs e)
@@ -399,15 +403,17 @@ namespace Maker.View.LightWindow
             {
                 //如果没被选中
                 Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.Yellow;
-                btn.BorderThickness = new Thickness(3);
+                DependencyObject d1 = VisualTreeHelper.GetChild(btn, 0);
+                Border button = LogicalTreeHelper.FindLogicalNode(d1, "btnTabItem") as Border;
+                button.BorderBrush = Brushes.White;
             }
             else
             {
                 //如果被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.White;
-                btn.BorderThickness = new Thickness(1);
+                   Button btn = (Button)sender;
+                DependencyObject d1 = VisualTreeHelper.GetChild(btn, 0);
+                Border button = LogicalTreeHelper.FindLogicalNode(d1, "btnTabItem") as Border;
+                button.BorderBrush = new SolidColorBrush(Color.FromRgb(68, 119, 64));
             }
             bLeftUp = !bLeftUp;
         }
@@ -1708,5 +1714,8 @@ namespace Maker.View.LightWindow
             e.Cancel = true;  // cancels the window close    
             Hide();      // Programmatically hides the window
         }
+
+      
+        
     }
 }

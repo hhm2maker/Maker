@@ -217,6 +217,9 @@
     <Compile Include="View\Dialog\FeedbackDialog.xaml.cs">
       <DependentUpon>FeedbackDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialog\GetStringDialog2.xaml.cs">
+      <DependentUpon>GetStringDialog2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialog\GetNumberDialog.xaml.cs">
       <DependentUpon>GetNumberDialog.xaml</DependentUpon>
     </Compile>
@@ -308,6 +311,8 @@
     <Compile Include="View\LightWindow\FrameWindow.xaml.cs">
       <DependentUpon>FrameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LightWindow\BaseLightWindow.cs" />
+    <Compile Include="View\LightWindow\ILightWindow.cs" />
     <Compile Include="View\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
     </Compile>
@@ -496,6 +501,10 @@
     <Page Include="View\Control\MainControlUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\GetStringDialog2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Dialog\InterceptTimeDialog.xaml">
       <SubType>Designer</SubType>

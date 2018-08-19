@@ -1,4 +1,5 @@
-﻿using Maker.View.LightWindow;
+﻿using Maker;
+using Maker.View.LightWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,8 @@ namespace MakerLight.View.Catalog
     public partial class CatalogLightUserControl : UserControl
     {
         private FrameWindow fw;
-        private Window mw;
-        public CatalogLightUserControl(Window mw)
+        private NewMainWindow mw;
+        public CatalogLightUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;

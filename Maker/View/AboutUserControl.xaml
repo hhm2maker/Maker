@@ -55,7 +55,7 @@
         </Border>
         <TextBlock Foreground="#d94c93" Text="关于代码" HorizontalAlignment="Center" FontSize="25" Margin="0,50,0,0"/>
         <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,30,0,0">
-            <TextBox Foreground="#919191" Text="你可以从https://github.com/hhm2maker/MakerLight/获取完整的代码" HorizontalAlignment="Center" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True"/>
+            <TextBox Foreground="#919191" Text="你可以从https://github.com/hhm2maker/Maker/获取完整的代码" HorizontalAlignment="Center" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True"/>
         </Border>
         <Button Content="开始体验" Margin="0,50,0,0" Width="200" Height="50" FontSize="20" Foreground="#282828"  HorizontalAlignment="Center" Click="ToCatalogUserControl">
             <Button.Template>

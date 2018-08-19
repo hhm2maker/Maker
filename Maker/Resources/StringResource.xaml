@@ -455,7 +455,6 @@
     <sys:String x:Key="YouNeedToSelectTheStep">You need to select the step</sys:String>
     <sys:String x:Key="Intercept">Intercept</sys:String>
     <sys:String x:Key="PianoRoll">Piano roll</sys:String>
-
-    
+    <sys:String x:Key="Or">or</sys:String>
 
 </ResourceDictionary>

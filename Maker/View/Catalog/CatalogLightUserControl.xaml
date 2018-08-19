@@ -15,7 +15,6 @@
         <TextBlock Foreground="#383838" Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="20" VerticalAlignment="Center" Margin="30,30,30,0" TextWrapping="Wrap"/>
         <TextBlock Foreground="#7e7e7e" Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件：" FontSize="20" VerticalAlignment="Center" Margin="30" TextWrapping="Wrap"/>
         <TextBlock HorizontalAlignment="Stretch" Height="1" Background="#e1e1e1"/>
-
         <Expander Margin="30,30,30,0" Header="  逐帧绘制" Foreground="#447740" FontSize="23" >
             <StackPanel Background="#f5f5f5" Margin="0,10,0,0">
                 <Button Content="开始"  Width="150" Height="40" FontSize="20" Foreground="#282828"  HorizontalAlignment="Left" Margin="20" Click="ToFrameWindow">
@@ -28,6 +27,27 @@
                     </Button.Template>
                 </Button>
                 <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,20" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Expander>
+        <Expander Margin="30,30,30,0" Header="  文本输入" Foreground="#447740" FontSize="23" >
+            <StackPanel Background="#f5f5f5" Margin="0,10,0,0">
+                <Button Content="开始"  Width="150" Height="40" FontSize="20" Foreground="#282828"  HorizontalAlignment="Left" Margin="20" Click="ToFrameWindow">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border BorderThickness="2" CornerRadius="5,5,5,5" Background="#f5f5f5" BorderBrush="#447740">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock Foreground="#7e7e7e" Text="文本框内可接受以下格式：时间,行为,位置,颜色;  具体的数值可以在附件中查看(关闭的标准颜色是64，当然你设置为任何颜色都不会有作用)。" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,20" TextWrapping="Wrap"/>
+                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="20,0,0,20" >
+                    <TextBox Foreground="#383838" Text="0,144,36,5;0,128,36,64;" HorizontalAlignment="Stretch" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                </Border>
+                <TextBlock Foreground="#7e7e7e" Text="中间可以掺杂换行，这将会更加明了。" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,20" TextWrapping="Wrap"/>
+                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="20,0,0,20" >
+                    <TextBox Foreground="#383838" Text="0,144,36,5;&#13;0,128,36,64;" HorizontalAlignment="Stretch" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                </Border>
             </StackPanel>
         </Expander>
     </StackPanel>

@@ -58,7 +58,6 @@ namespace Maker.View.Control
             mLaunchpad.SetMouseLeftButtonDown(SetColor);
             mLaunchpad.SetMouseRightButtonDown(ClearColor);
             mLaunchpad.SetICanDraw(this);           
-        
         }
         private void ChangeColor(object sender, RoutedEventArgs e)
         {
