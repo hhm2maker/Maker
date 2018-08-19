@@ -88,7 +88,6 @@ namespace Maker.View.PianoRoll
             canChange = true;
         }
 
-
         private String[] strsNotes = new String[]{"D#8","D8","C#8", "C8",
             "B7","A#7","A7","G#7","G7","F#7","F7","E7","D#7","D7","C#7","C7",
              "B6","A#6","A6","G#6","G6","F#6","F6","E6","D#6","D6","C#6","C6",
@@ -116,11 +115,11 @@ namespace Maker.View.PianoRoll
                 tbsNotes.Add(tb);
                 if (i % 2 == 0)
                 {
-                    tb.Foreground = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                    tb.Foreground = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
                 }
                 else if (i % 2 == 1)
                 {
-                    tb.Foreground = new SolidColorBrush(Color.FromArgb(240, 255, 255, 255));
+                    tb.Foreground = new SolidColorBrush(Color.FromArgb(240, 0, 0, 0));
                 }
                 Canvas.SetLeft(tb, 0);
                 Canvas.SetTop(tb, 23 * i + 2);
@@ -151,11 +150,11 @@ namespace Maker.View.PianoRoll
                 tbsTimes.Add(tb);
                 if (i % 2 == 0)
                 {
-                    tb.Foreground = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                    tb.Foreground = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
                 }
                 else if (i % 2 == 1)
                 {
-                    tb.Foreground = new SolidColorBrush(Color.FromArgb(240, 255, 255, 255));
+                    tb.Foreground = new SolidColorBrush(Color.FromArgb(240, 0, 0, 0));
                 }
                 Canvas.SetLeft(tb, i * scale * unit * int.Parse(tbWidth.Text));
                 Canvas.SetTop(tb, 0);
@@ -257,12 +256,12 @@ namespace Maker.View.PianoRoll
             int position = (int)(Canvas.GetTop((UIElement)sender) / 23);
             if (position % 2 == 0)
             {
-                tbsNotes[position].Foreground = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                tbsNotes[position].Foreground = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
                 tbsNotes[position].FontWeight = FontWeights.Normal;
             }
             else if (position % 2 == 1)
             {
-                tbsNotes[position].Foreground = new SolidColorBrush(Color.FromArgb(240, 255, 255, 255));
+                tbsNotes[position].Foreground = new SolidColorBrush(Color.FromArgb(240, 0, 0, 0));
                 tbsNotes[position].FontWeight = FontWeights.Normal;
             }
         }
@@ -277,12 +276,12 @@ namespace Maker.View.PianoRoll
             {
                 if ((position - 1) % 2 == 0)
                 {
-                    tbsNotes[position - 1].Foreground = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                    tbsNotes[position - 1].Foreground = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
                     tbsNotes[position - 1].FontWeight = FontWeights.Normal;
                 }
                 else if ((position - 1) % 2 == 1)
                 {
-                    tbsNotes[position - 1].Foreground = new SolidColorBrush(Color.FromArgb(240, 255, 255, 255));
+                    tbsNotes[position - 1].Foreground = new SolidColorBrush(Color.FromArgb(240, 0, 0, 0));
                     tbsNotes[position - 1].FontWeight = FontWeights.Normal;
                 }
             }
@@ -291,12 +290,12 @@ namespace Maker.View.PianoRoll
             {
                 if ((position + 1) % 2 == 0)
                 {
-                    tbsNotes[position + 1].Foreground = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                    tbsNotes[position + 1].Foreground = new SolidColorBrush(Color.FromArgb(120, 0, 0, 0));
                     tbsNotes[position + 1].FontWeight = FontWeights.Normal;
                 }
                 else if ((position + 1) % 2 == 1)
                 {
-                    tbsNotes[position + 1].Foreground = new SolidColorBrush(Color.FromArgb(240, 255, 255, 255));
+                    tbsNotes[position + 1].Foreground = new SolidColorBrush(Color.FromArgb(240, 0, 0, 0));
                     tbsNotes[position + 1].FontWeight = FontWeights.Normal;
                 }
             }

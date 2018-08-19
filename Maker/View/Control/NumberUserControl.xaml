@@ -19,13 +19,10 @@
         <Grid x:Name="spMain"  Margin="20" Width="380" Height="520"  DockPanel.Dock="Top">
             <TextBox FontSize="16" Name="tbMain" Width="380" Height="520" Background="#282828" Foreground="White"></TextBox>
         </Grid>
-
         <StackPanel Margin="20"  DockPanel.Dock="Top">
             <TextBlock Foreground="White" FontSize="18"   Background="{x:Null}" Text="{DynamicResource ErrorListColon}"/>
             <ListBox Name="lbError"   FontSize="16" Background="#30FFFFFF" Foreground="#A0FF0000" ></ListBox>
         </StackPanel>
-
-
     </DockPanel>
     
 </UserControl>

@@ -12,16 +12,61 @@ using System.IO;
 
 namespace Maker.View.LightWindow
 {
-    public class BaseLightWindow : Window,ILightWindow
+    public class BaseLightWindow : Window, ILightWindow
     {
         protected NewMainWindow mw;
         protected String filePath = String.Empty;
-        private FileBusiness business = new FileBusiness();
-        protected StackPanel hintView;
+        private FileBusiness fileBusiness = new FileBusiness();
+        private StackPanel spHint;
         protected Panel mainView;
+
+        public BaseLightWindow() {
+            Closing += BaseLightWindow_Closing;
+        }
+        /// <summary>
+        /// 隐藏控制 - 新建或者打开之前隐藏界面
+        /// </summary>
+        protected void HideControl() {
+            //隐藏内部容器
+            mainView.Children[0].Visibility = Visibility.Collapsed;
+            //隐藏容器
+            spHint = new StackPanel();
+            spHint.HorizontalAlignment = HorizontalAlignment.Center;
+            spHint.VerticalAlignment = VerticalAlignment.Center;
+            spHint.Orientation = Orientation.Horizontal;
+            //新建
+            Button btnNew = new Button();
+            btnNew.Width = 180;
+            btnNew.SetResourceReference(ContentProperty, "New");
+            btnNew.Click += NewFile;
+            //或者
+            TextBlock tbOr = new TextBlock();
+            tbOr.VerticalAlignment = VerticalAlignment.Center;
+            tbOr.Margin = new Thickness(20);
+            tbOr.SetResourceReference(TextBlock.TextProperty, "Or");
+            //打开
+            Button btnOpen = new Button();
+            btnOpen.Width = 180;
+            btnOpen.SetResourceReference(ContentProperty, "Open");
+            btnOpen.Click += OpenFile;
+            //容器添加控件
+            spHint.Children.Add(btnNew);
+            spHint.Children.Add(tbOr);
+            spHint.Children.Add(btnOpen);
+            //总容器添加隐藏容器
+            mainView.Children.Add(spHint);
+        }
+
+        private void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;  // cancels the window close    
+            SaveFile();
+            Hide();      // Programmatically hides the window
+        }
+
         protected void NewFile(object sender, RoutedEventArgs e)
         {
-            GetStringDialog2 dialog = new GetStringDialog2(this, "NewFileNameColon", business.GetFilesName(mw.LightFilePath, new List<string>() { ".light" }));
+            GetStringDialog2 dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { ".light" }));
             if (dialog.ShowDialog() == true) {
                 filePath = mw.LightFilePath + dialog.fileName;
                 if (File.Exists(filePath))
@@ -36,9 +81,9 @@ namespace Maker.View.LightWindow
             }
         }
         protected void LoadFile() {
-            SetData(business.ReadLightFile(filePath));
-            hintView.Visibility = Visibility.Collapsed;
-            mainView.Visibility = Visibility.Visible;
+            SetData(fileBusiness.ReadLightFile(filePath));
+            spHint.Visibility = Visibility.Collapsed;
+            mainView.Children[0].Visibility = Visibility.Visible;
         }
         protected void OpenFile(object sender, RoutedEventArgs e)
         {
@@ -49,12 +94,18 @@ namespace Maker.View.LightWindow
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 filePath = openFileDialog1.FileName;
+                LoadFile();
             }
-            LoadFile();
+       
         }
-        protected void SaveFile(object sender, RoutedEventArgs e)
+    
+    private void SaveFile()
+    {
+            fileBusiness.WriteLightFile(filePath,GetData());
+    }
+    protected void SaveFile(object sender, RoutedEventArgs e)
         {
-
+            SaveFile();
         }
         protected void SaveAsFile(object sender, RoutedEventArgs e)
         {

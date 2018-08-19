@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -92,6 +93,18 @@ namespace Maker.View
         private void ToLightUserControl()
         {
             svRight.Content = cluc;
+        }
+
+        private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
+        {
+            mw.auc.Visibility = Visibility.Visible;
+           DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
+            mw.auc.BeginAnimation(OpacityProperty, daV);
+        }
+
+        private void DaV_Completed(object sender, EventArgs e)
+        {
+
         }
     }
 }

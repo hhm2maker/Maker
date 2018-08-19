@@ -8,7 +8,6 @@
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Closing="Window_Closing"
         WindowStartupLocation="CenterScreen"
         Title="{DynamicResource Frame}" >
     <Window.Resources>
@@ -38,14 +37,8 @@
             <Setter Property="FontSize" Value="18"/>
         </Style>
     </Window.Resources>
-    <Grid>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Name="spHintView">
-                <Button Width="180"  Click="NewFile" Content="{DynamicResource New}" />
-                <TextBlock  Text="{DynamicResource Or}" VerticalAlignment="Center" Margin="20"/>
-                <Button Width="180" Click="OpenFile" Content="{DynamicResource Open}" />
-            </StackPanel>
-      
-    <DockPanel Visibility="Collapsed" Name="dpMainView">
+    <Grid Name="gMain">
+    <DockPanel>
         <Menu DockPanel.Dock="Top" Foreground="#282828" FontSize="16"   >
             <MenuItem Header="{DynamicResource File}">
                 <MenuItem Header="{DynamicResource New}" Click="NewFile" />
@@ -97,7 +90,7 @@
                     <TextBlock  Margin="15,15,0,0" Text="{DynamicResource ColorColon}"  FontSize="22" Height="auto" FontWeight="Bold" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto">
                         <TextBlock   Width="120" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowColorColon}"></TextBlock>
-                        <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center">5</TextBlock>
+                        <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
                     </StackPanel>
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}"/>
                 </StackPanel>

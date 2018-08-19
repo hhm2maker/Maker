@@ -459,5 +459,6 @@
     <sys:String x:Key="Intercept">截取</sys:String>
     <sys:String x:Key="PianoRoll">钢琴卷帘</sys:String>
     <sys:String x:Key="Or">或者</sys:String>
+    <sys:String x:Key="About">关于</sys:String>
 
 </ResourceDictionary>

@@ -31,11 +31,10 @@
                     <TextBlock Foreground="#a3a3a3" Text="灯光" FontSize="20" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     <TextBlock Foreground="#282828" Text="(.lightScript)" FontSize="20" VerticalAlignment="Center" Margin="0,0,70,0"/>
                 </StackPanel>
+                <TextBlock HorizontalAlignment="Stretch" Height="1" Background="#e1e1e1" Margin="0,20,0,0"/>
+                <TextBlock Foreground="#a3a3a3" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="30" MouseLeftButtonDown="ToAboutUserControl"/>
             </StackPanel>
         </ScrollViewer>
         <ScrollViewer Grid.Column="1" Name="svRight" Background="#ffffff"/>
-
-
-
     </Grid>
 </UserControl>

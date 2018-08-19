@@ -31,8 +31,8 @@ namespace Maker.View.LightWindow
             InitLaunchpadEvent();
             this.mw = mw;
 
-            hintView = spHintView;
-            mainView = dpMainView;
+            mainView = gMain;
+            HideControl();
          }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -1707,12 +1707,6 @@ namespace Maker.View.LightWindow
         public bool IsCanDraw()
         {
             return nowTimePoint != 0;
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;  // cancels the window close    
-            Hide();      // Programmatically hides the window
         }
 
       

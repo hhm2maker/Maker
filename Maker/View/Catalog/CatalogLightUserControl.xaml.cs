@@ -23,7 +23,10 @@ namespace MakerLight.View.Catalog
     public partial class CatalogLightUserControl : UserControl
     {
         private FrameWindow fw;
+        private TextBoxWindow tbw;
+        private PianoRollWindow prw;
         private NewMainWindow mw;
+
         public CatalogLightUserControl(NewMainWindow mw)
         {
             InitializeComponent();
@@ -37,10 +40,36 @@ namespace MakerLight.View.Catalog
             }
             fw.Activate();
         }
-
+        private void ToTextBoxWindow(object sender, RoutedEventArgs e)
+        {
+            if (!tbw.IsActive)
+            {
+                tbw.Show();
+            }
+            tbw.Activate();
+        }
+        private void ToPianoRollWindow(object sender, RoutedEventArgs e)
+        {
+            if (!prw.IsActive)
+            {
+                prw.Show();
+            }
+            prw.Activate();
+        }
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             fw = new FrameWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            tbw = new TextBoxWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            prw = new PianoRollWindow(mw)
             {
                 Width = mw.Width,
                 Height = mw.Height

@@ -313,6 +313,12 @@
     </Compile>
     <Compile Include="View\LightWindow\BaseLightWindow.cs" />
     <Compile Include="View\LightWindow\ILightWindow.cs" />
+    <Compile Include="View\LightWindow\PianoRollWindow.xaml.cs">
+      <DependentUpon>PianoRollWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LightWindow\TextBoxWindow.xaml.cs">
+      <DependentUpon>TextBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
     </Compile>
@@ -531,6 +537,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LightWindow\FrameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LightWindow\PianoRollWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LightWindow\TextBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

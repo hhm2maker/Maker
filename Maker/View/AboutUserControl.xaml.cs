@@ -22,13 +22,12 @@ namespace Maker.View
     /// </summary>
     public partial class AboutUserControl : UserControl
     {
-        NewMainWindow mw;
+        private NewMainWindow mw;
         public AboutUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
         }
-
         private void ToCatalogUserControl(object sender, RoutedEventArgs e)
         {
             mw.ToCatalogUserControl();
