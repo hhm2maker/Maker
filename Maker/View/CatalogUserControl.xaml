@@ -4,7 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
+             Background="#ecebec"
              >
+    <UserControl.Resources>
+        <Style TargetType="ToolTip">
+            <Setter Property="Background" Value="#fefefe" />
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="auto"/>
+            <!--<Setter Property="Foreground" Value="White"/>-->
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalOffset" Value="-16"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="5*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Viewbox Grid.Row="0" Grid.Column="0" Stretch="Uniform"  HorizontalAlignment="Left" Margin="10,0,0,0">
+                                <Path Data="M48.75,116.75 L40.5,124 57.25,124 z" Fill="{TemplateBinding Background}" HorizontalAlignment="Left" Height="8.25"  Stretch="Fill"  VerticalAlignment="Top" Width="17.75"/>
+                            </Viewbox>
+                            <Border Grid.Row="1" x:Name="Root" Grid.ColumnSpan="2"  CornerRadius="6" Margin="0,-2,0,0" 
+                                  Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <Border.Resources>
+                                    <Storyboard x:Key="Visible State"/>
+                                    <Storyboard x:Key="Normal State"/>
+                                </Border.Resources>
+                                <ContentPresenter TextBlock.FontSize="16"
+                            Content="{TemplateBinding Content}"  
+                            ContentTemplate="{TemplateBinding ContentTemplate}"  
+                            Cursor="{TemplateBinding Cursor}"  
+                            Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                        </Grid>
+                        <!--<Border x:Name="Root" CornerRadius="2" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFFFFFFF" BorderBrush="{TemplateBinding BorderBrush}">  
+                          <Border BorderBrush="#FFFFFFFF" BorderThickness="1" CornerRadius="1" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">  
+                              <Border.Resources>  
+                                  <Storyboard x:Key="Visible State"/>  
+                                  <Storyboard x:Key="Normal State"/>  
+                              </Border.Resources>  
+                              <ContentPresenter  
+                            Content="{TemplateBinding Content}"  
+                            ContentTemplate="{TemplateBinding ContentTemplate}"  
+                            Cursor="{TemplateBinding Cursor}"  
+                            Margin="{TemplateBinding Padding}"/>  
+                          </Border>  
+                      </Border>-->
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -35,6 +92,29 @@
                 <TextBlock Foreground="#a3a3a3" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="30" MouseLeftButtonDown="ToAboutUserControl"/>
             </StackPanel>
         </ScrollViewer>
-        <ScrollViewer Grid.Column="1" Name="svRight" Background="#ffffff"/>
+        <StackPanel Grid.Column="1" Name="svRight" Background="#ecebec" Margin="20" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                <TextBlock Text="{DynamicResource LightFile}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" />
+                <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
+                    <Image.ToolTip>
+                       <StackPanel Orientation="Vertical">
+                        <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="15" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Image.ToolTip>
+                </Image>
+            </StackPanel>
+            <ScrollViewer   Margin="0,20,20,0" VerticalScrollBarVisibility="Hidden">
+                <StackPanel Orientation="Horizontal">
+                <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5">
+                    <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="ToFrameWindow">
+                        <Image Source="../Image/frame.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Text="Frame" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                    </Grid>
+                </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </UserControl>

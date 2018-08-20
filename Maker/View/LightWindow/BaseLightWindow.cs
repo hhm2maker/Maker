@@ -60,7 +60,8 @@ namespace Maker.View.LightWindow
         private void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;  // cancels the window close    
-            SaveFile();
+            if(!filePath.Equals(String.Empty))
+                 SaveFile();
             Hide();      // Programmatically hides the window
         }
 

@@ -1,4 +1,5 @@
 ﻿using Maker;
+using Maker.View.LightWindow;
 using MakerLight.View.Catalog;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,21 @@ namespace Maker.View
             InitializeComponent();
             this.mw = mw;
             cluc = new CatalogLightUserControl(mw);
+            fw = new FrameWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            tbw = new TextBoxWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            prw = new PianoRollWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
         }
         private Color darkColor = Color.FromRgb(40,40,40);
         private Color lightColour = Color.FromRgb(163, 163, 163);
@@ -92,7 +108,7 @@ namespace Maker.View
         private CatalogLightUserControl cluc;
         private void ToLightUserControl()
         {
-            svRight.Content = cluc;
+          
         }
 
         private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
@@ -105,6 +121,35 @@ namespace Maker.View
         private void DaV_Completed(object sender, EventArgs e)
         {
 
+        }
+        private FrameWindow fw;
+        private TextBoxWindow tbw;
+        private PianoRollWindow prw;
+
+     
+        private void ToFrameWindow(object sender, RoutedEventArgs e)
+        {
+            if (!fw.IsActive)
+            {
+                fw.Show();
+            }
+            fw.Activate();
+        }
+        private void ToTextBoxWindow(object sender, RoutedEventArgs e)
+        {
+            if (!tbw.IsActive)
+            {
+                tbw.Show();
+            }
+            tbw.Activate();
+        }
+        private void ToPianoRollWindow(object sender, RoutedEventArgs e)
+        {
+            if (!prw.IsActive)
+            {
+                prw.Show();
+            }
+            prw.Activate();
         }
     }
 }
