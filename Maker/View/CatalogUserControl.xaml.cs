@@ -127,15 +127,7 @@ namespace Maker.View
         private PianoRollWindow prw;
 
      
-        private void ToFrameWindow(object sender, RoutedEventArgs e)
-        {
-            if (!fw.IsActive)
-            {
-                fw.Show();
-            }
-            fw.Activate();
-        }
-        private void ToTextBoxWindow(object sender, RoutedEventArgs e)
+        private void ToTextBoxWindow(object sender, MouseButtonEventArgs e)
         {
             if (!tbw.IsActive)
             {
@@ -143,13 +135,22 @@ namespace Maker.View
             }
             tbw.Activate();
         }
-        private void ToPianoRollWindow(object sender, RoutedEventArgs e)
+        private void ToPianoRollWindow(object sender, MouseButtonEventArgs e)
         {
             if (!prw.IsActive)
             {
                 prw.Show();
             }
             prw.Activate();
+        }
+
+        private void ToFrameWindow(object sender, RoutedEventArgs e)
+        {
+            if (!fw.IsActive)
+            {
+                fw.Show();
+            }
+            fw.Activate();
         }
     }
 }

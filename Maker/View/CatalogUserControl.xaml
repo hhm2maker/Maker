@@ -98,21 +98,43 @@
                 <TextBlock Text="{DynamicResource LightFile}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" />
                 <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
                     <Image.ToolTip>
-                       <StackPanel Orientation="Vertical">
-                        <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                        <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="15" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="15" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
                         </StackPanel>
                     </Image.ToolTip>
                 </Image>
             </StackPanel>
             <ScrollViewer   Margin="0,20,20,0" VerticalScrollBarVisibility="Hidden">
                 <StackPanel Orientation="Horizontal">
-                <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5">
-                    <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="ToFrameWindow">
-                        <Image Source="../Image/frame.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Text="Frame" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                    </Grid>
-                </Border>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
+                                <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/frame.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Frame}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                   
+                    <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" Margin="20,0,0,0">
+                        <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <Image Source="../Image/textbox.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Text="TextBox" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                        </Grid>
+                    </Border>
+                    <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToPianoRollWindow" Margin="20,0,0,0">
+                        <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <Image Source="../Image/pianoRoll.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            <TextBlock Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>
