@@ -134,9 +134,6 @@
     <Compile Include="View\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Catalog\CatalogLightUserControl.xaml.cs">
-      <DependentUpon>CatalogLightUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ColorPanel.cs" />
     <Compile Include="View\Device\DrawLaunchpadPro.cs" />
     <Compile Include="View\Device\ICanDraw.cs" />
@@ -453,10 +450,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CatalogUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\Catalog\CatalogLightUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -912,6 +905,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="System\Management\" />
+    <Folder Include="View\Catalog\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
@@ -1243,6 +1237,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\pianoroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\code.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\lightscript.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

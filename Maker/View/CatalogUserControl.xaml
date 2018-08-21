@@ -62,40 +62,11 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="0" Background="#f5f5f5">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10" Height="50">
-                    <TextBlock Foreground="#a3a3a3" Text="MAKER " HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Times New Roman" />
-                    <TextBlock Foreground="#282828" Text="LIGHT" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" FontFamily="Poiret One"/>
-                </StackPanel>
-                <TextBlock HorizontalAlignment="Stretch" Height="1" Background="#e1e1e1"/>
-                <StackPanel Orientation="Horizontal"  Margin="30,20,0,0">
-                    <Image RenderOptions.BitmapScalingMode="Fant" Source="../Image/element.png" Width="30"/>
-                    <TextBlock Foreground="#282828" Text="元素" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" Height="40" Background="#f5f5f5" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Name="spLight">
-                    <TextBlock Foreground="#282828" Text="无逻辑" FontSize="20" VerticalAlignment="Center" Margin="70,0,0,0"/>
-                    <TextBlock Foreground="#a3a3a3" Text="灯光" FontSize="20" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                    <TextBlock Foreground="#282828" Text="(.light)" FontSize="20" VerticalAlignment="Center" Margin="0,0,70,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"  MouseEnter="StackPanel_MouseEnter"  MouseLeave="StackPanel_MouseLeave" Height="40" Background="#f5f5f5" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
-                    <TextBlock Foreground="#282828" Text="逻辑" FontSize="20" VerticalAlignment="Center" Margin="70,0,0,0"/>
-                    <TextBlock Foreground="#a3a3a3" Text="灯光" FontSize="20" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                    <TextBlock Foreground="#282828" Text="(.lightScript)" FontSize="20" VerticalAlignment="Center" Margin="0,0,70,0"/>
-                </StackPanel>
-                <TextBlock HorizontalAlignment="Stretch" Height="1" Background="#e1e1e1" Margin="0,20,0,0"/>
-                <TextBlock Foreground="#a3a3a3" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="30" MouseLeftButtonDown="ToAboutUserControl"/>
-            </StackPanel>
-        </ScrollViewer>
-        <StackPanel Grid.Column="1" Name="svRight" Background="#ecebec" Margin="20" Orientation="Vertical">
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel Name="svMain" Background="#ecebec" Margin="20" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
-                <TextBlock Text="{DynamicResource LightFile}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" />
+                <TextBlock Text="{DynamicResource Light}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
                     <Image.ToolTip>
                         <StackPanel Orientation="Vertical">
@@ -105,7 +76,7 @@
                     </Image.ToolTip>
                 </Image>
             </StackPanel>
-            <ScrollViewer   Margin="0,20,20,0" VerticalScrollBarVisibility="Hidden">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
                 <StackPanel Orientation="Horizontal">
                     <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow">
                         <Button.Template>
@@ -113,30 +84,120 @@
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
                         </Button.Template>
+                        <Button.ToolTip>
+                            <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/frame.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/frame.png" Width="110" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock Text="{DynamicResource Frame}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
                                 </Grid>
                             </Border>
                         </Button.Content>
                     </Button>
-                   
-                    <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" Margin="20,0,0,0">
-                        <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <Image Source="../Image/textbox.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Text="TextBox" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToPianoRollWindow" Margin="20,0,0,0">
-                        <Grid  Height="240" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <Image Source="../Image/pianoRoll.png" Width="160" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                            <TextBlock Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                        </Grid>
-                    </Border>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow" Margin="20,0,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Foreground="#7e7e7e" Text="文本框内可接受以下格式：时间,行为,位置,颜色;  o代表开,c代表关,颜色和位置具体的数值可以在附件中查看(关闭的标准颜色是64，当然你设置为任何颜色都不会有作用)。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
+                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
+                                    <TextBox Foreground="#383838" Text="0,o,36,5;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                                </Border>
+                                <TextBlock Foreground="#7e7e7e" Text="中间可以掺杂换行，这将会更加明了。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
+                                    <TextBox Foreground="#383838" Text="0,o,36,5;&#13;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                                </Border>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" >
+                                <Grid  Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/textbox.png" Width="130" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource TextBox}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPianoRollWindow" Margin="20,0,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <TextBlock Foreground="#7e7e7e" Text="注意：为了保证数据的正确性,解析规则会与Live一样，无关闭动作时，会在开动作的时间+1时关闭。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToPianoRollWindow" >
+                                <Grid  Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/pianoRoll.png" Width="130" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </ScrollViewer>
+            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                <Image Source="../Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                <TextBlock Text="{DynamicResource LightScript}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
+                <StackPanel Orientation="Horizontal">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Foreground="#7e7e7e" Text="文本框内可接受以下格式：时间,行为,位置,颜色;  o代表开,c代表关,颜色和位置具体的数值可以在附件中查看(关闭的标准颜色是64，当然你设置为任何颜色都不会有作用)。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
+                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
+                                    <TextBox Foreground="#383838" Text="0,o,36,5;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                                </Border>
+                                <TextBlock Foreground="#7e7e7e" Text="中间可以掺杂换行，这将会更加明了。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,5,0,0"/>
+                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
+                                    <TextBox Foreground="#383838" Text="0,o,36,5;&#13;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+                                </Border>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/lightscript.png" Width="105" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource LightScript}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/code.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Code}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+            <TextBlock Foreground="#a3a3a3" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="30" MouseLeftButtonDown="ToAboutUserControl"/>
+
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

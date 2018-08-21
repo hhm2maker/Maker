@@ -460,5 +460,7 @@
     <sys:String x:Key="PianoRoll">钢琴卷帘</sys:String>
     <sys:String x:Key="Or">或者</sys:String>
     <sys:String x:Key="About">关于</sys:String>
+    <sys:String x:Key="TextBox">文本框</sys:String>
+    <sys:String x:Key="Code">代码</sys:String>
 
 </ResourceDictionary>
