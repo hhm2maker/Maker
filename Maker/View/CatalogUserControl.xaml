@@ -8,7 +8,7 @@
              >
     <UserControl.Resources>
         <Style TargetType="ToolTip">
-            <Setter Property="Background" Value="#fefefe" />
+            <Setter Property="Background" Value="White" />
             <Setter Property="Padding" Value="6"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Height" Value="auto"/>
@@ -62,8 +62,9 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <StackPanel Name="svMain" Background="#ecebec" Margin="20" Orientation="Vertical">
+    
+    <ScrollViewer Focusable="True">
+        <StackPanel Name="svMain" Background="#ecebec" Margin="20,20,20,20" Orientation="Vertical" Grid.Column="0" Width="500" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
                 <TextBlock Text="{DynamicResource Light}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -157,20 +158,13 @@
                         </Button.Template>
                         <Button.ToolTip>
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Foreground="#7e7e7e" Text="文本框内可接受以下格式：时间,行为,位置,颜色;  o代表开,c代表关,颜色和位置具体的数值可以在附件中查看(关闭的标准颜色是64，当然你设置为任何颜色都不会有作用)。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
-                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
-                                    <TextBox Foreground="#383838" Text="0,o,36,5;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
-                                </Border>
-                                <TextBlock Foreground="#7e7e7e" Text="中间可以掺杂换行，这将会更加明了。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,5,0,0"/>
-                                <Border Padding="10" CornerRadius="3" BorderBrush="#e1e1e1" BorderThickness="1" Margin="0,5,0,0">
-                                    <TextBox Foreground="#383838" Text="0,o,36,5;&#13;0,c,36,64;" HorizontalAlignment="Stretch" FontSize="15" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
-                                </Border>
+                                <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
                             </StackPanel>
                         </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" >
                                 <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/lightscript.png" Width="105" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Image Source="../Image/lightscript.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
                                     <TextBlock Text="{DynamicResource LightScript}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
                                 </Grid>
                             </Border>
@@ -183,7 +177,7 @@
                             </ControlTemplate>
                         </Button.Template>
                         <Button.ToolTip>
-                            <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
@@ -196,8 +190,99 @@
                     </Button>
                 </StackPanel>
             </ScrollViewer>
-            <TextBlock Foreground="#a3a3a3" Text="关于" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="30" MouseLeftButtonDown="ToAboutUserControl"/>
-
+            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                <Image Source="../Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                <TextBlock Text="{DynamicResource Play}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
+                <StackPanel Orientation="Horizontal">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/page.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Page}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/playing.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Play}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+                <Image Source="../Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                <TextBlock Text="{DynamicResource Tool}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
+                <StackPanel Orientation="Horizontal">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" MouseLeftButtonDown="ToTextBoxWindow" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/player.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Player}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        </Button.ToolTip>
+                        <Button.Content>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
+                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/code.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="None" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                </Grid>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+            <TextBlock Foreground="#a3a3a3" Text="返回标题界面" VerticalAlignment="Center" FontSize="25" Margin="0,30,30,30" MouseLeftButtonDown="ToAboutUserControl"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

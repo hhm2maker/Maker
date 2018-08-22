@@ -462,5 +462,6 @@
     <sys:String x:Key="About">关于</sys:String>
     <sys:String x:Key="TextBox">文本框</sys:String>
     <sys:String x:Key="Code">代码</sys:String>
+    <sys:String x:Key="Page">页面</sys:String>
 
 </ResourceDictionary>

@@ -92,5 +92,6 @@ namespace Maker.View
             ScrollViewer view = sender as ScrollViewer;
             view.ScrollToHorizontalOffset(view.HorizontalOffset - e.Delta);
         }
+
     }
 }
