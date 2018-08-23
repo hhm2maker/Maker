@@ -583,8 +583,9 @@ namespace Maker.View.Control
                 {
                     iuc.UpdateData(new List<Light>());
                     //仍需要保存到Cache
-                    LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
-                    _scriptBusiness.SaveScriptFile("");
+                //TODO    
+                //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
+                    //_scriptBusiness.SaveScriptFile("");
                 }
                 else
                 {

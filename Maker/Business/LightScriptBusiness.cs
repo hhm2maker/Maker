@@ -8,15 +8,16 @@ using System.Text.RegularExpressions;
 using Maker.Model;
 using static Maker.Model.EnumCollection;
 using Maker.View.Dialog;
+using Maker.View.LightScriptWindow;
 
 namespace Maker.Business
 {
     class LightScriptBusiness
     {
-        private InputUserControl iuc; 
+        private ScriptWindow iuc; 
         private String InCommandLine;
         private String nowControlPath;
-        public LightScriptBusiness(InputUserControl iuc,String InCommandLine,String nowControlPath)
+        public LightScriptBusiness(ScriptWindow iuc,String InCommandLine,String nowControlPath)
         {
             this.iuc = iuc;
             lastFilePath = iuc.mw.lightScriptFilePath;
@@ -32,7 +33,7 @@ namespace Maker.Business
             lockedDictionary.Clear();
         }
         private Dictionary<String, List<Light>> lockedDictionary = new Dictionary<string, List<Light>>();
-        public LightScriptBusiness(InputUserControl iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
+        public LightScriptBusiness(ScriptWindow iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
         {
             this.iuc = iuc;
             lastFilePath = iuc.mw.lightScriptFilePath;

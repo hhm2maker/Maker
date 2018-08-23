@@ -1,4 +1,5 @@
 ﻿using Maker.View.Control;
+using Maker.View.LightScriptWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class CollectionDialog : BaseDialog
     {
-        private InputUserControl iuc;
+        private ScriptWindow iuc;
         public ComboBox cbLightName, cbType;
-        public CollectionDialog(InputUserControl iuc)
+        public CollectionDialog(ScriptWindow iuc)
         {
             Owner = iuc.mw;
             this.iuc = iuc;
@@ -47,7 +48,7 @@ namespace Maker.View.Dialog
 
         private String stepName = String.Empty;
         private CollectionType type = CollectionType.Intersection;
-        public CollectionDialog(InputUserControl iuc, String stepName, CollectionType type)
+        public CollectionDialog(ScriptWindow iuc, String stepName, CollectionType type)
         {
             Owner = iuc.mw;
             this.iuc = iuc;

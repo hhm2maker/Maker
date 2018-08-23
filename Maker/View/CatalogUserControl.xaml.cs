@@ -1,4 +1,5 @@
 ﻿using Maker;
+using Maker.View.LightScriptWindow;
 using Maker.View.LightWindow;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,11 @@ namespace Maker.View
                 Width = mw.Width,
                 Height = mw.Height
             };
+            sw = new ScriptWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
         }
      
 
@@ -57,10 +63,12 @@ namespace Maker.View
         {
 
         }
+        //Light
         private FrameWindow fw;
         private TextBoxWindow tbw;
         private PianoRollWindow prw;
-     
+        //LightScript
+        private ScriptWindow sw;
         private void ToTextBoxWindow(object sender, RoutedEventArgs e)
         {
             if (!tbw.IsActive)
@@ -87,10 +95,25 @@ namespace Maker.View
             fw.Activate();
         }
 
+        private void ToScriptWindow(object sender, RoutedEventArgs e)
+        {
+            if (!sw.IsActive)
+            {
+                sw.Show();
+            }
+            sw.Activate();
+        }
+
         private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            if (mw.ActualWidth > 500) {
+                svMain.ScrollToVerticalOffset(svMain.VerticalOffset - e.Delta);
+            } else
+            {
+            
             ScrollViewer view = sender as ScrollViewer;
             view.ScrollToHorizontalOffset(view.HorizontalOffset - e.Delta);
+            }
         }
 
     }

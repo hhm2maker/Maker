@@ -1,4 +1,5 @@
 ﻿using Maker.View.Dialog.Script;
+using Maker.View.LightScriptWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ControlScriptDialog : Window
     {
-        public InputUserControl iuc;
-        public ControlScriptDialog(InputUserControl iuc)
+        public ScriptWindow iuc;
+        public ControlScriptDialog(ScriptWindow iuc)
         {
             InitializeComponent();
             this.iuc = iuc;

@@ -305,6 +305,9 @@
     <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\LightScriptWindow\ScriptWindow.xaml.cs">
+      <DependentUpon>ScriptWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LightWindow\FrameWindow.xaml.cs">
       <DependentUpon>FrameWindow.xaml</DependentUpon>
     </Compile>
@@ -526,6 +529,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Help\HelpOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LightScriptWindow\ScriptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -905,7 +912,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="System\Management\" />
-    <Folder Include="View\Catalog\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />

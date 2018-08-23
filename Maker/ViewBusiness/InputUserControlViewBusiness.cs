@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.View.LightScriptWindow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace Maker.ViewBusiness
 {
     public class InputUserControlViewBusiness
     {
-        private InputUserControl iuc;
-        public InputUserControlViewBusiness(InputUserControl iuc) {
+        private ScriptWindow iuc;
+        public InputUserControlViewBusiness(ScriptWindow iuc) {
             this.iuc = iuc;
         }
         /// <summary>

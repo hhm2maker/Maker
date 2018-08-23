@@ -58,8 +58,8 @@ namespace Maker
 
             //CommandManager.InvalidateRequerySuggested();
 
-            bridge = new InputUserControlBridge(this);
-            viewBusiness = new InputUserControlViewBusiness(this);
+            //bridge = new InputUserControlBridge(this);
+            //viewBusiness = new InputUserControlViewBusiness(this);
             //加载库文件
             bridge.InitLibrary(bridge.GetLibrary(), LibraryMenuItem_Click);
 
@@ -1144,8 +1144,10 @@ namespace Maker
             }
             if (fileName.Equals(String.Empty))
             {
-                LightScriptBusiness _scriptBusiness = new LightScriptBusiness(this, mBuilder.ToString(), mw.lightScriptFilePath);
-                _scriptBusiness.SaveScriptFile(mBuilder.ToString());
+                LightScriptBusiness _scriptBusiness;
+
+                //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(this, mBuilder.ToString(), mw.lightScriptFilePath);
+                //_scriptBusiness.SaveScriptFile(mBuilder.ToString());
             }
             else
             {
@@ -1576,8 +1578,8 @@ namespace Maker
         {
             SaveLightScriptFile("",false);
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath,lockedDictionary);
-            mLightList = scriptBusiness.GetResult(null);
+            //LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath,lockedDictionary);
+            //mLightList = scriptBusiness.GetResult(null);
 
             if (mLightList == null)
             {
@@ -1593,8 +1595,8 @@ namespace Maker
         {
             SaveLightScriptFile("",isSaveLocked);
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath);
-            mLightList = scriptBusiness.GetResult(null);
+            //LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath);
+            //mLightList = scriptBusiness.GetResult(null);
 
             if (mLightList == null)
             {
@@ -1665,8 +1667,9 @@ namespace Maker
             }
             builder.Append("}");
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, builder.ToString(), mw.lightScriptFilePath);
-            return scriptBusiness.GetResult(partName);
+            //LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, builder.ToString(), mw.lightScriptFilePath);
+            //return scriptBusiness.GetResult(partName);
+            return null;
         }
         public String GetUsableStepName()
         {
@@ -2382,24 +2385,24 @@ namespace Maker
             if (lbStep.SelectedIndex == -1)
                 return;
 
-            ControlScriptDialog dialog = new ControlScriptDialog(this);
-            if (dialog.ShowDialog() == true)
-            {
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < dialog.lbMain.Items.Count; i++)
-                {
-                    if (i != dialog.lbMain.Items.Count - 1)
-                    {
-                        builder.Append("\t" + dialog.lbMain.Items[i].ToString() + Environment.NewLine);
-                    }
-                    else
-                    {
-                        builder.Append("\t" + dialog.lbMain.Items[i].ToString());
-                    }
-                }
-                lightScriptDictionary[GetStepName()] = builder.ToString();
-                RefreshData();
-            }
+            //ControlScriptDialog dialog = new ControlScriptDialog(this);
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    StringBuilder builder = new StringBuilder();
+            //    for (int i = 0; i < dialog.lbMain.Items.Count; i++)
+            //    {
+            //        if (i != dialog.lbMain.Items.Count - 1)
+            //        {
+            //            builder.Append("\t" + dialog.lbMain.Items[i].ToString() + Environment.NewLine);
+            //        }
+            //        else
+            //        {
+            //            builder.Append("\t" + dialog.lbMain.Items[i].ToString());
+            //        }
+            //    }
+            //    lightScriptDictionary[GetStepName()] = builder.ToString();
+            //    RefreshData();
+            //}
 
         }
 
@@ -2847,7 +2850,7 @@ namespace Maker
 
         private void ShowRangeList(object sender, RoutedEventArgs e)
         {
-            ShowRangeListDialog dialog = new ShowRangeListDialog(this);
+            ShowRangeListDialog dialog = null;
             if (dialog.ShowDialog() == true)
             {
                 if (sender == btnFastGenerationrRange)
@@ -3062,11 +3065,11 @@ namespace Maker
             CollectionDialog dialog = null;
             if (_name.Equals(String.Empty))
             {
-                dialog = new CollectionDialog(this);
+                //dialog = new CollectionDialog(this);
             }
             else
             {
-                dialog = new CollectionDialog(this, _name, type);
+                //dialog = new CollectionDialog(this, _name, type);
             }
             if (dialog.ShowDialog() == true)
             {
