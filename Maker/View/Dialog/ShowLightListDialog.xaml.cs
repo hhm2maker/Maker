@@ -22,7 +22,7 @@ namespace Maker.View.Dialog
     {
         private String nowName;
         private List<String> lightName;
-        public ShowLightListDialog(MainWindow mw,String nowName,List<String> lightName)
+        public ShowLightListDialog(Window mw,String nowName,List<String> lightName)
         {
             InitializeComponent();
             this.nowName = nowName;

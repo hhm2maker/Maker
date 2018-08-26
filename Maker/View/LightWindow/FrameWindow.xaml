@@ -58,7 +58,13 @@
                 <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"  />
             </MenuItem>
         </Menu>
-        <ScrollViewer  Name="svMain" Background="#f5f5f5" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+        <ScrollViewer  Name="svMain" Background="#f5f5f5" Grid.Column="0">
             <StackPanel>
                 <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
                     <TextBlock  Margin="15,15,0,0" Text="{DynamicResource TimeColon}" FontSize="22" Height="auto" FontWeight="Bold" />
@@ -92,7 +98,6 @@
                         <TextBlock   Width="120" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowColorColon}"></TextBlock>
                         <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
                     </StackPanel>
-                    <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}"/>
                 </StackPanel>
                 <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
                     <TextBlock  Margin="15,15,0,0" Text="{DynamicResource PositionFourAreaColon}" FontSize="22" Height="auto" FontWeight="Bold" />
@@ -119,7 +124,9 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" />
-    </DockPanel>
+                <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" Grid.Column="1" />
+                <view:ColorPanel x:Name="lbColor" Height="320" Width="220" SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}" Grid.Column="2" VerticalAlignment="Top"/>
+            </Grid>
+        </DockPanel>
     </Grid>
 </local:BaseLightWindow>

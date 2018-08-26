@@ -1,6 +1,9 @@
 ﻿using Maker;
+using Maker.View.Dialog;
 using Maker.View.LightScriptWindow;
 using Maker.View.LightWindow;
+using Maker.View.PageWindow;
+using Maker.View.Tool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFSpark;
 
 namespace Maker.View
 {
@@ -25,6 +29,17 @@ namespace Maker.View
     public partial class CatalogUserControl : UserControl
     {
         private NewMainWindow mw;
+        private ToggleSwitch toolSwitch;
+        //Light
+        private FrameWindow fw;
+        private TextBoxWindow tbw;
+        private PianoRollWindow prw;
+        //LightScript
+        private ScriptWindow sw;
+        //Page
+        private PageMainWindow pmw;
+        //Tool
+        public ToolWindow tw;
         public CatalogUserControl(NewMainWindow mw)
         {
             InitializeComponent();
@@ -49,13 +64,39 @@ namespace Maker.View
                 Width = mw.Width,
                 Height = mw.Height
             };
+            pmw = new PageMainWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            pmuc = new PlayerManagementUserControl(mw);
+            tw = new ToolWindow
+            {
+                Topmost = true
+            };
+            //添加控件
+            toolSwitch = new ToggleSwitch();
+            toolSwitch.Margin = new Thickness(30,0,0,0);
+            toolSwitch.Checked += ToolSwitch_Checked;
+            toolSwitch.Unchecked += ToolSwitch_Checked;
+            spToolTitle.Children.Add(toolSwitch);
         }
-     
+
+        private void ToolSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+            if (toolSwitch.IsChecked == true)
+            {
+                tw.Show();
+            }
+            else {
+                tw.Hide();
+            }
+        }
 
         private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
         {
             mw.auc.Visibility = Visibility.Visible;
-           DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
+            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
             mw.auc.BeginAnimation(OpacityProperty, daV);
         }
 
@@ -63,12 +104,7 @@ namespace Maker.View
         {
 
         }
-        //Light
-        private FrameWindow fw;
-        private TextBoxWindow tbw;
-        private PianoRollWindow prw;
-        //LightScript
-        private ScriptWindow sw;
+     
         private void ToTextBoxWindow(object sender, RoutedEventArgs e)
         {
             if (!tbw.IsActive)
@@ -85,7 +121,6 @@ namespace Maker.View
             }
             prw.Activate();
         }
-
         private void ToFrameWindow(object sender, RoutedEventArgs e)
         {
             if (!fw.IsActive)
@@ -94,7 +129,6 @@ namespace Maker.View
             }
             fw.Activate();
         }
-
         private void ToScriptWindow(object sender, RoutedEventArgs e)
         {
             if (!sw.IsActive)
@@ -103,18 +137,59 @@ namespace Maker.View
             }
             sw.Activate();
         }
-
-        private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void ToPageMainWindow(object sender, RoutedEventArgs e)
         {
-            if (mw.ActualWidth > 500) {
-                svMain.ScrollToVerticalOffset(svMain.VerticalOffset - e.Delta);
-            } else
+            if (!pmw.IsActive)
             {
-            
-            ScrollViewer view = sender as ScrollViewer;
-            view.ScrollToHorizontalOffset(view.HorizontalOffset - e.Delta);
+                pmw.Show();
+            }
+            pmw.Activate();
+        }
+        
+
+        //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
+        //{
+        //    if (mw.ActualWidth > maxWidth)
+        //    {
+        //        svMain.ScrollToVerticalOffset(svMain.VerticalOffset - e.Delta);
+        //    }
+        //    else
+        //    {
+        //        ScrollViewer view = sender as ScrollViewer;
+        //        view.ScrollToHorizontalOffset(view.HorizontalOffset - e.Delta);
+        //    }
+        //}
+        ///// <summary>
+        ///// 主内容最大宽度
+        ///// </summary>
+        //private double maxWidth;
+        //private void spMain_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    maxWidth = spMain.ActualWidth;
+        //}
+        private PlayerManagementUserControl pmuc;
+        private void ToLoadPlayerManagement(object sender, RoutedEventArgs e)
+        {
+            if (bTool.Visibility == Visibility.Visible)
+            {
+                bTool.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                spTool.Children.Clear();
+                spTool.Children.Add(pmuc);
+                bTool.Visibility = Visibility.Visible;
+                // 获取要定位之前 ScrollViewer 目前的滚动位置
+                var currentScrollPosition = svMain.VerticalOffset;
+                var point = new Point(0, currentScrollPosition);
+                // 计算出目标位置并滚动
+                var targetPosition = bTool.TransformToVisual(svMain).Transform(point);
+                svMain.ScrollToVerticalOffset(targetPosition.Y);
             }
         }
-
+        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
+        {
+            new MailDialog(mw, 0).ShowDialog();
+        }
     }
 }

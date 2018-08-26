@@ -61,10 +61,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <!--<Setter Property="Foreground" Value="#282828"/>-->
+                <Setter Property="Width" Value="100"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Height" Value="30"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}" >
+                            <Border BorderThickness="1" CornerRadius="5,5,5,5" Background="#f5f5f5" BorderBrush="#d7d7d9" Name="btnTabItem">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
     </UserControl.Resources>
-
-    <ScrollViewer Focusable="True" Name="svMain" >
-        <StackPanel Background="#ecebec" Margin="20,20,20,20" Orientation="Vertical" Grid.Column="0" Width="500" HorizontalAlignment="Left">
+    <ScrollViewer Focusable="True" Name="svMain">
+        <Grid Margin="20" >
+        <StackPanel Background="#ecebec" Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Name="spMain" >
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
                 <TextBlock Text="{DynamicResource Light}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -77,10 +94,9 @@
                     </Image.ToolTip>
                 </Image>
             </StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
-                <StackPanel Orientation="Horizontal">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow">
-                        <Button.Template>
+                <WrapPanel Orientation="Horizontal" Margin="0,20,20,0">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow" Margin="0,0,20,10"  Style="{x:Null}">
+                    <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
@@ -97,7 +113,7 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow" Margin="20,0,0,0">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow" Margin="0,0,20,10"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -124,8 +140,8 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPianoRollWindow" Margin="20,0,0,0">
-                        <Button.Template>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPianoRollWindow" Margin="0,0,20,10"  Style="{x:Null}">
+                    <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
@@ -142,15 +158,13 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                </StackPanel>
-            </ScrollViewer>
+            </WrapPanel>
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
                 <Image Source="../Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                 <TextBlock Text="{DynamicResource LightScript}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
-                <StackPanel Orientation="Horizontal">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToScriptWindow">
+            <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToScriptWindow"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -170,7 +184,7 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -189,24 +203,18 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-            </ScrollViewer>
             <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
                 <Image Source="../Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                 <TextBlock Text="{DynamicResource Play}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
+            <StackPanel   Margin="0,20,20,0" >
                 <StackPanel Orientation="Horizontal">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPageMainWindow"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
                         </Button.Template>
-                        <Button.ToolTip>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
-                            </StackPanel>
-                        </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
                                 <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -216,7 +224,7 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -235,24 +243,19 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-            </ScrollViewer>
-            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,50,0,0" Name="spToolTitle">
                 <Image Source="../Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                 <TextBlock Text="{DynamicResource Tool}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_MouseWheel" HorizontalScrollBarVisibility="Hidden" Focusable="True"  Margin="0,20,20,0" >
+            <StackPanel Margin="0,20,20,0" >
                 <StackPanel Orientation="Horizontal">
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxWindow">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToLoadPlayerManagement"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
                         </Button.Template>
-                        <Button.ToolTip>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
-                            </StackPanel>
-                        </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
                                 <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -262,7 +265,7 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0">
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -281,8 +284,16 @@
                         </Button.Content>
                     </Button>
                 </StackPanel>
-            </ScrollViewer>
-            <TextBlock Foreground="#a3a3a3" Text="返回标题界面" VerticalAlignment="Center" FontSize="25" Margin="0,30,30,30" MouseLeftButtonDown="ToAboutUserControl"/>
+            </StackPanel>
+            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Visibility="Hidden" Name="bTool">
+                <StackPanel Name="spTool" />
+            </Border>
         </StackPanel>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <TextBlock Foreground="#a3a3a3" Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
+                <TextBlock Foreground="#a3a3a3" Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right"/>
+            </StackPanel>
+         
+        </Grid>
     </ScrollViewer>
 </UserControl>

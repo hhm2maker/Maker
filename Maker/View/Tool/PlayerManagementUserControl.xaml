@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Maker.View.Tool.PlayerManagementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.Tool"
+             mc:Ignorable="d" 
+        Loaded="Window_Loaded"
+        >
+    <StackPanel Orientation="Horizontal" >
+        <StackPanel Margin="20" Orientation="Vertical">
+            <ListBox  FontSize="14"   Width="530" Name="lbMain" Height="350" BorderThickness="1,1,1,0" BorderBrush="#d7d7d9"/>
+            <DockPanel >
+                <Button  Click="NewOrUpdateDevice" Name="btnNewDevice" HorizontalAlignment="Left" Content="{DynamicResource New}" />
+                <Button  Click="NewOrUpdateDevice" Name="btnUpdateDevice"  HorizontalAlignment="Left" Content="{DynamicResource Edit}" />
+                <Button  Click="DeleteDevice" HorizontalAlignment="Left" Content="{DynamicResource Delete}" />
+                <Button  Click="RunDevice"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
+            </DockPanel>
+        </StackPanel>
+       
+    </StackPanel>
+</UserControl>

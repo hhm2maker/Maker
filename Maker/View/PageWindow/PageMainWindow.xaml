@@ -1,0 +1,104 @@
+﻿<local:BasePageWindow x:Class="Maker.View.PageWindow.PageMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.PageWindow"
+        xmlns:view="clr-namespace:Maker.View"
+        xmlns:launchpad="clr-namespace:Maker.View.Device"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        Title="{DynamicResource Page}" 
+>
+    <Window.Resources>
+        <!--自定义样式-->
+        <Style TargetType="Button">
+            <Setter Property="Button.Background" Value="#13283d"/>
+            <Setter Property="Button.BorderBrush" Value="#49bfe7"/>
+            <Setter Property="Button.Foreground" Value="#3AC6D4"/>
+            <Setter Property="Button.Width" Value="100"/>
+            <Setter Property="Button.FontSize" Value="18"/>
+        </Style>
+        <Style x:Key="BigButton">
+            <Setter Property="Button.Background" Value="#13283d"/>
+            <Setter Property="Button.BorderBrush" Value="#49bfe7"/>
+            <Setter Property="Button.Foreground" Value="#0CDAF6"/>
+            <Setter Property="Button.FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextBlock.Foreground" Value="#0DBDE7"/>
+            <Setter Property="TextBlock.Width" Value="100"/>
+            <Setter Property="TextBlock.FontSize" Value="18"/>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <RadialGradientBrush Center="0.5,0" GradientOrigin="0.5,0">
+            <GradientStop Color="#FF0B2D45" Offset="0"/>
+            <GradientStop Color="#FF051525" Offset="1"/>
+        </RadialGradientBrush>
+    </Window.Background>
+    <Grid Name="gMain">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <launchpad:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                    <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" Margin="0,0,0,20" Style="{StaticResource BigButton}"/>
+                    <Button  HorizontalAlignment="Right" Margin="30,0,0,0"  Content="{DynamicResource SetAsTheStartingPage}" Width="200" Style="{StaticResource BigButton}" Click="SetAsTheStartingPage"/>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer  Margin="10,0,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" >
+                <StackPanel Orientation="Vertical">
+                    <Border Margin="0,20,0,0" BorderThickness="1" BorderBrush="#282828">
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="#282828" BorderThickness="0,0,1,0">
+                                <StackPanel Margin="10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock  Text="{DynamicResource PositionColon}" />
+                                        <TextBlock Margin="30,0,0,0" Name="tbPosition" Text="-1" Foreground="#ffffff" Width="100" FontSize="18"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                                        <TextBlock  Text ="{DynamicResource CountColon}"  />
+                                        <TextBlock Name="tbCount" Text="{Binding Count}"  Margin="30,0,0,0"   Foreground="#ffffff" Width="100" FontSize="18" />
+                                        <Button Margin="30,0,0,0"  Content="{DynamicResource AddCount}"  Click="AddCount"/>
+                                        <Button Margin="30,0,0,0"  Content="{DynamicResource RemoveCount}" Click="RemoveCount"/>
+                                        <Button Margin="30,0,0,0"  Content="{DynamicResource LastCount}" Click="LastCount"/>
+                                        <Button Margin="30,0,0,0"  Content="{DynamicResource NextCount}" Click="NextCount"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" >
+                                        <TextBlock  Text ="{DynamicResource TypeColon}"  FontSize="18"/>
+                                        <Button Name="btnDownButton" Margin="160,0,0,0"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
+                                        <Button Name="btnLoopButton" Margin="30,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
+                                        <Button Name="btnUpButton" Margin="30,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <StackPanel Margin="20,10,10,10" >
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock  Text="{DynamicResource LightNameColon}" Width="150" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="30,0,0,0" Name="tbLightName"  Foreground="#ffffff" Width="150" FontSize="18" VerticalAlignment="Center"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplaceLight"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Edit}" Click="EditLight"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}" Click="MoveLight"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock  Text="{DynamicResource GotoColon}" Width="150" />
+                                    <TextBlock Margin="30,0,0,0" Name="tbGoto"  Foreground="#ffffff" Width="150" FontSize="18"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplacePage"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Goto}"  Click="GotoPage"/>
+                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}"  Click="MovePage"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock  Text="Bpm:" Width="150"/>
+                                    <TextBox Margin="30,0,0,0" Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+    </Grid>
+</local:BasePageWindow>

@@ -460,5 +460,7 @@
     <sys:String x:Key="TextBox">Text box</sys:String>
     <sys:String x:Key="Code">Code</sys:String>
     <sys:String x:Key="Page">Page</sys:String>
+    <sys:String x:Key="Period">.</sys:String>
 
+    
 </ResourceDictionary>

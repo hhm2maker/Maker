@@ -140,15 +140,7 @@ namespace Maker.View.Setting
             {
                 cbAutoUpdate.IsChecked = false;
             }
-            //语言
-            if (mw.strMyLanguage.Equals("zh-CN"))
-            {
-               cbLanguage.SelectedIndex = 0;
-            }
-            else if (mw.strMyLanguage.Equals("en-US"))
-            {
-                cbLanguage.SelectedIndex = 1;
-            }
+          
             //播放器
             cbPlayerType.SelectedIndex = (int)mw.pleyerType;
             //灯光语句
@@ -600,46 +592,6 @@ namespace Maker.View.Setting
             XmlNode versionAutoUpdate = versionRoot.SelectSingleNode("AutoUpdate");
             versionAutoUpdate.InnerText = "false";
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/version.xml");
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (mw.strMyLanguage.Equals("zh-CN") && cbLanguage.SelectedIndex==0)
-            {
-                return;
-            }
-            else if (mw.strMyLanguage.Equals("en-US") && cbLanguage.SelectedIndex == 1)
-            {
-                return;
-            }
-            if (cbLanguage.SelectedIndex == 0)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "zh-CN";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                mw.strMyLanguage = "zh-CN";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
-            else if (cbLanguage.SelectedIndex == 1)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "en-US";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                mw.strMyLanguage = "en-US";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"Resources\StringResource.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
         }
 
         private void btnEditColortabPath_Click(object sender, RoutedEventArgs e)

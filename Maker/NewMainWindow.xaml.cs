@@ -1,4 +1,5 @@
-﻿using Maker.Business;
+﻿using Maker.Bridge;
+using Maker.Business;
 using Maker.Model;
 using Maker.View;
 using System;
@@ -16,6 +17,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
+using static Maker.Model.EnumCollection;
 
 namespace Maker
 {
@@ -24,14 +26,27 @@ namespace Maker
     /// </summary>
     public partial class NewMainWindow : Window
     {
-        public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Light\";
-        public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"LightScript\";
+        /// <summary>
+        /// 当前语言
+        /// </summary>
+        public String strMyLanguage = String.Empty;
+        /// <summary>
+        /// 播放器类型
+        /// </summary>
+        public PlayerType playerType;
+        /// <summary>
+        /// 设备列表
+        /// </summary>
+        public Dictionary<string, PlayerWindow> playerDictionary = new Dictionary<string, PlayerWindow>();
+
+        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +"Test";
+        public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Light\";
+        public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightScript\";
         private bool isFirst = true;
+        private NewMainWindowBridge bridge;
         public NewMainWindow()
         {
             InitializeComponent();
-
-            InitConfig();
 
             FileBusiness fileBusiness = new FileBusiness();
             String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
@@ -50,9 +65,16 @@ namespace Maker
             auc = new AboutUserControl(this);
             gMain.Children.Add(cuc);
             gMain.Children.Add(auc);
+
+            bridge = new NewMainWindowBridge(this);
+            bridge.LoadLanguage();
+
+            InitConfig();
             if (!isFirst) {
                 ToCatalogUserControl();
             }
+
+           
         }
         /// <summary>
         /// 初始化设置
@@ -77,7 +99,25 @@ namespace Maker
                 doc.Save("Config/isfirst.xml");
             }
         }
-
+        private void InitPlayerType() {
+            //播放器
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/player.xml");
+            XmlNode playerRoot = doc.DocumentElement;
+            XmlNode playType = playerRoot.SelectSingleNode("Type");
+            if (playType.InnerText.Equals("ParagraphLightList"))
+            {
+                playerType = PlayerType.ParagraphLightList;
+            }
+            else if (playType.InnerText.Equals("ParagraphIntList"))
+            {
+                playerType = PlayerType.ParagraphIntList;
+            }
+            else if (playType.InnerText.Equals("Accurate"))
+            {
+                playerType = PlayerType.Accurate;
+            }
+        }
         /// <summary>
         /// 关于页面
         /// </summary>
@@ -99,5 +139,7 @@ namespace Maker
         {
             auc.Visibility = Visibility.Collapsed;
         }
+     
+
     }
 }

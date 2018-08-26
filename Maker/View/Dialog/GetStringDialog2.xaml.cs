@@ -17,18 +17,23 @@ namespace Maker.View.Dialog
         private String hint;
         private List<String> notContains = new List<string>();
         public String fileName = String.Empty;
+        public String fileType = String.Empty;
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="mw"></param>
+        /// <param name="window"></param>
         /// <param name="hint"></param>
-        public GetStringDialog2(Window window, String hint,List<String> notContains)
+        /// <param name="notContains"></param>
+        /// <param name="fileType"></param>
+        public GetStringDialog2(Window window, String hint,List<String> notContains,String fileType)
         {
             InitializeComponent();
+            Owner = window;
             this.window = window;
             this.hint = hint;
-            Owner = window;
             this.notContains = notContains;
+            this.fileType = fileType;
+
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,9 +48,9 @@ namespace Maker.View.Dialog
                 return;
             }
              fileName = tbNumber.Text;
-            if (!fileName.EndsWith(".light"))
+            if (!fileName.EndsWith(fileType))
             {
-                fileName += ".light";
+                fileName += fileType;
             }
             if (notContains.Contains(fileName))
             {
@@ -63,8 +68,8 @@ namespace Maker.View.Dialog
         private void tbNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             fileName = tbNumber.Text;
-            if (!fileName.EndsWith(".light")) {
-                fileName += ".light";
+            if (!fileName.EndsWith(fileType)) {
+                fileName += fileType;
             }
             if (notContains.Contains(fileName))
             {

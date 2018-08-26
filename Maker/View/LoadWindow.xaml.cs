@@ -329,24 +329,7 @@ namespace Maker.View
                     mw.bIsRangeListNumber = false;
                 }
             }
-            //播放器
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/player.xml");
-                XmlNode playerRoot = doc.DocumentElement;
-                XmlNode playType = playerRoot.SelectSingleNode("Type");
-                if (playType.InnerText.Equals("ParagraphLightList")) {
-                    mw.pleyerType = PlayerType.ParagraphLightList;
-                }
-                else if (playType.InnerText.Equals("ParagraphIntList"))
-                {
-                    mw.pleyerType = PlayerType.ParagraphIntList;
-                }
-                else if (playType.InnerText.Equals("Accurate"))
-                {
-                    mw.pleyerType = PlayerType.Accurate;
-                }
-            }
+          
             //灯光语句页面
             {
                 XmlDocument doc = new XmlDocument();

@@ -31,73 +31,7 @@ namespace Maker.Bridge
         public MainWindowBridge(MainWindow mw) {
             this.window = mw;
         }
-        /// <summary>
-        /// 获取语言
-        /// </summary>
-        public void GetLanguage() {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/language.xml");
-            XmlNode languageRoot = doc.DocumentElement;
-            XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-            window.strMyLanguage = languageMyLanguage.InnerText;
-        }
-        /// <summary>
-        /// 加载语言
-        /// </summary>
-        public void LoadLanguage()
-        {
-            GetLanguage();
-            if (window.strMyLanguage.Equals("zh-CN"))
-            {
-                ResourceDictionary dict = new ResourceDictionary
-                {
-                    Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative)
-                };
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-                //System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(System.Windows.Application.Current.Resources.MergedDictionaries.Count - 1);
-            }
-            else if (window.strMyLanguage.Equals("en-US")) { }
-            else
-            {
-                String mLanguage = System.Globalization.CultureInfo.InstalledUICulture.Name;
-                if (mLanguage.Equals("zh-CN"))
-                {
-                    ResourceDictionary dict = new ResourceDictionary
-                    {
-                        Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative)
-                    };
-                    System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-                }
-                LanguageDialog dialog = new LanguageDialog();
-                dialog.ShowDialog();
-
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                if (dialog.cbValue.SelectedIndex == 0)
-                {
-                    languageMyLanguage.InnerText = "zh-CN";
-                    window.strMyLanguage = "zh-CN";
-                    ResourceDictionary dict = new ResourceDictionary
-                    {
-                        Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative)
-                    };
-                    System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-                }
-                else if (dialog.cbValue.SelectedIndex == 1)
-                {
-                    languageMyLanguage.InnerText = "en-US";
-                    window.strMyLanguage = "en-US";
-                    ResourceDictionary dict = new ResourceDictionary
-                    {
-                        Source = new Uri(@"Resources\StringResource.xaml", UriKind.Relative)
-                    };
-                    System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-                }
-                doc.Save("Config/language.xml");
-            }
-        }
+        
         ///// <summary>
         ///// 导入Midi文件
         ///// </summary>

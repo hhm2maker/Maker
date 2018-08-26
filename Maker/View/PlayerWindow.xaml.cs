@@ -22,9 +22,9 @@ namespace Maker.View
     /// </summary>
     public partial class PlayerWindow : Window,IPlay
     {
-        private MainWindow mw;
+        private NewMainWindow mw;
         public PlayerLaunchpadPro playLpd;
-        public PlayerWindow(MainWindow mw)
+        public PlayerWindow(NewMainWindow mw)
         {
             InitializeComponent();
             Owner = mw;
@@ -34,14 +34,14 @@ namespace Maker.View
 
         private void InitPlayLaunchpad()
         {
-            if (mw.pleyerType == EnumCollection.PlayerType.ParagraphIntList) {
+            if (mw.playerType == EnumCollection.PlayerType.ParagraphIntList) {
                 playLpd = new ParagraphIntListPlayerLaunchpadPro(this);
             }
-            else if (mw.pleyerType == EnumCollection.PlayerType.ParagraphLightList)
+            else if (mw.playerType == EnumCollection.PlayerType.ParagraphLightList)
             {
                 playLpd = new ParagraphLightListPlayerLaunchpadPro(this);
             }
-            else if (mw.pleyerType == EnumCollection.PlayerType.Accurate)
+            else if (mw.playerType == EnumCollection.PlayerType.Accurate)
             {
                 playLpd = new AccuratePlayerLaunchpadPro(this);
             }
@@ -115,12 +115,12 @@ namespace Maker.View
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (mw.deviceDictionary.ContainsKey(DeviceName)) {
-                mw.deviceDictionary.Remove(DeviceName);
+            if (mw.playerDictionary.ContainsKey(DeviceName)) {
+                mw.playerDictionary.Remove(DeviceName);
             }
-            if (mw.cbDevice.Items.Contains(DeviceName))
+            if (mw.cuc.tw.cbDevice.Items.Contains(DeviceName))
             {
-                mw.cbDevice.Items.Remove(DeviceName);
+                mw.cuc.tw.cbDevice.Items.Remove(DeviceName);
             }
         }
 

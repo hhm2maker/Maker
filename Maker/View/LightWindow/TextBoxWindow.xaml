@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Maker.View.LightWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="{DynamicResource Frame}" >
+        Title="{DynamicResource TextBox}" >
     <Window.Resources>
         <Style TargetType="Button">
             <Style.Setters>

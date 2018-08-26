@@ -49,8 +49,6 @@ namespace Maker.View.Control
             bridge = new MainWindowBridge(this);
             //加载静态常量
             InitStaticConstant();
-            //设置语言
-            bridge.LoadLanguage();
             //设置全屏
             bridge.SetPercentageOfScreen(1);
             //初始化主窗口
@@ -1234,12 +1232,6 @@ namespace Maker.View.Control
             //}
         }
 
-       
-
-        private void ToAppreciateWindow(object sender, RoutedEventArgs e)
-        {
-            new AppreciateWindow().Show();
-        }
 
         private void ToTestWindow(object sender, RoutedEventArgs e)
         {
@@ -1252,10 +1244,7 @@ namespace Maker.View.Control
                 new Test3DWindow().Show();
             }
         }
-        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
-        }
+      
         private void VisitTheOfficialWebsite(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.launchpadlight.com/");
@@ -1323,10 +1312,7 @@ namespace Maker.View.Control
                 mainPanelBorder.Margin = new Thickness(0);
             }
         }
-        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
-        {
-            new DeveloperListDialog(this).ShowDialog();
-        }
+    
         private void BtnUserName_Click(object sender, RoutedEventArgs e)
         {
             if (mUser == null)
@@ -1371,36 +1357,6 @@ namespace Maker.View.Control
 
         }
        
-        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
-        {
-            new MailDialog(this,0).ShowDialog();
-
-            //try
-            //{
-            //    //检测版本
-            //    string paraUrlCoded = System.Web.HttpUtility.UrlEncode("NowVersion");
-            //    paraUrlCoded += "=" + System.Web.HttpUtility.UrlEncode(strNowVersion);
-            //    string result = NoFileRequestUtils.NoFilePostRequest("http://www.launchpadlight.com/maker/CheckVersion", paraUrlCoded);
-            //    if (result.Equals("fail"))
-            //    {
-            //        new MessageDialog(this,"YouAreNotTheLatestVersion").ShowDialog();
-            //        return;
-            //    }
-            //}
-            //catch
-            //{
-            //    new MessageDialog(this, "CheckTheVersionFailed").ShowDialog();
-            //    return;
-            //}
-
-            //if (mUser != null)
-            //{
-            //    new FeedbackDialog(this).ShowDialog();
-            //}
-            //else {
-            //    new MessageDialog(this, "NotLoggedIn").ShowDialog();
-            //}
-        }
         private void ContextMenu_Opened(object sender, RoutedEventArgs e)
         {
             if (!isSelect)

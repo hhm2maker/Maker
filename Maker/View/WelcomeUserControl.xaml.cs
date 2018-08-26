@@ -135,58 +135,58 @@ namespace Maker.View
                 }
                 else
                 {
-                    PlayerWindow pw = new PlayerWindow(mw);
-                    ConfigBusiness config = new ConfigBusiness(@"Device\" + deviceFilePath + ".ini");
-                    if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
-                    {
-                        String strBg = config.Get("DeviceBackGround");
-                        if (strBg.Equals(String.Empty))
-                        {
-                            System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-                            return;
-                        }
-                        if (strBg[0] == '#' || strBg.Length == 7)
-                        {
-                            pw.playLpd.SetLaunchpadBackground(new SolidColorBrush((Color)ColorConverter.ConvertFromString(strBg)));
-                        }
-                        else
-                        {
-                            if (!File.Exists(strBg))
-                            {
-                                System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-                                return;
-                            }
-                            else
-                            {
-                                ImageBrush b = new ImageBrush();
-                                b.ImageSource = new BitmapImage(new Uri(strBg, UriKind.Absolute));
-                                b.Stretch = Stretch.Fill;
-                                pw.playLpd.SetLaunchpadBackground(b);
+            //        PlayerWindow pw = new PlayerWindow(mw);
+            //        ConfigBusiness config = new ConfigBusiness(@"Device\" + deviceFilePath + ".ini");
+            //        if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
+            //        {
+            //            String strBg = config.Get("DeviceBackGround");
+            //            if (strBg.Equals(String.Empty))
+            //            {
+            //                System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
+            //                return;
+            //            }
+            //            if (strBg[0] == '#' || strBg.Length == 7)
+            //            {
+            //                pw.playLpd.SetLaunchpadBackground(new SolidColorBrush((Color)ColorConverter.ConvertFromString(strBg)));
+            //            }
+            //            else
+            //            {
+            //                if (!File.Exists(strBg))
+            //                {
+            //                    System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
+            //                    return;
+            //                }
+            //                else
+            //                {
+            //                    ImageBrush b = new ImageBrush();
+            //                    b.ImageSource = new BitmapImage(new Uri(strBg, UriKind.Absolute));
+            //                    b.Stretch = Stretch.Fill;
+            //                    pw.playLpd.SetLaunchpadBackground(b);
 
-                            }
-                        }
-                        Double iDeviceSize = Convert.ToDouble(config.Get("DeviceSize"));
-                        pw.playLpd.SetSize(iDeviceSize);
-                        pw.SetSize(iDeviceSize, iDeviceSize + 31);
-                        pw.DeviceName = deviceFilePath;
-                        try
-                        {
-                            if (config.Get("IsMembrane").Equals("true"))
-                            {
-                                pw.playLpd.ToMembraneLaunchpad();
-                            }
-                        }
-                        catch
-                        {
-                        }
-                        pw.Show();
-                        mw.deviceDictionary.Add(deviceFilePath, pw);
-                        mw.cbDevice.Items.Add(deviceFilePath);
-                        if (mw.cbDevice.SelectedIndex == -1)
-                        {
-                            mw.cbDevice.SelectedIndex = 0;
-                        }
-                    }
+            //                }
+            //            }
+            //            Double iDeviceSize = Convert.ToDouble(config.Get("DeviceSize"));
+            //            pw.playLpd.SetSize(iDeviceSize);
+            //            pw.SetSize(iDeviceSize, iDeviceSize + 31);
+            //            pw.DeviceName = deviceFilePath;
+            //            try
+            //            {
+            //                if (config.Get("IsMembrane").Equals("true"))
+            //                {
+            //                    pw.playLpd.ToMembraneLaunchpad();
+            //                }
+            //            }
+            //            catch
+            //            {
+            //            }
+            //            pw.Show();
+            //            mw.deviceDictionary.Add(deviceFilePath, pw);
+            //            mw.cbDevice.Items.Add(deviceFilePath);
+            //            if (mw.cbDevice.SelectedIndex == -1)
+            //            {
+            //                mw.cbDevice.SelectedIndex = 0;
+            //            }
+            //        }
                 }
             }
         }

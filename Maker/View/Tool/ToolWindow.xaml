@@ -1,0 +1,24 @@
+﻿<Window x:Class="Maker.View.Tool.ToolWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Tool"
+        mc:Ignorable="d"
+        Title="ToolWindow" Height="50" Width="300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
+        Name="wMain"
+        >
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="../../Image/toplay.png"  RenderOptions.BitmapScalingMode="Fant" Width="50" MouseRightButtonDown="Image_MouseRightButtonDown"/>
+        </StackPanel>
+        <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Name="bTool">
+            <ComboBox Name = "cbDevice" Width="150"  Margin="20"/>
+        </Border>
+    </StackPanel>
+   
+</Window>

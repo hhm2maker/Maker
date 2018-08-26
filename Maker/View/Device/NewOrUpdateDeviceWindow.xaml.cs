@@ -23,7 +23,7 @@ namespace Maker.View.Device
     public partial class NewOrUpdateDeviceWindow : Window
     {
         private int type = 0;
-        public NewOrUpdateDeviceWindow(MainWindow mw, int type)
+        public NewOrUpdateDeviceWindow(NewMainWindow mw, int type)
         {
             InitializeComponent();
             this.type = type;

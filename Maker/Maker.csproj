@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Maker</RootNamespace>
     <AssemblyName>Maker</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -68,6 +68,9 @@
     <Reference Include="Microsoft.Expression.Drawing">
       <HintPath>Dll\Microsoft.Expression.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFSpark.1.4.0\lib\net46\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="Operation">
@@ -82,6 +85,9 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFSpark.1.4.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml.Linq" />
@@ -96,12 +102,16 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFSpark, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFSpark.1.4.0\lib\net46\WPFSpark.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Business\FilesNameComparerClass.cs" />
     <Compile Include="ChildBusiness\MainWindow\Generate\MainWindow.cs" />
     <Compile Include="Commands\DataCommands.cs" />
@@ -131,6 +141,7 @@
     <Compile Include="View\AboutUserControl.xaml.cs">
       <DependentUpon>AboutUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\BaseWindow.cs" />
     <Compile Include="View\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
@@ -312,7 +323,7 @@
       <DependentUpon>FrameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LightWindow\BaseLightWindow.cs" />
-    <Compile Include="View\LightWindow\ILightWindow.cs" />
+    <Compile Include="View\Base\IWindow.cs" />
     <Compile Include="View\LightWindow\PianoRollWindow.xaml.cs">
       <DependentUpon>PianoRollWindow.xaml</DependentUpon>
     </Compile>
@@ -321,6 +332,10 @@
     </Compile>
     <Compile Include="View\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PageWindow\BasePageWindow.cs" />
+    <Compile Include="View\PageWindow\PageMainWindow.xaml.cs">
+      <DependentUpon>PageMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PavedLaunchpadWindow.xaml.cs">
       <DependentUpon>PavedLaunchpadWindow.xaml</DependentUpon>
@@ -353,6 +368,12 @@
     </Compile>
     <Compile Include="View\Test\Test3DWindow.xaml.cs">
       <DependentUpon>Test3DWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\PlayerManagementUserControl.xaml.cs">
+      <DependentUpon>PlayerManagementUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\ToolWindow.xaml.cs">
+      <DependentUpon>ToolWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\User\Login\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
@@ -718,6 +739,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PageWindow\PageMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\PavedLaunchpadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -777,6 +802,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Test\Test3DWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\PlayerManagementUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\ToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -880,6 +913,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1281,6 +1315,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\page.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\toplay.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
