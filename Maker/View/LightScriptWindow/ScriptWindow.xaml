@@ -1,9 +1,10 @@
-﻿<Window x:Class="Maker.View.LightScriptWindow.ScriptWindow"
+﻿<local:BaseLightScriptWindow
+    xmlns:local="clr-namespace:Maker.View.LightScriptWindow"
+    x:Class="Maker.View.LightScriptWindow.ScriptWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Maker.View.LightScriptWindow"
         mc:Ignorable="d"
         Title="ScriptWindow" 
     xmlns:launchpad="clr-namespace:Maker.View.Device"
@@ -14,6 +15,7 @@
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
+    WindowStartupLocation="CenterOwner"
             >
     <Window.Resources>
             <ResourceDictionary>
@@ -23,6 +25,7 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Window.Resources>
+    <Grid Name="gMain_" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -458,5 +461,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-</Window>
+    </Grid>
+</local:BaseLightScriptWindow>

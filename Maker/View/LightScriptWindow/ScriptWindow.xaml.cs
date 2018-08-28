@@ -27,7 +27,7 @@ namespace Maker.View.LightScriptWindow
     /// <summary>
     /// ScriptWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ScriptWindow : Window
+    public partial class ScriptWindow : BaseLightScriptWindow
     {
         public NewMainWindow nmw;
         public MainWindow mw;
@@ -39,6 +39,9 @@ namespace Maker.View.LightScriptWindow
             InitializeComponent();
             this.nmw = nmw;
 
+            mainView = gMain_;
+            HideControl();
+            
             //绑定命令
             CommandBinding binding = new CommandBinding(DataCommands.Editcommand);
             binding.Executed += Binding_Executed;
@@ -201,7 +204,6 @@ namespace Maker.View.LightScriptWindow
         {
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)));
             LoadRangeFile();
-            Width = ((DockPanel)Parent).ActualWidth;
 
             foreach (var item in lbColor.Items)
             {

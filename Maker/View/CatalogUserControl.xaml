@@ -230,9 +230,6 @@
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </ControlTemplate>
                         </Button.Template>
-                        <Button.ToolTip>
-                            <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                        </Button.ToolTip>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
                                 <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
