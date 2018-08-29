@@ -191,5 +191,10 @@ namespace Maker.View
         {
             new MailDialog(mw, 0).ShowDialog();
         }
+
+        private void ToHelpOverview(object sender, MouseButtonEventArgs e)
+        {
+            new HelpOverviewWindow(this).Show();
+        }
     }
 }

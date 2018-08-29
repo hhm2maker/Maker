@@ -1723,10 +1723,6 @@ namespace Maker.View.Control
             }
         }
 
-        private void ToHelpOverview(object sender, RoutedEventArgs e)
-        {
-            new HelpOverviewWindow(this).Show();
-        }
 
         private void GMain_SizeChanged(object sender, SizeChangedEventArgs e)
         {

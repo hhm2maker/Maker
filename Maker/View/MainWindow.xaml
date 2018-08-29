@@ -81,7 +81,6 @@
                     <CheckBox Content="{DynamicResource FileManager}" FontSize="14" Foreground="#000000" Name="cbViewFileManager" Checked="ViewFileManager_Checked" Unchecked="ViewFileManager_Unchecked" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Help}" FontSize="14"  >
-                    <MenuItem Header="{DynamicResource HelpOverview}" FontSize="14" Click="ToHelpOverview" Foreground="#000000"/>
                     <MenuItem Header="{DynamicResource Attachments}" FontSize="14" Foreground="#000000">
                         <MenuItem Header="{DynamicResource ColorTab}" FontSize="14" Foreground="#000000">
                             <MenuItem Header="{DynamicResource Default}" FontSize="14" Foreground="#000000" Click="DefaultOpenColorTab"/>

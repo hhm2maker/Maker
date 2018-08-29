@@ -289,6 +289,7 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
                 <TextBlock Foreground="#a3a3a3" Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
                 <TextBlock Foreground="#a3a3a3" Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right"/>
+                <TextBlock Foreground="#a3a3a3" Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right"/>
             </StackPanel>
          
         </Grid>

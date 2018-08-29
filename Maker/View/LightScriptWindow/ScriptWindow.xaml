@@ -15,7 +15,7 @@
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
             >
     <Window.Resources>
             <ResourceDictionary>
