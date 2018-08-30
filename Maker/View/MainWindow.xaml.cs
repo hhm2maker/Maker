@@ -589,7 +589,8 @@ namespace Maker.View.Control
                 {
                     LightScriptBusiness scriptBusiness = new LightScriptBusiness();
                     String command = scriptBusiness.LoadLightScript(lightScriptFilePath);
-                    Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(iuc, command);
+                    //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(iuc, command);
+                    Dictionary<String, String> dictionary = null;
                     if (dictionary == null)
                     {
                         return;

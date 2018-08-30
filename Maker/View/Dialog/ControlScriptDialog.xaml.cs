@@ -26,7 +26,7 @@ namespace Maker.View.Dialog
         {
             InitializeComponent();
             this.iuc = iuc;
-            Owner = iuc.mw;
+            Owner = iuc.mw_;
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -80,7 +80,7 @@ namespace Maker.View.Dialog
             int selectIndex = lbMain.SelectedIndex;
             if (lbMain.SelectedItem.ToString().Contains("Create.CreateLightGroup"))
             {
-                Create_CreateLightGroupDialog dialog = new Create_CreateLightGroupDialog(iuc.mw, lbMain.SelectedItem.ToString());
+                Create_CreateLightGroupDialog dialog = new Create_CreateLightGroupDialog(iuc.mw_, lbMain.SelectedItem.ToString());
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -88,37 +88,37 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.HorizontalFlipping("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "HorizontalFlipping");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "HorizontalFlipping");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.VerticalFlipping("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "VerticalFlipping");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "VerticalFlipping");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.Clockwise("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "Clockwise");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "Clockwise");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.AntiClockwise("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "AntiClockwise");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "AntiClockwise");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.Reversal("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "Reversal");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "Reversal");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.RemoveBorder("))
             {
-                MessageDialog dialog = new MessageDialog(iuc.mw, "RemoveTheBorder");
+                MessageDialog dialog = new MessageDialog(iuc.mw_, "RemoveTheBorder");
                 dialog.ShowDialog();
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.ChangeTime("))
             {
-                Edit_ChangeTime dialog = new Edit_ChangeTime(iuc.mw, lbMain.SelectedItem.ToString());
+                Edit_ChangeTime dialog = new Edit_ChangeTime(iuc.mw_, lbMain.SelectedItem.ToString());
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -126,7 +126,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("new RangeGroup("))
             {
-                Main_NewColorGroupDialog dialog = new Main_NewColorGroupDialog(iuc.mw, lbMain.SelectedItem.ToString(), 0);
+                Main_NewColorGroupDialog dialog = new Main_NewColorGroupDialog(iuc.mw_, lbMain.SelectedItem.ToString(), 0);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -134,7 +134,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("new ColorGroup("))
             {
-                Main_NewColorGroupDialog dialog = new Main_NewColorGroupDialog(iuc.mw, lbMain.SelectedItem.ToString(),1);
+                Main_NewColorGroupDialog dialog = new Main_NewColorGroupDialog(iuc.mw_, lbMain.SelectedItem.ToString(),1);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -142,7 +142,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.CopyToTheEnd("))
             {
-                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw, lbMain.SelectedItem.ToString(), 0);
+                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw_, lbMain.SelectedItem.ToString(), 0);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -150,7 +150,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.CopyToTheFollow("))
             {
-                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw, lbMain.SelectedItem.ToString(), 1);
+                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw_, lbMain.SelectedItem.ToString(), 1);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -158,7 +158,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.AccelerationOrDeceleration("))
             {
-                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw, lbMain.SelectedItem.ToString(), 2);
+                Edit_OverlapDialog dialog = new Edit_OverlapDialog(iuc.mw_, lbMain.SelectedItem.ToString(), 2);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -166,7 +166,7 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains(".SetAttribute("))
             {
-                LightGroup_SetAttributeDialog dialog = new LightGroup_SetAttributeDialog(iuc.mw, lbMain.SelectedItem.ToString());
+                LightGroup_SetAttributeDialog dialog = new LightGroup_SetAttributeDialog(iuc.mw_, lbMain.SelectedItem.ToString());
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -175,7 +175,7 @@ namespace Maker.View.Dialog
             else if (lbMain.SelectedItem.ToString().Contains("Edit.SetEndTime("))
             {
                 String str = lbMain.SelectedItem.ToString();
-                Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(iuc.mw, ref str);
+                Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(iuc.mw_, ref str);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -184,7 +184,7 @@ namespace Maker.View.Dialog
             else if (lbMain.SelectedItem.ToString().Contains("Edit.Animation("))
             {
                 String str = lbMain.SelectedItem.ToString();
-                Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(iuc.mw, ref str);
+                Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(iuc.mw_, ref str);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;
@@ -193,7 +193,7 @@ namespace Maker.View.Dialog
             else if (lbMain.SelectedItem.ToString().Contains("Edit.Fold("))
             {
                 String str = lbMain.SelectedItem.ToString();
-                Edit_FoldDialog dialog = new Edit_FoldDialog(iuc.mw, ref str);
+                Edit_FoldDialog dialog = new Edit_FoldDialog(iuc.mw_, ref str);
                 if (dialog.ShowDialog() == true)
                 {
                     lbMain.Items[selectIndex] = dialog.result;

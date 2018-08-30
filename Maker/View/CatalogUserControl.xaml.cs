@@ -1,5 +1,6 @@
 ﻿using Maker;
 using Maker.View.Dialog;
+using Maker.View.Help;
 using Maker.View.LightScriptWindow;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
@@ -194,7 +195,7 @@ namespace Maker.View
 
         private void ToHelpOverview(object sender, MouseButtonEventArgs e)
         {
-            new HelpOverviewWindow(this).Show();
+            new HelpOverviewWindow(mw).Show();
         }
     }
 }

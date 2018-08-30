@@ -18,7 +18,7 @@ namespace Maker.View.Dialog
         {
             InitializeComponent();
             this.iuc = iuc;
-            Owner = iuc.mw;
+            Owner = iuc.mw_;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -35,7 +35,7 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Left = 0;
-            if (iuc.mw.bIsRangeListNumber) {
+            if (iuc.mw_.bIsRangeListNumber) {
                 cbShowNumber.IsChecked = true;
             }
             else
@@ -86,14 +86,14 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(builder.ToString());
                 }
 
-                if (iuc.mw.bIsRangeListNumber)
+                if (iuc.mw_.bIsRangeListNumber)
                     return;
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Config/hide.xml");
                 XmlNode hideRoot = doc.DocumentElement;
                 XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
                 hideRangeListNumber.InnerText = "true";
-                iuc.mw.bIsRangeListNumber = true;
+                iuc.mw_.bIsRangeListNumber = true;
                 doc.Save("Config/hide.xml");
             }
         }
@@ -107,14 +107,14 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(item.Key);
                 }
 
-                if (!iuc.mw.bIsRangeListNumber)
+                if (!iuc.mw_.bIsRangeListNumber)
                     return;
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Config/hide.xml");
                 XmlNode hideRoot = doc.DocumentElement;
                 XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
                 hideRangeListNumber.InnerText = "false";
-                iuc.mw.bIsRangeListNumber = false;
+                iuc.mw_.bIsRangeListNumber = false;
                 doc.Save("Config/hide.xml");
             }
         }

@@ -73,8 +73,9 @@ namespace Maker
             if (!isFirst) {
                 ToCatalogUserControl();
             }
+            cuc.tbProjectPath.Text = lastProjectPath;
 
-           
+
         }
         /// <summary>
         /// 初始化设置

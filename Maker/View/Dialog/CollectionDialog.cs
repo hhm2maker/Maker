@@ -26,7 +26,7 @@ namespace Maker.View.Dialog
         public ComboBox cbLightName, cbType;
         public CollectionDialog(ScriptWindow iuc)
         {
-            Owner = iuc.mw;
+            Owner = iuc.mw_;
             this.iuc = iuc;
             ToCreateDialog();
         }
@@ -50,7 +50,7 @@ namespace Maker.View.Dialog
         private CollectionType type = CollectionType.Intersection;
         public CollectionDialog(ScriptWindow iuc, String stepName, CollectionType type)
         {
-            Owner = iuc.mw;
+            Owner = iuc.mw_;
             this.iuc = iuc;
             this.stepName = stepName;
             this.type = type;

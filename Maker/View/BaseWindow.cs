@@ -72,7 +72,8 @@ namespace Maker.View
                 SaveFile();
             Hide();      // Programmatically hides the window
         }
-        protected String _fileType {
+        protected String _fileType
+        {
             get;
             set;
         }
@@ -84,20 +85,35 @@ namespace Maker.View
         /// <param name="e"></param>
         protected void NewFile(object sender, RoutedEventArgs e)
         {
-            GetStringDialog2 dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }),_fileType);
-            if (dialog.ShowDialog() == true)
+            GetStringDialog2 dialog = null;
+            if (_fileType.Equals(".light"))
             {
-                filePath = mw.LightFilePath + dialog.fileName;
-                if (File.Exists(filePath))
+                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }), _fileType);
+            }
+            else if (_fileType.Equals(".lightScript"))
+            {
+                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightScriptFilePath, new List<string>() { _fileType }), _fileType);
+            }
+            else if (_fileType.Equals(".lightPage"))
+            {
+                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }), _fileType);
+            }
+            if (dialog != null)
+            {
+                if (dialog.ShowDialog() == true)
                 {
-                    new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
-                    return;
+                    filePath = mw.LightFilePath + dialog.fileName;
+                    if (File.Exists(filePath))
+                    {
+                        new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
+                        return;
+                    }
+                    else
+                    {
+                        File.Create(filePath).Close();
+                    }
+                    LoadFile();
                 }
-                else
-                {
-                    File.Create(filePath).Close();
-                }
-                LoadFile();
             }
         }
         /// <summary>
@@ -109,7 +125,7 @@ namespace Maker.View
         {
             System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             //openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-            openFileDialog1.Filter = _fileType.Substring(1) + "文件(*"+_fileType+")|*"+ _fileType + "|All files(*.*)|*.*";
+            openFileDialog1.Filter = _fileType.Substring(1) + "文件(*" + _fileType + ")|*" + _fileType + "|All files(*.*)|*.*";
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -139,7 +155,7 @@ namespace Maker.View
             SaveFile();
         }
         protected void SaveAsFile(object sender, RoutedEventArgs e)
-        {}
+        { }
 
         public virtual void SetData(List<Light> lightList) { }
 

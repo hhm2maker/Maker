@@ -316,7 +316,7 @@
     <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightScriptWindow\BaseLightWindow.cs" />
+    <Compile Include="View\LightScriptWindow\BaseLightScriptWindow.cs" />
     <Compile Include="View\LightScriptWindow\ScriptWindow.xaml.cs">
       <DependentUpon>ScriptWindow.xaml</DependentUpon>
     </Compile>

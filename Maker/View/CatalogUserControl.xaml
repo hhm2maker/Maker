@@ -78,6 +78,11 @@
                 </Setter>
             </Style.Setters>
         </Style>
+        <Style TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="#a3a3a3"/>
+            </Style.Setters>
+        </Style>
     </UserControl.Resources>
     <ScrollViewer Focusable="True" Name="svMain">
         <Grid Margin="20" >
@@ -287,9 +292,10 @@
             </Border>
         </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <TextBlock Foreground="#a3a3a3" Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
-                <TextBlock Foreground="#a3a3a3" Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right"/>
-                <TextBlock Foreground="#a3a3a3" Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right"/>
+                <TextBlock Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
+                <TextBlock Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right" Margin="0,5,0,0"/>
+                <TextBlock Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right" Margin="0,5,0,0"/>
+                <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16"/>
             </StackPanel>
          
         </Grid>
