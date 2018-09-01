@@ -31,8 +31,9 @@ namespace Maker.View.LightWindow
             InitLaunchpadEvent();
             this.mw = mw;
 
-            mainView = gMain;
-            HideControl();
+            //mainView = gMain;
+            //HideControl();
+            selectView = bDraw;
          }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -117,7 +118,7 @@ namespace Maker.View.LightWindow
         private Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
         //private List<FrameworkElement> lfe = new List<FrameworkElement>();
         private List<String> ColorList = new List<string>();
-        private int nowTimePoint = -1;
+        private int nowTimePoint = 0;
         private int mouseType = 0;//0没按下 1按下
         private int nowColor = 5;//当前颜色
         private Boolean bLeftUp = false;//左上角区域是否被选中
@@ -1709,7 +1710,82 @@ namespace Maker.View.LightWindow
             return nowTimePoint != 0;
         }
 
-      
-        
+        private ControlType nowControlType = ControlType.Draw;
+        private Border selectView;
+        private enum ControlType {
+            Draw = 0,
+            Select = 1,
+            Picture = 2,
+            Fire = 3
+        }
+
+        private LinearGradientBrush selectBrush = new LinearGradientBrush
+        {
+            StartPoint = new Point(0.5, 0),
+            EndPoint = new Point(0.5, 1),
+            GradientStops = new GradientStopCollection
+                    {
+                        new GradientStop(Color.FromRgb(94, 106, 134), 0),
+                        new GradientStop(Color.FromRgb(64, 77, 108), 1)
+                    }
+        };
+        private LinearGradientBrush noSelectBrush = new LinearGradientBrush
+        {
+            StartPoint = new Point(0.5, 0),
+            EndPoint = new Point(0.5, 1),
+            GradientStops = new GradientStopCollection
+                    {
+                        new GradientStop(Color.FromRgb(236, 241, 234), 0),
+                        new GradientStop(Color.FromRgb(236, 241, 234), 0.5),
+                       new GradientStop(Color.FromRgb(208, 234, 234), 0.5),
+                        new GradientStop(Color.FromRgb(208, 234, 234), 1)
+                    }
+        };
+       
+        private void ChangeControlType(object sender, MouseButtonEventArgs e)
+        {
+            selectView.Background = noSelectBrush;
+            if (selectView == bDraw)
+            {
+                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/Image/pen_black.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (selectView == bSelect)
+            {
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/Image/select_black.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (selectView == bPicture)
+            {
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/Image/picture_black.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (selectView == bFire)
+            {
+                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/Image/fire_black.png", UriKind.RelativeOrAbsolute));
+            }
+            selectView = sender as Border;
+            selectView.Background = selectBrush;
+
+            if (sender == bDraw)
+            {
+                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/Image/pen_white.png", UriKind.RelativeOrAbsolute));
+                nowControlType = ControlType.Draw;
+                tcLeft.SelectedIndex = 0;
+            }
+            else if (sender == bSelect)
+            {
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/Image/select_white.png", UriKind.RelativeOrAbsolute));
+                nowControlType = ControlType.Select;
+                tcLeft.SelectedIndex = 1;
+            }
+            else if (sender == bPicture)
+            {
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/Image/picture_white.png", UriKind.RelativeOrAbsolute));
+                nowControlType = ControlType.Select;
+            }
+            else if (sender == bFire)
+            {
+                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/Image/fire_white.png", UriKind.RelativeOrAbsolute));
+                nowControlType = ControlType.Select;
+            }
+        }
     }
 }

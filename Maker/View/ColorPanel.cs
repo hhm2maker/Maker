@@ -16,7 +16,7 @@ namespace Maker.View
         public ColorPanel(){
             //Style = (System.Windows.Style)FindResource("ListBoxStyle1");//TabItemStyle 这个样式是引用的资源文件中的样式名称
             FrameworkElementFactory factory = new FrameworkElementFactory(typeof(UniformGrid));
-            factory.SetValue(UniformGrid.ColumnsProperty, 4);
+            factory.SetValue(UniformGrid.ColumnsProperty, 8);
             ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate(factory);
             ItemsPanel = itemsPanelTemplate;
 

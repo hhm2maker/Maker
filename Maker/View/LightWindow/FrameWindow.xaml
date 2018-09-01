@@ -9,7 +9,10 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
-        Title="{DynamicResource Frame}" >
+        Title="{DynamicResource Frame}" 
+                       Width="1920"
+                       Height="1080"
+                     >
     <Window.Resources>
         <Style TargetType="Button">
             <Style.Setters>
@@ -29,14 +32,17 @@
             </Style.Setters>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#7e7e7e"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="22"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="#383838"/>
             <Setter Property="FontSize" Value="18"/>
         </Style>
     </Window.Resources>
+    <local:BaseLightWindow.Background>
+        <ImageBrush ImageSource="/Maker;component/Image/Galactic-Trilogy-Floral-UHD.png"/>
+    </local:BaseLightWindow.Background>
     <Grid Name="gMain">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Foreground="#282828" FontSize="16"   >
@@ -62,7 +68,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
         <ScrollViewer  Name="svMain" Background="#f5f5f5" Grid.Column="0">
             <StackPanel>
@@ -70,7 +75,7 @@
                     <TextBlock  Margin="15,15,0,0" Text="{DynamicResource TimeColon}" FontSize="22" Height="auto" FontWeight="Bold" />
                     <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto">
                         <TextBlock   Margin="25,0,5,0" Width="100" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowTimeColon}" />
-                        <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60" FontSize="20" TextAlignment="Center">-1</TextBlock>
+                        <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60" FontSize="20" TextAlignment="Center">0</TextBlock>
                     </StackPanel>
                     <StackPanel  Margin="20,25,20,0" Width="auto">
                         <Button Name="btnLastTimePoint" Width="180" Click="btnLastTimePoint_Click" Content="{DynamicResource LastTimePoint}" />
@@ -88,44 +93,170 @@
                         <Button Name="btnInsertDiyTimePoint"  Margin="10,0,0,0" Width="100" Click="btnInsertDiyTimePoint_Click" Content="{DynamicResource Add}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto" HorizontalAlignment="Center">
-                        <TextBox Name="tbTimePointCountLeft" FontSize="20" Width="100" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" />
-                        <TextBlock  Name="tbTimePointCount" Width="auto" FontSize="20"  Background="{x:Null}" > / 100</TextBlock>
+                        <TextBox Name="tbTimePointCountLeft" FontSize="20" Width="100" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" Text="0"/>
+                        <TextBlock  Name="tbTimePointCount" Width="auto" FontSize="20"  Background="{x:Null}" > / 0</TextBlock>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
-                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource ColorColon}"  FontSize="22" Height="auto" FontWeight="Bold" />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto">
-                        <TextBlock   Width="120" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowColorColon}"></TextBlock>
-                        <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
-                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource PositionFourAreaColon}" FontSize="22" Height="auto" FontWeight="Bold" />
-                    <StackPanel Orientation="Horizontal" Margin="10,35,10,0" Width="auto">
-                        <Button Name="btnLeftUp"  Width="120" Click="btnLeftUp_Click" Content="{DynamicResource UpperLeft}" />
-                        <Button Name="btnRightUp"   Width="120" Click="btnRightUp_Click"  Content="{DynamicResource UpperRight}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10,0,10,0" Width="auto">
-                        <Button Name="btnLeftDown"    Width="120" Click="btnLeftDown_Click" Content="{DynamicResource LowerLeft}"/>
-                        <Button Name="btnRightDown"   Width="120" Click="btnRightDown_Click" Content="{DynamicResource LowerRight}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="20,25,20,0" Width="auto">
-                        <Button Name="btnRegionHorizontalFlipping" Width="180" Click="btnRegionHorizontalFlipping_Click" Content="{DynamicResource HorizontalFlipping}"/>
-                        <Button Name="btnRegionVerticalFlipping" Width="180" Click="btnRegionVerticalFlipping_Click" Content="{DynamicResource VerticalFlipping}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="20,15,20,0" Width="auto">
-                        <Button  Name="btnRegionClockwise"  Width="180" Click="btnRegionClockwise_Click" Content="{DynamicResource ClockwiseRotation}"/>
-                        <Button  Name="btnRegionAntiClockwise" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource AntiClockwiseRotation}"/>
-                    </StackPanel>
-                    <StackPanel  Margin="20,25,20,0" Width="auto">
-                        <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
-                        <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
-                    </StackPanel>
-                </StackPanel>
+                
             </StackPanel>
         </ScrollViewer>
-                <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" Grid.Column="1" />
-                <view:ColorPanel x:Name="lbColor" Height="320" Width="220" SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}" Grid.Column="2" VerticalAlignment="Top"/>
+                <DockPanel Grid.Column="1" >
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="70">
+                        <StackPanel.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF5E666C" Offset="1"/>
+                                <GradientStop Color="#FF28343B"/>
+                            </LinearGradientBrush>
+                        </StackPanel.Background>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Name="bDraw" MouseLeftButtonDown="ChangeControlType">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF5E6A86" Offset="0"/>
+                                        <GradientStop Color="#FF404D6C" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Image Source="../../Image/pen_white.png" RenderOptions.BitmapScalingMode="Fant" Name="iDraw"/>
+                            </Border>
+                            <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="50" Name="bSelect" MouseLeftButtonDown="ChangeControlType">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                        <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Image Source="../../Image/select_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iSelect"/>
+                            </Border>
+                            <Border  BorderBrush="Black" BorderThickness="2,2,0,2" Padding="8" Height="50" Name="bPicture" MouseLeftButtonDown="ChangeControlType">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                        <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Image Source="../../Image/picture_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iPicture"/>
+                            </Border>
+                            <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Name="bFire" MouseLeftButtonDown="ChangeControlType">
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                        <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                        <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Image Source="../../Image/fire_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iFire"/>
+                            </Border>
+                        </StackPanel>
+                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="50,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#f1f4f6" Offset="0"/>
+                                    <GradientStop Color="#e6ebee" Offset="1"/>
+                                    <GradientStop Color="#f1f4f6" Offset="0.5"/>
+                                    <GradientStop Color="#e6ebee" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../../Image/file_black.png" RenderOptions.BitmapScalingMode="Fant"/>
+                                <TextBlock Text="{DynamicResource File}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Bpm:" VerticalAlignment="Center" />
+                                <TextBlock Text="96" Width="40" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10,0,0,0">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/eye_black.png" RenderOptions.BitmapScalingMode="Fant"/>
+                        </Border>
+                    </StackPanel>
+                    <TabControl BorderThickness="0" Width="400" Name="tcLeft">
+                        <TabControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="TabItem.Visibility" Value="Collapsed"/>
+                            </Style>
+                        </TabControl.ItemContainerStyle>
+                        <TabItem>
+                            <Grid Background="#2c3138">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Background="#151920">
+                                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10">
+                                     <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#f1f4f6" Offset="0"/>
+                                        <GradientStop Color="#e6ebee" Offset="1"/>
+                                        <GradientStop Color="#f1f4f6" Offset="0.5"/>
+                                        <GradientStop Color="#e6ebee" Offset="0.5"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <DockPanel >
+                                            <TextBlock Text="MK2 Palette" VerticalAlignment="Center" Margin="0,0,0,0" DockPanel.Dock="Left"/>
+                                    <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                                </DockPanel>
+                            </Border>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1" Margin="10">
+                                    <TextBlock   Width="120" FontSize="20"  Foreground="White" Text="{DynamicResource NowColorColon}" />
+                                    <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
+                                </StackPanel>
+                                <view:ColorPanel x:Name="lbColor"  SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem >
+                            <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
+                                <TextBlock  Margin="15,15,0,0" Text="{DynamicResource PositionFourAreaColon}" FontSize="22" Height="auto" FontWeight="Bold" />
+                                <StackPanel Orientation="Horizontal" Margin="10,35,10,0" Width="auto">
+                                    <Button Name="btnLeftUp"  Width="120" Click="btnLeftUp_Click" Content="{DynamicResource UpperLeft}" />
+                                    <Button Name="btnRightUp"   Width="120" Click="btnRightUp_Click"  Content="{DynamicResource UpperRight}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10,0,10,0" Width="auto">
+                                    <Button Name="btnLeftDown"    Width="120" Click="btnLeftDown_Click" Content="{DynamicResource LowerLeft}"/>
+                                    <Button Name="btnRightDown"   Width="120" Click="btnRightDown_Click" Content="{DynamicResource LowerRight}"/>
+                                </StackPanel>
+                                <StackPanel  Margin="20,25,20,0" Width="auto">
+                                    <Button Name="btnRegionHorizontalFlipping" Width="180" Click="btnRegionHorizontalFlipping_Click" Content="{DynamicResource HorizontalFlipping}"/>
+                                    <Button Name="btnRegionVerticalFlipping" Width="180" Click="btnRegionVerticalFlipping_Click" Content="{DynamicResource VerticalFlipping}"/>
+                                </StackPanel>
+                                <StackPanel  Margin="20,15,20,0" Width="auto">
+                                    <Button  Name="btnRegionClockwise"  Width="180" Click="btnRegionClockwise_Click" Content="{DynamicResource ClockwiseRotation}"/>
+                                    <Button  Name="btnRegionAntiClockwise" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource AntiClockwiseRotation}"/>
+                                </StackPanel>
+                                <StackPanel  Margin="20,25,20,0" Width="auto">
+                                    <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
+                                    <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" />
+                </DockPanel>
             </Grid>
         </DockPanel>
     </Grid>
