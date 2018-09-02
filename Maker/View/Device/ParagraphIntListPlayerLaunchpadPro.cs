@@ -75,7 +75,7 @@ namespace Maker.View.Device
 
             if (number == -1) {
                 //清空
-                ClearAllColor();
+                ClearAllColorExceptMembrane();
                 iplay.EndPlayEvent();
 
                 return;

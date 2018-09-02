@@ -207,7 +207,6 @@ E:\Sharer\Maker\Maker\bin\Debug\System.Windows.Interactivity.dll
 E:\Sharer\Maker\Maker\bin\Debug\Transitionals.dll
 E:\Sharer\Maker\Maker\bin\Debug\WPFSpark.dll
 E:\Sharer\Maker\Maker\bin\Debug\log4net.xml
-E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\Interop.IWshRuntimeLibrary.dll
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.ResolveComReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\StyleResources\InputDictionary.baml
@@ -419,3 +418,4 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.GenerateResource.Cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
+E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache

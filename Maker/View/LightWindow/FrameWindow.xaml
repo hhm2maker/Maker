@@ -7,7 +7,6 @@
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         Title="{DynamicResource Frame}" 
                        Width="1920"
@@ -33,75 +32,305 @@
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei"/>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="#383838"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+        </Style>
+        <!-- TabItem -->
+        <SolidColorBrush x:Key="TabItem.Static.Background" Color="#535353"/>
+        <!--  
+    <LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#F0F0F0" Offset="0.0"/>
+        <GradientStop Color="#E5E5E5" Offset="1.0"/>
+    </LinearGradientBrush>
+    -->
+        <SolidColorBrush x:Key="TabItem.Static.Border" Color="#282828"/>
+        <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="#282828"/>
+        <!--  
+   <LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#ECF4FC" Offset="0.0"/>
+        <GradientStop Color="#DCECFC" Offset="1.0"/>
+    </LinearGradientBrush>
+    -->
+        <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#282828"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#535353"/>
+        <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#282828"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#282828"/>
+        <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#282828"/>
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Static.Border}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="6,2,6,2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
+                            <Border x:Name="mainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Margin="0">
+                                <Border x:Name="innerBorder" BorderBrush="{StaticResource TabItem.Selected.Border}" BorderThickness="1,1,1,0" Background="{StaticResource TabItem.Selected.Background}" Margin="-1" Opacity="0"/>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" ContentSource="Header" Focusable="False" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Static.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Static.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Static.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Static.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.MouseOver.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="#282828"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="#282828"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
+                                <Setter Property="Background" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="mainBorder" Value="{StaticResource TabItem.Disabled.Border}"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,0,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,0,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,0,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,0,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,0,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,0,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="0,-2,-2,-2"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="0,1,1,1"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="0,1,1,1"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="false"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="true"/>
+                                    <Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Top"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Margin" Value="-2,-2,-2,0"/>
+                                <Setter Property="Opacity" TargetName="innerBorder" Value="1"/>
+                                <Setter Property="BorderThickness" TargetName="innerBorder" Value="1,1,1,0"/>
+                                <Setter Property="BorderThickness" TargetName="mainBorder" Value="1,1,1,0"/>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- TabControl -->
+        <Style TargetType="{x:Type TabControl}">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{StaticResource TabItem.Selected.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabItem.Selected.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabControl}">
+                        <Grid x:Name="templateRoot" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="headerPanel" Background="Transparent" Grid.Column="0" IsItemsHost="true" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                            <Border x:Name="contentPanel" BorderBrush="#282828" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="TabStripPlacement" Value="Bottom">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="1"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Height" TargetName="RowDefinition1" Value="Auto"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="2,0,2,2"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Left">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="contentPanel" Value="1"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="Auto"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="*"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="2,2,0,2"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Right">
+                                <Setter Property="Grid.Row" TargetName="headerPanel" Value="0"/>
+                                <Setter Property="Grid.Row" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Grid.Column" TargetName="headerPanel" Value="1"/>
+                                <Setter Property="Grid.Column" TargetName="contentPanel" Value="0"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition0" Value="*"/>
+                                <Setter Property="Width" TargetName="ColumnDefinition1" Value="Auto"/>
+                                <Setter Property="Height" TargetName="RowDefinition0" Value="*"/>
+                                <Setter Property="Height" TargetName="RowDefinition1" Value="0"/>
+                                <Setter Property="Margin" TargetName="headerPanel" Value="0,2,2,2"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <local:BaseLightWindow.Background>
         <ImageBrush ImageSource="/Maker;component/Image/Galactic-Trilogy-Floral-UHD.png"/>
     </local:BaseLightWindow.Background>
     <Grid Name="gMain">
-    <DockPanel>
-        <Menu DockPanel.Dock="Top" Foreground="#282828" FontSize="16"   >
-            <MenuItem Header="{DynamicResource File}">
-                <MenuItem Header="{DynamicResource New}" Click="NewFile" />
-                <MenuItem Header="{DynamicResource Open}" Click="OpenFile" />
-                <Separator />
-                <MenuItem Header="{DynamicResource Save}" Click="SaveFile" />
-                <MenuItem Header="{DynamicResource SaveAs}" Click="SaveAsFile" />
-            </MenuItem>
-            <MenuItem Header="{DynamicResource WholePage}" >
-                <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" />
-                <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click"/>
-                <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" />
-                <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  />
-                <Separator />
-                <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click"  />
-                <Separator />
-                <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"  />
-            </MenuItem>
-        </Menu>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-        <ScrollViewer  Name="svMain" Background="#f5f5f5" Grid.Column="0">
-            <StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
-                    <TextBlock  Margin="15,15,0,0" Text="{DynamicResource TimeColon}" FontSize="22" Height="auto" FontWeight="Bold" />
-                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto">
-                        <TextBlock   Margin="25,0,5,0" Width="100" FontSize="20"  Background="{x:Null}" Text="{DynamicResource NowTimeColon}" />
-                        <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60" FontSize="20" TextAlignment="Center">0</TextBlock>
-                    </StackPanel>
-                    <StackPanel  Margin="20,25,20,0" Width="auto">
-                        <Button Name="btnLastTimePoint" Width="180" Click="btnLastTimePoint_Click" Content="{DynamicResource LastTimePoint}" />
-                        <Button Name="btnNextTimePoint" Width="180" Click="btnNextTimePoint_Click" Content="{DynamicResource NextTimePoint}" />
-                    </StackPanel>
-                    <StackPanel  Margin="20,15,20,0" Width="auto">
-                        <Button Name="btnInsertTimePoint"  Width="180"  Click="btnInsertTimePoint_Click" Content="{DynamicResource AddTimePoint}" />
-                        <Button Name="btnDeleteTimePoint"   Width="180" Click="btnDeleteTimePoint_Click" Content="{DynamicResource DeleteTimePoint}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto" HorizontalAlignment="Center">
-                        <Button  Name="btnInsertStartTimePoint"   Width="180"   Click="btnInsertStartTimePoint_Click" Content="{DynamicResource StartTimePoint}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,15,20,0" Width="auto">
-                        <TextBox Name="tbInsertDiyTimePoint" Margin="0,0,10,0" Width="100" FontSize="22" Height="35"  />
-                        <Button Name="btnInsertDiyTimePoint"  Margin="10,0,0,0" Width="100" Click="btnInsertDiyTimePoint_Click" Content="{DynamicResource Add}" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="20,25,20,0" Width="auto" HorizontalAlignment="Center">
-                        <TextBox Name="tbTimePointCountLeft" FontSize="20" Width="100" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" Text="0"/>
-                        <TextBlock  Name="tbTimePointCount" Width="auto" FontSize="20"  Background="{x:Null}" > / 0</TextBlock>
-                    </StackPanel>
-                </StackPanel>
-                
-            </StackPanel>
-        </ScrollViewer>
-                <DockPanel Grid.Column="1" >
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="70">
+        <DockPanel >
+            <DockPanel.ContextMenu>
+                    <ContextMenu>
+                    <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False"/>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" />
+                        <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click"/>
+                        <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" />
+                        <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  />
+                        <Separator />
+                        <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click"  />
+                        <Separator />
+                        <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"  />
+                    </ContextMenu>
+            </DockPanel.ContextMenu>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal"  Height="60">
                         <StackPanel.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF5E666C" Offset="1"/>
@@ -109,7 +338,7 @@
                             </LinearGradientBrush>
                         </StackPanel.Background>
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                            <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Name="bDraw" MouseLeftButtonDown="ChangeControlType">
+                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Name="bDraw" MouseLeftButtonDown="ChangeControlType">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FF5E6A86" Offset="0"/>
@@ -118,7 +347,7 @@
                                 </Border.Background>
                                 <Image Source="../../Image/pen_white.png" RenderOptions.BitmapScalingMode="Fant" Name="iDraw"/>
                             </Border>
-                            <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="50" Name="bSelect" MouseLeftButtonDown="ChangeControlType">
+                            <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Name="bSelect" MouseLeftButtonDown="ChangeControlType">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -129,7 +358,7 @@
                                 </Border.Background>
                                 <Image Source="../../Image/select_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iSelect"/>
                             </Border>
-                            <Border  BorderBrush="Black" BorderThickness="2,2,0,2" Padding="8" Height="50" Name="bPicture" MouseLeftButtonDown="ChangeControlType">
+                        <Border  BorderBrush="Black" BorderThickness="2,2,0,2" Padding="8" Height="40" Name="bPicture" MouseLeftButtonDown="ChangeControlType">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -140,7 +369,7 @@
                                 </Border.Background>
                                 <Image Source="../../Image/picture_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iPicture"/>
                             </Border>
-                            <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Name="bFire" MouseLeftButtonDown="ChangeControlType">
+                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Name="bFire" MouseLeftButtonDown="ChangeControlType">
                                 <Border.Background>
                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                         <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -152,22 +381,60 @@
                                 <Image Source="../../Image/fire_black.png" RenderOptions.BitmapScalingMode="Fant" Name="iFire"/>
                             </Border>
                         </StackPanel>
-                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="50,0,0,0">
-                            <Border.Background>
+                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Style="{x:Null}" Margin="50,0,0,0"  Height="40" Name="btnOpenFileControl" Click="OpenFileControl">
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Content>
+                            <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8"  Name="bFile" >
+                                <Border.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#f1f4f6" Offset="0"/>
+                                        <GradientStop Color="#e6ebee" Offset="1"/>
+                                        <GradientStop Color="#f1f4f6" Offset="0.5"/>
+                                        <GradientStop Color="#e6ebee" Offset="0.5"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="../../Image/file_black.png" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource File}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </Button.Content>
+                    </Button>
+                    <Popup x:Name="popFile" PlacementTarget="{Binding ElementName=btnOpenFileControl}" StaysOpen="False" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade">
+                        <StackPanel Orientation="Vertical" Width="200">
+                            <StackPanel.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#f1f4f6" Offset="0"/>
-                                    <GradientStop Color="#e6ebee" Offset="1"/>
-                                    <GradientStop Color="#f1f4f6" Offset="0.5"/>
-                                    <GradientStop Color="#e6ebee" Offset="0.5"/>
+                                    <GradientStop Color="#FF2F2F2F" Offset="0"/>
+                                    <GradientStop Color="Black" Offset="1"/>
                                 </LinearGradientBrush>
-                            </Border.Background>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="../../Image/file_black.png" RenderOptions.BitmapScalingMode="Fant"/>
-                                <TextBlock Text="{DynamicResource File}" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" Margin="5,0,0,0"/>
+                            </StackPanel.Background>
+                            <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="NewFile" Name="spNewFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
+                                <Image Source="../../Image/file_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
+                                <TextBlock Text="{DynamicResource NewProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
                             </StackPanel>
-                        </Border>
-                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10,0,0,0">
+                            <Rectangle Height="1" Fill="#303030"/>
+                            <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="OpenFile" Name="spOpenFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
+                                <Image Source="../../Image/open_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
+                                <TextBlock Text="{DynamicResource OpenProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
+                            </StackPanel>
+                            <Rectangle Height="1" Fill="#303030"/>
+                            <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="SaveFile" Name="spSaveFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
+                                <Image Source="../../Image/save_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
+                                <TextBlock Text="{DynamicResource SaveProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
+                            </StackPanel>
+                            <Rectangle Height="1" Fill="#303030"/>
+                            <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="SaveAsFile" Name="spSaveAsFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
+                                <Image Source="../../Image/saveas_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
+                                <TextBlock Text="{DynamicResource SaveAsProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Popup>
+                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Margin="10,0,0,0">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -181,7 +448,7 @@
                                 <TextBlock Text="96" Width="40" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Center"/>
                             </StackPanel>
                         </Border>
-                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10,0,0,0">
+                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Margin="10,0,0,0" Name="bShowMembrane" MouseLeftButtonDown="ShowMembrane">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -193,7 +460,8 @@
                             <Image Source="../../Image/eye_black.png" RenderOptions.BitmapScalingMode="Fant"/>
                         </Border>
                     </StackPanel>
-                    <TabControl BorderThickness="0" Width="400" Name="tcLeft">
+                <StackPanel Orientation="Horizontal">
+                    <TabControl BorderThickness="0" Width="400" Name="tcLeft" >
                         <TabControl.ItemContainerStyle>
                             <Style>
                                 <Setter Property="TabItem.Visibility" Value="Collapsed"/>
@@ -207,26 +475,26 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Background="#151920">
-                                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="50" Margin="10">
-                                     <Border.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                        <GradientStop Color="#f1f4f6" Offset="0"/>
-                                        <GradientStop Color="#e6ebee" Offset="1"/>
-                                        <GradientStop Color="#f1f4f6" Offset="0.5"/>
-                                        <GradientStop Color="#e6ebee" Offset="0.5"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <DockPanel >
+                                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Margin="10">
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#f1f4f6" Offset="0"/>
+                                                <GradientStop Color="#e6ebee" Offset="1"/>
+                                                <GradientStop Color="#f1f4f6" Offset="0.5"/>
+                                                <GradientStop Color="#e6ebee" Offset="0.5"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <DockPanel >
                                             <TextBlock Text="MK2 Palette" VerticalAlignment="Center" Margin="0,0,0,0" DockPanel.Dock="Left"/>
-                                    <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
-                                </DockPanel>
-                            </Border>
+                                            <Image Source="../../Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                                        </DockPanel>
+                                    </Border>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1" Margin="10">
                                     <TextBlock   Width="120" FontSize="20"  Foreground="White" Text="{DynamicResource NowColorColon}" />
                                     <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
                                 </StackPanel>
-                                <view:ColorPanel x:Name="lbColor"  SelectionChanged="lbColor_SelectionChanged" Background="#535353" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
+                                <view:ColorPanel x:Name="lbColor" SelectionChanged="lbColor_SelectionChanged" Background="#535353" BorderThickness="0" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
                             </Grid>
                         </TabItem>
                         <TabItem >
@@ -255,9 +523,126 @@
                             </StackPanel>
                         </TabItem>
                     </TabControl>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" Width="750" Height="750"   PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" />
-                </DockPanel>
-            </Grid>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" MouseEnter="mLaunchpad_MouseEnter"/>
+                </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF5E666C" Offset="1"/>
+                            <GradientStop Color="#FF28343B"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                            <StackPanel Orientation="Horizontal" Width="auto" VerticalAlignment="Center">
+                                <TextBlock   Margin="25,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
+                                 <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60"  Foreground="White" TextAlignment="Center">0</TextBlock>
+                            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  MouseLeftButtonDown="btnLastTimePoint_Click">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/toleft.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                        <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="Black">
+                            <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
+                                <TextBox Name="tbTimePointCountLeft" Width="60" Background="Black" BorderThickness="0" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" Text="0"/>
+                                <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" > / 0</TextBlock>
+                            </StackPanel>
+                        </Border>
+                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnNextTimePoint_Click" >
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/toright.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertTimePoint_Click">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/add.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                        <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" MouseLeftButtonDown="btnDeleteTimePoint_Click">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/delete.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                        <Border  BorderBrush="Black" BorderThickness="2,2,0,2" Padding="8" Height="40" >
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/picture_black.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" >
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/fire_black.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                    </StackPanel>
+                  
+                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertStartTimePoint_Click">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/start.png" RenderOptions.BitmapScalingMode="Fant"/>
+                        </Border>
+                        <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="Black">
+                            <TextBox Name="tbInsertDiyTimePoint" Background="Black" BorderThickness="0" Width="100"  />
+                        </Border>
+
+                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertDiyTimePoint_Click" >
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FFECF1F4" Offset="0"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="1"/>
+                                    <GradientStop Color="#FFECF1F4" Offset="0.5"/>
+                                    <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Image Source="../../Image/add.png" RenderOptions.BitmapScalingMode="Fant" />
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+                </StackPanel>
         </DockPanel>
     </Grid>
 </local:BaseLightWindow>

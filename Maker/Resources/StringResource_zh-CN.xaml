@@ -236,7 +236,7 @@
     <sys:String x:Key="Splicing">拼合</sys:String>
     <sys:String x:Key="GetNumbers">获取多个数值</sys:String>
     <!--逐帧控件-->
-    <sys:String x:Key="WholePage">整页</sys:String>
+    <sys:String x:Key="WholePage">这是整页操作</sys:String>
     <sys:String x:Key="CopyTo">复制到</sys:String>
     <sys:String x:Key="LastTimePoint">上一节点</sys:String>
     <sys:String x:Key="NextTimePoint">下一节点</sys:String>
@@ -464,5 +464,7 @@
     <sys:String x:Key="Code">代码</sys:String>
     <sys:String x:Key="Page">页面</sys:String>
     <sys:String x:Key="Period">。</sys:String>
-
+    <sys:String x:Key="OpenProject">打开项目</sys:String>
+    <sys:String x:Key="SaveProject">保存项目</sys:String>
+    <sys:String x:Key="SaveAsProject">另存为项目</sys:String>
 </ResourceDictionary>

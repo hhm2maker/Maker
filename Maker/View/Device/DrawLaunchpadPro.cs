@@ -16,6 +16,7 @@ namespace Maker.View.Device
         public bool CanDraw;
         public DrawLaunchpadPro() : base()
         {
+            //基础事件
             MouseDown += Canvas_MouseDown;
             MouseUp += Canvas_MouseUp;
             InitState();
@@ -51,7 +52,8 @@ namespace Maker.View.Device
         /// 设置自定义鼠标进入事件
         /// </summary>
         /// <param name="mouseEnterEvent"></param>
-        public void SetMouseEnter(MouseEventHandler mouseEnterEvent) {
+        public void SetMouseEnter(MouseEventHandler mouseEnterEvent)
+        {
             for (int i = 0; i < Count; i++)
             {
                 FrameworkElement element = (FrameworkElement)Children[i];
@@ -121,32 +123,33 @@ namespace Maker.View.Device
             }
             if (mouseType == 1)
             {
+                int position = Children.IndexOf((UIElement)sender);
+                if (position > 95)
+                    position -= 96;
                 if (LeftOrRight == 0)
                 {
-                    int position = Children.IndexOf((UIElement)sender) + 28;
-                    if (!trackingValue.Contains(position))
+                    if (!trackingValue.Contains(position + 28))
                     {
-                        trackingValue.Add(position);
+                        trackingValue.Add(position + 28);
                     }
-                    if (sender is RoundedCornersPolygon rcp)
+                    if (Children[position] is RoundedCornersPolygon rcp)
                         rcp.Fill = nowBrush;
-                    if (sender is Ellipse ellipse)
+                    if (Children[position] is Ellipse ellipse)
                         ellipse.Fill = nowBrush;
-                    if (sender is Rectangle rectangle)
+                    if (Children[position] is Rectangle rectangle)
                         rectangle.Fill = nowBrush;
                 }
                 else if (LeftOrRight == 1)
                 {
-                    int position = Children.IndexOf((UIElement)sender) + 28;
-                    if (trackingValue.Contains(position))
+                    if (trackingValue.Contains(position + 28))
                     {
-                        trackingValue.Remove(position);
+                        trackingValue.Remove(position + 28);
                     }
-                    if (sender is RoundedCornersPolygon rcp)
+                    if (Children[position] is RoundedCornersPolygon rcp)
                         rcp.Fill = closeBrush;
-                    if (sender is Ellipse ellipse)
+                    if (Children[position] is Ellipse ellipse)
                         ellipse.Fill = closeBrush;
-                    if (sender is Rectangle rectangle)
+                    if (Children[position] is Rectangle rectangle)
                         rectangle.Fill = closeBrush;
                 }
             }
@@ -164,16 +167,19 @@ namespace Maker.View.Device
                     return;
                 }
             }
-            int position = Children.IndexOf((UIElement)sender) + 28;
-            if (!trackingValue.Contains(position))
+            int position = Children.IndexOf((UIElement)sender);
+            if (position > 95)
+                position -= 96;
+            if (!trackingValue.Contains(position+28))
             {
-                trackingValue.Add(position);
+                trackingValue.Add(position + 28);
             }
-            if (sender is RoundedCornersPolygon rcp)
+            
+            if (Children[position] is RoundedCornersPolygon rcp)
                 rcp.Fill = nowBrush;
-            if (sender is Ellipse ellipse)
+            if (Children[position] is Ellipse ellipse)
                 ellipse.Fill = nowBrush;
-            if (sender is Rectangle rectangle)
+            if (Children[position] is Rectangle rectangle)
                 rectangle.Fill = nowBrush;
 
             LeftOrRight = 0;
@@ -187,16 +193,18 @@ namespace Maker.View.Device
                     return;
                 }
             }
-            int position = Children.IndexOf((UIElement)sender) + 28;
-            if (trackingValue.Contains(position))
+            int position = Children.IndexOf((UIElement)sender);
+            if (position > 95)
+                position -= 96;
+            if (trackingValue.Contains(position + 28))
             {
-                trackingValue.Remove(position);
+                trackingValue.Remove(position + 28);
             }
-            if (sender is RoundedCornersPolygon rcp)
+            if (Children[position] is RoundedCornersPolygon rcp)
                 rcp.Fill = closeBrush;
-            if (sender is Ellipse ellipse)
+            if (Children[position] is Ellipse ellipse)
                 ellipse.Fill = closeBrush;
-            if (sender is Rectangle rectangle)
+            if (Children[position] is Rectangle rectangle)
                 rectangle.Fill = closeBrush;
             LeftOrRight = 1;
         }

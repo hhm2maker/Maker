@@ -234,7 +234,7 @@
     <sys:String x:Key="Splicing">Splicing</sys:String>
     <sys:String x:Key="GetNumbers">Get Numbers</sys:String>
     <!--FrameUserControl-->
-    <sys:String x:Key="WholePage">Whole page</sys:String>
+    <sys:String x:Key="WholePage">This is the whole page operation.</sys:String>
     <sys:String x:Key="CopyTo">CopyTo</sys:String>
     <sys:String x:Key="LastTimePoint">LastTimePoint</sys:String>
     <sys:String x:Key="NextTimePoint">NextTimePoint</sys:String>
@@ -461,6 +461,7 @@
     <sys:String x:Key="Code">Code</sys:String>
     <sys:String x:Key="Page">Page</sys:String>
     <sys:String x:Key="Period">.</sys:String>
-
-    
+    <sys:String x:Key="OpenProject">Open project</sys:String>
+    <sys:String x:Key="SaveProject">Save project</sys:String>
+    <sys:String x:Key="SaveAsProject">Save as project</sys:String>
 </ResourceDictionary>

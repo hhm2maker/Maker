@@ -28,22 +28,28 @@ namespace Maker.View.LightWindow
         public FrameWindow(NewMainWindow mw)
         {
             InitializeComponent();
-            InitLaunchpadEvent();
             this.mw = mw;
 
             //mainView = gMain;
             //HideControl();
             selectView = bDraw;
-         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+            mLaunchpad.SetSize(600);
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(20, 36, 33)));
+      
+            //初始化贴膜
+            mLaunchpad.ToMembraneLaunchpad();
+            mLaunchpad.ShowOrHideMembrane();
+            //初始化事件
+            InitLaunchpadEvent();
+            //初始化绘制事件
+            mLaunchpad.SetCanDraw(true);
+
             lbColor.SelectedIndex = 5;
             tbNowColor.Text = (lbColor.SelectedIndex).ToString();
             tbNowColor.Background = NumToBrush(lbColor.SelectedIndex);
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(68, 119, 64)));
-            mLaunchpad.SetCanDraw(true);
         }
+
         private void InitLaunchpadEvent()
         {
             mLaunchpad.SetMouseEnter(ChangeColor);
@@ -60,24 +66,26 @@ namespace Maker.View.LightWindow
             {
                 if (LeftOrRight == 0)
                 {
-                    for (int i = 0; i < mLaunchpad.Count; i++)
+                    int i = mLaunchpad.GetNumber(sender as Shape);
+                    if (i < 96)
                     {
-                        if (sender == mLaunchpad.GetButton(i))
-                        {
-                            dic[liTime[nowTimePoint - 1]][i] = nowColor;
-                            break;
-                        }
+                        dic[liTime[nowTimePoint - 1]][i] = nowColor;
+                    }
+                    else
+                    {
+                        dic[liTime[nowTimePoint - 1]][i - 96] = nowColor;
                     }
                 }
                 else if (LeftOrRight == 1)
                 {
-                    for (int i = 0; i < mLaunchpad.Count; i++)
+                    int i = mLaunchpad.GetNumber(sender as Shape);
+                    if (i < 96)
                     {
-                        if (sender == mLaunchpad.GetButton(i))
-                        {
-                            dic[liTime[nowTimePoint - 1]][i] = 0;
-                            break;
-                        }
+                        dic[liTime[nowTimePoint - 1]][i] = 0;
+                    }
+                    else
+                    {
+                        dic[liTime[nowTimePoint - 1]][i - 96] = 0;
                     }
                 }
             }
@@ -90,13 +98,15 @@ namespace Maker.View.LightWindow
         {
             if (nowTimePoint == 0)
                 return;
-            for (int i = 0; i < mLaunchpad.Count; i++)
+            int i = mLaunchpad.GetNumber(sender as Shape);
+            if (i < 96)
             {
-                if (sender == mLaunchpad.GetButton(i))
-                {
-                    dic[liTime[nowTimePoint - 1]][i] = nowColor;
-                    break;
-                }
+
+                dic[liTime[nowTimePoint - 1]][i] = nowColor;
+            }
+            else
+            {
+                dic[liTime[nowTimePoint - 1]][i - 96] = nowColor;
             }
             LeftOrRight = 0;
         }
@@ -104,13 +114,14 @@ namespace Maker.View.LightWindow
         {
             if (nowTimePoint == 0)
                 return;
-            for (int i = 0; i < mLaunchpad.Count; i++)
+            int i = mLaunchpad.GetNumber(sender as Shape);
+            if (i < 96)
             {
-                if (sender == mLaunchpad.GetButton(i))
-                {
-                    dic[liTime[nowTimePoint - 1]][i] = 0;
-                    break;
-                }
+                dic[liTime[nowTimePoint - 1]][i] = 0;
+            }
+            else
+            {
+                dic[liTime[nowTimePoint - 1]][i - 96] = 0;
             }
             LeftOrRight = 1;
         }
@@ -192,7 +203,7 @@ namespace Maker.View.LightWindow
         private void ClearFrame()
         {
             //清空
-            mLaunchpad.ClearAllColor();
+            mLaunchpad.ClearAllColorExceptMembrane();
         }
 
         private void LoadFrame()
@@ -244,17 +255,8 @@ namespace Maker.View.LightWindow
             tbTimePointCount.Text = " / " + liTime.Count;
             LoadFrame();
         }
-        private void btnLastTimePoint_Click(object sender, RoutedEventArgs e)
-        {
-            ToLastTime();
-        }
-
-        private void btnNextTimePoint_Click(object sender, RoutedEventArgs e)
-        {
-            ToNextTime();
-        }
-
-        private void btnInsertTimePoint_Click(object sender, RoutedEventArgs e)
+      
+        private void btnInsertTimePoint_Click(object sender, MouseButtonEventArgs e)
         {
             GetNumberDialog dialog = new GetNumberDialog(this, "TheFrameOfTheNewNodeColon", false, liTime, false);
             if (dialog.ShowDialog() == true)
@@ -319,7 +321,7 @@ namespace Maker.View.LightWindow
 
         }
 
-        private void btnDeleteTimePoint_Click(object sender, RoutedEventArgs e)
+        private void btnDeleteTimePoint_Click(object sender, MouseButtonEventArgs e)
         {
             if (liTime.Count == 0)
                 return;
@@ -1597,7 +1599,7 @@ namespace Maker.View.LightWindow
             LoadFrame();
         }
 
-        private void btnInsertStartTimePoint_Click(object sender, RoutedEventArgs e)
+        private void btnInsertStartTimePoint_Click(object sender, MouseButtonEventArgs e)
         {
             //如果已经有该时间点，报错
             if (liTime.Contains(0))
@@ -1615,7 +1617,7 @@ namespace Maker.View.LightWindow
             }
         }
 
-        private void btnInsertDiyTimePoint_Click(object sender, RoutedEventArgs e)
+        private void btnInsertDiyTimePoint_Click(object sender, MouseButtonEventArgs e)
         {
             String str = tbInsertDiyTimePoint.Text.Trim();
             if (str.Trim().Equals(""))
@@ -1735,10 +1737,10 @@ namespace Maker.View.LightWindow
             EndPoint = new Point(0.5, 1),
             GradientStops = new GradientStopCollection
                     {
-                        new GradientStop(Color.FromRgb(236, 241, 234), 0),
-                        new GradientStop(Color.FromRgb(236, 241, 234), 0.5),
-                       new GradientStop(Color.FromRgb(208, 234, 234), 0.5),
-                        new GradientStop(Color.FromRgb(208, 234, 234), 1)
+                        new GradientStop(Color.FromRgb(236, 241, 244), 0),
+                        new GradientStop(Color.FromRgb(236, 241, 244), 0.5),
+                       new GradientStop(Color.FromRgb(208, 224, 234), 0.5),
+                        new GradientStop(Color.FromRgb(208, 224, 234), 1)
                     }
         };
        
@@ -1785,6 +1787,102 @@ namespace Maker.View.LightWindow
             {
                 iFire.Source = new BitmapImage(new Uri("pack://application:,,,/Image/fire_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Select;
+            }
+        }
+
+        private void btnLastTimePoint_Click(object sender, MouseButtonEventArgs e)
+        {
+            ToLastTime();
+        }
+        private void btnNextTimePoint_Click(object sender, MouseButtonEventArgs e)
+        {
+            ToNextTime();
+        }
+
+        private void OpenFileControl(object sender, RoutedEventArgs e)
+        {
+            popFile.IsOpen = true;
+        }
+      
+        private void mLaunchpad_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (nowTimePoint == 0)
+            {
+                mLaunchpad.Cursor = Cursors.No;
+            }
+            else {
+                if (nowControlType == ControlType.Draw)
+                {
+                    mLaunchpad.Cursor = Cursors.Pen;
+                }
+                else if(nowControlType == ControlType.Select){
+                    mLaunchpad.Cursor = Cursors.Cross;
+                }
+                else 
+                {
+                    mLaunchpad.Cursor = Cursors.Arrow;
+                }
+            }
+        }
+        private SolidColorBrush popSelectBrush = new SolidColorBrush(Color.FromRgb(0, 255, 255));
+        private SolidColorBrush popNoSelectBrush = new SolidColorBrush(Colors.White);
+        private void PopSpMouseEnter(object sender, MouseEventArgs e)
+        {
+            Image img = (sender as StackPanel).Children[0] as Image;
+          
+            if (sender == spNewFile) {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/file_blue.png", UriKind.RelativeOrAbsolute));
+               
+            }
+            else if (sender == spOpenFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/open_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (sender == spSaveFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/save_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (sender == spSaveAsFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/saveas_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
+            tb.Foreground = popSelectBrush;
+        }
+
+        private void PopSpMouseLeave(object sender, MouseEventArgs e)
+        {
+            Image img = (sender as StackPanel).Children[0] as Image;
+          
+            if (sender == spNewFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/file_white.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (sender == spOpenFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/open_white.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (sender == spSaveFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/save_white.png", UriKind.RelativeOrAbsolute));
+            }
+            else if (sender == spSaveAsFile)
+            {
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/saveas_white.png", UriKind.RelativeOrAbsolute));
+            }
+            TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
+            tb.Foreground = popNoSelectBrush;
+        }
+
+        private void ShowMembrane(object sender, MouseButtonEventArgs e)
+        {
+            mLaunchpad.ShowOrHideMembrane();
+            if (mLaunchpad.isMembrane)
+            {
+                bShowMembrane.Background = selectBrush;
+            }
+            else {
+                bShowMembrane.Background = noSelectBrush;
             }
         }
     }

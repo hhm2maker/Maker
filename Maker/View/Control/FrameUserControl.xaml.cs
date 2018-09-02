@@ -197,7 +197,7 @@ namespace Maker.View.Control
         private void ClearFrame()
         {
             //清空
-            mLaunchpad.ClearAllColor();
+            mLaunchpad.ClearAllColorExceptMembrane();
         }
 
         private void LoadFrame()

@@ -446,7 +446,7 @@ namespace Maker.View.Device
         /// <summary>
         /// 是否已经贴膜
         /// </summary>
-        private bool isMembrane = false;
+        public bool isMembrane = false;
 
         /// <summary>
         /// 设置贴膜
@@ -462,6 +462,35 @@ namespace Maker.View.Device
                 InitBlackBottom();
                 isMembrane = true;
             }
+        }
+        /// <summary>
+        /// 显示或隐藏贴膜 -- 取反
+        /// </summary>
+        public void ShowOrHideMembrane() {
+            if (!isMembrane)
+            {
+                if (Children.Count != 96 * 2)
+                {
+                    ToMembraneLaunchpad();
+                    isMembrane = true;
+                    return;
+                }
+                else
+                {
+                    for (int i = 96; i < 96 * 2; i++)
+                    {
+                        Children[i].Visibility = Visibility.Visible;
+                      
+                    }
+                }
+            }
+            else {
+                for (int i = 96; i < 96 * 2; i++)
+                {
+                    Children[i].Visibility = Visibility.Collapsed;
+                }
+            }
+            isMembrane = !isMembrane;
         }
 
         /// <summary>
@@ -795,7 +824,23 @@ namespace Maker.View.Device
         /// 清除所有颜色
         /// </summary>
         /// <param name="_event"></param>
-        public void ClearAllColor()
+        public void ClearAllColorExceptMembrane()
+        {
+            for (int i = 0; i < 96; i++) {
+                //停止播放=取消着色
+                if (Children[i] is RoundedCornersPolygon rcp)
+                    rcp.Fill = closeBrush;
+                if (Children[i] is Ellipse e2)
+                    e2.Fill = closeBrush;
+                if (Children[i] is Rectangle r)
+                    r.Fill = closeBrush;
+            }
+        }
+        /// <summary>
+        /// 清除所有颜色
+        /// </summary>
+        /// <param name="_event"></param>
+        public void ClearAllColorExcept()
         {
             foreach (var item in Children)
             {
