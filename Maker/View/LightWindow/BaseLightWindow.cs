@@ -9,17 +9,43 @@ using System.IO;
 
 namespace Maker.View.LightWindow
 {
-    public class BaseLightWindow : BaseWindow
+    public class BaseLightWindow : BaseWindow, IWindow
     {
         public BaseLightWindow()
         {
             _fileType = ".light";
         }
 
-        protected override List<Light> LoadFileContent()
+        private List<Light> lightList;
+        protected override void  LoadFileContent()
         {
-            return fileBusiness.ReadLightFile(filePath);
+            lightList = fileBusiness.ReadLightFile(filePath);
         }
+
+        protected override void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            base.BaseLightWindow_Closing(sender,e);
+            if (!filePath.Equals(String.Empty))
+                SaveFile();
+        }
+
+        protected override void LoadFile()
+        {
+            LoadFileContent();
+            SetData(lightList);
+            spHint.Visibility = Visibility.Collapsed;
+            mainView.Children[0].Visibility = Visibility.Visible;
+        }
+
+        protected override void SaveFile()
+        {
+            fileBusiness.WriteLightFile(filePath, GetData());
+        }
+
+        public virtual void SetData(List<Light> lightList) { }
+
+        public virtual List<Light> GetData() { return null; }
+
 
     }
 }

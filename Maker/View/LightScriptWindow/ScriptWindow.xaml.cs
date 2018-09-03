@@ -4538,7 +4538,7 @@ namespace Maker.View.LightScriptWindow
             }
         }
         public bool _bIsEdit = false;
-        protected override List<Light> LoadFileContent() {
+        protected override void LoadFileContent() {
             if (_bIsEdit)
             {
                 _bIsEdit = false;
@@ -4578,7 +4578,7 @@ namespace Maker.View.LightScriptWindow
                     Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
                     if (dictionary == null)
                     {
-                        return null;
+                        return ;
                     }
                     String visibleStr = String.Empty;
                     String containStr = String.Empty;
@@ -4720,7 +4720,6 @@ namespace Maker.View.LightScriptWindow
                        UpdateData(new List<Light>());
                     }
                 }
-            return null;
         }
         /// <summary>
         /// 清除输入控件里的数据

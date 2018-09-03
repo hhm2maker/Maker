@@ -16,9 +16,9 @@ namespace Maker.View.LightScriptWindow
             _fileType = ".lightScript";
         }
 
-        protected override List<Light> LoadFileContent()
+        protected override void LoadFileContent()
         {
-            return fileBusiness.ReadLightFile(filePath);
+         
         }
 
     }

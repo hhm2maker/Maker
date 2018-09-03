@@ -6,11 +6,11 @@ using System.Windows;
 using Maker.Model;
 using System.Windows.Controls;
 using System.IO;
-using Maker.View.Base;
+using System.Xml.Linq;
 
 namespace Maker.View
 {
-    public class BaseWindow : Window, IWindow
+    public class BaseWindow : Window
     {
         protected NewMainWindow mw;
         protected String filePath = String.Empty;
@@ -65,11 +65,9 @@ namespace Maker.View
             mainView.Children.Add(spHint);
         }
 
-        private void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        protected virtual void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;  // cancels the window close    
-            if (!filePath.Equals(String.Empty))
-                SaveFile();
             Hide();      // Programmatically hides the window
         }
         protected String _fileType
@@ -98,6 +96,7 @@ namespace Maker.View
             {
                 dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }), _fileType);
             }
+ 
             if (dialog != null)
             {
                 if (dialog.ShowDialog() == true)
@@ -110,7 +109,25 @@ namespace Maker.View
                     }
                     else
                     {
-                        File.Create(filePath).Close();
+                        if (_fileType.Equals(".lightPage")) {
+                            //获取对象
+                            XDocument xDoc = new XDocument();
+                            // 添加根节点
+                            XElement xRoot = new XElement("Page");
+                            // 添加节点使用Add
+                            xDoc.Add(xRoot);
+                            for (int i = 0; i < 96; i++)
+                            {
+                                // 创建一个按钮加到root中
+                                XElement xButton = new XElement("Buttons");
+                                xRoot.Add(xButton);
+                            }
+                            // 保存该文档  
+                            xDoc.Save(filePath);
+                        }
+                        else { 
+                            File.Create(filePath).Close();
+                        }
                     }
                     LoadFile();
                 }
@@ -134,21 +151,21 @@ namespace Maker.View
             }
         }
 
-        protected void LoadFile()
+        protected virtual void LoadFile()
         {
-            SetData(LoadFileContent());
+            LoadFileContent();
             spHint.Visibility = Visibility.Collapsed;
             mainView.Children[0].Visibility = Visibility.Visible;
         }
 
-        protected virtual List<Light> LoadFileContent()
+        protected virtual void LoadFileContent()
         {
-            return null;
+            
         }
 
-        private void SaveFile()
+        protected virtual void SaveFile()
         {
-            fileBusiness.WriteLightFile(filePath, GetData());
+           
         }
         protected void SaveFile(object sender, RoutedEventArgs e)
         {
@@ -157,8 +174,6 @@ namespace Maker.View
         protected void SaveAsFile(object sender, RoutedEventArgs e)
         { }
 
-        public virtual void SetData(List<Light> lightList) { }
-
-        public virtual List<Light> GetData() { return null; }
+      
     }
 }

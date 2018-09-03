@@ -324,7 +324,7 @@
       <DependentUpon>FrameWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LightWindow\BaseLightWindow.cs" />
-    <Compile Include="View\Base\IWindow.cs" />
+    <Compile Include="View\LightWindow\IWindow.cs" />
     <Compile Include="View\LightWindow\PianoRollWindow.xaml.cs">
       <DependentUpon>PianoRollWindow.xaml</DependentUpon>
     </Compile>

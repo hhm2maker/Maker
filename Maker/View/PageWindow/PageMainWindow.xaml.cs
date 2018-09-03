@@ -89,6 +89,18 @@ namespace Maker.View.PageWindow
             //    }
             //}
         }
+
+        protected override void LoadFileContent() {
+            _pageModes.Clear();
+            tbPosition.Text = "-1";
+            view.Count = 0;
+            tbLightName.Text = "";
+            tbGoto.Text = "";
+            tbBpm.Text = "";
+
+            ReadPageFile(filePath, out _pageModes);
+        }
+
         public void ReadPageFile(String filePath, out List<List<PageButtonModel>> pageModes)
         {
             pageModes = new List<List<PageButtonModel>>();
