@@ -1594,7 +1594,6 @@ namespace Maker.View.Control
         }
         public void OpenProject(String projectPath)
         {
-            miBuild.IsEnabled = true;
             miPlay.IsEnabled = true;
 
             bool isContains = false;
@@ -1700,6 +1699,7 @@ namespace Maker.View.Control
             DragDrop.DoDragDrop(tvProject, new System.Windows.Forms.DataObject(System.Windows.Forms.DataFormats.FileDrop, files), System.Windows.DragDropEffects.Copy | System.Windows.DragDropEffects.Move /* | DragDropEffects.Link */);
         }
         public String firstPageName = String.Empty;
+        private FileBusiness fileBusiness;
 
         private void ToPlayUserControl(object sender, RoutedEventArgs e)
         {

@@ -420,7 +420,7 @@
     <sys:String x:Key="UpButton">Up</sys:String>
 
 
-    <sys:String x:Key="Build_">Build(_B)</sys:String>
+    <sys:String x:Key="Build">Build</sys:String>
     <sys:String x:Key="Play_">Play(_P)</sys:String>
     <sys:String x:Key="HelpOverview">Help overview</sys:String>
     <sys:String x:Key="ProjectProducer">Project producer</sys:String>
@@ -437,6 +437,7 @@
     <sys:String x:Key="ModelColon">Model:</sys:String>
     <sys:String x:Key="Create">Create</sys:String>
     <sys:String x:Key="TutorialColon">Tutorial:</sys:String>
+    <sys:String x:Key="FirstPageColon">First page:</sys:String>
     <sys:String x:Key="Mycontent">My content</sys:String>
     <sys:String x:Key="MatchTime">Match time</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">Total time lattice:</sys:String>
@@ -464,4 +465,6 @@
     <sys:String x:Key="OpenProject">Open project</sys:String>
     <sys:String x:Key="SaveProject">Save project</sys:String>
     <sys:String x:Key="SaveAsProject">Save as project</sys:String>
+    <sys:String x:Key="PlayExport">Play export</sys:String>
+
 </ResourceDictionary>

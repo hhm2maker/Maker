@@ -73,7 +73,7 @@
                         <MenuItem Header="3D" Name="mi3D"  Click="ToTestWindow" FontSize="14" Foreground="#000000"/>
                     </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Build_}" FontSize="14" Name="miBuild" Click="GenerateExe" IsEnabled="False"/>
+               
                 <MenuItem Header="{DynamicResource Play_}" FontSize="14" Name="miPlay" Click="ToPlayUserControl" IsEnabled="False"/>
                 <MenuItem Header="{DynamicResource Online}" FontSize="14"  Click="ToOnlineWindow" IsEnabled="False"/>
                 <MenuItem Header="{DynamicResource Setting_}" FontSize="14" Click="ToSettingWindow"/>

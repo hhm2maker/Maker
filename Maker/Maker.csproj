@@ -113,7 +113,6 @@
     </ApplicationDefinition>
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Business\FilesNameComparerClass.cs" />
-    <Compile Include="ChildBusiness\MainWindow\Generate\MainWindow.cs" />
     <Compile Include="Commands\DataCommands.cs" />
     <Compile Include="Model\StaticConstant.cs" />
     <Compile Include="MyApp\SingleInstanceApplicationWrapper.cs" />
@@ -346,6 +345,9 @@
     </Compile>
     <Compile Include="View\PlayUserControl.xaml.cs">
       <DependentUpon>PlayUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Play\PlayExportWindow.xaml.cs">
+      <DependentUpon>PlayExportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Play\TeachingControl.cs" />
     <Compile Include="View\Test\BeautifulWindow.xaml.cs">
@@ -753,6 +755,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PlayUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Play\PlayExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

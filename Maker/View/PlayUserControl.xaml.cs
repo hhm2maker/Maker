@@ -49,7 +49,6 @@ namespace Maker.View
             DirectoryInfo d = new DirectoryInfo(mw.lastProjectPath);
             XDocument _doc = XDocument.Load(mw.lastProjectPath + @"\" + d.Name + ".makerpl");
             XElement _root = _doc.Element("Root");
-
             
             XElement _tutorial = _root.Element("Tutorial");
             String strTutorial = business.Base2String(_tutorial.Attribute("content").Value);

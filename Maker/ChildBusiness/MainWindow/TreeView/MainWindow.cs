@@ -387,25 +387,6 @@ namespace Maker.View.Control
             }
         }
         
-        LightScriptBusiness business = new LightScriptBusiness();
-        FileBusiness fileBusiness = new FileBusiness();
-        public List<Light> AllFileToLightList(String filePath) {
-            List<Light> mLightList = new List<Light>();
-            if (filePath.EndsWith(".lightScript"))
-            {
-                mLightList = business.ScriptToLightGroup(business.GetCompleteLightScript(lastProjectPath + @"\LightScript\" + filePath), "Main");
-            }
-            else if (filePath.EndsWith(".light"))
-            {
-                mLightList = fileBusiness.ReadLightFile(lastProjectPath + @"\Light\" + filePath);
-            }
-            else if (filePath.EndsWith(".mid"))
-            {
-                mLightList = fileBusiness.ReadMidiFile(lastProjectPath + @"\Midi\" + filePath);
-            }
-            mLightList = LightBusiness.Sort(mLightList);
-            return mLightList;
-        }
         private BitmapImage imgSourceSetting = new BitmapImage(new Uri("pack://application:,,,../Image/file_setting.png", UriKind.RelativeOrAbsolute));
         private BitmapImage imgSourceDirectory = new BitmapImage(new Uri("pack://application:,,,../Image/directory.png", UriKind.RelativeOrAbsolute));
         private BitmapImage imgSourceFile = new BitmapImage(new Uri("pack://application:,,,../Image/file.png", UriKind.RelativeOrAbsolute));

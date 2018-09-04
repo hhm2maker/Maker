@@ -4,6 +4,7 @@ using Maker.View.Help;
 using Maker.View.LightScriptWindow;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
+using Maker.View.Play;
 using Maker.View.Tool;
 using System;
 using System.Collections.Generic;
@@ -32,13 +33,15 @@ namespace Maker.View
         private NewMainWindow mw;
         private ToggleSwitch toolSwitch;
         //Light
-        private FrameWindow fw;
-        private TextBoxWindow tbw;
-        private PianoRollWindow prw;
+        public FrameWindow fw;
+        public TextBoxWindow tbw;
+        public PianoRollWindow prw;
         //LightScript
-        private ScriptWindow sw;
+        public ScriptWindow sw;
         //Page
-        private PageMainWindow pmw;
+        public PageMainWindow pmw;
+        //Play
+        public PlayExportWindow pew;
         //Tool
         public ToolWindow tw;
         public CatalogUserControl(NewMainWindow mw)
@@ -66,6 +69,11 @@ namespace Maker.View
                 Height = mw.Height
             };
             pmw = new PageMainWindow(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            pew = new PlayExportWindow(mw)
             {
                 Width = mw.Width,
                 Height = mw.Height
@@ -146,7 +154,16 @@ namespace Maker.View
             }
             pmw.Activate();
         }
-        
+
+        private void ToPlayExportWindow(object sender, RoutedEventArgs e)
+        {
+            if (!pew.IsActive)
+            {
+                pew.Show();
+            }
+            pew.Activate();
+        }
+
 
         //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
         //{

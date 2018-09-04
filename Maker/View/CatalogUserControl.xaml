@@ -229,7 +229,22 @@
                             </Border>
                         </Button.Content>
                     </Button>
-                    <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0"  Style="{x:Null}">
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPlayExportWindow" Margin="20,0,0,0"  Style="{x:Null}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Content>
+                                <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
+                                    <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="../Image/page.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{DynamicResource PlayExport}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                    </Grid>
+                                </Border>
+                            </Button.Content>
+                        </Button>
+                        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameWindow"  Margin="20,0,0,0"  Style="{x:Null}">
                         <Button.Template>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
