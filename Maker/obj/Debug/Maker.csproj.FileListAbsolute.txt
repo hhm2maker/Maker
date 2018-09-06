@@ -418,6 +418,5 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.GenerateResource.Cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
-E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\View\Play\PlayExportWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Play\PlayExportWindow.baml

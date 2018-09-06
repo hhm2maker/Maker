@@ -33,10 +33,16 @@ namespace Maker.View.Play
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Light", new List<string>() { ".light" }));
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
-            ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
+            if (sender == btnSelectFileTutorial || sender == btnSelectFileFirstPage)
+            {
+                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Light", new List<string>() { ".light" }));
+                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
+                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
+            }
+            else {
+                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightPage", new List<string>() { ".lightPage" }));
+            }
+            ShowLightListDialog dialog = new ShowLightListDialog(this, tbTutorialName.Text, fileNames);
             if (dialog.ShowDialog() == true)
             {
                 if (sender == btnSelectFileTutorial)
@@ -49,62 +55,57 @@ namespace Maker.View.Play
                     tbFirstPageName.Text = dialog.selectItem;
                     firstPageName = tbTutorialName.Text;
                 }
+                else if (sender == btnSelectFilePages)
+                {
+                    for(int i = 0; i < dialog.lbMain.SelectedItems.Count; i++)
+                    {
+                        lbPages.Items.Add(dialog.lbMain.SelectedItems[i]);
+                        pageNames.Add(dialog.lbMain.SelectedItems[i].ToString());
+                    }
+                }
+                
             }
         }
         private void btnRemoveFile_Click(object sender, RoutedEventArgs e)
         {
-            if (sender == btnSelectFileTutorial)
+            if (sender == btnRemoveFileTutorial)
             {
                 tbTutorialName.Text = String.Empty;
                 tutorialName = String.Empty;
             }
-            else if (sender == btnSelectFileFirstPage)
+            else if (sender == btnRemoveFileFirstPage)
             {
                 tbFirstPageName.Text = String.Empty;
                 firstPageName = String.Empty;
             }
-
+            else if (sender == btnRemoveFilePages)
+            {
+                while (lbPages.SelectedItems.Count > 0) {
+                    pageNames.RemoveAt(lbPages.SelectedIndex);
+                    lbPages.Items.RemoveAt(lbPages.SelectedIndex);
+                }
+            }
         }
         protected override void LoadFileContent() {
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
             tutorialName = xnroot.Element("Tutorial").Value;
-            firstPageName = xnroot.Element("FirstPageName").Value;
             tbTutorialName.Text = tutorialName;
-            //XElement xnPages = xnroot.Element("Pages");
-            //foreach (XElement pageElement in xnPages.Elements("Page"))
-            //{
-            //    Dictionary<int, List<PageButtonModel>> mDictionaryListButton = new Dictionary<int, List<PageButtonModel>>();
-            //    Dictionary<int, int> mDictionaryPosition = new Dictionary<int, int>();
-            //    foreach (XElement buttonsElement in pageElement.Elements("Buttons"))
-            //    {
-            //        List<PageButtonModel> mListButton = new List<PageButtonModel>();
-            //        foreach (XElement buttonElement in buttonsElement.Elements("Button"))
-            //        {
-            //            PageButtonModel model = new PageButtonModel();
-            //            XElement elementDown = buttonElement.Element("Down");
-            //            model._down._lightName = elementDown.Attribute("lightname").Value;
-            //            model._down._goto = elementDown.Attribute("goto").Value;
-            //            model._down._bpm = elementDown.Attribute("bpm").Value;
-            //            XElement elementLoop = buttonElement.Element("Loop");
-            //            model._loop._lightName = elementLoop.Attribute("lightname").Value;
-            //            model._loop._goto = elementLoop.Attribute("goto").Value;
-            //            model._loop._bpm = elementLoop.Attribute("bpm").Value;
-            //            XElement elementUp = buttonElement.Element("Up");
-            //            model._up._lightName = elementUp.Attribute("lightname").Value;
-            //            model._up._goto = elementUp.Attribute("goto").Value;
-            //            model._up._bpm = elementUp.Attribute("bpm").Value;
-            //            mListButton.Add(model);
-            //        }
-            //        mDictionaryListButton.Add(int.Parse(buttonsElement.Attribute("position").Value), mListButton);
-            //        mDictionaryPosition.Add(int.Parse(buttonsElement.Attribute("position").Value), -1);
-            //    }
-            //    pages.Add(pageElement.Attribute("name").Value, mDictionaryListButton);
-            //    positions.Add(pageElement.Attribute("name").Value, mDictionaryPosition);
-            //}
+            firstPageName = xnroot.Element("FirstPageName").Value;
+            tbFirstPageName.Text = tutorialName;
+
+            pageNames.Clear();
+            XElement xnPages = xnroot.Element("Pages");
+            foreach (XElement pageElement in xnPages.Elements("Page"))
+            {
+                pageNames.Add(pageElement.Value);
+            }
+            for (int i = 0; i < pageNames.Count; i++)
+                lbPages.Items.Add(pageNames[i]);
         }
 
-      
+        
+
         private void GenerateExe(object sender, RoutedEventArgs e)
         {
             GenerateLaunchpadLightProject();
@@ -146,7 +147,7 @@ namespace Maker.View.Play
                 XAttribute xPageName = new XAttribute("name", pageNames[i]);
                 xPage.Add(xPageName);
 
-                mw.cuc.pmw.ReadPageFile(mw.lastProjectPath + @"\Page\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
+                mw.cuc.pmw.ReadPageFile(mw.lastProjectPath + @"\LightPage\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
                 for (int x = 0; x < pageModes.Count; x++)
                 {
                     if (pageModes[x].Count == 0)
@@ -288,5 +289,39 @@ namespace Maker.View.Play
             return mLightList;
         }
 
+        private new void SaveFile(object sender, RoutedEventArgs e)
+        {
+            XDocument doc = new XDocument();
+            XElement xnroot = new XElement("Root");
+            doc.Add(xnroot);
+
+            XElement xnTutorial = new XElement("Tutorial")
+            {
+                Value = tutorialName
+            };
+            xnroot.Add(xnTutorial);
+
+            XElement xnFirstPageName = new XElement("FirstPageName")
+            {
+                Value = firstPageName
+            };
+            xnroot.Add(xnFirstPageName);
+
+            XElement xnPages = new XElement("Pages");
+            foreach (XElement pageElement in xnPages.Elements("Page"))
+            {
+                pageNames.Add(pageElement.Value);
+            }
+            for (int i = 0; i < pageNames.Count; i++) {
+                XElement xnPage = new XElement("Page")
+                {
+                    Value = pageNames[i]
+                };
+                xnPages.Add(xnPage);
+            }
+            xnroot.Add(xnPages);
+
+            doc.Save(filePath);
+        }
     }
 }

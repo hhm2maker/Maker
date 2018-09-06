@@ -84,24 +84,29 @@ namespace Maker.View
         protected void NewFile(object sender, RoutedEventArgs e)
         {
             GetStringDialog2 dialog = null;
+            String _filePath = String.Empty;
             if (_fileType.Equals(".light"))
             {
-                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }), _fileType);
+                _filePath = mw.LightFilePath;
             }
             else if (_fileType.Equals(".lightScript"))
             {
-                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightScriptFilePath, new List<string>() { _fileType }), _fileType);
+                _filePath = mw.LightScriptFilePath;
             }
             else if (_fileType.Equals(".lightPage"))
             {
-                dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(mw.LightFilePath, new List<string>() { _fileType }), _fileType);
+                _filePath = mw.LightPageFilePath;
             }
- 
+            else if (_fileType.Equals(".playExport"))
+            {
+                _filePath = mw.PlayFilePath;
+            }
+            dialog = new GetStringDialog2(this, "NewFileNameColon", fileBusiness.GetFilesName(filePath, new List<string>() { _fileType }), _fileType);
             if (dialog != null)
             {
                 if (dialog.ShowDialog() == true)
                 {
-                    filePath = mw.LightFilePath + dialog.fileName;
+                    filePath = _filePath + dialog.fileName;
                     if (File.Exists(filePath))
                     {
                         new MessageDialog(this, "ExistingSameNameFile").ShowDialog();

@@ -42,6 +42,8 @@ namespace Maker
         public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +"Test";
         public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Light\";
         public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightScript\";
+        public String LightPageFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightPage\";
+        public String PlayFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Play\";
         private bool isFirst = true;
         private NewMainWindowBridge bridge;
         public NewMainWindow()
