@@ -86,10 +86,10 @@
     </UserControl.Resources>
     <ScrollViewer Focusable="True" Name="svMain">
         <Grid Margin="20" >
-        <StackPanel Background="#ecebec" Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Name="spMain" >
+        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Name="spMain" >
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
-                <TextBlock Text="{DynamicResource Light}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
                 <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
                     <Image.ToolTip>
                         <StackPanel Orientation="Vertical">
@@ -110,11 +110,11 @@
                             <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/frame.png" Width="110" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource Frame}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                <StackPanel Orientation="Vertical"  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/frame.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Frame}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
@@ -137,11 +137,11 @@
                             </StackPanel>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5"  >
-                                <Grid  Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/textbox.png" Width="130" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource TextBox}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10"  Background="#fefefe" Padding="5"  >
+                                <StackPanel Orientation="Vertical" Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/textbox.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource TextBox}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
@@ -155,18 +155,18 @@
                             <TextBlock Foreground="#7e7e7e" Text="注意：为了保证数据的正确性,解析规则会与Live一样，无关闭动作时，会在开动作的时间+1时关闭。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/pianoRoll.png" Width="130" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10"  Background="#fefefe" Padding="5" >
+                                <StackPanel Width="130"  Height="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/pianoRoll.png" Width="100"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
             </WrapPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Image Source="../Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                <TextBlock Text="{DynamicResource LightScript}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <TextBlock Text="{DynamicResource LightScript}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
                 <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToScriptWindow"  Style="{x:Null}">
@@ -181,11 +181,11 @@
                             </StackPanel>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/lightscript.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource LightScript}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10"  Background="#fefefe" Padding="5" >
+                                <StackPanel Orientation="Vertical"  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/lightscript.png" Width="80" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center"  Margin="0,10,0,10" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource LightScript}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
@@ -199,18 +199,18 @@
                             <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/code.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource Code}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                <StackPanel Orientation="Vertical"  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/code.png" Height="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Code}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
                 </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,50,0,0">
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Image Source="../Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                <TextBlock Text="{DynamicResource Play}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <StackPanel   Margin="0,20,20,0" >
                 <StackPanel Orientation="Horizontal">
@@ -221,11 +221,11 @@
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/page.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource Page}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                <StackPanel Orientation="Vertical"  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/page.png" Width="100" Height="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Page}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
@@ -236,11 +236,11 @@
                                 </ControlTemplate>
                             </Button.Template>
                             <Button.Content>
-                                <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                    <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                        <Image Source="../Image/page.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                        <TextBlock Text="{DynamicResource PlayExport}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                    </Grid>
+                                <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                    <StackPanel  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                        <Image Source="../Image/page.png" Width="100" Height="100"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                        <TextBlock Text="{DynamicResource PlayExport}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                    </StackPanel>
                                 </Border>
                             </Button.Content>
                         </Button>
@@ -252,18 +252,18 @@
                         </Button.Template>
                         <Button.Content>
                             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/playing.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource Play}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
+                                <Grid  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/playing.png" Height="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Play}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
                                 </Grid>
                             </Border>
                         </Button.Content>
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,50,0,0" Name="spToolTitle">
+            <StackPanel Orientation="Horizontal" Margin="0,30,0,0" Name="spToolTitle">
                 <Image Source="../Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                <TextBlock Text="{DynamicResource Tool}" Foreground="#222222" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <StackPanel Margin="0,20,20,0" >
                 <StackPanel Orientation="Horizontal">
@@ -274,11 +274,11 @@
                             </ControlTemplate>
                         </Button.Template>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/player.png" Width="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="{DynamicResource Player}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                <StackPanel  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/player.png" Width="100" Height="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{DynamicResource Player}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>
@@ -292,11 +292,11 @@
                             <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         </Button.ToolTip>
                         <Button.Content>
-                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                                <Grid  Height="200" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                    <Image Source="../Image/code.png"  RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                    <TextBlock Text="None" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="20" />
-                                </Grid>
+                            <Border CornerRadius="10" Background="#fefefe" Padding="5" >
+                                <StackPanel  Height="130" Width="130" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Source="../Image/code.png"  Height="100" RenderOptions.BitmapScalingMode="Fant" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock Text="None" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5,0,0" FontSize="20" />
+                                </StackPanel>
                             </Border>
                         </Button.Content>
                     </Button>

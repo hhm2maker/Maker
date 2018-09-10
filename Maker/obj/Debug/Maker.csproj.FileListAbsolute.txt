@@ -420,3 +420,4 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
 E:\Sharer\Maker\Maker\obj\Debug\View\Play\PlayExportWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Play\PlayExportWindow.baml
+E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache

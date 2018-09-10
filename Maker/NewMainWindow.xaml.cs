@@ -46,6 +46,9 @@ namespace Maker
         public String PlayFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Play\";
         private bool isFirst = true;
         private NewMainWindowBridge bridge;
+
+       
+
         public NewMainWindow()
         {
             InitializeComponent();
