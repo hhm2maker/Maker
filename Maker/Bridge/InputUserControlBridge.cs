@@ -3,7 +3,7 @@ using Maker.MethodSet;
 using Maker.Model;
 using Maker.Utils;
 using Maker.View.Dialog;
-using Maker.View.LightScriptWindow;
+using Maker.View.LightScriptUserControl;
 using Maker.View.Utils;
 using Maker.ViewBusiness;
 using System;
@@ -21,11 +21,11 @@ namespace Maker.Bridge
 {
     public class InputUserControlBridge
     {
-        private ScriptWindow iuc;
+        private ScriptUserControl iuc;
         private PointCollection polygonPC = new PointCollection();
         public List<int> mColor = new List<int>();
 
-        public InputUserControlBridge(ScriptWindow iuc)
+        public InputUserControlBridge(ScriptUserControl iuc)
         {
             this.iuc = iuc;
             RefreshColor();
@@ -341,7 +341,7 @@ namespace Maker.Bridge
                 }
             }
 
-            if (iuc.mShow == ScriptWindow.ShowMode.Launchpad)
+            if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             { 
                 //清空
                 ClearFrame();
@@ -349,7 +349,7 @@ namespace Maker.Bridge
                     SetDataToLaunchpad(mLightList);       
                 }
             }
-            else if (iuc.mShow == ScriptWindow.ShowMode.DataGrid)
+            else if (iuc.mShow == ScriptUserControl.ShowMode.DataGrid)
             {
                 SetDataToDataGrid(mLightList);
             }

@@ -40,7 +40,7 @@ namespace Maker.View.PageWindow {
     /// <summary>
     /// PageMainWindow
     /// </summary>
-    public partial class PageMainWindow : Maker.View.PageWindow.BasePageWindow, System.Windows.Markup.IComponentConnector {
+    public partial class PageMainWindow : Maker.View.PageWindow.BasePageUserControl, System.Windows.Markup.IComponentConnector {
         
         
         #line 309 "..\..\..\..\View\PageWindow\PageMainWindow.xaml"

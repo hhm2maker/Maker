@@ -1,4 +1,4 @@
-﻿using Maker.View.LightScriptWindow;
+﻿using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +13,8 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ShowRangeListDialog : Window
     {
-        public ScriptWindow iuc;
-        public ShowRangeListDialog(ScriptWindow iuc)
+        public ScriptUserControl iuc;
+        public ShowRangeListDialog(ScriptUserControl iuc)
         {
             InitializeComponent();
             this.iuc = iuc;

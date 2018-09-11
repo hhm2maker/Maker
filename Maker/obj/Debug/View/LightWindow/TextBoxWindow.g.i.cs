@@ -38,7 +38,7 @@ namespace Maker.View.LightWindow {
     /// <summary>
     /// TextBoxWindow
     /// </summary>
-    public partial class TextBoxWindow : Maker.View.LightWindow.BaseLightWindow, System.Windows.Markup.IComponentConnector {
+    public partial class TextBoxWindow : Maker.View.LightWindow.BaseLightUserControl, System.Windows.Markup.IComponentConnector {
         
         
         #line 37 "..\..\..\..\View\LightWindow\TextBoxWindow.xaml"

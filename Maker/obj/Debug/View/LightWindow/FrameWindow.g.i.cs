@@ -40,7 +40,7 @@ namespace Maker.View.LightWindow {
     /// <summary>
     /// FrameWindow
     /// </summary>
-    public partial class FrameWindow : Maker.View.LightWindow.BaseLightWindow, System.Windows.Markup.IComponentConnector {
+    public partial class FrameWindow : Maker.View.LightWindow.BaseLightUserControl, System.Windows.Markup.IComponentConnector {
         
         
         #line 316 "..\..\..\..\View\LightWindow\FrameWindow.xaml"

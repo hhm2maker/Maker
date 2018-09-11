@@ -8,16 +8,16 @@ using System.Text.RegularExpressions;
 using Maker.Model;
 using static Maker.Model.EnumCollection;
 using Maker.View.Dialog;
-using Maker.View.LightScriptWindow;
+using Maker.View.LightScriptUserControl;
 
 namespace Maker.Business
 {
     class LightScriptBusiness
     {
-        private ScriptWindow iuc; 
+        private ScriptUserControl iuc; 
         private String InCommandLine;
         private String nowControlPath;
-        public LightScriptBusiness(ScriptWindow iuc,String InCommandLine,String nowControlPath)
+        public LightScriptBusiness(ScriptUserControl iuc,String InCommandLine,String nowControlPath)
         {
             this.iuc = iuc;
             lastFilePath = iuc.mw_.lightScriptFilePath;
@@ -33,7 +33,7 @@ namespace Maker.Business
             lockedDictionary.Clear();
         }
         private Dictionary<String, List<Light>> lockedDictionary = new Dictionary<string, List<Light>>();
-        public LightScriptBusiness(ScriptWindow iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
+        public LightScriptBusiness(ScriptUserControl iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
         {
             this.iuc = iuc;
             lastFilePath = iuc.mw_.lightScriptFilePath;
@@ -94,7 +94,7 @@ namespace Maker.Business
         }
 
       
-        public Dictionary<String, String> GetCatalog(ScriptWindow iuc,String scriptText) {
+        public Dictionary<String, String> GetCatalog(ScriptUserControl iuc,String scriptText) {
             iuc.extendsDictionary.Clear();
             iuc.intersectionDictionary.Clear();
             iuc.complementDictionary.Clear();

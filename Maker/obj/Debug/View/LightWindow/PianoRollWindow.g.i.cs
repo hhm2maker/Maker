@@ -39,7 +39,7 @@ namespace Maker.View.LightWindow {
     /// <summary>
     /// PianoRollWindow
     /// </summary>
-    public partial class PianoRollWindow : Maker.View.LightWindow.BaseLightWindow, System.Windows.Markup.IComponentConnector {
+    public partial class PianoRollWindow : Maker.View.LightWindow.BaseLightUserControl, System.Windows.Markup.IComponentConnector {
         
         
         #line 38 "..\..\..\..\View\LightWindow\PianoRollWindow.xaml"

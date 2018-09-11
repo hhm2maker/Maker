@@ -1,7 +1,7 @@
 ﻿using Maker;
 using Maker.View.Dialog;
 using Maker.View.Help;
-using Maker.View.LightScriptWindow;
+using Maker.View.LightScriptUserControl;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
 using Maker.View.Play;
@@ -33,51 +33,47 @@ namespace Maker.View
         private NewMainWindow mw;
         private ToggleSwitch toolSwitch;
         //Light
-        public FrameWindow fw;
-        public TextBoxWindow tbw;
-        public PianoRollWindow prw;
+        public FrameUserControl fuc;
+        public TextBoxUserControl tbuc;
+        public PianoRollUserControl pruc;
         //LightScript
-        public ScriptWindow sw;
+        public ScriptUserControl suc;
         //Page
         public PageMainWindow pmw;
         //Play
-        public PlayExportWindow pew;
+        public PlayExportUserControl pew;
         //Tool
         public ToolWindow tw;
         public CatalogUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
-            fw = new FrameWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
-            tbw = new TextBoxWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
-            prw = new PianoRollWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
-            sw = new ScriptWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
-            pmw = new PageMainWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
-            pew = new PlayExportWindow(mw)
-            {
-                Width = mw.Width,
-                Height = mw.Height
-            };
+            //fw = new FrameWindow(mw)
+            //{
+            //    Width = mw.Width,
+            //    Height = mw.Height
+            //};
+          
+            //prw = new PianoRollWindow(mw)
+            //{
+            //    Width = mw.Width,
+            //    Height = mw.Height
+            //};
+            //sw = new ScriptUserControl(mw)
+            //{
+            //    Width = mw.Width,
+            //    Height = mw.Height
+            //};
+            //pmw = new PageMainWindow(mw)
+            //{
+            //    Width = mw.Width,
+            //    Height = mw.Height
+            //};
+            //pew = new PlayExportWindow(mw)
+            //{
+            //    Width = mw.Width,
+            //    Height = mw.Height
+            //};
             pmuc = new PlayerManagementUserControl(mw);
             tw = new ToolWindow
             {
@@ -134,54 +130,53 @@ namespace Maker.View
 
         }
      
-        private void ToTextBoxWindow(object sender, RoutedEventArgs e)
+        private void ToTextBoxUserControl(object sender, RoutedEventArgs e)
         {
-            if (!tbw.IsActive)
-            {
-                tbw.Show();
+            if (tbuc == null) {
+                tbuc = new TextBoxUserControl(mw);
             }
-            tbw.Activate();
+            gMain.Children.Clear();
+            gMain.Children.Add(tbuc);
+            spRight.Visibility = Visibility.Collapsed;
         }
-        private void ToPianoRollWindow(object sender, RoutedEventArgs e)
+        private void ToPianoRollUserControl(object sender, RoutedEventArgs e)
         {
-            if (!prw.IsActive)
+            if (pruc == null)
             {
-                prw.Show();
+                pruc = new PianoRollUserControl(mw);
             }
-            prw.Activate();
+            gMain.Children.Clear();
+            gMain.Children.Add(pruc);
+            spRight.Visibility = Visibility.Collapsed;
         }
-        private void ToFrameWindow(object sender, RoutedEventArgs e)
+        private void ToFrameUserControl(object sender, RoutedEventArgs e)
         {
-            if (!fw.IsActive)
+            if (fuc == null)
             {
-                fw.Show();
+                fuc = new FrameUserControl(mw);
             }
-            fw.Activate();
+            gMain.Children.Clear();
+            gMain.Children.Add(fuc);
+            spRight.Visibility = Visibility.Collapsed;
         }
-        private void ToScriptWindow(object sender, RoutedEventArgs e)
+        private void ToScriptUserControl(object sender, RoutedEventArgs e)
         {
-            if (!sw.IsActive)
+            if (suc == null)
             {
-                sw.Show();
+                suc = new ScriptUserControl(mw);
             }
-            sw.Activate();
+            gMain.Children.Clear();
+            gMain.Children.Add(suc);
+            spRight.Visibility = Visibility.Collapsed;
         }
         private void ToPageMainWindow(object sender, RoutedEventArgs e)
         {
-            if (!pmw.IsActive)
-            {
-                pmw.Show();
-            }
-            pmw.Activate();
+           
         }
 
         private void ToPlayExportWindow(object sender, RoutedEventArgs e)
         {
-            if (!pew.IsActive)
-            {
-                pew.Show();
-            }
-            pew.Activate();
+            
         }
 
 
@@ -208,22 +203,22 @@ namespace Maker.View
         private PlayerManagementUserControl pmuc;
         private void ToLoadPlayerManagement(object sender, RoutedEventArgs e)
         {
-            if (bTool.Visibility == Visibility.Visible)
-            {
-                bTool.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                spTool.Children.Clear();
-                spTool.Children.Add(pmuc);
-                bTool.Visibility = Visibility.Visible;
-                // 获取要定位之前 ScrollViewer 目前的滚动位置
-                var currentScrollPosition = svMain.VerticalOffset;
-                var point = new Point(0, currentScrollPosition);
-                // 计算出目标位置并滚动
-                var targetPosition = bTool.TransformToVisual(svMain).Transform(point);
-                svMain.ScrollToVerticalOffset(targetPosition.Y);
-            }
+            //if (bTool.Visibility == Visibility.Visible)
+            //{
+            //    bTool.Visibility = Visibility.Collapsed;
+            //}
+            //else
+            //{
+            //    spTool.Children.Clear();
+            //    spTool.Children.Add(pmuc);
+            //    bTool.Visibility = Visibility.Visible;
+            //    // 获取要定位之前 ScrollViewer 目前的滚动位置
+            //    var currentScrollPosition = svMain.VerticalOffset;
+            //    var point = new Point(0, currentScrollPosition);
+            //    // 计算出目标位置并滚动
+            //    var targetPosition = bTool.TransformToVisual(svMain).Transform(point);
+            //    svMain.ScrollToVerticalOffset(targetPosition.Y);
+            //}
         }
         private void ToFeedbackDialog(object sender, RoutedEventArgs e)
         {

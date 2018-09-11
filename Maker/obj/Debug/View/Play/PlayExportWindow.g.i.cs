@@ -39,7 +39,7 @@ namespace Maker.View.Play {
     /// <summary>
     /// PlayExportWindow
     /// </summary>
-    public partial class PlayExportWindow : Maker.View.BaseWindow, System.Windows.Markup.IComponentConnector {
+    public partial class PlayExportWindow : Maker.View.BaseUserControl, System.Windows.Markup.IComponentConnector {
         
         
         #line 12 "..\..\..\..\View\Play\PlayExportWindow.xaml"

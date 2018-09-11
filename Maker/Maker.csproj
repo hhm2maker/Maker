@@ -140,7 +140,7 @@
     <Compile Include="View\AboutUserControl.xaml.cs">
       <DependentUpon>AboutUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BaseWindow.cs" />
+    <Compile Include="View\BaseUserControl.cs" />
     <Compile Include="View\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
@@ -315,27 +315,27 @@
     <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightScriptWindow\BaseLightScriptWindow.cs" />
-    <Compile Include="View\LightScriptWindow\ScriptWindow.xaml.cs">
-      <DependentUpon>ScriptWindow.xaml</DependentUpon>
+    <Compile Include="View\LightScriptUserControl\BaseLightScriptUserControl.cs" />
+    <Compile Include="View\LightScriptUserControl\ScriptUserControl.xaml.cs">
+      <DependentUpon>ScriptUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\FrameWindow.xaml.cs">
-      <DependentUpon>FrameWindow.xaml</DependentUpon>
+    <Compile Include="View\LightWindow\FrameUserControl.xaml.cs">
+      <DependentUpon>FrameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\BaseLightWindow.cs" />
+    <Compile Include="View\LightWindow\BaseLightUserControl.cs" />
     <Compile Include="View\LightWindow\IWindow.cs" />
-    <Compile Include="View\LightWindow\PianoRollWindow.xaml.cs">
-      <DependentUpon>PianoRollWindow.xaml</DependentUpon>
+    <Compile Include="View\LightWindow\PianoRollUserControl.xaml.cs">
+      <DependentUpon>PianoRollUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\TextBoxWindow.xaml.cs">
-      <DependentUpon>TextBoxWindow.xaml</DependentUpon>
+    <Compile Include="View\LightWindow\TextBoxUserControl.xaml.cs">
+      <DependentUpon>TextBoxUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageWindow\BasePageWindow.cs" />
-    <Compile Include="View\PageWindow\PageMainWindow.xaml.cs">
-      <DependentUpon>PageMainWindow.xaml</DependentUpon>
+    <Compile Include="View\PageWindow\BasePageUserControl.cs" />
+    <Compile Include="View\PageWindow\PageMainUserControl.xaml.cs">
+      <DependentUpon>PageMainUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PavedLaunchpadWindow.xaml.cs">
       <DependentUpon>PavedLaunchpadWindow.xaml</DependentUpon>
@@ -346,8 +346,8 @@
     <Compile Include="View\PlayUserControl.xaml.cs">
       <DependentUpon>PlayUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Play\PlayExportWindow.xaml.cs">
-      <DependentUpon>PlayExportWindow.xaml</DependentUpon>
+    <Compile Include="View\Play\PlayExportUserControl.xaml.cs">
+      <DependentUpon>PlayExportUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Play\TeachingControl.cs" />
     <Compile Include="View\Test\BeautifulWindow.xaml.cs">
@@ -556,19 +556,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightScriptWindow\ScriptWindow.xaml">
+    <Page Include="View\LightScriptUserControl\ScriptUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\FrameWindow.xaml">
+    <Page Include="View\LightWindow\FrameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\PianoRollWindow.xaml">
+    <Page Include="View\LightWindow\PianoRollUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\TextBoxWindow.xaml">
+    <Page Include="View\LightWindow\TextBoxUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -742,7 +742,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PageWindow\PageMainWindow.xaml">
+    <Page Include="View\PageWindow\PageMainUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -758,7 +758,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Play\PlayExportWindow.xaml">
+    <Page Include="View\Play\PlayExportUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
