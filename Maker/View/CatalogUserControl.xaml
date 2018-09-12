@@ -85,11 +85,7 @@
         </Style>
     </UserControl.Resources>
      <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid Name="gMain" Grid.Row="0"/>
+        <Grid Name="gMain" Margin="0,0,0,50"/>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -134,10 +130,28 @@
                 <TextBlock Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right" Margin="0,5,0,0"/>
                 <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16"/>
             </StackPanel>
-        <Grid  Grid.Row="1">
+        <Grid VerticalAlignment="Bottom" Height="120">
             <Rectangle Fill="#A0000000" Height="50" VerticalAlignment="Bottom"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl" Margin="0,0,20,10"  Style="{x:Null}">
+            <Canvas HorizontalAlignment="Center" Name="spControl" ClipToBounds="true" Width="1280">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToHideControl" Margin="0,0,20,10"  Style="{x:Null}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.ToolTip>
+                        <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    </Button.ToolTip>
+                    <Button.Content>
+                        <Border CornerRadius="100" Background="#fefefe" Padding="5">
+                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <Image DockPanel.Dock="Top" Source="../Image/hide.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Hide}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
+                            </StackPanel>
+                        </Border>
+                    </Button.Content>
+                </Button>
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="130"  >
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -155,7 +169,7 @@
                     </Border>
                 </Button.Content>
             </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxUserControl" Margin="0,0,20,10"  Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToTextBoxUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="260" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -170,7 +184,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPianoRollUserControl" Margin="0,0,20,10"  Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPianoRollUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="390" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -188,7 +202,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToScriptUserControl" Margin="0,0,20,10"    Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToScriptUserControl" Margin="0,0,0,10"    Style="{x:Null}" Canvas.Left="520" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -208,7 +222,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl"  Margin="0,0,20,10"    Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl"  Margin="0,0,0,10" Style="{x:Null}" Canvas.Left="650" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -226,7 +240,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPageMainWindow"  Style="{x:Null}" Margin="0,0,20,10"  >
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPageMainUserControl"  Style="{x:Null}" Margin="0,0,0,10"  Canvas.Left="780" >
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -241,7 +255,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPlayExportWindow" Margin="0,0,20,10" Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToPlayExportUserControl" Margin="0,0,0,10" Style="{x:Null}"  Canvas.Left="910"> 
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -256,7 +270,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl"  Margin="0,0,20,10" Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToFrameUserControl"  Margin="0,0,20,10" Style="{x:Null}"  Canvas.Left="1040">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -271,7 +285,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToLoadPlayerManagement" Margin="0,0,20,10" Style="{x:Null}">
+                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="ToLoadPlayerManagement" Margin="0,0,20,10" Style="{x:Null}" Canvas.Left="1170">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -286,7 +300,7 @@
                         </Border>
                     </Button.Content>
                 </Button>
-            </StackPanel>
+            </Canvas>
         </Grid>
     </Grid>
 </UserControl>

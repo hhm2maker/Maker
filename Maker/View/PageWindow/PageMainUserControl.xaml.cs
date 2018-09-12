@@ -18,10 +18,10 @@ namespace Maker.View.PageWindow
     /// <summary>
     /// PageWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class PageMainWindow : UserControl
+    public partial class PageMainUserControl : UserControl
     {
         public View view; NewMainWindow mw;
-        public PageMainWindow(NewMainWindow mw)
+        public PageMainUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
@@ -392,10 +392,6 @@ namespace Maker.View.PageWindow
             //{
             //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
             //}
-        }
-        private void SetAsTheStartingPage(object sender, RoutedEventArgs e)
-        {
-            //mw.firstPageName = System.IO.Path.GetFileName(mw.lightScriptFilePath);
         }
 
         private void tbBpm_TextChanged(object sender, TextChangedEventArgs e)

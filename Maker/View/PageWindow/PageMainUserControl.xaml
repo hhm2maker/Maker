@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Maker.View.PageWindow.PageMainWindow"
+﻿<UserControl x:Class="Maker.View.PageWindow.PageMainUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -310,7 +310,6 @@
                 <launchpad:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                     <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" Margin="0,0,0,20" Style="{StaticResource BigButton}"/>
-                    <Button  HorizontalAlignment="Right" Margin="30,0,0,0"  Content="{DynamicResource SetAsTheStartingPage}" Width="200" Style="{StaticResource BigButton}" Click="SetAsTheStartingPage"/>
                 </StackPanel>
             </StackPanel>
             <ScrollViewer  Margin="10,0,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" >

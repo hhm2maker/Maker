@@ -39,9 +39,9 @@ namespace Maker.View
         //LightScript
         public ScriptUserControl suc;
         //Page
-        public PageMainWindow pmw;
+        public PageMainUserControl puc;
         //Play
-        public PlayExportUserControl pew;
+        public PlayExportUserControl peuc;
         //Tool
         public ToolWindow tw;
         public CatalogUserControl(NewMainWindow mw)
@@ -53,7 +53,7 @@ namespace Maker.View
             //    Width = mw.Width,
             //    Height = mw.Height
             //};
-          
+
             //prw = new PianoRollWindow(mw)
             //{
             //    Width = mw.Width,
@@ -64,16 +64,16 @@ namespace Maker.View
             //    Width = mw.Width,
             //    Height = mw.Height
             //};
-            //pmw = new PageMainWindow(mw)
-            //{
-            //    Width = mw.Width,
-            //    Height = mw.Height
-            //};
-            //pew = new PlayExportWindow(mw)
-            //{
-            //    Width = mw.Width,
-            //    Height = mw.Height
-            //};
+            puc = new PageMainUserControl(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
+            peuc = new PlayExportUserControl(mw)
+            {
+                Width = mw.Width,
+                Height = mw.Height
+            };
             pmuc = new PlayerManagementUserControl(mw);
             tw = new ToolWindow
             {
@@ -169,14 +169,26 @@ namespace Maker.View
             gMain.Children.Add(suc);
             spRight.Visibility = Visibility.Collapsed;
         }
-        private void ToPageMainWindow(object sender, RoutedEventArgs e)
+        private void ToPageMainUserControl(object sender, RoutedEventArgs e)
         {
-           
+            if (puc == null)
+            {
+                puc = new PageMainUserControl(mw);
+            }
+            gMain.Children.Clear();
+            gMain.Children.Add(puc);
+            spRight.Visibility = Visibility.Collapsed;
         }
 
-        private void ToPlayExportWindow(object sender, RoutedEventArgs e)
+        private void ToPlayExportUserControl(object sender, RoutedEventArgs e)
         {
-            
+            if (peuc == null)
+            {
+                peuc = new PlayExportUserControl(mw);
+            }
+            gMain.Children.Clear();
+            gMain.Children.Add(peuc);
+            spRight.Visibility = Visibility.Collapsed;
         }
 
 
@@ -228,6 +240,54 @@ namespace Maker.View
         private void ToHelpOverview(object sender, MouseButtonEventArgs e)
         {
             new HelpOverviewWindow(mw).Show();
+        }
+        bool bIsShowControl = true;
+        private void ToHideControl(object sender, RoutedEventArgs e)
+        {
+            if (bIsShowControl)
+            {
+                for (int i = 0; i < spControl.Children.Count; i++)
+                {
+                    DoubleAnimation doubleAnimation = new DoubleAnimation
+                    {
+                        From = 0,
+                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+                    };
+                    if (i == 0)
+                    {
+                        doubleAnimation.To = 100;
+                    }
+                    else
+                    {
+                        doubleAnimation.To = 130;
+                    }
+                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * i);
+                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+                }
+                gMain.Margin = new Thickness(0,0,0,0);
+            }
+            else {
+                for (int i = 0; i < spControl.Children.Count; i++)
+                {
+                    DoubleAnimation doubleAnimation = new DoubleAnimation
+                    {
+                        To = 0,
+                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+                    };
+                    if (i == 0)
+                    {
+                        doubleAnimation.From = 100;
+                    }
+                    else
+                    {
+                        doubleAnimation.From = 130;
+                    }
+                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * i);
+                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+                }
+                gMain.Margin = new Thickness(0, 0, 0, 50);
+            }
+            bIsShowControl = !bIsShowControl;
         }
     }
 }
