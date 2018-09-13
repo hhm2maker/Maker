@@ -28,7 +28,8 @@
                 <MenuItem Header="{DynamicResource Clear}"  Foreground="#000000" Click="btnClear_Click"  />
             </MenuItem>
         </Menu>
-        <ScrollViewer  Name="svMain" Template="{DynamicResource ScrollViewerControlTemplate1}" Background="#535353">
+        <!--Template="{DynamicResource ScrollViewerControlTemplate1}"-->
+        <ScrollViewer  Name="svMain" Background="#535353">
             <StackPanel>
                 <StackPanel Orientation="Vertical" Margin="0,0,0,30"  VerticalAlignment="Top">
                     <TextBlock  Margin="15,15,0,0" Text="{DynamicResource TimeColon}" Foreground="White" FontSize="22" Height="auto" FontWeight="Bold" />
