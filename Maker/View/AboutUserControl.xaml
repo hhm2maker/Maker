@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             Background="#fafafa"
+             mc:Ignorable="d"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
+             Background="#fafafa"
              >
     <UserControl.Resources>
         <LinearGradientBrush x:Key="LGBrush" StartPoint="0,0.5" EndPoint="1,0.5">
@@ -44,6 +44,7 @@
         </Style.Triggers>
     </Style>-->
     </UserControl.Resources>
+   
     <Grid >
         <StackPanel Name="spLanguage" Orientation="Vertical" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="5">
             <DockPanel>
@@ -67,7 +68,7 @@
                 <Run Text="{DynamicResource Period}" />
 <Run Text="{DynamicResource Appreciate}" MouseLeftButtonDown="ToAppreciateWindow" Foreground="#383838" TextDecorations="Underline" />
                 <Run Text="{DynamicResource Period}" />
-          
+
             </TextBlock>
             <TextBlock Foreground="#d94c93" Text="关于代码" HorizontalAlignment="Center" FontSize="25" Margin="0,50,0,0"/>
             <Border Padding="10" CornerRadius="3" BorderBrush="#d7d7d9" BorderThickness="1" Margin="0,30,0,0">
@@ -115,5 +116,37 @@
                 </Button.Template>
             </Button>
         </StackPanel>
+        <Canvas >
+            <Canvas.Resources>
+                <PathGeometry x:Key="path" Figures="M0.6,46.8 125,7 180.2,63 244.2,7 243.8 124.8 338,54 549.6,0 364.2,193 337.8,261.4 540.6,331.2 338.6,357.6 122.4,210.8 124.2 79.8  0.6,46.8" />
+                <Storyboard x:Key="pathStoryboard" >
+                    <MatrixAnimationUsingPath PathGeometry="{StaticResource path}"
+                                          Storyboard.TargetName="ButtonMatrixTransform"
+                                          Storyboard.TargetProperty="Matrix"
+                                          DoesRotateWithTangent="True"
+                                          Duration="0:0:15" RepeatBehavior="Forever" >
+                    </MatrixAnimationUsingPath>
+                </Storyboard>
+            </Canvas.Resources>
+
+            <Canvas.Triggers>
+                <EventTrigger RoutedEvent="Control.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource pathStoryboard}" />
+                </EventTrigger>
+            </Canvas.Triggers>
+
+            <Path Data="{StaticResource path}" Stroke="Black" StrokeThickness="1" />
+            <Line Width="100" Height="3" Stroke="Red">
+                <!--<Line.Stroke>
+                        <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                            <GradientStop Color="Red" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                </Line.Stroke>-->
+                        <Line.RenderTransform>
+                    <MatrixTransform x:Name="ButtonMatrixTransform" />
+                </Line.RenderTransform>
+            </Line>
+        </Canvas>
     </Grid>
 </UserControl>
