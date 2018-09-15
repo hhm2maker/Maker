@@ -60,6 +60,7 @@ FE:\Sharer\Maker\Maker\View\Dialog\ShapeColorDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Dialog\ShowRangeListDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Dialog\TipDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Help\AppreciateWindow.xaml;;
+FE:\Sharer\Maker\Maker\View\LogoUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\PageUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\PageWindow\PageMainUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\PavedLaunchpadWindow.xaml;;
@@ -93,4 +94,5 @@ FE:\Sharer\Maker\Maker\View\Work\MediaPlayerWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\Work\WebBrowserUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\Work\WebBrowserWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\MakerpjUserControl.xaml;;
+FE:\Sharer\Maker\Maker\View\LightScriptUserControl\CodeUserControl.xaml;;
 

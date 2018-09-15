@@ -316,6 +316,9 @@
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LightScriptUserControl\BaseLightScriptUserControl.cs" />
+    <Compile Include="View\LightScriptUserControl\CodeUserControl.xaml.cs">
+      <DependentUpon>CodeUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LightScriptUserControl\ScriptUserControl.xaml.cs">
       <DependentUpon>ScriptUserControl.xaml</DependentUpon>
     </Compile>
@@ -329,6 +332,9 @@
     </Compile>
     <Compile Include="View\LightWindow\TextBoxUserControl.xaml.cs">
       <DependentUpon>TextBoxUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LogoUserControl.xaml.cs">
+      <DependentUpon>LogoUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
@@ -556,6 +562,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\LightScriptUserControl\CodeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LightScriptUserControl\ScriptUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -735,6 +745,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Help\AppreciateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LogoUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

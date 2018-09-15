@@ -75,8 +75,12 @@ namespace Maker
             bridge.LoadLanguage();
 
             InitConfig();
-            if (!isFirst) {
+            if (!isFirst)
+            {
                 ToCatalogUserControl();
+            }
+            else {
+                auc.ShowLogo();
             }
             cuc.tbProjectPath.Text = lastProjectPath;
 

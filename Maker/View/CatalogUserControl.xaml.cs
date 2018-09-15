@@ -38,6 +38,7 @@ namespace Maker.View
         public PianoRollUserControl pruc;
         //LightScript
         public ScriptUserControl suc;
+        public CodeUserControl cuc;
         //Page
         public PageMainUserControl puc;
         //Play
@@ -64,8 +65,9 @@ namespace Maker.View
             //ScriptUserControl
             suc = new ScriptUserControl(mw);
             userControls.Add(suc);
-            //CodeUserControl - 未编写
-            userControls.Add(new PlayExportUserControl(mw));
+            //CodeUserControl
+            cuc = new CodeUserControl(mw);
+            userControls.Add(cuc);
             //PageMainUserControl 
             puc = new PageMainUserControl(mw);
             userControls.Add(puc);
@@ -126,12 +128,13 @@ namespace Maker.View
         {
             mw.auc.Visibility = Visibility.Visible;
             DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
+            daV.Completed += DaV_Completed;
             mw.auc.BeginAnimation(OpacityProperty, daV);
         }
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-
+            mw.auc.ShowLogo();
         }
 
         private void IntoUserControl(object sender, RoutedEventArgs e)
@@ -252,8 +255,7 @@ namespace Maker.View
                         Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
                     };
                     doubleAnimation.To = 0;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (spControl.Children.Count - 2 -i));
-                    Console.WriteLine((spControl.Children.Count - i));
+                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (position - i));
                     spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
                 }
                 for (int i = spControl.Children.Count - 1; i >= position + 1; i--)
@@ -264,7 +266,7 @@ namespace Maker.View
                         Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
                     };
                     doubleAnimation.To = 0;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (i-2));
+                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (i- position));
                     spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
                 }
                 {
