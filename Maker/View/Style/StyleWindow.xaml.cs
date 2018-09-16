@@ -21,7 +21,7 @@ namespace Maker.View.Style
     /// </summary>
     public partial class StyleWindow : Window
     {
-        public StyleWindow(MainWindow mw)
+        public StyleWindow(Window mw)
         {
             InitializeComponent();
             Owner = mw;

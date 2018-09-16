@@ -26,7 +26,7 @@ namespace Maker.View.Dialog
         public ComboBox cbLightName, cbType;
         public CollectionDialog(ScriptUserControl iuc)
         {
-            Owner = iuc.mw_;
+            Owner = iuc.mw;
             this.iuc = iuc;
             ToCreateDialog();
         }

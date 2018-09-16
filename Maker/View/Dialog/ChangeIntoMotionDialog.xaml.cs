@@ -9,7 +9,7 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ChangeIntoMotionDialog : Window
     {
-        public ChangeIntoMotionDialog(MainWindow mw)
+        public ChangeIntoMotionDialog(Window mw)
         {
             InitializeComponent();
             Owner = mw;

@@ -11,7 +11,7 @@ namespace Maker.View.Dialog.Automatic
     /// </summary>
     public partial class RandomFountainDialog : Window
     {
-        public RandomFountainDialog(MainWindow mw)
+        public RandomFountainDialog(Window mw)
         {
             InitializeComponent();
             Owner = mw;

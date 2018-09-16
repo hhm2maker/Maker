@@ -283,5 +283,7 @@
                 </Button>
             </Canvas>
         </Grid>
+        <Image x:Name="btnPaved"  Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+
     </Grid>
 </UserControl>

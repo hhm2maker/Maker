@@ -486,7 +486,7 @@ namespace Maker.Bridge
             }
             else
             {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorList[i - 1]));
+                return StaticConstant.brushList[i - 1];
             }
         }
 
@@ -546,7 +546,7 @@ namespace Maker.Bridge
             iuc.rangeDictionary = file.ReadRangeFile(AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range");
             if (iuc.rangeDictionary == null)
             {
-                new MessageDialog(iuc.mw_, "TheReadRangeFileFailed").ShowDialog();
+                new MessageDialog(iuc.mw, "TheReadRangeFileFailed").ShowDialog();
             }
         }
 
@@ -591,7 +591,7 @@ namespace Maker.Bridge
         public List<String> GetMyContent()
         {
             List<String> contents = new List<String>();
-            DirectoryInfo folder = new DirectoryInfo(iuc.mw_.lastProjectPath + @"\LightScript");
+            DirectoryInfo folder = new DirectoryInfo(iuc.mw.lastProjectPath + @"\LightScript");
             foreach (FileInfo file in folder.GetFiles("*.lightScript"))
             {
                 contents.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));

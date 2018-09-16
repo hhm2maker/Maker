@@ -144,8 +144,8 @@ namespace Maker.View.Setting
             //播放器
             cbPlayerType.SelectedIndex = (int)mw.pleyerType;
             //灯光语句
-            tbPavedColumns.Text = mw.pavedColumns.ToString();
-            tbPavedMax.Text = mw.pavedMax.ToString();
+            //tbPavedColumns.Text = mw.pavedColumns.ToString();
+            //tbPavedMax.Text = mw.pavedMax.ToString();
 
             lastSelection = 0;
             lbCatalog.SelectedIndex = 0;
@@ -654,7 +654,7 @@ namespace Maker.View.Setting
                     XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
                     lightScriptPavedColumns.InnerText = columns.ToString();
                     doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/lightscript.xml");
-                    mw.pavedColumns = columns;
+                    //mw.pavedColumns = columns;
                 }
             }
             else {
@@ -671,7 +671,7 @@ namespace Maker.View.Setting
                     XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
                     lightScriptPavedMax.InnerText = max.ToString();
                     doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/lightscript.xml");
-                    mw.pavedMax = max;
+                    //mw.pavedMax = max;
                 }
             }
             else

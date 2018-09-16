@@ -10,10 +10,11 @@
     x:Class="Maker.InputUserControl"
              mc:Ignorable="d" 
              Width="1490"
-             Loaded="UserControl_Loaded"
+    Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
             >
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -276,7 +277,7 @@
                     </GroupBox>
                     <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,30"  Style="{DynamicResource GroupBoxStyle2}" >
                         <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" Name="spConditionJudgment">
-                            <TextBlock  Margin="0,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Center"/>
+                            <TextBlock  Margin="0,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
                             <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock Width="100" Text="{DynamicResource TimeEquals}" />
                                 <StackPanel Orientation="Horizontal" >
@@ -309,7 +310,7 @@
                                     <Button x:Name="btnIfColor" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
-                            <TextBlock  Margin="0,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Center"/>
+                            <TextBlock  Margin="0,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Left"/>
                             <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                                 <TextBlock  Width="100" Text="{DynamicResource TimeEquals}"/>
                                 <TextBox x:Name="tbThenTime" Width="240" />
@@ -333,12 +334,12 @@
             </StackPanel>
         </ScrollViewer>
         <Grid  x:Name="gMain"  Grid.Column="2" >
-            <!--<Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>-->
+            </Grid.RowDefinitions>
             <Grid Background="#535353" >
-                <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
+                <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
               
                     <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow"  >
                         <TabItem Header="Launchpad" Foreground="#ffffff" >
@@ -402,14 +403,12 @@
                             <pianoroll:PianoRollUserControl/>
                         </TabItem>
                     </TabControl>
-                <Image x:Name="btnPaved"  Margin="0,0,20,40" Width="30"  Source="Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-               
             </Grid>
-            <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
+            <ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
                 </StackPanel>
-            </ScrollViewer>-->
+            </ScrollViewer>
         </Grid>
         <Grid   Grid.Column="3" HorizontalAlignment="Right" Width="310" Background="#4d4d4d">
             <Grid.RowDefinitions>

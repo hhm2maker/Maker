@@ -21,14 +21,14 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ListChangeColorDialog : Window
     {
-        private MainWindow mw;
+        private Window mw;
         private List<Light> mLightList;
-        public ListChangeColorDialog(MainWindow mw,List<Light> mLightList)
+        public ListChangeColorDialog(Window mw,List<Light> mLightList)
         {
             InitializeComponent();
 
             FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.strColortabPath);
+            //ColorList = file.ReadColorFile(mw.strColortabPath);
 
             this.mw = mw;
             this.mLightList = mLightList;
@@ -59,9 +59,6 @@ namespace Maker.View.Dialog
             DialogResult = false;
         }
 
-        private List<String> ColorList = new List<string>();
-      
-
         /// <summary>
         /// 数字转笔刷
         /// </summary>
@@ -75,7 +72,7 @@ namespace Maker.View.Dialog
             }
             else
             {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorList[i - 1]));
+                return StaticConstant.brushList[i - 1];
             }
         }
         List<int> mColor = new List<int>();

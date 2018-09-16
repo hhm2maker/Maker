@@ -329,18 +329,7 @@ namespace Maker.View
                     mw.bIsRangeListNumber = false;
                 }
             }
-          
-            //灯光语句页面
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/lightscript.xml");
-                XmlNode lightScriptRoot = doc.DocumentElement;
-                XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
-                XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
-                mw.pavedColumns = int.Parse(lightScriptPavedColumns.InnerText);
-                XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
-                mw.pavedMax = int.Parse(lightScriptPavedMax.InnerText);
-            }
+            
             MainToLogin();
             bIsRead = true;
         }

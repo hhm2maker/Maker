@@ -22,7 +22,7 @@ namespace Maker.View.Dialog.Script
     public partial class Create_CreateLightGroupDialog : Window
     {
         private String command;
-        public Create_CreateLightGroupDialog(MainWindow mw, String command)
+        public Create_CreateLightGroupDialog(Window mw, String command)
         {
             InitializeComponent();
             Owner = mw;

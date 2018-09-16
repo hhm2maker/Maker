@@ -30,6 +30,7 @@ namespace Maker
     /// </summary>
     public partial class InputUserControl : UserControl
     {
+       
         public MainWindow mw;
         public InputUserControlBridge bridge;
         public InputUserControlViewBusiness viewBusiness;
@@ -2010,7 +2011,7 @@ namespace Maker
                 //双击时执行
                 if (lbStep.SelectedIndex == -1)
                     return;
-                GetStringDialog stringD = new GetStringDialog(mw, "StepName", "NewStepNameColon", "");
+                GetStringDialog stringD = null;
                 if (stringD.ShowDialog() == true)
                 {
                     String oldName = GetStepName();
@@ -2135,12 +2136,12 @@ namespace Maker
 
         private void CheckProperties(object sender, RoutedEventArgs e)
         {
-            if (lbStep.SelectedIndex == -1)
-            {
-                return;
-            }
-            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, RefreshData(GetStepName()));
-            propertiesDialog.ShowDialog();
+            //if (lbStep.SelectedIndex == -1)
+            //{
+            //    return;
+            //}
+            //CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, RefreshData(GetStepName()));
+            //propertiesDialog.ShowDialog();
         }
 
         private void VisiblePanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -4066,55 +4067,55 @@ namespace Maker
 
         private void Unmake()
         {
-            if (mw.iNowPosition == -1)
-                return;
-            int mINowPosition = mw.iNowPosition - 1;
-            int selectedIndex = lbStep.SelectedIndex;
-            //if (mINowPosition == -1)
-            //    mINowPosition = 99;
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
-            {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw.lightScriptFilePath, true);
-                mw._bIsEdit = true;
-                mw.bIsEdit = true;
-                mw.iNowPosition -= 1;
-                mw.ProjectDocument_SelectionChanged_LightScript();
-                if (selectedIndex < lbStep.Items.Count) {
-                    lbStep.SelectedIndex = selectedIndex;
-                }
-            }
+            //if (mw.iNowPosition == -1)
+            //    return;
+            //int mINowPosition = mw.iNowPosition - 1;
+            //int selectedIndex = lbStep.SelectedIndex;
+            ////if (mINowPosition == -1)
+            ////    mINowPosition = 99;
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
+            //{
+            //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw.lightScriptFilePath, true);
+            //    mw._bIsEdit = true;
+            //    mw.bIsEdit = true;
+            //    mw.iNowPosition -= 1;
+            //    mw.ProjectDocument_SelectionChanged_LightScript();
+            //    if (selectedIndex < lbStep.Items.Count) {
+            //        lbStep.SelectedIndex = selectedIndex;
+            //    }
+            //}
         }
         private void Redo()
         {
-            if (mw.iNowPosition == -1)
-                return;
-            int mINowPosition = mw.iNowPosition + 1;
-            int selectedIndex = lbStep.SelectedIndex;
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
-            {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw.lightScriptFilePath, true);
-                mw._bIsEdit = true;
-                mw.bIsEdit = true;
-                mw.iNowPosition += 1;
-                mw.ProjectDocument_SelectionChanged_LightScript();
-                if (selectedIndex < lbStep.Items.Count)
-                {
-                    lbStep.SelectedIndex = selectedIndex;
-                }
-            }
+            //if (mw.iNowPosition == -1)
+            //    return;
+            //int mINowPosition = mw.iNowPosition + 1;
+            //int selectedIndex = lbStep.SelectedIndex;
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
+            //{
+            //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw.lightScriptFilePath, true);
+            //    mw._bIsEdit = true;
+            //    mw.bIsEdit = true;
+            //    mw.iNowPosition += 1;
+            //    mw.ProjectDocument_SelectionChanged_LightScript();
+            //    if (selectedIndex < lbStep.Items.Count)
+            //    {
+            //        lbStep.SelectedIndex = selectedIndex;
+            //    }
+            //}
         }
 
         private void GetExecutionTime(object sender, RoutedEventArgs e)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            //耗时巨大的代码  
-            RefreshData();
-            sw.Stop();
-            TimeSpan ts2 = sw.Elapsed;
-            new MessageDialog(mw, String.Format("总共花费{0}ms.", ts2.TotalMilliseconds), 0).ShowDialog();
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + mw.iNowPosition + ".lightScript");
-            mw.iNowPosition--;
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();
+            ////耗时巨大的代码  
+            //RefreshData();
+            //sw.Stop();
+            //TimeSpan ts2 = sw.Elapsed;
+            //new MessageDialog(mw, String.Format("总共花费{0}ms.", ts2.TotalMilliseconds), 0).ShowDialog();
+            //File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + mw.iNowPosition + ".lightScript");
+            //mw.iNowPosition--;
         }
 
         private void GetCompleteScript(object sender, RoutedEventArgs e)
@@ -4362,12 +4363,6 @@ namespace Maker
             RefreshData();
         }
 
-        private void BtnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            PavedLaunchpadWindow raved = new PavedLaunchpadWindow(mw,mLightList);
-            raved.ShowDialog();
-        }
-
         private void LockingStep(object sender, RoutedEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
@@ -4458,4 +4453,5 @@ namespace Maker
         //}
 
     }
+    
 }

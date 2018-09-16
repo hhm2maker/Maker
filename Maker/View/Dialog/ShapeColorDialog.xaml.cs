@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Model;
 using Maker.View.Control;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,11 @@ namespace Maker.View.Dialog
     public partial class ShapeColorDialog : Window
     {
         private int type;
-        private MainWindow mw;
-        public ShapeColorDialog(MainWindow mw,int type)
+        public ShapeColorDialog(Window mw,int type)
         {
             InitializeComponent();
             Owner = mw;
             this.type = type;
-            this.mw = mw;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -49,10 +48,7 @@ namespace Maker.View.Dialog
                 tbHelpOne.Text = "左";
                 tbHelpTwo.Text = "右";
             }
-            FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.strColortabPath);
         }
-        private List<String> ColorList = new List<string>();
    
         /// <summary>
         /// 数字转笔刷
@@ -67,7 +63,7 @@ namespace Maker.View.Dialog
             }
             else
             {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString(ColorList[i - 1]));
+                return StaticConstant.brushList[i - 1];
             }
         }
         public String content {

@@ -47,8 +47,7 @@ namespace Maker.View.Control
             System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
             //初始化桥梁
             bridge = new MainWindowBridge(this);
-            //加载静态常量
-            InitStaticConstant();
+          
             //设置全屏
             bridge.SetPercentageOfScreen(1);
             //初始化主窗口
@@ -60,17 +59,7 @@ namespace Maker.View.Control
             historicals = bridge.GetHistorical();
         }
 
-        private void InitStaticConstant()
-        {
-            FileBusiness fileBusiness = new FileBusiness();
-            List<String> ColorList = fileBusiness.ReadColorFile(strColortabPath);
-            List<SolidColorBrush> brushList = new List<SolidColorBrush>();
-            foreach (String str in ColorList) {
-                brushList.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString(str)));
-            }
-            StaticConstant.brushList = brushList;
-            StaticConstant.mw = this;
-        }
+      
 
         /// <summary>
         /// 欢迎用户控件(起始页) 构造函数处初始化
@@ -309,7 +298,7 @@ namespace Maker.View.Control
                 iuc.RefreshData(true);
             }
             SaveProjectConfig();
-            ClearCache();
+            //ClearCache();
             Environment.Exit(0);
         }
 
@@ -556,8 +545,8 @@ namespace Maker.View.Control
             else
             {
                 //清除缓存/Cache
-                ClearCache();
-                iNowPosition = -1;
+                //ClearCache();
+                //iNowPosition = -1;
             }
 
             //读取灯光文件
@@ -895,8 +884,8 @@ namespace Maker.View.Control
             TreeViewItem item = (TreeViewItem)tvProject.SelectedItem;
             TreeViewItem itemParent = (TreeViewItem)item.Parent;
             itemParent.Items.Remove(item);
-            ClearCache();
-            iNowPosition = -1;
+            //ClearCache();
+            //iNowPosition = -1;
             ToNoneUserControl(false);
         }
         private void OtherDrawingSoftware_Click(object sender, RoutedEventArgs e)
@@ -1372,30 +1361,7 @@ namespace Maker.View.Control
         {
             gError.Visibility = Visibility.Hidden;
         }
-        public int iNowPosition = -1;
-        public void ClearCache() {
-            try
-            {
-                DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory+@"Cache");
-                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
-                foreach (FileSystemInfo i in fileinfo)
-                {
-                    if (i is DirectoryInfo)            //判断是否文件夹
-                    {
-                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
-                        subdir.Delete(true);          //删除子目录和文件
-                    }
-                    else
-                    {
-                        File.Delete(i.FullName);      //删除指定文件
-                    }
-                }
-            }
-            catch 
-            {
-                throw;
-            }
-        }
+       
         public bool _bIsEdit = false;
         public bool bIsEdit = false;
         

@@ -20,7 +20,7 @@ namespace Maker.Business
         public LightScriptBusiness(ScriptUserControl iuc,String InCommandLine,String nowControlPath)
         {
             this.iuc = iuc;
-            lastFilePath = iuc.mw_.lightScriptFilePath;
+            lastFilePath = iuc.filePath;
 
             this.InCommandLine = InCommandLine;
             this.nowControlPath = nowControlPath;
@@ -36,7 +36,7 @@ namespace Maker.Business
         public LightScriptBusiness(ScriptUserControl iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
         {
             this.iuc = iuc;
-            lastFilePath = iuc.mw_.lightScriptFilePath;
+            lastFilePath = iuc.mw.lastProjectPath;
 
             this.InCommandLine = InCommandLine;
             this.nowControlPath = nowControlPath;
@@ -1517,21 +1517,21 @@ namespace Maker.Business
                         wr.Write(commandLine);
                     }
                 }
-                if (iuc.mw_.bIsEdit)
-                {
-                    iuc.mw_.bIsEdit = false;
-                }
-                else {
-                    iuc.mw_.iNowPosition++;
-                    File.Copy(fileName, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iuc.mw_.iNowPosition + ".lightScript", true);
-                    if (iuc.mw_.iNowPosition == 999) {
-                        new MessageDialog(iuc.mw_, "Edit999").ShowDialog();
-                        iuc.mw_.ClearCache();
-                        iuc.mw_.iNowPosition = -1;
-                        iuc.mw_._bIsEdit = false;
-                        iuc.mw_.ProjectDocument_SelectionChanged_LightScript();
-                    }
-                }
+                //if (iuc.mw.bIsEdit)
+                //{
+                //    iuc.mw.bIsEdit = false;
+                //}
+                //else {
+                //    iuc.mw_.iNowPosition++;
+                //    File.Copy(fileName, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iuc.mw_.iNowPosition + ".lightScript", true);
+                //    if (iuc.mw_.iNowPosition == 999) {
+                //        new MessageDialog(iuc.mw_, "Edit999").ShowDialog();
+                //        iuc.mw_.ClearCache();
+                //        iuc.mw_.iNowPosition = -1;
+                //        iuc.mw_._bIsEdit = false;
+                //        iuc.mw_.ProjectDocument_SelectionChanged_LightScript();
+                //    }
+                //}
             }
         }
         /// <summary>
@@ -1624,9 +1624,9 @@ namespace Maker.Business
                 else if (importType.Equals("Resource"))
                 {
                     //Resource
-                    if (File.Exists(iuc.mw_.lastProjectPath + @"\Resource\" + importContent[1]))
+                    if (File.Exists(iuc.mw.lastProjectPath + @"\Resource\" + importContent[1]))
                     {
-                        _importContent.Add(importContent[1], iuc.mw_.lastProjectPath + @"\Resource\" + importContent[1]);
+                        _importContent.Add(importContent[1], iuc.mw.lastProjectPath + @"\Resource\" + importContent[1]);
                     }
                     else
                     {
@@ -1656,9 +1656,9 @@ namespace Maker.Business
                 //    ShowError("导入灯光脚本文件不存在");
                 //    return false;
                 //}
-                if (File.Exists(iuc.mw_.lastProjectPath + @"\LightScript\" + importCommandLine))
+                if (File.Exists(iuc.mw.lastProjectPath + @"\LightScript\" + importCommandLine))
                 {
-                    _importContent.Add(importCommandLine.Split('.')[0], iuc.mw_.lastProjectPath + @"\LightScript\"+ importCommandLine);
+                    _importContent.Add(importCommandLine.Split('.')[0], iuc.mw.lastProjectPath + @"\LightScript\"+ importCommandLine);
                 }
                 else
                 {
@@ -2092,13 +2092,13 @@ namespace Maker.Business
         private List<Light> EditLightGroup(String commandContent, List<Light> needEditLightGroup, Dictionary<String, List<int>> rangeGroupDictionary,Dictionary<String, List<int>> colorGroupDictionary)
         {
             List<Light> _lightGroup = null;
-            // = Edit.HorizontalFlipping(testLightGroup);
-            _lightGroup = EditMethod.EditMain(commandContent, needEditLightGroup, rangeGroupDictionary, colorGroupDictionary,iuc.mw_.thirdPartys);
-            if (_lightGroup == null)
-            {
-                //ShowError("Edit修改灯光失败");
-                return null;
-            }
+            //// = Edit.HorizontalFlipping(testLightGroup);
+            //_lightGroup = EditMethod.EditMain(commandContent, needEditLightGroup, rangeGroupDictionary, colorGroupDictionary,iuc.mw.thirdPartys);
+            //if (_lightGroup == null)
+            //{
+            //    //ShowError("Edit修改灯光失败");
+            //    return null;
+            //}
             return _lightGroup;
 
         }

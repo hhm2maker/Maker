@@ -41,8 +41,8 @@ namespace Maker.View.Control
 
             this.mw = mw;
 
-            FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.mw.strColortabPath);
+            //FileBusiness file = new FileBusiness();
+            //ColorList = file.ReadColorFile(mw.mw.strColortabPath);
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {

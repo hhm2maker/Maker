@@ -2,6 +2,7 @@
 using Maker.Model;
 using Maker.View.Control;
 using Maker.View.Device;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,17 +27,16 @@ namespace Maker.View
     /// </summary>
     public partial class PavedLaunchpadWindow : Window
     {
-        private MainWindow mw;
+        private CatalogUserControl cuc;
         private List<Light> mLightList;
-        public PavedLaunchpadWindow(MainWindow mw,List<Light> mLightList)
+        public PavedLaunchpadWindow(CatalogUserControl cuc,List<Light> mLightList)
         {
             InitializeComponent();
-            Owner = mw;
-            this.mw = mw;
-            Width = mw.ActualWidth;
-            Height = mw.ActualHeight;
+            this.cuc = cuc;
+            Owner = cuc.mw;
+            Width = cuc.mw.ActualWidth;
+            Height = cuc.mw.ActualHeight;
             this.mLightList = mLightList;
-
         }
         private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -69,9 +69,9 @@ namespace Maker.View
         private void Animation_Completed(object sender, EventArgs e)
         {
             btnPaved.IsEnabled = true;
-            double d = wpMain.ActualWidth / mw.pavedColumns;
+            double d = wpMain.ActualWidth / cuc.pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
-            int max = mw.pavedMax;
+            int max = cuc.pavedMax;
             if (dil.Count > max) {
                 for (int i = dil.Count - 1; i >= max ; i--) {
                     dil.Remove(dil.Last().Key);

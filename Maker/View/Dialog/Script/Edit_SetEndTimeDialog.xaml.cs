@@ -20,13 +20,13 @@ namespace Maker.View.Dialog.Script
     /// </summary>
     public partial class Edit_SetEndTimeDialog : Window
     {
-        public Edit_SetEndTimeDialog(MainWindow mw, ref String command)
+        public Edit_SetEndTimeDialog(Window mw, ref String command)
         {
             InitializeComponent();
             Owner = mw;
             this.command = command;
         }
-        public Edit_SetEndTimeDialog(MainWindow mw, String lightName)
+        public Edit_SetEndTimeDialog(Window mw, String lightName)
         {
             InitializeComponent();
             Owner = mw;

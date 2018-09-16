@@ -22,7 +22,7 @@ namespace Maker.View.Dialog.Script
     public partial class Edit_ChangeTime : Window
     {
         private String command;
-        public Edit_ChangeTime(MainWindow mw, String command)
+        public Edit_ChangeTime(Window mw, String command)
         {
             InitializeComponent();
             Owner = mw;

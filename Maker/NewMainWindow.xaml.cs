@@ -47,12 +47,8 @@ namespace Maker
         private bool isFirst = true;
         private NewMainWindowBridge bridge;
 
-       
-
-        public NewMainWindow()
+        private void InitStaticConstant()
         {
-            InitializeComponent();
-
             FileBusiness fileBusiness = new FileBusiness();
             String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
             List<String> ColorList = fileBusiness.ReadColorFile(strColortabPath);
@@ -62,7 +58,13 @@ namespace Maker
                 brushList.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString(str)));
             }
             StaticConstant.brushList = brushList;
+        }
 
+        public NewMainWindow()
+        {
+            InitializeComponent();
+         
+            InitStaticConstant();
             Width = SystemParameters.WorkArea.Width * 0.8;
             Height = SystemParameters.WorkArea.Height * 0.8;
 

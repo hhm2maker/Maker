@@ -11,12 +11,10 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ImportLibraryDialog : Window
     {
-        private MainWindow mw;
         private String fileName;
-        public ImportLibraryDialog(MainWindow mw, String fileName)
+        public ImportLibraryDialog(Window mw, String fileName)
         {
             InitializeComponent();
-            this.mw = mw;
             this.fileName = fileName;
             Owner = mw;
         }

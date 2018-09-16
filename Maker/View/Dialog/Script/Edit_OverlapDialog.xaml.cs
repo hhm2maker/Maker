@@ -21,7 +21,7 @@ namespace Maker.View.Dialog.Script
     public partial class Edit_OverlapDialog : Window
     {
         private int type;
-        public Edit_OverlapDialog(MainWindow mw, String command,int type)
+        public Edit_OverlapDialog(Window mw, String command,int type)
         {
             InitializeComponent();
             Owner = mw;

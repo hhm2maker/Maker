@@ -66,9 +66,6 @@ namespace Maker.View.Control
         public int iInkCanvasSize = 0;
         //播放器类型
         public PlayerType pleyerType = PlayerType.ParagraphLightList;
-        //平铺列数
-        public int pavedColumns = 0;
-        //平铺最大个数
-        public int pavedMax = 0;
+       
     }
 }

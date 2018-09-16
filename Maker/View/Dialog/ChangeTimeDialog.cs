@@ -13,7 +13,7 @@ namespace Maker.View.Dialog
     {
         public TextBox tbPolyploidy;
         public ComboBox cbOperation;
-        public ChangeTimeDialog(MainWindow mw)
+        public ChangeTimeDialog(Window mw)
         {
             //InitializeComponent();
             Owner = mw;

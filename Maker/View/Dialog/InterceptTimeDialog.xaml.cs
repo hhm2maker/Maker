@@ -11,7 +11,7 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class InterceptTimeDialog : Window
     {
-        public InterceptTimeDialog(MainWindow mw)
+        public InterceptTimeDialog(Window mw)
         {
             InitializeComponent();
             Owner = mw;

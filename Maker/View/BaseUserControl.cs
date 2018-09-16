@@ -12,8 +12,8 @@ namespace Maker.View
 {
     public class BaseUserControl : UserControl
     {
-        protected NewMainWindow mw;
-        protected String filePath = String.Empty;
+        public NewMainWindow mw;
+        public String filePath = String.Empty;
         protected FileBusiness fileBusiness = new FileBusiness();
         protected StackPanel spHint;
         protected Panel mainView;

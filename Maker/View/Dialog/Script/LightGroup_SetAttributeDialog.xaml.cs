@@ -20,7 +20,7 @@ namespace Maker.View.Dialog.Script
     /// </summary>
     public partial class LightGroup_SetAttributeDialog : Window
     {
-        public LightGroup_SetAttributeDialog(MainWindow mw, String command)
+        public LightGroup_SetAttributeDialog(Window mw, String command)
         {
             InitializeComponent();
             Owner = mw;

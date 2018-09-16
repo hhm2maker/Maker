@@ -28,14 +28,14 @@ namespace Maker.View.Dialog.Script
         /// <param name="mw"></param>
         /// <param name="command"></param>
         /// <param name="type">0-Range,1-Color</param>
-        public Main_NewColorGroupDialog(MainWindow mw, String command,int type)
+        public Main_NewColorGroupDialog(Window mw, String command,int type)
         {
             InitializeComponent();
             Owner = mw;
             this.command = command;
             this.type = type;
             if (type == 0) {
-                SetResourceReference(Window.TitleProperty, "NewRangeGroup");
+                SetResourceReference(TitleProperty, "NewRangeGroup");
             }
 
         }

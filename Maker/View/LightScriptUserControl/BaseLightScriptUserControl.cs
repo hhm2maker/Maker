@@ -20,6 +20,5 @@ namespace Maker.View.LightScriptUserControl
         {
          
         }
-
     }
 }

@@ -21,7 +21,7 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class GetStringDialog : Window
     {
-        public GetStringDialog(MainWindow mw, String type,String hint,String help)
+        public GetStringDialog(NewMainWindow mw, String type,String hint,String help)
         {
             InitializeComponent();
             this.mw = mw;
@@ -30,7 +30,7 @@ namespace Maker.View.Dialog
             this.help = help;
             Owner = mw;
         }
-        private MainWindow mw;
+        private NewMainWindow mw;
         private String type;
         private String hint;
         private String help;
@@ -45,12 +45,12 @@ namespace Maker.View.Dialog
             mString = tbString.Text;
             if (type.Equals("StepName"))
             {
-                if (mString.Equals(mw.iuc.GetStepName()))
+                if (mString.Equals(mw.cuc.suc.GetStepName()))
                 {
                     DialogResult = true;
                 }
 
-                if (mString.Equals(String.Empty) || mw.iuc.lightScriptDictionary.ContainsKey(mString))
+                if (mString.Equals(String.Empty) || mw.cuc.suc.lightScriptDictionary.ContainsKey(mString))
                 {
                     System.Windows.Forms.MessageBox.Show("内容为空或已经存在!");
                     return;
@@ -58,7 +58,7 @@ namespace Maker.View.Dialog
             }
             else if (type.Equals("FileName"))
             {
-                if (File.Exists(System.IO.Path.GetDirectoryName(mw.lightScriptFilePath) + @"\" + mString + ".lightScript"))
+                if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
                 {
                     tbHelp.Visibility = Visibility.Visible;
                     tbString.SelectAll();
@@ -89,7 +89,7 @@ namespace Maker.View.Dialog
             if (type.Equals("FileName"))
             {
                 mString = tbString.Text;
-                if (File.Exists(System.IO.Path.GetDirectoryName(mw.lightScriptFilePath) + @"\" + mString + ".lightScript"))
+                if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
                 {
                     tbHelp.Visibility = Visibility.Visible;
                 }

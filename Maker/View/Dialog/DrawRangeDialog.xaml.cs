@@ -20,7 +20,7 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class DrawRangeDialog : Window
     {
-        public DrawRangeDialog(MainWindow mw)
+        public DrawRangeDialog(Window mw)
         {
             InitializeComponent();
             Owner = mw;

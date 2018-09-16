@@ -11,13 +11,13 @@ namespace Maker.View.Dialog.Script
     /// </summary>
     public partial class Edit_FoldDialog : Window
     {
-        public Edit_FoldDialog(MainWindow mw, ref String command)
+        public Edit_FoldDialog(Window mw, ref String command)
         {
             InitializeComponent();
             Owner = mw;
             this.command = command;
         }
-        public Edit_FoldDialog(MainWindow mw, String lightName)
+        public Edit_FoldDialog(Window mw, String lightName)
         {
             InitializeComponent();
             Owner = mw;

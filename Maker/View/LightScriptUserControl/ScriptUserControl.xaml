@@ -1,4 +1,5 @@
-﻿<UserControl
+﻿<lightscriptusercontrol:BaseLightScriptUserControl
+    xmlns:lightscriptusercontrol="clr-namespace:Maker.View.LightScriptUserControl"
     xmlns:view="clr-namespace:Maker.View"
     x:Class="Maker.View.LightScriptUserControl.ScriptUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -277,7 +278,7 @@
                         </GroupBox>
                         <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,30"  Style="{DynamicResource GroupBoxStyle2}" >
                             <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" Name="spConditionJudgment">
-                                <TextBlock  Margin="0,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Center"/>
+                                <TextBlock  Margin="20,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
                                 <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock Width="100" Text="{DynamicResource TimeEquals}" />
                                     <StackPanel Orientation="Horizontal" >
@@ -310,7 +311,7 @@
                                         <Button x:Name="btnIfColor" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </StackPanel>
-                                <TextBlock  Margin="0,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Center"/>
+                                <TextBlock  Margin="20,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Left"/>
                                 <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                                     <TextBlock  Width="100" Text="{DynamicResource TimeEquals}"/>
                                     <TextBox x:Name="tbThenTime" Width="240" />
@@ -403,8 +404,6 @@
                             <pianoroll:PianoRollUserControl/>
                         </TabItem>
                     </TabControl>
-                    <Image x:Name="btnPaved"  Margin="0,0,20,40" Width="30"  Source="../../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-
                 </Grid>
                 <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
@@ -459,4 +458,4 @@
             </Grid>
         </Grid>
     </Grid>
-</UserControl>
+</lightscriptusercontrol:BaseLightScriptUserControl>

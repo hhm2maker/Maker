@@ -1,4 +1,5 @@
 ﻿using Maker;
+using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.Help;
 using Maker.View.LightScriptUserControl;
@@ -21,6 +22,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 using WPFSpark;
 
 namespace Maker.View
@@ -30,7 +32,7 @@ namespace Maker.View
     /// </summary>
     public partial class CatalogUserControl : UserControl
     {
-        private NewMainWindow mw;
+        public NewMainWindow mw;
         private ToggleSwitch toolSwitch;
         //Light
         public FrameUserControl fuc;
@@ -104,6 +106,28 @@ namespace Maker.View
                 Stretch = Stretch.Fill
             };
             Background = b;
+
+            LoadConfig();
+        }
+        /// <summary>
+        /// 平铺列数
+        /// </summary>
+        public int pavedColumns = 0;
+        /// <summary>
+        /// 平铺最大个数
+        /// </summary>
+        public int pavedMax = 0;
+        private void LoadConfig()
+        {
+            //灯光语句页面
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Config/lightscript.xml");
+                XmlNode lightScriptRoot = doc.DocumentElement;
+                XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
+                XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
+                pavedColumns = int.Parse(lightScriptPavedColumns.InnerText);
+                XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
+                pavedMax = int.Parse(lightScriptPavedMax.InnerText);
         }
 
         #region 获取windows桌面背景
@@ -288,5 +312,23 @@ namespace Maker.View
         {
             gMain.Margin = new Thickness(0, 0, 0, 50);
         }
+
+        private List<Light> mLightList;
+        private void BtnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (gMain.Children.Count > 0 && gMain.Children[0] is ScriptUserControl)
+            {
+                mLightList = (gMain.Children[0] as ScriptUserControl).mLightList;
+            }
+            else {
+                mLightList = null;
+            }
+            if (mLightList == null || mLightList.Count == 0) {
+                return;
+            }
+            PavedLaunchpadWindow raved = new PavedLaunchpadWindow(this, mLightList);
+            raved.ShowDialog();
+        }
+
     }
 }

@@ -26,13 +26,11 @@ namespace Maker.View.Control
         public FrameUserControl fuc;//构造函数处初始化
         public LiveUserControl liveuc;
 
-        public MainWindow mw;
         public List<Light> mLightList;
         public bool canReturn;
-        public MainControlWindow(MainWindow mw,List<Light> mLightList,bool canReturn)
+        public MainControlWindow(Window mw,List<Light> mLightList,bool canReturn)
         {
             InitializeComponent();
-            this.mw = mw;
             fuc = new FrameUserControl(this);
             liveuc = new LiveUserControl(this);
             liveuc.CanDraw();
@@ -41,6 +39,7 @@ namespace Maker.View.Control
             this.canReturn = canReturn;
             Owner = mw;
         }
+       
         private Mode mode = Mode.Number;
         /// <summary>
         ///  当前选择的内容

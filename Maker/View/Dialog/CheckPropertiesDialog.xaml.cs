@@ -21,9 +21,9 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class CheckPropertiesDialog : Window
     {
-        private MainWindow mw;
+        private NewMainWindow mw;
         private List<Light> mLightList;
-        public CheckPropertiesDialog(MainWindow mw, List<Light> mLightList)
+        public CheckPropertiesDialog(NewMainWindow mw, List<Light> mLightList)
         {
             InitializeComponent();
             this.mw = mw;

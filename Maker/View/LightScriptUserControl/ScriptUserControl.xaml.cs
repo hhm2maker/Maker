@@ -21,27 +21,29 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static Maker.Model.EnumCollection;
+using System.Xml;
 
 namespace Maker.View.LightScriptUserControl
 {
     /// <summary>
     /// ScriptWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class ScriptUserControl : UserControl
+    public partial class ScriptUserControl : BaseLightScriptUserControl
     {
-        public MainWindow mw_;
+        //public MainWindow mw_;
         public InputUserControlBridge bridge;
         public InputUserControlViewBusiness viewBusiness;
 
-        NewMainWindow mw;
         public ScriptUserControl(NewMainWindow nmw)
         {
             InitializeComponent();
-            this.mw = nmw;
+            mw = nmw;
 
-            //mainView = gMain_;
-            //HideControl();
-            
+            mainView = gMain_;
+            HideControl();
+
+            LoadConfig();
+
             //绑定命令
             CommandBinding binding = new CommandBinding(DataCommands.Editcommand);
             binding.Executed += Binding_Executed;
@@ -88,56 +90,20 @@ namespace Maker.View.LightScriptUserControl
             //svMainLeft.Width = 0;
             //svMainBottom.Visibility = Visibility.Visible;
         }
-        public ScriptUserControl(MainWindow mw)
+        private String strInputFormatDelimiter;
+        private String strInputFormatRange;
+        private void LoadConfig()
         {
-            InitializeComponent();
-            this.mw_ = mw;
-
-            //绑定命令
-            CommandBinding binding = new CommandBinding(DataCommands.Editcommand);
-            binding.Executed += Binding_Executed;
-            binding.CanExecute += Binding_CanExecute;
-            //左侧图片
-            miColor.CommandBindings.Add(binding);
-            miShape.CommandBindings.Add(binding);
-            miTime.CommandBindings.Add(binding);
-            miSuperposition.CommandBindings.Add(binding);
-            miOther.CommandBindings.Add(binding);
-            miAnimation.CommandBindings.Add(binding);
-            miThirdParty.CommandBindings.Add(binding);
-            //按钮
-            btnSelectEditorReplace.CommandBindings.Add(binding);
-            btnSelectEditorAdd.CommandBindings.Add(binding);
-            tbIfThenReplace.CommandBindings.Add(binding);
-            tbIfThenRemove.CommandBindings.Add(binding);
-
-            //CommandManager.InvalidateRequerySuggested();
-
-            bridge = new InputUserControlBridge(this);
-            viewBusiness = new InputUserControlViewBusiness(this);
-            //加载库文件
-            bridge.InitLibrary(bridge.GetLibrary(), LibraryMenuItem_Click);
-
-            //初始化控件
-            InitView();
-
-            //放置在底部
-            //for (int i = spMainLeft.Children.Count - 1; i >= 0; i--)
-            //{
-            //    UIElement u = spMainLeft.Children[i] as UIElement;
-            //    spMainLeft.Children.RemoveAt(i);
-            //    spMainBottom.Children.Insert(0, u);
-            //}
-            //StackPanel sp = spMainBottom.Children[1] as StackPanel;
-            //sp.Orientation = Orientation.Horizontal;
-
-            //for (int i = 0; i < sp.Children.Count; i++)
-            //{
-            //    StackPanel u = sp.Children[i] as StackPanel;
-            //    u.Margin = new Thickness(10, 10, 20, u.Margin.Bottom);
-            //}
-            //svMainLeft.Width = 0;
-            //svMainBottom.Visibility = Visibility.Visible;
+            //输入
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/input.xml");
+            XmlNode inputRoot = doc.DocumentElement;
+            //格式
+            XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
+            XmlNode Delimiter = inputFormat.SelectSingleNode("Delimiter");
+            strInputFormatDelimiter = Delimiter.InnerText;
+            XmlNode Range = inputFormat.SelectSingleNode("Range");
+            strInputFormatRange = Range.InnerText;
         }
 
         private void InitView()
@@ -407,7 +373,7 @@ namespace Maker.View.LightScriptUserControl
             String stepName = GetUsableStepName();
             if (stepName == null)
             {
-                new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                 return;
             }
             String commandLine = String.Empty;
@@ -415,20 +381,20 @@ namespace Maker.View.LightScriptUserControl
             if (sender == btnFastGenerationrAdd || sender == btnFastGenerationrSelect)
             {
                 char splitNotation = ',';
-                if (mw_.strInputFormatDelimiter.Equals("Comma"))
+                if (strInputFormatDelimiter.Equals("Comma"))
                 {
                     splitNotation = ',';
                 }
-                else if (mw_.strInputFormatDelimiter.Equals("Space"))
+                else if (strInputFormatDelimiter.Equals("Space"))
                 {
                     splitNotation = ' ';
                 }
                 char rangeNotation = '-';
-                if (mw_.strInputFormatRange.Equals("Shortbar"))
+                if (strInputFormatRange.Equals("Shortbar"))
                 {
                     rangeNotation = '-';
                 }
-                else if (mw_.strInputFormatRange.Equals("R"))
+                else if (strInputFormatRange.Equals("R"))
                 {
                     rangeNotation = 'r';
                 }
@@ -584,7 +550,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (lockedDictionary.ContainsKey(GetStepName()))
                 {
-                    new MessageDialog(mw_, "TheStepIsLocked").ShowDialog();
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     return;
                 }
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
@@ -766,25 +732,25 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (lockedDictionary.ContainsKey(GetStepName()))
                 {
-                    new MessageDialog(mw_, "TheStepIsLocked").ShowDialog();
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     return;
                 }
                 char splitNotation = ',';
-                if (mw_.strInputFormatDelimiter.Equals("Comma"))
+                if (strInputFormatDelimiter.Equals("Comma"))
                 {
                     splitNotation = ',';
                 }
-                else if (mw_.strInputFormatDelimiter.Equals("Space"))
+                else if (strInputFormatDelimiter.Equals("Space"))
                 {
                     splitNotation = ' ';
                 }
 
                 char rangeNotation = '-';
-                if (mw_.strInputFormatRange.Equals("Shortbar"))
+                if (strInputFormatRange.Equals("Shortbar"))
                 {
                     rangeNotation = '-';
                 }
-                else if (mw_.strInputFormatRange.Equals("R"))
+                else if (strInputFormatRange.Equals("R"))
                 {
                     rangeNotation = 'r';
                 }
@@ -814,7 +780,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (x > 100000)
                     {
-                        new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                         return;
                     }
                     if (j == 0 && !tbIfTime.Text.Equals(String.Empty))
@@ -1199,7 +1165,7 @@ namespace Maker.View.LightScriptUserControl
             }
             if (fileName.Equals(String.Empty))
             {
-                LightScriptBusiness _scriptBusiness = new LightScriptBusiness(this, mBuilder.ToString(), mw_.lightScriptFilePath);
+                LightScriptBusiness _scriptBusiness = new LightScriptBusiness(this, mBuilder.ToString(), filePath);
                 _scriptBusiness.SaveScriptFile(mBuilder.ToString());
             }
             else
@@ -1631,7 +1597,7 @@ namespace Maker.View.LightScriptUserControl
         {
             SaveLightScriptFile("", false);
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw_.lightScriptFilePath, lockedDictionary);
+            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), filePath, lockedDictionary);
             mLightList = scriptBusiness.GetResult(null);
 
             if (mLightList == null)
@@ -1648,7 +1614,7 @@ namespace Maker.View.LightScriptUserControl
         {
             SaveLightScriptFile("", isSaveLocked);
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw_.lightScriptFilePath);
+            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), filePath);
             mLightList = scriptBusiness.GetResult(null);
 
             if (mLightList == null)
@@ -1720,7 +1686,7 @@ namespace Maker.View.LightScriptUserControl
             }
             builder.Append("}");
 
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, builder.ToString(), mw_.lightScriptFilePath);
+            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, builder.ToString(), filePath);
             return scriptBusiness.GetResult(partName);
         }
         public String GetUsableStepName()
@@ -1860,7 +1826,7 @@ namespace Maker.View.LightScriptUserControl
                             }
                             if (i > 100000)
                             {
-                                new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                                 return;
                             }
 
@@ -1975,7 +1941,7 @@ namespace Maker.View.LightScriptUserControl
                             }
                             if (i > 100000)
                             {
-                                new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                                 return;
                             }
                             command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
@@ -1998,7 +1964,7 @@ namespace Maker.View.LightScriptUserControl
                             }
                             if (i > 100000)
                             {
-                                new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                                 return;
                             }
                             command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
@@ -2027,7 +1993,7 @@ namespace Maker.View.LightScriptUserControl
                         }
                         if (i > 100000)
                         {
-                            new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                             return;
                         }
                         command.Append("\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
@@ -2062,7 +2028,7 @@ namespace Maker.View.LightScriptUserControl
                 //双击时执行
                 if (lbStep.SelectedIndex == -1)
                     return;
-                GetStringDialog stringD = new GetStringDialog(mw_, "StepName", "NewStepNameColon", "");
+                GetStringDialog stringD = new GetStringDialog(mw, "StepName", "NewStepNameColon", "");
                 if (stringD.ShowDialog() == true)
                 {
                     String oldName = GetStepName();
@@ -2119,7 +2085,7 @@ namespace Maker.View.LightScriptUserControl
                         }
                         if (x > 100000)
                         {
-                            new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                             return;
                         }
                         newScript = newScript.Replace(newName + "Light", "Step" + x + "Light");
@@ -2191,7 +2157,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 return;
             }
-            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw_, RefreshData(GetStepName()));
+            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, RefreshData(GetStepName()));
             propertiesDialog.ShowDialog();
         }
 
@@ -2281,7 +2247,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (x > 100000)
                     {
-                        new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                         return;
                     }
                 }
@@ -2334,7 +2300,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void EditPart(object sender, RoutedEventArgs e)
         {
-            MainControlWindow control = new MainControlWindow(mw_, RefreshData(GetStepName()), true);
+            MainControlWindow control = new MainControlWindow(mw, RefreshData(GetStepName()), true);
             if (control.ShowDialog() == true)
             {
                 StringBuilder builder = new StringBuilder();
@@ -2474,7 +2440,7 @@ namespace Maker.View.LightScriptUserControl
             }
             if (stepName.Equals(String.Empty))
             {
-                new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                 return;
             }
             lightScriptDictionary.Add(stepName, "");
@@ -2504,7 +2470,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (stepName.Equals(String.Empty))
                 {
-                    new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                     return;
                 }
 
@@ -2543,7 +2509,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (x > 100000)
                     {
-                        new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                         return;
                     }
                     newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
@@ -2603,7 +2569,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 if (lockedDictionary.ContainsKey(GetStepName(lbStep.Items.IndexOf(lbStep.SelectedItems[i]))))
                 {
-                    new MessageDialog(mw_, "TheStepIsLocked").ShowDialog();
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     continue;
                 }
                 selectIndexList.Add(lbStep.Items.IndexOf(lbStep.SelectedItems[i]));
@@ -2813,7 +2779,7 @@ namespace Maker.View.LightScriptUserControl
                         }
                         if (x > 100000)
                         {
-                            new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                             return;
                         }
                     }
@@ -2968,7 +2934,7 @@ namespace Maker.View.LightScriptUserControl
         {
             if (lbStep.SelectedIndex == -1)
                 return;
-            StyleWindow style = new StyleWindow(mw_);
+            StyleWindow style = new StyleWindow(mw);
             if (finalDictionary.ContainsKey(GetStepName()))
             {
                 style.SetData(finalDictionary[GetStepName()]);
@@ -3001,7 +2967,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void DrawRange(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DrawRangeDialog dialog = new DrawRangeDialog(mw_);
+            DrawRangeDialog dialog = new DrawRangeDialog(mw);
             StringBuilder builder = new StringBuilder();
             if (dialog.ShowDialog() == true)
             {
@@ -3368,7 +3334,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (x > 100000)
                     {
-                        new MessageDialog(mw_, "NoNameIsAvailable").ShowDialog();
+                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                         return;
                     }
                 }
@@ -3483,7 +3449,7 @@ namespace Maker.View.LightScriptUserControl
                 StackPanel sp = (StackPanel)lbStep.SelectedItems[k];
                 if (lockedDictionary.ContainsKey(GetStepName(sp)))
                 {
-                    new MessageDialog(mw_, "TheStepIsLocked").ShowDialog();
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     continue;
                 }
                 //没有可操作的灯光组
@@ -3510,7 +3476,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnFold)
                 {
-                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw_, GetStepName(sp));
+                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Fold(" + GetStepName(sp) + "LightGroup,";
@@ -3551,7 +3517,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnMatchTime)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "TotalTimeLatticeColon", false);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "TotalTimeLatticeColon", false);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.MatchTotalTimeLattice(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
@@ -3559,7 +3525,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnInterceptTime)
                 {
-                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw_);
+                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.InterceptTime(" + GetStepName(sp) + "LightGroup," + dialog.Min + "," + dialog.Max + ");";
@@ -3571,7 +3537,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnDiyTime)
                 {
-                    ChangeTimeDialog ct = new ChangeTimeDialog(mw_);
+                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
                     if (ct.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ChangeTime(" + GetStepName(sp) + "LightGroup," + ct.cbOperation.SelectedIndex + "," + ct.tbPolyploidy.Text + ");";
@@ -3579,7 +3545,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnFillColor)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "FillColorColon", false);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.FillColor(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
@@ -3601,7 +3567,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (i > 100000)
                     {
-                        new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
                     command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
@@ -3613,20 +3579,20 @@ namespace Maker.View.LightScriptUserControl
                         command += "4 94 53 57";
                     if (sender == btnChangeColorDiy)
                     {
-                        mw_.mActionBeanList = RefreshData(GetStepName());
+                        mLightList = RefreshData(GetStepName());
                         List<int> mColor = new List<int>();
-                        for (int j = 0; j < mw_.mActionBeanList.Count; j++)
+                        for (int j = 0; j < mLightList.Count; j++)
                         {
-                            if (mw_.mActionBeanList[j].Action == 144)
+                            if (mLightList[j].Action == 144)
                             {
-                                if (!mColor.Contains(mw_.mActionBeanList[j].Color))
+                                if (!mColor.Contains(mLightList[j].Color))
                                 {
-                                    mColor.Add(mw_.mActionBeanList[j].Color);
+                                    mColor.Add(mLightList[j].Color);
                                 }
                             }
                         }
                         mColor.Sort();
-                        GetNumberDialog dialog = new GetNumberDialog(mw_, "CustomFormattedColorColon", true, mColor);
+                        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
                         if (dialog.ShowDialog() == true)
                         {
                             StringBuilder mBuilder = new StringBuilder();
@@ -3650,7 +3616,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (sender == btnColorChange)
                     {
-                        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw_, RefreshData(GetStepName(sp)));
+                        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
                         if (colorDialog.ShowDialog() == true)
                         {
                             StringBuilder mBuilder = new StringBuilder();
@@ -3677,7 +3643,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnColorWithCount)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "WithCountColon", true);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
                     if (dialog.ShowDialog() == true)
                     {
                         StringBuilder builder = new StringBuilder();
@@ -3690,7 +3656,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetStartTime)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "PleaseEnterTheStartTimeColon", false);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheStartTimeColon", false);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = " + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
@@ -3702,7 +3668,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetEndTime)
                 {
-                    Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw_, GetStepName(sp) + "LightGroup");
+                    Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw, GetStepName(sp) + "LightGroup");
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.SetEndTime(" + GetStepName(sp) + "LightGroup,";
@@ -3727,7 +3693,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetAllTime)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "PleaseEnterTheConstantTimeColon", false);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheConstantTimeColon", false);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = " + GetStepName(sp) + "LightGroup.SetAllTime(" + dialog.OneNumber + ");";
@@ -3739,7 +3705,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnDisappear)
                 {
-                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw_, GetStepName(sp));
+                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Animation(" + GetStepName(sp) + "LightGroup,Serpentine," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
@@ -3751,7 +3717,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnWindmill)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "IntervalColon", false);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "IntervalColon", false);
                     if (dialog.ShowDialog() == true)
                     {
                         command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Animation(" + GetStepName(sp) + "LightGroup,Windmill," + dialog.OneNumber + ");";
@@ -3773,10 +3739,10 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (i > 100000)
                     {
-                        new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "PleaseEnterANewColorGroupColon", true);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
                     if (dialog.ShowDialog() == true)
                     {
                         StringBuilder mBuilder = new StringBuilder();
@@ -3816,10 +3782,10 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (i > 100000)
                     {
-                        new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "PleaseEnterANewColorGroupColon", true);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
                     if (dialog.ShowDialog() == true)
                     {
                         StringBuilder mBuilder = new StringBuilder();
@@ -3859,10 +3825,10 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (i > 100000)
                     {
-                        new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                    GetNumberDialog dialog = new GetNumberDialog(mw_, "PleaseEnterTheDurationColon", true);
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheDurationColon", true);
                     if (dialog.ShowDialog() == true)
                     {
                         StringBuilder mBuilder = new StringBuilder();
@@ -3892,15 +3858,15 @@ namespace Maker.View.LightScriptUserControl
                     ShapeColorDialog dialog;
                     if (sender == miSquare)
                     {
-                        dialog = new ShapeColorDialog(mw_, 0);
+                        dialog = new ShapeColorDialog(mw, 0);
                     }
                     else if (sender == miRadialVertical)
                     {
-                        dialog = new ShapeColorDialog(mw_, 1);
+                        dialog = new ShapeColorDialog(mw, 1);
                     }
                     else
                     {
-                        dialog = new ShapeColorDialog(mw_, 2);
+                        dialog = new ShapeColorDialog(mw, 2);
                     }
                     if (dialog.ShowDialog() == true)
                     {
@@ -3929,13 +3895,13 @@ namespace Maker.View.LightScriptUserControl
             String stepName = GetUsableStepName();
             if (stepName == null)
             {
-                new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                 return;
             }
             String commandLine = String.Empty;
             if (sender == miRhombusDiffusion || sender == miCross)
             {
-                GetNumberDialog dialog = new GetNumberDialog(mw_, "StartTimeColon", false);
+                GetNumberDialog dialog = new GetNumberDialog(mw, "StartTimeColon", false);
                 if (dialog.ShowDialog() == true)
                 {
                     if (sender == miRhombusDiffusion)
@@ -3956,7 +3922,7 @@ namespace Maker.View.LightScriptUserControl
             }
             if (sender == miRandomFountain)
             {
-                RandomFountainDialog dialog = new RandomFountainDialog(mw_);
+                RandomFountainDialog dialog = new RandomFountainDialog(mw);
                 if (dialog.ShowDialog() == true)
                 {
                     commandLine = "\tLightGroup " + stepName + "LightGroup = Create.Automatic(RandomFountain,"
@@ -3979,7 +3945,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void Translation(object sender, RoutedEventArgs e)
         {
-            ChangeIntoMotionDialog dialog = new ChangeIntoMotionDialog(mw_);
+            ChangeIntoMotionDialog dialog = new ChangeIntoMotionDialog(mw);
             if (dialog.ShowDialog() == true)
             {
                 StringBuilder builder = new StringBuilder();
@@ -3990,7 +3956,7 @@ namespace Maker.View.LightScriptUserControl
                 String stepName = GetUsableStepName();
                 if (stepName == null)
                 {
-                    new MessageDialog(mw_, "ThereIsNoProperName").ShowDialog();
+                    new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                     return;
                 }
                 String commandLine = "\tLightGroup " + stepName + "LightGroup = Create.Animation(Translation,\""
@@ -4121,19 +4087,19 @@ namespace Maker.View.LightScriptUserControl
 
         private void Unmake()
         {
-            if (mw_.iNowPosition == -1)
+            if (iNowPosition == -1)
                 return;
-            int mINowPosition = mw_.iNowPosition - 1;
+            int mINowPosition = iNowPosition - 1;
             int selectedIndex = lbStep.SelectedIndex;
             //if (mINowPosition == -1)
             //    mINowPosition = 99;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
             {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw_.lightScriptFilePath, true);
-                mw_._bIsEdit = true;
-                mw_.bIsEdit = true;
-                mw_.iNowPosition -= 1;
-                mw_.ProjectDocument_SelectionChanged_LightScript();
+                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
+                _bIsEdit = true;
+                iNowPosition -= 1;
+                //重新加载
+                //mw_.ProjectDocument_SelectionChanged_LightScript();
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -4142,17 +4108,18 @@ namespace Maker.View.LightScriptUserControl
         }
         private void Redo()
         {
-            if (mw_.iNowPosition == -1)
+            if (iNowPosition == -1)
                 return;
-            int mINowPosition = mw_.iNowPosition + 1;
+            int mINowPosition = iNowPosition + 1;
             int selectedIndex = lbStep.SelectedIndex;
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
             {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", mw_.lightScriptFilePath, true);
-                mw_._bIsEdit = true;
-                mw_.bIsEdit = true;
-                mw_.iNowPosition += 1;
-                mw_.ProjectDocument_SelectionChanged_LightScript();
+                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
+                _bIsEdit = true;
+                //bIsEdit = true;
+                iNowPosition += 1;
+                //重新加载
+                //mw_.ProjectDocument_SelectionChanged_LightScript();
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -4168,14 +4135,14 @@ namespace Maker.View.LightScriptUserControl
             RefreshData();
             sw.Stop();
             TimeSpan ts2 = sw.Elapsed;
-            new MessageDialog(mw_, String.Format("总共花费{0}ms.", ts2.TotalMilliseconds), 0).ShowDialog();
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + mw_.iNowPosition + ".lightScript");
-            mw_.iNowPosition--;
+            new MessageDialog(mw, String.Format("总共花费{0}ms.", ts2.TotalMilliseconds), 0).ShowDialog();
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + iNowPosition + ".lightScript");
+            iNowPosition--;
         }
 
         private void GetCompleteScript(object sender, RoutedEventArgs e)
         {
-            new MessageDialog(mw_, GetCompleteScript(), 0).ShowDialog();
+            new MessageDialog(mw, GetCompleteScript(), 0).ShowDialog();
         }
 
         private void CbFastGenerationrAction_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -4225,7 +4192,7 @@ namespace Maker.View.LightScriptUserControl
         private void LibraryMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem item = (MenuItem)sender;
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw_, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
+            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
             if (dialog.ShowDialog() == true)
             {
                 if (!importList.Contains(item.Header.ToString() + ".lightScript"))
@@ -4244,11 +4211,11 @@ namespace Maker.View.LightScriptUserControl
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem item = (MenuItem)sender;
-            if ((mw_.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript").Equals(mw_.lightScriptFilePath))
+            if ((mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript").Equals(filePath))
             {
                 return;
             }
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw_, mw_.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
+            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
             if (dialog.ShowDialog() == true)
             {
                 if (!importList.Contains(item.Header.ToString() + ".lightScript"))
@@ -4281,7 +4248,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void SpMainStep_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            StyleWindow style = new StyleWindow(mw_);
+            StyleWindow style = new StyleWindow(mw);
             if (finalDictionary.ContainsKey("Main"))
             {
                 style.SetData(finalDictionary["Main"]);
@@ -4418,11 +4385,6 @@ namespace Maker.View.LightScriptUserControl
             RefreshData();
         }
 
-        private void BtnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            PavedLaunchpadWindow raved = new PavedLaunchpadWindow(mw_, mLightList);
-            raved.ShowDialog();
-        }
 
         private void LockingStep(object sender, RoutedEventArgs e)
         {
@@ -4539,10 +4501,9 @@ namespace Maker.View.LightScriptUserControl
             }
         }
         public bool _bIsEdit = false;
-        private string filePath;
-        private FileBusiness fileBusiness;
 
-        protected  void LoadFileContent() {
+        protected override void LoadFileContent()
+        {
             if (_bIsEdit)
             {
                 _bIsEdit = false;
@@ -4565,165 +4526,165 @@ namespace Maker.View.LightScriptUserControl
             String linShi = sb2.ToString();
             //linShi = linShi.Replace("\n", "");
             //linShi = linShi.Replace("\r", "");
-                ClearInputUserControl();
-                String linShi2 = linShi;
-                if (linShi2.Trim().Equals(String.Empty))
+            ClearInputUserControl();
+            String linShi2 = linShi;
+            if (linShi2.Trim().Equals(String.Empty))
+            {
+                UpdateData(new List<Light>());
+                //仍需要保存到Cache
+                //TODO    
+                //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
+                //_scriptBusiness.SaveScriptFile("");
+            }
+            else
+            {
+                LightScriptBusiness scriptBusiness = new LightScriptBusiness();
+                String command = scriptBusiness.LoadLightScript(filePath);
+                Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
+                if (dictionary == null)
+                {
+                    return;
+                }
+                String visibleStr = String.Empty;
+                String containStr = String.Empty;
+                String importStr = String.Empty;
+                String finalStr = String.Empty;
+                String lockedStr = String.Empty;
+                //String introduceStr = String.Empty;
+                foreach (var item in dictionary)
+                {
+                    if (item.Key.Trim().Equals("NoVisible"))
+                    {
+                        visibleStr = item.Value;
+                    }
+                    else if (item.Key.Trim().Equals("Contain"))
+                    {
+                        containStr = item.Value;
+                    }
+                    else if (item.Key.Trim().Equals("Import"))
+                    {
+                        importStr = item.Value;
+                    }
+                    else if (item.Key.Trim().Equals("Introduce"))
+                    {
+                        introduceText = item.Value;
+                    }
+                    else if (item.Key.Trim().Equals("Final"))
+                    {
+                        finalStr = item.Value;
+                    }
+                    else if (item.Key.Trim().Equals("Locked"))
+                    {
+                        lockedStr = item.Value;
+                    }
+                    else
+                    {
+                        lightScriptDictionary.Add(item.Key, item.Value);
+                        visibleDictionary.Add(item.Key, true);
+                        AddStep(item.Key, "");
+                    }
+                }
+                UpdateExtends();
+                UpdateIntersection();
+                UpdateComplement();
+                if (!visibleStr.Equals(String.Empty))
+                {
+                    visibleStr = visibleStr.Replace(System.Environment.NewLine, "");
+                    visibleStr = visibleStr.Replace("\t", "");
+
+                    String[] visibleStrs = visibleStr.Split(';');
+                    foreach (String str in visibleStrs)
+                    {
+                        if (str.Trim().Equals(String.Empty))
+                            continue;
+                        if (visibleDictionary.ContainsKey(str))
+                        {
+                            visibleDictionary[str] = false;
+                        }
+                    }
+                }
+                UpdateVisible();
+                if (!containStr.Equals(String.Empty))
+                {
+                    containStr = containStr.Replace(System.Environment.NewLine, "");
+                    containStr = containStr.Replace("\t", "");
+
+                    String[] containStrs = containStr.Split(';');
+                    foreach (String str in containStrs)
+                    {
+                        if (str.Trim().Equals(String.Empty))
+                            continue;
+
+                        String[] strContentOrTile = str.Split(':');
+                        containDictionary.Add(strContentOrTile[0], new List<string>());
+                        String[] strs = strContentOrTile[1].Split(',');
+                        for (int x = 0; x < strs.Length; x++)
+                        {
+                            if (!strs[x].Equals(String.Empty))
+                                containDictionary[strContentOrTile[0]].Add(strs[x]);
+                        }
+                    }
+                }
+                if (!importStr.Equals(String.Empty))
+                {
+                    importStr = importStr.Replace(System.Environment.NewLine, "");
+                    importStr = importStr.Replace("\t", "");
+
+                    String[] importStrs = importStr.Split(';');
+                    foreach (String str in importStrs)
+                    {
+                        if (str.Trim().Equals(String.Empty))
+                            continue;
+
+                        if (!importList.Contains(str))
+                        {
+                            importList.Add(str);
+                        }
+                    }
+                }
+                if (!finalStr.Equals(String.Empty))
+                {
+                    finalStr = finalStr.Replace(System.Environment.NewLine, "");
+                    finalStr = finalStr.Replace("\t", "");
+
+                    String[] finalStrs = finalStr.Split('.');
+                    foreach (String str in finalStrs)
+                    {
+                        if (str.Trim().Equals(String.Empty))
+                            continue;
+
+                        String[] strs = str.Split(':');
+                        finalDictionary.Add(strs[0], strs[1]);
+                    }
+                }
+                if (!lockedStr.Equals(String.Empty))
+                {
+                    lockedStr = lockedStr.Replace(System.Environment.NewLine, "");
+                    lockedStr = lockedStr.Replace("\t", "");
+
+                    String[] lockedStrs = lockedStr.Split('.');
+                    foreach (String str in lockedStrs)
+                    {
+                        if (str.Trim().Equals(String.Empty))
+                            continue;
+
+                        String[] strs = str.Split(':');
+
+                        String strContent = fileBusiness.Base2String(strs[1]);
+                        List<int> mContentList = new List<int>();
+                        for (int x = 0; x < strContent.Length; x++)
+                        {
+                            mContentList.Add(strContent[x]);
+                        }
+                        lockedDictionary.Add(strs[0], fileBusiness.ReadMidiContent(mContentList));
+                    }
+                    UpdateLocked();
+                }
+                if (!RefreshData())
                 {
                     UpdateData(new List<Light>());
-                    //仍需要保存到Cache
-                    //TODO    
-                    //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
-                    //_scriptBusiness.SaveScriptFile("");
                 }
-                else
-                {
-                    LightScriptBusiness scriptBusiness = new LightScriptBusiness();
-                    String command = scriptBusiness.LoadLightScript(filePath);
-                    Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
-                    if (dictionary == null)
-                    {
-                        return ;
-                    }
-                    String visibleStr = String.Empty;
-                    String containStr = String.Empty;
-                    String importStr = String.Empty;
-                    String finalStr = String.Empty;
-                    String lockedStr = String.Empty;
-                    //String introduceStr = String.Empty;
-                    foreach (var item in dictionary)
-                    {
-                        if (item.Key.Trim().Equals("NoVisible"))
-                        {
-                            visibleStr = item.Value;
-                        }
-                        else if (item.Key.Trim().Equals("Contain"))
-                        {
-                            containStr = item.Value;
-                        }
-                        else if (item.Key.Trim().Equals("Import"))
-                        {
-                            importStr = item.Value;
-                        }
-                        else if (item.Key.Trim().Equals("Introduce"))
-                        {
-                            introduceText = item.Value;
-                        }
-                        else if (item.Key.Trim().Equals("Final"))
-                        {
-                            finalStr = item.Value;
-                        }
-                        else if (item.Key.Trim().Equals("Locked"))
-                        {
-                            lockedStr = item.Value;
-                        }
-                        else
-                        {
-                           lightScriptDictionary.Add(item.Key, item.Value);
-                           visibleDictionary.Add(item.Key, true);
-                           AddStep(item.Key, "");
-                        }
-                    }
-                   UpdateExtends();
-                   UpdateIntersection();
-                   UpdateComplement();
-                    if (!visibleStr.Equals(String.Empty))
-                    {
-                        visibleStr = visibleStr.Replace(System.Environment.NewLine, "");
-                        visibleStr = visibleStr.Replace("\t", "");
-
-                        String[] visibleStrs = visibleStr.Split(';');
-                        foreach (String str in visibleStrs)
-                        {
-                            if (str.Trim().Equals(String.Empty))
-                                continue;
-                            if (visibleDictionary.ContainsKey(str))
-                            {
-                                visibleDictionary[str] = false;
-                            }
-                        }
-                    }
-                    UpdateVisible();
-                    if (!containStr.Equals(String.Empty))
-                    {
-                        containStr = containStr.Replace(System.Environment.NewLine, "");
-                        containStr = containStr.Replace("\t", "");
-
-                        String[] containStrs = containStr.Split(';');
-                        foreach (String str in containStrs)
-                        {
-                            if (str.Trim().Equals(String.Empty))
-                                continue;
-
-                            String[] strContentOrTile = str.Split(':');
-                            containDictionary.Add(strContentOrTile[0], new List<string>());
-                            String[] strs = strContentOrTile[1].Split(',');
-                            for (int x = 0; x < strs.Length; x++)
-                            {
-                                if (!strs[x].Equals(String.Empty))
-                                    containDictionary[strContentOrTile[0]].Add(strs[x]);
-                            }
-                        }
-                    }
-                    if (!importStr.Equals(String.Empty))
-                    {
-                        importStr = importStr.Replace(System.Environment.NewLine, "");
-                        importStr = importStr.Replace("\t", "");
-
-                        String[] importStrs = importStr.Split(';');
-                        foreach (String str in importStrs)
-                        {
-                            if (str.Trim().Equals(String.Empty))
-                                continue;
-
-                            if (!importList.Contains(str))
-                            {
-                                importList.Add(str);
-                            }
-                        }
-                    }
-                    if (!finalStr.Equals(String.Empty))
-                    {
-                        finalStr = finalStr.Replace(System.Environment.NewLine, "");
-                        finalStr = finalStr.Replace("\t", "");
-
-                        String[] finalStrs = finalStr.Split('.');
-                        foreach (String str in finalStrs)
-                        {
-                            if (str.Trim().Equals(String.Empty))
-                                continue;
-
-                            String[] strs = str.Split(':');
-                           finalDictionary.Add(strs[0], strs[1]);
-                        }
-                    }
-                    if (!lockedStr.Equals(String.Empty))
-                    {
-                        lockedStr = lockedStr.Replace(System.Environment.NewLine, "");
-                        lockedStr = lockedStr.Replace("\t", "");
-
-                        String[] lockedStrs = lockedStr.Split('.');
-                        foreach (String str in lockedStrs)
-                        {
-                            if (str.Trim().Equals(String.Empty))
-                                continue;
-
-                            String[] strs = str.Split(':');
-
-                            String strContent = fileBusiness.Base2String(strs[1]);
-                            List<int> mContentList = new List<int>();
-                            for (int x = 0; x < strContent.Length; x++)
-                            {
-                                mContentList.Add(strContent[x]);
-                            }
-                            lockedDictionary.Add(strs[0], fileBusiness.ReadMidiContent(mContentList));
-                        }
-                       UpdateLocked();
-                    }
-                    if (!RefreshData())
-                    {
-                       UpdateData(new List<Light>());
-                    }
-                }
+            }
         }
         /// <summary>
         /// 清除输入控件里的数据
@@ -4731,17 +4692,17 @@ namespace Maker.View.LightScriptUserControl
         public void ClearInputUserControl()
         {
             //UpdateData(new List<Light>());
-           lbStep.Items.Clear();
-           lightScriptDictionary.Clear();
-           visibleDictionary.Clear();
-           containDictionary.Clear();
-           extendsDictionary.Clear();
-           intersectionDictionary.Clear();
-           complementDictionary.Clear();
-           importList.Clear();
-           finalDictionary.Clear();
-           introduceText = String.Empty;
-           lockedDictionary.Clear();
+            lbStep.Items.Clear();
+            lightScriptDictionary.Clear();
+            visibleDictionary.Clear();
+            containDictionary.Clear();
+            extendsDictionary.Clear();
+            intersectionDictionary.Clear();
+            complementDictionary.Clear();
+            importList.Clear();
+            finalDictionary.Clear();
+            introduceText = String.Empty;
+            lockedDictionary.Clear();
         }
     }
 }
