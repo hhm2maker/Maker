@@ -420,8 +420,8 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.GenerateResource.Cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
-E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\LightScriptUserControl\CodeUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LightScriptUserControl\CodeUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache

@@ -241,9 +241,9 @@ namespace Maker.View
                     };
                     doubleAnimation.To = 100;
                     doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * max);
+                    doubleAnimation.Completed += DoubleAnimation_Completed;
                     spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
                 }
-                gMain.Margin = new Thickness(0, 0, 0, 0);
             }
             else
             {
@@ -279,9 +279,14 @@ namespace Maker.View
                     doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * 0);
                     spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
                 }
-                gMain.Margin = new Thickness(0, 0, 0, 50);
+                gMain.Margin = new Thickness(0, 0, 0, 0);
             }
             bIsShowControl = !bIsShowControl;
+        }
+
+        private void DoubleAnimation_Completed(object sender, EventArgs e)
+        {
+            gMain.Margin = new Thickness(0, 0, 0, 50);
         }
     }
 }

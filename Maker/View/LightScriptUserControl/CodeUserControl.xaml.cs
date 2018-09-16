@@ -1,6 +1,8 @@
-﻿using Microsoft.CSharp;
+﻿using Maker.Model;
+using Microsoft.CSharp;
 using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -29,7 +31,8 @@ namespace Maker.View.LightScriptUserControl
             //添加需要引用的dll
             objCompilerParameters.ReferencedAssemblies.Add("System.dll");
             objCompilerParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
-
+            objCompilerParameters.ReferencedAssemblies.Add("Operation.dll");
+            objCompilerParameters.ReferencedAssemblies.Add("Maker.dll");
             //是否生成可执行文件
             objCompilerParameters.GenerateExecutable = false;
 
@@ -49,17 +52,23 @@ namespace Maker.View.LightScriptUserControl
                 Assembly objAssembly = cr.CompiledAssembly;
                 object objHelloWorld = objAssembly.CreateInstance("Test");
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
-                objMI.Invoke(objHelloWorld, null);
+                List<Light> lights = (List<Light>)objMI.Invoke(objHelloWorld, new Object[] { new List<Light>() {
+                    new Light(0,144,28,9)
+                } });
+                Console.WriteLine(lights.Count);
             }
         }
         public String GetCode() {
             StringBuilder sb = new StringBuilder();
+            sb.Append("using System;");
             sb.Append("using System.Windows.Forms;");
+            sb.Append("using System.Collections.Generic;");
+            sb.Append("using Operation;");
+            
             sb.Append("public class Test{");
-            sb.Append("public void Hello(){");
-            sb.Append("MessageBox.Show(\"HelloWorld!\");}}");
+            sb.Append("public List<Light> Hello(List<Light> m){");
+            sb.Append("return m;}}");
             Console.WriteLine(sb.ToString());
-
 
             return sb.ToString();
         }

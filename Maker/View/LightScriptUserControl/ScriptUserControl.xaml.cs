@@ -305,7 +305,7 @@ namespace Maker.View.LightScriptUserControl
                     {
                         //panel.Margin = new Thickness(30,0,0,0);
                         Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/branch.png", UriKind.RelativeOrAbsolute));
+                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/branch.png", UriKind.RelativeOrAbsolute));
                         break;
                     }
                 }
@@ -346,13 +346,13 @@ namespace Maker.View.LightScriptUserControl
                 {
                     DockPanel panel = (DockPanel)sp.Children[0];
                     Image visibleImage = (Image)panel.Children[0];
-                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/visible.png", UriKind.RelativeOrAbsolute));
+                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/visible.png", UriKind.RelativeOrAbsolute));
                 }
                 else
                 {
                     DockPanel panel = (DockPanel)sp.Children[0];
                     Image visibleImage = (Image)panel.Children[0];
-                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/novisible.png", UriKind.RelativeOrAbsolute));
+                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/novisible.png", UriKind.RelativeOrAbsolute));
                 }
             }
             //根据父类可见不可见，来改变子类可见不可见
@@ -369,7 +369,7 @@ namespace Maker.View.LightScriptUserControl
                     {
                         DockPanel panel = (DockPanel)sp.Children[0];
                         Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/novisible.png", UriKind.RelativeOrAbsolute));
+                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/novisible.png", UriKind.RelativeOrAbsolute));
                         visibleDictionary[blockStepName.Text] = false;
                     }
                 }
@@ -389,7 +389,7 @@ namespace Maker.View.LightScriptUserControl
                 if (lockedDictionary.ContainsKey(GetStepName(i)))
                 {
                     //加上锁的图标
-                    lockedImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/locked.png", UriKind.RelativeOrAbsolute));
+                    lockedImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/locked.png", UriKind.RelativeOrAbsolute));
                 }
                 else
                 {
