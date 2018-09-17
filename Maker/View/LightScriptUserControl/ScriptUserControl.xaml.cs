@@ -22,6 +22,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static Maker.Model.EnumCollection;
 using System.Xml;
+using Microsoft.CSharp;
+using System.CodeDom.Compiler;
+using System.Reflection;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -1590,9 +1593,64 @@ namespace Maker.View.LightScriptUserControl
                 builder.Append(command);
             }
             builder.Append(Environment.NewLine + "}");
+
+            Console.WriteLine(builder.ToString());
+            Test();
             return builder.ToString();
             //Console.WriteLine(Environment.NewLine +builder.ToString()+Environment.NewLine); 
         }
+
+        public void Test() {
+            CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
+            ICodeCompiler objICodeCompiler = objCSharpCodePrivoder.CreateCompiler();
+
+            CompilerParameters objCompilerParameters = new CompilerParameters();
+
+            //添加需要引用的dll
+            objCompilerParameters.ReferencedAssemblies.Add("System.dll");
+            objCompilerParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
+            objCompilerParameters.ReferencedAssemblies.Add("Operation.dll");
+            //是否生成可执行文件
+            objCompilerParameters.GenerateExecutable = false;
+
+            //是否生成在内存中
+            objCompilerParameters.GenerateInMemory = true;
+
+            //编译代码
+            CompilerResults cr = objICodeCompiler.CompileAssemblyFromSource(objCompilerParameters, GetCode());
+
+            if (cr.Errors.HasErrors)
+            {
+                var msg = string.Join(Environment.NewLine, cr.Errors.Cast<CompilerError>().Select(err => err.ErrorText));
+                MessageBox.Show(msg, "编译错误");
+            }
+            else
+            {
+                Assembly objAssembly = cr.CompiledAssembly;
+                object objHelloWorld = objAssembly.CreateInstance("Test");
+                MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
+                List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { new List<Operation.Light>() {
+                    new Operation.Light(0,144,28,9)
+                } });
+                Console.WriteLine(lights.Count);
+            }
+        }
+        public String GetCode()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("using System;");
+            sb.Append("using System.Windows.Forms;");
+            sb.Append("using System.Collections.Generic;");
+            sb.Append("using Operation;");
+
+            sb.Append("public class Test{");
+            sb.Append("public List<Light> Hello(List<Light> m){");
+            sb.Append("return m;}}");
+            Console.WriteLine(sb.ToString());
+
+            return sb.ToString();
+        }
+
         public bool RefreshData()
         {
             SaveLightScriptFile("", false);

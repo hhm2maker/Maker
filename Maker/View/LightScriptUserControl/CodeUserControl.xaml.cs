@@ -32,7 +32,6 @@ namespace Maker.View.LightScriptUserControl
             objCompilerParameters.ReferencedAssemblies.Add("System.dll");
             objCompilerParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             objCompilerParameters.ReferencedAssemblies.Add("Operation.dll");
-            objCompilerParameters.ReferencedAssemblies.Add("Maker.dll");
             //是否生成可执行文件
             objCompilerParameters.GenerateExecutable = false;
 
