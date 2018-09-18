@@ -1,7 +1,7 @@
 Step1{
-	RangeGroup Step1Range = new RangeGroup("36",' ','-');
-	ColorGroup Step1Color = new ColorGroup("5",' ','-');
-	LightGroup Step1LightGroup = Create.CreateLightGroup(0,Step1Range,12,12,Step1Color,Up,All);
+ 	List<int> Step1Range = new List<int>() { 36};
+	List<int> Step1Color = new List<int>() { 5};
+	List<Light> Step1LightGroup = Create.CreateLightGroup(0,Step1Range,12,12,Step1Color,Up);
 }
 Contain{
 	Step1:Step1;

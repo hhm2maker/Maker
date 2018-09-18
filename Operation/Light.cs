@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Operation
+﻿namespace Operation
 {
     public class Light
     {
@@ -59,7 +53,6 @@ namespace Operation
         /// </summary>
         public Light()
         {
-
         }
     }
 }

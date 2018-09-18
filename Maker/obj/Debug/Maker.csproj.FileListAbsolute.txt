@@ -316,7 +316,6 @@ E:\Sharer\Maker\Maker\bin\Debug\log4net.dll
 E:\Sharer\Maker\Maker\bin\Debug\Microsoft.Expression.Drawing.dll
 E:\Sharer\Maker\Maker\bin\Debug\Microsoft.Expression.Interactions.dll
 E:\Sharer\Maker\Maker\bin\Debug\Newtonsoft.Json.dll
-E:\Sharer\Maker\Maker\bin\Debug\Operation.dll
 E:\Sharer\Maker\Maker\bin\Debug\System.Windows.Interactivity.dll
 E:\Sharer\Maker\Maker\bin\Debug\Transitionals.dll
 E:\Sharer\Maker\Maker\bin\Debug\WPFSpark.dll

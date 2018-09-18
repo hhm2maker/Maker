@@ -51,8 +51,8 @@ namespace Maker.View.LightScriptUserControl
                 Assembly objAssembly = cr.CompiledAssembly;
                 object objHelloWorld = objAssembly.CreateInstance("Test");
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
-                List<Light> lights = (List<Light>)objMI.Invoke(objHelloWorld, new Object[] { new List<Light>() {
-                    new Light(0,144,28,9)
+                List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { new List<Operation.Light>() {
+                    new Operation.Light(0,144,28,9)
                 } });
                 Console.WriteLine(lights.Count);
             }
@@ -63,12 +63,12 @@ namespace Maker.View.LightScriptUserControl
             sb.Append("using System.Windows.Forms;");
             sb.Append("using System.Collections.Generic;");
             sb.Append("using Operation;");
-            
+
             sb.Append("public class Test{");
             sb.Append("public List<Light> Hello(List<Light> m){");
-            sb.Append("return m;}}");
+            sb.Append("	List<int> Step1Range = new List<int>() { 36}; List < int > Step1Color = new List<int>() { 5 };List<Light> Step1LightGroup = Operation.Create.CreateLightGroup(0, Step1Range, 12, 12, Step1Color, \"Up\"); return Step1LightGroup;");
+            sb.Append("}}");
             Console.WriteLine(sb.ToString());
-
             return sb.ToString();
         }
 

@@ -1633,6 +1633,7 @@ namespace Maker.View.LightScriptUserControl
                     new Operation.Light(0,144,28,9)
                 } });
                 Console.WriteLine(lights.Count);
+               
             }
         }
         public String GetCode()
