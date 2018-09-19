@@ -24,7 +24,7 @@ namespace Maker.View.LightScriptUserControl
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
-            ICodeCompiler objICodeCompiler = objCSharpCodePrivoder.CreateCompiler();
+            //ICodeCompiler objICodeCompiler = objCSharpCodePrivoder.CreateCompiler();
 
             CompilerParameters objCompilerParameters = new CompilerParameters();
 
@@ -39,7 +39,7 @@ namespace Maker.View.LightScriptUserControl
             objCompilerParameters.GenerateInMemory = true;
 
             //编译代码
-            CompilerResults cr = objICodeCompiler.CompileAssemblyFromSource(objCompilerParameters, GetCode());
+            CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode());
 
             if (cr.Errors.HasErrors)
             {
