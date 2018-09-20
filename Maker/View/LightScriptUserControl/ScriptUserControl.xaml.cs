@@ -1640,7 +1640,6 @@ namespace Maker.View.LightScriptUserControl
             sb.Append("using System.Windows.Forms;");
             sb.Append("using System.Collections.Generic;");
             sb.Append("using Operation;");
-
             sb.Append("public class Test{");
             sb.Append("public List<Light> Hello(){");
             sb.Append(str);

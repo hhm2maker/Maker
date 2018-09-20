@@ -8,14 +8,22 @@ namespace Operation
 {
     public class Create
     {
-        public static List<Light> CreateLightGroup( int _time , List<int> rangeList, int _interval, int _continued,  List<int> colorList, String _type)
+        public enum CreateLightType {
+            UP = 0,
+            DOWN = 1,
+            UPDOWN = 2,
+            DOWNUP = 3,
+            UPANDDOWN = 4,
+            DOWNANDUP = 5,
+            FREEZEFRAME = 6,
+        }
+        public static List<Light> CreateLightGroup( int _time , List<int> rangeList, int _interval, int _continued,  List<int> colorList, CreateLightType _type)
         {
-          
                 List<Light> _lightGroup = new List<Light>();
                 //时间
                 List<int> _position = new List<int>();
                 _position.AddRange(rangeList.ToArray());
-                if (_type.Equals("Up"))
+                if (_type == CreateLightType.UP)
                 {
                     //开始
                     for (int j = 0; j < colorList.Count; j++)
@@ -44,8 +52,8 @@ namespace Operation
                         }
                     }
                 }
-                else if (_type.Equals("Down"))
-                {
+            else if (_type == CreateLightType.DOWN)
+            {
                     _position.Reverse();
                     //开始
                     for (int j = 0; j < colorList.Count; j++)
@@ -74,8 +82,8 @@ namespace Operation
                         }
                     }
                 }
-                else if (_type.Equals("UpDown"))
-                {
+            else if (_type == CreateLightType.UPDOWN)
+            {
                     List<int> _relList = new List<int>();
                     _relList.AddRange(_position.ToArray().Reverse());
                     _position.AddRange(_relList.ToArray());
@@ -107,8 +115,8 @@ namespace Operation
                         }
                     }
                 }
-                else if (_type.Equals("DownUp"))
-                {
+            else if (_type == CreateLightType.DOWNANDUP)
+            {
                     _position.Reverse();
                     List<int> _relList = new List<int>();
                     _relList.AddRange(_position.ToArray().Reverse());
@@ -141,7 +149,7 @@ namespace Operation
                         }
                     }
                 }
-                else if (_type.Equals("UpAndDown") || _type.Equals("DownAndUp"))
+                else if (_type == CreateLightType.UPANDDOWN || _type == CreateLightType.DOWNANDUP)
                 {
                     //开始
                     for (int j = 0; j < colorList.Count; j++)
@@ -199,7 +207,7 @@ namespace Operation
                         }
                     }
                 }
-                else if (_type.Equals("FreezeFrame"))
+                else if (_type == CreateLightType.FREEZEFRAME)
                 {
                     int mTime = _time;
                     for (int j = 0; j < colorList.Count; j++)
