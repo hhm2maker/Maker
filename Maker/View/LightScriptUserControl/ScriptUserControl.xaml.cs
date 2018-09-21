@@ -25,6 +25,7 @@ using System.Xml;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -1630,7 +1631,7 @@ namespace Maker.View.LightScriptUserControl
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
                 List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
                 Console.WriteLine(lights.Count);
-               
+
             }
         }
         public String GetCode(String str)
@@ -4741,8 +4742,26 @@ namespace Maker.View.LightScriptUserControl
                 //    UpdateData(new List<Light>());
                 //}
                 Test(command);
+                this.command = command;
+
+                SaveFile();
+
             }
         }
+        private String command;
+        protected override void SaveFile() {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            XElement xRoot = new XElement("Scripts");
+            xDoc.Add(xRoot);
+
+            XElement xScript = new XElement("Script");
+            xScript.SetAttributeValue("name", "Step1");
+            xScript.SetAttributeValue("value",fileBusiness.String2Base(command) );
+            xRoot.Add(xScript);
+            xDoc.Save(filePath);
+        }
+
         /// <summary>
         /// 清除输入控件里的数据
         /// </summary>
