@@ -2,6 +2,7 @@
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.Help;
+using Maker.View.Introduction;
 using Maker.View.LightScriptUserControl;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
@@ -93,19 +94,19 @@ namespace Maker.View
             toolSwitch.Unchecked += ToolSwitch_Checked;
             spToolTitle.Children.Add(toolSwitch);
 
-            //定义存储缓冲区大小
-            StringBuilder s = new StringBuilder(300);
-            //获取Window 桌面背景图片地址，使用缓冲区
-            SystemParametersInfo(SPI_GETDESKWALLPAPER, 300, s, 0);
-            //缓冲区中字符进行转换
-            String wallpaper_path = s.ToString(); //系统桌面背景图片路径
+            ////定义存储缓冲区大小
+            //StringBuilder s = new StringBuilder(300);
+            ////获取Window 桌面背景图片地址，使用缓冲区
+            //SystemParametersInfo(SPI_GETDESKWALLPAPER, 300, s, 0);
+            ////缓冲区中字符进行转换
+            //String wallpaper_path = s.ToString(); //系统桌面背景图片路径
 
-            ImageBrush b = new ImageBrush
-            {
-                ImageSource = new BitmapImage(new Uri(wallpaper_path)),
-                Stretch = Stretch.Fill
-            };
-            Background = b;
+            //ImageBrush b = new ImageBrush
+            //{
+            //    ImageSource = new BitmapImage(new Uri(wallpaper_path)),
+            //    Stretch = Stretch.Fill
+            //};
+            //Background = b;
 
             LoadConfig();
         }
@@ -163,10 +164,10 @@ namespace Maker.View
 
         private void IntoUserControl(object sender, RoutedEventArgs e)
         {
-            gMain.Children.Clear();
-            gMain.Children.Add(userControls[spControl.Children.IndexOf(sender as UIElement)]);
-            spRight.Visibility = Visibility.Collapsed;
-            ToHideControl(sender, spControl.Children.IndexOf(sender as UIElement));
+            //gMain.Children.Clear();
+            //gMain.Children.Add(userControls[spControl.Children.IndexOf(sender as UIElement)]);
+            //spRight.Visibility = Visibility.Collapsed;
+            //ToHideControl(sender, spControl.Children.IndexOf(sender as UIElement));
         }
 
 
@@ -222,90 +223,90 @@ namespace Maker.View
         bool bIsShowControl = true;
         private void ToHideControl(object sender, int position)
         {
-            if (bIsShowControl)
-            {
-                int _max = position - 1;
-                if (_max < spControl.Children.Count - position) {
-                    _max = spControl.Children.Count - position;
-                }
-                for (int i = 0; i <= position - 1; i++)
-                {
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 0,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 130;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (_max - position  + i));
-                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-                for (int i = spControl.Children.Count - 1; i >= position + 1; i--)
-                {
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 0,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 130;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (spControl.Children.Count - i));
-                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-                {
-                    int max = 0;
-                    if (position > spControl.Children.Count / 2) {
-                        max = position;
-                    }
-                    else {
-                        max = spControl.Children.Count - position;
-                    }
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 0,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 100;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * max);
-                    doubleAnimation.Completed += DoubleAnimation_Completed;
-                    spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-            }
-            else
-            {
-                for (int i = 0; i <= position - 1; i++)
-                {
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 130,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 0;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (position - i));
-                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-                for (int i = spControl.Children.Count - 1; i >= position + 1; i--)
-                {
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 130,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 0;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (i- position));
-                    spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-                {
-                    DoubleAnimation doubleAnimation = new DoubleAnimation
-                    {
-                        From = 100,
-                        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                    };
-                    doubleAnimation.To = 0;
-                    doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * 0);
-                    spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
-                }
-                gMain.Margin = new Thickness(0, 0, 0, 0);
-            }
-            bIsShowControl = !bIsShowControl;
+            //if (bIsShowControl)
+            //{
+            //    int _max = position - 1;
+            //    if (_max < spControl.Children.Count - position) {
+            //        _max = spControl.Children.Count - position;
+            //    }
+            //    for (int i = 0; i <= position - 1; i++)
+            //    {
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 0,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 130;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (_max - position  + i));
+            //        spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //    for (int i = spControl.Children.Count - 1; i >= position + 1; i--)
+            //    {
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 0,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 130;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (spControl.Children.Count - i));
+            //        spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //    {
+            //        int max = 0;
+            //        if (position > spControl.Children.Count / 2) {
+            //            max = position;
+            //        }
+            //        else {
+            //            max = spControl.Children.Count - position;
+            //        }
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 0,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 100;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * max);
+            //        doubleAnimation.Completed += DoubleAnimation_Completed;
+            //        spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //}
+            //else
+            //{
+            //    for (int i = 0; i <= position - 1; i++)
+            //    {
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 130,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 0;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (position - i));
+            //        spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //    for (int i = spControl.Children.Count - 1; i >= position + 1; i--)
+            //    {
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 130,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 0;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * (i- position));
+            //        spControl.Children[i].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //    {
+            //        DoubleAnimation doubleAnimation = new DoubleAnimation
+            //        {
+            //            From = 100,
+            //            Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //        };
+            //        doubleAnimation.To = 0;
+            //        doubleAnimation.BeginTime = new TimeSpan(0, 0, 0, 0, 100 * 0);
+            //        spControl.Children[position].BeginAnimation(Canvas.TopProperty, doubleAnimation);
+            //    }
+            //    gMain.Margin = new Thickness(0, 0, 0, 0);
+            //}
+            //bIsShowControl = !bIsShowControl;
         }
 
         private void DoubleAnimation_Completed(object sender, EventArgs e)
@@ -328,6 +329,12 @@ namespace Maker.View
             }
             PavedLaunchpadWindow raved = new PavedLaunchpadWindow(this, mLightList);
             raved.ShowDialog();
+        }
+
+        private void TextBlock_MouseDown(object sender, RoutedEventArgs e)
+        {
+            gIntroduce.Children.Clear();
+            gIntroduce.Children.Add(new LightIntroductionPage());
         }
 
     }

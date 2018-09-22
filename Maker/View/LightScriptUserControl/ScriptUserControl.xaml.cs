@@ -4571,182 +4571,188 @@ namespace Maker.View.LightScriptUserControl
                 ClearCache();
                 iNowPosition = -1;
             }
-            //读取灯光文件
-            FileStream f2 = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            int i = 0;
-            StringBuilder sb2 = new StringBuilder();
-            while ((i = f2.ReadByte()) != -1)
-            {
-                sb2.Append((char)i);
-            }
-            f2.Close();
-            String linShi = sb2.ToString();
-            //linShi = linShi.Replace("\n", "");
-            //linShi = linShi.Replace("\r", "");
-            ClearInputUserControl();
-            String linShi2 = linShi;
-            if (linShi2.Trim().Equals(String.Empty))
-            {
-                UpdateData(new List<Light>());
-                //仍需要保存到Cache
-                //TODO    
-                //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
-                //_scriptBusiness.SaveScriptFile("");
-            }
-            else
-            {
-                LightScriptBusiness scriptBusiness = new LightScriptBusiness();
-                String command = scriptBusiness.LoadLightScript(filePath);
-                //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
-                //if (dictionary == null)
-                //{
-                //    return;
-                //}
-                //String visibleStr = String.Empty;
-                //String containStr = String.Empty;
-                //String importStr = String.Empty;
-                //String finalStr = String.Empty;
-                //String lockedStr = String.Empty;
-                ////String introduceStr = String.Empty;
-                //foreach (var item in dictionary)
-                //{
-                //    if (item.Key.Trim().Equals("NoVisible"))
-                //    {
-                //        visibleStr = item.Value;
-                //    }
-                //    else if (item.Key.Trim().Equals("Contain"))
-                //    {
-                //        containStr = item.Value;
-                //    }
-                //    else if (item.Key.Trim().Equals("Import"))
-                //    {
-                //        importStr = item.Value;
-                //    }
-                //    else if (item.Key.Trim().Equals("Introduce"))
-                //    {
-                //        introduceText = item.Value;
-                //    }
-                //    else if (item.Key.Trim().Equals("Final"))
-                //    {
-                //        finalStr = item.Value;
-                //    }
-                //    else if (item.Key.Trim().Equals("Locked"))
-                //    {
-                //        lockedStr = item.Value;
-                //    }
-                //    else
-                //    {
-                //        lightScriptDictionary.Add(item.Key, item.Value);
-                //        visibleDictionary.Add(item.Key, true);
-                //        AddStep(item.Key, "");
-                //    }
-                //}
-                //UpdateExtends();
-                //UpdateIntersection();
-                //UpdateComplement();
-                //if (!visibleStr.Equals(String.Empty))
-                //{
-                //    visibleStr = visibleStr.Replace(System.Environment.NewLine, "");
-                //    visibleStr = visibleStr.Replace("\t", "");
+            ////读取灯光文件
+            //FileStream f2 = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            //int i = 0;
+            //StringBuilder sb2 = new StringBuilder();
+            //while ((i = f2.ReadByte()) != -1)
+            //{
+            //    sb2.Append((char)i);
+            //}
+            //f2.Close();
+            //String linShi = sb2.ToString();
+            ////linShi = linShi.Replace("\n", "");
+            ////linShi = linShi.Replace("\r", "");
+            //ClearInputUserControl();
+            //String linShi2 = linShi;
+            //if (linShi2.Trim().Equals(String.Empty))
+            //{
+            //    UpdateData(new List<Light>());
+            //    //仍需要保存到Cache
+            //    //TODO    
+            //    //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
+            //    //_scriptBusiness.SaveScriptFile("");
+            //}
+            //else
+            //{
+            //    LightScriptBusiness scriptBusiness = new LightScriptBusiness();
+            //    String command = scriptBusiness.LoadLightScript(filePath);
+            //    //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
+            //    //if (dictionary == null)
+            //    //{
+            //    //    return;
+            //    //}
+            //    //String visibleStr = String.Empty;
+            //    //String containStr = String.Empty;
+            //    //String importStr = String.Empty;
+            //    //String finalStr = String.Empty;
+            //    //String lockedStr = String.Empty;
+            //    ////String introduceStr = String.Empty;
+            //    //foreach (var item in dictionary)
+            //    //{
+            //    //    if (item.Key.Trim().Equals("NoVisible"))
+            //    //    {
+            //    //        visibleStr = item.Value;
+            //    //    }
+            //    //    else if (item.Key.Trim().Equals("Contain"))
+            //    //    {
+            //    //        containStr = item.Value;
+            //    //    }
+            //    //    else if (item.Key.Trim().Equals("Import"))
+            //    //    {
+            //    //        importStr = item.Value;
+            //    //    }
+            //    //    else if (item.Key.Trim().Equals("Introduce"))
+            //    //    {
+            //    //        introduceText = item.Value;
+            //    //    }
+            //    //    else if (item.Key.Trim().Equals("Final"))
+            //    //    {
+            //    //        finalStr = item.Value;
+            //    //    }
+            //    //    else if (item.Key.Trim().Equals("Locked"))
+            //    //    {
+            //    //        lockedStr = item.Value;
+            //    //    }
+            //    //    else
+            //    //    {
+            //    //        lightScriptDictionary.Add(item.Key, item.Value);
+            //    //        visibleDictionary.Add(item.Key, true);
+            //    //        AddStep(item.Key, "");
+            //    //    }
+            //    //}
+            //    //UpdateExtends();
+            //    //UpdateIntersection();
+            //    //UpdateComplement();
+            //    //if (!visibleStr.Equals(String.Empty))
+            //    //{
+            //    //    visibleStr = visibleStr.Replace(System.Environment.NewLine, "");
+            //    //    visibleStr = visibleStr.Replace("\t", "");
 
-                //    String[] visibleStrs = visibleStr.Split(';');
-                //    foreach (String str in visibleStrs)
-                //    {
-                //        if (str.Trim().Equals(String.Empty))
-                //            continue;
-                //        if (visibleDictionary.ContainsKey(str))
-                //        {
-                //            visibleDictionary[str] = false;
-                //        }
-                //    }
-                //}
-                //UpdateVisible();
-                //if (!containStr.Equals(String.Empty))
-                //{
-                //    containStr = containStr.Replace(System.Environment.NewLine, "");
-                //    containStr = containStr.Replace("\t", "");
+            //    //    String[] visibleStrs = visibleStr.Split(';');
+            //    //    foreach (String str in visibleStrs)
+            //    //    {
+            //    //        if (str.Trim().Equals(String.Empty))
+            //    //            continue;
+            //    //        if (visibleDictionary.ContainsKey(str))
+            //    //        {
+            //    //            visibleDictionary[str] = false;
+            //    //        }
+            //    //    }
+            //    //}
+            //    //UpdateVisible();
+            //    //if (!containStr.Equals(String.Empty))
+            //    //{
+            //    //    containStr = containStr.Replace(System.Environment.NewLine, "");
+            //    //    containStr = containStr.Replace("\t", "");
 
-                //    String[] containStrs = containStr.Split(';');
-                //    foreach (String str in containStrs)
-                //    {
-                //        if (str.Trim().Equals(String.Empty))
-                //            continue;
+            //    //    String[] containStrs = containStr.Split(';');
+            //    //    foreach (String str in containStrs)
+            //    //    {
+            //    //        if (str.Trim().Equals(String.Empty))
+            //    //            continue;
 
-                //        String[] strContentOrTile = str.Split(':');
-                //        containDictionary.Add(strContentOrTile[0], new List<string>());
-                //        String[] strs = strContentOrTile[1].Split(',');
-                //        for (int x = 0; x < strs.Length; x++)
-                //        {
-                //            if (!strs[x].Equals(String.Empty))
-                //                containDictionary[strContentOrTile[0]].Add(strs[x]);
-                //        }
-                //    }
-                //}
-                //if (!importStr.Equals(String.Empty))
-                //{
-                //    importStr = importStr.Replace(System.Environment.NewLine, "");
-                //    importStr = importStr.Replace("\t", "");
+            //    //        String[] strContentOrTile = str.Split(':');
+            //    //        containDictionary.Add(strContentOrTile[0], new List<string>());
+            //    //        String[] strs = strContentOrTile[1].Split(',');
+            //    //        for (int x = 0; x < strs.Length; x++)
+            //    //        {
+            //    //            if (!strs[x].Equals(String.Empty))
+            //    //                containDictionary[strContentOrTile[0]].Add(strs[x]);
+            //    //        }
+            //    //    }
+            //    //}
+            //    //if (!importStr.Equals(String.Empty))
+            //    //{
+            //    //    importStr = importStr.Replace(System.Environment.NewLine, "");
+            //    //    importStr = importStr.Replace("\t", "");
 
-                //    String[] importStrs = importStr.Split(';');
-                //    foreach (String str in importStrs)
-                //    {
-                //        if (str.Trim().Equals(String.Empty))
-                //            continue;
+            //    //    String[] importStrs = importStr.Split(';');
+            //    //    foreach (String str in importStrs)
+            //    //    {
+            //    //        if (str.Trim().Equals(String.Empty))
+            //    //            continue;
 
-                //        if (!importList.Contains(str))
-                //        {
-                //            importList.Add(str);
-                //        }
-                //    }
-                //}
-                //if (!finalStr.Equals(String.Empty))
-                //{
-                //    finalStr = finalStr.Replace(System.Environment.NewLine, "");
-                //    finalStr = finalStr.Replace("\t", "");
+            //    //        if (!importList.Contains(str))
+            //    //        {
+            //    //            importList.Add(str);
+            //    //        }
+            //    //    }
+            //    //}
+            //    //if (!finalStr.Equals(String.Empty))
+            //    //{
+            //    //    finalStr = finalStr.Replace(System.Environment.NewLine, "");
+            //    //    finalStr = finalStr.Replace("\t", "");
 
-                //    String[] finalStrs = finalStr.Split('.');
-                //    foreach (String str in finalStrs)
-                //    {
-                //        if (str.Trim().Equals(String.Empty))
-                //            continue;
+            //    //    String[] finalStrs = finalStr.Split('.');
+            //    //    foreach (String str in finalStrs)
+            //    //    {
+            //    //        if (str.Trim().Equals(String.Empty))
+            //    //            continue;
 
-                //        String[] strs = str.Split(':');
-                //        finalDictionary.Add(strs[0], strs[1]);
-                //    }
-                //}
-                //if (!lockedStr.Equals(String.Empty))
-                //{
-                //    lockedStr = lockedStr.Replace(System.Environment.NewLine, "");
-                //    lockedStr = lockedStr.Replace("\t", "");
+            //    //        String[] strs = str.Split(':');
+            //    //        finalDictionary.Add(strs[0], strs[1]);
+            //    //    }
+            //    //}
+            //    //if (!lockedStr.Equals(String.Empty))
+            //    //{
+            //    //    lockedStr = lockedStr.Replace(System.Environment.NewLine, "");
+            //    //    lockedStr = lockedStr.Replace("\t", "");
 
-                //    String[] lockedStrs = lockedStr.Split('.');
-                //    foreach (String str in lockedStrs)
-                //    {
-                //        if (str.Trim().Equals(String.Empty))
-                //            continue;
+            //    //    String[] lockedStrs = lockedStr.Split('.');
+            //    //    foreach (String str in lockedStrs)
+            //    //    {
+            //    //        if (str.Trim().Equals(String.Empty))
+            //    //            continue;
 
-                //        String[] strs = str.Split(':');
+            //    //        String[] strs = str.Split(':');
 
-                //        String strContent = fileBusiness.Base2String(strs[1]);
-                //        List<int> mContentList = new List<int>();
-                //        for (int x = 0; x < strContent.Length; x++)
-                //        {
-                //            mContentList.Add(strContent[x]);
-                //        }
-                //        lockedDictionary.Add(strs[0], fileBusiness.ReadMidiContent(mContentList));
-                //    }
-                //    UpdateLocked();
-                //}
-                //if (!RefreshData())
-                //{
-                //    UpdateData(new List<Light>());
-                //}
-                Test(command);
-                this.command = command;
+            //    //        String strContent = fileBusiness.Base2String(strs[1]);
+            //    //        List<int> mContentList = new List<int>();
+            //    //        for (int x = 0; x < strContent.Length; x++)
+            //    //        {
+            //    //            mContentList.Add(strContent[x]);
+            //    //        }
+            //    //        lockedDictionary.Add(strs[0], fileBusiness.ReadMidiContent(mContentList));
+            //    //    }
+            //    //    UpdateLocked();
+            //    //}
+            //    //if (!RefreshData())
+            //    //{
+            //    //    UpdateData(new List<Light>());
+            //    //}}
+            XDocument xDoc = XDocument.Load(filePath);
+            XElement xRoot = xDoc.Element("Scripts");
 
-                SaveFile();
+            XElement xScript = xRoot.Element("Script");
+            String name = xScript.Attribute("name").Value;
+            String value = xScript.Attribute("value").Value;
+            command = fileBusiness.Base2String(value);
 
-            }
+            Test(command);
+            //SaveFile();
+
+        
         }
         private String command;
         protected override void SaveFile() {

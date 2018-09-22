@@ -1,0 +1,339 @@
+﻿<UserControl x:Class="Maker.View.Introduction.LightIntroductionPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.Introduction"
+             mc:Ignorable="d" 
+            >
+    <UserControl.Resources>
+        <GeometryGroup x:Key="Geometry">
+            <RectangleGeometry Rect="0,10 130,40"/>
+            <!--<LineGeometry StartPoint="0,20" EndPoint="10,0"/>-->
+            <PathGeometry Figures="M0,10 10,0 140,0 130,10"/>
+            <PathGeometry Figures="M130,50  140,40 140,0" />
+        </GeometryGroup>
+    </UserControl.Resources>
+    <Grid  VerticalAlignment="Top" Name="gMain" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Border  Grid.Row="0" Grid.Column="0" BorderBrush="#646464" BorderThickness="0.5">
+            <TextBlock Foreground="White" Text="{DynamicResource Frame}" VerticalAlignment="Center" Margin="30" FontSize="20"/>
+        </Border>
+        <Border  Grid.Row="0" Grid.Column="1" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <TextBlock Text="请不要忘了创建开始帧" Foreground="#f0f0f0" Margin="30" FontSize="18"/>
+        </Border>
+        <Border  Grid.Row="0" Grid.Column="2" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <Button  Margin="30"  Style="{x:Null}" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Content>
+                    <Grid>
+                        <Path Data="M0.5,11 10,0 139,0 129,11" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Red" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Path Data="M130,49  140,40 140,-1" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Orange" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Rectangle x:Name="path" Width="131" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                            <Rectangle.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Red" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Stroke>
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#13191E" Offset="0"/>
+                                    <GradientStop Color="#13191E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                            <Rectangle.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Red" />
+                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Orange" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Red" To="#13191E" />
+                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="#13191E" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Rectangle.Triggers>
+                        </Rectangle>
+                        <TextBlock DockPanel.Dock="Top" Text="{DynamicResource GetStarted}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="0" BorderBrush="#646464" BorderThickness="0.5">
+            <TextBlock Foreground="White"  Text="{DynamicResource TextBox}" VerticalAlignment="Center" Margin="30" FontSize="20"/>
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="1" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <TextBlock Text="描述" Foreground="#f0f0f0" Margin="30" FontSize="18"/>
+        </Border>
+        <Border  Grid.Row="1" Grid.Column="2" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <Button  Margin="30"  Style="{x:Null}" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Content>
+                    <Grid>
+                        <Path Data="M0.5,11 10,0 139,0 129,11" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Orange" Offset="0"/>
+                                    <GradientStop Color="Yellow" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Path Data="M130,49  140,40 140,-1" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Yellow" Offset="0"/>
+                                    <GradientStop Color="Yellow" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Rectangle x:Name="path2" Width="131" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                            <Rectangle.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Orange" Offset="0"/>
+                                    <GradientStop Color="Yellow" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Stroke>
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#13191E" Offset="0"/>
+                                    <GradientStop Color="#13191E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                            <Rectangle.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path2" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Orange" />
+                                            <ColorAnimation Storyboard.TargetName="path2" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Yellow" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path2" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="#13191E" />
+                                            <ColorAnimation Storyboard.TargetName="path2" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Yellow" To="#13191E" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Rectangle.Triggers>
+                        </Rectangle>
+                        <TextBlock DockPanel.Dock="Top" Text="{DynamicResource GetStarted}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </Border>
+        <Border  Grid.Row="2" Grid.Column="0" BorderBrush="#646464" BorderThickness="0.5">
+            <TextBlock Foreground="White"  Text="{DynamicResource PianoRoll}" VerticalAlignment="Center" Margin="30" FontSize="20"/>
+        </Border>
+        <Border  Grid.Row="2" Grid.Column="1" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <TextBlock Text="描述" Foreground="#f0f0f0" Margin="30" FontSize="18"/>
+        </Border>
+        <Border  Grid.Row="2" Grid.Column="2" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
+            <Button  Margin="30"  Style="{x:Null}" >
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Content>
+                    <Grid>
+                        <Path Data="M0.5,11 10,0 139,0 129,11" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Yellow" Offset="0"/>
+                                    <GradientStop Color="Green" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Path Data="M130,49  140,40 140,-1" StrokeThickness="2" >
+                            <Path.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Green" Offset="0"/>
+                                    <GradientStop Color="Green" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Path.Stroke>
+                        </Path>
+                        <Rectangle x:Name="path3" Width="131" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                            <Rectangle.Stroke>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Yellow" Offset="0"/>
+                                    <GradientStop Color="Green" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Stroke>
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="#13191E" Offset="0"/>
+                                    <GradientStop Color="#13191E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                            <Rectangle.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path3" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Yellow" />
+                                            <ColorAnimation Storyboard.TargetName="path3" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Green" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="path3" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Yellow" To="#13191E" />
+                                            <ColorAnimation Storyboard.TargetName="path3" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Green" To="#13191E" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Rectangle.Triggers>
+                        </Rectangle>
+                        <TextBlock DockPanel.Dock="Top" Text="{DynamicResource GetStarted}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    </Grid>
+                </Button.Content>
+            </Button>
+        </Border>
+        <!--
+        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="30,10,0,10"  Style="{x:Null}" Canvas.Left="260" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Content>
+                <Grid>
+                    <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Page}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    <Path Data="{StaticResource Geometry}" StrokeThickness="2">
+                        <Path.Stroke>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="Green" Offset="0"/>
+                                <GradientStop Color="Cyan" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                </Grid>
+            </Button.Content>
+        </Button>
+
+        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="30,10,0,10"  Style="{x:Null}" Canvas.Left="260" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Content>
+                <Grid>
+                    <TextBlock DockPanel.Dock="Top" Text="{DynamicResource PlayExport}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    <Path Data="{StaticResource Geometry}" StrokeThickness="2">
+                        <Path.Stroke>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="Cyan" Offset="0"/>
+                                <GradientStop Color="Blue" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                </Grid>
+            </Button.Content>
+        </Button>
+        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="30,10,0,10"  Style="{x:Null}" Canvas.Left="260" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Content>
+                <Grid>
+                    <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Play_}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    <Path Data="{StaticResource Geometry}" StrokeThickness="2">
+                        <Path.Stroke>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="Blue" Offset="0"/>
+                                <GradientStop Color="Purple" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                </Grid>
+            </Button.Content>
+        </Button>
+        <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="30,10,0,10"  Style="{x:Null}" Canvas.Left="260" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </ControlTemplate>
+            </Button.Template>
+            <Button.Content>
+                <Grid>
+                    <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tool}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
+                    <Path Data="{StaticResource Geometry}" StrokeThickness="2">
+                        <Path.Stroke>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="Purple" Offset="0"/>
+                                <GradientStop Color="Pink" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                    </Path>
+                </Grid>
+            </Button.Content>
+        </Button>-->
+    </Grid>
+</UserControl>

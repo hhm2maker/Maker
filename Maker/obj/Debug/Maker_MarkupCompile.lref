@@ -17,6 +17,7 @@ FE:\Sharer\Maker\Maker\View\Dialog\NewFileDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Dialog\ShowLightListDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Dialog\ThirdPartyDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\Help\HelpOverviewWindow.xaml;;
+FE:\Sharer\Maker\Maker\View\Introduction\LightIntroductionPage.xaml;;
 FE:\Sharer\Maker\Maker\View\LightScriptUserControl\CodeUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\LightScriptUserControl\ScriptUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\LightWindow\FrameUserControl.xaml;;

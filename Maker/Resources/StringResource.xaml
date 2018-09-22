@@ -421,7 +421,7 @@
 
 
     <sys:String x:Key="Build">Build</sys:String>
-    <sys:String x:Key="Play_">Play(_P)</sys:String>
+    <sys:String x:Key="Play_">Play</sys:String>
     <sys:String x:Key="HelpOverview">Help overview</sys:String>
     <sys:String x:Key="ProjectProducer">Project producer</sys:String>
     <sys:String x:Key="ChooseWhatYouWantToKnow">Choose what you want to know.</sys:String>
@@ -466,5 +466,6 @@
     <sys:String x:Key="SaveProject">Save project</sys:String>
     <sys:String x:Key="SaveAsProject">Save as project</sys:String>
     <sys:String x:Key="PlayExport">Play export</sys:String>
-
+    <sys:String x:Key="GetStarted">Get Started</sys:String>
+    
 </ResourceDictionary>

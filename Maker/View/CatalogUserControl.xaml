@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             Background="#ecebec"
+             Background="#13191E"
              >
     <UserControl.Resources>
         <Style TargetType="ToolTip">
@@ -83,9 +83,53 @@
                 <Setter Property="Foreground" Value="#a3a3a3"/>
             </Style.Setters>
         </Style>
+        <GeometryGroup x:Key="Geometry">
+            <RectangleGeometry Rect="0,10 130,40"/>
+            <!--<LineGeometry StartPoint="0,20" EndPoint="10,0"/>-->
+            <PathGeometry Figures="M0,10 10,0 140,0 130,10"/>
+            <PathGeometry Figures="M130,50  140,40 140,0" />
+        </GeometryGroup>
     </UserControl.Resources>
-     <Grid>
+    <Grid>
+        <WrapPanel Height="50" VerticalAlignment="Top">
+            <TextBlock Text="{DynamicResource Light}" MouseDown="TextBlock_MouseDown" x:Name="tbLight" FontSize="20">
+                <TextBlock.Foreground>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="White" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TextBlock.Foreground>
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="tbLight" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Red" />
+                                <ColorAnimation Storyboard.TargetName="tbLight" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Orange" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="tbLight" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Red" To="White" />
+                                <ColorAnimation Storyboard.TargetName="tbLight" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="White" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+        </WrapPanel>
+        <Grid Name="gIntroduce" Margin="0,50,0,0" VerticalAlignment="Top"/>
         <Grid Name="gMain" Margin="0,0,0,50"/>
+
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -104,184 +148,30 @@
                 <TextBlock Text="{DynamicResource LightScript}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
-              
-                </StackPanel>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                 <Image Source="../Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                    <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <StackPanel   Margin="0,20,20,0" >
-                <StackPanel Orientation="Horizontal">
-                    
-                </StackPanel>
+                <StackPanel Orientation="Horizontal" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,30,0,0" Name="spToolTitle">
                 <Image Source="../Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                    <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
             </StackPanel>
             <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Visibility="Hidden" Name="bTool">
                 <StackPanel Name="spTool" />
             </Border>
         </StackPanel>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Name="spRight">
-                <TextBlock Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
-                <TextBlock Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right" Margin="0,5,0,0"/>
-                <TextBlock Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right" Margin="0,5,0,0"/>
-                <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16"/>
-            </StackPanel>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Name="spRight">
+            <TextBlock Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
+            <TextBlock Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right" Margin="0,5,0,0"/>
+            <TextBlock Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right" Margin="0,5,0,0"/>
+            <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16"/>
+        </StackPanel>
         <Grid VerticalAlignment="Bottom" Height="120">
-            <Rectangle Fill="#A0000000" Height="50" VerticalAlignment="Bottom"/>
-            <Canvas HorizontalAlignment="Center" Name="spControl" ClipToBounds="true" Width="1150">
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="0"  >
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </ControlTemplate>
-                </Button.Template>
-                <Button.ToolTip>
-                    <TextBlock Foreground="#7e7e7e" Text="注意：你需要绘制起始点。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                </Button.ToolTip>
-                <Button.Content>
-                    <Border CornerRadius="100" Background="#fefefe" Padding="5" >
-                        <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <Image DockPanel.Dock="Top" Source="../Image/frame.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Frame}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                        </StackPanel>
-                    </Border>
-                </Button.Content>
-            </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="130" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="100" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/textbox.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource TextBox}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,0,10"  Style="{x:Null}" Canvas.Left="260" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.ToolTip>
-                        <TextBlock Foreground="#7e7e7e" Text="注意：为了保证数据的正确性,解析规则会与Live一样，无关闭动作时，会在开动作的时间+1时关闭。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    </Button.ToolTip>
-                    <Button.Content>
-                        <Border CornerRadius="100"  Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/pianoRoll.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource PianoRoll}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,0,10"    Style="{x:Null}" Canvas.Left="390" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.ToolTip>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Foreground="#7e7e7e" Text="最推荐的制作方法。" FontSize="15" VerticalAlignment="Center"  TextWrapping="Wrap"/>
-                        </StackPanel>
-                    </Button.ToolTip>
-                    <Button.Content>
-                        <Border CornerRadius="130"  Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/lightscript.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource LightScript}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl"  Margin="0,0,0,10" Style="{x:Null}" Canvas.Left="520" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.ToolTip>
-                        <TextBlock Foreground="#7e7e7e" Text="请不要使用此方法，除非你是不喜欢IDE的C#程序员。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    </Button.ToolTip>
-                    <Button.Content>
-                        <Border CornerRadius="130" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/code.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Code}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl"  Style="{x:Null}" Margin="0,0,0,10"  Canvas.Left="650" >
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="130" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/page.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Page}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,0,10" Style="{x:Null}"  Canvas.Left="780"> 
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="130" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/page.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource PlayExport}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl"  Margin="0,0,20,10" Style="{x:Null}"  Canvas.Left="910">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="130" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/playing.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,15,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Play}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Click="IntoUserControl" Margin="0,0,20,10" Style="{x:Null}" Canvas.Left="1040">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="130" Background="#fefefe" Padding="5" >
-                            <StackPanel Orientation="Vertical" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <Image DockPanel.Dock="Top" Source="../Image/player.png" Width="60" RenderOptions.BitmapScalingMode="Fant" Margin="0,30,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                <TextBlock DockPanel.Dock="Top" Text="{DynamicResource Player}" HorizontalAlignment="Center"  Margin="0,5,0,0" FontSize="16" />
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-            </Canvas>
+
         </Grid>
         <Image x:Name="btnPaved"  Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
 

@@ -316,6 +316,9 @@
     <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Introduction\LightIntroductionPage.xaml.cs">
+      <DependentUpon>LightIntroductionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LightScriptUserControl\BaseLightScriptUserControl.cs" />
     <Compile Include="View\LightScriptUserControl\CodeUserControl.xaml.cs">
       <DependentUpon>CodeUserControl.xaml</DependentUpon>
@@ -560,6 +563,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Help\HelpOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Introduction\LightIntroductionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

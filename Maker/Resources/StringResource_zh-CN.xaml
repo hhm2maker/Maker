@@ -424,7 +424,7 @@
 
 
     <sys:String x:Key="Build">生成</sys:String>
-    <sys:String x:Key="Play_">演奏(_P)</sys:String>
+    <sys:String x:Key="Play_">演奏</sys:String>
     <sys:String x:Key="HelpOverview">帮助总览</sys:String>
     <sys:String x:Key="ProjectProducer">项目制作者</sys:String>
     <sys:String x:Key="ChooseWhatYouWantToKnow">选择你想要了解的。</sys:String>
@@ -469,4 +469,5 @@
     <sys:String x:Key="SaveProject">保存项目</sys:String>
     <sys:String x:Key="SaveAsProject">另存为项目</sys:String>
     <sys:String x:Key="PlayExport">演奏导出</sys:String>
+    <sys:String x:Key="GetStarted">开始体验</sys:String>
 </ResourceDictionary>
