@@ -334,7 +334,26 @@ namespace Maker.View
         private void TextBlock_MouseDown(object sender, RoutedEventArgs e)
         {
             cIntroduce.Children.Clear();
-            cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0,1,2}));
+            if (sender == tbLight)
+            {
+                cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 })
+                {
+                    Width = cIntroduce.ActualWidth
+                });
+            }
+            else if (sender == tbLightScript) {
+                cIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 })
+                {
+                    Width = cIntroduce.ActualWidth
+                });
+            }
+            else if (sender == tbPlay)
+            {
+                cIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5,6,7 })
+                {
+                    Width = cIntroduce.ActualWidth
+                });
+            }
         }
 
         public void AddIntroducePage(double introducePageHeight) {

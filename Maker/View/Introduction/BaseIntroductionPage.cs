@@ -11,6 +11,9 @@ namespace Maker.View.Introduction
     {
         protected CatalogUserControl cuc;
         protected int[] iPosition;
+        public BaseIntroductionPage()
+        {
+        }
         public BaseIntroductionPage(CatalogUserControl cuc,int[] iPosition)
         {
             this.cuc = cuc;

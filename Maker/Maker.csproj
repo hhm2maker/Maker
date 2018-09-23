@@ -320,6 +320,12 @@
     <Compile Include="View\Introduction\LightIntroductionPage.xaml.cs">
       <DependentUpon>LightIntroductionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Introduction\LightScriptIntroductionPage.xaml.cs">
+      <DependentUpon>LightScriptIntroductionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Introduction\PlayIntroductionPage.xaml.cs">
+      <DependentUpon>PlayIntroductionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LightScriptUserControl\BaseLightScriptUserControl.cs" />
     <Compile Include="View\LightScriptUserControl\CodeUserControl.xaml.cs">
       <DependentUpon>CodeUserControl.xaml</DependentUpon>
@@ -571,6 +577,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Introduction\LightIntroductionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Introduction\LightScriptIntroductionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Introduction\PlayIntroductionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

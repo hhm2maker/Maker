@@ -428,3 +428,7 @@ E:\Sharer\Maker\Maker\obj\Debug\Discarded\LogoUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightScriptIntroductionPage.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightScriptIntroductionPage.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\PlayIntroductionPage.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\PlayIntroductionPage.baml

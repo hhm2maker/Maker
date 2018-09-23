@@ -28,62 +28,63 @@ namespace Maker.View
         private List<Color> colors = new List<Color>() {
                 Colors.Red,
                   Colors.Yellow,
-                      Colors.Orange,
-                    Colors.Cyan,
                          Colors.Green,
-                     Colors.Blue,
+                            Colors.Blue,
                          Colors.Purple,
-                      Colors.Pink,
+                               Colors.Orange,
+                                 Colors.Cyan,
             };
         private List<List<Point>> points = new List<List<Point>>() {
+           
             new List<Point>()
                 {
-                    new Point(0.6, 46.8),
-                    new Point(125,7),
-                    new Point(124.2, 79.8),
-                       new Point(0.6, 46.8),
+                    new Point(0, 23),
+                    new Point(63,4),
+                    new Point(60, 40),
+                    new Point(0, 23),
             },
             new List<Point>()
                 {
-                    new Point(183, 63),
-                    new Point(244.2,7),
-                       new Point(247, 120),
-                         new Point(183, 63),
-            },
-              new List<Point>()
-                {
-                    new Point(125, 7),
-                    new Point(247,120),
-                      new Point(122.4, 210.8),
-                    new Point(125, 7),
-            },
-                 new List<Point>()
-                {
-                    new Point(338,54),
-                    new Point(377.8,261.4),
-                      new Point(122.4,210.8),
-                     new Point(338,54),
+                    new Point(90,32),
+                    new Point(122,4),
+                       new Point(122,62),
+                       new Point(90,32),
             },
                        new List<Point>()
                 {
-                    new Point(338,54),
-                    new Point(549.6,0),
-                      new Point(377.8,261.4),
-                     new Point(338,54),
+                    new Point(170,27),
+                    new Point(275,0),
+                      new Point(185,97),
+                    new Point(170,27),
+            },
+                         new List<Point>()
+                {
+                    new Point(60,105),
+                    new Point(190,130),
+                      new Point(170,180),
+                      new Point(60,105),
             },
                      new List<Point>()
                 {
-                    new Point(377.8,261.4),
-                    new Point(540.6,331.2),
-                      new Point(338.6,357.6),
-                  new Point(377.8,261.4),
+                    new Point(190,130),
+                    new Point(270,165),
+                      new Point(170,180),
+                  new Point(190,130),
             },
-            new List<Point>()
+          
+                new List<Point>()
                 {
-                    new Point(122.4,210.8),
-                    new Point(377.8,261.4),
-                      new Point(338.6,357.6),
-                      new Point(122.4,210.8),
+                    new Point(63, 4),
+                    new Point(122,62),
+                      new Point(61,105),
+                     new Point(63, 4),
+            },
+                  new List<Point>()
+                {
+                    new Point(169,27),
+                    new Point(189,131),
+                      new Point(61,105),
+                     new Point(169,27),
             },
         };
         private List<Storyboard> storyBorders;
@@ -91,11 +92,11 @@ namespace Maker.View
         {
             if (storyBorders == null)
             {
-                for (int i = 0; i < points.Count - 1; i++)
+                for (int i = 0; i < points.Count; i++)
                 {
-                    for (int j = 0; j < points[i].Count - 1; j++)
+                    for (int j = 0; j < points[i].Count; j++)
                     {
-                        points[i][j] = new Point((int)points[i][j].X, (int)points[i][j].Y);
+                        points[i][j] = new Point((int)points[i][j].X /2 , (int)points[i][j].Y /2);
                     }
                 }
                 storyBorders = new List<Storyboard>();
@@ -136,11 +137,12 @@ namespace Maker.View
                 storyBorders[i].Begin(this);
             }
         }
+        int position = 0;
         private void Sb_Completed(object sender, EventArgs e)
         {
-            AnimationTimeline timeline = (sender as AnimationClock).Timeline;
-            int position = Storyboard.GetTargetName(timeline)[8] - 48;
-
+            //AnimationTimeline timeline = (sender as AnimationClock).Timeline;
+            //int position = Storyboard.GetTargetName(timeline)[8] - 48;
+            position = position % points.Count;
             var solid = new SolidColorBrush(Colors.Transparent);
 
             var polygon = new Polygon { Fill = solid };
@@ -156,6 +158,7 @@ namespace Maker.View
                 Duration = TimeSpan.FromMilliseconds(500),
             };
             solid.BeginAnimation(SolidColorBrush.ColorProperty, colorAnimation);
+            position++;
         }
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
