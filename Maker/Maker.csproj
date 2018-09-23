@@ -316,6 +316,7 @@
     <Compile Include="View\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Introduction\BaseIntroductionPage.cs" />
     <Compile Include="View\Introduction\LightIntroductionPage.xaml.cs">
       <DependentUpon>LightIntroductionPage.xaml</DependentUpon>
     </Compile>
@@ -336,6 +337,9 @@
     </Compile>
     <Compile Include="View\LightWindow\TextBoxUserControl.xaml.cs">
       <DependentUpon>TextBoxUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Discarded\LogoUserControl.xaml.cs">
+      <DependentUpon>LogoUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LogoUserControl.xaml.cs">
       <DependentUpon>LogoUserControl.xaml</DependentUpon>
@@ -753,6 +757,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Help\AppreciateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Discarded\LogoUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

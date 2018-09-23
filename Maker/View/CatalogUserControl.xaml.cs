@@ -162,13 +162,13 @@ namespace Maker.View
             mw.auc.ShowLogo();
         }
 
-        private void IntoUserControl(object sender, RoutedEventArgs e)
-        {
-            //gMain.Children.Clear();
-            //gMain.Children.Add(userControls[spControl.Children.IndexOf(sender as UIElement)]);
-            //spRight.Visibility = Visibility.Collapsed;
-            //ToHideControl(sender, spControl.Children.IndexOf(sender as UIElement));
-        }
+        //private void IntoUserControl(object sender, RoutedEventArgs e)
+        //{
+        //    gMain.Children.Clear();
+        //    gMain.Children.Add(userControls[spControl.Children.IndexOf(sender as UIElement)]);
+        //    spRight.Visibility = Visibility.Collapsed;
+        //    ToHideControl(sender, spControl.Children.IndexOf(sender as UIElement));
+        //}
 
 
         //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -220,9 +220,9 @@ namespace Maker.View
         {
             new HelpOverviewWindow(mw).Show();
         }
-        bool bIsShowControl = true;
         private void ToHideControl(object sender, int position)
         {
+            //bool bIsShowControl = true;
             //if (bIsShowControl)
             //{
             //    int _max = position - 1;
@@ -333,9 +333,32 @@ namespace Maker.View
 
         private void TextBlock_MouseDown(object sender, RoutedEventArgs e)
         {
-            gIntroduce.Children.Clear();
-            gIntroduce.Children.Add(new LightIntroductionPage());
+            cIntroduce.Children.Clear();
+            cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0,1,2}));
         }
 
+        public void AddIntroducePage(double introducePageHeight) {
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                To = introducePageHeight,
+                Duration = TimeSpan.FromSeconds(0.3)
+            };
+            cIntroduce.BeginAnimation(HeightProperty,doubleAnimation);
+        }
+
+        public void IntoUserControl(int index)
+        {
+            gMain.Children.Clear();
+            gMain.Children.Add(userControls[index]);
+            spRight.Visibility = Visibility.Collapsed;
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.3)
+            };
+            cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+        }
+
+     
     }
 }

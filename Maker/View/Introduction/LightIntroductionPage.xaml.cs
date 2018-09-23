@@ -19,12 +19,17 @@ namespace Maker.View.Introduction
     /// <summary>
     /// LightIntroductionPage.xaml 的交互逻辑
     /// </summary>
-    public partial class LightIntroductionPage : UserControl
+    public partial class LightIntroductionPage : BaseIntroductionPage
     {
-        public LightIntroductionPage()
+        public LightIntroductionPage(CatalogUserControl cuc,int[] iPosition) :base(cuc, iPosition)
         {
             InitializeComponent();
         }
 
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetButtonList(new List<Button>() { btnFrame, btnTextBox, btnPianoRoll });
+            SetButtonEvent();
+        }
     }
 }
