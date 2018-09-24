@@ -64,7 +64,7 @@
     <sys:String x:Key="Online">Online(_O)</sys:String>
     <sys:String x:Key="Window">Window(_W)</sys:String>
     <sys:String x:Key="FileManager">File Manager</sys:String>
-    <sys:String x:Key="Help">Help(_H)</sys:String>
+    <sys:String x:Key="Help">Help</sys:String>
     <sys:String x:Key="InstanceDocument">Instance document</sys:String>
     <sys:String x:Key="Attachments">Attachments</sys:String>
     <sys:String x:Key="ColorTab">Color Tab</sys:String>

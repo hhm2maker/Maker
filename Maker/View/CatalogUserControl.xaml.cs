@@ -369,7 +369,6 @@ namespace Maker.View
         {
             gMain.Children.Clear();
             gMain.Children.Add(userControls[index]);
-            spRight.Visibility = Visibility.Collapsed;
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 To = 0,
@@ -378,6 +377,30 @@ namespace Maker.View
             cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
         }
 
-     
+        private void tbHelp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            popTime.IsOpen = true;
+        }
+
+        private void tbFile_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DoubleAnimation animation;
+            if (dpFile.Width == 300)
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            else {
+                animation = new DoubleAnimation
+                {
+                    To = 300,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            dpFile.BeginAnimation(WidthProperty, animation);
+        }
     }
 }

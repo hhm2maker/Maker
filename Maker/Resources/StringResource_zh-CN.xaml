@@ -64,7 +64,7 @@
     <sys:String x:Key="Online">在线(_O)</sys:String>
     <sys:String x:Key="Window">窗口(_W)</sys:String>
     <sys:String x:Key="FileManager">文件管理器</sys:String>
-    <sys:String x:Key="Help">帮助(_H)</sys:String>
+    <sys:String x:Key="Help">帮助</sys:String>
     <sys:String x:Key="InstanceDocument">实例文档</sys:String>
     <sys:String x:Key="Attachments">附件</sys:String>
     <sys:String x:Key="ColorTab">颜色表</sys:String>

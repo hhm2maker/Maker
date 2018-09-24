@@ -83,112 +83,197 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <WrapPanel  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
-            <TextBlock Text="{DynamicResource Light}" MouseDown="TextBlock_MouseDown" x:Name="tbLight" FontSize="22" Margin="0,0,20,0">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-                <TextBlock.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbLight" 
+        <Grid Grid.Row="0" Margin="10">
+            <TextBlock Text="{DynamicResource File}" MouseDown="tbFile_MouseDown" x:Name="tbFile" FontSize="22" Margin="10,0,0,0" HorizontalAlignment="Left" />
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                <TextBlock Text="{DynamicResource Light}" MouseDown="TextBlock_MouseDown" x:Name="tbLight" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbLight" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Red" />
-                                <ColorAnimation Storyboard.TargetName="tbLight" 
+                                    <ColorAnimation Storyboard.TargetName="tbLight" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Orange" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbLight" 
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbLight" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Red" To="White" />
-                                <ColorAnimation Storyboard.TargetName="tbLight" 
+                                    <ColorAnimation Storyboard.TargetName="tbLight" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="White" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </TextBlock.Triggers>
-            </TextBlock>
-            <TextBlock Text="{DynamicResource LightScript}" MouseDown="TextBlock_MouseDown" x:Name="tbLightScript" FontSize="22" Margin="0,0,20,0">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-                <TextBlock.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbLightScript" 
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+                <TextBlock Text="{DynamicResource LightScript}" MouseDown="TextBlock_MouseDown" x:Name="tbLightScript" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbLightScript" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Yellow" />
-                                <ColorAnimation Storyboard.TargetName="tbLightScript" 
+                                    <ColorAnimation Storyboard.TargetName="tbLightScript" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Green" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbLightScript" 
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbLightScript" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Yellow" To="White" />
-                                <ColorAnimation Storyboard.TargetName="tbLightScript" 
+                                    <ColorAnimation Storyboard.TargetName="tbLightScript" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Green" To="White" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </TextBlock.Triggers>
-            </TextBlock>
-            <TextBlock Text="{DynamicResource Play_}" MouseDown="TextBlock_MouseDown" x:Name="tbPlay" FontSize="22" Margin="0,0,20,0">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                        <GradientStop Color="White" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-                <TextBlock.Triggers>
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbPlay" 
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+                <TextBlock Text="{DynamicResource Play_}" MouseDown="TextBlock_MouseDown" x:Name="tbPlay" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbPlay" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Cyan" />
+                                    <ColorAnimation Storyboard.TargetName="tbPlay" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Blue" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbPlay" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Cyan" To="White" />
+                                    <ColorAnimation Storyboard.TargetName="tbPlay" 
+					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Blue" To="White" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+                <TextBlock Text="{DynamicResource Tool}" MouseDown="TextBlock_MouseDown" x:Name="tbTool" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbTool" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Purple" />
-                                <ColorAnimation Storyboard.TargetName="tbPlay" 
+                                    <ColorAnimation Storyboard.TargetName="tbTool" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="White" To="Pink" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation Storyboard.TargetName="tbPlay" 
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetName="tbTool" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Purple" To="White" />
-                                <ColorAnimation Storyboard.TargetName="tbPlay" 
+                                    <ColorAnimation Storyboard.TargetName="tbTool" 
 					Storyboard.TargetProperty="(TextBlock.Foreground).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Pink" To="White" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </TextBlock.Triggers>
-            </TextBlock>
-        </WrapPanel>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
+            </WrapPanel>
+            <TextBlock Text="{DynamicResource Help}" x:Name="tbHelp" FontSize="22" Margin="0,0,10,0" HorizontalAlignment="Right" MouseLeftButtonUp="tbHelp_MouseLeftButtonUp"/>
+            <Popup x:Name="popTime" PlacementTarget="{Binding ElementName=tbHelp}"  Placement="Bottom" AllowsTransparency="True" PopupAnimation="Fade" StaysOpen="False" >
+                <Border BorderThickness="1">
+                    <Border.BorderBrush>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="Red" Offset="0"/>
+                            <GradientStop Color="Orange" Offset="0.15"/>
+                            <GradientStop Color="Yellow" Offset="0.3"/>
+                            <GradientStop Color="Green" Offset="0.45"/>
+                            <GradientStop Color="Cyan" Offset="0.6"/>
+                            <GradientStop Color="Blue" Offset="0.75"/>
+                            <GradientStop Color="Purple" Offset="0.9"/>
+                            <GradientStop Color="Pink" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel>
+                        <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="返回标题界面" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#fff" FontSize="16" />
+                        <TextBlock Height="1" >
+                            <TextBlock.Background>
+                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                    <GradientStop Color="Red" Offset="0"/>
+                                    <GradientStop Color="Orange" Offset="0.15"/>
+                                    <GradientStop Color="Yellow" Offset="0.3"/>
+                                    <GradientStop Color="Green" Offset="0.45"/>
+                                    <GradientStop Color="Cyan" Offset="0.6"/>
+                                    <GradientStop Color="Blue" Offset="0.75"/>
+                                    <GradientStop Color="Purple" Offset="0.9"/>
+                                    <GradientStop Color="Pink" Offset="1"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Background>
+                        </TextBlock>
+                        <TextBlock  MouseLeftButtonDown="ToFeedbackDialog" Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0" Foreground="#fff" FontSize="16" />
+                        <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0" Foreground="#fff" FontSize="16" />
+                        <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16" Visibility="Collapsed"/>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </Grid>
         <Canvas Name="cIntroduce" Grid.Row="1"  Height="0"  ClipToBounds="True" HorizontalAlignment="Stretch"/>
-        <Grid Name="gMain" Grid.Row="2" />
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Name="dpFile" Background="Red" Grid.Column="0" Width="0"/>
+            <Grid Name="gMain" Grid.Column="1" >
+              
+            </Grid>
+        </Grid>
+        
+        
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -196,7 +281,7 @@
                 <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
                     <Image.ToolTip>
                         <StackPanel Orientation="Vertical">
-                            </StackPanel>
+                        </StackPanel>
                     </Image.ToolTip>
                 </Image>
             </StackPanel>
@@ -221,13 +306,6 @@
                 <StackPanel Name="spTool" />
             </Border>
         </StackPanel>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Name="spRight">
-            <TextBlock Text="返回标题界面"  FontSize="20" MouseLeftButtonDown="ToAboutUserControl" TextAlignment="Right"/>
-            <TextBlock Text="{DynamicResource Feedback}"  FontSize="20" MouseLeftButtonDown="ToFeedbackDialog" TextAlignment="Right" Margin="0,5,0,0"/>
-            <TextBlock Text="{DynamicResource HelpOverview}"  FontSize="20" MouseLeftButtonDown="ToHelpOverview" TextAlignment="Right" Margin="0,5,0,0"/>
-            <TextBlock Name="tbProjectPath" Margin="0,5,0,0" FontSize="16"/>
-        </StackPanel>
-        <Image x:Name="btnPaved"  Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-
+        <Image x:Name="btnPaved" Visibility="Collapsed" Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
