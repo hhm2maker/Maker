@@ -227,9 +227,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\Dialog\ShowLightListDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Dialog\ThirdPartyDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Help\HelpOverviewWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LightScriptUserControl\ScriptUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\FrameUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\PianoRollUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\TextBoxUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LoadWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Control\MainControlWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Control\NumberUserControl.g.cs
@@ -338,9 +335,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\Dialog\ShowLightListDialog.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Dialog\ThirdPartyDialog.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Help\HelpOverviewWindow.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\LightScriptUserControl\ScriptUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\FrameUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\PianoRollUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\LightWindow\TextBoxUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\LoadWindow.baml
 E:\Sharer\Maker\Maker\obj\Debug\SettingDictionary.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Control\MainControlWindow.baml
@@ -432,3 +426,9 @@ E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightScriptIntroductionPage.g.
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightScriptIntroductionPage.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\PlayIntroductionPage.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\PlayIntroductionPage.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\FrameUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\PianoRollUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\TextBoxUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\FrameUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\PianoRollUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\TextBoxUserControl.baml

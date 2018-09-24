@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Maker.View.LightScriptUserControl.CodeUserControl"
+﻿<local:BaseLightScriptUserControl x:Class="Maker.View.LightScriptUserControl.CodeUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,4 +10,4 @@
         <TextBox  Height="250"/>
         <Button Content="确定" Click="Button_Click"/>
     </StackPanel>
-</UserControl>
+</local:BaseLightScriptUserControl>

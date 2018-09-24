@@ -15,7 +15,7 @@ namespace Maker.View.Play
     /// <summary>
     /// PlayExportWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class PlayExportUserControl : UserControl
+    public partial class PlayExportUserControl : BaseUserControl
     {
         NewMainWindow mw;
         public PlayExportUserControl(NewMainWindow mw)

@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="Maker.View.Tool.PlayerManagementUserControl"
+﻿<view:BaseUserControl
+    xmlns:view="clr-namespace:Maker.View"
+    x:Class="Maker.View.Tool.PlayerManagementUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,4 +21,4 @@
         </StackPanel>
        
     </StackPanel>
-</UserControl>
+</view:BaseUserControl>

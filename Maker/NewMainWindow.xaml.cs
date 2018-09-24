@@ -39,7 +39,7 @@ namespace Maker
         /// </summary>
         public Dictionary<string, PlayerWindow> playerDictionary = new Dictionary<string, PlayerWindow>();
 
-        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +"Test";
+        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +@"Test\";
         public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Light\";
         public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightScript\";
         public String LightPageFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightPage\";

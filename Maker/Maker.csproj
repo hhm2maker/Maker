@@ -333,15 +333,15 @@
     <Compile Include="View\LightScriptUserControl\ScriptUserControl.xaml.cs">
       <DependentUpon>ScriptUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\FrameUserControl.xaml.cs">
+    <Compile Include="View\LightUserControl\FrameUserControl.xaml.cs">
       <DependentUpon>FrameUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\BaseLightUserControl.cs" />
-    <Compile Include="View\LightWindow\IWindow.cs" />
-    <Compile Include="View\LightWindow\PianoRollUserControl.xaml.cs">
+    <Compile Include="View\LightUserControl\BaseLightUserControl.cs" />
+    <Compile Include="View\LightUserControl\IUserControl.cs" />
+    <Compile Include="View\LightUserControl\PianoRollUserControl.xaml.cs">
       <DependentUpon>PianoRollUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LightWindow\TextBoxUserControl.xaml.cs">
+    <Compile Include="View\LightUserControl\TextBoxUserControl.xaml.cs">
       <DependentUpon>TextBoxUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Discarded\LogoUserControl.xaml.cs">
@@ -596,15 +596,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\FrameUserControl.xaml">
+    <Page Include="View\LightUserControl\FrameUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\PianoRollUserControl.xaml">
+    <Page Include="View\LightUserControl\PianoRollUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LightWindow\TextBoxUserControl.xaml">
+    <Page Include="View\LightUserControl\TextBoxUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

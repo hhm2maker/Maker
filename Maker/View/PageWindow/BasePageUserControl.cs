@@ -13,7 +13,7 @@ namespace Maker.View.PageWindow
     {
         public BasePageUserControl()
         {
-            _fileType = ".lightPage";
+            _fileExtension = ".lightPage";
         }
 
        

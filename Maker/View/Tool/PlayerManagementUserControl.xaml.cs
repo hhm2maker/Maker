@@ -13,9 +13,8 @@ namespace Maker.View.Tool
     /// <summary>
     /// PlayerManagementUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class PlayerManagementUserControl : UserControl
+    public partial class PlayerManagementUserControl : BaseUserControl
     {
-        private NewMainWindow mw;
         public PlayerManagementUserControl(NewMainWindow mw)
         {
             InitializeComponent();

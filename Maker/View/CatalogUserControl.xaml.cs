@@ -1,9 +1,11 @@
 ﻿using Maker;
+using Maker.Business;
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.Help;
 using Maker.View.Introduction;
 using Maker.View.LightScriptUserControl;
+using Maker.View.LightUserControl;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
 using Maker.View.Play;
@@ -51,7 +53,7 @@ namespace Maker.View
         //PlayerManagement
         public PlayerManagementUserControl pmuc;
 
-        private List<UserControl> userControls = new List<UserControl>();
+        private List<BaseUserControl> userControls = new List<BaseUserControl>();
         public CatalogUserControl(NewMainWindow mw)
         {
             InitializeComponent();
@@ -368,6 +370,7 @@ namespace Maker.View
         public void IntoUserControl(int index)
         {
             gMain.Children.Clear();
+            //载入新界面
             gMain.Children.Add(userControls[index]);
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
@@ -375,6 +378,20 @@ namespace Maker.View
                 Duration = TimeSpan.FromSeconds(0.3)
             };
             cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+            //载入文件
+            LoadFileList();
+        }
+
+        private void LoadFileList()
+        {
+            lbMain.Items.Clear();
+            FileBusiness fileBusiness = new FileBusiness();
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            List<String> fileNames =fileBusiness.GetFilesName(mw.lastProjectPath + baseUserControl._fileType, new List<string>() { baseUserControl._fileExtension });
+            for (int i = 0; i < fileNames.Count; i++) {
+
+            lbMain.Items.Add(fileNames[i]);
+            }
         }
 
         private void tbHelp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

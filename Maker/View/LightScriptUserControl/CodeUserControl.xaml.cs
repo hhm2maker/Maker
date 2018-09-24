@@ -14,7 +14,7 @@ namespace Maker.View.LightScriptUserControl
     /// <summary>
     /// CodeUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class CodeUserControl : UserControl
+    public partial class CodeUserControl : BaseLightScriptUserControl
     {
         public CodeUserControl(NewMainWindow mw)
         {

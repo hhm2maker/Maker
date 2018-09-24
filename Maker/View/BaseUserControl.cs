@@ -70,12 +70,16 @@ namespace Maker.View
             e.Cancel = true;  // cancels the window close    
             //Hide();      // Programmatically hides the window
         }
-        protected String _fileType
+        public String _fileExtension
         {
             get;
             set;
         }
-
+        public String _fileType
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 新建文件
         /// </summary>
@@ -85,23 +89,23 @@ namespace Maker.View
         {
             GetStringDialog2 dialog = null;
             String _filePath = String.Empty;
-            if (_fileType.Equals(".light"))
+            if (_fileExtension.Equals(".light"))
             {
                 _filePath = mw.LightFilePath;
             }
-            else if (_fileType.Equals(".lightScript"))
+            else if (_fileExtension.Equals(".lightScript"))
             {
                 _filePath = mw.LightScriptFilePath;
             }
-            else if (_fileType.Equals(".lightPage"))
+            else if (_fileExtension.Equals(".lightPage"))
             {
                 _filePath = mw.LightPageFilePath;
             }
-            else if (_fileType.Equals(".playExport"))
+            else if (_fileExtension.Equals(".playExport"))
             {
                 _filePath = mw.PlayFilePath;
             }
-            dialog = new GetStringDialog2(mw, "NewFileNameColon", fileBusiness.GetFilesName(filePath, new List<string>() { _fileType }), _fileType);
+            dialog = new GetStringDialog2(mw, "NewFileNameColon", fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
             if (dialog != null)
             {
                 if (dialog.ShowDialog() == true)
@@ -114,7 +118,7 @@ namespace Maker.View
                     }
                     else
                     {
-                        if (_fileType.Equals(".lightPage")) {
+                        if (_fileExtension.Equals(".lightPage")) {
                             //获取对象
                             XDocument xDoc = new XDocument();
                             // 添加根节点
@@ -147,7 +151,7 @@ namespace Maker.View
         {
             System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             //openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-            openFileDialog1.Filter = _fileType.Substring(1) + "文件(*" + _fileType + ")|*" + _fileType + "|All files(*.*)|*.*";
+            openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {

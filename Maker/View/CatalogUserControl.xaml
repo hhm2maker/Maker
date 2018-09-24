@@ -267,7 +267,9 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel Name="dpFile" Background="Red" Grid.Column="0" Width="0"/>
+            <DockPanel Name="dpFile" Background="Red" Grid.Column="0" Width="0" >
+                <ListBox Name="lbMain"/>
+            </DockPanel>
             <Grid Name="gMain" Grid.Column="1" >
               
             </Grid>

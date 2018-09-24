@@ -18,7 +18,7 @@ namespace Maker.View.PageWindow
     /// <summary>
     /// PageWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class PageMainUserControl : UserControl
+    public partial class PageMainUserControl : BaseUserControl
     {
         public View view; NewMainWindow mw;
         public PageMainUserControl(NewMainWindow mw)

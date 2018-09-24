@@ -13,7 +13,8 @@ namespace Maker.View.LightScriptUserControl
     {
         public BaseLightScriptUserControl()
         {
-            _fileType = ".lightScript";
+            _fileExtension = ".lightScript";
+            _fileType = "LightScript";
         }
 
         protected override void LoadFileContent()
