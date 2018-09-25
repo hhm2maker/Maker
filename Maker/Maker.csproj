@@ -317,6 +317,9 @@
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Introduction\BaseIntroductionPage.cs" />
+    <Compile Include="View\Introduction\ToolIntroductionPage.xaml.cs">
+      <DependentUpon>ToolIntroductionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Introduction\LightIntroductionPage.xaml.cs">
       <DependentUpon>LightIntroductionPage.xaml</DependentUpon>
     </Compile>
@@ -575,6 +578,10 @@
     <Page Include="View\Help\HelpOverviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Introduction\ToolIntroductionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Introduction\LightIntroductionPage.xaml">
       <SubType>Designer</SubType>

@@ -419,7 +419,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightIntroductionPage.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightIntroductionPage.baml
 E:\Sharer\Maker\Maker\obj\Debug\Discarded\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Discarded\LogoUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LogoUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\LightScriptIntroductionPage.g.cs
@@ -432,3 +431,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\TextBoxUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\FrameUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\PianoRollUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\TextBoxUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\ToolIntroductionPage.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\ToolIntroductionPage.baml
+E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache

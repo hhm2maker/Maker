@@ -160,7 +160,7 @@ namespace Maker.View
             }
         }
 
-        protected virtual void LoadFile()
+        public virtual void LoadFile()
         {
             LoadFileContent();
             spHint.Visibility = Visibility.Collapsed;

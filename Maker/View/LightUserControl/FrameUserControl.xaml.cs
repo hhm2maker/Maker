@@ -24,7 +24,6 @@ namespace Maker.View.LightUserControl
     /// </summary>
     public partial class FrameUserControl : BaseLightUserControl, ICanDraw
     {
-        NewMainWindow mw;
         public FrameUserControl(NewMainWindow mw)
         {
             InitializeComponent();
@@ -365,7 +364,7 @@ namespace Maker.View.LightUserControl
         /// <returns>SolidColorBrush笔刷</returns>
         private SolidColorBrush NumToBrush(int i)
         {
-            if (i == 0)
+            if (i == -1)
             {
                 return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
             }

@@ -3,4 +3,3 @@ E:\Sharer\Maker\Operation\bin\Debug\Operation.pdb
 E:\Sharer\Maker\Operation\obj\Debug\Operation.csproj.CoreCompileInputs.cache
 E:\Sharer\Maker\Operation\obj\Debug\Operation.dll
 E:\Sharer\Maker\Operation\obj\Debug\Operation.pdb
-E:\Sharer\Maker\Operation\obj\Debug\Operation.csprojResolveAssemblyReference.cache

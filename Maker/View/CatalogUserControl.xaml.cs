@@ -332,37 +332,69 @@ namespace Maker.View
             PavedLaunchpadWindow raved = new PavedLaunchpadWindow(this, mLightList);
             raved.ShowDialog();
         }
-
+        private object selectObject;
         private void TextBlock_MouseDown(object sender, RoutedEventArgs e)
         {
+            if (selectObject != null && sender == selectObject)
+            {
+                RemoveIntroducePage();
+                selectObject = null;
+            }
+            else {
+                cIntroduce.Children.Clear();
+                if (sender == tbLight)
+                {
+                    cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 })
+                    {
+                        Width = cIntroduce.ActualWidth
+                    });
+                }
+                else if (sender == tbLightScript)
+                {
+                    cIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 })
+                    {
+                        Width = cIntroduce.ActualWidth
+                    });
+                }
+                else if (sender == tbPlay)
+                {
+                    cIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 })
+                    {
+                        Width = cIntroduce.ActualWidth
+                    });
+                }
+                else if (sender == tbTool)
+                {
+                    cIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 })
+                    {
+                        Width = cIntroduce.ActualWidth
+                    });
+                }
+                selectObject = sender;
+            }
+            
+        }
+        public void RemoveIntroducePage()
+        {
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+            doubleAnimation.Completed += DoubleAnimation_Completed1;
+            cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+        }
+
+        private void DoubleAnimation_Completed1(object sender, EventArgs e)
+        {
             cIntroduce.Children.Clear();
-            if (sender == tbLight)
-            {
-                cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 })
-                {
-                    Width = cIntroduce.ActualWidth
-                });
-            }
-            else if (sender == tbLightScript) {
-                cIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 })
-                {
-                    Width = cIntroduce.ActualWidth
-                });
-            }
-            else if (sender == tbPlay)
-            {
-                cIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5,6,7 })
-                {
-                    Width = cIntroduce.ActualWidth
-                });
-            }
         }
 
         public void AddIntroducePage(double introducePageHeight) {
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 To = introducePageHeight,
-                Duration = TimeSpan.FromSeconds(0.3)
+                Duration = TimeSpan.FromSeconds(0.5)
             };
             cIntroduce.BeginAnimation(HeightProperty,doubleAnimation);
         }
@@ -389,15 +421,32 @@ namespace Maker.View
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
             List<String> fileNames =fileBusiness.GetFilesName(mw.lastProjectPath + baseUserControl._fileType, new List<string>() { baseUserControl._fileExtension });
             for (int i = 0; i < fileNames.Count; i++) {
-
-            lbMain.Items.Add(fileNames[i]);
+                 lbMain.Items.Add(fileNames[i]);
             }
         }
 
         private void tbHelp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            popTime.IsOpen = true;
+            DoubleAnimation animation;
+            if (bHelp.Width == 300)
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            else
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 300,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            bHelp.BeginAnimation(WidthProperty, animation);
         }
+
 
         private void tbFile_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -418,6 +467,15 @@ namespace Maker.View
                 };
             }
             dpFile.BeginAnimation(WidthProperty, animation);
+        }
+
+        private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbMain.SelectedIndex == -1)
+                return;
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            baseUserControl.filePath = mw.lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
+            baseUserControl.LoadFile();
         }
     }
 }

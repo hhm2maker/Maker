@@ -31,12 +31,14 @@ namespace Maker.View.LightUserControl
                 SaveFile();
         }
 
-        protected override void LoadFile()
+        public override void LoadFile()
         {
             LoadFileContent();
             SetData(lightList);
+            if(spHint != null) {
             spHint.Visibility = Visibility.Collapsed;
             mainView.Children[0].Visibility = Visibility.Visible;
+            }
         }
 
         protected override void SaveFile()
