@@ -6,10 +6,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.Tool"
-             mc:Ignorable="d" 
+    xmlns:device="clr-namespace:Maker.View.Device"
+    mc:Ignorable="d" 
         Loaded="Window_Loaded"
         >
-    <StackPanel Orientation="Horizontal" >
+    <Grid Name="gMain">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </ScrollViewer>
+        <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="2">
         <StackPanel Margin="20" Orientation="Vertical">
             <ListBox  FontSize="14"   Width="530" Name="lbMain" Height="350" BorderThickness="1,1,1,0" BorderBrush="#d7d7d9"/>
             <DockPanel >
@@ -19,6 +31,7 @@
                 <Button  Click="RunDevice"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
             </DockPanel>
         </StackPanel>
-       
     </StackPanel>
+    </Grid>
+    </Grid>
 </view:BaseUserControl>

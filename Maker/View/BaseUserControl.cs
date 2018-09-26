@@ -36,20 +36,13 @@ namespace Maker.View
                 VerticalAlignment = VerticalAlignment.Center,
                 Orientation = Orientation.Horizontal
             };
-            //新建
-            Button btnNew = new Button
-            {
-                Width = 180
-            };
-            btnNew.SetResourceReference(ContentProperty, "New");
-            btnNew.Click += NewFile;
-            //或者
+            //提示
             TextBlock tbOr = new TextBlock
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20)
             };
-            tbOr.SetResourceReference(TextBlock.TextProperty, "Or");
+            tbOr.SetResourceReference(TextBlock.TextProperty, "NoFileWasOpened");
             //打开
             Button btnOpen = new Button
             {
@@ -58,7 +51,6 @@ namespace Maker.View
             btnOpen.SetResourceReference(ContentProperty, "Open");
             btnOpen.Click += OpenFile;
             //容器添加控件
-            spHint.Children.Add(btnNew);
             spHint.Children.Add(tbOr);
             spHint.Children.Add(btnOpen);
             //总容器添加隐藏容器
@@ -68,7 +60,6 @@ namespace Maker.View
         protected virtual void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;  // cancels the window close    
-            //Hide();      // Programmatically hides the window
         }
         public String _fileExtension
         {
@@ -149,15 +140,16 @@ namespace Maker.View
         /// <param name="e"></param>
         protected void OpenFile(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            //openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-            openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
-            openFileDialog1.RestoreDirectory = true;
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                filePath = openFileDialog1.FileName;
-                LoadFile();
-            }
+            mw.cuc.OpenFile();
+            //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ////openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
+            //openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
+            //openFileDialog1.RestoreDirectory = true;
+            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    filePath = openFileDialog1.FileName;
+            //    LoadFile();
+            //}
         }
 
         public virtual void LoadFile()

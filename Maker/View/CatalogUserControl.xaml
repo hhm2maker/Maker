@@ -89,9 +89,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10">
-            <TextBlock Text="{DynamicResource File}" MouseDown="tbFile_MouseDown" x:Name="tbFile" FontSize="22" Margin="10,0,0,0" HorizontalAlignment="Left" />
+            <TextBlock Text="{DynamicResource File}" MouseDown="tbFile_MouseDown" x:Name="tbFile" FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
             <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                <TextBlock Text="{DynamicResource Light}" MouseDown="TextBlock_MouseDown" x:Name="tbLight" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock Text="{DynamicResource Light}" MouseDown="TextBlock_MouseDown" x:Name="tbLight" FontSize="20" Margin="0,0,20,0">
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                             <GradientStop Color="White" Offset="0"/>
@@ -125,7 +125,7 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
-                <TextBlock Text="{DynamicResource LightScript}" MouseDown="TextBlock_MouseDown" x:Name="tbLightScript" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock Text="{DynamicResource LightScript}" MouseDown="TextBlock_MouseDown" x:Name="tbLightScript" FontSize="20" Margin="0,0,20,0">
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                             <GradientStop Color="White" Offset="0"/>
@@ -159,7 +159,7 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
-                <TextBlock Text="{DynamicResource Play_}" MouseDown="TextBlock_MouseDown" x:Name="tbPlay" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock Text="{DynamicResource Play_}" MouseDown="TextBlock_MouseDown" x:Name="tbPlay" FontSize="20" Margin="0,0,20,0">
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                             <GradientStop Color="White" Offset="0"/>
@@ -193,7 +193,7 @@
                         </EventTrigger>
                     </TextBlock.Triggers>
                 </TextBlock>
-                <TextBlock Text="{DynamicResource Tool}" MouseDown="TextBlock_MouseDown" x:Name="tbTool" FontSize="22" Margin="0,0,20,0">
+                    <TextBlock Text="{DynamicResource Tool}" MouseDown="TextBlock_MouseDown" x:Name="tbTool" FontSize="20" Margin="0,0,20,0">
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                             <GradientStop Color="White" Offset="0"/>
@@ -228,7 +228,7 @@
                     </TextBlock.Triggers>
                 </TextBlock>
             </WrapPanel>
-            <TextBlock Text="{DynamicResource Help}" x:Name="tbHelp" FontSize="22" Margin="0,0,10,0" HorizontalAlignment="Right" MouseLeftButtonUp="tbHelp_MouseLeftButtonUp"/>
+            <TextBlock Text="{DynamicResource Help}" x:Name="tbHelp" FontSize="20" Margin="0,0,10,0" HorizontalAlignment="Right" MouseLeftButtonUp="tbHelp_MouseLeftButtonUp"/>
         </Grid>
         <Canvas Name="cIntroduce" Grid.Row="1"  Height="0"  ClipToBounds="True" HorizontalAlignment="Stretch"/>
         <Grid Grid.Row="2" >
@@ -279,10 +279,10 @@
     </Grid>
         <Border BorderThickness="1" BorderBrush="#646464" Grid.Column="1" Width="0" Name="bHelp">
                 <StackPanel>
-                <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="#fff" FontSize="20" />
-                    <TextBlock  MouseLeftButtonDown="ToFeedbackDialog" Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="#fff" FontSize="20" />
-                    <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="#fff" FontSize="20" />
-                <TextBlock Name="tbProjectPath" Margin="0,10,0,0" FontSize="20"  TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock  MouseLeftButtonDown="ToFeedbackDialog"  Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock Name="tbProjectPath" Margin="0,10,0,0"  Foreground="Gray" FontSize="16"  TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 </StackPanel>
             </Border>
     </Grid>

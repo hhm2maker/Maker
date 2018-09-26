@@ -19,7 +19,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,30">
             <logo:LogoUserControl VerticalAlignment="Center" Margin="0,5,0,0"/>
             <StackPanel Orientation="Vertical" Width="500" Margin="10,0,100,0"  VerticalAlignment="Center">
-                <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="30" Margin="0,0,0,15"/>
+                <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="24" Margin="0,0,0,14"/>
                 <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
                 <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="15" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
             </StackPanel>

@@ -19,6 +19,9 @@ namespace Maker.View.Tool
         {
             InitializeComponent();
             this.mw = mw;
+
+            mainView = gMain;
+            HideControl();
         }
 
         private void NewOrUpdateDevice(object sender, RoutedEventArgs e)

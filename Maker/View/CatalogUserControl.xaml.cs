@@ -447,7 +447,19 @@ namespace Maker.View
             bHelp.BeginAnimation(WidthProperty, animation);
         }
 
+        public void OpenFile() {
+            DoubleAnimation animation;
+            if (dpFile.Width == 0)
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 300,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                dpFile.BeginAnimation(WidthProperty, animation);
+            }
 
+        }
         private void tbFile_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DoubleAnimation animation;
@@ -476,6 +488,17 @@ namespace Maker.View
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
             baseUserControl.filePath = mw.lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
             baseUserControl.LoadFile();
+        }
+
+        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as TextBlock).Foreground = new SolidColorBrush(Colors.White);
+        }
+
+        private void TextBlock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
+
         }
     }
 }
