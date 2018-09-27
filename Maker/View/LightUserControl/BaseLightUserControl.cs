@@ -22,6 +22,12 @@ namespace Maker.View.LightUserControl
         protected override void  LoadFileContent()
         {
             lightList = fileBusiness.ReadLightFile(filePath);
+            SetData(lightList);
+            if (spHint != null)
+            {
+                spHint.Visibility = Visibility.Collapsed;
+                mainView.Children[0].Visibility = Visibility.Visible;
+            }
         }
 
         protected override void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -31,15 +37,6 @@ namespace Maker.View.LightUserControl
                 SaveFile();
         }
 
-        public override void LoadFile()
-        {
-            LoadFileContent();
-            SetData(lightList);
-            if(spHint != null) {
-            spHint.Visibility = Visibility.Collapsed;
-            mainView.Children[0].Visibility = Visibility.Visible;
-            }
-        }
 
         protected override void SaveFile()
         {

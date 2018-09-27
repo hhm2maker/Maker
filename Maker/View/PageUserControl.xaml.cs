@@ -38,7 +38,7 @@ namespace Maker.View
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 19, 40, 61)));
             mLaunchpad.InitBackground(new SolidColorBrush(Color.FromArgb(255, 73, 191, 231)));
             mLaunchpad.SetButtonClickEvent(Button_MouseLeftButtonDown);
-            mLaunchpad.ToMembraneLaunchpad();
+            mLaunchpad.AddMembrane();
             mLaunchpad.SetMembraneButtonClickEvent(MembraneButton_MouseLeftButtonDown);
         }
 

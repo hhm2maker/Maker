@@ -15,15 +15,14 @@ namespace Maker_IDE.Business
         public ConfigBusiness(string _fileName)
         {
             configData = new Dictionary<string, string>();
-            fullFileName = AppDomain.CurrentDomain.BaseDirectory + _fileName;
 
-            bool hasCfgFile = File.Exists(AppDomain.CurrentDomain.BaseDirectory + _fileName);
+            bool hasCfgFile = File.Exists(_fileName);
             if (hasCfgFile == false)
             {
-                StreamWriter writer = new StreamWriter(File.Create(AppDomain.CurrentDomain.BaseDirectory + _fileName), Encoding.Default);
+                StreamWriter writer = new StreamWriter(File.Create(_fileName), Encoding.Default);
                 writer.Close();
             }
-            StreamReader reader = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + _fileName, Encoding.Default);
+            StreamReader reader = new StreamReader(_fileName, Encoding.Default);
             string line;
 
             int indx = 0;

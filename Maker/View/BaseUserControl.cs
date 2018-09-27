@@ -39,6 +39,7 @@ namespace Maker.View
             //提示
             TextBlock tbOr = new TextBlock
             {
+                FontSize = 20,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20)
             };
@@ -129,7 +130,7 @@ namespace Maker.View
                             File.Create(filePath).Close();
                         }
                     }
-                    LoadFile();
+                    //LoadFile();
                 }
             }
         }
@@ -152,8 +153,9 @@ namespace Maker.View
             //}
         }
 
-        public virtual void LoadFile()
+        public virtual void LoadFile(String childFileName)
         {
+            filePath = GetFileDirectory() + @"\" + childFileName;
             LoadFileContent();
             spHint.Visibility = Visibility.Collapsed;
             mainView.Children[0].Visibility = Visibility.Visible;
@@ -175,6 +177,9 @@ namespace Maker.View
         protected void SaveAsFile(object sender, RoutedEventArgs e)
         { }
 
+        public virtual String GetFileDirectory() {
+            return mw.lastProjectPath + _fileType;
+        }
       
     }
 }

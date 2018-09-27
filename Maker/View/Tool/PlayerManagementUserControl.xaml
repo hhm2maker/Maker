@@ -18,20 +18,49 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="mLaunchpad"/>
         </ScrollViewer>
         <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
-        <StackPanel Orientation="Horizontal" Grid.Column="2">
+        <StackPanel Orientation="Vertical" Grid.Column="2">
         <StackPanel Margin="20" Orientation="Vertical">
-            <ListBox  FontSize="14"   Width="530" Name="lbMain" Height="350" BorderThickness="1,1,1,0" BorderBrush="#d7d7d9"/>
+            <ListBox  FontSize="14" Width="530" Name="lbMain" Height="350" BorderThickness="1,1,1,0" BorderBrush="#d7d7d9"/>
             <DockPanel >
                 <Button  Click="NewOrUpdateDevice" Name="btnNewDevice" HorizontalAlignment="Left" Content="{DynamicResource New}" />
-                <Button  Click="NewOrUpdateDevice" Name="btnUpdateDevice"  HorizontalAlignment="Left" Content="{DynamicResource Edit}" />
                 <Button  Click="DeleteDevice" HorizontalAlignment="Left" Content="{DynamicResource Delete}" />
                 <Button  Click="RunDevice"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
             </DockPanel>
         </StackPanel>
-    </StackPanel>
+                <StackPanel>
+                    <StackPanel Margin="20,20,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceNameColon}"></TextBlock>
+                        <TextBox Name="tbDeviceName" Background="#454545" Width="200"   BorderBrush="#666666" Foreground="White" />
+                    </StackPanel>
+                    <StackPanel   Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceTypeColon}"></TextBlock>
+                        <ComboBox Name="cbDeviceType" Background="#454545" Width="200"  BorderBrush="#666666"  >
+                            <ComboBoxItem IsSelected="True">Launchpad Pro</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <DockPanel   Margin="20,10,30,0" HorizontalAlignment="Stretch" >
+                        <TextBlock  Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource BackgroundColon}"></TextBlock>
+                        <TextBlock Name="tbBackGround" Width="90" Background="#535353" Text="#535353" FontSize="14" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                        <Button Name="btnChangeColor" Width="50" Click="btnChangeColor_Click" HorizontalAlignment="Right" FontSize="14"  Background="{x:Null}"  DockPanel.Dock="Right" BorderBrush="White" Content="{DynamicResource Color}"></Button>
+                        <Button Name="btnOpenFile" Width="50" Click="btnOpenFile_Click" HorizontalAlignment="Right" FontSize="14"  Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="White" Content="{DynamicResource Image}"></Button>
+                    </DockPanel>
+                    <StackPanel Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Width="100" Text="{DynamicResource StickerColon}" />
+                        <CheckBox FontSize="14" VerticalAlignment="Center" Foreground="White" Name="cbMembrane" Content="{DynamicResource Yes}" Checked="cbMembrane_Checked" Unchecked="cbMembrane_Unchecked"/>
+                    </StackPanel>
+                    <StackPanel Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock FontSize="14" Width="100" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceSizeColon}"></TextBlock>
+                        <TextBox Name="tbDeviceSize" Background="#454545" Width="172"  BorderBrush="#666666" Foreground="White" HorizontalContentAlignment="Right"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource Pixel}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel  Margin="20,50,23,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Name="btnOk" Click="btnOk_Click" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,0,10,0" Content="{DynamicResource Ok}"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
     </Grid>
     </Grid>
 </view:BaseUserControl>

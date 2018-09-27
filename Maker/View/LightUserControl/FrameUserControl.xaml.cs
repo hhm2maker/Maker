@@ -37,7 +37,7 @@ namespace Maker.View.LightUserControl
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(20, 36, 33)));
       
             //初始化贴膜
-            mLaunchpad.ToMembraneLaunchpad();
+            mLaunchpad.AddMembrane();
             mLaunchpad.ShowOrHideMembrane();
             //初始化事件
             InitLaunchpadEvent();
