@@ -96,7 +96,7 @@ namespace Maker.View
                 {
                     for (int j = 0; j < points[i].Count; j++)
                     {
-                        points[i][j] = new Point((int)points[i][j].X /2 , (int)points[i][j].Y /2);
+                        points[i][j] = new Point((int)points[i][j].X  , (int)points[i][j].Y );
                     }
                 }
                 storyBorders = new List<Storyboard>();

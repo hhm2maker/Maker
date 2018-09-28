@@ -23,18 +23,12 @@
         <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
         <StackPanel Orientation="Vertical" Grid.Column="2">
         <StackPanel Margin="20" Orientation="Vertical">
-            <ListBox  FontSize="14" Width="530" Name="lbMain" Height="350" BorderThickness="1,1,1,0" BorderBrush="#d7d7d9"/>
             <DockPanel >
-                <Button  Click="NewOrUpdateDevice" Name="btnNewDevice" HorizontalAlignment="Left" Content="{DynamicResource New}" />
                 <Button  Click="DeleteDevice" HorizontalAlignment="Left" Content="{DynamicResource Delete}" />
                 <Button  Click="RunDevice"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
             </DockPanel>
         </StackPanel>
                 <StackPanel>
-                    <StackPanel Margin="20,20,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
-                        <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceNameColon}"></TextBlock>
-                        <TextBox Name="tbDeviceName" Background="#454545" Width="200"   BorderBrush="#666666" Foreground="White" />
-                    </StackPanel>
                     <StackPanel   Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceTypeColon}"></TextBlock>
                         <ComboBox Name="cbDeviceType" Background="#454545" Width="200"  BorderBrush="#666666"  >
@@ -53,7 +47,7 @@
                     </StackPanel>
                     <StackPanel Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock FontSize="14" Width="100" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceSizeColon}"></TextBlock>
-                        <TextBox Name="tbDeviceSize" Background="#454545" Width="172"  BorderBrush="#666666" Foreground="White" HorizontalContentAlignment="Right"/>
+                        <TextBox Name="tbDeviceSize" Background="#454545" Width="172"  BorderBrush="#666666" Foreground="White" HorizontalContentAlignment="Right" TextChanged="tbDeviceSize_TextChanged"/>
                         <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource Pixel}"></TextBlock>
                     </StackPanel>
                     <StackPanel  Margin="20,50,23,0" Orientation="Horizontal" HorizontalAlignment="Right">

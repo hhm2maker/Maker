@@ -26,139 +26,110 @@ namespace Maker.View.Tool
             HideControl();
         }
 
-        private void NewOrUpdateDevice(object sender, RoutedEventArgs e)
-        {
-            NewOrUpdateDeviceWindow window;
-            if (sender == btnNewDevice)
-            {
-                window = new NewOrUpdateDeviceWindow(mw, 0);
-            }
-            else
-            {
-                if (lbMain.SelectedIndex == -1)
-                    return;
-                window = new NewOrUpdateDeviceWindow(mw, 1);
-                window.iniName = lbMain.SelectedItem.ToString();
-            }
-
-            if (window.ShowDialog() == true)
-            {
-                LoadDeviceFile();
-            }
-        }
         private void RunDevice(object sender, RoutedEventArgs e)
         {
-            if (lbMain.SelectedIndex == -1)
-            {
-                return;
-            }
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
-            {
-                if (mw.playerDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
-                {
-                    System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
-                    mw.playerDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
-                    return;
-                }
-                else
-                {
-                    PlayerWindow pw = new PlayerWindow(mw);
-                    ConfigBusiness config = new ConfigBusiness(@"Device\" + lbMain.SelectedItem.ToString() + ".ini");
-                    if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
-                    {
+            //if (lbMain.SelectedIndex == -1)
+            //{
+            //    return;
+            //}
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
+            //{
+            //    if (mw.playerDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
+            //    {
+            //        System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
+            //        mw.playerDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        PlayerWindow pw = new PlayerWindow(mw);
+            //        ConfigBusiness config = new ConfigBusiness(@"Device\" + lbMain.SelectedItem.ToString() + ".ini");
+            //        if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
+            //        {
 
-                        String strBg = config.Get("DeviceBackGround");
-                        if (strBg.Equals(String.Empty))
-                        {
-                            System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-                            return;
-                        }
-                        if (strBg[0] == '#' || strBg.Length == 7)
-                        {
-                            pw.playLpd.SetLaunchpadBackground(new SolidColorBrush((Color)ColorConverter.ConvertFromString(strBg)));
-                        }
-                        else
-                        {
-                            if (!File.Exists(strBg))
-                            {
-                                System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-                                return;
-                            }
-                            else
-                            {
-                                ImageBrush b = new ImageBrush();
-                                b.ImageSource = new BitmapImage(new Uri(strBg, UriKind.Absolute));
-                                b.Stretch = Stretch.Fill;
-                                pw.playLpd.SetLaunchpadBackground(b);
+            //            String strBg = config.Get("DeviceBackGround");
+            //            if (strBg.Equals(String.Empty))
+            //            {
+            //                System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
+            //                return;
+            //            }
+            //            if (strBg[0] == '#' || strBg.Length == 7)
+            //            {
+            //                pw.playLpd.SetLaunchpadBackground(new SolidColorBrush((Color)ColorConverter.ConvertFromString(strBg)));
+            //            }
+            //            else
+            //            {
+            //                if (!File.Exists(strBg))
+            //                {
+            //                    System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
+            //                    return;
+            //                }
+            //                else
+            //                {
+            //                    ImageBrush b = new ImageBrush();
+            //                    b.ImageSource = new BitmapImage(new Uri(strBg, UriKind.Absolute));
+            //                    b.Stretch = Stretch.Fill;
+            //                    pw.playLpd.SetLaunchpadBackground(b);
 
-                            }
-                        }
-                        Double iDeviceSize = Convert.ToDouble(config.Get("DeviceSize"));
-                        pw.playLpd.SetSize(iDeviceSize);
-                        pw.SetSize(iDeviceSize, iDeviceSize + 31);
-                        pw.DeviceName = lbMain.SelectedItem.ToString();
-                        try
-                        {
-                            if (config.Get("IsMembrane").Equals("true"))
-                            {
-                                pw.playLpd.AddMembrane();
-                            }
-                        }
-                        catch
-                        {
-                        }
-                        pw.Show();
-                        mw.playerDictionary.Add(lbMain.SelectedItem.ToString(), pw);
-                        ComboBoxItem item = new ComboBoxItem();
-                        mw.cuc.tw.cbDevice.Items.Add(lbMain.SelectedItem.ToString());
-                        if (mw.cuc.tw.cbDevice.SelectedIndex == -1)
-                        {
-                            mw.cuc.tw.cbDevice.SelectedIndex = 0;
-                        }
-                    }
-                }
-            }
+            //                }
+            //            }
+            //            Double iDeviceSize = Convert.ToDouble(config.Get("DeviceSize"));
+            //            pw.playLpd.SetSize(iDeviceSize);
+            //            pw.SetSize(iDeviceSize, iDeviceSize + 31);
+            //            pw.DeviceName = lbMain.SelectedItem.ToString();
+            //            try
+            //            {
+            //                if (config.Get("IsMembrane").Equals("true"))
+            //                {
+            //                    pw.playLpd.AddMembrane();
+            //                }
+            //            }
+            //            catch
+            //            {
+            //            }
+            //            pw.Show();
+            //            mw.playerDictionary.Add(lbMain.SelectedItem.ToString(), pw);
+            //            ComboBoxItem item = new ComboBoxItem();
+            //            mw.cuc.tw.cbDevice.Items.Add(lbMain.SelectedItem.ToString());
+            //            if (mw.cuc.tw.cbDevice.SelectedIndex == -1)
+            //            {
+            //                mw.cuc.tw.cbDevice.SelectedIndex = 0;
+            //            }
+            //        }
+            //    }
+            //}
         }
         private void DeleteDevice(object sender, RoutedEventArgs e)
         {
-            if (lbMain.SelectedIndex == -1)
-            {
-                return;
-            }
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
-            {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini");
-            }
-            if (mw.playerDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
-            {
-                try
-                {
-                    mw.playerDictionary[lbMain.SelectedItem.ToString()].Close();
-                }
-                catch
-                {
-                }
-                mw.playerDictionary.Remove(lbMain.SelectedItem.ToString());
-            }
-            if (mw.cuc.tw.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
-            {
-                mw.cuc.tw.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
-            }
-            lbMain.Items.Remove(lbMain.SelectedItem.ToString());
+            //if (lbMain.SelectedIndex == -1)
+            //{
+            //    return;
+            //}
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
+            //{
+            //    File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini");
+            //}
+            //if (mw.playerDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
+            //{
+            //    try
+            //    {
+            //        mw.playerDictionary[lbMain.SelectedItem.ToString()].Close();
+            //    }
+            //    catch
+            //    {
+            //    }
+            //    mw.playerDictionary.Remove(lbMain.SelectedItem.ToString());
+            //}
+            //if (mw.cuc.tw.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
+            //{
+            //    mw.cuc.tw.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
+            //}
+            //lbMain.Items.Remove(lbMain.SelectedItem.ToString());
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDeviceFile();
         }
-        private void LoadDeviceFile()
-        {
-            lbMain.Items.Clear();
-            DirectoryInfo folder = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Device");
-            foreach (FileInfo file in folder.GetFiles("*.ini"))
-            {
-                lbMain.Items.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));
-            }
-        }
+      
 
         protected override void LoadFileContent()
         {
@@ -174,22 +145,9 @@ namespace Maker.View.Tool
             string deviceName = String.Empty;
             if (type == 0)
             {
-                deviceName = tbDeviceName.Text.Trim();
-                if (deviceName.Equals(string.Empty))
-                {
-                    tbDeviceName.Focus();
-                    return;
-                }
                 if (tbDeviceSize.Text.Trim().Equals(string.Empty))
                 {
                     tbDeviceSize.Focus();
-                    return;
-                }
-                if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + deviceName))
-                {
-                    System.Windows.Forms.MessageBox.Show("文件已存在！");
-                    tbDeviceName.Select(0, tbDeviceName.Text.Length);
-                    tbDeviceName.Focus();
                     return;
                 }
                 else
@@ -245,6 +203,7 @@ namespace Maker.View.Tool
                 tbBackGround.Text = "#" + cd.Color.R.ToString("x2") + cd.Color.G.ToString("x2") + cd.Color.B.ToString("x2");
                 //获取数据
                 tbBackGround.Background = new SolidColorBrush(Color.FromArgb(255, cd.Color.R, cd.Color.G, cd.Color.B));
+                mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, cd.Color.R, cd.Color.G, cd.Color.B)));
             }
         }
         private int type = 0;
@@ -256,7 +215,6 @@ namespace Maker.View.Tool
             {
                 ConfigBusiness config = new ConfigBusiness(filePath);
 
-                tbDeviceName.Text = iniName;
                 if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
                 {
                     cbDeviceType.SelectedIndex = 0;
@@ -272,7 +230,10 @@ namespace Maker.View.Tool
                 }
 
                 tbDeviceSize.Text = config.Get("DeviceSize");
-                mLaunchpad.SetSize(Double.Parse(tbDeviceSize.Text));
+                if (Double.TryParse(tbDeviceSize.Text,out Double dSize))
+                {
+                    mLaunchpad.SetSize(dSize);
+                }
 
                 if (config.Get("IsMembrane").Equals("true"))
                 {
@@ -298,6 +259,7 @@ namespace Maker.View.Tool
             {
                 tbBackGround.Text = openFileDialog1.FileName;
                 tbBackGround.Background = new SolidColorBrush(Color.FromArgb(255, 83, 83, 83));
+                mLaunchpad.SetLaunchpadBackground(new ImageBrush(new BitmapImage(new Uri(openFileDialog1.FileName, UriKind.Absolute))));
             }
         }
 
@@ -309,6 +271,14 @@ namespace Maker.View.Tool
         private void cbMembrane_Unchecked(object sender, RoutedEventArgs e)
         {
             mLaunchpad.ClearMembrane();
+        }
+
+        private void tbDeviceSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Double.TryParse(tbDeviceSize.Text, out Double dSize))
+            {
+                mLaunchpad.SetSize(dSize);
+            }
         }
     }
 }

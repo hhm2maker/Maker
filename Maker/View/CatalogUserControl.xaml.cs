@@ -428,7 +428,7 @@ namespace Maker.View
         private void tbHelp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             DoubleAnimation animation;
-            if (bHelp.Width == 300)
+            if (bHelp.Width == 400)
             {
                 animation = new DoubleAnimation
                 {
@@ -440,11 +440,18 @@ namespace Maker.View
             {
                 animation = new DoubleAnimation
                 {
-                    To = 300,
+                    To = 400,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
+                animation.Completed += Animation_Completed;
+                
             }
             bHelp.BeginAnimation(WidthProperty, animation);
+        }
+
+        private void Animation_Completed(object sender, EventArgs e)
+        {
+            logoView.ShowLogo();
         }
 
         public void OpenFile() {
@@ -498,7 +505,19 @@ namespace Maker.View
         private void TextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
+        }
 
+        private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
+        {
+            new AppreciateWindow().Show();
+        }
+        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
+        {
+            new DeveloperListDialog(mw).ShowDialog();
+        }
+        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
         }
     }
 }

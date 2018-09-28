@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:Maker.View"
              mc:Ignorable="d" 
              Background="#13191E"
              >
@@ -278,12 +279,20 @@
         <Image x:Name="btnPaved" Visibility="Collapsed" Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
         <Border BorderThickness="1" BorderBrush="#646464" Grid.Column="1" Width="0" Name="bHelp">
-                <StackPanel>
-                <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <Grid>
+                <StackPanel  VerticalAlignment="Top">
+                <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 <TextBlock  MouseLeftButtonDown="ToFeedbackDialog"  Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 <TextBlock Name="tbProjectPath" Margin="0,10,0,0"  Foreground="Gray" FontSize="16"  TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 </StackPanel>
+                <view:LogoUserControl  VerticalAlignment="Center" x:Name="logoView" HorizontalAlignment="Left" Margin="70,0,0,0"/>
+                <StackPanel   VerticalAlignment="Bottom">
+                    <TextBlock  MouseLeftButtonDown="JoinQQGroup_Click"  Text="{DynamicResource JoinTheQGroup}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock  MouseLeftButtonDown="ToDeveloperListWindow"  Text="{DynamicResource DeveloperList}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock  MouseLeftButtonDown="ToAppreciateWindow"  Text="{DynamicResource Appreciate}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,20" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                </StackPanel>
+            </Grid>
             </Border>
     </Grid>
 </UserControl>

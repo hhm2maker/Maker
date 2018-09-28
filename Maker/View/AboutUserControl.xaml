@@ -62,15 +62,7 @@
                 <Border Padding="10" CornerRadius="3" BorderBrush="#d7d7d9" BorderThickness="1" Margin="0,20,0,0">
                     <TextBox Foreground="#919191" Text="你可以从http://www.launchpadlight.com/获取最新的软件" HorizontalAlignment="Center" FontSize="18" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
                 </Border>
-                <TextBlock FontSize="18" FontWeight="Normal" TextWrapping="Wrap" Margin="0,20,0,0">
-                 <Run Text="{DynamicResource JoinTheQGroup}" MouseLeftButtonDown="JoinQQGroup_Click" Foreground="#383838" TextDecorations="Underline" />
-                     <Run Text="{DynamicResource Period}" />
-                    <LineBreak/>
-  <Run Text="{DynamicResource DeveloperList}" MouseLeftButtonDown="ToDeveloperListWindow" Foreground="#383838" TextDecorations="Underline" />
-                <Run Text="{DynamicResource Period}" />
-<Run Text="{DynamicResource Appreciate}" MouseLeftButtonDown="ToAppreciateWindow" Foreground="#383838" TextDecorations="Underline" />
-                <Run Text="{DynamicResource Period}" />
-                </TextBlock>
+               
                 <TextBlock Foreground="#d94c93" Text="关于代码" HorizontalAlignment="Center" FontSize="25" Margin="0,50,0,0"/>
                 <Border Padding="10" CornerRadius="3" BorderBrush="#d7d7d9" BorderThickness="1" Margin="0,30,0,0">
                     <TextBox Foreground="#919191" Text="你可以从https://github.com/hhm2maker/Maker/获取完整的代码" HorizontalAlignment="Center" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True"/>

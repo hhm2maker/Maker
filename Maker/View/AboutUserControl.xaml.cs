@@ -161,18 +161,7 @@ namespace Maker.View
             }
         }
 
-        private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
-        {
-            new AppreciateWindow().Show();
-        }
-        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
-        {
-            new DeveloperListDialog(mw).ShowDialog();
-        }
-        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
-        }
+     
 
         public void ShowLogo()
         {
