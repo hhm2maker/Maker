@@ -140,14 +140,12 @@ namespace Maker.View.Setting
             {
                 cbAutoUpdate.IsChecked = false;
             }
-          
-            //播放器
-            cbPlayerType.SelectedIndex = (int)mw.pleyerType;
-            //灯光语句
-            //tbPavedColumns.Text = mw.pavedColumns.ToString();
-            //tbPavedMax.Text = mw.pavedMax.ToString();
 
-            lastSelection = 0;
+             //灯光语句
+             //tbPavedColumns.Text = mw.pavedColumns.ToString();
+             //tbPavedMax.Text = mw.pavedMax.ToString();
+
+             lastSelection = 0;
             lbCatalog.SelectedIndex = 0;
             StackPanel sp =  (StackPanel)svMain.Children[0];
             sp.Visibility = Visibility.Visible;
@@ -601,45 +599,7 @@ namespace Maker.View.Setting
             tbColortabPath.Text = mw.strColortabPath;
         }
 
-        private void CbPlayerType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(cbPlayerType.SelectedIndex == 0 &&  mw.pleyerType == PlayerType.ParagraphLightList)
-                return;
-            if (cbPlayerType.SelectedIndex == 1 && mw.pleyerType == PlayerType.Accurate)
-                return;
-            if (cbPlayerType.SelectedIndex == 2 && mw.pleyerType == PlayerType.ParagraphIntList)
-                return;
-            if (cbPlayerType.SelectedIndex == 0)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                XmlNode playerRoot = doc.DocumentElement;
-                XmlNode playType = playerRoot.SelectSingleNode("Type");
-                playType.InnerText = "ParagraphLightList";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                mw.pleyerType = PlayerType.ParagraphLightList;
-            }
-            else if (cbPlayerType.SelectedIndex == 1)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                XmlNode playerRoot = doc.DocumentElement;
-                XmlNode playType = playerRoot.SelectSingleNode("Type");
-                playType.InnerText = "Accurate";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                mw.pleyerType = PlayerType.Accurate;
-            }
-            else if (cbPlayerType.SelectedIndex == 2)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                XmlNode playerRoot = doc.DocumentElement;
-                XmlNode playType = playerRoot.SelectSingleNode("Type");
-                playType.InnerText = "ParagraphIntList";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
-                mw.pleyerType = PlayerType.ParagraphIntList;
-            }
-        }
+       
 
         private void tbPaved_LostFocus(object sender, RoutedEventArgs e)
         {

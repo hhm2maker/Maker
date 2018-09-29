@@ -105,7 +105,6 @@
                                         <GradientStop Color="#13191E" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Rectangle.Fill>
-
                             </Rectangle>
                             <TextBlock DockPanel.Dock="Top" Text="{DynamicResource GetStarted}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="16" />
                         </Grid>

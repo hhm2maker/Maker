@@ -136,19 +136,7 @@
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
-            <StackPanel Name="spPlayer" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
-                <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Type}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
-                    <StackPanel  Margin="5">
-                        <DockPanel>
-                            <ComboBox  FontSize="14" Name="cbPlayerType" BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545"   VerticalAlignment="Center"  Width="200" HorizontalAlignment="Left" SelectionChanged="CbPlayerType_SelectionChanged"  Style="{DynamicResource ComboBoxStyle1}" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" >
-                                <ComboBoxItem  Content="{DynamicResource ParagraphLightList}"/>
-                                <ComboBoxItem  Content="{DynamicResource Accurate}"/>
-                                <ComboBoxItem  Content="{DynamicResource ParagraphIntList}"/>
-                            </ComboBox>
-                        </DockPanel>
-                    </StackPanel>
-                </GroupBox>
-            </StackPanel>
+           
             <StackPanel Name="spLightScript" Orientation="Vertical" VerticalAlignment="Top" Visibility="Collapsed">
                 <GroupBox  Margin="20,10,20,0" Header="{DynamicResource Paved}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
                     <StackPanel  Margin="5">

@@ -19,11 +19,10 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,30">
             <StackPanel Orientation="Vertical" Width="500" Margin="0,0,100,0"  VerticalAlignment="Center">
                 <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="24" Margin="0,0,0,14"/>
-                <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="15" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="15" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
+                <TextBlock  Text="无逻辑灯光文件是一种存储结果的文件，即1+1=2，只会存储2，而不会记录如何得到的2。" FontSize="14" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock  Text="因为是无逻辑的，所以对于该文件的编辑方法可以随心所欲，你可以通过以下几种方式来编辑该文件。" FontSize="14" VerticalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap"/>
             </StackPanel>
         </StackPanel>
-        
         <Grid  VerticalAlignment="Top" Name="gMain" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -37,7 +36,11 @@
                 <TextBlock Text="{DynamicResource Player}" VerticalAlignment="Center" Margin="30" FontSize="20"/>
             </Border>
             <Border  Grid.Row="0" Grid.Column="1" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
-                <TextBlock Text="请不要忘了创建开始帧" Margin="30" FontSize="18"/>
+                <StackPanel Orientation="Vertical" Margin="30">
+                <TextBlock Text="定制你的模拟Launchpad"  FontSize="18"/>
+                    <TextBlock Text="选择你的默认播放器" FontSize="16" Margin="0,5,0,0" TextDecorations="Underline"/>
+                    <TextBlock Text="{DynamicResource Setting}" FontSize="16" Margin="0,5,0,0" TextDecorations="Underline" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                </StackPanel>
             </Border>
             <Border Grid.Row="0" Grid.Column="2" BorderBrush="#646464" BorderThickness="0,0.5,0.5,0.5">
                 <Button Margin="30"  Style="{x:Null}" Name="btnPlayer">

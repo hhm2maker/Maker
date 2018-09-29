@@ -434,3 +434,5 @@ E:\Sharer\Maker\Maker\obj\Debug\View\LightUserControl\TextBoxUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\ToolIntroductionPage.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\Introduction\ToolIntroductionPage.baml
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
+E:\Sharer\Maker\Maker\obj\Debug\View\Setting\PlayerSetting.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\Setting\PlayerSetting.baml

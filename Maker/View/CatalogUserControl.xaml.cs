@@ -9,6 +9,7 @@ using Maker.View.LightUserControl;
 using Maker.View.LightWindow;
 using Maker.View.PageWindow;
 using Maker.View.Play;
+using Maker.View.Setting;
 using Maker.View.Tool;
 using System;
 using System.Collections.Generic;
@@ -341,34 +342,22 @@ namespace Maker.View
                 selectObject = null;
             }
             else {
-                cIntroduce.Children.Clear();
+                spIntroduce.Children.Clear();
                 if (sender == tbLight)
                 {
-                    cIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 })
-                    {
-                        Width = cIntroduce.ActualWidth
-                    });
+                    spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
                 }
                 else if (sender == tbLightScript)
                 {
-                    cIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 })
-                    {
-                        Width = cIntroduce.ActualWidth
-                    });
+                    spIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 }));
                 }
                 else if (sender == tbPlay)
                 {
-                    cIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 })
-                    {
-                        Width = cIntroduce.ActualWidth
-                    });
+                    spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
                 }
                 else if (sender == tbTool)
                 {
-                    cIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 })
-                    {
-                        Width = cIntroduce.ActualWidth
-                    });
+                    spIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 }));
                 }
                 selectObject = sender;
             }
@@ -382,12 +371,12 @@ namespace Maker.View
                 Duration = TimeSpan.FromSeconds(0.5)
             };
             doubleAnimation.Completed += DoubleAnimation_Completed1;
-            cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+            spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
         }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
-            cIntroduce.Children.Clear();
+            spIntroduce.Children.Clear();
         }
 
         public void AddIntroducePage(double introducePageHeight) {
@@ -396,7 +385,7 @@ namespace Maker.View
                 To = introducePageHeight,
                 Duration = TimeSpan.FromSeconds(0.5)
             };
-            cIntroduce.BeginAnimation(HeightProperty,doubleAnimation);
+            spIntroduce.BeginAnimation(HeightProperty,doubleAnimation);
         }
 
         public void IntoUserControl(int index)
@@ -409,9 +398,11 @@ namespace Maker.View
                 To = 0,
                 Duration = TimeSpan.FromSeconds(0.3)
             };
-            cIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+            spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
             //载入文件
             LoadFileList();
+            //选中的类别为空
+            selectObject = null;
         }
 
         private void LoadFileList()
@@ -518,6 +509,15 @@ namespace Maker.View
         private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
+        }
+
+        public void AddSetting() {
+            gMost.Children.Add(new PlayerSetting(mw));
+        }
+
+        public void RemoveSetting()
+        {
+            gMost.Children.RemoveAt(1);
         }
     }
 }

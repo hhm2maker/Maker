@@ -31,5 +31,10 @@ namespace Maker.View.Introduction
             SetButtonList(new List<Button>() { btnPlayer });
             SetButtonEvent();
         }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            cuc.AddSetting();
+        }
     }
 }

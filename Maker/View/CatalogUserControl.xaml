@@ -78,6 +78,7 @@
             <PathGeometry Figures="M130,50  140,40 140,0" />
         </GeometryGroup>
     </UserControl.Resources>
+    <Grid Name="gMost">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -231,19 +232,17 @@
             </WrapPanel>
             <TextBlock Text="{DynamicResource Help}" x:Name="tbHelp" FontSize="20" Margin="0,0,10,0" HorizontalAlignment="Right" MouseLeftButtonUp="tbHelp_MouseLeftButtonUp"/>
         </Grid>
-        <Canvas Name="cIntroduce" Grid.Row="1"  Height="0"  ClipToBounds="True" HorizontalAlignment="Stretch"/>
+        <StackPanel Name="spIntroduce" Grid.Row="1"  Height="0" HorizontalAlignment="Stretch" />
         <Grid Grid.Row="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <DockPanel Name="dpFile" Grid.Column="0" Width="0" >
-                <ListBox Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#646464" Foreground="White" SelectionChanged="lbMain_SelectionChanged"/>
-            </DockPanel>
-            <Grid Name="gMain" Grid.Column="1" >
-              
-            </Grid>
-        </Grid>
+                    <DockPanel Name="dpFile" Grid.Column="0" Width="0" >
+                        <ListBox Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#646464" Foreground="White" SelectionChanged="lbMain_SelectionChanged"/>
+                    </DockPanel>
+                    <Grid Name="gMain"  Grid.Column="1"/>
+                </Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
             <StackPanel Orientation="Horizontal">
                 <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -284,7 +283,7 @@
                 <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 <TextBlock  MouseLeftButtonDown="ToFeedbackDialog"  Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                <TextBlock Name="tbProjectPath" Margin="0,10,0,0"  Foreground="Gray" FontSize="16"  TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                <TextBlock Name="tbProjectPath" Margin="0,10,0,0"  Foreground="Gray" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 </StackPanel>
                 <view:LogoUserControl  VerticalAlignment="Center" x:Name="logoView" HorizontalAlignment="Left" Margin="70,0,0,0"/>
                 <StackPanel   VerticalAlignment="Bottom">
@@ -294,5 +293,6 @@
                 </StackPanel>
             </Grid>
             </Border>
+    </Grid>
     </Grid>
 </UserControl>
