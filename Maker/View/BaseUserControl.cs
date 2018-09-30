@@ -72,12 +72,84 @@ namespace Maker.View
             get;
             set;
         }
+       
         /// <summary>
-        /// 新建文件
+        /// 打开文件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void NewFile(object sender, RoutedEventArgs e)
+        protected void OpenFile(object sender, RoutedEventArgs e)
+        {
+            mw.cuc.OpenFile();
+            //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            ////openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
+            //openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
+            //openFileDialog1.RestoreDirectory = true;
+            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    filePath = openFileDialog1.FileName;
+            //    LoadFile();
+            //}
+        }
+        /// <summary>
+        /// 加载文件
+        /// </summary>
+        /// <param name="childFileName"></param>
+        public virtual void LoadFile(String childFileName)
+        {
+            filePath = GetFileDirectory() + @"\" + childFileName;
+            LoadFileContent();
+            spHint.Visibility = Visibility.Collapsed;
+            mainView.Children[0].Visibility = Visibility.Visible;
+        }
+        /// <summary>
+        /// 加载文件具体操作
+        /// </summary>
+        protected virtual void LoadFileContent()
+        {
+            
+        }
+        /// <summary>
+        /// 文件保存具体操作
+        /// </summary>
+        protected virtual void SaveFile()
+        {
+           
+        }
+        /// <summary>
+        /// 文件保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void SaveFile(object sender, RoutedEventArgs e)
+        {
+            SaveFile();
+        }
+        /// <summary>
+        /// 文件另存为
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void SaveAsFile(object sender, RoutedEventArgs e)
+        { }
+        /// <summary>
+        /// 得到文件目录
+        /// </summary>
+        /// <returns></returns>
+        public virtual String GetFileDirectory() {
+            return mw.lastProjectPath + _fileType;
+        }
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="file"></param>
+        public virtual void DeleteFile(object sender, RoutedEventArgs e)
+        {
+        }
+        /// <summary>
+        /// 添加文件
+        /// </summary>
+        public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             GetStringDialog2 dialog = null;
             String _filePath = String.Empty;
@@ -110,7 +182,8 @@ namespace Maker.View
                     }
                     else
                     {
-                        if (_fileExtension.Equals(".lightPage")) {
+                        if (_fileExtension.Equals(".lightPage"))
+                        {
                             //获取对象
                             XDocument xDoc = new XDocument();
                             // 添加根节点
@@ -126,7 +199,8 @@ namespace Maker.View
                             // 保存该文档  
                             xDoc.Save(filePath);
                         }
-                        else { 
+                        else
+                        {
                             File.Create(filePath).Close();
                         }
                     }
@@ -134,52 +208,5 @@ namespace Maker.View
                 }
             }
         }
-        /// <summary>
-        /// 打开文件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void OpenFile(object sender, RoutedEventArgs e)
-        {
-            mw.cuc.OpenFile();
-            //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            ////openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-            //openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
-            //openFileDialog1.RestoreDirectory = true;
-            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    filePath = openFileDialog1.FileName;
-            //    LoadFile();
-            //}
-        }
-
-        public virtual void LoadFile(String childFileName)
-        {
-            filePath = GetFileDirectory() + @"\" + childFileName;
-            LoadFileContent();
-            spHint.Visibility = Visibility.Collapsed;
-            mainView.Children[0].Visibility = Visibility.Visible;
-        }
-
-        protected virtual void LoadFileContent()
-        {
-            
-        }
-
-        protected virtual void SaveFile()
-        {
-           
-        }
-        protected void SaveFile(object sender, RoutedEventArgs e)
-        {
-            SaveFile();
-        }
-        protected void SaveAsFile(object sender, RoutedEventArgs e)
-        { }
-
-        public virtual String GetFileDirectory() {
-            return mw.lastProjectPath + _fileType;
-        }
-      
     }
 }

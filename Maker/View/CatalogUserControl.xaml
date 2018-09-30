@@ -238,9 +238,17 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-                    <DockPanel Name="dpFile" Grid.Column="0" Width="0" >
-                        <ListBox Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#646464" Foreground="White" SelectionChanged="lbMain_SelectionChanged"/>
-                    </DockPanel>
+                    <Grid Name="dpFile" Grid.Column="0" Width="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <ListBox Grid.Row="0" Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#646464" Foreground="White" SelectionChanged="lbMain_SelectionChanged"/>
+                        <DockPanel  Grid.Row="1">
+                            <Button Content="{DynamicResource New}" HorizontalAlignment="Left" Name="btnNew" Click="btnNew_Click"/>
+                            <Button Content="{DynamicResource Delete}" HorizontalAlignment="Right" Name="btnDelete" Click="btnDelete_Click"/>
+                        </DockPanel>
+                    </Grid>
                     <Grid Name="gMain"  Grid.Column="1"/>
                 </Grid>
         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">

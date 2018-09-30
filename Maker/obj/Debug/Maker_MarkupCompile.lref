@@ -1,6 +1,7 @@
 ﻿
 
 FE:\Sharer\Maker\Maker\NewMainWindow.xaml;;
+FE:\Sharer\Maker\Maker\View\CatalogUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\Control\FrameUserControl.xaml;;
 FE:\Sharer\Maker\Maker\InputUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\Control\LiveUserControl.xaml;;
@@ -73,6 +74,8 @@ FE:\Sharer\Maker\Maker\View\PavedLaunchpadWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\PianoRoll\PianoRollUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\PlayUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\Play\PlayExportUserControl.xaml;;
+FE:\Sharer\Maker\Maker\View\Setting\PlayerTypeSetting.xaml;;
+FE:\Sharer\Maker\Maker\View\Setting\PlayerDefaultSetting.xaml;;
 FE:\Sharer\Maker\Maker\View\Test\BeautifulWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\Help\HelpWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\MainWindow.xaml;;
@@ -100,6 +103,4 @@ FE:\Sharer\Maker\Maker\View\Work\MediaPlayerWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\Work\WebBrowserUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\Work\WebBrowserWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\MakerpjUserControl.xaml;;
-FE:\Sharer\Maker\Maker\View\CatalogUserControl.xaml;;
-FE:\Sharer\Maker\Maker\View\Setting\PlayerSetting.xaml;;
 

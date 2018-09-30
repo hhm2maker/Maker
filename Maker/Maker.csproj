@@ -373,8 +373,11 @@
       <DependentUpon>PlayExportUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Play\TeachingControl.cs" />
-    <Compile Include="View\Setting\PlayerSetting.xaml.cs">
-      <DependentUpon>PlayerSetting.xaml</DependentUpon>
+    <Compile Include="View\Setting\PlayerTypeSetting.xaml.cs">
+      <DependentUpon>PlayerTypeSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\PlayerDefaultSetting.xaml.cs">
+      <DependentUpon>PlayerDefaultSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Test\BeautifulWindow.xaml.cs">
       <DependentUpon>BeautifulWindow.xaml</DependentUpon>
@@ -816,7 +819,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Setting\PlayerSetting.xaml">
+    <Page Include="View\Setting\PlayerTypeSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\PlayerDefaultSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using Maker.ViewBusiness;
+﻿using Maker.View.Setting;
+using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,14 @@ namespace Maker.View.Introduction
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            cuc.AddSetting();
+            if(sender == tbPlayerTypeSetting)
+            {
+                 cuc.AddSetting(new PlayerTypeSetting(cuc.mw));
+            }
+            else if (sender == tbPlayerDefaultSetting)
+            {
+                cuc.AddSetting(new PlayerDefaultSetting(cuc.mw));
+            }
         }
     }
 }

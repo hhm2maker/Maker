@@ -24,6 +24,22 @@ namespace Maker.ViewBusiness
             }
         }
         /// <summary>
+        /// 设置字符串数组到ListBox
+        /// </summary>
+        /// <param name="listbox"></param>
+        /// <param name="strings"></param>
+        public static void SetStringsToListBox(ListBox listbox, List<String> strings,String selectString)
+        {
+            listbox.Items.Clear();
+            foreach (String str in strings)
+            {
+                listbox.Items.Add(str);
+                if (str.Equals(selectString)) {
+                    listbox.SelectedIndex = listbox.Items.Count - 1;
+                }
+            }
+        }
+        /// <summary>
         /// 设置字符串数组和点击事件到MenuItem
         /// </summary>
         /// <param name="listbox"></param>

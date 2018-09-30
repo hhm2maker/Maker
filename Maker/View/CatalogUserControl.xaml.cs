@@ -511,13 +511,30 @@ namespace Maker.View
             System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
         }
 
-        public void AddSetting() {
-            gMost.Children.Add(new PlayerSetting(mw));
+        public void AddSetting(UserControl ucSetting) {
+            gMost.Children.Add(ucSetting);
+            
         }
 
         public void RemoveSetting()
         {
             gMost.Children.RemoveAt(1);
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            if (gMain.Children.Count == 0)
+                return;
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            baseUserControl.NewFile(sender,e);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (gMain.Children.Count == 0)
+                return;
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            baseUserControl.DeleteFile(sender, e);
         }
     }
 }

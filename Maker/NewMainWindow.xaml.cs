@@ -31,6 +31,10 @@ namespace Maker
         /// </summary>
         public String strMyLanguage = String.Empty;
         /// <summary>
+        /// 默认播放器
+        /// </summary>
+        public String playerDefault;
+        /// <summary>
         /// 播放器类型
         /// </summary>
         public PlayerType playerType;
@@ -77,6 +81,7 @@ namespace Maker
             bridge.LoadLanguage();
 
             InitConfig();
+            InitPlayerType();
             if (!isFirst)
             {
                 ToCatalogUserControl();
@@ -116,6 +121,8 @@ namespace Maker
             XmlDocument doc = new XmlDocument();
             doc.Load("Config/player.xml");
             XmlNode playerRoot = doc.DocumentElement;
+            XmlNode playDefault = playerRoot.SelectSingleNode("Default");
+            playerDefault = playDefault.InnerText;
             XmlNode playType = playerRoot.SelectSingleNode("Type");
             if (playType.InnerText.Equals("ParagraphLightList"))
             {
