@@ -40,6 +40,7 @@ namespace Maker.View.Setting
         {
             if (lbMain.SelectedIndex == -1)
                 return;
+            if (!mw.playerDefault.Equals(lbMain.SelectedItem.ToString())) { 
             XmlDocument doc = new XmlDocument();
             doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
             XmlNode playerRoot = doc.DocumentElement;
@@ -47,6 +48,7 @@ namespace Maker.View.Setting
             playType.InnerText = lbMain.SelectedItem.ToString();
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
             mw.playerDefault = lbMain.SelectedItem.ToString();
+            }
             mw.cuc.RemoveSetting();
         }
     }

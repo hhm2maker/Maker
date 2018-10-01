@@ -232,7 +232,7 @@
             </WrapPanel>
             <TextBlock Text="{DynamicResource Help}" x:Name="tbHelp" FontSize="20" Margin="0,0,10,0" HorizontalAlignment="Right" MouseLeftButtonUp="tbHelp_MouseLeftButtonUp"/>
         </Grid>
-        <StackPanel Name="spIntroduce" Grid.Row="1"  Height="0" HorizontalAlignment="Stretch" />
+        <StackPanel Name="spIntroduce" Grid.Row="1"  Height="0" HorizontalAlignment="Stretch" ClipToBounds="True"/>
         <Grid Grid.Row="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

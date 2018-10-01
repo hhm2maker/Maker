@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
-        Title="Maker" >
+        Title="Maker" 
+        WindowState="Maximized"
+        >
   
     <Grid Name="gMain" />
 </Window>

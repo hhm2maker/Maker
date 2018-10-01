@@ -97,7 +97,7 @@ namespace Maker.View
         /// <param name="childFileName"></param>
         public virtual void LoadFile(String childFileName)
         {
-            filePath = GetFileDirectory() + @"\" + childFileName;
+            filePath = GetFileDirectory() + childFileName;
             LoadFileContent();
             spHint.Visibility = Visibility.Collapsed;
             mainView.Children[0].Visibility = Visibility.Visible;
@@ -137,7 +137,7 @@ namespace Maker.View
         /// </summary>
         /// <returns></returns>
         public virtual String GetFileDirectory() {
-            return mw.lastProjectPath + _fileType;
+            return mw.lastProjectPath + _fileType + @"\";
         }
         /// <summary>
         /// 删除文件
@@ -146,32 +146,14 @@ namespace Maker.View
         public virtual void DeleteFile(object sender, RoutedEventArgs e)
         {
         }
+      
         /// <summary>
         /// 添加文件
         /// </summary>
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
-            GetStringDialog2 dialog = null;
-            String _filePath = String.Empty;
-            if (_fileExtension.Equals(".light"))
-            {
-                _filePath = mw.LightFilePath;
-            }
-            else if (_fileExtension.Equals(".lightScript"))
-            {
-                _filePath = mw.LightScriptFilePath;
-            }
-            else if (_fileExtension.Equals(".lightPage"))
-            {
-                _filePath = mw.LightPageFilePath;
-            }
-            else if (_fileExtension.Equals(".playExport"))
-            {
-                _filePath = mw.PlayFilePath;
-            }
-            dialog = new GetStringDialog2(mw, "NewFileNameColon", fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
-            if (dialog != null)
-            {
+            String _filePath = GetFileDirectory();
+            GetStringDialog2 dialog = new GetStringDialog2(mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
                 if (dialog.ShowDialog() == true)
                 {
                     filePath = _filePath + dialog.fileName;
@@ -182,31 +164,19 @@ namespace Maker.View
                     }
                     else
                     {
-                        if (_fileExtension.Equals(".lightPage"))
-                        {
-                            //获取对象
-                            XDocument xDoc = new XDocument();
-                            // 添加根节点
-                            XElement xRoot = new XElement("Page");
-                            // 添加节点使用Add
-                            xDoc.Add(xRoot);
-                            for (int i = 0; i < 96; i++)
-                            {
-                                // 创建一个按钮加到root中
-                                XElement xButton = new XElement("Buttons");
-                                xRoot.Add(xButton);
-                            }
-                            // 保存该文档  
-                            xDoc.Save(filePath);
-                        }
-                        else
-                        {
-                            File.Create(filePath).Close();
-                        }
-                    }
-                    //LoadFile();
+                    CreateFile(filePath);
+                    LoadFile(dialog.fileName);
+                    mw.cuc.lbMain.Items.Add(dialog.fileName);
                 }
             }
         }
+        /// <summary>
+        /// 创建文件
+        /// </summary>
+        protected virtual void CreateFile(String filePath)
+        {
+            File.Create(filePath).Close();
+        }
+       
     }
 }

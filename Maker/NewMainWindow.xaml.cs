@@ -69,8 +69,8 @@ namespace Maker
             InitializeComponent();
          
             InitStaticConstant();
-            Width = SystemParameters.WorkArea.Width * 0.8;
-            Height = SystemParameters.WorkArea.Height * 0.8;
+            //Width = SystemParameters.WorkArea.Width ;
+            //Height = SystemParameters.WorkArea.Height ;
 
             cuc = new CatalogUserControl(this);
             auc = new AboutUserControl(this);

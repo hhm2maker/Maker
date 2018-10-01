@@ -342,7 +342,6 @@ namespace Maker.View
                 selectObject = null;
             }
             else {
-                spIntroduce.Children.Clear();
                 if (sender == tbLight)
                 {
                     spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
@@ -380,12 +379,44 @@ namespace Maker.View
         }
 
         public void AddIntroducePage(double introducePageHeight) {
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            //上一个控件比现在的控件高
+            if (selectObjectHeight > introducePageHeight)
             {
-                To = introducePageHeight,
-                Duration = TimeSpan.FromSeconds(0.5)
-            };
-            spIntroduce.BeginAnimation(HeightProperty,doubleAnimation);
+                DoubleAnimation doubleAnimation = new DoubleAnimation()
+                {
+                    To = introducePageHeight,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+                doubleAnimation.Completed += DoubleAnimation_Completed2;
+                spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+            }
+            //上一个控件比现在的控件低
+            else
+            {
+                RemoveLastIntroduceAndRecordSelectObjectHeight();
+                  DoubleAnimation doubleAnimation = new DoubleAnimation()
+                {
+                    To = introducePageHeight,
+                    Duration = TimeSpan.FromSeconds(0.5)
+                };
+                spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
+            }
+        }
+        /// <summary>
+        /// 移除上一个介绍页且记录当前控件的高度
+        /// </summary>
+        private void RemoveLastIntroduceAndRecordSelectObjectHeight() {
+            if (spIntroduce.Children.Count > 1)
+            {
+                spIntroduce.Children.RemoveAt(0);
+            }
+            selectObjectHeight = (spIntroduce.Children[0] as UserControl).ActualHeight;
+        }
+
+        private Double selectObjectHeight;
+        private void DoubleAnimation_Completed2(object sender, EventArgs e)
+        {
+            RemoveLastIntroduceAndRecordSelectObjectHeight();
         }
 
         public void IntoUserControl(int index)

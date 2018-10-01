@@ -14,7 +14,7 @@ namespace Maker.View.Dialog
     public partial class GetStringDialog2 : Window
     {
         private Window window;
-        private String hint;
+        private String extension;
         private List<String> notContains = new List<string>();
         public String fileName = String.Empty;
         public String fileType = String.Empty;
@@ -25,19 +25,19 @@ namespace Maker.View.Dialog
         /// <param name="hint"></param>
         /// <param name="notContains"></param>
         /// <param name="fileType"></param>
-        public GetStringDialog2(Window window, String hint,List<String> notContains,String fileType)
+        public GetStringDialog2(Window window, String extension, List<String> notContains,String fileType)
         {
             InitializeComponent();
             Owner = window;
             this.window = window;
-            this.hint = hint;
+            this.extension = extension;
             this.notContains = notContains;
             this.fileType = fileType;
 
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tbHint.SetResourceReference(TextBlock.TextProperty, hint);
+            tbExtension.Text = extension;
             tbNumber.Focus();
         }
 
@@ -71,13 +71,7 @@ namespace Maker.View.Dialog
             if (!fileName.EndsWith(fileType)) {
                 fileName += fileType;
             }
-            if (notContains.Contains(fileName))
-            {
-                tbHelp.Visibility = Visibility.Visible;
-            }
-            else {
-                tbHelp.Visibility = Visibility.Hidden;
-            }
+           
         }
     }
 }

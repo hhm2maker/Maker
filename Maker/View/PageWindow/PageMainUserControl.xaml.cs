@@ -20,14 +20,15 @@ namespace Maker.View.PageWindow
     /// </summary>
     public partial class PageMainUserControl : BaseUserControl
     {
-        public View view; NewMainWindow mw;
+        public View view; 
         public PageMainUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
 
-            //mainView = gMain;
-            //HideControl();
+            _fileExtension = ".lightPage";
+            mainView = gMain;
+            HideControl();
 
             nowSelectType = PageUCSelectType.Down;
             UpdateButtonColor();
@@ -89,8 +90,7 @@ namespace Maker.View.PageWindow
             //    }
             //}
         }
-        private String filePath;
-        protected  void LoadFileContent() {
+        protected override void LoadFileContent() {
             _pageModes.Clear();
             tbPosition.Text = "-1";
             view.Count = 0;
@@ -559,7 +559,23 @@ namespace Maker.View.PageWindow
             RefreshContent();
         }
 
-
+        protected override void CreateFile(String filePath)
+        {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            // 添加根节点
+            XElement xRoot = new XElement("Page");
+            // 添加节点使用Add
+            xDoc.Add(xRoot);
+            for (int i = 0; i < 96; i++)
+            {
+                // 创建一个按钮加到root中
+                XElement xButton = new XElement("Buttons");
+                xRoot.Add(xButton);
+            }
+            // 保存该文档  
+            xDoc.Save(filePath);
+        }
 
     }
     public class View : INotifyPropertyChanged

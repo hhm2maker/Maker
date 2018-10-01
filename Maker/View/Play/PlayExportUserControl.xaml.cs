@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Dialog;
+using Maker_IDE.Business;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,15 +18,14 @@ namespace Maker.View.Play
     /// </summary>
     public partial class PlayExportUserControl : BaseUserControl
     {
-        NewMainWindow mw;
         public PlayExportUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
 
-            //_fileType = ".playExport";
-            //mainView = gMain;
-            //HideControl();
+            _fileType = ".playExport";
+            mainView = gMain;
+            HideControl();
         }
         private String tutorialName = String.Empty;
         private String firstPageName = String.Empty;
@@ -87,9 +87,8 @@ namespace Maker.View.Play
                 }
             }
         }
-        FileBusiness fileBusiness;
-        String filePath;
-        protected  void LoadFileContent() {
+       
+        protected override void LoadFileContent() {
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
             tutorialName = xnroot.Element("Tutorial").Value;
@@ -326,5 +325,7 @@ namespace Maker.View.Play
 
             doc.Save(filePath);
         }
+
+       
     }
 }

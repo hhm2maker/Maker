@@ -9,15 +9,19 @@
         Title="{DynamicResource GetString}" 
         Background="#535353"
         Width="340"
-        Height="200"
+        Height="180"
         WindowStartupLocation="CenterScreen"
            ResizeMode="NoResize"
         Loaded="Window_Loaded">
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
         <StackPanel  Width="200" Margin="20" >
-            <TextBlock FontSize="14"  Foreground="#F0F0F0" TextWrapping="Wrap" Name="tbHint"></TextBlock>
-            <TextBox FontSize="14" Background="{x:Null}" Height="22" Name="tbNumber" Margin="0,10,0,0" Foreground="#FFFFFF" TextChanged="tbNumber_TextChanged"/>
-            <TextBlock Foreground="#FF5A5A" Margin="0,20,0,0" Name="tbHelp" TextWrapping="Wrap" FontSize="14" Text="{DynamicResource ExistingSameNameFile}" Visibility="Hidden"/>
+            <TextBlock Text="{DynamicResource NewFileNameColon}" FontSize="14"  Foreground="#F0F0F0" TextWrapping="Wrap" Name="tbHint" />
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+            <TextBox FontSize="14" Background="{x:Null}" Height="22" Width="140" Name="tbNumber"  Foreground="#FFFFFF" TextChanged="tbNumber_TextChanged"/>
+                <TextBlock FontSize="14" Background="{x:Null}" Height="22" Width="50" Name="tbExtension" TextAlignment="Left" Foreground="#F0F0F0" Margin="10,0,0,0"/>
+
+            </StackPanel>
+
         </StackPanel>
         <StackPanel>
             <Button  Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}"></Button>

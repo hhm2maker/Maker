@@ -15,7 +15,7 @@ namespace Maker_IDE.Business
         public ConfigBusiness(string _fileName)
         {
             configData = new Dictionary<string, string>();
-
+            fullFileName = _fileName;
             bool hasCfgFile = File.Exists(_fileName);
             if (hasCfgFile == false)
             {

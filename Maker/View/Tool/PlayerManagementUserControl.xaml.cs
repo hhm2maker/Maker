@@ -138,7 +138,7 @@ namespace Maker.View.Tool
 
         public override String GetFileDirectory()
         {
-            return AppDomain.CurrentDomain.BaseDirectory + @"\Device";
+            return AppDomain.CurrentDomain.BaseDirectory + @"\Device\";
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
@@ -279,6 +279,16 @@ namespace Maker.View.Tool
             {
                 mLaunchpad.SetSize(dSize);
             }
+        }
+
+        protected override void CreateFile(String filePath)
+        {
+            ConfigBusiness config = new ConfigBusiness(filePath);
+            config.Set("DeviceType", "LaunchpadPro");
+            config.Set("DeviceBackGround", "#535353");
+            config.Set("DeviceSize", "600");
+            config.Set("IsMembrane", "false");
+            config.Save();
         }
     }
 }
