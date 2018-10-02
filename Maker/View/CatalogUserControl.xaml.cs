@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -112,6 +113,8 @@ namespace Maker.View
             //Background = b;
 
             LoadConfig();
+         
+          
         }
         /// <summary>
         /// 平铺列数
@@ -566,6 +569,100 @@ namespace Maker.View
                 return;
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
             baseUserControl.DeleteFile(sender, e);
+        }
+
+        private void DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            Canvas.SetLeft(thumb1, Canvas.GetLeft(thumb1) + e.HorizontalChange);
+            Canvas.SetTop(thumb1, Canvas.GetTop(thumb1) + e.VerticalChange);
+        }
+
+        private void DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+        }
+
+        private void DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            PointAnimationUsingPath path = new PointAnimationUsingPath();
+                PathGeometry pathGeometry = new PathGeometry();
+            StreamGeometry geometry = new StreamGeometry();
+            using (StreamGeometryContext ctx = geometry.Open())
+            {
+                ctx.BeginFigure(startPoint, true, true);
+                ctx.LineTo(new Point(Canvas.GetLeft(thumb1), Canvas.GetTop(thumb1)), true, false);
+            }
+            pathGeometry.AddGeometry(geometry);
+            path.PathGeometry = pathGeometry;
+            path.Duration = TimeSpan.FromSeconds(1);
+            thumb1.BeginAnimation(MatrixTransform.MatrixProperty ,path);
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetLeft(thumb1, gd.ActualWidth - thumb1.ActualWidth);
+
+
+            rotatingLine.RenderTransformOrigin = new Point(0.5, 0.5);
+            Canvas.SetLeft(rotatingLine, -rotatingLine.ActualWidth * rotatingLine.RenderTransformOrigin.X);
+            Canvas.SetTop(rotatingLine, -rotatingLine.ActualHeight * rotatingLine.RenderTransformOrigin.Y);
+            MatrixTransform MatrixTransform_01 = new MatrixTransform();
+
+            this.RegisterName("MatrixTransform_01", MatrixTransform_01);
+            rotatingLine.RenderTransform = MatrixTransform_01;
+
+            Point centerPt = new Point(150, 150);
+            ese1.Margin = new Thickness(centerPt.X, centerPt.Y, 0, 0);                    //指示中心点
+            Canvas.SetLeft(ese1, -ese1.ActualWidth / 2);
+            Canvas.SetTop(ese1, -ese1.ActualHeight / 2);
+
+            PathGeometry aniPath = new PathGeometry();
+            EllipseGeometry egStandard = new EllipseGeometry(centerPt, 100, 80);
+            aniPath.AddGeometry(egStandard);
+
+            //外层
+            Path ph = new Path();
+            SolidColorBrush StrokeBrush = (SolidColorBrush)mainCanvas.Resources["PathStrokeBrush01"];
+            ph.Stroke = StrokeBrush;
+            ph.StrokeThickness = 1;
+            EllipseGeometry eg2 = new EllipseGeometry(centerPt, egStandard.RadiusX + rotatingLine.ActualHeight / 2, egStandard.RadiusY + rotatingLine.ActualHeight / 2);
+            ph.Data = eg2;
+            mainCanvas.Children.Add(ph);
+
+            //内层
+            Path ph3 = new Path();
+            ph3.Stroke = StrokeBrush;
+            //ph.Fill = System.Windows.Media.Brushes.MediumSlateBlue;
+            ph3.StrokeThickness = 1;
+            EllipseGeometry eg3 = new EllipseGeometry(centerPt, egStandard.RadiusX - rotatingLine.ActualHeight / 2, egStandard.RadiusY - rotatingLine.ActualHeight / 2);
+            ph3.Data = eg3;
+            mainCanvas.Children.Add(ph3);
+
+            Path phStandard = new Path();
+            phStandard.Stroke = System.Windows.Media.Brushes.Blue;
+            //ph.Fill = System.Windows.Media.Brushes.MediumSlateBlue;
+            phStandard.StrokeThickness = 1;
+            phStandard.Data = egStandard;
+            mainCanvas.Children.Add(phStandard);
+
+            MatrixAnimationUsingPath matrixAnimation = new MatrixAnimationUsingPath();
+            matrixAnimation.PathGeometry = aniPath;                                //动画的路径
+            matrixAnimation.Duration = TimeSpan.FromSeconds(10);
+            matrixAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            matrixAnimation.DoesRotateWithTangent = true;
+
+            Storyboard.SetTargetName(matrixAnimation, "MatrixTransform_01");                        //动画的对象
+            Storyboard.SetTargetProperty(matrixAnimation, new PropertyPath(MatrixTransform.MatrixProperty));
+
+            Storyboard pathAnimationStoryboard = new Storyboard();
+            pathAnimationStoryboard.Children.Add(matrixAnimation);
+            pathAnimationStoryboard.Begin(this);
+        }
+        private Point startPoint;
+        private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Canvas.SetLeft(thumb1, gd.ActualWidth - thumb1.ActualWidth);
+            startPoint.X = Canvas.GetLeft(thumb1);
+            startPoint.Y = Canvas.GetTop(thumb1);
         }
     }
 }
