@@ -17,6 +17,15 @@ namespace Maker.View
         protected FileBusiness fileBusiness = new FileBusiness();
         protected StackPanel spHint;
         protected Panel mainView;
+        protected bool bMakerLightUserControl;
+
+        /// <summary>
+        /// 是否是制作灯光的控件
+        /// </summary>
+        /// <returns></returns>
+        public bool IsMakerLightUserControl() {
+            return bMakerLightUserControl;
+        }
 
         public BaseUserControl()
         {

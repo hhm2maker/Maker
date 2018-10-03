@@ -2,7 +2,7 @@
 using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.View.Utils;
-using Maker_IDE.Business;
+using Maker.Business;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -130,7 +130,7 @@ namespace Maker.View
                 if (mw.deviceDictionary.ContainsKey(deviceFilePath))
                 {
                     System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
-                    mw.deviceDictionary[deviceFilePath].Topmost = true;
+                    //mw.deviceDictionary[deviceFilePath].Topmost = true;
                     return;
                 }
                 else

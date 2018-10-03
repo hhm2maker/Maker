@@ -6,7 +6,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Collections;
 
-namespace Maker_IDE.Business
+namespace Maker.Business
 {
     class ConfigBusiness
     {

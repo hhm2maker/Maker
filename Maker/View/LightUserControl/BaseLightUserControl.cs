@@ -6,11 +6,10 @@ using System.Windows;
 using Maker.Model;
 using System.Windows.Controls;
 using System.IO;
-using Maker.View.LightWindow;
 
 namespace Maker.View.LightUserControl
 {
-    public class BaseLightUserControl : BaseUserControl, IUserControl
+    public class BaseLightUserControl : BaseMakerLightUserControl
     {
         public BaseLightUserControl()
         {
@@ -37,15 +36,12 @@ namespace Maker.View.LightUserControl
                 SaveFile();
         }
 
-
         protected override void SaveFile()
         {
             fileBusiness.WriteLightFile(filePath, GetData());
         }
 
-        public virtual void SetData(List<Light> lightList) { }
-
-        public virtual List<Light> GetData() { return null; }
+     
 
 
     }

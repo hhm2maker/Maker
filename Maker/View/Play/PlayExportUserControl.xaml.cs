@@ -1,7 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Dialog;
-using Maker_IDE.Business;
+using Maker.Business;
 using System;
 using System.Collections.Generic;
 using System.IO;

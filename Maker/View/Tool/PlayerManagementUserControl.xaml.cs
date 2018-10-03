@@ -1,12 +1,14 @@
 ﻿using Maker.View.Control;
 using Maker.View.Device;
-using Maker_IDE.Business;
+using Maker.Business;
 using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Maker.Model;
+using Maker.ViewBusiness;
 
 namespace Maker.View.Tool
 {
@@ -26,79 +28,7 @@ namespace Maker.View.Tool
             HideControl();
         }
 
-        private void RunDevice(object sender, RoutedEventArgs e)
-        {
-            //if (lbMain.SelectedIndex == -1)
-            //{
-            //    return;
-            //}
-            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
-            //{
-            //    if (mw.playerDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
-            //    {
-            //        System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
-            //        mw.playerDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
-            //        return;
-            //    }
-            //    else
-            //    {
-            //        PlayerWindow pw = new PlayerWindow(mw);
-            //        ConfigBusiness config = new ConfigBusiness(@"Device\" + lbMain.SelectedItem.ToString() + ".ini");
-            //        if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
-            //        {
-
-            //            String strBg = config.Get("DeviceBackGround");
-            //            if (strBg.Equals(String.Empty))
-            //            {
-            //                System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-            //                return;
-            //            }
-            //            if (strBg[0] == '#' || strBg.Length == 7)
-            //            {
-            //                pw.playLpd.SetLaunchpadBackground(new SolidColorBrush((Color)ColorConverter.ConvertFromString(strBg)));
-            //            }
-            //            else
-            //            {
-            //                if (!File.Exists(strBg))
-            //                {
-            //                    System.Windows.Forms.MessageBox.Show("设置有误，无法启动播放器");
-            //                    return;
-            //                }
-            //                else
-            //                {
-            //                    ImageBrush b = new ImageBrush();
-            //                    b.ImageSource = new BitmapImage(new Uri(strBg, UriKind.Absolute));
-            //                    b.Stretch = Stretch.Fill;
-            //                    pw.playLpd.SetLaunchpadBackground(b);
-
-            //                }
-            //            }
-            //            Double iDeviceSize = Convert.ToDouble(config.Get("DeviceSize"));
-            //            pw.playLpd.SetSize(iDeviceSize);
-            //            pw.SetSize(iDeviceSize, iDeviceSize + 31);
-            //            pw.DeviceName = lbMain.SelectedItem.ToString();
-            //            try
-            //            {
-            //                if (config.Get("IsMembrane").Equals("true"))
-            //                {
-            //                    pw.playLpd.AddMembrane();
-            //                }
-            //            }
-            //            catch
-            //            {
-            //            }
-            //            pw.Show();
-            //            mw.playerDictionary.Add(lbMain.SelectedItem.ToString(), pw);
-            //            ComboBoxItem item = new ComboBoxItem();
-            //            mw.cuc.tw.cbDevice.Items.Add(lbMain.SelectedItem.ToString());
-            //            if (mw.cuc.tw.cbDevice.SelectedIndex == -1)
-            //            {
-            //                mw.cuc.tw.cbDevice.SelectedIndex = 0;
-            //            }
-            //        }
-            //    }
-            //}
-        }
+   
         private void DeleteDevice(object sender, RoutedEventArgs e)
         {
             //if (lbMain.SelectedIndex == -1)
@@ -126,52 +56,38 @@ namespace Maker.View.Tool
             //}
             //lbMain.Items.Remove(lbMain.SelectedItem.ToString());
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-      
 
         protected override void LoadFileContent()
         {
-            NewOrUpdateDeviceWindow(1);
+            DeviceModel deviceModel = FileBusiness.CreateInstance().LoadDeviceModel(filePath);
+            GeneralViewBusiness.SetLaunchpadStyle(mLaunchpad, deviceModel);
+            if (deviceModel.Equals("Launchpad Pro"))
+            {
+                cbDeviceType.SelectedIndex = 0;
+            }
+            tbBackGround.Text = deviceModel.DeviceBackGroundStr;
+            tbBackGround.Background = deviceModel.DeviceBackGround;
+            tbDeviceSize.Text = deviceModel.DeviceSize.ToString();
+            if (deviceModel.IsMembrane)
+            {
+                cbMembrane.IsChecked = true;
+            }
         }
 
         public override String GetFileDirectory()
         {
-            return AppDomain.CurrentDomain.BaseDirectory + @"\Device\";
+            return AppDomain.CurrentDomain.BaseDirectory + @"Device\";
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            string deviceName = String.Empty;
-            if (type == 0)
-            {
-                if (tbDeviceSize.Text.Trim().Equals(string.Empty))
-                {
-                    tbDeviceSize.Focus();
-                    return;
-                }
-                else
-                {
-                    FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + deviceName + ".ini", FileMode.CreateNew);
-                    fs.Close();
-                }
-            }
-            else
-            {
-                deviceName = iniName;
-            }
-            ConfigBusiness config = new ConfigBusiness(@"Device\" + deviceName + ".ini");
+            ConfigBusiness config = new ConfigBusiness(filePath);
             ComboBoxItem item = (ComboBoxItem)cbDeviceType.SelectedItem;
             config.Set("DeviceType", item.Content.ToString());
             config.Set("DeviceBackGround", tbBackGround.Text);
-            Double iDeviceSize = 0.0;
-            try
-            {
-                iDeviceSize = Convert.ToDouble(tbDeviceSize.Text.Trim());
-            }
-            catch
-            {
+                if (!Double.TryParse(tbDeviceSize.Text.Trim(), out Double iDeviceSize))
+                {
                 System.Windows.Forms.MessageBox.Show("请输入正确的数字(可以为小数)！");
+                return;
             }
             config.Set("DeviceSize", iDeviceSize.ToString());
             if (cbMembrane.IsChecked == true)
@@ -204,41 +120,6 @@ namespace Maker.View.Tool
                 //获取数据
                 tbBackGround.Background = new SolidColorBrush(Color.FromArgb(255, cd.Color.R, cd.Color.G, cd.Color.B));
                 mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, cd.Color.R, cd.Color.G, cd.Color.B)));
-            }
-        }
-        private int type = 0;
-        public void NewOrUpdateDeviceWindow(int type)
-        {
-            this.type = type;
-
-            if (type == 1)
-            {
-                ConfigBusiness config = new ConfigBusiness(filePath);
-
-                if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
-                {
-                    cbDeviceType.SelectedIndex = 0;
-                }
-
-                String strBg = config.Get("DeviceBackGround");
-                tbBackGround.Text = strBg;
-                if (strBg[0] == '#' || strBg.Length == 7)
-                {
-                    Color c = Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
-                    tbBackGround.Background = new SolidColorBrush(Color.FromArgb(255, c.R, c.G, c.B));
-                    mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, c.R, c.G, c.B)));
-                }
-
-                tbDeviceSize.Text = config.Get("DeviceSize");
-                if (Double.TryParse(tbDeviceSize.Text,out Double dSize))
-                {
-                    mLaunchpad.SetSize(dSize);
-                }
-
-                if (config.Get("IsMembrane").Equals("true"))
-                {
-                    cbMembrane.IsChecked = true;
-                }
             }
         }
 

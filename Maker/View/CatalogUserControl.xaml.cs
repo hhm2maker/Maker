@@ -6,7 +6,6 @@ using Maker.View.Help;
 using Maker.View.Introduction;
 using Maker.View.LightScriptUserControl;
 using Maker.View.LightUserControl;
-using Maker.View.LightWindow;
 using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Setting;
@@ -113,8 +112,8 @@ namespace Maker.View
             //Background = b;
 
             LoadConfig();
-         
-          
+
+
         }
         /// <summary>
         /// 平铺列数
@@ -127,14 +126,14 @@ namespace Maker.View
         private void LoadConfig()
         {
             //灯光语句页面
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/lightscript.xml");
-                XmlNode lightScriptRoot = doc.DocumentElement;
-                XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
-                XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
-                pavedColumns = int.Parse(lightScriptPavedColumns.InnerText);
-                XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
-                pavedMax = int.Parse(lightScriptPavedMax.InnerText);
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/lightscript.xml");
+            XmlNode lightScriptRoot = doc.DocumentElement;
+            XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
+            XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
+            pavedColumns = int.Parse(lightScriptPavedColumns.InnerText);
+            XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
+            pavedMax = int.Parse(lightScriptPavedMax.InnerText);
         }
 
         #region 获取windows桌面背景
@@ -167,15 +166,6 @@ namespace Maker.View
         {
             mw.auc.ShowLogo();
         }
-
-        //private void IntoUserControl(object sender, RoutedEventArgs e)
-        //{
-        //    gMain.Children.Clear();
-        //    gMain.Children.Add(userControls[spControl.Children.IndexOf(sender as UIElement)]);
-        //    spRight.Visibility = Visibility.Collapsed;
-        //    ToHideControl(sender, spControl.Children.IndexOf(sender as UIElement));
-        //}
-
 
         //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
         //{
@@ -327,10 +317,12 @@ namespace Maker.View
             {
                 mLightList = (gMain.Children[0] as ScriptUserControl).mLightList;
             }
-            else {
+            else
+            {
                 mLightList = null;
             }
-            if (mLightList == null || mLightList.Count == 0) {
+            if (mLightList == null || mLightList.Count == 0)
+            {
                 return;
             }
             PavedLaunchpadWindow raved = new PavedLaunchpadWindow(this, mLightList);
@@ -344,7 +336,8 @@ namespace Maker.View
                 RemoveIntroducePage();
                 selectObject = null;
             }
-            else {
+            else
+            {
                 if (sender == tbLight)
                 {
                     spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
@@ -363,7 +356,7 @@ namespace Maker.View
                 }
                 selectObject = sender;
             }
-            
+
         }
         public void RemoveIntroducePage()
         {
@@ -381,7 +374,8 @@ namespace Maker.View
             spIntroduce.Children.Clear();
         }
 
-        public void AddIntroducePage(double introducePageHeight) {
+        public void AddIntroducePage(double introducePageHeight)
+        {
             //上一个控件比现在的控件高
             if (selectObjectHeight > introducePageHeight)
             {
@@ -397,7 +391,7 @@ namespace Maker.View
             else
             {
                 RemoveLastIntroduceAndRecordSelectObjectHeight();
-                  DoubleAnimation doubleAnimation = new DoubleAnimation()
+                DoubleAnimation doubleAnimation = new DoubleAnimation()
                 {
                     To = introducePageHeight,
                     Duration = TimeSpan.FromSeconds(0.5)
@@ -408,7 +402,8 @@ namespace Maker.View
         /// <summary>
         /// 移除上一个介绍页且记录当前控件的高度
         /// </summary>
-        private void RemoveLastIntroduceAndRecordSelectObjectHeight() {
+        private void RemoveLastIntroduceAndRecordSelectObjectHeight()
+        {
             if (spIntroduce.Children.Count > 1)
             {
                 spIntroduce.Children.RemoveAt(0);
@@ -427,6 +422,19 @@ namespace Maker.View
             gMain.Children.Clear();
             //载入新界面
             gMain.Children.Add(userControls[index]);
+            //是否是制作灯光的用户控件
+            if (userControls[index].IsMakerLightUserControl())
+            {
+                thumb1.DragDelta += DragDelta;
+                thumb1.DragStarted += DragStarted;
+                thumb1.DragCompleted += DragCompleted;
+            }
+            else
+            {
+                thumb1.DragDelta -= DragDelta;
+                thumb1.DragStarted -= DragStarted;
+                thumb1.DragCompleted -= DragCompleted;
+            }
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 To = 0,
@@ -435,6 +443,7 @@ namespace Maker.View
             spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
             //载入文件
             LoadFileList();
+
             //选中的类别为空
             selectObject = null;
         }
@@ -444,9 +453,10 @@ namespace Maker.View
             lbMain.Items.Clear();
             FileBusiness fileBusiness = new FileBusiness();
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            List<String> fileNames =fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
-            for (int i = 0; i < fileNames.Count; i++) {
-                 lbMain.Items.Add(fileNames[i]);
+            List<String> fileNames = fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
+            for (int i = 0; i < fileNames.Count; i++)
+            {
+                lbMain.Items.Add(fileNames[i]);
             }
         }
 
@@ -469,7 +479,7 @@ namespace Maker.View
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
                 animation.Completed += Animation_Completed;
-                
+
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
@@ -479,7 +489,8 @@ namespace Maker.View
             logoView.ShowLogo();
         }
 
-        public void OpenFile() {
+        public void OpenFile()
+        {
             DoubleAnimation animation;
             if (dpFile.Width == 0)
             {
@@ -503,7 +514,8 @@ namespace Maker.View
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
             }
-            else {
+            else
+            {
                 animation = new DoubleAnimation
                 {
                     To = 300,
@@ -544,15 +556,21 @@ namespace Maker.View
         {
             System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
         }
-
-        public void AddSetting(UserControl ucSetting) {
+        /// <summary>
+        /// 添加设置页面
+        /// </summary>
+        /// <param name="ucSetting"></param>
+        public void AddSetting(UserControl ucSetting)
+        {
             gMost.Children.Add(ucSetting);
-            
         }
-
+        /// <summary>
+        /// 移除设置页面
+        /// </summary>
+        /// <param name="ucSetting"></param>
         public void RemoveSetting()
         {
-            gMost.Children.RemoveAt(1);
+            gMost.Children.RemoveAt(gMost.Children.Count-1);
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -560,7 +578,7 @@ namespace Maker.View
             if (gMain.Children.Count == 0)
                 return;
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.NewFile(sender,e);
+            baseUserControl.NewFile(sender, e);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -583,79 +601,68 @@ namespace Maker.View
 
         private void DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            PointAnimationUsingPath path = new PointAnimationUsingPath();
-                PathGeometry pathGeometry = new PathGeometry();
-            StreamGeometry geometry = new StreamGeometry();
-            using (StreamGeometryContext ctx = geometry.Open())
+            double left = Canvas.GetLeft(thumb1);
+            if (left > gd.ActualWidth / 3 * 2)
             {
-                ctx.BeginFigure(startPoint, true, true);
-                ctx.LineTo(new Point(Canvas.GetLeft(thumb1), Canvas.GetTop(thumb1)), true, false);
+                thumb1.RenderTransformOrigin = new Point(0.5, 0.5);
+                thumb1.RenderTransform = MatrixTransform_01;
+
+                double top = Canvas.GetTop(thumb1);
+
+                QuadraticBezierSegment quadraticBezierSegment = new QuadraticBezierSegment();
+                quadraticBezierSegment.Point1 = new Point((startPoint.X - left) / 2, (top - startPoint.Y) / 2);
+                quadraticBezierSegment.Point2 = new Point(startPoint.X - left, startPoint.Y - top);
+
+                PathSegmentCollection pathSegmentCollection = new PathSegmentCollection();
+                pathSegmentCollection.Add(quadraticBezierSegment);
+
+                PathFigure pathFigure = new PathFigure();
+                pathFigure.StartPoint = new Point(0, 0);
+                pathFigure.Segments = pathSegmentCollection;
+
+                PathFigureCollection pathFigureCollection = new PathFigureCollection();
+                pathFigureCollection.Add(pathFigure);
+
+                PathGeometry pathGeometry = new PathGeometry();
+                pathGeometry.Figures = pathFigureCollection;
+
+                MatrixAnimationUsingPath matrixAnimation = new MatrixAnimationUsingPath();
+                matrixAnimation.PathGeometry = pathGeometry;
+                //动画的路径
+                matrixAnimation.Duration = TimeSpan.FromSeconds(0.5);
+                matrixAnimation.Completed += MatrixAnimation_Completed;
+                //matrixAnimation.FillBehavior = FillBehavior.Stop;
+                //matrixAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                //matrixAnimation.DoesRotateWithTangent = true;
+                Storyboard.SetTargetName(matrixAnimation, "MatrixTransform_01");                        //动画的对象
+                Storyboard.SetTargetProperty(matrixAnimation, new PropertyPath(MatrixTransform.MatrixProperty));
+
+                Storyboard pathAnimationStoryboard = new Storyboard();
+                pathAnimationStoryboard.Children.Add(matrixAnimation);
+                pathAnimationStoryboard.Begin(this);
             }
-            pathGeometry.AddGeometry(geometry);
-            path.PathGeometry = pathGeometry;
-            path.Duration = TimeSpan.FromSeconds(1);
-            thumb1.BeginAnimation(MatrixTransform.MatrixProperty ,path);
+            else {
+                //加入播放器页面
+                gMost.Children.Add(new PlayerWindow(mw));
+            }
         }
 
+        private void MatrixAnimation_Completed(object sender, EventArgs e)
+        {
+            thumb1.RenderTransform = null;
+            Canvas.SetLeft(thumb1, startPoint.X);
+            Canvas.SetTop(thumb1, startPoint.Y);
+        }
+
+        MatrixTransform MatrixTransform_01;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            MatrixTransform_01 = new MatrixTransform();
+            RegisterName("MatrixTransform_01", MatrixTransform_01);
+
             Canvas.SetLeft(thumb1, gd.ActualWidth - thumb1.ActualWidth);
-
-
-            rotatingLine.RenderTransformOrigin = new Point(0.5, 0.5);
-            Canvas.SetLeft(rotatingLine, -rotatingLine.ActualWidth * rotatingLine.RenderTransformOrigin.X);
-            Canvas.SetTop(rotatingLine, -rotatingLine.ActualHeight * rotatingLine.RenderTransformOrigin.Y);
-            MatrixTransform MatrixTransform_01 = new MatrixTransform();
-
-            this.RegisterName("MatrixTransform_01", MatrixTransform_01);
-            rotatingLine.RenderTransform = MatrixTransform_01;
-
-            Point centerPt = new Point(150, 150);
-            ese1.Margin = new Thickness(centerPt.X, centerPt.Y, 0, 0);                    //指示中心点
-            Canvas.SetLeft(ese1, -ese1.ActualWidth / 2);
-            Canvas.SetTop(ese1, -ese1.ActualHeight / 2);
-
-            PathGeometry aniPath = new PathGeometry();
-            EllipseGeometry egStandard = new EllipseGeometry(centerPt, 100, 80);
-            aniPath.AddGeometry(egStandard);
-
-            //外层
-            Path ph = new Path();
-            SolidColorBrush StrokeBrush = (SolidColorBrush)mainCanvas.Resources["PathStrokeBrush01"];
-            ph.Stroke = StrokeBrush;
-            ph.StrokeThickness = 1;
-            EllipseGeometry eg2 = new EllipseGeometry(centerPt, egStandard.RadiusX + rotatingLine.ActualHeight / 2, egStandard.RadiusY + rotatingLine.ActualHeight / 2);
-            ph.Data = eg2;
-            mainCanvas.Children.Add(ph);
-
-            //内层
-            Path ph3 = new Path();
-            ph3.Stroke = StrokeBrush;
-            //ph.Fill = System.Windows.Media.Brushes.MediumSlateBlue;
-            ph3.StrokeThickness = 1;
-            EllipseGeometry eg3 = new EllipseGeometry(centerPt, egStandard.RadiusX - rotatingLine.ActualHeight / 2, egStandard.RadiusY - rotatingLine.ActualHeight / 2);
-            ph3.Data = eg3;
-            mainCanvas.Children.Add(ph3);
-
-            Path phStandard = new Path();
-            phStandard.Stroke = System.Windows.Media.Brushes.Blue;
-            //ph.Fill = System.Windows.Media.Brushes.MediumSlateBlue;
-            phStandard.StrokeThickness = 1;
-            phStandard.Data = egStandard;
-            mainCanvas.Children.Add(phStandard);
-
-            MatrixAnimationUsingPath matrixAnimation = new MatrixAnimationUsingPath();
-            matrixAnimation.PathGeometry = aniPath;                                //动画的路径
-            matrixAnimation.Duration = TimeSpan.FromSeconds(10);
-            matrixAnimation.RepeatBehavior = RepeatBehavior.Forever;
-            matrixAnimation.DoesRotateWithTangent = true;
-
-            Storyboard.SetTargetName(matrixAnimation, "MatrixTransform_01");                        //动画的对象
-            Storyboard.SetTargetProperty(matrixAnimation, new PropertyPath(MatrixTransform.MatrixProperty));
-
-            Storyboard pathAnimationStoryboard = new Storyboard();
-            pathAnimationStoryboard.Children.Add(matrixAnimation);
-            pathAnimationStoryboard.Begin(this);
+            startPoint.X = Canvas.GetLeft(thumb1);
+            startPoint.Y = Canvas.GetTop(thumb1);
         }
         private Point startPoint;
         private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -664,5 +671,6 @@ namespace Maker.View
             startPoint.X = Canvas.GetLeft(thumb1);
             startPoint.Y = Canvas.GetTop(thumb1);
         }
+
     }
 }

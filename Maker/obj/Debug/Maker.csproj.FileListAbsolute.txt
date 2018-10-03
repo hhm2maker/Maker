@@ -458,7 +458,6 @@ E:\Maker\Maker\obj\Debug\StyleResources\Brushes.baml
 E:\Maker\Maker\obj\Debug\StyleResources\PulseButton.baml
 E:\Maker\Maker\obj\Debug\Resources\StringResource.baml
 E:\Maker\Maker\obj\Debug\Resources\StringResource_zh-CN.baml
-E:\Maker\Maker\obj\Debug\View\PlayerWindow.baml
 E:\Maker\Maker\obj\Debug\View\User\Login\LoginUserControl.baml
 E:\Maker\Maker\obj\Debug\View\User\Login\LoginWindow.baml
 E:\Maker\Maker\obj\Debug\View\User\Login\RegisterUserControl.baml
@@ -538,7 +537,6 @@ E:\Maker\Maker\obj\Debug\View\Setting\PlayerDefaultSetting.g.cs
 E:\Maker\Maker\obj\Debug\View\Test\BeautifulWindow.g.cs
 E:\Maker\Maker\obj\Debug\View\Help\HelpWindow.g.cs
 E:\Maker\Maker\obj\Debug\View\MainWindow.g.cs
-E:\Maker\Maker\obj\Debug\View\PlayerWindow.g.cs
 E:\Maker\Maker\obj\Debug\View\Online\Find\FindUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\Online\Find\ProjectMainUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\Online\Find\ProjectUserControl.g.cs
@@ -680,3 +678,5 @@ E:\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Maker\Maker\obj\Debug\Maker.exe
 E:\Maker\Maker\obj\Debug\Maker.pdb
 E:\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
+E:\Maker\Maker\obj\Debug\View\Tool\PlayerWindow.baml
+E:\Maker\Maker\obj\Debug\View\Tool\PlayerWindow.g.cs

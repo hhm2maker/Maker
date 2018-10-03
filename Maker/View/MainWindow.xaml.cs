@@ -1036,11 +1036,11 @@ namespace Maker.View.Control
                 if (!iuc.RefreshData())
                     return;
                 deviceDictionary[cbDevice.SelectedItem.ToString()].SetData(iuc.mLightList);
-                if (!deviceDictionary[cbDevice.SelectedItem.ToString()].IsActive)
-                {
-                    deviceDictionary[cbDevice.SelectedItem.ToString()].Show();
-                }
-                deviceDictionary[cbDevice.SelectedItem.ToString()].Topmost = true;
+                //if (!deviceDictionary[cbDevice.SelectedItem.ToString()].IsActive)
+                //{
+                //    deviceDictionary[cbDevice.SelectedItem.ToString()].Show();
+                //}
+                //deviceDictionary[cbDevice.SelectedItem.ToString()].Topmost = true;
             }
             else
             {

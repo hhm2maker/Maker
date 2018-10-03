@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Maker.Model;
+using Maker.View.Device;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,7 +109,18 @@ namespace Maker.ViewBusiness
             window.Width = rc.Width * percentage;
             window.Height = rc.Height * percentage;
         }
-        
-
+        /// <summary>
+        /// 设置Launchpad样式
+        /// </summary>
+        /// <param name="mLaunchpad"></param>
+        /// <param name="deviceModel"></param>
+        public static void SetLaunchpadStyle(LaunchpadPro mLaunchpad,DeviceModel deviceModel) {
+            mLaunchpad.SetLaunchpadBackground(deviceModel.DeviceBackGround);
+            mLaunchpad.SetSize(deviceModel.DeviceSize);
+            if (deviceModel.IsMembrane)
+            {
+                mLaunchpad.AddMembrane();
+            }
+        }
     }
 }

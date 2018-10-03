@@ -8,7 +8,6 @@
              xmlns:local="clr-namespace:Maker.View.Tool"
     xmlns:device="clr-namespace:Maker.View.Device"
     mc:Ignorable="d" 
-        Loaded="Window_Loaded"
         >
     <Grid Name="gMain">
     <Grid >
@@ -25,7 +24,6 @@
         <StackPanel Margin="20" Orientation="Vertical">
             <DockPanel >
                 <Button  Click="DeleteDevice" HorizontalAlignment="Left" Content="{DynamicResource Delete}" />
-                <Button  Click="RunDevice"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
             </DockPanel>
         </StackPanel>
                 <StackPanel>

@@ -1,15 +1,27 @@
 ﻿using Maker.Model;
 using Maker.Utils;
+using Maker.Business;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Maker.Business
 {
     public class FileBusiness
     {
+        private static FileBusiness _fileBusiness = null;
+        public static FileBusiness CreateInstance()
+        {
+            if (_fileBusiness == null)
+            {
+                _fileBusiness = new FileBusiness();
+            }
+            return _fileBusiness;
+        }
         /// <summary>
         /// 读取Midi文件内容
         /// </summary>
@@ -782,8 +794,41 @@ namespace Maker.Business
             byte[] bytedata = encode.GetBytes(str);
             return Convert.ToBase64String(bytedata, 0, bytedata.Length);
         }
+        /// <summary>
+        /// 加载虚拟设备文件
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public DeviceModel LoadDeviceModel(String filePath) {
+            DeviceModel deviceModel = new DeviceModel();
+            ConfigBusiness config = new ConfigBusiness(filePath);
+            deviceModel.DeviceType = config.Get("DeviceType").Trim();
+            String strBg = config.Get("DeviceBackGround").Trim();
+            deviceModel.DeviceBackGroundStr = strBg;
+            if (strBg[0] == '#' || strBg.Length == 7)
+            {
+                Color c = Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
+                deviceModel.DeviceBackGround = new SolidColorBrush(Color.FromArgb(255, c.R, c.G, c.B));
+            }
+            else {
+                deviceModel.DeviceBackGround = new ImageBrush(new BitmapImage(new Uri(strBg, UriKind.Absolute)));
+            }
+            if (Double.TryParse(config.Get("DeviceSize").Trim(), out Double dSize))
+            {
+                deviceModel.DeviceSize = dSize;
+            }
+            else {
+                deviceModel.DeviceSize = 600;
+            }
+            if (config.Get("IsMembrane").Trim().Equals("true"))
+            {
+                deviceModel.IsMembrane = true;
+            }
+            else {
+                deviceModel.IsMembrane = false;
+            }
+            return deviceModel;
+        }
 
-       
-      
     }
 }

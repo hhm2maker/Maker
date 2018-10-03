@@ -34,8 +34,8 @@
             <GradientStop Color="#13191E" Offset="0"/>
         </RadialGradientBrush>
     </UserControl.Background>
-    <Grid>
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid >
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <GroupBox  FontSize="16" Header="{DynamicResource Type}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
                     <StackPanel  Margin="20">
                     <RadioButton FontSize="18" GroupName="gnType"  Content="{DynamicResource ParagraphLightList}" Foreground="White" Checked="RadioButton_Checked" Name="rbParagraphLightList"/>

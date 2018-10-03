@@ -1,5 +1,5 @@
 ﻿using Maker.View.Control;
-using Maker_IDE.Business;
+using Maker.Business;
 using System;
 using System.IO;
 using System.Windows;
@@ -53,7 +53,7 @@ namespace Maker.View.Setting
                 if (mw.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
                 {
                     System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
-                    mw.deviceDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
+                    //mw.deviceDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
                     return;
                 }
                 else
@@ -129,7 +129,7 @@ namespace Maker.View.Setting
             {
                 try
                 {
-                    mw.deviceDictionary[lbMain.SelectedItem.ToString()].Close();
+                   // mw.deviceDictionary[lbMain.SelectedItem.ToString()].Close();
                 }
                 catch
                 {
