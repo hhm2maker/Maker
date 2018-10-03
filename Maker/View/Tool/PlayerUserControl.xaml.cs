@@ -158,7 +158,7 @@ namespace Maker.View
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-            mw.cuc.gMost.Children.RemoveAt(mw.cuc.gMost.Children.Count-1);
+            mw.cuc.RemoveSetting();
         }
 
         private String AudioResources = String.Empty;

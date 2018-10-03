@@ -152,7 +152,7 @@ namespace Maker.View.Device
                 }
                 if (NowTimePosition > 0)
                 {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / 96 * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
                 }
                 worker.ReportProgress(NowTimePosition);//返回进度
             }

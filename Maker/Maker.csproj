@@ -363,8 +363,8 @@
     <Compile Include="View\PageWindow\PageMainUserControl.xaml.cs">
       <DependentUpon>PageMainUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PavedLaunchpadWindow.xaml.cs">
-      <DependentUpon>PavedLaunchpadWindow.xaml</DependentUpon>
+    <Compile Include="View\Tool\PavedUserControl.xaml.cs">
+      <DependentUpon>PavedUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PianoRoll\PianoRollUserControl.xaml.cs">
       <DependentUpon>PianoRollUserControl.xaml</DependentUpon>
@@ -805,7 +805,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PavedLaunchpadWindow.xaml">
+    <Page Include="View\Tool\PavedUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

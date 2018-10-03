@@ -606,7 +606,7 @@ namespace Maker.View
             if (position == -1)
                 return;
             double left = Canvas.GetLeft(thumb);
-            if (left > gd.ActualWidth / 3 * 2)
+            if (left > gd.ActualWidth / 3 * 2 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty) )
             {
                 thumb.RenderTransformOrigin = new Point(0.5, 0.5);
                 if(position == 0) { 
@@ -658,16 +658,19 @@ namespace Maker.View
                 pathAnimationStoryboard.Begin(this);
             }
             else {
+                BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
                 UserControl userControl = null;
                 if (position == 0)
                 {
                     //加入播放器页面
-                    userControl = new PlayerUserControl(mw);
+                    PlayerUserControl playerUserControl = new PlayerUserControl(mw);
+                    playerUserControl.SetData(baseMakerLightUserControl.GetData());
+                    userControl = playerUserControl;
                 }
                 else if (position == 1)
                 {
                     //加入播放器页面
-                    userControl = new PavedLaunchpadWindow(this,new List<Light>());
+                    userControl = new PavedUserControl(this,new List<Light>());
               
     }
                 gMost.Children.Add(userControl);
@@ -727,9 +730,8 @@ namespace Maker.View
             }
             else if (targetName.Equals("MatrixTransform_02"))
             {
-                ToolBackToOld(thumb_player, 1);
+                ToolBackToOld(thumb_paved, 1);
             }
-           
         }
 
         MatrixTransform MatrixTransform_01;

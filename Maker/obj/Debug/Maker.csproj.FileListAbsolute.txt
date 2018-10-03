@@ -528,7 +528,6 @@ E:\Maker\Maker\obj\Debug\Discarded\LogoUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\LogoUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\PageUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\PageWindow\PageMainUserControl.g.cs
-E:\Maker\Maker\obj\Debug\View\PavedLaunchpadWindow.g.cs
 E:\Maker\Maker\obj\Debug\View\PianoRoll\PianoRollUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\PlayUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\Play\PlayExportUserControl.g.cs
@@ -638,7 +637,6 @@ E:\Maker\Maker\obj\Debug\Discarded\LogoUserControl.baml
 E:\Maker\Maker\obj\Debug\View\LogoUserControl.baml
 E:\Maker\Maker\obj\Debug\View\PageUserControl.baml
 E:\Maker\Maker\obj\Debug\View\PageWindow\PageMainUserControl.baml
-E:\Maker\Maker\obj\Debug\View\PavedLaunchpadWindow.baml
 E:\Maker\Maker\obj\Debug\View\PianoRoll\PianoRollUserControl.baml
 E:\Maker\Maker\obj\Debug\View\PlayUserControl.baml
 E:\Maker\Maker\obj\Debug\View\Play\PlayExportUserControl.baml
@@ -680,3 +678,5 @@ E:\Maker\Maker\obj\Debug\Maker.pdb
 E:\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
 E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.baml
 E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.g.cs
+E:\Maker\Maker\obj\Debug\View\Tool\PavedUserControl.g.cs
+E:\Maker\Maker\obj\Debug\View\Tool\PavedUserControl.baml

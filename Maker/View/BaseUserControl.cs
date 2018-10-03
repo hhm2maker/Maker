@@ -7,6 +7,7 @@ using Maker.Model;
 using System.Windows.Controls;
 using System.IO;
 using System.Xml.Linq;
+using System.Windows.Media;
 
 namespace Maker.View
 {
@@ -48,6 +49,7 @@ namespace Maker.View
             //提示
             TextBlock tbOr = new TextBlock
             {
+                Foreground = new SolidColorBrush(Colors.White),
                 FontSize = 20,
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(20)
@@ -108,8 +110,10 @@ namespace Maker.View
         {
             filePath = GetFileDirectory() + childFileName;
             LoadFileContent();
+            if(spHint != null) { 
             spHint.Visibility = Visibility.Collapsed;
             mainView.Children[0].Visibility = Visibility.Visible;
+            }
         }
         /// <summary>
         /// 加载文件具体操作

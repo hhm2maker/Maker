@@ -29,8 +29,8 @@ namespace Maker.View.LightUserControl
             InitializeComponent();
             this.mw = mw;
 
-            //mainView = gMain;
-            //HideControl();
+            mainView = gMain;
+            HideControl();
             selectView = bDraw;
 
             mLaunchpad.SetSize(600);
