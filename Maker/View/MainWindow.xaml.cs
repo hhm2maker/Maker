@@ -122,7 +122,7 @@ namespace Maker.View.Control
         /// <summary>
         /// 设备列表
         /// </summary>
-        public Dictionary<string, PlayerWindow> deviceDictionary = new Dictionary<string, PlayerWindow>();
+        public Dictionary<string, PlayerUserControl> deviceDictionary = new Dictionary<string, PlayerUserControl>();
        /// <summary>
        /// 窗体加载完成事件
        /// </summary>

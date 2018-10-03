@@ -678,5 +678,5 @@ E:\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Maker\Maker\obj\Debug\Maker.exe
 E:\Maker\Maker\obj\Debug\Maker.pdb
 E:\Maker\Maker\obj\Debug\Maker.csprojResolveAssemblyReference.cache
-E:\Maker\Maker\obj\Debug\View\Tool\PlayerWindow.baml
-E:\Maker\Maker\obj\Debug\View\Tool\PlayerWindow.g.cs
+E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.baml
+E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.g.cs

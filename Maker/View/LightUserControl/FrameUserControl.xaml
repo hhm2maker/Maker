@@ -8,8 +8,6 @@
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-                       Width="1920"
-                       Height="1080"
                      >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -312,7 +310,7 @@
     <UserControl.Background>
         <ImageBrush ImageSource="/Maker;component/Image/Galactic-Trilogy-Floral-UHD.png"/>
     </UserControl.Background>
-    <Grid Name="gMain">
+    <Grid Name="gMain" HorizontalAlignment="Center" VerticalAlignment="Center">
         <DockPanel >
             <DockPanel.ContextMenu>
                 <ContextMenu>

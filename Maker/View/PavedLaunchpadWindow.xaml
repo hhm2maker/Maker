@@ -1,28 +1,22 @@
-﻿<Window x:Class="Maker.View.PavedLaunchpadWindow"
+﻿<UserControl x:Class="Maker.View.PavedLaunchpadWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View"
         mc:Ignorable="d"
-        Title="PavedLaunchpadWindow" 
         Background="#282828"
-        ResizeMode="NoResize"
-        WindowStyle="None"
-        ShowInTaskbar="False"
         Name="wMain"
         Loaded="wMain_Loaded"
-        AllowsTransparency="True"
-        WindowStartupLocation="CenterOwner"
         >
-    <Window.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../StyleResources/AllDictionary.xaml" />
                 <ResourceDictionary Source="../StyleResources/InputDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -35,4 +29,4 @@
         <Image x:Name="btnPaved"  Margin="15,10,10,10" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" IsEnabled="False"/>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

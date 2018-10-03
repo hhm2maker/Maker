@@ -467,8 +467,8 @@
     </Compile>
     <Compile Include="Lock\EncryptionDecryption.cs" />
     <Compile Include="Lock\FingerPrint.cs" />
-    <Compile Include="View\Tool\PlayerWindow.xaml.cs">
-      <DependentUpon>PlayerWindow.xaml</DependentUpon>
+    <Compile Include="View\Tool\PlayerUserControl.xaml.cs">
+      <DependentUpon>PlayerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AVIWriter.cs" />
     <Compile Include="View\Utils\RoundedCornersPolygon.cs" />
@@ -855,7 +855,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\Tool\PlayerWindow.xaml">
+    <Page Include="View\Tool\PlayerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

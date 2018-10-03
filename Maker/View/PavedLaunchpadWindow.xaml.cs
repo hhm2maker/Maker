@@ -25,7 +25,7 @@ namespace Maker.View
     /// <summary>
     /// PavedLaunchpadWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class PavedLaunchpadWindow : Window
+    public partial class PavedLaunchpadWindow : UserControl
     {
         private CatalogUserControl cuc;
         private List<Light> mLightList;
@@ -33,7 +33,6 @@ namespace Maker.View
         {
             InitializeComponent();
             this.cuc = cuc;
-            Owner = cuc.mw;
             Width = cuc.mw.ActualWidth;
             Height = cuc.mw.ActualHeight;
             this.mLightList = mLightList;
@@ -52,7 +51,6 @@ namespace Maker.View
 
         private void Board_Completed(object sender, EventArgs e)
         {
-            DialogResult = true;
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)

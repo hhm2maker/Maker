@@ -253,10 +253,17 @@
                     <Grid  Grid.Column="1">
                         <Grid Name="gMain" />
                         <Canvas Name="gd" HorizontalAlignment="Stretch" SizeChanged="gd_SizeChanged"   >
-                            <Thumb Name="thumb1"  Canvas.Left="0" Canvas.Top="0" >
+                            <Thumb Name="thumb_player"  Canvas.Left="0" Canvas.Top="0" >
                                 <Thumb.Template>
                                     <ControlTemplate>
                                         <Image Source="../Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
+                                    </ControlTemplate>
+                                </Thumb.Template>
+                            </Thumb>
+                            <Thumb Name="thumb_paved"  Canvas.Left="0" Canvas.Top="0" >
+                                <Thumb.Template>
+                                    <ControlTemplate>
+                                        <Image Source="../Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
                                     </ControlTemplate>
                                 </Thumb.Template>
                             </Thumb>
@@ -295,7 +302,6 @@
                         <StackPanel Name="spTool" />
                     </Border>
                 </StackPanel>
-                <Image x:Name="btnPaved" Visibility="Collapsed" Margin="0,0,30,80" Width="30"  Source="../Image/paved.png" Height="30"   MouseLeftButtonDown="BtnPaved_MouseLeftButtonDown" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
             </Grid>
             <Border BorderThickness="1" BorderBrush="#646464" Grid.Column="1" Width="0" Name="bHelp">
                 <Grid>

@@ -41,7 +41,7 @@ namespace Maker
         /// <summary>
         /// 设备列表
         /// </summary>
-        public Dictionary<string, PlayerWindow> playerDictionary = new Dictionary<string, PlayerWindow>();
+        public Dictionary<string, PlayerUserControl> playerDictionary = new Dictionary<string, PlayerUserControl>();
 
         public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +@"Test\";
         public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Light\";
