@@ -111,30 +111,9 @@ namespace Maker.View
             //};
             //Background = b;
 
-            LoadConfig();
-
 
         }
-        /// <summary>
-        /// 平铺列数
-        /// </summary>
-        public int pavedColumns = 0;
-        /// <summary>
-        /// 平铺最大个数
-        /// </summary>
-        public int pavedMax = 0;
-        private void LoadConfig()
-        {
-            //灯光语句页面
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/lightscript.xml");
-            XmlNode lightScriptRoot = doc.DocumentElement;
-            XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
-            XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
-            pavedColumns = int.Parse(lightScriptPavedColumns.InnerText);
-            XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
-            pavedMax = int.Parse(lightScriptPavedMax.InnerText);
-        }
+      
 
         #region 获取windows桌面背景
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
@@ -669,9 +648,9 @@ namespace Maker.View
                 }
                 else if (position == 1)
                 {
-                    //加入播放器页面
-                    userControl = new PavedUserControl(this,new List<Light>());
-              
+                    //加入平铺页面
+                    PavedUserControl pavedUserControl = new PavedUserControl(this,baseMakerLightUserControl.GetData());
+                    userControl = pavedUserControl;
     }
                 gMost.Children.Add(userControl);
                 DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));

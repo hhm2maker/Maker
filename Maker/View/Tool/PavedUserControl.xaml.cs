@@ -33,8 +33,11 @@ namespace Maker.View.Tool
         {
             InitializeComponent();
             this.cuc = cuc;
+
             this.mLightList = mLightList;
         }
+
+
         private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             btnPaved.IsEnabled = false;
@@ -66,9 +69,9 @@ namespace Maker.View.Tool
         private void Animation_Completed(object sender, EventArgs e)
         {
             btnPaved.IsEnabled = true;
-            double d = wpMain.ActualWidth / cuc.pavedColumns;
+            double d = wpMain.ActualWidth / cuc.mw.pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
-            int max = cuc.pavedMax;
+            int max = cuc.mw.pavedMax;
             if (dil.Count > max) {
                 for (int i = dil.Count - 1; i >= max ; i--) {
                     dil.Remove(dil.Last().Key);

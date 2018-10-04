@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Maker.View.LightScriptUserControl
 {
-    public class BaseLightScriptUserControl : BaseUserControl
+    public class BaseLightScriptUserControl : BaseMakerLightUserControl
     {
         public BaseLightScriptUserControl()
         {

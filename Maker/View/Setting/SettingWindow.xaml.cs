@@ -599,45 +599,5 @@ namespace Maker.View.Setting
             tbColortabPath.Text = mw.strColortabPath;
         }
 
-       
-
-        private void tbPaved_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (sender == tbPavedColumns)
-            {
-                if (int.TryParse(tbPavedColumns.Text, out int columns))
-                {
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load("Config/lightscript.xml");
-                    XmlNode lightScriptRoot = doc.DocumentElement;
-                    XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
-                    XmlNode lightScriptPavedColumns = lightScriptPaved.SelectSingleNode("Columns");
-                    lightScriptPavedColumns.InnerText = columns.ToString();
-                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/lightscript.xml");
-                    //mw.pavedColumns = columns;
-                }
-            }
-            else {
-                tbPavedColumns.Select(0, tbPavedColumns.Text.Length);
-            }
-            if (sender == tbPavedMax)
-            {
-                if (int.TryParse(tbPavedMax.Text, out int max))
-                {
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load("Config/lightscript.xml");
-                    XmlNode lightScriptRoot = doc.DocumentElement;
-                    XmlNode lightScriptPaved = lightScriptRoot.SelectSingleNode("Paved");
-                    XmlNode lightScriptPavedMax = lightScriptPaved.SelectSingleNode("Max");
-                    lightScriptPavedMax.InnerText = max.ToString();
-                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/lightscript.xml");
-                    //mw.pavedMax = max;
-                }
-            }
-            else
-            {
-                tbPavedMax.Select(0, tbPavedMax.Text.Length);
-            }
-        }
     }
 }

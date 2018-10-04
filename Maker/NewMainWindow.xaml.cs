@@ -91,7 +91,7 @@ namespace Maker
             }
             cuc.tbProjectPath.Text = lastProjectPath;
 
-
+            LoadConfig();
         }
         /// <summary>
         /// 初始化设置
@@ -158,7 +158,23 @@ namespace Maker
         {
             auc.Visibility = Visibility.Collapsed;
         }
-     
+        /// <summary>
+        /// 平铺列数
+        /// </summary>
+        public int pavedColumns = 0;
+        /// <summary>
+        /// 平铺最大个数
+        /// </summary>
+        public int pavedMax = 0;
+        private void LoadConfig()
+        {
+            //灯光语句页面
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/paved.xml");
+            XmlNode paved = doc.DocumentElement;
+            pavedColumns = int.Parse(paved.SelectSingleNode("Columns").InnerText);
+            pavedMax = int.Parse(paved.SelectSingleNode("Max").InnerText);
+        }
 
     }
 }

@@ -131,6 +131,8 @@ namespace Maker.View
         }
 
         public void SetData(List<Light> mActionBeanList) {
+            for (int i = 0; i < mActionBeanList.Count; i++)
+                mActionBeanList[i].Position -= 28;
             playLpd.SetData(mActionBeanList);
         }
         public String DeviceName {
@@ -213,14 +215,19 @@ namespace Maker.View
                 mediaElement.Play();
             }
 
-            if (playLpd is ParagraphIntListPlayerLaunchpadPro)
+            if (playLpd is ParagraphIntListPlayerLaunchpadPro || playLpd is ParagraphLightListPlayerLaunchpadPro)
             {
-                playLpd.SetWait(Double.Parse(tbBPM.Text));
+                if (Double.TryParse(tbBPM.Text, out Double dBpm))
+                {
+                    playLpd.SetWait(dBpm);
+                }
             }
             else if (playLpd is AccuratePlayerLaunchpadPro)
-            {
+            {  
                 playLpd.SetWait(TimeSpan.FromMilliseconds(1000 / Double.Parse(tbBPM.Text)));
             }
+
+         
         }
 
         public void StopEvent()

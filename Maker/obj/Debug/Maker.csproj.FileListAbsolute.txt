@@ -680,3 +680,5 @@ E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.baml
 E:\Maker\Maker\obj\Debug\View\Tool\PlayerUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\Tool\PavedUserControl.g.cs
 E:\Maker\Maker\obj\Debug\View\Tool\PavedUserControl.baml
+E:\Maker\Maker\obj\Debug\View\Setting\PavedSetting.g.cs
+E:\Maker\Maker\obj\Debug\View\Setting\PavedSetting.baml

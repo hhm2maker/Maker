@@ -43,6 +43,10 @@ namespace Maker.View.Introduction
             {
                 cuc.AddSetting(new PlayerDefaultSetting(cuc.mw));
             }
+            else if (sender == tbPavedSetting)
+            {
+                cuc.AddSetting(new PavedSetting(cuc.mw));
+            }
         }
     }
 }

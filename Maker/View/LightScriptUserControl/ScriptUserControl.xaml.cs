@@ -185,6 +185,8 @@ namespace Maker.View.LightScriptUserControl
             bridge.LoadRangeFile();
         }
         public Dictionary<String, String> lightScriptDictionary = new Dictionary<string, string>();
+        public Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
+
         public Dictionary<String, bool> visibleDictionary = new Dictionary<String, bool>();
         public Dictionary<String, List<String>> containDictionary = new Dictionary<String, List<String>>();
         public Dictionary<String, List<String>> extendsDictionary = new Dictionary<string, List<String>>();
@@ -312,7 +314,7 @@ namespace Maker.View.LightScriptUserControl
 
                 StackPanel sp = (StackPanel)lbStep.Items[i];
                 TextBlock blockStepName = (TextBlock)sp.Children[1];
-                if (visibleDictionary[blockStepName.Text])
+                if (scriptModelDictionary[blockStepName.Text].Visible)
                 {
                     DockPanel panel = (DockPanel)sp.Children[0];
                     Image visibleImage = (Image)panel.Children[0];
@@ -335,7 +337,7 @@ namespace Maker.View.LightScriptUserControl
                 if (!blockParentName.Text.Equals(String.Empty))
                 {
                     //如果父类不可见
-                    if (!visibleDictionary[blockParentName.Text])
+                    if (!scriptModelDictionary[blockParentName.Text].Visible)
                     {
                         DockPanel panel = (DockPanel)sp.Children[0];
                         Image visibleImage = (Image)panel.Children[0];
@@ -484,13 +486,13 @@ namespace Maker.View.LightScriptUserControl
                     return;
                 }
                 commandLine =
-                    "\tRangeGroup " + stepName + "Range = new RangeGroup(\""
+                    "PositionGroup " + stepName + "Position = new PositionGroup(\""
                     + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
                     + "\tColorGroup " + stepName + "Color = new ColorGroup(\""
                     + fastGenerationrColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
                     + "\tLightGroup " + stepName + "LightGroup = Create.CreateLightGroup("
                     + result + ","
-                      + stepName + "Range,"
+                      + stepName + "Position,"
                         + tbFastGenerationrInterval.Text + ","
                           + tbFastGenerationrContinued.Text + ","
                                + stepName + "Color";
@@ -499,51 +501,59 @@ namespace Maker.View.LightScriptUserControl
                     return;
                 if (cbFastGenerationrType.SelectedIndex == 0)
                 {
-                    commandLine += ",Up";
+                    commandLine += ",Create.Up";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 1)
                 {
-                    commandLine += ",Down";
+                    commandLine += ",Create.Down";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 2)
                 {
-                    commandLine += ",UpDown";
+                    commandLine += ",Create.UpDown";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 3)
                 {
-                    commandLine += ",DownUp";
+                    commandLine += ",Create.DownUp";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 4)
                 {
-                    commandLine += ",UpAndDown";
+                    commandLine += ",Create.UpAndDown";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 5)
                 {
-                    commandLine += ",DownAndUp";
+                    commandLine += ",Create.DownAndUp";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 6)
                 {
-                    commandLine += ",FreezeFrame";
+                    commandLine += ",Create.FreezeFrame";
                 }
                 //Action
                 if (cbFastGenerationrAction.SelectedIndex == -1)
                     return;
                 if (cbFastGenerationrAction.SelectedIndex == 0)
                 {
-                    commandLine += ",All);";
+                    commandLine += ",Create.All);";
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 1)
                 {
-                    commandLine += ",Open);";
+                    commandLine += ",Create.Open);";
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 2)
                 {
-                    commandLine += ",Close);";
+                    commandLine += ",Create.Close);";
                 }
-                //有BUG，已添加了具有相同键的项。 错误处理有问题
-                lightScriptDictionary.Add(stepName, commandLine);
-                visibleDictionary.Add(stepName, true);
-                containDictionary.Add(stepName, new List<string>() { stepName });
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.Name = stepName;
+                scriptModel.Value = commandLine;
+                scriptModel.Visible = true;
+                scriptModel.Parent = "";
+                scriptModel.Contain = new List<string>() { stepName };
+                scriptModelDictionary.Add(stepName, scriptModel );
+                //visibleDictionary.Add(stepName, true);
+                //containDictionary.Add(stepName, new List<string>() { stepName });
+                UpdateStep();
+                Test();
+                return;
             }
             if (sender == btnSelectEditorReplace)
             {
@@ -1600,10 +1610,8 @@ namespace Maker.View.LightScriptUserControl
             //Console.WriteLine(Environment.NewLine +builder.ToString()+Environment.NewLine); 
         }
 
-        public void Test(String str) {
+        public void Test() {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
-            //ICodeCompiler objICodeCompiler = objCSharpCodePrivoder.CreateCompiler();
-
             CompilerParameters objCompilerParameters = new CompilerParameters();
 
             //添加需要引用的dll
@@ -1615,9 +1623,8 @@ namespace Maker.View.LightScriptUserControl
 
             //是否生成在内存中
             objCompilerParameters.GenerateInMemory = true;
-
             //编译代码
-            CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode(str));
+            CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode());
 
             if (cr.Errors.HasErrors)
             {
@@ -1630,23 +1637,48 @@ namespace Maker.View.LightScriptUserControl
                 object objHelloWorld = objAssembly.CreateInstance("Test");
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
                 List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
-                Console.WriteLine(lights.Count);
-
+                List<Light> mLights = new List<Light>();
+                for (int i = 0; i < lights.Count; i++) {
+                    mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));
+                }
+                mLightList = mLights;
+                UpdateData(mLights);
             }
         }
-        public String GetCode(String str)
+        public override List<Light> GetData() {
+            return mLightList;
+        }
+        public String GetCode()
         {
             StringBuilder sb = new StringBuilder();
+            //头
             sb.Append("using System;");
-            sb.Append("using System.Windows.Forms;");
             sb.Append("using System.Collections.Generic;");
             sb.Append("using Operation;");
             sb.Append("public class Test{");
             sb.Append("public List<Light> Hello(){");
-            sb.Append(str);
-            sb.Append("return Step1LightGroup;}}");
+            sb.Append("List<Light> mainLightGroup = new List<Light>();");
+            //添加内容名称
+            foreach (var scriptModel in scriptModelDictionary) {
+                if (scriptModel.Value.Visible)
+                {
+                    sb.Append("mainLightGroup.AddRange("+ scriptModel.Key + "());");
+                }
+            }
+            //尾
+            sb.Append("return mainLightGroup;}");
+            //添加具体内容
+            foreach (var scriptModel in scriptModelDictionary)
+            {
+                if (scriptModel.Value.Visible)
+                {
+                    sb.Append("public List<Light>" + scriptModel.Key +"(){");
+                    sb.Append(scriptModel.Value.Value);
+                    sb.Append("return "+scriptModel.Key+"LightGroup;}");
+                }
+            }
+            sb.Append("}");
             Console.WriteLine(sb.ToString());
-
             return sb.ToString();
         }
 
@@ -4741,30 +4773,72 @@ namespace Maker.View.LightScriptUserControl
             //    //{
             //    //    UpdateData(new List<Light>());
             //    //}}
+
             XDocument xDoc = XDocument.Load(filePath);
-            XElement xRoot = xDoc.Element("Scripts");
+            XElement xRoot = xDoc.Element("Root");
+            XElement xScripts = xRoot.Element("Scripts");
 
-            XElement xScript = xRoot.Element("Script");
-            String name = xScript.Attribute("name").Value;
-            String value = xScript.Attribute("value").Value;
-            command = fileBusiness.Base2String(value);
+            foreach (var xScript in xScripts.Elements("Script")) {
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.Name = xScript.Attribute("name").Value;
+                scriptModel.Value = fileBusiness.Base2String(xScript.Attribute("value").Value);
+                if (xScript.Attribute("parent") == null)
+                {
+                    scriptModel.Parent = "";
+                }
+                else
+                {
+                    scriptModel.Parent = xScript.Attribute("parent").Value;
+                }
+                String visible = xScript.Attribute("visible").Value;
+                if (visible.Equals("true")) {
+                    scriptModel.Visible = true;
+                }
+                else
+                {
+                    scriptModel.Visible = false;
+                }
+                scriptModel.Contain = xScript.Attribute("contain").Value.Split('-').ToList();
+                scriptModelDictionary.Add(scriptModel.Name, scriptModel);
+              
+                command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
-            Test(command);
+            }
+            UpdateStep();
+
+            //command =
+            //    "PositionGroup  Step1Position = new PositionGroup(\"36-39\",' ','-');" +
+            //    "ColorGroup Step1Color = new ColorGroup(\"36-39\", ' ', '-');" +
+            //    "List<Light> Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
-
-        
+            Test();
         }
+       
+        private void UpdateStep()
+        {
+            lbStep.Items.Clear();
+            foreach (var model in scriptModelDictionary) {
+                AddStep(model.Value.Name, model.Value.Parent);
+            }
+            UpdateVisible();
+        }
+
         private String command;
         protected override void SaveFile() {
             //获取对象
             XDocument xDoc = new XDocument();
-            XElement xRoot = new XElement("Scripts");
+            XElement xRoot = new XElement("Root");
+            XElement xScripts = new XElement("Scripts");
             xDoc.Add(xRoot);
+            xRoot.Add(xScripts);
 
             XElement xScript = new XElement("Script");
             xScript.SetAttributeValue("name", "Step1");
-            xScript.SetAttributeValue("value",fileBusiness.String2Base(command) );
-            xRoot.Add(xScript);
+            xScript.SetAttributeValue("value",fileBusiness.String2Base(command));
+            xScript.SetAttributeValue("visible", "false");
+            xScript.SetAttributeValue("contain", "Step1");
+
+            xScripts.Add(xScript);
             xDoc.Save(filePath);
         }
 
@@ -4787,4 +4861,6 @@ namespace Maker.View.LightScriptUserControl
             lockedDictionary.Clear();
         }
     }
+
+  
 }

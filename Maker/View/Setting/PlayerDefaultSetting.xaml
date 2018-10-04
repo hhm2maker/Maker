@@ -38,8 +38,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <GroupBox  FontSize="16" Header="默认播放器" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
-                <ListBox  Margin="20" Background="Transparent"  FontSize="18" Foreground="White" Name="lbMain" Height="250" Width="350">
-                </ListBox>
+                <ListBox  Margin="20" Background="Transparent"  FontSize="18" Foreground="White" Name="lbMain" Height="250" Width="350" />
             </GroupBox>
             <Button Click="Button_Click" Content="{DynamicResource Ok}" Margin="0,20,0,0"/>
         </StackPanel>

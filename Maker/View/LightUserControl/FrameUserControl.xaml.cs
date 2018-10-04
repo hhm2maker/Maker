@@ -177,7 +177,7 @@ namespace Maker.View.LightUserControl
             {
                 for (int j = 0; j < 96; j++)
                 {
-                    if (dic[liTime[i]][j] == 0)
+                    if (dic[liTime[i]][j] == 0 || dic[liTime[i]][j] == -1)
                     {
                         if (b[j])
                         {
@@ -185,7 +185,7 @@ namespace Maker.View.LightUserControl
                             b[j] = false;
                         }
                     }
-                    if (dic[liTime[i]][j] != 0)
+                    if (dic[liTime[i]][j] != 0 && dic[liTime[i]][j] != -1)
                     {
                         if (b[j])
                         {

@@ -247,34 +247,6 @@ namespace Maker.Bridge
             }
         }
        
-        ///// <summary>
-        ///// 添加指定文件的打开模式 移至Tool项目
-        ///// </summary>
-        ///// <param name="fileFormat">文件格式(".mid")</param>
-        //public void AddTheOpenModeOfTheSpecifiedFile(String fileFormat)
-        //{
-        //    try
-        //    {
-        //        string strExtension = fileFormat;
-        //        string strProject = "Maker";
-        //        //删除
-        //        Microsoft.Win32.Registry.ClassesRoot.DeleteSubKeyTree(strExtension, false);
-        //        Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(strExtension).SetValue("", strProject, Microsoft.Win32.RegistryValueKind.String);
-        //        using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.ClassesRoot.CreateSubKey(strProject))
-        //        {
-        //            //设置默认图标
-        //            //Microsoft.Win32.RegistryKey iconKey = key.CreateSubKey("DefaultIcon");
-        //            //iconKey.SetValue("", System.Windows.Forms.Application.StartupPath + @"\Images\midifile.ico");
-        //            string strExePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-        //            strExePath = Path.GetDirectoryName(strExePath);
-        //            strExePath += @"\Maker.exe";
-        //            key.CreateSubKey(@"Shell\Open\Command").SetValue("", strExePath + " \"%1\"", Microsoft.Win32.RegistryValueKind.ExpandString);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        new MessageDialog(window, "NeedAdministrator").ShowDialog();
-        //    }
-        //}
+       
     }
 }

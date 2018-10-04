@@ -116,6 +116,7 @@
     <Compile Include="Business\FilesNameComparerClass.cs" />
     <Compile Include="Commands\DataCommands.cs" />
     <Compile Include="Model\DeviceModel.cs" />
+    <Compile Include="Model\ScriptModel.cs" />
     <Compile Include="Model\StaticConstant.cs" />
     <Compile Include="Model\StaticObject.cs" />
     <Compile Include="MyApp\SingleInstanceApplicationWrapper.cs" />
@@ -362,6 +363,9 @@
     <Compile Include="View\PageWindow\BasePageUserControl.cs" />
     <Compile Include="View\PageWindow\PageMainUserControl.xaml.cs">
       <DependentUpon>PageMainUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Setting\PavedSetting.xaml.cs">
+      <DependentUpon>PavedSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Tool\PavedUserControl.xaml.cs">
       <DependentUpon>PavedUserControl.xaml</DependentUpon>
@@ -804,6 +808,10 @@
     <Page Include="View\PageWindow\PageMainUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Setting\PavedSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Tool\PavedUserControl.xaml">
       <SubType>Designer</SubType>

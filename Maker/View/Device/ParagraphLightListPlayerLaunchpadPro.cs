@@ -94,11 +94,9 @@ namespace Maker.View.Device
             }
 
             List<Light> x = timeDictionary[timeList[number]];
-
             for (int i = 0; i < x.Count(); i++)
             {
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
-                
                 if (x[i].Action == 128)
                 {
                     if (GetButton(x[i].Position) is RoundedCornersPolygon rcp)
@@ -152,7 +150,7 @@ namespace Maker.View.Device
                 }
                 if (NowTimePosition > 0)
                 {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / 96 * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
                 }
                 worker.ReportProgress(NowTimePosition);//返回进度
             }
