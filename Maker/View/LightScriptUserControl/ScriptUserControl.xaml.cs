@@ -490,7 +490,7 @@ namespace Maker.View.LightScriptUserControl
                     + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
                     + "\tColorGroup " + stepName + "Color = new ColorGroup(\""
                     + fastGenerationrColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
-                    + "\tLightGroup " + stepName + "LightGroup = Create.CreateLightGroup("
+                    + "\tList<Light> " + stepName + "LightGroup = Create.CreateLightGroup("
                     + result + ","
                       + stepName + "Position,"
                         + tbFastGenerationrInterval.Text + ","
@@ -501,46 +501,46 @@ namespace Maker.View.LightScriptUserControl
                     return;
                 if (cbFastGenerationrType.SelectedIndex == 0)
                 {
-                    commandLine += ",Create.Up";
+                    commandLine += ",Create.UP";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 1)
                 {
-                    commandLine += ",Create.Down";
+                    commandLine += ",Create.DOWN";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 2)
                 {
-                    commandLine += ",Create.UpDown";
+                    commandLine += ",Create.UPDOWN";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 3)
                 {
-                    commandLine += ",Create.DownUp";
+                    commandLine += ",Create.DOWNUP";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 4)
                 {
-                    commandLine += ",Create.UpAndDown";
+                    commandLine += ",Create.UPANDDOWN";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 5)
                 {
-                    commandLine += ",Create.DownAndUp";
+                    commandLine += ",Create.DOWNANDUP";
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 6)
                 {
-                    commandLine += ",Create.FreezeFrame";
+                    commandLine += ",Create.FREEZEFRAME";
                 }
                 //Action
                 if (cbFastGenerationrAction.SelectedIndex == -1)
                     return;
                 if (cbFastGenerationrAction.SelectedIndex == 0)
                 {
-                    commandLine += ",Create.All);";
+                    commandLine += ",Create.ALL);";
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 1)
                 {
-                    commandLine += ",Create.Open);";
+                    commandLine += ",Create.OPEN);";
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 2)
                 {
-                    commandLine += ",Create.Close);";
+                    commandLine += ",Create.CLOSE);";
                 }
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = stepName;
