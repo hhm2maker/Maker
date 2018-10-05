@@ -19,9 +19,9 @@ namespace Operation
         public static int ALL = 10;
         public static int OPEN = 11;
         public static int CLOSE = 12;
-        public static List<Light> CreateLightGroup( int _time , List<int> rangeList, int _interval, int _continued,  List<int> colorList, int _type, int _action)
+        public static LightGroup CreateLightGroup( int _time , List<int> rangeList, int _interval, int _continued,  List<int> colorList, int _type, int _action)
         {
-                List<Light> _lightGroup = new List<Light>();
+            LightGroup _lightGroup = new LightGroup();
                 //时间
                 List<int> _position = new List<int>();
                 _position.AddRange(rangeList.ToArray());
@@ -34,11 +34,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -47,11 +49,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -63,11 +67,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -79,16 +85,17 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-
             }
             else if (_type == DOWN)
             {
@@ -100,11 +107,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -113,11 +122,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -129,11 +140,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -145,11 +158,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -167,11 +182,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -180,11 +197,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -196,11 +215,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -212,11 +233,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -235,11 +258,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -248,11 +273,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -264,11 +291,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 144;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 144,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -280,11 +309,13 @@ namespace Operation
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
-                            Light light = new Light();
-                            light.Time = _time + i * _interval + j * _continued;//时间
-                            light.Action = 128;//动作
-                            light.Position = _position[i];//位置
-                            light.Color = colorList[j];//位置
+                            Light light = new Light
+                            {
+                                Time = _time + i * _interval + j * _continued,//时间
+                                Action = 128,//动作
+                                Position = _position[i],//位置
+                                Color = colorList[j]//位置
+                            };
                             _lightGroup.Add(light);
                         }
                     }
@@ -298,11 +329,13 @@ namespace Operation
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
-                        Light light = new Light();
-                        light.Time = _time + i * _interval + j * _continued;//时间
-                        light.Action = 144;//动作
-                        light.Position = _position[i];//位置
-                        light.Color = colorList[j];//位置
+                        Light light = new Light
+                        {
+                            Time = _time + i * _interval + j * _continued,//时间
+                            Action = 144,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light);
                     }
                 }
@@ -311,11 +344,13 @@ namespace Operation
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
-                        Light light = new Light();
-                        light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                        light.Action = 128;//动作
-                        light.Position = _position[i];//位置
-                        light.Color = colorList[j];//位置
+                        Light light = new Light
+                        {
+                            Time = _continued + _time + i * _interval + j * _continued,//时间
+                            Action = 128,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light);
                     }
                 }
@@ -327,11 +362,13 @@ namespace Operation
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
-                        Light light = new Light();
-                        light.Time = _time + i * _interval + j * _continued;//时间
-                        light.Action = 144;//动作
-                        light.Position = _position[i];//位置
-                        light.Color = colorList[j];//位置
+                        Light light = new Light
+                        {
+                            Time = _time + i * _interval + j * _continued,//时间
+                            Action = 144,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light);
                     }
                 }
@@ -340,11 +377,13 @@ namespace Operation
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
-                        Light light = new Light();
-                        light.Time = _continued + _time + i * _interval + j * _continued;//时间
-                        light.Action = 128;//动作
-                        light.Position = _position[i];//位置
-                        light.Color = colorList[j];//位置
+                        Light light = new Light
+                        {
+                            Time = _continued + _time + i * _interval + j * _continued,//时间
+                            Action = 128,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light);
                     }
                 }
@@ -357,18 +396,22 @@ namespace Operation
                     for (int i = 0; i < _position.Count; i++)
                     {
                         //开始
-                        Light light = new Light();
-                        light.Time = mTime + i * _interval;//时间
-                        light.Action = 144;//动作
-                        light.Position = _position[i];//位置
-                        light.Color = colorList[j];//位置
+                        Light light = new Light
+                        {
+                            Time = mTime + i * _interval,//时间
+                            Action = 144,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light);
                         //结束
-                        Light light2 = new Light();
-                        light2.Time = mTime + _position.Count * _interval;//时间
-                        light2.Action = 128;//动作
-                        light2.Position = _position[i];//位置
-                        light2.Color = colorList[j];//位置
+                        Light light2 = new Light
+                        {
+                            Time = mTime + _position.Count * _interval,//时间
+                            Action = 128,//动作
+                            Position = _position[i],//位置
+                            Color = colorList[j]//位置
+                        };
                         _lightGroup.Add(light2);
                     }
                     if (_lightGroup.Count != 0)

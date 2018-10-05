@@ -490,7 +490,7 @@ namespace Maker.View.LightScriptUserControl
                     + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
                     + "\tColorGroup " + stepName + "Color = new ColorGroup(\""
                     + fastGenerationrColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
-                    + "\tList<Light> " + stepName + "LightGroup = Create.CreateLightGroup("
+                    + "\tLightGroup " + stepName + "LightGroup = Create.CreateLightGroup("
                     + result + ","
                       + stepName + "Position,"
                         + tbFastGenerationrInterval.Text + ","
@@ -549,8 +549,6 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel );
-                //visibleDictionary.Add(stepName, true);
-                //containDictionary.Add(stepName, new List<string>() { stepName });
                 UpdateStep();
                 Test();
                 return;
@@ -588,6 +586,9 @@ namespace Maker.View.LightScriptUserControl
                             result = eval.Compute(expression, "").ToString();
                         }
                         lightScriptDictionary[GetStepName()] += Environment.NewLine + "\t" + GetStepName() + "LightGroup.SetAttribute(Time," + result + ");";
+
+                        
+                        return;
                     }
                     catch
                     {
@@ -650,7 +651,6 @@ namespace Maker.View.LightScriptUserControl
                 {
                     return;
                 }
-                commandLine = "\tLightGroup " + stepName + "LightGroup = Parent;" + Environment.NewLine;
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
                 {
                     try
@@ -671,7 +671,18 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             result = eval.Compute(expression, "").ToString();
                         }
-                        commandLine += "\t" + stepName + "LightGroup.SetAttribute(Time," + result + ");";
+
+                        ScriptModel scriptModel = new ScriptModel();
+                        scriptModel.Name = stepName;
+                        scriptModel.Value = "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        scriptModel.Visible = true;
+                        scriptModel.Parent = GetStepName();
+                        scriptModel.Contain = new List<string>() { stepName };
+                        scriptModelDictionary.Add(stepName, scriptModel);
+
+                        UpdateStep();
+                        Test();
+                        return;
                     }
                     catch
                     {
@@ -737,6 +748,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     extendsDictionary.Add(GetStepName(), new List<string>() { stepName });
                 }
+                return;
             }
             if (sender == tbIfThenReplace || sender == tbIfThenRemove)
             {
@@ -1623,9 +1635,8 @@ namespace Maker.View.LightScriptUserControl
 
             //是否生成在内存中
             objCompilerParameters.GenerateInMemory = true;
-            //编译代码
+          //编译代码
             CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode());
-
             if (cr.Errors.HasErrors)
             {
                 var msg = string.Join(Environment.NewLine, cr.Errors.Cast<CompilerError>().Select(err => err.ErrorText));
@@ -1672,7 +1683,10 @@ namespace Maker.View.LightScriptUserControl
             {
                 if (scriptModel.Value.Visible)
                 {
-                    sb.Append("public List<Light>" + scriptModel.Key +"(){");
+                    sb.Append("public LightGroup " + scriptModel.Key +"(){");
+                    if (!scriptModel.Value.Parent.Equals(String.Empty)) {
+                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = "+ scriptModel.Value.Parent + "();" + Environment.NewLine);
+                    }
                     sb.Append(scriptModel.Value.Value);
                     sb.Append("return "+scriptModel.Key+"LightGroup;}");
                 }
@@ -3077,6 +3091,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void LbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            return;
             if (lbStep.SelectedIndex == -1)
             {
                 bridge.UpdateForColor(mLightList, false);
@@ -4809,7 +4824,7 @@ namespace Maker.View.LightScriptUserControl
             //command =
             //    "PositionGroup  Step1Position = new PositionGroup(\"36-39\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"36-39\", ' ', '-');" +
-            //    "List<Light> Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
+            //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
             Test();
         }
