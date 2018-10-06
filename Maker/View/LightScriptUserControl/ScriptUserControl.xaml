@@ -10,7 +10,6 @@
     xmlns:launchpad="clr-namespace:Maker.View.Device"
     xmlns:control="clr-namespace:Maker.View.Control"
     xmlns:pianoroll="clr-namespace:Maker.View.PianoRoll" 
-             Width="1490"
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
