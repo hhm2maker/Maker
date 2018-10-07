@@ -565,8 +565,12 @@ namespace Maker.View.LightScriptUserControl
                     new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     return;
                 }
+
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
+               
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
                 {
+
                     try
                     {
                         String result;
@@ -585,9 +589,15 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             result = eval.Compute(expression, "").ToString();
                         }
-                        lightScriptDictionary[GetStepName()] += Environment.NewLine + "\t" + GetStepName() + "LightGroup.SetAttribute(Time," + result + ");";
-
-                        
+                       
+                        if (scriptModel.Value.Equals(String.Empty))
+                        {
+                            scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
+                        else
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
                         return;
                     }
                     catch
@@ -618,6 +628,7 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
+                  //从这里开始
                     lightScriptDictionary[GetStepName()] += Environment.NewLine + "\t" + GetStepName() + "LightGroup.SetAttribute(Position," + tbSelectEditorPosition.Text.Trim() + ");";
                 }
                 if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
@@ -653,7 +664,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = stepName;
-             
+                scriptModel.Value = "";
                 scriptModel.Visible = true;
                 scriptModel.Parent = GetStepName();
                 scriptModel.Contain = new List<string>() { stepName };
@@ -678,7 +689,14 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             result = eval.Compute(expression, "").ToString();
                         }
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        if (scriptModel.Value.Equals(String.Empty))
+                        {
+                            scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
+                        else
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
                     }
                     catch
                     {
@@ -708,7 +726,14 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
-                    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    if (scriptModel.Value.Equals(String.Empty))
+                    {
+                          scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    }
+                    else {
+                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                        
+                    }
                 }
                 if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
                 {
@@ -731,9 +756,15 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
-                    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    if (scriptModel.Value.Equals(String.Empty))
+                    {
+                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    }
+                    else
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    }
                 }
-
 
                 UpdateStep();
                 Test();
