@@ -377,13 +377,6 @@ namespace Maker.View.LightScriptUserControl
 
         private void ToLightScript(object sender)
         {
-
-            StackTrace st = new StackTrace();
-            StackFrame sf = st.GetFrame(0);
-
-            Console.WriteLine(sf.GetMethod().Name);
-            return;
-
             String stepName = GetUsableStepName();
             if (stepName == null)
             {
@@ -751,7 +744,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (scriptModel.Value.Equals(String.Empty))
                     {
-                          scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
                     }
                     else {
                         scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
@@ -799,6 +792,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     return;
                 }
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
                 if (lockedDictionary.ContainsKey(GetStepName()))
                 {
                     new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
@@ -823,7 +817,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     rangeNotation = 'r';
                 }
-                if (!lightScriptDictionary[GetStepName()].Contains(GetStepName() + "LightGroup"))
+                if (!scriptModel.Value.Contains(GetStepName() + "LightGroup"))
                 {
                     return;
                 }
@@ -837,21 +831,21 @@ namespace Maker.View.LightScriptUserControl
 
                 for (int j = 0; j < 4; j++)
                 {
-                    int x = 1;
-                    while (x <= 100000)
-                    {
-                        if (!containDictionary[GetStepName()].Contains("Step" + x))
-                        {
-                            //不存在重复
-                            break;
-                        }
-                        x++;
-                    }
-                    if (x > 100000)
-                    {
-                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                        return;
-                    }
+                    //int x = 1;
+                    //while (x <= 100000)
+                    //{
+                    //    if (!containDictionary[GetStepName()].Contains("Step" + x))
+                    //    {
+                    //        //不存在重复
+                    //        break;
+                    //    }
+                    //    x++;
+                    //}
+                    //if (x > 100000)
+                    //{
+                    //    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+                    //    return;
+                    //}
                     if (j == 0 && !tbIfTime.Text.Equals(String.Empty))
                     {
                         try
@@ -860,13 +854,13 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             object result = eval.Compute(expression, "");
 
-                            ifPrerequisite = Environment.NewLine + "";
-                            
-                            for (int i = 0; i < 100; i++)
-                            {
-                                
+                            //StackTrace st = new StackTrace();
+                            //StackFrame sf = st.GetFrame(0);
+                            //Console.WriteLine(sf.GetMethod().Name);
 
-                            }
+                            scriptModel.Value += Environment.NewLine + "for (int i = 0; i < " +GetStepName() + "LightGroup.Count; i++){if("+ GetStepName() + "LightGroup[i].Time == "+result+") {Console.WriteLine(\"AAAAAAAAAAAAAAA\"); }}";
+                            Test();
+                            return;
                             //ifPrerequisite = Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
                             // + result + "\",'" + splitNotation + "','" + rangeNotation + "');";
                             //containDictionary[GetStepName()].Add("Step" + x);
@@ -935,17 +929,17 @@ namespace Maker.View.LightScriptUserControl
                                 return;
                             }
                         }
-                        ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
-                         + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                        containDictionary[GetStepName()].Add("Step" + x);
-                        if (ifPrerequisiteBottom.Equals(String.Empty))
-                        {
-                            ifPrerequisiteBottom = "Position:step" + x.ToString() + "Range";
-                        }
-                        else
-                        {
-                            ifPrerequisiteBottom += "&&Position:step" + x.ToString() + "Range";
-                        }
+                        //ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
+                        // + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+                        //containDictionary[GetStepName()].Add("Step" + x);
+                        //if (ifPrerequisiteBottom.Equals(String.Empty))
+                        //{
+                        //    ifPrerequisiteBottom = "Position:step" + x.ToString() + "Range";
+                        //}
+                        //else
+                        //{
+                        //    ifPrerequisiteBottom += "&&Position:step" + x.ToString() + "Range";
+                        //}
                     }
                     if (j == 3 && !tbIfColor.Text.Equals(String.Empty))
                     {
@@ -977,17 +971,17 @@ namespace Maker.View.LightScriptUserControl
                                 return;
                             }
                         }
-                        ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
-                         + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                        containDictionary[GetStepName()].Add("Step" + x);
-                        if (ifPrerequisiteBottom.Equals(String.Empty))
-                        {
-                            ifPrerequisiteBottom = "Color:step" + x.ToString() + "Range";
-                        }
-                        else
-                        {
-                            ifPrerequisiteBottom += "&&Color:step" + x.ToString() + "Range";
-                        }
+                        //ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
+                        // + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+                        //containDictionary[GetStepName()].Add("Step" + x);
+                        //if (ifPrerequisiteBottom.Equals(String.Empty))
+                        //{
+                        //    ifPrerequisiteBottom = "Color:step" + x.ToString() + "Range";
+                        //}
+                        //else
+                        //{
+                        //    ifPrerequisiteBottom += "&&Color:step" + x.ToString() + "Range";
+                        //}
                     }
                 }
                 String thenPrerequisite = String.Empty;

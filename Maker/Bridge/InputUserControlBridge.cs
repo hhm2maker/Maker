@@ -280,15 +280,17 @@ namespace Maker.Bridge
         public void UpdateData(List<Light> mLightList)
         {
             List<Light> colorLightList = new List<Light>();
+
             //颜色面板
-            if (iuc.lbStep.SelectedIndex == -1)
-            {
-                colorLightList = mLightList;
-            }
-            else {
-                colorLightList = iuc.RefreshData(iuc.GetStepName());
-                colorLightList = GetRealData(colorLightList);
-            }
+            colorLightList = mLightList;
+            //if (iuc.lbStep.SelectedIndex == -1)
+            //{
+            //    colorLightList = mLightList;
+            //}
+            //else {
+            //    colorLightList = iuc.RefreshData(iuc.GetStepName());
+            //    colorLightList = GetRealData(colorLightList);
+            //}
             iuc.cColor.Children.RemoveRange(1, iuc.cColor.Children.Count - 1);
             Dictionary<int,int> _color = new Dictionary<int, int>();
             int count = colorLightList.Count;
