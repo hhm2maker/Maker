@@ -549,7 +549,7 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Visible = true;
                 scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
-                scriptModelDictionary.Add(stepName, scriptModel );
+                scriptModelDictionary.Add(stepName, scriptModel);
                 UpdateStep();
                 Test();
                 return;
@@ -568,7 +568,7 @@ namespace Maker.View.LightScriptUserControl
                 }
 
                 ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
-               
+
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
                 {
 
@@ -590,7 +590,7 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             result = eval.Compute(expression, "").ToString();
                         }
-                       
+
                         if (scriptModel.Value.Equals(String.Empty))
                         {
                             scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
@@ -746,9 +746,10 @@ namespace Maker.View.LightScriptUserControl
                     {
                         scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
                     }
-                    else {
+                    else
+                    {
                         scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                        
+
                     }
                 }
                 if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
@@ -829,23 +830,60 @@ namespace Maker.View.LightScriptUserControl
                 else
                     control = "Remove";
 
+                int x = 1;
+                while (x <= 100000)
+                {
+                    if (!scriptModel.Contain.Contains("Step" + x))
+                    {
+                        //不存在重复
+                        break;
+                    }
+                    x++;
+                }
+                if (x > 100000)
+                {
+                    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+                    return;
+                }
+                if (!tbIfPosition.Text.Equals(String.Empty)) {
+                    StringBuilder ifPositionBuilder = new StringBuilder();
+                    if (rangeDictionary.ContainsKey(tbIfPosition.Text))
+                    {
+                        for (int i = 0; i < rangeDictionary[tbIfPosition.Text].Count; i++)
+                        {
+                            if (i != rangeDictionary[tbIfPosition.Text].Count - 1)
+                            {
+                                ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i] + splitNotation.ToString());
+                            }
+                            else
+                            {
+                                ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (IsTrueContent(tbIfPosition.Text, splitNotation, rangeNotation))
+                        {
+                            ifPositionBuilder.Append(tbIfPosition.Text);
+                        }
+                        else
+                        {
+                            tbIfPosition.Select(0, tbIfPosition.Text.Length);
+                            tbIfPosition.Focus();
+                            return;
+                        }
+                    }
+                    ifPrerequisite += Environment.NewLine + "\tBaseRangeGroup " + "step" + x.ToString() + "RangeGroup = new BaseRangeGroup(\""
+                        + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+                    scriptModel.Contain.Add("Step" + x);
+                }
+
                 for (int j = 0; j < 4; j++)
                 {
-                    //int x = 1;
-                    //while (x <= 100000)
-                    //{
-                    //    if (!containDictionary[GetStepName()].Contains("Step" + x))
-                    //    {
-                    //        //不存在重复
-                    //        break;
-                    //    }
-                    //    x++;
-                    //}
-                    //if (x > 100000)
-                    //{
-                    //    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                    //    return;
-                    //}
+                  
+
+
                     if (j == 0 && !tbIfTime.Text.Equals(String.Empty))
                     {
                         try
@@ -858,9 +896,8 @@ namespace Maker.View.LightScriptUserControl
                             //StackFrame sf = st.GetFrame(0);
                             //Console.WriteLine(sf.GetMethod().Name);
 
-                            scriptModel.Value += Environment.NewLine + "for (int i = 0; i < " +GetStepName() + "LightGroup.Count; i++){if("+ GetStepName() + "LightGroup[i].Time == "+result+") {Console.WriteLine(\"AAAAAAAAAAAAAAA\"); }}";
-                            Test();
-                            return;
+                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(" + GetStepName() + "LightGroup[i].Time == " + result;
+
                             //ifPrerequisite = Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
                             // + result + "\",'" + splitNotation + "','" + rangeNotation + "');";
                             //containDictionary[GetStepName()].Add("Step" + x);
@@ -876,61 +913,44 @@ namespace Maker.View.LightScriptUserControl
                     if (j == 1 && cbIfAction.SelectedIndex != 0)
                     {
                         StringBuilder ifActionBuilder = new StringBuilder();
-                        if (ifPrerequisiteBottom.Equals(String.Empty))
+                        if (ifPrerequisite.Equals(String.Empty))
                         {
                             if (cbIfAction.SelectedIndex == 1)
                             {
-                                ifPrerequisiteBottom = "Action:Open";
+                                ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 144";
                             }
                             else if (cbIfAction.SelectedIndex == 2)
                             {
-                                ifPrerequisiteBottom = "Action:Close";
+                                ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 128";
                             }
                         }
                         else
                         {
                             if (cbIfAction.SelectedIndex == 1)
                             {
-                                ifPrerequisiteBottom += "&&Action:Open";
+                                ifPrerequisite += " && LightGroup[i].Action == 144";
                             }
                             else if (cbIfAction.SelectedIndex == 2)
                             {
-                                ifPrerequisiteBottom += "&&Action:Close";
+                                ifPrerequisite += " && LightGroup[i].Action == 128";
                             }
                         }
                     }
                     if (j == 2 && !tbIfPosition.Text.Equals(String.Empty))
                     {
-                        StringBuilder ifPositionBuilder = new StringBuilder();
-                        if (rangeDictionary.ContainsKey(tbIfPosition.Text))
+                       
+                       
+
+                        if (ifPrerequisite.Equals(String.Empty))
                         {
-                            for (int i = 0; i < rangeDictionary[tbIfPosition.Text].Count; i++)
-                            {
-                                if (i != rangeDictionary[tbIfPosition.Text].Count - 1)
-                                {
-                                    ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i] + splitNotation.ToString());
-                                }
-                                else
-                                {
-                                    ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i]);
-                                }
-                            }
+                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Position)";
                         }
                         else
                         {
-                            if (IsTrueContent(tbIfPosition.Text, splitNotation, rangeNotation))
-                            {
-                                ifPositionBuilder.Append(tbIfPosition.Text);
-                            }
-                            else
-                            {
-                                tbIfPosition.Select(0, tbIfPosition.Text.Length);
-                                tbIfPosition.Focus();
-                                return;
-                            }
+                            ifPrerequisite += " && step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Position)";
                         }
-                        //ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
-                        // + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+
+
                         //containDictionary[GetStepName()].Add("Step" + x);
                         //if (ifPrerequisiteBottom.Equals(String.Empty))
                         //{
@@ -971,6 +991,22 @@ namespace Maker.View.LightScriptUserControl
                                 return;
                             }
                         }
+                        ifPrerequisite += Environment.NewLine + "\tBaseRangeGroup " + "step" + x.ToString() + "RangeGroup = new BaseRangeGroup(\""
+                       + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+                        scriptModel.Contain.Add("Step" + x);
+
+                        if (ifPrerequisite.Equals(String.Empty))
+                        {
+                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Color)";
+                        }
+                        else
+                        {
+                            ifPrerequisite += " && step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Color)";
+                        }
+                        ifPrerequisite += ") {Console.WriteLine(\"AAAAAAAAAAAAAAA\"); }}";
+                        scriptModel.Value += ifPrerequisite;
+                        Test();
+                        return;
                         //ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
                         // + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
                         //containDictionary[GetStepName()].Add("Step" + x);
@@ -1029,6 +1065,8 @@ namespace Maker.View.LightScriptUserControl
                         thenPrerequisite = "&&Color:" + tbThenColor.Text;
                     }
                 }
+
+
                 lightScriptDictionary[GetStepName()] += ifPrerequisite + Environment.NewLine
                 + "\t" + GetStepName() + "LightGroup = Edit.IfThen(" + GetStepName() + "LightGroup," + ifPrerequisiteBottom
                  + "," + thenPrerequisite + "," + control + ");";
@@ -1668,7 +1706,8 @@ namespace Maker.View.LightScriptUserControl
             //Console.WriteLine(Environment.NewLine +builder.ToString()+Environment.NewLine); 
         }
 
-        public void Test() {
+        public void Test()
+        {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
             CompilerParameters objCompilerParameters = new CompilerParameters();
 
@@ -1681,7 +1720,7 @@ namespace Maker.View.LightScriptUserControl
 
             //是否生成在内存中
             objCompilerParameters.GenerateInMemory = true;
-          //编译代码
+            //编译代码
             CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode());
             if (cr.Errors.HasErrors)
             {
@@ -1695,14 +1734,16 @@ namespace Maker.View.LightScriptUserControl
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
                 List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
                 List<Light> mLights = new List<Light>();
-                for (int i = 0; i < lights.Count; i++) {
+                for (int i = 0; i < lights.Count; i++)
+                {
                     mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));
                 }
                 mLightList = mLights;
                 UpdateData(mLights);
             }
         }
-        public override List<Light> GetData() {
+        public override List<Light> GetData()
+        {
             return mLightList;
         }
         public String GetCode()
@@ -1716,10 +1757,11 @@ namespace Maker.View.LightScriptUserControl
             sb.Append("public List<Light> Hello(){");
             sb.Append("List<Light> mainLightGroup = new List<Light>();");
             //添加内容名称
-            foreach (var scriptModel in scriptModelDictionary) {
+            foreach (var scriptModel in scriptModelDictionary)
+            {
                 if (scriptModel.Value.Visible)
                 {
-                    sb.Append("mainLightGroup.AddRange("+ scriptModel.Key + "());");
+                    sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "());");
                 }
             }
             //尾
@@ -1729,12 +1771,13 @@ namespace Maker.View.LightScriptUserControl
             {
                 if (scriptModel.Value.Visible)
                 {
-                    sb.Append("public LightGroup " + scriptModel.Key +"(){");
-                    if (!scriptModel.Value.Parent.Equals(String.Empty)) {
-                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = "+ scriptModel.Value.Parent + "();" + Environment.NewLine);
+                    sb.Append("public LightGroup " + scriptModel.Key + "(){");
+                    if (!scriptModel.Value.Parent.Equals(String.Empty))
+                    {
+                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
                     }
                     sb.Append(scriptModel.Value.Value);
-                    sb.Append("return "+scriptModel.Key+"LightGroup;}");
+                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");
@@ -4839,7 +4882,8 @@ namespace Maker.View.LightScriptUserControl
             XElement xRoot = xDoc.Element("Root");
             XElement xScripts = xRoot.Element("Scripts");
 
-            foreach (var xScript in xScripts.Elements("Script")) {
+            foreach (var xScript in xScripts.Elements("Script"))
+            {
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = xScript.Attribute("name").Value;
                 scriptModel.Value = fileBusiness.Base2String(xScript.Attribute("value").Value);
@@ -4852,7 +4896,8 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Parent = xScript.Attribute("parent").Value;
                 }
                 String visible = xScript.Attribute("visible").Value;
-                if (visible.Equals("true")) {
+                if (visible.Equals("true"))
+                {
                     scriptModel.Visible = true;
                 }
                 else
@@ -4861,7 +4906,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 scriptModel.Contain = xScript.Attribute("contain").Value.Split('-').ToList();
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
-              
+
                 command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
             }
@@ -4874,18 +4919,20 @@ namespace Maker.View.LightScriptUserControl
             //SaveFile();
             Test();
         }
-       
+
         private void UpdateStep()
         {
             lbStep.Items.Clear();
-            foreach (var model in scriptModelDictionary) {
+            foreach (var model in scriptModelDictionary)
+            {
                 AddStep(model.Value.Name, model.Value.Parent);
             }
             UpdateVisible();
         }
 
         private String command;
-        protected override void SaveFile() {
+        protected override void SaveFile()
+        {
             //获取对象
             XDocument xDoc = new XDocument();
             XElement xRoot = new XElement("Root");
@@ -4895,7 +4942,7 @@ namespace Maker.View.LightScriptUserControl
 
             XElement xScript = new XElement("Script");
             xScript.SetAttributeValue("name", "Step1");
-            xScript.SetAttributeValue("value",fileBusiness.String2Base(command));
+            xScript.SetAttributeValue("value", fileBusiness.String2Base(command));
             xScript.SetAttributeValue("visible", "false");
             xScript.SetAttributeValue("contain", "Step1");
 
@@ -4923,5 +4970,5 @@ namespace Maker.View.LightScriptUserControl
         }
     }
 
-  
+
 }
