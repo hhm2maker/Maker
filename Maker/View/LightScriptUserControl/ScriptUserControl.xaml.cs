@@ -874,16 +874,49 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
-                    ifPrerequisite += Environment.NewLine + "\tBaseRangeGroup " + "step" + x.ToString() + "RangeGroup = new BaseRangeGroup(\""
+                    ifPrerequisite += Environment.NewLine + "\tPositionGroup " + "step" + x.ToString() + "PositionGroup = new PositionGroup(\""
                         + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
                     scriptModel.Contain.Add("Step" + x);
                 }
+                if (!tbIfColor.Text.Equals(String.Empty))
+                {
+                    StringBuilder ifColorBuilder = new StringBuilder();
+                    if (rangeDictionary.ContainsKey(tbIfColor.Text))
+                    {
 
+                        for (int i = 0; i < rangeDictionary[tbIfColor.Text].Count; i++)
+                        {
+                            if (i != rangeDictionary[tbIfColor.Text].Count - 1)
+                            {
+                                ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i] + splitNotation.ToString());
+                            }
+                            else
+                            {
+                                ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (IsTrueContent(tbIfColor.Text, splitNotation, rangeNotation))
+                        {
+                            ifColorBuilder.Append(tbIfColor.Text);
+                        }
+                        else
+                        {
+                            tbIfColor.Select(0, tbIfColor.Text.Length);
+                            tbIfColor.Focus();
+                            return;
+                        }
+                    }
+                    ifPrerequisite += Environment.NewLine + "\tColorGroup " + "step" + x.ToString() + "ColorGroup = new ColorGroup(\""
+                   + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
+                    if (!scriptModel.Contain.Contains("Step" + x)) {
+                        scriptModel.Contain.Add("Step" + x);
+                    }
+                }
                 for (int j = 0; j < 4; j++)
                 {
-                  
-
-
                     if (j == 0 && !tbIfTime.Text.Equals(String.Empty))
                     {
                         try
@@ -939,18 +972,14 @@ namespace Maker.View.LightScriptUserControl
                     if (j == 2 && !tbIfPosition.Text.Equals(String.Empty))
                     {
                        
-                       
-
                         if (ifPrerequisite.Equals(String.Empty))
                         {
-                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Position)";
+                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
                         }
                         else
                         {
-                            ifPrerequisite += " && step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Position)";
+                            ifPrerequisite += " && step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
                         }
-
-
                         //containDictionary[GetStepName()].Add("Step" + x);
                         //if (ifPrerequisiteBottom.Equals(String.Empty))
                         //{
@@ -963,45 +992,15 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (j == 3 && !tbIfColor.Text.Equals(String.Empty))
                     {
-                        StringBuilder ifColorBuilder = new StringBuilder();
-                        if (rangeDictionary.ContainsKey(tbIfColor.Text))
-                        {
-                            for (int i = 0; i < rangeDictionary[tbIfColor.Text].Count; i++)
-                            {
-                                if (i != rangeDictionary[tbIfColor.Text].Count - 1)
-                                {
-                                    ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i] + splitNotation.ToString());
-                                }
-                                else
-                                {
-                                    ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (IsTrueContent(tbIfColor.Text, splitNotation, rangeNotation))
-                            {
-                                ifColorBuilder.Append(tbIfColor.Text);
-                            }
-                            else
-                            {
-                                tbIfColor.Select(0, tbIfColor.Text.Length);
-                                tbIfColor.Focus();
-                                return;
-                            }
-                        }
-                        ifPrerequisite += Environment.NewLine + "\tBaseRangeGroup " + "step" + x.ToString() + "RangeGroup = new BaseRangeGroup(\""
-                       + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                        scriptModel.Contain.Add("Step" + x);
+                       
 
                         if (ifPrerequisite.Equals(String.Empty))
                         {
-                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Color)";
+                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "ColorGroup.Contains(" + GetStepName() + "LightGroup[i].Color)";
                         }
                         else
                         {
-                            ifPrerequisite += " && step" + x.ToString() + "RangeGroup.Contain(LightGroup[i].Color)";
+                            ifPrerequisite += " && step" + x.ToString() + "ColorGroup.Contains("+ GetStepName() + "LightGroup[i].Color)";
                         }
                         ifPrerequisite += ") {Console.WriteLine(\"AAAAAAAAAAAAAAA\"); }}";
                         scriptModel.Value += ifPrerequisite;
