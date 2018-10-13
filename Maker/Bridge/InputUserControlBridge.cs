@@ -342,14 +342,11 @@ namespace Maker.Bridge
                     }
                 }
             }
-
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             { 
                 //清空
                 ClearFrame();
-                if (mLightList.Count != 0) {
-                    SetDataToLaunchpad(mLightList);       
-                }
+                SetDataToLaunchpad(mLightList);
             }
             else if (iuc.mShow == ScriptUserControl.ShowMode.DataGrid)
             {
@@ -379,7 +376,6 @@ namespace Maker.Bridge
         {
             //切割
             mActionBeanList = LightBusiness.Split(mActionBeanList);
-           
             liTime.Clear();
             dic.Clear();
             int time = -1;

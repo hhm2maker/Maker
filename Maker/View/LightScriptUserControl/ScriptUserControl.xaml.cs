@@ -551,6 +551,16 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
                 UpdateStep();
+
+                if (sender == btnFastGenerationrAdd)
+                {
+                    //如果选中，就在列表选中最后一个
+                    if (sender == btnFastGenerationrSelect)
+                    {
+                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
+                    }
+                }
+
                 Test();
                 return;
             }
@@ -629,7 +639,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (scriptModel.Value.Equals(String.Empty))
                     {
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
                     }
                     else
                     {
@@ -783,6 +793,7 @@ namespace Maker.View.LightScriptUserControl
                 }
 
                 UpdateStep();
+                lbStep.SelectedIndex = lbStep.Items.Count - 1;
                 Test();
                 return;
             }
@@ -824,7 +835,8 @@ namespace Maker.View.LightScriptUserControl
                 String control = String.Empty;
                 String temporary = String.Empty;
                 String ifPrerequisite = String.Empty;
-                String ifPrerequisiteBottom = String.Empty;
+                String thenPrerequisite = String.Empty;
+
                 if (sender == tbIfThenReplace)
                     control = "Edit";
                 else
@@ -845,7 +857,8 @@ namespace Maker.View.LightScriptUserControl
                     new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                     return;
                 }
-                if (!tbIfPosition.Text.Equals(String.Empty)) {
+                if (!tbIfPosition.Text.Equals(String.Empty))
+                {
                     StringBuilder ifPositionBuilder = new StringBuilder();
                     if (rangeDictionary.ContainsKey(tbIfPosition.Text))
                     {
@@ -911,7 +924,8 @@ namespace Maker.View.LightScriptUserControl
                     }
                     ifPrerequisite += Environment.NewLine + "\tColorGroup " + "step" + x.ToString() + "ColorGroup = new ColorGroup(\""
                    + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                    if (!scriptModel.Contain.Contains("Step" + x)) {
+                    if (!scriptModel.Contain.Contains("Step" + x))
+                    {
                         scriptModel.Contain.Add("Step" + x);
                     }
                 }
@@ -930,11 +944,6 @@ namespace Maker.View.LightScriptUserControl
                             //Console.WriteLine(sf.GetMethod().Name);
 
                             ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(" + GetStepName() + "LightGroup[i].Time == " + result;
-
-                            //ifPrerequisite = Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
-                            // + result + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                            //containDictionary[GetStepName()].Add("Step" + x);
-                            //ifPrerequisiteBottom = "Time:step" + x.ToString() + "Range";
                         }
                         catch
                         {
@@ -971,7 +980,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (j == 2 && !tbIfPosition.Text.Equals(String.Empty))
                     {
-                       
+
                         if (ifPrerequisite.Equals(String.Empty))
                         {
                             ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
@@ -980,15 +989,6 @@ namespace Maker.View.LightScriptUserControl
                         {
                             ifPrerequisite += " && step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
                         }
-                        //containDictionary[GetStepName()].Add("Step" + x);
-                        //if (ifPrerequisiteBottom.Equals(String.Empty))
-                        //{
-                        //    ifPrerequisiteBottom = "Position:step" + x.ToString() + "Range";
-                        //}
-                        //else
-                        //{
-                        //    ifPrerequisiteBottom += "&&Position:step" + x.ToString() + "Range";
-                        //}
                     }
                     if (j == 3 && !tbIfColor.Text.Equals(String.Empty))
                     {
@@ -998,128 +998,126 @@ namespace Maker.View.LightScriptUserControl
                         }
                         else
                         {
-                            ifPrerequisite += " && step" + x.ToString() + "ColorGroup.Contains("+ GetStepName() + "LightGroup[i].Color)";
+                            ifPrerequisite += " && step" + x.ToString() + "ColorGroup.Contains(" + GetStepName() + "LightGroup[i].Color)";
                         }
-                     
-                        //ifPrerequisite += Environment.NewLine + "\tRangeGroup " + "step" + x.ToString() + "Range = new RangeGroup(\""
-                        // + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                        //containDictionary[GetStepName()].Add("Step" + x);
-                        //if (ifPrerequisiteBottom.Equals(String.Empty))
-                        //{
-                        //    ifPrerequisiteBottom = "Color:step" + x.ToString() + "Range";
-                        //}
-                        //else
-                        //{
-                        //    ifPrerequisiteBottom += "&&Color:step" + x.ToString() + "Range";
-                        //}
                     }
                 }
-
-                if (ifPrerequisite.Equals(String.Empty) && sender == tbIfThenReplace)
+                temporary = "LightGroup Step" + x.ToString() + "TemporaryLightGroup = new LightGroup();";
+                if (ifPrerequisite.Equals(String.Empty))
                 {
-                    return;
+                    //把动作选中加上
+                    if (cbIfAction.SelectedIndex == 0)
+                    {
+                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(" + GetStepName() + "LightGroup[i].Action == 144 || " + GetStepName() + "LightGroup[i].Action == 128";
+                    }
+                    else if (cbIfAction.SelectedIndex == 1)
+                    {
+                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 144";
+                    }
+                    else if (cbIfAction.SelectedIndex == 2)
+                    {
+                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 128";
+                    }
                 }
-                else {
-                    temporary = "LightGroup "+ x.ToString()+"TemporaryLightGroup = new LightGroup();";
-                    ifPrerequisite += ") { " + x.ToString() + "TemporaryLightGroup.Add(" + GetStepName() + "LightGroup[i]); }}";
-
-                    
+                ifPrerequisite += ") { Step" + x.ToString() + "TemporaryLightGroup.Add(" + GetStepName() + "LightGroup[i]); }}";
+                if (sender == tbIfThenRemove)
+                {
+                    //移除
+                    thenPrerequisite = "\t"+Environment.NewLine + "for (int i = 0; i < Step" + x.ToString() + "TemporaryLightGroup.Count; i++) {" + GetStepName() + "LightGroup.Remove(Step" + x.ToString() + "TemporaryLightGroup[i]);}";
                 }
-
-                scriptModel.Value += temporary + ifPrerequisite + x.ToString()+"TemporaryLightGroup[0].Color = 5;";
+                else
+                {
+                    if (!tbThenTime.Text.Equals(String.Empty))
+                    {
+                        String result;
+                        if (tbThenTime.Text.Trim()[0] == '+' || tbThenTime.Text.Trim()[0] == '-')
+                        {
+                            //计算数学表达式
+                            string expression = tbThenTime.Text.Substring(1);
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                            result = tbThenTime.Text.Trim()[0] + result;
+                        }
+                        else
+                        {
+                            //计算数学表达式
+                            string expression = tbThenTime.Text;
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                        }
+                        if (thenPrerequisite.Equals(String.Empty))
+                        {
+                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
+                        }
+                        else
+                        {
+                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
+                        }
+                    }
+                    if (!tbThenPosition.Text.Equals(String.Empty))
+                    {
+                        String strNumber = tbThenPosition.Text.Trim();
+                        if (strNumber[0] == '+' || strNumber[0] == '-')
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                            {
+                                tbThenPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                                tbThenPosition.Focus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                            {
+                                tbThenPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                                tbThenPosition.Focus();
+                                return;
+                            }
+                        }
+                        if (scriptModel.Value.Equals(String.Empty))
+                        {
+                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.POSITION,\"" + tbThenPosition.Text.Trim() + "\");";
+                        }
+                        else
+                        {
+                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.POSITION,\"" + tbThenPosition.Text.Trim() + "\");";
+                        }
+                    }
+                    if (!tbThenColor.Text.Equals(String.Empty))
+                    {
+                        String strNumber = tbThenColor.Text.Trim();
+                        if (strNumber[0] == '+' || strNumber[0] == '-')
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                            {
+                                tbThenColor.Select(0, tbThenColor.Text.Length);
+                                tbThenColor.Focus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                            {
+                                tbThenColor.Select(0, tbThenColor.Text.Length);
+                                tbThenColor.Focus();
+                                return;
+                            }
+                        }
+                        if (scriptModel.Value.Equals(String.Empty))
+                        {
+                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.COLOR,\"" + tbThenColor.Text.Trim() + "\");";
+                        }
+                        else
+                        {
+                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.COLOR,\"" + tbThenColor.Text.Trim() + "\");";
+                        }
+                    }
+                }
+                scriptModel.Value += temporary + ifPrerequisite + thenPrerequisite;
                 Test();
                 return;
-                String thenPrerequisite = String.Empty;
-                if (!tbThenTime.Text.Equals(String.Empty))
-                {
-                    String result;
-                    if (tbThenTime.Text.Trim()[0] == '+' || tbThenTime.Text.Trim()[0] == '-')
-                    {
-                        //计算数学表达式
-                        string expression = tbThenTime.Text.Substring(1);
-                        System.Data.DataTable eval = new System.Data.DataTable();
-                        result = eval.Compute(expression, "").ToString();
-                        result = tbThenTime.Text.Trim()[0] + result;
-                    }
-                    else
-                    {
-                        //计算数学表达式
-                        string expression = tbThenTime.Text;
-                        System.Data.DataTable eval = new System.Data.DataTable();
-                        result = eval.Compute(expression, "").ToString();
-                    }
-                    if (thenPrerequisite.Equals(String.Empty))
-                    {
-                        thenPrerequisite += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
-                    }
-                    else
-                    {
-                        thenPrerequisite += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
-                    }
-                }
-                if (!tbThenPosition.Text.Equals(String.Empty))
-                {
-                    if (!System.Text.RegularExpressions.Regex.IsMatch(tbThenPosition.Text, "^\\d+$"))
-                    {
-                        tbThenPosition.Select(0, tbThenPosition.Text.Length);
-                        tbThenPosition.Focus();
-                        return;
-                    }
-                    if (thenPrerequisite.Equals(String.Empty))
-                    {
-                        thenPrerequisite = "Position:" + tbThenPosition.Text;
-                    }
-                    else
-                    {
-                        thenPrerequisite = "&&Position:" + tbThenPosition.Text;
-                    }
-                }
-                if (!tbThenColor.Text.Equals(String.Empty))
-                {
-                    if (!System.Text.RegularExpressions.Regex.IsMatch(tbThenColor.Text, "^\\d+$"))
-                    {
-                        tbThenColor.Select(0, tbThenColor.Text.Length);
-                        tbThenColor.Focus();
-                        return;
-                    }
-                    if (thenPrerequisite.Equals(String.Empty))
-                    {
-                        thenPrerequisite = "Color:" + tbThenColor.Text;
-                    }
-                    else
-                    {
-                        thenPrerequisite = "&&Color:" + tbThenColor.Text;
-                    }
-                }
-
-
-                lightScriptDictionary[GetStepName()] += ifPrerequisite + Environment.NewLine
-                + "\t" + GetStepName() + "LightGroup = Edit.IfThen(" + GetStepName() + "LightGroup," + ifPrerequisiteBottom
-                 + "," + thenPrerequisite + "," + control + ");";
-                //RangeGroup Step2Range = new RangeGroup("36", ' ', '-');
-                //Step2LightGroup = Edit.IfThen(Step2LightGroup, Position:Step2Range, Time:+1, Remove);
-               
-            }
-            if (RefreshData())
-            {
-                if (sender == btnFastGenerationrAdd || sender == btnFastGenerationrSelect)
-                {
-                    AddStep(stepName, "");
-                    //如果选中，就在列表选中最后一个
-                    if (sender == btnFastGenerationrSelect)
-                    {
-                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                    }
-                }
-                if (sender == btnSelectEditorAdd)
-                {
-                    AddStep(stepName, GetStepName());
-                    //如果选中，就在列表选中最后一个
-                    if (sender == btnSelectEditorAdd)
-                    {
-                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                    }
-                }
             }
         }
         /// <summary>
@@ -1759,6 +1757,7 @@ namespace Maker.View.LightScriptUserControl
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
                 List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
                 List<Light> mLights = new List<Light>();
+                mLightList.Clear();
                 for (int i = 0; i < lights.Count; i++)
                 {
                     mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));
