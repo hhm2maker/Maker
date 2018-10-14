@@ -3669,15 +3669,18 @@ namespace Maker.View.LightScriptUserControl
                     new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     continue;
                 }
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
                 //没有可操作的灯光组
-                if (!lightScriptDictionary[GetStepName(sp)].Contains(GetStepName(sp) + "LightGroup"))
+                if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
                 {
                     continue;
                 }
                 String command = String.Empty;
                 if (sender == btnHorizontalFlipping)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.HorizontalFlipping(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
+                    Test();
+                    return;
                 }
                 if (sender == btnVerticalFlipping)
                 {

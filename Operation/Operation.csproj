@@ -44,6 +44,7 @@
     <Compile Include="BaseRangeGroup.cs" />
     <Compile Include="ColorGroup.cs" />
     <Compile Include="Create.cs" />
+    <Compile Include="Edit.cs" />
     <Compile Include="IGetOperationResult.cs" />
     <Compile Include="Light.cs" />
     <Compile Include="LightGroup.cs" />
