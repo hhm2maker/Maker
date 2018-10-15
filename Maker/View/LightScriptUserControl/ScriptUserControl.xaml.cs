@@ -3679,21 +3679,22 @@ namespace Maker.View.LightScriptUserControl
                 if (sender == btnHorizontalFlipping)
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
-                    Test();
-                    return;
                 }
                 if (sender == btnVerticalFlipping)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.VerticalFlipping(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
                 }
+              
                 if (sender == btnLowerLeftSlashFlipping)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.LowerLeftSlashFlipping(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerLeftSlashFlipping();";
                 }
                 if (sender == btnLowerRightSlashFlipping)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.LowerRightSlashFlipping(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerRightSlashFlipping();";
                 }
+                Test();
+                return;
                 if (sender == btnFold)
                 {
                     Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
@@ -4940,7 +4941,7 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
 
             //command =
-            //    "PositionGroup  Step1Position = new PositionGroup(\"36-39\",' ','-');" +
+            //    "PositionGroup  Step1Position = new PositionGroup(\"36 40 44 48 52 56 60\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"36-39\", ' ', '-');" +
             //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();

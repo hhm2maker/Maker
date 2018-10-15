@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" value="UG9zaXRpb25Hcm91cCAgU3RlcDFQb3NpdGlvbiA9IG5ldyBQb3NpdGlvbkdyb3VwKCIzNi0zOSIsJyAnLCctJyk7Q29sb3JHcm91cCBTdGVwMUNvbG9yID0gbmV3IENvbG9yR3JvdXAoIjM2LTM5IiwgJyAnLCAnLScpO0xpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCwgU3RlcDFQb3NpdGlvbiwgMTIsIDEyLCBTdGVwMUNvbG9yLCBDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step1" />
+    <Script name="Step1" value="UG9zaXRpb25Hcm91cCAgU3RlcDFQb3NpdGlvbiA9IG5ldyBQb3NpdGlvbkdyb3VwKCIzNiA0MCA0NCA0OCA1MiA1NiA2MCIsJyAnLCctJyk7Q29sb3JHcm91cCBTdGVwMUNvbG9yID0gbmV3IENvbG9yR3JvdXAoIjM2LTM5IiwgJyAnLCAnLScpO0xpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCwgU3RlcDFQb3NpdGlvbiwgMTIsIDEyLCBTdGVwMUNvbG9yLCBDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step1" />
   </Scripts>
 </Root>

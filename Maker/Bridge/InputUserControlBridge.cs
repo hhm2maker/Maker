@@ -177,19 +177,19 @@ namespace Maker.Bridge
                     {
                         if (_str.Equals("HorizontalFlipping"))
                         {
-                            mLightList = EditMethod.HorizontalFlipping(mLightList);
+                            //mLightList = EditMethod.HorizontalFlipping(mLightList);
                         }
                         if (_str.Equals("VerticalFlipping"))
                         {
-                            mLightList = EditMethod.VerticalFlipping(mLightList);
+                            //mLightList = EditMethod.VerticalFlipping(mLightList);
                         }
                         if (_str.Equals("Clockwise"))
                         {
-                            mLightList = EditMethod.Clockwise(mLightList);
+                            //mLightList = EditMethod.Clockwise(mLightList);
                         }
                         if (_str.Equals("AntiClockwise"))
                         {
-                            mLightList = EditMethod.AntiClockwise(mLightList);
+                            //mLightList = EditMethod.AntiClockwise(mLightList);
                         }
                     }
                 }
