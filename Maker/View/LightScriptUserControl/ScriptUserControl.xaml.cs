@@ -3693,37 +3693,38 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerRightSlashFlipping();";
                 }
-                Test();
-                return;
                 if (sender == btnFold)
                 {
                     Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
                     if (dialog.ShowDialog() == true)
                     {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Fold(" + GetStepName(sp) + "LightGroup,";
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Fold(";
                         if (dialog.cbOrientation.SelectedIndex == 0)
                         {
-                            command += "Horizontal,";
+                            scriptModel.Value += "LightGroup.HORIZONTAL,";
                         }
                         else if (dialog.cbOrientation.SelectedIndex == 1)
                         {
-                            command += "Vertical,";
+                            scriptModel.Value += "LightGroup.VERTICAL,";
                         }
-                        command += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
+                        scriptModel.Value += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
                     }
                     else
                     {
                         return;
                     }
                 }
+             
                 if (sender == btnClockwise)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Clockwise(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Clockwise();";
                 }
                 if (sender == btnAntiClockwise)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.AntiClockwise(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.AntiClockwise();";
                 }
+                Test();
+                return;
                 if (sender == btnReversal)
                 {
                     command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Reversal(" + GetStepName(sp) + "LightGroup);";
@@ -4943,7 +4944,7 @@ namespace Maker.View.LightScriptUserControl
             //command =
             //    "PositionGroup  Step1Position = new PositionGroup(\"36 40 44 48 52 56 60\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"36-39\", ' ', '-');" +
-            //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
+            //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 0, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
             Test();
         }

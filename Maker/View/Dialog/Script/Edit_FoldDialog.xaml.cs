@@ -67,11 +67,11 @@ namespace Maker.View.Dialog.Script
                 builder.Append(tbLightName.Text + ",");
                 if (cbOrientation.SelectedIndex == 0)
                 {
-                    builder.Append("Horizontal,");
+                    builder.Append("Vertical,");
                 }
                 else if (cbOrientation.SelectedIndex == 1)
                 {
-                    builder.Append("Vertical,");
+                    builder.Append("Horizontal,");
                 }
                 builder.Append(tbStartPosition.Text + ",");
                 builder.Append(tbSpan.Text + ");");
