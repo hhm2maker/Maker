@@ -13,13 +13,10 @@ namespace Operation
         public static int ACTION = 1;
         public static int POSITION = 2;
         public static int COLOR = 3;
-
+     
         public static int NORMAL = 10;
         public static int ADD = 11;
         public static int REMOVE = 12;
-
-        public static int VERTICAL = 20;
-        public static int HORIZONTAL = 21;
         /// <summary>
         /// 设置属性
         /// </summary>
@@ -676,7 +673,8 @@ namespace Operation
             }
             #endregion
         }
-
+        public static int VERTICAL = 20;
+        public static int HORIZONTAL = 21;
         /// <summary>
         /// 对折
         /// </summary>
@@ -1034,6 +1032,105 @@ namespace Operation
                 if (this[k].Position == 35) { this[k].Position = 108; continue; }
             }
             #endregion
+        }
+        /// <summary>
+        /// 反转
+        /// </summary>
+        /// <param name="lightGroup"></param>
+        /// <returns></returns>
+        public void Reversal()
+        {
+            int max = LightBusiness.GetMax(this);
+            int min = LightBusiness.GetMin(this);
+            if (max == -1 && min == -1 && this.Count / 2 != 0)
+                return ;
+            //两两组合
+            List<Light> ll = LightBusiness.SortCouple(this);
+            Clear();
+            AddRange(ll);
+            for (int i = 0; i < Count; i++)
+            {
+                //调整时间
+                this[i].Time = max - this[i].Time + min;
+            }
+            for (int i = 0; i < Count; i++)
+            {
+                if (i / 2 == 1)
+                {
+                    Light l = this[i];
+                    this[i] = this[i - 1];
+                    this[i - 1] = l;
+                }
+            }
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (this[i].Action == 144)
+                {
+                    this[i].Action = 128;
+                }
+                else if (this[i].Action == 128)
+                {
+                    this[i].Action = 144;
+                }
+            }
+        }
+        /// <summary>
+        /// 去除边框灯光
+        /// </summary>
+        /// <param name="lightGroup"></param>
+        /// <returns></returns>
+        public void RemoveBorder()
+        {
+            for (int i = Count - 1; i >= 0; i--)
+            {
+                int position = this[i].Position;
+                if (position >= 28 && position <= 35 || position >= 100 && position <= 123)
+                    Remove(this[i]);
+            }
+        }
+        public static int MULTIPLICATION = 30;
+        public static int DIVISION = 31;
+        /// <summary>
+        /// 改变时间
+        /// </summary>
+        /// <param name="mOperator">乘或除</param>
+        /// <param name="multiple"></param>
+        public void ChangeTime(int mOperator, Double multiple)
+        {
+            if (mOperator == MULTIPLICATION)
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    this[i].Time = Convert.ToInt32(this[i].Time * multiple);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    this[i].Time = Convert.ToInt32(this[i].Time / multiple);
+                }
+            }
+        }
+        /// <summary>
+        /// 匹配时间
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public void MatchTotalTimeLattice(int v)
+        {
+            List<Light> ll = LightBusiness.Sort(this);
+            Clear();
+            AddRange(ll);
+            int max = LightBusiness.GetMax(this);
+            double d = (double)v / max;
+            for (int i = 0; i < Count; i++)
+            {
+                int result = (int)Math.Round(this[i].Time * d, MidpointRounding.AwayFromZero);
+                if (result > v)
+                    result--;
+                this[i].Time = result;
+            }
         }
     }
 }

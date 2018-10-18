@@ -199,12 +199,12 @@ namespace Maker.Bridge
                     {
                         if (_str.Equals("Reversal"))
                         {
-                            mLightList = EditMethod.Reversal(mLightList);
+                            //mLightList = EditMethod.Reversal(mLightList);
                         }
                         String[] mContents = _str.Split('-');
                         if (mContents[0].Equals("ChangeTime"))
                         {
-                            mLightList = EditMethod.ChangeTime(mLightList,(EditMethod.Operator)int.Parse(mContents[1]),double.Parse(mContents[2]));
+                            //mLightList = EditMethod.ChangeTime(mLightList,(EditMethod.Operator)int.Parse(mContents[1]),double.Parse(mContents[2]));
                         }
                         else if (mContents[0].Equals("StartTime"))
                         {
@@ -258,7 +258,7 @@ namespace Maker.Bridge
                     {
                         if (_str.Equals("RemoveBorder"))
                         {
-                            mLightList = EditMethod.RemoveBorder(mLightList);
+                           // mLightList = EditMethod.RemoveBorder(mLightList);
                         }
                     }
                 }

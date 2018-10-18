@@ -20,33 +20,6 @@ namespace Maker.MethodSet
         {
             List<Light> _lightGroup = LightBusiness.Copy(lightGroup);
           
-            Regex P_Reversal = new Regex(@"\s*Reversal\([0-9a-zA-Z_\u4e00-\u9fa5]{1,}\)");
-            if (P_Reversal.IsMatch(commandLine))
-            {
-                return Reversal(_lightGroup);
-            }
-            Regex P_RemoveBorder = new Regex(@"\s*RemoveBorder\([0-9a-zA-Z_\u4e00-\u9fa5]{1,}\)");
-            if (P_RemoveBorder.IsMatch(commandLine))
-            {
-                return RemoveBorder(_lightGroup);
-            }
-            Regex P_ChangeTime = new Regex(@"\s*ChangeTime\([\S\s]*\)");
-            if (P_ChangeTime.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(')+1);
-                content = content.Substring(0, content.IndexOf(')'));
-                String[] parameters = content.Split(',');
-                if (parameters.Count() != 3) {
-                    return null;
-                }
-                if (Convert.ToInt32(parameters[1]) == (int)Operator.Multiplication)
-                {
-                    return ChangeTime(_lightGroup, Operator.Multiplication, Convert.ToDouble(parameters[2]));
-                }
-                else if (Convert.ToInt32(parameters[1]) == (int)Operator.Division) {
-                    return ChangeTime(_lightGroup, Operator.Division, Convert.ToDouble(parameters[2]));
-                }
-            }
             Regex P_ShapeColor = new Regex(@"\s*ShapeColor\([\S\s]*\)");
             if (P_ShapeColor.IsMatch(commandLine))
             {
@@ -204,18 +177,7 @@ namespace Maker.MethodSet
                     return Windmill(_lightGroup, int.Parse(parameters[2]));
                 }
             }
-            Regex P_MatchTotalTimeLattice = new Regex(@"\s*MatchTotalTimeLattice\([\S\s]*\)");
-            if (P_MatchTotalTimeLattice.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
-                content = content.Substring(0, content.IndexOf(')'));
-                String[] parameters = content.Split(',');
-                if (parameters.Count() != 2)
-                {
-                    return null;
-                }
-                return MatchTotalTimeLattice(_lightGroup, int.Parse(parameters[1]));
-            }
+         
             Regex P_ColorWithCount = new Regex(@"\s*ColorWithCount\([\S\s]*\)");
             if (P_ColorWithCount.IsMatch(commandLine))
             {
@@ -950,19 +912,7 @@ namespace Maker.MethodSet
             return lightGroup;
         }
 
-        private static List<Light> MatchTotalTimeLattice(List<Light> lightGroup, int v)
-        {
-            lightGroup = LightBusiness.Sort(lightGroup);
-            int max = LightBusiness.GetMax(lightGroup);
-            double d = (double)v / max;
-            for (int i = 0; i < lightGroup.Count; i++) {
-                int result = (int)Math.Round(lightGroup[i].Time * d, MidpointRounding.AwayFromZero);
-                if (result > v)
-                    result--;
-                lightGroup[i].Time = result; 
-            }
-            return lightGroup;
-        }
+      
 
         private static List<Light> SetEndTime(List<Light> lightGroup, string v1, string v2)
         {
@@ -1453,82 +1403,14 @@ namespace Maker.MethodSet
       
    
        
-        /// <summary>
-        /// 反转
-        /// </summary>
-        /// <param name="lightGroup"></param>
-        /// <returns></returns>
-        public static List<Light> Reversal(List<Light> lightGroup) {
-            int max = LightBusiness.GetMax(lightGroup);
-            int min = LightBusiness.GetMin(lightGroup);
-            if (max == -1 && min == -1 && lightGroup.Count/2!=0)
-                return lightGroup;
-            //两两组合
-            lightGroup = LightBusiness.SortCouple(lightGroup);
-            for (int i = 0; i < lightGroup.Count; i++)
-            {
-                //调整时间
-                lightGroup[i].Time = max - lightGroup[i].Time + min;
-            }
-            for (int i = 0; i < lightGroup.Count; i++) {
-                if (i / 2 == 1) {
-                    Light l = lightGroup[i];
-                    lightGroup[i] = lightGroup[i - 1];
-                    lightGroup[i - 1] = l;
-                }
-            }
-            for (int i = 0; i < lightGroup.Count; i++)
-            {
-                if (lightGroup[i].Action == 144) {
-                    lightGroup[i].Action = 128;
-                }
-                else if (lightGroup[i].Action == 128)
-                {
-                    lightGroup[i].Action = 144;
-                }
-            }
-            return lightGroup;
-        }
-        /// <summary>
-        /// 去除边框灯光
-        /// </summary>
-        /// <param name="lightGroup"></param>
-        /// <returns></returns>
-        public static List<Light> RemoveBorder(List<Light> lightGroup)
-        {
-            for (int i = lightGroup.Count - 1; i >= 0; i--) {
-                int position = lightGroup[i].Position;
-                if (position >= 28 && position <= 35 || position >= 100 && position <= 123)
-                    lightGroup.Remove(lightGroup[i]);
-            }
-            return lightGroup;
-        }
-        public enum Operator
-        {
-            Multiplication = 0,
-            Division = 1
-        };
+        
+     
         public enum ShapeColorType
         {
             Square,
             RadialVertical,
             RadialHorizontal
-        };
-        public static List<Light> ChangeTime(List<Light> lightGroup, Operator mOperator,Double multiple) {
-            if (mOperator == Operator.Multiplication) {
-                for (int i = 0; i < lightGroup.Count; i++)
-                {
-                    lightGroup[i].Time = Convert.ToInt32(lightGroup[i].Time * multiple);
-                }
-            }
-            else {
-                for (int i = 0; i < lightGroup.Count; i++)
-                {
-                    lightGroup[i].Time = Convert.ToInt32(lightGroup[i].Time / multiple);
-                }
-            }
-            return lightGroup;
-        }
+        }; 
         public static List<Light> CopyToTheEnd(List<Light> lightGroup,List<int> colorList) {
             //就是复制自己
             if (colorList.Count == 0)

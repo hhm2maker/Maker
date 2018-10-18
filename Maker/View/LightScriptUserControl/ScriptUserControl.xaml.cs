@@ -3714,7 +3714,6 @@ namespace Maker.View.LightScriptUserControl
                         return;
                     }
                 }
-             
                 if (sender == btnClockwise)
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Clockwise();";
@@ -3723,28 +3722,42 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.AntiClockwise();";
                 }
-                Test();
-                return;
                 if (sender == btnReversal)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Reversal(" + GetStepName(sp) + "LightGroup);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Reversal();";
                 }
                 if (sender == btnExtendTime)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ChangeTime(" + GetStepName(sp) + "LightGroup,0,2);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,2);";
                 }
                 if (sender == btnShortenTime)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ChangeTime(" + GetStepName(sp) + "LightGroup,1,2);";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION,2);";
+                }
+                if (sender == btnDiyTime)
+                {
+                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
+                    if (ct.ShowDialog() == true)
+                    {
+                        if (ct.cbOperation.SelectedIndex == 0)
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + ct.tbPolyploidy.Text + ");";
+                        }
+                        else {
+                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION," + ct.tbPolyploidy.Text + ");";
+                        }
+                    }
                 }
                 if (sender == btnMatchTime)
                 {
                     GetNumberDialog dialog = new GetNumberDialog(mw, "TotalTimeLatticeColon", false);
                     if (dialog.ShowDialog() == true)
                     {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.MatchTotalTimeLattice(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.MatchTotalTimeLattice(" + dialog.OneNumber + ");";
                     }
                 }
+                Test();
+                return;
                 if (sender == btnInterceptTime)
                 {
                     InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
@@ -3755,16 +3768,9 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnRemoveBorder)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.RemoveBorder(" + GetStepName(sp) + "LightGroup);";
+                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
                 }
-                if (sender == btnDiyTime)
-                {
-                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
-                    if (ct.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ChangeTime(" + GetStepName(sp) + "LightGroup," + ct.cbOperation.SelectedIndex + "," + ct.tbPolyploidy.Text + ");";
-                    }
-                }
+           
                 if (sender == btnFillColor)
                 {
                     GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
@@ -4943,8 +4949,8 @@ namespace Maker.View.LightScriptUserControl
 
             //command =
             //    "PositionGroup  Step1Position = new PositionGroup(\"36 40 44 48 52 56 60\",' ','-');" +
-            //    "ColorGroup Step1Color = new ColorGroup(\"36-39\", ' ', '-');" +
-            //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 0, 12, Step1Color, Create.UP,Create.ALL);";
+            //    "ColorGroup Step1Color = new ColorGroup(\"5\", ' ', '-');" +
+            //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
             Test();
         }
@@ -4972,7 +4978,7 @@ namespace Maker.View.LightScriptUserControl
             XElement xScript = new XElement("Script");
             xScript.SetAttributeValue("name", "Step1");
             xScript.SetAttributeValue("value", fileBusiness.String2Base(command));
-            xScript.SetAttributeValue("visible", "false");
+            xScript.SetAttributeValue("visible", "true");
             xScript.SetAttributeValue("contain", "Step1");
 
             xScripts.Add(xScript);

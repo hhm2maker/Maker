@@ -53,8 +53,56 @@
         /// </summary>
         public Light()
         {
+
         }
 
+        //public bool IsEquals(object obj)
+        //{
+        //    if (obj == null)
+        //    {
+        //        return false;
+        //    }
+        //    if ((obj.GetType().Equals(this.GetType())) == false)
+        //    {
+        //        return false;
+        //    }
+        //    Light temp = null;
+        //    temp = (Light)obj;
+        //    return this.Time.Equals(temp.Time) && this.Action.Equals(temp.Action) && this.Position.Equals(temp.Position) && this.Color.Equals(temp.Color);
+        //}
+        /// <summary>
+        /// 除了颜色其他都相同
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public bool IsExceptForColorEquals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if ((obj.GetType().Equals(this.GetType())) == false)
+            {
+                return false;
+            }
+            Light temp = null;
+            temp = (Light)obj;
+            return Time.Equals(temp.Time) && Action.Equals(temp.Action) && Position.Equals(temp.Position);
+        }
 
+        public bool IsImprovePerformanceEquals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if ((obj.GetType().Equals(this.GetType())) == false)
+            {
+                return false;
+            }
+            Light temp = null;
+            temp = (Light)obj;
+            return Time.Equals(temp.Time) && temp.Action == 144 && Position.Equals(temp.Position);
+        }
     }
 }
