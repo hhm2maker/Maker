@@ -1132,5 +1132,53 @@ namespace Operation
                 this[i].Time = result;
             }
         }
+
+        /// <summary>
+        /// 截取时间内的灯光
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        public void InterceptTime( int min, int max)
+        {
+            List<Light> ll = LightBusiness.SortCouple(this);
+            Clear();
+            AddRange(ll);
+            int _max;
+            if (max == -1)
+                _max = LightBusiness.GetMax(this);
+            else
+                _max = max;
+            int _min;
+            if (min == -1)
+                _min = LightBusiness.GetMin(this);
+            else
+                _min = min;
+            List<Light> listLight = new List<Light>();
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i].Time >= min && this[i].Time <= max)
+                {
+                    listLight.Add(new Light(this[i].Time, this[i].Action, this[i].Position, this[i].Color));
+                }
+                else if (this[i].Time < min && this[i].Action == 144)
+                {
+                    if (this[i + 1].Time > min && this[i + 1].Action == 128 && this[i + 1].Time < max )
+                    {
+                        listLight.Add(new Light(min, this[i].Action, this[i].Position, this[i].Color));
+                    }
+                }
+                else if (this[i].Time > max && this[i].Action == 128)
+                {
+                    if (i == 0)
+                        continue;
+                    if (this[i - 1].Time < max && this[i - 1].Action == 144 && this[i - 1].Time > min)
+                    {
+                        listLight.Add(new Light(max, this[i].Action, this[i].Position, this[i].Color));
+                    }
+                }
+            }
+            Clear();
+            AddRange(listLight);
+        }
     }
 }

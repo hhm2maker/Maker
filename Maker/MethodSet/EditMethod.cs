@@ -195,19 +195,7 @@ namespace Maker.MethodSet
                 }
                 return ColorWithCount(_lightGroup, mIntList);
             }
-            Regex P_InterceptTime = new Regex(@"\s*InterceptTime\([\S\s]*\)");
-            if (P_InterceptTime.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
-                content = content.Substring(0, content.IndexOf(')'));
-                String[] parameters = content.Split(',');
-                if (parameters.Count() != 3)
-                {
-                    return null;
-                }
-                return InterceptTime(_lightGroup, int.Parse(parameters[1]),int.Parse(parameters[2]));
-            }
-
+          
             //第三方
             String thirdPartyName = commandLine.Substring(0,commandLine.IndexOf('(')).Trim();
             String dllFilePath = String.Empty;
@@ -265,50 +253,7 @@ namespace Maker.MethodSet
             }
             return null;
         }
-        /// <summary>
-        /// 截取时间内的灯光
-        /// </summary>
-        /// <param name="lightGroup"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        private static List<Light> InterceptTime(List<Light> lightGroup, int min, int max)
-        {
-            lightGroup = LightBusiness.SortCouple(lightGroup);
-            int _max;
-            if (max == -1)
-                _max = LightBusiness.GetMax(lightGroup);
-              else
-                _max = max;
-            int _min;
-            if (min == -1)
-                _min = LightBusiness.GetMin(lightGroup);
-            else
-                _min = min;
-            List<Light> listLight = new List<Light>();
-            for (int i = 0; i<lightGroup.Count;i++)
-            {
-                if (lightGroup[i].Time >= min && lightGroup[i].Time <= max) {
-                    listLight.Add(new Light(lightGroup[i].Time, lightGroup[i].Action, lightGroup[i].Position, lightGroup[i].Color));
-                }
-                else if (lightGroup[i].Time < min && lightGroup[i].Action == 144)
-                {
-                    if (lightGroup[i + 1].Time >= min && lightGroup[i + 1].Action == 128) {
-                        listLight.Add(new Light(min, lightGroup[i].Action, lightGroup[i].Position, lightGroup[i].Color));
-                    }
-                }
-                if (lightGroup[i].Time > max && lightGroup[i].Action == 128)
-                {
-                    if (i == 0)
-                        continue;
-                    if (lightGroup[i - 1].Time <= max && lightGroup[i - 1].Action == 144)
-                    {
-                        listLight.Add(new Light(max, lightGroup[i].Action, lightGroup[i].Position, lightGroup[i].Color));
-                    }
-                }
-            }
-            return listLight;
-        }
+       
 
         /// <summary>
         /// 根据次数变换颜色

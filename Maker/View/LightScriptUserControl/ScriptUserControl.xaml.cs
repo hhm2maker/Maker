@@ -3756,16 +3756,16 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.MatchTotalTimeLattice(" + dialog.OneNumber + ");";
                     }
                 }
-                Test();
-                return;
                 if (sender == btnInterceptTime)
                 {
                     InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
                     if (dialog.ShowDialog() == true)
                     {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.InterceptTime(" + GetStepName(sp) + "LightGroup," + dialog.Min + "," + dialog.Max + ");";
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.InterceptTime(" + dialog.Min + "," + dialog.Max + ");";
                     }
                 }
+                Test();
+                return;
                 if (sender == btnRemoveBorder)
                 {
                     command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
