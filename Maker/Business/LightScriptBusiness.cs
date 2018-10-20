@@ -1075,10 +1075,10 @@ namespace Maker.Business
                                     {
                                         //testLightGroup.SetStartTime(30);
                                         //开始时间
-                                        String startTime = endStr.Substring(endStr.LastIndexOf('(') + 1, endStr.LastIndexOf(')') - endStr.LastIndexOf('(') - 1);
-                                        _lightGroupDictionary[startStr] = LightGroupMethod.SetStartTime(_lightGroupDictionary[startStr], Convert.ToInt32(startTime));
-                                        commandLine = commandLineLeft + " " + startStr + " " + commandLineRightEnd;
-                                        continue;
+                                        //String startTime = endStr.Substring(endStr.LastIndexOf('(') + 1, endStr.LastIndexOf(')') - endStr.LastIndexOf('(') - 1);
+                                        //_lightGroupDictionary[startStr] = LightGroupMethod.SetStartTime(_lightGroupDictionary[startStr], Convert.ToInt32(startTime));
+                                        //commandLine = commandLineLeft + " " + startStr + " " + commandLineRightEnd;
+                                        //continue;
                                     }
                                     else if (endStr.StartsWith("SetAllTime("))
                                     {
@@ -1367,7 +1367,7 @@ namespace Maker.Business
                                             //testLight.Color = testColorGroup;
                                             if (_colorGroupDictionary.ContainsKey(commandLineEquals[1]))
                                             {
-                                                _lightGroupDictionary[leftCommandTwo[0]] = LightGroupMethod.SetColor(_lightGroupDictionary[leftCommandTwo[0]], _colorGroupDictionary[commandLineEquals[1]]);
+                                                //_lightGroupDictionary[leftCommandTwo[0]] = LightGroupMethod.SetColor(_lightGroupDictionary[leftCommandTwo[0]], _colorGroupDictionary[commandLineEquals[1]]);
                                             }
                                             else
                                             {

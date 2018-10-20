@@ -308,11 +308,8 @@ E:\Sharer\Maker\Maker\bin\Debug\Maker.exe
 E:\Sharer\Maker\Maker\bin\Debug\Maker.pdb
 E:\Sharer\Maker\Maker\bin\Debug\log4net.dll
 E:\Sharer\Maker\Maker\bin\Debug\Microsoft.Expression.Drawing.dll
-E:\Sharer\Maker\Maker\bin\Debug\Microsoft.Expression.Interactions.dll
 E:\Sharer\Maker\Maker\bin\Debug\Newtonsoft.Json.dll
-E:\Sharer\Maker\Maker\bin\Debug\System.Windows.Interactivity.dll
 E:\Sharer\Maker\Maker\bin\Debug\Transitionals.dll
-E:\Sharer\Maker\Maker\bin\Debug\WPFSpark.dll
 E:\Sharer\Maker\Maker\bin\Debug\log4net.xml
 E:\Sharer\Maker\Maker\obj\Debug\NewMainWindow.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Control\FrameUserControl.baml

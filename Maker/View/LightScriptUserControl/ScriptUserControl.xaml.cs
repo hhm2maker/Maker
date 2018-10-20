@@ -3764,11 +3764,9 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.InterceptTime(" + dialog.Min + "," + dialog.Max + ");";
                     }
                 }
-                Test();
-                return;
                 if (sender == btnRemoveBorder)
                 {
-                    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
                 }
            
                 if (sender == btnFillColor)
@@ -3776,19 +3774,20 @@ namespace Maker.View.LightScriptUserControl
                     GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
                     if (dialog.ShowDialog() == true)
                     {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.FillColor(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.FillColor(" + dialog.OneNumber + ");";
                     }
                 }
+             
                 if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
                 {
                     String colorGroupName = String.Empty;
                     int i = 1;
                     while (i <= 100000)
                     {
-                        if (!containDictionary[GetStepName(sp)].Contains("Step" + i))
+                        if (!scriptModel.Contain.Contains("Step" + i))
                         {
-                            containDictionary[GetStepName(sp)].Add("Step" + i);
-                            colorGroupName = "Step" + i + "Color";
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
                             break;
                         }
                         i++;
@@ -3798,7 +3797,7 @@ namespace Maker.View.LightScriptUserControl
                         new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
+                     command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
                     if (sender == btnChangeColorYellow)
                         command += "73 74 75 76";
                     if (sender == btnChangeColorBlue)
@@ -3867,33 +3866,62 @@ namespace Maker.View.LightScriptUserControl
                         }
                     }
                     command += "\",' ','-');" + Environment.NewLine
-                  + "\t" + GetStepName(sp) + "LightGroup.Color = " + colorGroupName + ";";
+                  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
+                    scriptModel.Value += command;
                 }
+             
                 if (sender == btnColorWithCount)
                 {
+                   
                     GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
                     if (dialog.ShowDialog() == true)
                     {
-                        StringBuilder builder = new StringBuilder();
-                        foreach (int i in dialog.MultipleNumber)
+                        String colorGroupName = String.Empty;
+                        int i = 1;
+                        while (i <= 100000)
                         {
-                            builder.Append(i + " ");
+                            if (!scriptModel.Contain.Contains("Step" + i))
+                            {
+                                scriptModel.Contain.Add("Step" + i);
+                                colorGroupName = "Step" + i + "ColorGroup";
+                                break;
+                            }
+                            i++;
                         }
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ColorWithCount(" + GetStepName(sp) + "LightGroup,\"" + builder.ToString().Trim() + "\");";
+                        if (i > 100000)
+                        {
+                            new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                            return;
+                        }
+                        StringBuilder builder = new StringBuilder();
+                        foreach (int n in dialog.MultipleNumber)
+                        {
+                            builder.Append(n + " ");
+                        }
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"" + builder.ToString().Trim();
+                        command += "\",' ','-');";
+                        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
+                        scriptModel.Value += command;
+                    }
+                    else {
+                        return;
                     }
                 }
+               
                 if (sender == btnSetStartTime)
                 {
                     GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheStartTimeColon", false);
                     if (dialog.ShowDialog() == true)
                     {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = " + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
                     }
                     else
                     {
                         return;
                     }
                 }
+                Test();
+                return;
                 if (sender == btnSetEndTime)
                 {
                     Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw, GetStepName(sp) + "LightGroup");
@@ -4948,7 +4976,7 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
 
             //command =
-            //    "PositionGroup  Step1Position = new PositionGroup(\"36 40 44 48 52 56 60\",' ','-');" +
+            //    "PositionGroup  Step1Position = new PositionGroup(\"36 36 36 36 36\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"5\", ' ', '-');" +
             //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();

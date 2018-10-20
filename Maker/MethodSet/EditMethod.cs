@@ -43,33 +43,33 @@ namespace Maker.MethodSet
                     return ShapeColor(_lightGroup, ShapeColorType.RadialHorizontal, parameters[2].Substring(1, parameters[2].Length - 2));
                 }
             }
-            Regex P_CopyToTheEnd = new Regex(@"\s*CopyToTheEnd\([\S\s]*\)");
-            if (P_CopyToTheEnd.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
-                content = content.Substring(0, content.IndexOf(')'));
-                //如果包含逗号
-                if (content.Contains(','))
-                {
-                    String[] parameters = content.Split(',');
-                    if (parameters.Count() != 2 )
-                    {
-                        return null;
-                    }
+            //Regex P_CopyToTheEnd = new Regex(@"\s*CopyToTheEnd\([\S\s]*\)");
+            //if (P_CopyToTheEnd.IsMatch(commandLine))
+            //{
+            //    String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
+            //    content = content.Substring(0, content.IndexOf(')'));
+            //    //如果包含逗号
+            //    if (content.Contains(','))
+            //    {
+            //        String[] parameters = content.Split(',');
+            //        if (parameters.Count() != 2 )
+            //        {
+            //            return null;
+            //        }
 
-                    if (colorGroupDictionary.ContainsKey(parameters[1].Trim()))
-                    {
-                       return CopyToTheEnd(_lightGroup, colorGroupDictionary[parameters[1].Trim()]);
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else {
-                    return CopyToTheEnd(_lightGroup, new List<int>());
-                }
-            }
+            //        if (colorGroupDictionary.ContainsKey(parameters[1].Trim()))
+            //        {
+            //           return CopyToTheEnd(_lightGroup, colorGroupDictionary[parameters[1].Trim()]);
+            //        }
+            //        else
+            //        {
+            //            return null;
+            //        }
+            //    }
+            //    else {
+            //        return CopyToTheEnd(_lightGroup, new List<int>());
+            //    }
+            //}
             Regex P_CopyToTheFollow = new Regex(@"\s*CopyToTheFollow\([\S\s]*\)");
             if (P_CopyToTheFollow.IsMatch(commandLine))
             {
@@ -143,18 +143,7 @@ namespace Maker.MethodSet
                 }
                 return SetEndTime(_lightGroup, parameters[1],parameters[2]);
             }
-            Regex P_FillColor = new Regex(@"\s*FillColor\([\S\s]*\)");
-            if (P_FillColor.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
-                content = content.Substring(0, content.IndexOf(')'));
-                String[] parameters = content.Split(',');
-                if (parameters.Count() != 2)
-                {
-                    return null;
-                }
-                return FillColor(_lightGroup, int.Parse(parameters[1]));
-            }
+           
             Regex P_Animation = new Regex(@"\s*Animation\([\S\s]*\)");
             if (P_Animation.IsMatch(commandLine))
             {
@@ -178,24 +167,6 @@ namespace Maker.MethodSet
                 }
             }
          
-            Regex P_ColorWithCount = new Regex(@"\s*ColorWithCount\([\S\s]*\)");
-            if (P_ColorWithCount.IsMatch(commandLine))
-            {
-                String content = commandLine.Substring(commandLine.IndexOf('(') + 1);
-                content = content.Substring(0, content.IndexOf(')'));
-                String[] parameters = content.Split(',');
-                if (parameters.Count() != 2)
-                {
-                    return null;
-                }
-                String[] strs = parameters[1].Substring(1, parameters[1].Length - 2).Trim().Split(' ');
-                List<int> mIntList = new List<int>();
-                foreach (String str in strs) {
-                    mIntList.Add(int.Parse(str));
-                }
-                return ColorWithCount(_lightGroup, mIntList);
-            }
-          
             //第三方
             String thirdPartyName = commandLine.Substring(0,commandLine.IndexOf('(')).Trim();
             String dllFilePath = String.Empty;
@@ -255,39 +226,7 @@ namespace Maker.MethodSet
         }
        
 
-        /// <summary>
-        /// 根据次数变换颜色
-        /// </summary>
-        /// <param name="lightGroup"></param>
-        /// <param name="colorList"></param>
-        /// <returns></returns>
-        private static List<Light> ColorWithCount(List<Light> lightGroup, List<int> colorList)
-        {
-            lightGroup = LightBusiness.SortCouple(lightGroup);
-            int i = 0;
-            int nowPosition = -1;
-            int colorCount = colorList.Count;
-            foreach (Light l in lightGroup) {
-                if (nowPosition == -1)
-                    nowPosition = l.Position;
-                if (l.Position == nowPosition ) {
-                    if (l.Action == 144) {
-                        l.Color = colorList[i];
-                        i = (i + 1) % colorCount;
-                    }
-                }
-                else {
-                    i = 0;
-                    nowPosition = l.Position;
-                    if (l.Action == 144)
-                    {
-                        l.Color = colorList[i];
-                        i = (i + 1) % colorCount;
-                    }
-                }
-            }
-            return lightGroup;
-        }
+       
 
       
 
@@ -824,38 +763,7 @@ namespace Maker.MethodSet
             return lightGroup;
         }
 
-        private static List<Light> FillColor(List<Light> lightGroup, int v)
-        {
-            lightGroup = LightBusiness.Sort(lightGroup);
-            int max = LightBusiness.GetMax(lightGroup);
-            List<Light> mLl = new List<Light>();
-            for(int i = 28; i <= 123; i++) {
-                int nowTime = 0;
-                for (int j = 0; j < lightGroup.Count; j++)
-                {
-                    if (lightGroup[j].Position == i) {
-                        //如果是开始
-                        if (lightGroup[j].Action == 144) {
-                            //时间大于nowTime
-                            if (lightGroup[j].Time > nowTime) {
-                                //填充一组
-                                mLl.Add(new Light(nowTime, 144, i, v));
-                                mLl.Add(new Light(lightGroup[j].Time, 128, i, 64));
-                            }
-                        }
-                        if (lightGroup[j].Action == 128) {
-                            nowTime = lightGroup[j].Time;
-                        }
-                    }
-                }
-                if (nowTime < max) {
-                    mLl.Add(new Light(nowTime, 144, i, v));
-                    mLl.Add(new Light(max, 128, i, 64));
-                }
-            }
-           lightGroup.AddRange(mLl.ToList());
-            return lightGroup;
-        }
+        
 
       
 
@@ -1346,9 +1254,6 @@ namespace Maker.MethodSet
 
    
       
-   
-       
-        
      
         public enum ShapeColorType
         {
@@ -1356,37 +1261,7 @@ namespace Maker.MethodSet
             RadialVertical,
             RadialHorizontal
         }; 
-        public static List<Light> CopyToTheEnd(List<Light> lightGroup,List<int> colorList) {
-            //就是复制自己
-            if (colorList.Count == 0)
-            {
-                //获取最后的时间
-                lightGroup = LightBusiness.Sort(lightGroup);
-                int time = lightGroup[lightGroup.Count - 1].Time;
-                List<Light> ll = LightGroupMethod.SetStartTime(lightGroup, time);
-                for (int i = 0; i < ll.Count; i++)
-                {
-                    lightGroup.Add(ll[i]);
-                }
-            }
-            else {
-                //得到原灯光
-                List<Light> ll = LightBusiness.Copy(lightGroup);
-                for (int j = 0; j < colorList.Count; j++) {
-                    //获取最后的时间
-                    lightGroup = LightBusiness.Sort(lightGroup);
-                    int time = lightGroup[lightGroup.Count - 1].Time;
-                    List<Light> mLl =LightGroupMethod.SetStartTime(ll, time);
-                    for (int i = 0; i < mLl.Count; i++)
-                    {
-                        //if (mLl[i].Action == 144)
-                            mLl[i].Color = colorList[j];
-                        lightGroup.Add(mLl[i]);
-                    }
-                }
-            }
-            return lightGroup;
-        }
+       
         public static List<Light> CopyToTheFollow(List<Light> lightGroup, List<int> colorList)
         {
             lightGroup = LightBusiness.SortCouple(lightGroup);

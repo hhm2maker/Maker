@@ -1180,5 +1180,226 @@ namespace Operation
             Clear();
             AddRange(listLight);
         }
+        /// <summary>
+        /// 用指定颜色填充空白区域
+        /// </summary>
+        /// <param name="lightGroup"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public void FillColor(int v)
+        {
+            List<Light> ll = LightBusiness.Sort(this);
+            Clear();
+            AddRange(ll);
+          
+            int max = LightBusiness.GetMax(this);
+            List<Light> mLl = new List<Light>();
+            for (int i = 28; i <= 123; i++)
+            {
+                int nowTime = 0;
+                for (int j = 0; j < Count; j++)
+                {
+                    if (this[j].Position == i)
+                    {
+                        //如果是开始
+                        if (this[j].Action == 144)
+                        {
+                            //时间大于nowTime
+                            if (this[j].Time > nowTime)
+                            {
+                                //填充一组
+                                mLl.Add(new Light(nowTime, 144, i, v));
+                                mLl.Add(new Light(this[j].Time, 128, i, 64));
+                            }
+                        }
+                        if (this[j].Action == 128)
+                        {
+                            nowTime = this[j].Time;
+                        }
+                    }
+                }
+                if (nowTime < max)
+                {
+                    mLl.Add(new Light(nowTime, 144, i, v));
+                    mLl.Add(new Light(max, 128, i, 64));
+                }
+            }
+            AddRange(mLl.ToList());
+        }
+        /// <summary>
+        /// 设置颜色(格式化)
+        /// </summary>
+        /// <param name="geshihua">新颜色集合</param>
+        public void SetColor( List<int> geshihua)
+        {
+            List<Light> ll = LightBusiness.Copy(this);
+            Clear();
+         
+            List<char> mColor = new List<char>();
+            for (int j = 0; j < ll.Count; j++)
+            {
+                if (ll[j].Action == 144)
+                {
+                    if (!mColor.Contains((char)ll[j].Color))
+                    {
+                        mColor.Add((char)ll[j].Color);
+                    }
+                }
+            }
+            List<char> OldColorList = new List<char>();
+            List<char> NewColorList = new List<char>();
+            for (int i = 0; i < mColor.Count; i++)
+            {
+                OldColorList.Add(mColor[i]);
+                NewColorList.Add(mColor[i]);
+            }
+            //获取一共有多少种老颜色
+            int OldColorCount = mColor.Count;
+            if (OldColorCount == 0)
+            {
+                return ;
+            }
+            int chuCount = OldColorCount / geshihua.Count;
+            int yuCount = OldColorCount % geshihua.Count;
+            List<int> meigeyanseCount = new List<int>();//每个颜色含有的个数
+
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                meigeyanseCount.Add(chuCount);
+            }
+            if (yuCount != 0)
+            {
+                for (int i = 0; i < yuCount; i++)
+                {
+                    meigeyanseCount[i]++;
+                }
+            }
+            List<int> yansefanwei = new List<int>();
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                int AllCount = 0;
+                if (i != 0)
+                {
+                    for (int j = 0; j < i; j++)
+                    {
+                        AllCount += meigeyanseCount[j];
+                    }
+                }
+
+                yansefanwei.Add(AllCount);
+            }
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                for (int j = yansefanwei[i]; j < yansefanwei[i] + meigeyanseCount[i]; j++)
+                {
+                    NewColorList[j] = (char)geshihua[i];
+                }
+            }
+            //给原颜色排序
+            OldColorList.Sort();
+            for (int i = 0; i < ll.Count; i++)
+            {
+                for (int k = 0; k < ll.Count; k++)
+                {
+                    for (int l = 0; l < OldColorList.Count; l++)
+                    {
+                        if (ll[k].Action == 144 || ll[k].Action == 128)
+                        {
+                            if (ll[k].Color == OldColorList[l])
+                            {
+                                ll[k].Color = NewColorList[l];
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            AddRange(ll);
+        }
+        /// <summary>
+        /// 根据次数变换颜色
+        /// </summary>
+        /// <param name="lightGroup"></param>
+        /// <param name="colorList"></param>
+        /// <returns></returns>
+        public void ColorWithCount(List<int> colorList)
+        {
+            List<Light> ll = LightBusiness.SortCouple(this);
+            Clear();
+            AddRange(ll);
+            int i = 0;
+            int nowPosition = -1;
+            int colorCount = colorList.Count;
+            foreach (Light l in this)
+            {
+                if (nowPosition == -1)
+                    nowPosition = l.Position;
+                if (l.Position == nowPosition)
+                {
+                    if (l.Action == 144)
+                    {
+                        l.Color = colorList[i];
+                        i = (i + 1) % colorCount;
+                    }
+                }
+                else
+                {
+                    i = 0;
+                    nowPosition = l.Position;
+                    if (l.Action == 144)
+                    {
+                        l.Color = colorList[i];
+                        i = (i + 1) % colorCount;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// 把整个灯光平移至某个时间格
+        /// </summary>
+        /// <param name="lightGroup"></param>
+        /// <param name="startTime"></param>
+        /// <returns></returns>
+        public void SetStartTime(int startTime)
+        {
+            List<Light> ll = LightGroupMethod.SetStartTime(this, startTime);
+            Clear();
+            AddRange(ll);
+        }
+
+        public static List<Light> CopyToTheEnd(List<Light> lightGroup, List<int> colorList)
+        {
+            //就是复制自己
+            if (colorList.Count == 0)
+            {
+                //获取最后的时间
+                lightGroup = LightBusiness.Sort(lightGroup);
+                int time = lightGroup[lightGroup.Count - 1].Time;
+                List<Light> ll = LightGroupMethod.SetStartTime(lightGroup, time);
+                for (int i = 0; i < ll.Count; i++)
+                {
+                    lightGroup.Add(ll[i]);
+                }
+            }
+            else
+            {
+                //得到原灯光
+                List<Light> ll = LightBusiness.Copy(lightGroup);
+                for (int j = 0; j < colorList.Count; j++)
+                {
+                    //获取最后的时间
+                    lightGroup = LightBusiness.Sort(lightGroup);
+                    int time = lightGroup[lightGroup.Count - 1].Time;
+                    List<Light> mLl = LightGroupMethod.SetStartTime(ll, time);
+                    for (int i = 0; i < mLl.Count; i++)
+                    {
+                        //if (mLl[i].Action == 144)
+                        mLl[i].Color = colorList[j];
+                        lightGroup.Add(mLl[i]);
+                    }
+                }
+            }
+            return lightGroup;
+        }
     }
 }

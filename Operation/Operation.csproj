@@ -50,6 +50,7 @@
     <Compile Include="Light.cs" />
     <Compile Include="LightBusiness.cs" />
     <Compile Include="LightGroup.cs" />
+    <Compile Include="LightGroupMethod.cs" />
     <Compile Include="PositionGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

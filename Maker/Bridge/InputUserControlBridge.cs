@@ -134,15 +134,15 @@ namespace Maker.Bridge
                         {
                             if (mContents[1].Equals("Green"))
                             {
-                                mLightList = LightGroupMethod.SetColor(mLightList,new List<int>() { 73,74,75,76 });
+                                //mLightList = LightGroupMethod.SetColor(mLightList,new List<int>() { 73,74,75,76 });
                             }
                             if (mContents[1].Equals("Blue"))
                             {
-                                mLightList = LightGroupMethod.SetColor(mLightList, new List<int>() { 33, 37, 41, 45 });
+                                //mLightList = LightGroupMethod.SetColor(mLightList, new List<int>() { 33, 37, 41, 45 });
                             }
                             if (mContents[1].Equals("Pink"))
                             {
-                                mLightList = LightGroupMethod.SetColor(mLightList, new List<int>() { 4, 94, 53, 57 });
+                                //mLightList = LightGroupMethod.SetColor(mLightList, new List<int>() { 4, 94, 53, 57 });
                             }
                             if (mContents[1].Equals("Diy"))
                             {
@@ -151,7 +151,7 @@ namespace Maker.Bridge
                                 for (int i = 0; i < strColors.Length; i++) {
                                     intColors.Add(int.Parse(strColors[i]));
                                 }
-                                mLightList = LightGroupMethod.SetColor(mLightList, intColors);
+                                //mLightList = LightGroupMethod.SetColor(mLightList, intColors);
                             }
                         }
                         else if (mContents[0].Equals("Shape"))
@@ -208,7 +208,7 @@ namespace Maker.Bridge
                         }
                         else if (mContents[0].Equals("StartTime"))
                         {
-                            mLightList = LightGroupMethod.SetStartTime(mLightList, int.Parse(mContents[1]));
+                            //mLightList = LightGroupMethod.SetStartTime(mLightList, int.Parse(mContents[1]));
                         }
                         else if (mContents[0].Equals("AllTime"))
                         {
@@ -233,7 +233,7 @@ namespace Maker.Bridge
                         }
                         else
                         {
-                            mLightList = EditMethod.CopyToTheEnd(mLightList, intColors);
+                            //mLightList = EditMethod.CopyToTheEnd(mLightList, intColors);
                         }
                     }
                 }

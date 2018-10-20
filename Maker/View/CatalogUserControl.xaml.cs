@@ -27,7 +27,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
-using WPFSpark;
 
 namespace Maker.View
 {
@@ -37,7 +36,6 @@ namespace Maker.View
     public partial class CatalogUserControl : UserControl
     {
         public NewMainWindow mw;
-        private ToggleSwitch toolSwitch;
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;
@@ -90,12 +88,6 @@ namespace Maker.View
             {
                 Topmost = true
             };
-            //添加控件
-            toolSwitch = new ToggleSwitch();
-            toolSwitch.Margin = new Thickness(30, 0, 0, 0);
-            toolSwitch.Checked += ToolSwitch_Checked;
-            toolSwitch.Unchecked += ToolSwitch_Checked;
-            spToolTitle.Children.Add(toolSwitch);
 
             ////定义存储缓冲区大小
             //StringBuilder s = new StringBuilder(300);
@@ -120,18 +112,6 @@ namespace Maker.View
         public static extern int SystemParametersInfo(int uAction, int uParam, StringBuilder lpvParam, int fuWinIni);
         private const int SPI_GETDESKWALLPAPER = 0x0073;
         #endregion
-
-        private void ToolSwitch_Checked(object sender, RoutedEventArgs e)
-        {
-            if (toolSwitch.IsChecked == true)
-            {
-                tw.Show();
-            }
-            else
-            {
-                tw.Hide();
-            }
-        }
 
         private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
         {
