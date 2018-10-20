@@ -1367,39 +1367,238 @@ namespace Operation
             AddRange(ll);
         }
 
-        public static List<Light> CopyToTheEnd(List<Light> lightGroup, List<int> colorList)
+        public void CopyToTheEnd(ColorGroup colorList)
         {
             //就是复制自己
             if (colorList.Count == 0)
             {
                 //获取最后的时间
-                lightGroup = LightBusiness.Sort(lightGroup);
-                int time = lightGroup[lightGroup.Count - 1].Time;
-                List<Light> ll = LightGroupMethod.SetStartTime(lightGroup, time);
+                List<Light> ll = LightBusiness.Sort(this);
+                Clear();
+                AddRange(ll);
+                int time = this[Count - 1].Time;
+
+                List<Light> _ll = LightGroupMethod.SetStartTime(this, time);
                 for (int i = 0; i < ll.Count; i++)
                 {
-                    lightGroup.Add(ll[i]);
+                    Add(ll[i]);
                 }
             }
             else
             {
                 //得到原灯光
-                List<Light> ll = LightBusiness.Copy(lightGroup);
+                List<Light> _ll = LightBusiness.Copy(this);
                 for (int j = 0; j < colorList.Count; j++)
                 {
                     //获取最后的时间
-                    lightGroup = LightBusiness.Sort(lightGroup);
-                    int time = lightGroup[lightGroup.Count - 1].Time;
-                    List<Light> mLl = LightGroupMethod.SetStartTime(ll, time);
+                    List<Light> ll = LightBusiness.Sort(this);
+                    Clear();
+                    AddRange(ll);
+
+                    int time = this[Count - 1].Time;
+                    List<Light> mLl = LightGroupMethod.SetStartTime(_ll, time);
                     for (int i = 0; i < mLl.Count; i++)
                     {
                         //if (mLl[i].Action == 144)
                         mLl[i].Color = colorList[j];
-                        lightGroup.Add(mLl[i]);
+                        this.Add(mLl[i]);
                     }
                 }
             }
-            return lightGroup;
+        }
+        public static int ALL = 40;
+        public static int END = 41;
+        public static int ALLANDEND = 42;
+        public void SetEndTime(int v1, string v2)
+        {
+            List<Light> ll = LightBusiness.Copy(this);
+            Clear();
+            AddRange(ll);
+            if (v1 == ALL)
+            {
+                if (v2.Contains("+"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Action == 128)
+                            l.Time += number;
+                    }
+                    return ;
+                }
+                else if (v2.Contains("-"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Action == 128)
+                            l.Time -= number;
+                    }
+                    return ;
+                }
+                else
+                {
+                    if (!int.TryParse(v2, out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Action == 128)
+                            l.Time = number;
+                    }
+                    return ;
+                }
+            }
+            else if (v1 == END)
+            {
+                int time = -1;
+                foreach (Light l in this)
+                {
+                    if (l.Time > time && l.Action == 128)
+                    {
+                        time = l.Time;
+                    }
+                }
+                if (v2.Contains("+"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Time == time && l.Action == 128)
+                            l.Time += number;
+                    }
+                    return ;
+                }
+                else if (v2.Contains("-"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Time == time && l.Action == 128)
+                            l.Time -= number;
+                    }
+                    return ;
+                }
+                else
+                {
+                    if (!int.TryParse(v2, out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in this)
+                    {
+                        if (l.Time == time && l.Action == 128)
+                            l.Time = number;
+                    }
+                    return ;
+                }
+            }
+            else if (v1 == ALLANDEND)
+            {
+                List<Light> mLl = new List<Light>();
+                int position = -1;
+                int time = -1;
+                for (int i = 28; i <= 123; i++)
+                {
+                    position = -1;
+                    time = -1;
+                    for (int j = 0; j < Count; j++)
+                    {
+                        if (this[j].Position == i && this[j].Action == 128)
+                        {
+                            if (this[j].Time > time)
+                            {
+                                position = j;
+                                time = this[j].Time;
+                            }
+                        }
+                    }
+                    if (position > -1)
+                        mLl.Add(this[position]);
+                }
+                if (v2.Contains("+"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in mLl)
+                    {
+                        l.Time += number;
+                    }
+                    Clear();
+                    AddRange(mLl);
+                    return ;
+                }
+                else if (v2.Contains("-"))
+                {
+                    if (!int.TryParse(v2.Substring(1), out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in mLl)
+                    {
+                        l.Time -= number;
+                    }
+                    Clear();
+                    AddRange(mLl);
+                    return;
+                }
+                else
+                {
+                    if (!int.TryParse(v2, out int number))
+                    {
+                        return ;
+                    }
+                    foreach (Light l in mLl)
+                    {
+                        l.Time = number;
+                    }
+                    Clear();
+                    AddRange(mLl);
+                    return;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 将所有的灯光对的持续时间控制在固定时间
+        /// </summary>
+        /// <param name="time"></param>
+        public void SetAllTime(int time)
+        {
+            List<Light> ll = LightBusiness.Copy(this);
+            ll = LightBusiness.Sort(ll);
+            for (int i = 0; i < ll.Count; i++)
+            {
+                //如果是开就去找关
+                if (ll[i].Action == 144)
+                {
+                    for (int j = i + 1; j < ll.Count; j++)
+                    {
+                        if (ll[j].Action == 128 && ll[j].Position == ll[i].Position)
+                        {
+                            ll[j].Time = ll[i].Time + time;
+                            break;
+                        }
+                    }
+                }
+            }
+            Clear();
+            AddRange(ll);
         }
     }
 }

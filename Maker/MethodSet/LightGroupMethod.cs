@@ -9,33 +9,6 @@ namespace Maker.MethodSet
     {
       
         /// <summary>
-        /// 将所有的灯光对的持续时间控制在固定时间
-        /// </summary>
-        /// <param name="lightGroup"></param>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        public static List<Light> SetAllTime(List<Light> lightGroup, int time)
-        {
-            List<Light> ll = LightBusiness.Copy(lightGroup);
-            ll = LightBusiness.Sort(ll);
-                for (int i = 0; i < ll.Count; i++)
-                {
-                    //如果是开就去找关
-                    if (ll[i].Action == 144)
-                    {
-                        for (int j = i + 1; j < ll.Count; j++)
-                        {
-                            if (ll[j].Action == 128 && ll[j].Position == ll[i].Position)
-                            {
-                                ll[j].Time = ll[i].Time + time ;
-                                break;
-                            }
-                        }
-                    }
-                }
-            return ll;
-        }
-        /// <summary>
         /// 获取颜色数组
         /// </summary>
         /// <param name="lightGroup"></param>

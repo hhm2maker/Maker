@@ -1084,10 +1084,10 @@ namespace Maker.Business
                                     {
                                         //testLightGroup.SetAllTime(30);
                                         //全部时间
-                                        String allTime = endStr.Substring(endStr.LastIndexOf('(') + 1, endStr.LastIndexOf(')') - endStr.LastIndexOf('(') - 1);
-                                        _lightGroupDictionary[startStr] = LightGroupMethod.SetAllTime(_lightGroupDictionary[startStr], Convert.ToInt32(allTime));
-                                        commandLine = commandLineLeft + " " + startStr + " " + commandLineRightEnd;
-                                        continue;
+                                        //String allTime = endStr.Substring(endStr.LastIndexOf('(') + 1, endStr.LastIndexOf(')') - endStr.LastIndexOf('(') - 1);
+                                        //_lightGroupDictionary[startStr] = LightGroupMethod.SetAllTime(_lightGroupDictionary[startStr], Convert.ToInt32(allTime));
+                                        //commandLine = commandLineLeft + " " + startStr + " " + commandLineRightEnd;
+                                        //continue;
                                     }
                                     else if (endStr.StartsWith("GetColor("))
                                     {

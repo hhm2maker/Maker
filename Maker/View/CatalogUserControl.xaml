@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:Maker.View"
              mc:Ignorable="d" 
-             Background="#13191E"
+         Background="#13191E"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Loaded="UserControl_Loaded"
              >
     <UserControl.Resources>
@@ -320,5 +321,6 @@
                 </Grid>
             </Border>
         </Grid>
+        <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
     </Grid>
 </UserControl>

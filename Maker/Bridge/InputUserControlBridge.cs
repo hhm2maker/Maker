@@ -212,7 +212,7 @@ namespace Maker.Bridge
                         }
                         else if (mContents[0].Equals("AllTime"))
                         {
-                            mLightList = LightGroupMethod.SetAllTime(mLightList, int.Parse(mContents[1]));
+                            //mLightList = LightGroupMethod.SetAllTime(mLightList, int.Parse(mContents[1]));
                         }
                     }
                 }

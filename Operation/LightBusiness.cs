@@ -501,5 +501,21 @@ namespace Operation
             }
             return dic;
         }
+        public static List<Light> LightGroupToListLight(LightGroup lightGroup) {
+            List<Light> ll = new List<Light>();
+            foreach (var item in lightGroup) {
+                ll.Add(item);
+            }
+            return ll;
+        }
+        public static LightGroup LightGroupToListLight(List<Light> ll)
+        {
+            LightGroup lightGroup = new LightGroup();
+            foreach (var item in ll)
+            {
+                lightGroup.Add(item);
+            }
+            return lightGroup;
+        }
     }
 }
