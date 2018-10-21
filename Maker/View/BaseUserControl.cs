@@ -180,6 +180,7 @@ namespace Maker.View
                     CreateFile(filePath);
                     LoadFile(dialog.fileName);
                     mw.cuc.lbMain.Items.Add(dialog.fileName);
+                    mw.cuc.lbMain.SelectedIndex = mw.cuc.lbMain.Items.Count - 1;
                 }
             }
         }

@@ -26,7 +26,6 @@ using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using System.Reflection;
 using System.Xml.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -1764,6 +1763,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 mLightList = mLights;
                 UpdateData(mLights);
+                SaveFile();
             }
         }
         public override List<Light> GetData()
@@ -2423,25 +2423,23 @@ namespace Maker.View.LightScriptUserControl
         private void CancelParent(object sender, RoutedEventArgs e)
         {
             //没有父类不需要解除
-            if (GetParentName().Trim().Equals(String.Empty))
+            String parentName = GetParentName().Trim();
+            String childName = GetStepName();
+            if (parentName.Equals(String.Empty))
                 return;
             //不能隔代解除
-            foreach (var mItem in extendsDictionary)
-            {
-                if (mItem.Value.Contains(GetParentName()))
-                {
-                    System.Windows.Forms.MessageBox.Show("选中项的父亲有自己的父亲,不能隔代解除，请先解除父亲的父亲!");
-                    return;
-                }
+            if (!scriptModelDictionary[parentName].Parent.Equals(String.Empty)){
+                System.Windows.Forms.MessageBox.Show("选中项的父类有自己的父类,不能隔代解除，请先解除父类的父类!");
+                return;
             }
             //对比包含字段
             //父类字段不能与子类字段重复，否则替换
             Dictionary<String, String> _dictionary = new Dictionary<String, String>();//老字段，新字段
             List<String> newKey = new List<string>();
-            foreach (String str in containDictionary[GetParentName()])
+            foreach (String str in scriptModelDictionary[parentName].Contain)
             {
                 //!newKey.Contains(str) 如果没有这个条件，就会 如果同有Step3这个元素，Step3-Step4,Step4-Step4 
-                if (!containDictionary[GetStepName()].Contains(str) && !newKey.Contains(str))
+                if (!scriptModelDictionary[childName].Contain.Contains(str) && !newKey.Contains(str))
                 {
                     //该字段不存在重复
                     _dictionary.Add(str, str);
@@ -2452,7 +2450,7 @@ namespace Maker.View.LightScriptUserControl
                     int x = 1;
                     while (x <= 100000)
                     {
-                        if (!containDictionary[GetStepName()].Contains("Step" + x) && !newKey.Contains("Step" + x))
+                        if (!scriptModelDictionary[childName].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
                         {
                             //不存在重复
                             _dictionary.Add(str, "Step" + x);
@@ -2478,8 +2476,8 @@ namespace Maker.View.LightScriptUserControl
             //一定要在这里添加，如果在下面 遍历_dictionary时添加，会导致顺序颠倒，缺少行数
             for (int i = 0; i < list.Count; i++)
             {
-                if (!containDictionary[GetStepName()].Contains(list[i].ToString()))
-                    containDictionary[GetStepName()].Add(list[i].ToString());
+                if (!scriptModelDictionary[childName].Contain.Contains(list[i].ToString()))
+                    scriptModelDictionary[childName].Contain.Add(list[i].ToString());
             }
             for (int i = list.Count - 1; i >= 0; i--)
             {
@@ -2491,26 +2489,27 @@ namespace Maker.View.LightScriptUserControl
             //{
             //    Console.WriteLine(item222.Key + "---" + item222.Value);
             //}
-            String parentCommand = lightScriptDictionary[GetParentName()];
+            String parentCommand = scriptModelDictionary[parentName].Value;
             foreach (var item in _dictionary)
             {
                 parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
                 parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                parentCommand = parentCommand.Replace(item.Key + "Range", item.Value + "Range");
-                parentCommand = parentCommand.Replace(item.Key + "Color", item.Value + "Color");
+                parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+                parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+                parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
             }
-            String oldChildrenCommand = lightScriptDictionary[GetStepName()];
-            String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
-            newChildrenCommand = newChildrenCommand.Replace("Parent", oldName + "LightGroup");
+            String oldChildrenCommand = scriptModelDictionary[childName].Value;
+            String myCommand = Environment.NewLine +"\tLightGroup " + childName + "LightGroup = " + parentName+"LightGroup;" + Environment.NewLine;
+            String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
+            //newChildrenCommand = newChildrenCommand.Replace(scriptModelDictionary[childName].Parent+"();", oldName + "LightGroup;");
             //newChildrenCommand = newChildrenCommand.Replace("Parent", _dictionary.Keys.First() + "LightGroup");
-
-            extendsDictionary[GetParentName()].Remove(GetStepName());
-            lightScriptDictionary[GetStepName()] = newChildrenCommand;
+            scriptModelDictionary[childName].Parent = "";
+            scriptModelDictionary[childName].Value = newChildrenCommand;
             StackPanel sp = (StackPanel)lbStep.SelectedItem;
             TextBlock block = (TextBlock)sp.Children[3];
             block.Text = String.Empty;
 
-            RefreshData();
+            Test();
         }
 
 
@@ -4962,7 +4961,7 @@ namespace Maker.View.LightScriptUserControl
             //    //{
             //    //    UpdateData(new List<Light>());
             //    //}}
-
+            scriptModelDictionary.Clear();
             XDocument xDoc = XDocument.Load(filePath);
             XElement xRoot = xDoc.Element("Root");
             XElement xScripts = xRoot.Element("Scripts");
@@ -4989,11 +4988,10 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Visible = false;
                 }
-                scriptModel.Contain = xScript.Attribute("contain").Value.Split('-').ToList();
+                scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
 
-                command = fileBusiness.Base2String(xScript.Attribute("value").Value);
-
+                //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
             }
             UpdateStep();
 
@@ -5014,7 +5012,16 @@ namespace Maker.View.LightScriptUserControl
             }
             UpdateVisible();
         }
-
+        protected override void CreateFile(String filePath)
+        {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            XElement xRoot = new XElement("Root");
+            XElement xScripts = new XElement("Scripts");
+            xDoc.Add(xRoot);
+            xRoot.Add(xScripts);
+            xDoc.Save(filePath);
+        }
         private String command;
         protected override void SaveFile()
         {
@@ -5025,13 +5032,19 @@ namespace Maker.View.LightScriptUserControl
             xDoc.Add(xRoot);
             xRoot.Add(xScripts);
 
-            XElement xScript = new XElement("Script");
-            xScript.SetAttributeValue("name", "Step1");
-            xScript.SetAttributeValue("value", fileBusiness.String2Base(command));
-            xScript.SetAttributeValue("visible", "true");
-            xScript.SetAttributeValue("contain", "Step1");
-
-            xScripts.Add(xScript);
+            foreach (var item in scriptModelDictionary) {
+                XElement xScript = new XElement("Script");
+                xScript.SetAttributeValue("name", item.Key);
+                xScript.SetAttributeValue("parent", item.Value.Parent);
+                xScript.SetAttributeValue("value", fileBusiness.String2Base(item.Value.Value));
+                xScript.SetAttributeValue("visible", item.Value.Visible);
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < item.Value.Contain.Count; i++) {
+                    builder.Append(item.Value.Contain[i]+" ");
+                }
+                xScript.SetAttributeValue("contain", builder.ToString().Trim());
+                xScripts.Add(xScript);
+            }
             xDoc.Save(filePath);
         }
 

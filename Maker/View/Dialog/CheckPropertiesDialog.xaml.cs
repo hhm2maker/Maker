@@ -43,7 +43,6 @@ namespace Maker.View.Dialog
         List<int> mColor = new List<int>();
         private void ReadOtherAttribute()
         {
-
             for (int j = 0; j < mLightList.Count; j++)
             {
                 if (mLightList[j].Action == 144)

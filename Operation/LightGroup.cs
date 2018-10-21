@@ -1670,18 +1670,14 @@ namespace Operation
             Clear();
             AddRange(lightGroup);
         }
-
-
-
-        public enum ShapeColorType
-        {
-            Square,
-            RadialVertical,
-            RadialHorizontal
-        };
         public static int SQUARE = 50;
         public static int RADIALVERTICAL = 51;
         public static int RADIALHORIZONTAL = 52;
+        /// <summary>
+        /// 按形状填充颜色
+        /// </summary>
+        /// <param name="_type"></param>
+        /// <param name="v"></param>
         public void ShapeColor( int _type, List<int> v)
         {
             List<Light> lightGroup = LightBusiness.Copy(this);

@@ -423,10 +423,11 @@ namespace Maker.Bridge
             {
                 iuc.tbTimeNow.Text = liTime[0].ToString();
               
-                if (nowTimePoint > liTime.Count)
+                if (nowTimePoint > liTime.Count || nowTimePoint == 0)
                 {
                     nowTimePoint = 1;
                 }
+              
                 iuc.tbTimePointCountLeft.Text = nowTimePoint.ToString();
                 iuc.tbTimePointCount.Text = liTime.Count.ToString();
                 LoadFrame();
@@ -448,6 +449,7 @@ namespace Maker.Bridge
         }
         private void LoadFrame()
         {
+           
             int[] x = dic[liTime[nowTimePoint - 1]];
 
             for (int i = 0; i < x.Count(); i++)
