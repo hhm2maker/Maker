@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Operation
 {
-    public class BaseRangeGroup : List<int>
+    public class RangeGroup : List<int>
     {
-        public BaseRangeGroup(String str,char splitNotation, char rangeNotation)
+        public RangeGroup(String str,char splitNotation, char rangeNotation)
         {
             string[] strSplit = str.Split(splitNotation);
             for (int i = 0; i < strSplit.Length; i++)

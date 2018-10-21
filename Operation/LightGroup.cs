@@ -1366,7 +1366,10 @@ namespace Operation
             Clear();
             AddRange(ll);
         }
-
+        /// <summary>
+        /// 复制到最后
+        /// </summary>
+        /// <param name="colorList"></param>
         public void CopyToTheEnd(ColorGroup colorList)
         {
             //就是复制自己
@@ -1573,7 +1576,6 @@ namespace Operation
                 }
             }
         }
-
         /// <summary>
         /// 将所有的灯光对的持续时间控制在固定时间
         /// </summary>
@@ -1600,5 +1602,403 @@ namespace Operation
             Clear();
             AddRange(ll);
         }
+        /// <summary>
+        /// 跟随复制到最后
+        /// </summary>
+        /// <param name="colorList"></param>
+        public void CopyToTheFollow( List<int> colorList)
+        {
+            List<Light> ll = LightBusiness.SortCouple(this);
+            List<Light> _lightGroup = LightBusiness.Copy(this);
+            if (colorList.Count == 0)
+            {
+                for (int i = 0; i < ll.Count; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        int width = ll[i + 1].Time - ll[i].Time;
+                        _lightGroup.Add(new Light(ll[i].Time + width, ll[i].Action, ll[i].Position, ll[i].Color));
+                        _lightGroup.Add(new Light(ll[i + 1].Time + width, ll[i + 1].Action, ll[i + 1].Position, ll[i + 1].Color));
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < ll.Count; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        int width = ll[i + 1].Time - ll[i].Time;
+                        for (int j = 0; j < colorList.Count; j++)
+                        {
+                            _lightGroup.Add(new Light(ll[i].Time + (j + 1) * width, ll[i].Action, ll[i].Position, colorList[j]));
+                            _lightGroup.Add(new Light(ll[i + 1].Time + (j + 1) * width, ll[i + 1].Action, ll[i + 1].Position, colorList[j]));
+                        }
+                    }
+                }
+            }
+            Clear();
+            AddRange(_lightGroup);
+        }
+
+        /// <summary>
+        /// 加速或减速运动
+        /// </summary>
+        /// <param name="rangeList"></param>
+        public void AccelerationOrDeceleration( List<int> rangeList)
+        {
+            List<Light> _lightGroup = LightBusiness.Sort(this);
+            List<Light> lightGroup = new List<Light>();
+            for (int i = 0; i < rangeList.Count; i++)
+            {
+                lightGroup = LightBusiness.Sort(lightGroup);
+                int time = 0;
+                if (lightGroup.Count != 0)
+                {
+                    time = lightGroup[lightGroup.Count - 1].Time;
+                }
+                List<Light> mLightGroup = new List<Light>();
+                for (int j = 0; j < _lightGroup.Count; j++)
+                {
+                    mLightGroup.Add(new Light(time + (int)(_lightGroup[j].Time * (rangeList[i] / 100.0)), _lightGroup[j].Action, _lightGroup[j].Position, _lightGroup[j].Color));
+                }
+                for (int k = 0; k < mLightGroup.Count; k++)
+                {
+                    lightGroup.Add(new Light(mLightGroup[k].Time, mLightGroup[k].Action, mLightGroup[k].Position, mLightGroup[k].Color));
+                }
+            }
+            Clear();
+            AddRange(lightGroup);
+        }
+
+
+
+        public enum ShapeColorType
+        {
+            Square,
+            RadialVertical,
+            RadialHorizontal
+        };
+        public static int SQUARE = 50;
+        public static int RADIALVERTICAL = 51;
+        public static int RADIALHORIZONTAL = 52;
+        public void ShapeColor( int _type, List<int> v)
+        {
+            List<Light> lightGroup = LightBusiness.Copy(this);
+            //方形
+            if (_type == SQUARE)
+            {
+                if (v.Count != 5)
+                {
+                    return ;
+                }
+                List<List<int>> lli = new List<List<int>>();
+                lli.Add(new List<int>() { 51, 55, 80, 84 });
+                lli.Add(new List<int>() { 46, 47, 50, 54, 58, 59, 76, 77, 81, 85, 88, 89 });
+                lli.Add(new List<int>() { 41, 42, 43, 45, 49, 53, 57, 61, 62, 63, 72, 73, 74, 78, 82, 86, 90, 92, 93, 94 });
+                lli.Add(new List<int>() { 36, 37, 38, 39, 40, 44, 48, 52, 56, 60, 64, 65, 66, 67, 68, 69, 70, 71, 75, 79, 83, 87, 91, 95, 96, 97, 98, 99 });
+                List<int> _list = new List<int>();
+                for (int i = 28; i <= 35; i++)
+                {
+                    _list.Add(i);
+                }
+                for (int i = 100; i <= 123; i++)
+                {
+                    _list.Add(i);
+                }
+                lli.Add(_list);
+                if (v[0] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[0].Contains(l.Position))
+                        {
+                            l.Color = v[0];
+                        }
+                    }
+                }
+                if (v[1] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[1].Contains(l.Position))
+                        {
+                            l.Color = v[1];
+                        }
+                    }
+                }
+                if (v[2] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[2].Contains(l.Position))
+                        {
+                            l.Color = v[2];
+                        }
+                    }
+                }
+                if (v[3] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[3].Contains(l.Position))
+                        {
+                            l.Color = v[3];
+                        }
+                    }
+                }
+                if (v[4] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[4].Contains(l.Position))
+                        {
+                            l.Color = v[4];
+                        }
+                    }
+                }
+            }
+            //垂直径向
+            if (_type == RADIALVERTICAL)
+            {
+                if (v.Count != 10)
+                {
+                    return ;
+                }
+                List<List<int>> lli = new List<List<int>>();
+                lli.Add(new List<int>() { 28, 29, 30, 31, 32, 33, 34, 35 });
+                lli.Add(new List<int>() { 108, 64, 65, 66, 67, 96, 97, 98, 99, 100 });
+                lli.Add(new List<int>() { 109, 60, 61, 62, 63, 92, 93, 94, 95, 101 });
+                lli.Add(new List<int>() { 110, 56, 57, 58, 59, 88, 89, 90, 91, 102 });
+                lli.Add(new List<int>() { 111, 52, 53, 54, 55, 84, 85, 86, 87, 103 });
+                lli.Add(new List<int>() { 112, 48, 49, 50, 51, 80, 81, 82, 83, 104 });
+                lli.Add(new List<int>() { 113, 44, 45, 46, 47, 76, 77, 78, 79, 105 });
+                lli.Add(new List<int>() { 114, 40, 41, 42, 43, 72, 73, 74, 75, 106 });
+                lli.Add(new List<int>() { 115, 36, 37, 38, 39, 68, 69, 70, 71, 107 });
+                lli.Add(new List<int>() { 116, 117, 118, 119, 120, 121, 122, 123 });
+                if (v[0] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[0].Contains(l.Position))
+                        {
+                            l.Color = v[0];
+                        }
+                    }
+                }
+                if (v[1] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[1].Contains(l.Position))
+                        {
+                            l.Color = v[1];
+                        }
+                    }
+                }
+                if (v[2] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[2].Contains(l.Position))
+                        {
+                            l.Color = v[2];
+                        }
+                    }
+                }
+                if (v[3] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[3].Contains(l.Position))
+                        {
+                            l.Color = v[3];
+                        }
+                    }
+                }
+                if (v[4] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[4].Contains(l.Position))
+                        {
+                            l.Color = v[4];
+                        }
+                    }
+                }
+                if (v[5] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[5].Contains(l.Position))
+                        {
+                            l.Color = v[5];
+                        }
+                    }
+                }
+                if (v[6] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[6].Contains(l.Position))
+                        {
+                            l.Color = v[6];
+                        }
+                    }
+                }
+                if (v[7] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[7].Contains(l.Position))
+                        {
+                            l.Color = v[7];
+                        }
+                    }
+                }
+                if (v[8] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[8].Contains(l.Position))
+                        {
+                            l.Color = v[8];
+                        }
+                    }
+                }
+                if (v[9] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[9].Contains(l.Position))
+                        {
+                            l.Color = v[9];
+                        }
+                    }
+                }
+            }
+            //水平径向
+            if (_type == RADIALHORIZONTAL)
+            {
+                if (v.Count != 10)
+                {
+                    return ;
+                }
+                List<List<int>> lli = new List<List<int>>();
+                lli.Add(new List<int>() { 108, 109, 110, 111, 112, 113, 114, 115 });
+                lli.Add(new List<int>() { 28, 64, 60, 56, 52, 48, 44, 40, 36, 116 });
+                lli.Add(new List<int>() { 29, 65, 61, 57, 53, 49, 45, 41, 37, 117 });
+                lli.Add(new List<int>() { 30, 66, 62, 58, 54, 50, 46, 42, 38, 118 });
+                lli.Add(new List<int>() { 31, 67, 63, 59, 55, 51, 47, 43, 39, 119 });
+                lli.Add(new List<int>() { 32, 96, 92, 88, 84, 80, 76, 72, 68, 120 });
+                lli.Add(new List<int>() { 33, 97, 93, 89, 85, 81, 77, 73, 69, 121 });
+                lli.Add(new List<int>() { 34, 98, 94, 90, 86, 82, 78, 74, 70, 122 });
+                lli.Add(new List<int>() { 35, 99, 95, 91, 87, 83, 79, 75, 71, 123 });
+                lli.Add(new List<int>() { 100, 101, 102, 103, 104, 105, 106, 107 });
+                if (v[0] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[0].Contains(l.Position))
+                        {
+                            l.Color = v[0];
+                        }
+                    }
+                }
+                if (v[1] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[1].Contains(l.Position))
+                        {
+                            l.Color = v[1];
+                        }
+                    }
+                }
+                if (v[2] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[2].Contains(l.Position))
+                        {
+                            l.Color = v[2];
+                        }
+                    }
+                }
+                if (v[3] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[3].Contains(l.Position))
+                        {
+                            l.Color = v[3];
+                        }
+                    }
+                }
+                if (v[4] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[4].Contains(l.Position))
+                        {
+                            l.Color = v[4];
+                        }
+                    }
+                }
+                if (v[5] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[5].Contains(l.Position))
+                        {
+                            l.Color = v[5];
+                        }
+                    }
+                }
+                if (v[6] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[6].Contains(l.Position))
+                        {
+                            l.Color = v[6];
+                        }
+                    }
+                }
+                if (v[7] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[7].Contains(l.Position))
+                        {
+                            l.Color = v[7];
+                        }
+                    }
+                }
+                if (v[8] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[8].Contains(l.Position))
+                        {
+                            l.Color = v[8];
+                        }
+                    }
+                }
+                if (v[9] != 0)
+                {
+                    foreach (Light l in lightGroup)
+                    {
+                        if (lli[9].Contains(l.Position))
+                        {
+                            l.Color = v[9];
+                        }
+                    }
+                }
+            }
+            Clear();
+            AddRange(lightGroup);
+        }
+
     }
 }

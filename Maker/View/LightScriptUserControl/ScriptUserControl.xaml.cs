@@ -3985,7 +3985,7 @@ namespace Maker.View.LightScriptUserControl
                         if (!scriptModel.Contain.Contains("Step" + i))
                         {
                             scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "Color";
+                            colorGroupName = "Step" + i + "ColorGroup";
                             break;
                         }
                         i++;
@@ -4012,27 +4012,24 @@ namespace Maker.View.LightScriptUserControl
                         }
                         command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
                           + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup = Edit.CopyToTheEnd(" + GetStepName(sp) + "LightGroup," + colorGroupName + "); ";
+                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheEnd(" + colorGroupName + "); ";
                         scriptModel.Value += command;
-                        //还没测试
                     }
                     else
                     {
                         return;
                     }
                 }
-                Test();
-                return;
                 if (sender == btnCopyToTheFollow)
                 {
                     String colorGroupName = String.Empty;
                     int i = 1;
                     while (i <= 100000)
                     {
-                        if (!containDictionary[GetStepName(sp)].Contains("Step" + i))
+                        if (!scriptModel.Contain.Contains("Step" + i))
                         {
-                            containDictionary[GetStepName(sp)].Add("Step" + i);
-                            colorGroupName = "Step" + i + "Color";
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
                             break;
                         }
                         i++;
@@ -4059,23 +4056,25 @@ namespace Maker.View.LightScriptUserControl
                         }
                         command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
                           + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup = Edit.CopyToTheFollow(" + GetStepName(sp) + "LightGroup," + colorGroupName + "); ";
+                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheFollow(" + colorGroupName + "); ";
+                        scriptModel.Value += command;
                     }
                     else
                     {
                         return;
                     }
                 }
+              
                 if (sender == btnAccelerationOrDeceleration)
                 {
                     String rangeGroupName = String.Empty;
                     int i = 1;
                     while (i <= 100000)
                     {
-                        if (!containDictionary[GetStepName(sp)].Contains("Step" + i))
+                        if (!scriptModel.Contain.Contains("Step" + i))
                         {
-                            containDictionary[GetStepName(sp)].Add("Step" + i);
-                            rangeGroupName = "Step" + i + "Range";
+                            scriptModel.Contain.Add("Step" + i);
+                            rangeGroupName = "Step" + i + "RangeGroup";
                             break;
                         }
                         i++;
@@ -4102,16 +4101,35 @@ namespace Maker.View.LightScriptUserControl
                         }
                         command = Environment.NewLine + "\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
                           + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup = Edit.AccelerationOrDeceleration(" + GetStepName(sp) + "LightGroup," + rangeGroupName + "); ";
+                        + "\t" + GetStepName(sp) + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + "); ";
+                        scriptModel.Value += command;
                     }
                     else
                     {
                         return;
                     }
-
                 }
+             
                 if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
                 {
+                    String colorGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+                 
                     ShapeColorDialog dialog;
                     if (sender == miSquare)
                     {
@@ -4127,23 +4145,26 @@ namespace Maker.View.LightScriptUserControl
                     }
                     if (dialog.ShowDialog() == true)
                     {
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
+                          + dialog.content + "\",' ','-');";
+
                         if (sender == miSquare)
                         {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,Square,\"" + dialog.content + "\");";
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.SQUARE," + colorGroupName + ");";
                         }
                         else if (sender == miRadialVertical)
                         {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialVertical,\"" + dialog.content + "\");";
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL," + colorGroupName + ");";
                         }
                         else if (sender == miRadialHorizontal)
                         {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialHorizontal,\"" + dialog.content + "\");";
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL," + colorGroupName + ");";
                         }
+                        scriptModel.Value += command;
                     }
                 }
-                lightScriptDictionary[GetStepName(sp)] += command;
             }
-            RefreshData();
+            Test();
         }
         private void Automatic(object sender, RoutedEventArgs e)
         {
@@ -4977,7 +4998,7 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
 
             //command =
-            //    "PositionGroup  Step1Position = new PositionGroup(\"36 36 36 36 36\",' ','-');" +
+            //    "PositionGroup  Step1Position = new PositionGroup(\"36 37 38 39\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"5\", ' ', '-');" +
             //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();

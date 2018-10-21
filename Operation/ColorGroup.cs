@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Operation
 {
-    public class ColorGroup : BaseRangeGroup
+    public class ColorGroup : RangeGroup
     {
         public ColorGroup(string str, char splitNotation, char rangeNotation) : base(str, splitNotation, rangeNotation)
         {

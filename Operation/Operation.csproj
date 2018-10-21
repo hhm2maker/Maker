@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
-    <Compile Include="BaseRangeGroup.cs" />
+    <Compile Include="RangeGroup.cs" />
     <Compile Include="ColorGroup.cs" />
     <Compile Include="Create.cs" />
     <Compile Include="Edit.cs" />

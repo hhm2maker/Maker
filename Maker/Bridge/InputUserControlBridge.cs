@@ -158,15 +158,15 @@ namespace Maker.Bridge
                         {
                             if (mContents[1].Equals("Square"))
                             {
-                                mLightList = EditMethod.ShapeColor(mLightList,EditMethod.ShapeColorType.Square, mContents[2]);
+                                //mLightList = EditMethod.ShapeColor(mLightList,EditMethod.ShapeColorType.Square, mContents[2]);
                             }
                             else if (mContents[1].Equals("RadialVertical"))
                             {
-                                mLightList = EditMethod.ShapeColor(mLightList, EditMethod.ShapeColorType.RadialVertical, mContents[2]);
+                                //mLightList = EditMethod.ShapeColor(mLightList, EditMethod.ShapeColorType.RadialVertical, mContents[2]);
                             }
                             else if (mContents[1].Equals("RadialHorizontal"))
                             {
-                                mLightList = EditMethod.ShapeColor(mLightList, EditMethod.ShapeColorType.RadialHorizontal, mContents[2]);
+                                //mLightList = EditMethod.ShapeColor(mLightList, EditMethod.ShapeColorType.RadialHorizontal, mContents[2]);
                             }
                         }
                     }
@@ -229,7 +229,7 @@ namespace Maker.Bridge
                         }
                         if (mContents[0].Equals("true"))
                         {
-                            mLightList = EditMethod.CopyToTheFollow(mLightList, intColors);
+                            //mLightList = EditMethod.CopyToTheFollow(mLightList, intColors);
                         }
                         else
                         {
@@ -249,7 +249,7 @@ namespace Maker.Bridge
                         {
                             intColors.Add(int.Parse(strColors[x]));
                         }
-                        mLightList = EditMethod.AccelerationOrDeceleration(mLightList, intColors);
+                        //mLightList = EditMethod.AccelerationOrDeceleration(mLightList, intColors);
                     }
                 }
                 if (type.Equals("Other"))
