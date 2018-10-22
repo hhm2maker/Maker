@@ -21,11 +21,13 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class ControlScriptDialog : Window
     {
-        public ScriptUserControl iuc;
-        public ControlScriptDialog(ScriptUserControl iuc)
+        private ScriptUserControl iuc;
+        private String command;
+        public ControlScriptDialog(ScriptUserControl iuc,String command)
         {
             InitializeComponent();
             this.iuc = iuc;
+            this.command = command;
             Owner = iuc.mw;
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -39,7 +41,7 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            String str = iuc.lightScriptDictionary[iuc.GetStepName()];
+            String str = command;
             String[] commands =  str.Split(Environment.NewLine.ToArray());
             foreach(String mStr in commands) {
                 if (mStr.Trim().Equals(String.Empty)) {

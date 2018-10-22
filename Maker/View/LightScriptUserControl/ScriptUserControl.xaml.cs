@@ -2379,7 +2379,8 @@ namespace Maker.View.LightScriptUserControl
 
         private void VisiblePanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            List<String> ls = GetStepNameCollection();
+            //List<String> ls = GetStepNameCollection();
+            String stepName = GetVisibleImageStepName(sender);
             bool isMatch = false;
             foreach (var id in intersectionDictionary)
             {
@@ -2402,7 +2403,7 @@ namespace Maker.View.LightScriptUserControl
             if (isMatch)
                 return;
 
-            if (visibleDictionary[GetVisibleImageStepName(sender)])
+            if (scriptModelDictionary[stepName].Visible)
             {
                 DockPanel panel = (DockPanel)sender;
                 Image visibleImage = (Image)panel.Children[0];
@@ -2414,10 +2415,9 @@ namespace Maker.View.LightScriptUserControl
                 Image visibleImage = (Image)panel.Children[0];
                 visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/visible.png", UriKind.RelativeOrAbsolute));
             }
-            visibleDictionary[GetVisibleImageStepName(sender)] = !visibleDictionary[GetVisibleImageStepName(sender)];
+            scriptModelDictionary[stepName].Visible = !scriptModelDictionary[stepName].Visible;
             UpdateVisible();
-
-            RefreshData();
+            Test();
         }
 
         private void CancelParent(object sender, RoutedEventArgs e)
@@ -2617,8 +2617,8 @@ namespace Maker.View.LightScriptUserControl
         {
             if (lbStep.SelectedIndex == -1)
                 return;
-
-            ControlScriptDialog dialog = new ControlScriptDialog(this);
+            String stepName = GetStepName();
+            ControlScriptDialog dialog = new ControlScriptDialog(this,scriptModelDictionary[stepName].Value);
             if (dialog.ShowDialog() == true)
             {
                 StringBuilder builder = new StringBuilder();
@@ -2633,8 +2633,8 @@ namespace Maker.View.LightScriptUserControl
                         builder.Append("\t" + dialog.lbMain.Items[i].ToString());
                     }
                 }
-                lightScriptDictionary[GetStepName()] = builder.ToString();
-                RefreshData();
+                scriptModelDictionary[GetStepName()].Value = builder.ToString();
+                Test();
             }
 
         }
@@ -3377,10 +3377,10 @@ namespace Maker.View.LightScriptUserControl
                         }
                         lbStep.SelectedIndex = pPosition + 1;
                         //数据交换
-                        Dictionary<String, String> mLightScriptDictionary = new Dictionary<String, String>();
-                        List<string> mKey = new List<string>(lightScriptDictionary.Keys);
-                        String strUp = lightScriptDictionary[mKey[pPosition + 1]];
-                        String strDown = lightScriptDictionary[mKey[cPosition]];
+                        Dictionary<String, ScriptModel> mLightScriptDictionary = new Dictionary<String, ScriptModel>();
+                        List<string> mKey = new List<string>(scriptModelDictionary.Keys);
+                        ScriptModel strUp = scriptModelDictionary[mKey[pPosition + 1]];
+                        ScriptModel strDown = scriptModelDictionary[mKey[cPosition]];
                         for (int i = 0; i < mKey.Count; i++)
                         {
                             if (i == pPosition + 1)
@@ -3393,10 +3393,10 @@ namespace Maker.View.LightScriptUserControl
                             }
                             else
                             {
-                                mLightScriptDictionary.Add(mKey[i], lightScriptDictionary[mKey[i]]);
+                                mLightScriptDictionary.Add(mKey[i], scriptModelDictionary[mKey[i]]);
                             }
                         }
-                        lightScriptDictionary = mLightScriptDictionary;
+                        scriptModelDictionary = mLightScriptDictionary;
                     }
                     else if (cPosition == pPosition - 1)
                     {
@@ -3417,10 +3417,10 @@ namespace Maker.View.LightScriptUserControl
                         }
                         lbStep.SelectedIndex = pPosition + 1;
                         //数据交换
-                        Dictionary<String, String> mLightScriptDictionary = new Dictionary<String, String>();
-                        List<string> mKey = new List<string>(lightScriptDictionary.Keys);
-                        String strUp = lightScriptDictionary[mKey[pPosition]];
-                        String strDown = lightScriptDictionary[mKey[cPosition]];
+                        Dictionary<String, ScriptModel> mLightScriptDictionary = new Dictionary<String, ScriptModel>();
+                        List<string> mKey = new List<string>(scriptModelDictionary.Keys);
+                        ScriptModel strUp = scriptModelDictionary[mKey[pPosition]];
+                        ScriptModel strDown = scriptModelDictionary[mKey[cPosition]];
                         for (int i = 0; i < mKey.Count; i++)
                         {
                             if (i == pPosition)
@@ -3433,10 +3433,10 @@ namespace Maker.View.LightScriptUserControl
                             }
                             else
                             {
-                                mLightScriptDictionary.Add(mKey[i], lightScriptDictionary[mKey[i]]);
+                                mLightScriptDictionary.Add(mKey[i], scriptModelDictionary[mKey[i]]);
                             }
                         }
-                        lightScriptDictionary = mLightScriptDictionary;
+                        scriptModelDictionary = mLightScriptDictionary;
                     }
                     else if (cPosition < pPosition - 1)
                     {
@@ -3456,11 +3456,11 @@ namespace Maker.View.LightScriptUserControl
                         }
                         lbStep.Items.Insert(pPosition, sp);
                         //数据交换
-                        Dictionary<String, String> mLightScriptDictionary = new Dictionary<String, String>();
-                        List<string> mKey = new List<string>(lightScriptDictionary.Keys);
+                        Dictionary<String, ScriptModel> mLightScriptDictionary = new Dictionary<String, ScriptModel>();
+                        List<string> mKey = new List<string>(scriptModelDictionary.Keys);
                         //抽取子集
                         String nowKey = mKey[cPosition];
-                        String strDown = lightScriptDictionary[mKey[cPosition]];
+                        ScriptModel strDown = scriptModelDictionary[mKey[cPosition]];
                         mKey.RemoveAt(cPosition);
                         for (int i = 0; i < mKey.Count; i++)
                         {
@@ -3468,14 +3468,14 @@ namespace Maker.View.LightScriptUserControl
                             {
                                 mLightScriptDictionary.Add(nowKey, strDown);
                             }
-                            mLightScriptDictionary.Add(mKey[i], lightScriptDictionary[mKey[i]]);
+                            mLightScriptDictionary.Add(mKey[i], scriptModelDictionary[mKey[i]]);
                         }
-                        lightScriptDictionary = mLightScriptDictionary;
+                        scriptModelDictionary = mLightScriptDictionary;
                     }
                 }
 
                 UpdateIntersection();
-                RefreshData();
+                //RefreshData();
             }
         }
 
