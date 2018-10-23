@@ -1996,5 +1996,59 @@ namespace Operation
             AddRange(lightGroup);
         }
 
+        public static int INTERSECTION = 61;
+        public static int COMPLEMENT = 62;
+
+        public void CollectionOperation(int type,LightGroup lightGroup)
+        {
+            List<Light> ll = LightBusiness.Copy(this);
+
+            //集合操作
+            List<Light> mainBig = new List<Light>();
+            mainBig.AddRange(ll);
+            mainBig.AddRange(lightGroup);
+            mainBig = LightBusiness.Splice(mainBig);
+
+            List<Light> big = LightBusiness.Split(mainBig, ll);
+            List<Light> small = LightBusiness.Split(mainBig, lightGroup);
+
+            List<Light> result = new List<Light>();
+            if (type == INTERSECTION)
+            {
+                for (int i = 0; i < big.Count; i++)
+                {
+                    for (int j = small.Count - 1; j >= 0; j--)
+                    {
+                        if (big[i].IsExceptForColorEquals(small[j]))
+                        {
+                            result.Add(big[i]);
+                            small.RemoveAt(j);
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (type == COMPLEMENT)
+            {
+                for (int i = 0; i < big.Count; i++)
+                {
+                    bool isContain = false;
+                    for (int j = 0; j < small.Count; j++)
+                    {
+                        if (big[i].IsExceptForColorEquals(small[j]))
+                        {
+                            isContain = true;
+                            break;
+                        }
+                    }
+                    if (!isContain)
+                    {
+                        result.Add(big[i]);
+                    }
+                }
+            }
+            Clear();
+            AddRange(result);
+        }
     }
 }

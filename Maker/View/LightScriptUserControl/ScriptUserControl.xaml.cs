@@ -1022,7 +1022,7 @@ namespace Maker.View.LightScriptUserControl
                 if (sender == tbIfThenRemove)
                 {
                     //移除
-                    thenPrerequisite = "\t"+Environment.NewLine + "for (int i = 0; i < Step" + x.ToString() + "TemporaryLightGroup.Count; i++) {" + GetStepName() + "LightGroup.Remove(Step" + x.ToString() + "TemporaryLightGroup[i]);}";
+                    thenPrerequisite = "\t" + Environment.NewLine + "for (int i = 0; i < Step" + x.ToString() + "TemporaryLightGroup.Count; i++) {" + GetStepName() + "LightGroup.Remove(Step" + x.ToString() + "TemporaryLightGroup[i]);}";
                 }
                 else
                 {
@@ -1780,12 +1780,32 @@ namespace Maker.View.LightScriptUserControl
             sb.Append("public class Test{");
             sb.Append("public List<Light> Hello(){");
             sb.Append("List<Light> mainLightGroup = new List<Light>();");
+
+            List<String> childSst = new List<String>();
+
             //添加内容名称
             foreach (var scriptModel in scriptModelDictionary)
             {
-                if (scriptModel.Value.Visible)
+                if (scriptModel.Value.Visible && !childSst.Contains(scriptModel.Key))
                 {
-                    sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "());");
+                    sb.Append("LightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Key + "();");
+                    for (int i = 0; i < scriptModel.Value.Intersection.Count; i++)
+                    {
+                        sb.Append("LightGroup " + scriptModel.Value.Intersection[i] + "LightGroup = " + scriptModel.Value.Intersection[i] + "();");
+                        //交集操作
+                        sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + scriptModel.Value.Intersection[i] + "LightGroup);");
+                        //添加进集合列表
+                        childSst.Add(scriptModel.Value.Intersection[i]);
+                    }
+                    for (int i = 0; i < scriptModel.Value.Complement.Count; i++)
+                    {
+                        sb.Append(scriptModel.Key + "LightGroup = " + "LightGroup " + scriptModel.Value.Complement[i] + "LightGroup = " + scriptModel.Value.Complement[i] + "();");
+                        //补集操作
+                        sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT," + scriptModel.Value.Intersection[i] + "LightGroup);");
+                        //添加进集合列表
+                        childSst.Add(scriptModel.Value.Complement[i]);
+                    }
+                    sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "LightGroup);");
                 }
             }
             //尾
@@ -2428,7 +2448,8 @@ namespace Maker.View.LightScriptUserControl
             if (parentName.Equals(String.Empty))
                 return;
             //不能隔代解除
-            if (!scriptModelDictionary[parentName].Parent.Equals(String.Empty)){
+            if (!scriptModelDictionary[parentName].Parent.Equals(String.Empty))
+            {
                 System.Windows.Forms.MessageBox.Show("选中项的父类有自己的父类,不能隔代解除，请先解除父类的父类!");
                 return;
             }
@@ -2499,7 +2520,7 @@ namespace Maker.View.LightScriptUserControl
                 parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
             }
             String oldChildrenCommand = scriptModelDictionary[childName].Value;
-            String myCommand = Environment.NewLine +"\tLightGroup " + childName + "LightGroup = " + parentName+"LightGroup;" + Environment.NewLine;
+            String myCommand = Environment.NewLine + "\tLightGroup " + childName + "LightGroup = " + parentName + "LightGroup;" + Environment.NewLine;
             String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
             //newChildrenCommand = newChildrenCommand.Replace(scriptModelDictionary[childName].Parent+"();", oldName + "LightGroup;");
             //newChildrenCommand = newChildrenCommand.Replace("Parent", _dictionary.Keys.First() + "LightGroup");
@@ -2618,7 +2639,7 @@ namespace Maker.View.LightScriptUserControl
             if (lbStep.SelectedIndex == -1)
                 return;
             String stepName = GetStepName();
-            ControlScriptDialog dialog = new ControlScriptDialog(this,scriptModelDictionary[stepName].Value);
+            ControlScriptDialog dialog = new ControlScriptDialog(this, scriptModelDictionary[stepName].Value);
             if (dialog.ShowDialog() == true)
             {
                 StringBuilder builder = new StringBuilder();
@@ -3332,6 +3353,7 @@ namespace Maker.View.LightScriptUserControl
                 String parentName = dialog.cbLightName.SelectedItem.ToString();
                 if (dialog.cbType.SelectedIndex == 1)
                 {
+                    scriptModelDictionary[parentName].Intersection.Add(GetStepName());
                     if (intersectionDictionary.ContainsKey(parentName))
                     {
                         intersectionDictionary[parentName].Add(GetStepName());
@@ -3475,7 +3497,7 @@ namespace Maker.View.LightScriptUserControl
                 }
 
                 UpdateIntersection();
-                //RefreshData();
+                Test();
             }
         }
 
@@ -3683,7 +3705,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
                 }
-              
+
                 if (sender == btnLowerLeftSlashFlipping)
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerLeftSlashFlipping();";
@@ -3742,7 +3764,8 @@ namespace Maker.View.LightScriptUserControl
                         {
                             scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + ct.tbPolyploidy.Text + ");";
                         }
-                        else {
+                        else
+                        {
                             scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION," + ct.tbPolyploidy.Text + ");";
                         }
                     }
@@ -3767,7 +3790,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
                 }
-           
+
                 if (sender == btnFillColor)
                 {
                     GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
@@ -3776,7 +3799,7 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.FillColor(" + dialog.OneNumber + ");";
                     }
                 }
-             
+
                 if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
                 {
                     String colorGroupName = String.Empty;
@@ -3796,7 +3819,7 @@ namespace Maker.View.LightScriptUserControl
                         new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                     command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
+                    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
                     if (sender == btnChangeColorYellow)
                         command += "73 74 75 76";
                     if (sender == btnChangeColorBlue)
@@ -3870,7 +3893,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnColorWithCount)
                 {
-                   
+
                     GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
                     if (dialog.ShowDialog() == true)
                     {
@@ -3901,7 +3924,8 @@ namespace Maker.View.LightScriptUserControl
                         command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
                         scriptModel.Value += command;
                     }
-                    else {
+                    else
+                    {
                         return;
                     }
                 }
@@ -3935,7 +3959,7 @@ namespace Maker.View.LightScriptUserControl
                         {
                             command += "LightGroup.ALLANDEND,";
                         }
-                        command += "\""+dialog.tbValue.Text + "\");";
+                        command += "\"" + dialog.tbValue.Text + "\");";
                         scriptModel.Value += command;
                     }
                     else
@@ -4063,7 +4087,7 @@ namespace Maker.View.LightScriptUserControl
                         return;
                     }
                 }
-              
+
                 if (sender == btnAccelerationOrDeceleration)
                 {
                     String rangeGroupName = String.Empty;
@@ -4108,7 +4132,7 @@ namespace Maker.View.LightScriptUserControl
                         return;
                     }
                 }
-             
+
                 if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
                 {
                     String colorGroupName = String.Empty;
@@ -4128,7 +4152,7 @@ namespace Maker.View.LightScriptUserControl
                         new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
                         return;
                     }
-                 
+
                     ShapeColorDialog dialog;
                     if (sender == miSquare)
                     {
@@ -4730,7 +4754,6 @@ namespace Maker.View.LightScriptUserControl
 
         }
 
-
         //private void MiEdit_SubmenuOpened(object sender, RoutedEventArgs e)
         //{
         //    int _iNowPosition = mw.iNowPosition - 1;
@@ -4979,6 +5002,22 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.Parent = xScript.Attribute("parent").Value;
                 }
+                if (xScript.Attribute("intersection") != null && !xScript.Attribute("intersection").Value.ToString().Trim().Equals(String.Empty))
+                {
+                    scriptModel.Intersection = xScript.Attribute("intersection").Value.Trim().Split(' ').ToList();
+                }
+                else
+                {
+                    scriptModel.Intersection = new List<String>();
+                }
+                if (xScript.Attribute("complement") != null && !xScript.Attribute("complement").Value.Equals(String.Empty))
+                {
+                    scriptModel.Complement = xScript.Attribute("complement").Value.Trim().Split(' ').ToList();
+                }
+                else
+                {
+                    scriptModel.Complement = new List<String>();
+                }
                 String visible = xScript.Attribute("visible").Value;
                 if (visible.Equals("true"))
                 {
@@ -5032,17 +5071,34 @@ namespace Maker.View.LightScriptUserControl
             xDoc.Add(xRoot);
             xRoot.Add(xScripts);
 
-            foreach (var item in scriptModelDictionary) {
+            foreach (var item in scriptModelDictionary)
+            {
                 XElement xScript = new XElement("Script");
                 xScript.SetAttributeValue("name", item.Key);
                 xScript.SetAttributeValue("parent", item.Value.Parent);
                 xScript.SetAttributeValue("value", fileBusiness.String2Base(item.Value.Value));
                 xScript.SetAttributeValue("visible", item.Value.Visible);
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < item.Value.Contain.Count; i++) {
-                    builder.Append(item.Value.Contain[i]+" ");
+                for (int i = 0; i < item.Value.Contain.Count; i++)
+                {
+                    builder.Append(item.Value.Contain[i] + " ");
                 }
                 xScript.SetAttributeValue("contain", builder.ToString().Trim());
+
+                StringBuilder builder2 = new StringBuilder();
+                for (int i = 0; i < item.Value.Intersection.Count; i++)
+                {
+                    builder2.Append(item.Value.Intersection[i] + " ");
+                }
+                xScript.SetAttributeValue("intersection", builder2.ToString().Trim());
+
+                StringBuilder builder3 = new StringBuilder();
+                for (int i = 0; i < item.Value.Complement.Count; i++)
+                {
+                    builder3.Append(item.Value.Complement[i] + " ");
+                }
+                xScript.SetAttributeValue("complement", builder3.ToString().Trim());
+
                 xScripts.Add(xScript);
             }
             xDoc.Save(filePath);
@@ -5067,6 +5123,4 @@ namespace Maker.View.LightScriptUserControl
             lockedDictionary.Clear();
         }
     }
-
-
 }

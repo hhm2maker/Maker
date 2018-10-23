@@ -33,5 +33,15 @@ namespace Maker.Model
             get;
             set;
         }
+        public List<String> Intersection
+        {
+            get;
+            set;
+        }
+        public List<String> Complement
+        {
+            get;
+            set;
+        }
     }
 }
