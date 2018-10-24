@@ -224,6 +224,14 @@ namespace Maker.View.LightScriptUserControl
             }
         }
         /// <summary>
+        /// 更新所有集合关系
+        /// </summary>
+        public void UpdateCollection()
+        {
+            UpdateIntersection();
+            UpdateComplement();
+        }
+        /// <summary>
         /// 更新交集集合关系
         /// </summary>
         public void UpdateIntersection()
@@ -233,14 +241,14 @@ namespace Maker.View.LightScriptUserControl
             {
                 StackPanel sp = (StackPanel)lbStep.Items[i];
                 DockPanel panel = (DockPanel)sp.Children[0];
-                foreach (var id in intersectionDictionary)
+                foreach (var scriptModel in scriptModelDictionary)
                 {
                     //如果是子集
-                    if (id.Value.Contains(ls[i]))
+                    if (scriptModel.Value.Intersection.Contains(ls[i]))
                     {
                         //panel.Margin = new Thickness(30,0,0,0);
                         Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/branch.png", UriKind.RelativeOrAbsolute));
+                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/branch.png", UriKind.RelativeOrAbsolute));
                         break;
                     }
                 }
@@ -270,10 +278,10 @@ namespace Maker.View.LightScriptUserControl
             {
                 StackPanel sp = (StackPanel)lbStep.Items[i];
                 DockPanel panel = (DockPanel)sp.Children[0];
-                foreach (var id in complementDictionary)
+                foreach (var scriptModel in scriptModelDictionary)
                 {
                     //如果是子集
-                    if (id.Value.Contains(ls[i]))
+                    if (scriptModel.Value.Complement.Contains(ls[i]))
                     {
                         //panel.Margin = new Thickness(30,0,0,0);
                         Image visibleImage = (Image)panel.Children[0];
@@ -486,16 +494,16 @@ namespace Maker.View.LightScriptUserControl
                     return;
                 }
                 commandLine =
-                    "PositionGroup " + stepName + "Position = new PositionGroup(\""
+                    "PositionGroup " + stepName + "PositionGroup = new PositionGroup(\""
                     + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
-                    + "\tColorGroup " + stepName + "Color = new ColorGroup(\""
+                    + "\tColorGroup " + stepName + "ColorGroup = new ColorGroup(\""
                     + fastGenerationrColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
                     + "\tLightGroup " + stepName + "LightGroup = Create.CreateLightGroup("
                     + result + ","
-                      + stepName + "Position,"
+                      + stepName + "PositionGroup,"
                         + tbFastGenerationrInterval.Text + ","
                           + tbFastGenerationrContinued.Text + ","
-                               + stepName + "Color";
+                               + stepName + "ColorGroup";
                 //Type
                 if (cbFastGenerationrType.SelectedIndex == -1)
                     return;
@@ -548,6 +556,8 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Visible = true;
                 scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
+                scriptModel.Intersection = new List<string>();
+                scriptModel.Complement = new List<string>();
                 scriptModelDictionary.Add(stepName, scriptModel);
                 UpdateStep();
 
@@ -1781,29 +1791,34 @@ namespace Maker.View.LightScriptUserControl
             sb.Append("public List<Light> Hello(){");
             sb.Append("List<Light> mainLightGroup = new List<Light>();");
 
-            List<String> childSst = new List<String>();
+            List<String> childCollection = new List<String>();
 
             //添加内容名称
             foreach (var scriptModel in scriptModelDictionary)
             {
-                if (scriptModel.Value.Visible && !childSst.Contains(scriptModel.Key))
+                if (scriptModel.Value.Visible && !childCollection.Contains(scriptModel.Key))
                 {
                     sb.Append("LightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Key + "();");
+                    if(scriptModel.Value.Intersection != null) { 
                     for (int i = 0; i < scriptModel.Value.Intersection.Count; i++)
                     {
                         sb.Append("LightGroup " + scriptModel.Value.Intersection[i] + "LightGroup = " + scriptModel.Value.Intersection[i] + "();");
                         //交集操作
                         sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + scriptModel.Value.Intersection[i] + "LightGroup);");
                         //添加进集合列表
-                        childSst.Add(scriptModel.Value.Intersection[i]);
+                        childCollection.Add(scriptModel.Value.Intersection[i]);
                     }
-                    for (int i = 0; i < scriptModel.Value.Complement.Count; i++)
+                    }
+                    if (scriptModel.Value.Complement != null)
+                    {
+                        for (int i = 0; i < scriptModel.Value.Complement.Count; i++)
                     {
                         sb.Append(scriptModel.Key + "LightGroup = " + "LightGroup " + scriptModel.Value.Complement[i] + "LightGroup = " + scriptModel.Value.Complement[i] + "();");
                         //补集操作
                         sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT," + scriptModel.Value.Intersection[i] + "LightGroup);");
                         //添加进集合列表
-                        childSst.Add(scriptModel.Value.Complement[i]);
+                        childCollection.Add(scriptModel.Value.Complement[i]);
+                    }
                     }
                     sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "LightGroup);");
                 }
@@ -2657,7 +2672,6 @@ namespace Maker.View.LightScriptUserControl
                 scriptModelDictionary[GetStepName()].Value = builder.ToString();
                 Test();
             }
-
         }
 
         private void NewStep(object sender, RoutedEventArgs e)
@@ -3496,46 +3510,51 @@ namespace Maker.View.LightScriptUserControl
                     }
                 }
 
-                UpdateIntersection();
+                UpdateCollection();
                 Test();
             }
         }
 
         private void CollectionIntegration(object sender, RoutedEventArgs e)
         {
+
             String parentName = String.Empty;
-            String childName = String.Empty;
+            String childName = GetStepName();
             CollectionType type = CollectionType.Intersection;
-            foreach (var item in intersectionDictionary)
+            foreach (var scriptModel in scriptModelDictionary)
             {
-                if (item.Value.Contains(GetStepName()))
+                if (scriptModel.Value.Intersection.Contains(childName))
                 {
-                    parentName = item.Key;
+                    parentName = scriptModel.Key;
                     childName = GetStepName();
                     type = CollectionType.Intersection;
+                    break;
                 }
             }
-            if (intersectionDictionary.ContainsKey(GetStepName()))
+            if (scriptModelDictionary[childName].Intersection.Count > 0)
             {
                 parentName = GetStepName();
-                childName = intersectionDictionary[GetStepName()][0];
+                childName = scriptModelDictionary[childName].Intersection[0];
                 type = CollectionType.Intersection;
             }
-            foreach (var item in complementDictionary)
+
+            foreach (var scriptModel in scriptModelDictionary)
             {
-                if (item.Value.Contains(GetStepName()))
+                if (scriptModel.Value.Complement.Contains(childName))
                 {
-                    parentName = item.Key;
+                    parentName = scriptModel.Key;
                     childName = GetStepName();
                     type = CollectionType.Complement;
+                    break;
                 }
             }
-            if (complementDictionary.ContainsKey(GetStepName()))
+            if (scriptModelDictionary[childName].Complement.Count > 0)
             {
                 parentName = GetStepName();
-                childName = complementDictionary[GetStepName()][0];
+                childName = scriptModelDictionary[childName].Complement[0];
                 type = CollectionType.Complement;
             }
+
             if (parentName.Equals(String.Empty))
             {
                 return;
@@ -3548,9 +3567,9 @@ namespace Maker.View.LightScriptUserControl
             StackPanel oldPanel = (StackPanel)lbStep.Items[pPosition];
             StackPanel newPanel = (StackPanel)lbStep.Items[cPosition];
 
-            foreach (String str in containDictionary[GetStepName(oldPanel)])
+            foreach (String str in scriptModelDictionary[GetStepName(oldPanel)].Contain)
             {
-                if (!containDictionary[GetStepName(newPanel)].Contains(str))
+                if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains(str))
                 {
                     //该字段不存在重复
                     _dictionary.Add(str, str);
@@ -3561,7 +3580,7 @@ namespace Maker.View.LightScriptUserControl
                     int x = 1;
                     while (x <= 100000)
                     {
-                        if (!containDictionary[GetStepName(newPanel)].Contains("Step" + x) && !newKey.Contains("Step" + x))
+                        if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
                         {
                             //不存在重复
                             _dictionary.Add(str, "Step" + x);
@@ -3577,83 +3596,84 @@ namespace Maker.View.LightScriptUserControl
                     }
                 }
             }
-            String parentCommand = lightScriptDictionary[GetStepName(oldPanel)];
+            String parentCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
             foreach (var item in _dictionary)
             {
                 parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
                 parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                parentCommand = parentCommand.Replace(item.Key + "Range", item.Value + "Range");
-                parentCommand = parentCommand.Replace(item.Key + "Color", item.Value + "Color");
-                containDictionary[GetStepName(newPanel)].Add(item.Value);
+                parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+                parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+                parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
+                scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
             }
-            String oldChildrenCommand = lightScriptDictionary[GetStepName(newPanel)];
+            String oldChildrenCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
             String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
-            newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
+            //newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
             if (type == CollectionType.Intersection)
             {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup = Create.Intersection(" + GetStepName(newPanel) + "LightGroup," + _dictionary.Values.First() + "LightGroup);";
+                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + _dictionary.Values.First() + "LightGroup);";
             }
             else if (type == CollectionType.Complement)
             {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup = Create.Complement(" + GetStepName(newPanel) + "LightGroup," + _dictionary.Values.First() + "LightGroup);";
+                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT ," + _dictionary.Values.First() + "LightGroup);";
             }
 
-            lightScriptDictionary[GetStepName(newPanel)] = newChildrenCommand;
-            lightScriptDictionary.Remove(GetStepName(oldPanel));
+            scriptModelDictionary[GetStepName(newPanel)].Value = newChildrenCommand;
+            scriptModelDictionary.Remove(GetStepName(oldPanel));
 
-            Dictionary<string, string> _lightScriptDictionary = new Dictionary<string, string>();
-            foreach (var item in lightScriptDictionary)
+            Dictionary<string, ScriptModel> _lightScriptDictionary = new Dictionary<string, ScriptModel>();
+            foreach (var item in scriptModelDictionary)
             {
                 _lightScriptDictionary.Add(item.Key, item.Value);
             }
-            lightScriptDictionary = _lightScriptDictionary;
+            scriptModelDictionary = _lightScriptDictionary;
 
-            visibleDictionary.Remove(GetStepName(oldPanel));
-            containDictionary.Remove(GetStepName(oldPanel));
+            //visibleDictionary.Remove(GetStepName(oldPanel));
+            //containDictionary.Remove(GetStepName(oldPanel));
             lbStep.Items.Remove(lbStep.Items[cPosition]);
 
             String _parentName = String.Empty;
-            foreach (var item in intersectionDictionary)
+            foreach (var item in scriptModelDictionary)
             {
-                if (item.Value.Contains(childName))
+                if (item.Value.Intersection.Contains(childName))
                 {
-                    item.Value.Remove(childName);
+                    item.Value.Intersection.Remove(childName);
                     _parentName = item.Key;
                     break;
                 }
             }
-            if (!_parentName.Equals(String.Empty))
+            //if (!_parentName.Equals(String.Empty))
+            //{
+            //    if (intersectionDictionary[_parentName].Count == 0)
+            //    {
+            //        intersectionDictionary.Remove(_parentName);
+            //    }
+            //}
+            //if (intersectionDictionary.ContainsKey(childName))
+            //{
+            //    intersectionDictionary.Remove(childName);
+            //}
+            foreach (var item in scriptModelDictionary)
             {
-                if (intersectionDictionary[_parentName].Count == 0)
+                if (item.Value.Complement.Contains(childName))
                 {
-                    intersectionDictionary.Remove(_parentName);
-                }
-            }
-            if (intersectionDictionary.ContainsKey(childName))
-            {
-                intersectionDictionary.Remove(childName);
-            }
-            foreach (var item in complementDictionary)
-            {
-                if (item.Value.Contains(childName))
-                {
-                    item.Value.Remove(childName);
+                    item.Value.Complement.Remove(childName);
                     _parentName = item.Key;
                     break;
                 }
             }
-            if (!_parentName.Equals(String.Empty))
-            {
-                if (complementDictionary[_parentName].Count == 0)
-                {
-                    complementDictionary.Remove(_parentName);
-                }
-            }
-            if (complementDictionary.ContainsKey(childName))
-            {
-                complementDictionary.Remove(childName);
-            }
-            RefreshData();
+            //if (!_parentName.Equals(String.Empty))
+            //{
+            //    if (complementDictionary[_parentName].Count == 0)
+            //    {
+            //        complementDictionary.Remove(_parentName);
+            //    }
+            //}
+            //if (complementDictionary.ContainsKey(childName))
+            //{
+            //    complementDictionary.Remove(childName);
+            //}
+            Test();
         }
 
         private void TextChanged(object sender, TextChangedEventArgs e)
@@ -5033,7 +5053,7 @@ namespace Maker.View.LightScriptUserControl
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
             }
             UpdateStep();
-
+            UpdateCollection();
             //command =
             //    "PositionGroup  Step1Position = new PositionGroup(\"36 37 38 39\",' ','-');" +
             //    "ColorGroup Step1Color = new ColorGroup(\"5\", ' ', '-');" +
@@ -5086,19 +5106,31 @@ namespace Maker.View.LightScriptUserControl
                 xScript.SetAttributeValue("contain", builder.ToString().Trim());
 
                 StringBuilder builder2 = new StringBuilder();
-                for (int i = 0; i < item.Value.Intersection.Count; i++)
+                if (item.Value.Intersection != null)
                 {
-                    builder2.Append(item.Value.Intersection[i] + " ");
+                    for (int i = 0; i < item.Value.Intersection.Count; i++)
+                    {
+                        builder2.Append(item.Value.Intersection[i] + " ");
+
+                    }
+                    xScript.SetAttributeValue("intersection", builder2.ToString().Trim());
                 }
-                xScript.SetAttributeValue("intersection", builder2.ToString().Trim());
+                else {
+                    xScript.SetAttributeValue("intersection", "");
+                }
 
                 StringBuilder builder3 = new StringBuilder();
-                for (int i = 0; i < item.Value.Complement.Count; i++)
+                if (item.Value.Complement != null)
                 {
-                    builder3.Append(item.Value.Complement[i] + " ");
+                    for (int i = 0; i < item.Value.Complement.Count; i++)
+                    {
+                        builder3.Append(item.Value.Complement[i] + " ");
+                    }
+                    xScript.SetAttributeValue("complement", builder3.ToString().Trim());
                 }
-                xScript.SetAttributeValue("complement", builder3.ToString().Trim());
-
+                else {
+                    xScript.SetAttributeValue("complement", "");
+                }
                 xScripts.Add(xScript);
             }
             xDoc.Save(filePath);
