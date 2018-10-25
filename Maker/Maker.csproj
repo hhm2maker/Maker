@@ -103,7 +103,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
+    <Compile Include="Bridge\ScriptUserControlBridge.cs" />
     <Compile Include="Business\FilesNameComparerClass.cs" />
+    <Compile Include="Business\ScriptUserControl\Code.cs" />
     <Compile Include="Commands\DataCommands.cs" />
     <Compile Include="Model\DeviceModel.cs" />
     <Compile Include="Model\ScriptModel.cs" />

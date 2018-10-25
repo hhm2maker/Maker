@@ -125,7 +125,7 @@ namespace Maker.View
         /// <summary>
         /// 文件保存具体操作
         /// </summary>
-        protected virtual void SaveFile()
+        public virtual void SaveFile()
         {
            
         }

@@ -35,8 +35,10 @@ namespace Maker.View.LightScriptUserControl
     public partial class ScriptUserControl : BaseLightScriptUserControl
     {
         //public MainWindow mw_;
-        public InputUserControlBridge bridge;
+        public InputUserControlBridge _bridge;
         public InputUserControlViewBusiness viewBusiness;
+
+        private ScriptUserControlBridge bridge;
 
         public ScriptUserControl(NewMainWindow nmw)
         {
@@ -45,6 +47,8 @@ namespace Maker.View.LightScriptUserControl
 
             mainView = gMain_;
             HideControl();
+
+            bridge = new ScriptUserControlBridge(this);
 
             LoadConfig();
 
@@ -68,10 +72,10 @@ namespace Maker.View.LightScriptUserControl
 
             //CommandManager.InvalidateRequerySuggested();
 
-            bridge = new InputUserControlBridge(this);
+            _bridge = new InputUserControlBridge(this);
             viewBusiness = new InputUserControlViewBusiness(this);
             //加载库文件
-            bridge.InitLibrary(bridge.GetLibrary(), LibraryMenuItem_Click);
+            _bridge.InitLibrary(_bridge.GetLibrary(), LibraryMenuItem_Click);
 
             //初始化控件
             InitView();
@@ -182,7 +186,7 @@ namespace Maker.View.LightScriptUserControl
         }
         private void LoadRangeFile()
         {
-            bridge.LoadRangeFile();
+            _bridge.LoadRangeFile();
         }
         public Dictionary<String, String> lightScriptDictionary = new Dictionary<string, string>();
         public Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
@@ -1740,109 +1744,13 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test()
         {
-            CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
-            CompilerParameters objCompilerParameters = new CompilerParameters();
-
-            //添加需要引用的dll
-            objCompilerParameters.ReferencedAssemblies.Add("System.dll");
-            objCompilerParameters.ReferencedAssemblies.Add("System.Windows.Forms.dll");
-            objCompilerParameters.ReferencedAssemblies.Add("Operation.dll");
-            //是否生成可执行文件
-            objCompilerParameters.GenerateExecutable = false;
-
-            //是否生成在内存中
-            objCompilerParameters.GenerateInMemory = true;
-            //编译代码
-            CompilerResults cr = objCSharpCodePrivoder.CompileAssemblyFromSource(objCompilerParameters, GetCode());
-            if (cr.Errors.HasErrors)
-            {
-                var msg = string.Join(Environment.NewLine, cr.Errors.Cast<CompilerError>().Select(err => err.ErrorText));
-                MessageBox.Show(msg, "编译错误");
-            }
-            else
-            {
-                Assembly objAssembly = cr.CompiledAssembly;
-                object objHelloWorld = objAssembly.CreateInstance("Test");
-                MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
-                List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
-                List<Light> mLights = new List<Light>();
-                mLightList.Clear();
-                for (int i = 0; i < lights.Count; i++)
-                {
-                    mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));
-                }
-                mLightList = mLights;
-                UpdateData(mLights);
-                SaveFile();
-            }
+            bridge.Test();
         }
         public override List<Light> GetData()
         {
             return mLightList;
         }
-        public String GetCode()
-        {
-            StringBuilder sb = new StringBuilder();
-            //头
-            sb.Append("using System;");
-            sb.Append("using System.Collections.Generic;");
-            sb.Append("using Operation;");
-            sb.Append("public class Test{");
-            sb.Append("public List<Light> Hello(){");
-            sb.Append("List<Light> mainLightGroup = new List<Light>();");
-
-            List<String> childCollection = new List<String>();
-
-            //添加内容名称
-            foreach (var scriptModel in scriptModelDictionary)
-            {
-                if (scriptModel.Value.Visible && !childCollection.Contains(scriptModel.Key))
-                {
-                    sb.Append("LightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Key + "();");
-                    if(scriptModel.Value.Intersection != null) { 
-                    for (int i = 0; i < scriptModel.Value.Intersection.Count; i++)
-                    {
-                        sb.Append("LightGroup " + scriptModel.Value.Intersection[i] + "LightGroup = " + scriptModel.Value.Intersection[i] + "();");
-                        //交集操作
-                        sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + scriptModel.Value.Intersection[i] + "LightGroup);");
-                        //添加进集合列表
-                        childCollection.Add(scriptModel.Value.Intersection[i]);
-                    }
-                    }
-                    if (scriptModel.Value.Complement != null)
-                    {
-                        for (int i = 0; i < scriptModel.Value.Complement.Count; i++)
-                    {
-                        sb.Append(scriptModel.Key + "LightGroup = " + "LightGroup " + scriptModel.Value.Complement[i] + "LightGroup = " + scriptModel.Value.Complement[i] + "();");
-                        //补集操作
-                        sb.Append(scriptModel.Key + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT," + scriptModel.Value.Intersection[i] + "LightGroup);");
-                        //添加进集合列表
-                        childCollection.Add(scriptModel.Value.Complement[i]);
-                    }
-                    }
-                    sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "LightGroup);");
-                }
-            }
-            //尾
-            sb.Append("return mainLightGroup;}");
-            //添加具体内容
-            foreach (var scriptModel in scriptModelDictionary)
-            {
-                if (scriptModel.Value.Visible)
-                {
-                    sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                    if (!scriptModel.Value.Parent.Equals(String.Empty))
-                    {
-                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                    }
-                    sb.Append(scriptModel.Value.Value);
-                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
-                }
-            }
-            sb.Append("}");
-            Console.WriteLine(sb.ToString());
-            return sb.ToString();
-        }
+        
 
         public bool RefreshData()
         {
@@ -1853,12 +1761,12 @@ namespace Maker.View.LightScriptUserControl
 
             if (mLightList == null)
             {
-                bridge.UpdateData(new List<Light>());
+                _bridge.UpdateData(new List<Light>());
                 //出错了回退
                 Unmake();
                 return false;
             }
-            bridge.UpdateData(mLightList);
+            _bridge.UpdateData(mLightList);
             return true;
         }
         public bool RefreshData(bool isSaveLocked)
@@ -1870,12 +1778,12 @@ namespace Maker.View.LightScriptUserControl
 
             if (mLightList == null)
             {
-                bridge.UpdateData(new List<Light>());
+                _bridge.UpdateData(new List<Light>());
                 //出错了回退
                 Unmake();
                 return false;
             }
-            bridge.UpdateData(mLightList);
+            _bridge.UpdateData(mLightList);
             return true;
         }
 
@@ -2836,79 +2744,82 @@ namespace Maker.View.LightScriptUserControl
                 String stepName = GetStepName(panel);
 
                 String parentName = GetParentName(panel);
-                if (extendsDictionary.ContainsKey(stepName))
-                {
-                    if (extendsDictionary[stepName].Count != 0)
-                    {
+                foreach (var item in scriptModelDictionary) {
+                    if (item.Value.Parent.Equals(stepName)) {
                         System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
                         return;
                     }
                 }
-                if (!parentName.Equals(String.Empty))
-                    extendsDictionary[parentName].Remove(stepName);
-                lightScriptDictionary.Remove(stepName);
+                if (scriptModelDictionary[stepName].Intersection != null && scriptModelDictionary[stepName].Intersection.Count > 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("它是其他交类的父集合");
+                    return;
+                }
+                if (scriptModelDictionary[stepName].Complement != null && scriptModelDictionary[stepName].Complement.Count > 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("它是其他补类的父集合");
+                    return;
+                }
 
-                Dictionary<string, string> _lightScriptDictionary = new Dictionary<string, string>();
-                foreach (var item in lightScriptDictionary)
+                scriptModelDictionary.Remove(stepName);
+
+                Dictionary<String, ScriptModel> _lightScriptDictionary = new Dictionary<String, ScriptModel>();
+                foreach (var item in scriptModelDictionary)
                 {
                     _lightScriptDictionary.Add(item.Key, item.Value);
                 }
-                lightScriptDictionary = _lightScriptDictionary;
-
-                visibleDictionary.Remove(stepName);
-                containDictionary.Remove(stepName);
-                finalDictionary.Remove(stepName);
+                scriptModelDictionary = _lightScriptDictionary;
 
                 String _parentName = String.Empty;
-                //交集
-                foreach (var item in intersectionDictionary)
-                {
-                    if (item.Value.Contains(stepName))
-                    {
-                        item.Value.Remove(stepName);
-                        _parentName = item.Key;
-                        break;
-                    }
-                }
-                if (!_parentName.Equals(String.Empty))
-                {
-                    if (intersectionDictionary[_parentName].Count == 0)
-                    {
-                        intersectionDictionary.Remove(_parentName);
-                    }
-                }
-                if (intersectionDictionary.ContainsKey(stepName))
-                {
-                    intersectionDictionary.Remove(stepName);
-                }
-                //补集
-                _parentName = String.Empty;
-                foreach (var item in complementDictionary)
-                {
-                    if (item.Value.Contains(stepName))
-                    {
-                        item.Value.Remove(stepName);
-                        _parentName = item.Key;
-                        break;
-                    }
-                }
-                if (!_parentName.Equals(String.Empty))
-                {
-                    if (complementDictionary[_parentName].Count == 0)
-                    {
-                        complementDictionary.Remove(_parentName);
-                    }
-                }
-                if (complementDictionary.ContainsKey(stepName))
-                {
-                    complementDictionary.Remove(stepName);
-                }
+                ////交集
+                //foreach (var item in intersectionDictionary)
+                //{
+                //    if (item.Value.Contains(stepName))
+                //    {
+                //        item.Value.Remove(stepName);
+                //        _parentName = item.Key;
+                //        break;
+                //    }
+                //}
+                //if (!_parentName.Equals(String.Empty))
+                //{
+                //    if (intersectionDictionary[_parentName].Count == 0)
+                //    {
+                //        intersectionDictionary.Remove(_parentName);
+                //    }
+                //}
+                //if (intersectionDictionary.ContainsKey(stepName))
+                //{
+                //    intersectionDictionary.Remove(stepName);
+                //}
+                ////补集
+                //_parentName = String.Empty;
+                //foreach (var item in complementDictionary)
+                //{
+                //    if (item.Value.Contains(stepName))
+                //    {
+                //        item.Value.Remove(stepName);
+                //        _parentName = item.Key;
+                //        break;
+                //    }
+                //}
+                //if (!_parentName.Equals(String.Empty))
+                //{
+                //    if (complementDictionary[_parentName].Count == 0)
+                //    {
+                //        complementDictionary.Remove(_parentName);
+                //    }
+                //}
+                //if (complementDictionary.ContainsKey(stepName))
+                //{
+                //    complementDictionary.Remove(stepName);
+                //}
                 //lbStep.Items.RemoveAt(lbStep.SelectedIndex);
                 //lbStep.SelectedIndex = -1;
                 lbStep.Items.Remove(lbStep.SelectedItems[0]);
                 //lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
             }
-            RefreshData();
+            Test();
         }
         private void MergeStep(object sender, RoutedEventArgs e)
         {
@@ -3077,19 +2988,19 @@ namespace Maker.View.LightScriptUserControl
         }
         public void UpdateData(List<Light> mLightList)
         {
-            bridge.UpdateData(mLightList);
+            _bridge.UpdateData(mLightList);
         }
         private void BtnLastTimePoint_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            bridge.ToLastTime();
+            _bridge.ToLastTime();
         }
         private void BtnNextTimePoint_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            bridge.ToNextTime();
+            _bridge.ToNextTime();
         }
         private void TimePointCountLeft_TextChanged(object sender, TextChangedEventArgs e)
         {
-            bridge.tbTimePointCountLeft_TextChanged();
+            _bridge.tbTimePointCountLeft_TextChanged();
         }
 
         public void SetLaunchpadSize()
@@ -3241,12 +3152,12 @@ namespace Maker.View.LightScriptUserControl
             return;
             if (lbStep.SelectedIndex == -1)
             {
-                bridge.UpdateForColor(mLightList, false);
+                _bridge.UpdateForColor(mLightList, false);
                 AddStepControlToolTip();
             }
             else
             {
-                bridge.UpdateForColor(RefreshData(GetStepName()), true);
+                _bridge.UpdateForColor(RefreshData(GetStepName()), true);
                 spStepControl.ToolTip = null;
             }
         }
@@ -3509,7 +3420,6 @@ namespace Maker.View.LightScriptUserControl
                         scriptModelDictionary = mLightScriptDictionary;
                     }
                 }
-
                 UpdateCollection();
                 Test();
             }
@@ -3567,9 +3477,9 @@ namespace Maker.View.LightScriptUserControl
             StackPanel oldPanel = (StackPanel)lbStep.Items[pPosition];
             StackPanel newPanel = (StackPanel)lbStep.Items[cPosition];
 
-            foreach (String str in scriptModelDictionary[GetStepName(oldPanel)].Contain)
+            foreach (String str in scriptModelDictionary[GetStepName(newPanel)].Contain)
             {
-                if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains(str))
+                if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains(str))
                 {
                     //该字段不存在重复
                     _dictionary.Add(str, str);
@@ -3580,7 +3490,7 @@ namespace Maker.View.LightScriptUserControl
                     int x = 1;
                     while (x <= 100000)
                     {
-                        if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
+                        if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
                         {
                             //不存在重复
                             _dictionary.Add(str, "Step" + x);
@@ -3596,7 +3506,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                 }
             }
-            String parentCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
+            String parentCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
             foreach (var item in _dictionary)
             {
                 parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
@@ -3606,20 +3516,19 @@ namespace Maker.View.LightScriptUserControl
                 parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
                 scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
             }
-            String oldChildrenCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
-            String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
+            String oldChildrenCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
+            String newChildrenCommand = oldChildrenCommand + Environment.NewLine + parentCommand;
             //newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
             if (type == CollectionType.Intersection)
             {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + _dictionary.Values.First() + "LightGroup);";
+                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + _dictionary.Values.First() + "LightGroup);";
             }
             else if (type == CollectionType.Complement)
             {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT ," + _dictionary.Values.First() + "LightGroup);";
+                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT ," + _dictionary.Values.First() + "LightGroup);";
             }
-
-            scriptModelDictionary[GetStepName(newPanel)].Value = newChildrenCommand;
-            scriptModelDictionary.Remove(GetStepName(oldPanel));
+            scriptModelDictionary[GetStepName(oldPanel)].Value = newChildrenCommand;
+            scriptModelDictionary.Remove(GetStepName(newPanel));
 
             Dictionary<string, ScriptModel> _lightScriptDictionary = new Dictionary<string, ScriptModel>();
             foreach (var item in scriptModelDictionary)
@@ -4387,7 +4296,7 @@ namespace Maker.View.LightScriptUserControl
             if (sender == miMycontent)
             {
                 //获取最新的我的内容
-                bridge.InitMyContent(bridge.GetMyContent(), MyContentMenuItem_Click);
+                _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
                 miChildMycontent.IsSubmenuOpen = true;
             }
             if (sender == miDebug)
@@ -4610,7 +4519,7 @@ namespace Maker.View.LightScriptUserControl
                 return;
 
             StringBuilder mBuilder = new StringBuilder();
-            List<int> mColor = bridge.mColor.ToList();
+            List<int> mColor = _bridge.mColor.ToList();
             mColor.Sort();
             for (int x = 0; x < mColor.Count; x++)
             {
@@ -5081,8 +4990,8 @@ namespace Maker.View.LightScriptUserControl
             xRoot.Add(xScripts);
             xDoc.Save(filePath);
         }
-        private String command;
-        protected override void SaveFile()
+  
+        public override void SaveFile()
         {
             //获取对象
             XDocument xDoc = new XDocument();
@@ -5115,7 +5024,8 @@ namespace Maker.View.LightScriptUserControl
                     }
                     xScript.SetAttributeValue("intersection", builder2.ToString().Trim());
                 }
-                else {
+                else
+                {
                     xScript.SetAttributeValue("intersection", "");
                 }
 
@@ -5128,7 +5038,8 @@ namespace Maker.View.LightScriptUserControl
                     }
                     xScript.SetAttributeValue("complement", builder3.ToString().Trim());
                 }
-                else {
+                else
+                {
                     xScript.SetAttributeValue("complement", "");
                 }
                 xScripts.Add(xScript);
