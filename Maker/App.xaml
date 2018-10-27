@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SettingDictionary.xaml"/>
-                <ResourceDictionary Source="Resources\StringResource.xaml" />
+                <ResourceDictionary Source="View\Resources\Language\StringResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

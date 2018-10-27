@@ -35,7 +35,7 @@ namespace Maker.Bridge
             {
                 ResourceDictionary dict = new ResourceDictionary
                 {
-                    Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative)
+                    Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative)
                 };
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
                 //System.Windows.Application.Current.Resources.MergedDictionaries.RemoveAt(System.Windows.Application.Current.Resources.MergedDictionaries.Count - 1);
@@ -53,9 +53,9 @@ namespace Maker.Bridge
                 {
                     ResourceDictionary dict = new ResourceDictionary
                     {
-                        Source = new Uri(@"Resources\StringResource_zh-CN.xaml", UriKind.Relative)
+                        Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative)
                     };
-                    System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+                    Application.Current.Resources.MergedDictionaries[1] = dict;
                     languageMyLanguage.InnerText = "zh-CN";
                     view.strMyLanguage = "zh-CN";
                 }
