@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:Maker.View"
              mc:Ignorable="d" 
-         Background="#13191E"
+             Background="#13191E"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
              Loaded="UserControl_Loaded"
              >
@@ -81,6 +81,8 @@
         </GeometryGroup>
     </UserControl.Resources>
     <Grid Name="gMost">
+        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -257,14 +259,14 @@
                             <Thumb Name="thumb_player"  Canvas.Left="0" Canvas.Top="0" >
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Image Source="../Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
+                                        <Image Source="../Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
                                     </ControlTemplate>
                                 </Thumb.Template>
                             </Thumb>
                             <Thumb Name="thumb_paved"  Canvas.Left="0" Canvas.Top="0" >
                                 <Thumb.Template>
                                     <ControlTemplate>
-                                        <Image Source="../Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
+                                        <Image Source="../Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
                                     </ControlTemplate>
                                 </Thumb.Template>
                             </Thumb>
@@ -322,5 +324,8 @@
             </Border>
         </Grid>
         <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
+        <MediaElement x:Name="mediaElement" 
+                      LoadedBehavior="Manual" 
+                   />
     </Grid>
 </UserControl>

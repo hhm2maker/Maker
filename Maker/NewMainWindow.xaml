@@ -9,6 +9,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
+        WindowStyle="None"
         >
   
     <Grid Name="gMain" />

@@ -45,6 +45,7 @@
     </Style>-->
     </UserControl.Resources>
     <Grid>
+     
         <StackPanel Name="spLanguage" Orientation="Vertical" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="5">
             <DockPanel>
                 <ComboBox  FontSize="14" Name="cbLanguage" VerticalAlignment="Center"  Width="200" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged">

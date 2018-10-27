@@ -122,6 +122,7 @@
     <Compile Include="Business\ViewBusiness\LightBusiness.cs" />
     <Compile Include="Business\ViewBusiness\LightScriptBusiness.cs" />
     <Compile Include="Business\ViewBusiness\MidiDeviceBusiness.cs" />
+    <Compile Include="Business\ViewBusiness\ScriptUserControl\Results.cs" />
     <Compile Include="Business\ViewBusiness\StringExtensions.cs" />
     <Compile Include="Business\ViewBusiness\UserBusiness.cs" />
     <Compile Include="Business\ChildBusiness\MainWindow\TreeView\MainWindow.cs" />

@@ -1741,11 +1741,11 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test()
         {
-            bridge.Test();
+            bridge.GetResult();
         }
         public void Test(String stepName)
         {
-            bridge.Test(stepName);
+            bridge.GetBlockResult(stepName);
         }
         public override List<Light> GetData()
         {
@@ -2318,7 +2318,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 return;
             }
-            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, RefreshData(GetStepName()));
+            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, mBlockLightList);
             propertiesDialog.ShowDialog();
         }
 
@@ -3095,6 +3095,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void LbStep_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            return;
             if (lbStep.SelectedIndex == -1)
                 return;
             StyleWindow style = new StyleWindow(mw);
@@ -4331,7 +4332,7 @@ namespace Maker.View.LightScriptUserControl
                 _bIsEdit = true;
                 iNowPosition -= 1;
                 //重新加载
-                //mw_.ProjectDocument_SelectionChanged_LightScript();
+                LoadFile(Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -4351,7 +4352,7 @@ namespace Maker.View.LightScriptUserControl
                 //bIsEdit = true;
                 iNowPosition += 1;
                 //重新加载
-                //mw_.ProjectDocument_SelectionChanged_LightScript();
+                LoadFile(Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -4361,15 +4362,16 @@ namespace Maker.View.LightScriptUserControl
 
         private void GetExecutionTime(object sender, RoutedEventArgs e)
         {
+            _bIsEdit = true;
             Stopwatch sw = new Stopwatch();
             sw.Start();
             //耗时巨大的代码  
-            RefreshData();
+            Test();
             sw.Stop();
             TimeSpan ts2 = sw.Elapsed;
             new MessageDialog(mw, String.Format("总共花费{0}ms.", ts2.TotalMilliseconds), 0).ShowDialog();
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + iNowPosition + ".lightScript");
-            iNowPosition--;
+            //File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Cache\" + iNowPosition + ".lightScript");
+            //iNowPosition--;
         }
 
         private void GetCompleteScript(object sender, RoutedEventArgs e)
@@ -4735,16 +4737,16 @@ namespace Maker.View.LightScriptUserControl
 
         protected override void LoadFileContent()
         {
-            if (_bIsEdit)
-            {
-                _bIsEdit = false;
-            }
-            else
-            {
-                //清除缓存/Cache
-                ClearCache();
-                iNowPosition = -1;
-            }
+            //if (_bIsEdit)
+            //{
+            //    _bIsEdit = false;
+            //}
+            //else
+            //{
+            //    //清除缓存/Cache
+            //    ClearCache();
+            //    iNowPosition = -1;
+            //}
             ////读取灯光文件
             //FileStream f2 = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             //int i = 0;
@@ -5048,11 +5050,23 @@ namespace Maker.View.LightScriptUserControl
             }
             xDoc.Save(filePath);
         }
-
-        /// <summary>
-        /// 清除输入控件里的数据
-        /// </summary>
-        public void ClearInputUserControl()
+        public void CopyFile()
+        {
+            iNowPosition++;
+            File.Copy(filePath, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iNowPosition + ".lightScript", true);
+            if (iNowPosition == 999)
+            {
+                new MessageDialog(mw, "Edit999").ShowDialog();
+                ClearCache();
+                iNowPosition = -1;
+                _bIsEdit = false;
+                Test();
+            }
+        }
+            /// <summary>
+            /// 清除输入控件里的数据
+            /// </summary>
+            public void ClearInputUserControl()
         {
             //UpdateData(new List<Light>());
             lbStep.Items.Clear();

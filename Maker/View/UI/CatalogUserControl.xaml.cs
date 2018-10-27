@@ -703,7 +703,18 @@ namespace Maker.View
             RegisterName("MatrixTransform_02", MatrixTransform_02);
 
             SetToolOldPosition();
+
+            mediaElement.Source = new Uri(@"E:\Sharer\Maker\Maker\View\Resources\Image\Redial.mp4");
+            mediaElement.Play();
+            mediaElement.MediaEnded += MediaElement_MediaEnded;
         }
+
+        private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            (sender as MediaElement).Stop();
+            (sender as MediaElement).Play();
+        }
+
         private List<Point> startPoints = new List<Point>() { new Point(0,0),new Point(0,0)};
         private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
         {
