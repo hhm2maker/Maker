@@ -40,7 +40,7 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel  Background="#535353" Name="dpAllTop" MouseDown="DockPanel_MouseDown" Grid.Row="0" >
-            <Image Source="..\Image\icon.png" Width="25" Height="25" Margin="5" DockPanel.Dock="Left" />
+            <Image Source="../Resources/Image/icon.png" Width="25" Height="25" Margin="5" DockPanel.Dock="Left" />
             <Menu Background="#535353" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
                 <MenuItem Header="{DynamicResource File_}"  FontSize="14" >
                     <MenuItem Header="{DynamicResource New}" FontSize="14" Foreground="#000000">
@@ -96,17 +96,16 @@
                     <Separator />
                     <MenuItem Header="{DynamicResource VisitTheOfficialWebsite}" FontSize="14"  Click="VisitTheOfficialWebsite" Foreground="#000000"/>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource FullScreen_}" FontSize="14"  Click="ConcentrateOnMyWork"/>
             </Menu>
             <StackPanel  Height="auto" Width="auto" Orientation="Horizontal"  HorizontalAlignment="Right">
                 <Image Width="25" Height="25" Margin="0,0,10,0" MouseLeftButtonDown="MinimizeWindow"  RenderOptions.BitmapScalingMode="HighQuality">
-                    <Image.Source>..\Image\small.png</Image.Source>
+                    <Image.Source>../Resources/Image/small.png</Image.Source>
                 </Image>
                 <Image Width="20" Height="20" Margin="0,0,10,0" MouseLeftButtonDown="MaximizeWindow" Name="imageMinMax"  RenderOptions.BitmapScalingMode="HighQuality">
-                    <Image.Source>..\Image\minmax.png</Image.Source>
+                    <Image.Source>../Resources/Image/minmax.png</Image.Source>
                 </Image>
                 <Image Width="20" Height="20" Margin="0,0,10,0" MouseLeftButtonDown="CloseWindow"  RenderOptions.BitmapScalingMode="HighQuality">
-                    <Image.Source>..\Image\close.png</Image.Source>
+                    <Image.Source>../Resources/Image/close.png</Image.Source>
                 </Image>
             </StackPanel>
         </DockPanel>
@@ -122,7 +121,7 @@
                         <StackPanel  Margin="10" >
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Background="#282828">
-                                    <Image Name="imgHeadPortrait" Source="../Image/headportrait.png"   Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                                    <Image Name="imgHeadPortrait" Source="../Resources/Image/headportrait.png"   Width="30" Height="30" HorizontalAlignment="Left" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                                     <TextBlock Foreground="White" Width="120" Margin="10,0,0,0" FontSize="16" Name="tbUserName" VerticalAlignment="Center" Text="{DynamicResource NotLoggedIn}"/>
                                 </StackPanel>
                                 <Button Background="{x:Null}" BorderBrush="#FFFFFF" Foreground="#F0F0F0" Width="60" Content="{DynamicResource LogOff}" Click="LogOff"></Button>
@@ -165,7 +164,7 @@
                     <DockPanel  Name="gError" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="#fefcc8" Visibility="Hidden">
                         <TextBlock  DockPanel.Dock="Left" Name="tbError" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"  FontSize="16" Foreground="#000000" TextWrapping="Wrap" />
                         <Image Width="20" Height="20" Margin="5" MouseLeftButtonDown="CloseMsg"  RenderOptions.BitmapScalingMode="HighQuality" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top">
-                            <Image.Source>..\Image\close.png</Image.Source>
+                            <Image.Source>../Resources/Image/close.png</Image.Source>
                         </Image>
                     </DockPanel>
                 </Grid>
@@ -243,7 +242,7 @@
                 <Button Content="{DynamicResource Browser}" Background="#4a4a4a" BorderBrush="{x:Null}" FontSize="16" Foreground="#F0F0F0"  Click="ToBrowserWindow"/>
                 <Button Content="{DynamicResource MusicPlayer}" Background="#4a4a4a" BorderBrush="{x:Null}" Margin="10,0,0,0" FontSize="16" Foreground="#F0F0F0"  Click="ToMusicPlayerWindow"/>
             </StackPanel>
-            <TextBlock Name="tbTime" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14" Foreground="#F0F0F0" Margin="0,0,20,5"/>
+           
         </Grid>
     </Grid>
 </Window>

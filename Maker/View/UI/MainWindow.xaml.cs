@@ -1392,34 +1392,7 @@ namespace Maker.View.Control
             p.StartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory+@"Tool\Tool.exe";
             p.Start();
         }
-        private bool bConcentrateOnMyWork = false;
-        private void ConcentrateOnMyWork(object sender, RoutedEventArgs e)
-        {
-            if (bConcentrateOnMyWork == false)
-            {
-                WindowState = System.Windows.WindowState.Maximized;
-                dpBottom.Visibility = Visibility.Visible;
-                dpAllTop.Margin = new Thickness(5,5,5,0);
-
-                timer.Tick += new EventHandler(Timer_Tick);
-                //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
-                timer.Start();
-            }
-            else {
-                WindowState = System.Windows.WindowState.Normal;
-                dpAllTop.Margin = new Thickness(0);
-
-                dpBottom.Visibility = Visibility.Collapsed;
-                timer.Stop();
-            }
-            bConcentrateOnMyWork = !bConcentrateOnMyWork;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            tbTime.Text = DateTime.Now.ToString("hh:mm");
-        }
-        DispatcherTimer timer = new DispatcherTimer();
+      
         public WebBrowserWindow webBrowserWindow;
         private void ToBrowserWindow(object sender, RoutedEventArgs e)
         {

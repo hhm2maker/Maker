@@ -26,6 +26,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.Xml;
 
 namespace Maker.View
@@ -707,6 +708,15 @@ namespace Maker.View
             mediaElement.Source = new Uri(@"E:\Sharer\Maker\Maker\View\Resources\Image\Redial.mp4");
             mediaElement.Play();
             mediaElement.MediaEnded += MediaElement_MediaEnded;
+
+            vbTime.Width = ActualWidth / 2;
+            vbTime.Height = ActualHeight / 15;
+            vbTimeBorder.Width = ActualWidth / 2;
+            vbTimeBorder.Height = ActualHeight / 15;
+            
+            timer.Tick += new EventHandler(Timer_Tick);
+            //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
+            timer.Start();
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -720,6 +730,10 @@ namespace Maker.View
         {
             SetToolOldPosition();
         }
-
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            tbTime.Text = DateTime.Now.ToString("hh:mm");
+        }
+        DispatcherTimer timer = new DispatcherTimer();
     }
 }

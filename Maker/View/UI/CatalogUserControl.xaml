@@ -81,7 +81,27 @@
         </GeometryGroup>
     </UserControl.Resources>
     <Grid Name="gMost">
-        
+        <MediaElement x:Name="mediaElement" 
+                      LoadedBehavior="Manual" 
+                   />
+        <Grid>
+            <Viewbox Name="vbTime" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <TextBlock Name="tbTime" FontSize="14" Foreground="#F0F0F0" FontFamily="Digiface" Text="00:00"/>
+        </Viewbox>
+            <Viewbox Name="vbTimeBorder" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Path Stroke="#566e9a" StrokeThickness="3" Data="M 0,-3 30,30 30,30 A 960,400 180 0 0 930,30 M 930,30 960,-3 0,-3">
+                    <Path.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#30000000" Offset="0"/>
+                            <GradientStop Color="#30566e9a" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+                <!--<Canvas Height="72" Width="640">
+                   
+                </Canvas>-->
+            </Viewbox>
+        </Grid>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -275,9 +295,9 @@
                 </Grid>
                 <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                        <Image Source="../Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
                         <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <Image Source="../Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
+                        <Image Source="../Resources/Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
                             <Image.ToolTip>
                                 <StackPanel Orientation="Vertical">
                                 </StackPanel>
@@ -285,20 +305,20 @@
                         </Image>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Image Source="../Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                        <Image Source="../Resources/Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                         <TextBlock Text="{DynamicResource LightScript}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Image Source="../Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                        <Image Source="../Resources/Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                         <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
                     </StackPanel>
                     <StackPanel   Margin="0,20,20,0" >
                         <StackPanel Orientation="Horizontal" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,30,0,0" Name="spToolTitle">
-                        <Image Source="../Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                        <Image Source="../Resources/Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
                         <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
                     </StackPanel>
                     <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Visibility="Hidden" Name="bTool">
@@ -324,8 +344,6 @@
             </Border>
         </Grid>
         <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
-        <MediaElement x:Name="mediaElement" 
-                      LoadedBehavior="Manual" 
-                   />
+  
     </Grid>
 </UserControl>
