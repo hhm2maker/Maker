@@ -42,3 +42,4 @@ E:\Maker\Tool\obj\Debug\Tool.csproj.GenerateResource.Cache
 E:\Maker\Tool\obj\Debug\Tool.csproj.CoreCompileInputs.cache
 E:\Maker\Tool\obj\Debug\Tool.exe
 E:\Maker\Tool\obj\Debug\Tool.pdb
+E:\Sharer\Maker\Tool\obj\Debug\Tool.csprojResolveAssemblyReference.cache

@@ -242,7 +242,6 @@
                 <Button Content="{DynamicResource Browser}" Background="#4a4a4a" BorderBrush="{x:Null}" FontSize="16" Foreground="#F0F0F0"  Click="ToBrowserWindow"/>
                 <Button Content="{DynamicResource MusicPlayer}" Background="#4a4a4a" BorderBrush="{x:Null}" Margin="10,0,0,0" FontSize="16" Foreground="#F0F0F0"  Click="ToMusicPlayerWindow"/>
             </StackPanel>
-           
         </Grid>
     </Grid>
 </Window>

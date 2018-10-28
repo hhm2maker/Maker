@@ -104,6 +104,9 @@
     </ApplicationDefinition>
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
+    <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
+      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
     <Compile Include="Business\ViewBusiness\ScriptUserControl\Code.cs" />
     <Compile Include="Business\Commands\DataCommands.cs" />
@@ -488,9 +491,17 @@
     <Compile Include="View\UI\MakerpjUserControl.xaml.cs">
       <DependentUpon>MakerpjUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Business\Discarded\CatalogUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NewMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StyleResources\CatalogUserControlDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\StyleResources\InputDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>

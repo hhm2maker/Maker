@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -411,7 +412,7 @@ namespace Maker.View
             }
         }
 
-        private void tbHelp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void tbHelp_MouseLeftButtonUp(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation;
             if (bHelp.Width == 400)
@@ -454,7 +455,7 @@ namespace Maker.View
             }
 
         }
-        private void tbFile_MouseDown(object sender, MouseButtonEventArgs e)
+        private void tbFile_MouseDown(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation;
             if (dpFile.Width == 300)
@@ -672,10 +673,14 @@ namespace Maker.View
         private void SetToolOldPosition() {
             Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth);
             double left = Canvas.GetLeft(thumb_player);
-            double top = Canvas.GetTop(thumb_player);
+            //double top = Canvas.GetTop(thumb_player);
+            double top = (ActualHeight / 2) - 35;
+
             startPoints[0] = new Point(left, top);
             startPoints[1] = new Point(left, top+40);
 
+            Canvas.SetLeft(thumb_player, left);
+            Canvas.SetTop(thumb_player, top );
             Canvas.SetLeft(thumb_paved, left);
             Canvas.SetTop(thumb_paved, top + 40);
         }
@@ -705,18 +710,35 @@ namespace Maker.View
 
             SetToolOldPosition();
 
-            mediaElement.Source = new Uri(@"E:\Sharer\Maker\Maker\View\Resources\Image\Redial.mp4");
+            mediaElement.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory+ @"Images\Redial.mp4");
             mediaElement.Play();
             mediaElement.MediaEnded += MediaElement_MediaEnded;
 
-            vbTime.Width = ActualWidth / 2;
-            vbTime.Height = ActualHeight / 15;
+            gTime.Width = ActualWidth / 2;
+            gTime.Height = ActualHeight / 15;
             vbTimeBorder.Width = ActualWidth / 2;
             vbTimeBorder.Height = ActualHeight / 15;
-            
+
+            vbUserControlBorder.Width = ActualWidth / 3;
+            vbUserControlBorder.Height = ActualHeight / 15;
+
+            vbFileBorder.Width = ActualWidth / 10;
+            vbFileBorder.Height = ActualHeight / 2;
+            vbToolBorder.Width = ActualWidth / 10;
+            vbToolBorder.Height = ActualHeight / 2;
+
+            vbHelpBorder.Height = ActualWidth / 4;
+            vbHelpBorder.Height = ActualHeight / 4;
+
+            fishEyePanel.Width = ActualWidth / 5;
+            fishEyePanel2.Width = ActualWidth / 20;
+            fishEyePanel3.Width = ActualWidth / 20;
             timer.Tick += new EventHandler(Timer_Tick);
             //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
             timer.Start();
+
+            //模拟键盘输入
+            //System.Windows.Forms.SendKeys.SendWait("{A}");
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -735,5 +757,11 @@ namespace Maker.View
             tbTime.Text = DateTime.Now.ToString("hh:mm");
         }
         DispatcherTimer timer = new DispatcherTimer();
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            mw.Close();
+        }
+
     }
 }
