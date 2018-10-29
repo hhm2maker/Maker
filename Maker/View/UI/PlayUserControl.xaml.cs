@@ -19,8 +19,8 @@ namespace Maker.View
     public partial class PlayUserControl : UserControl
     {
         private static NativeMethods.MidiInProc midiInProc;
-        private MainWindow mw;
-        public PlayUserControl(MainWindow mw)
+        private NewMainWindow mw;
+        public PlayUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
@@ -223,6 +223,8 @@ namespace Maker.View
                     //Console.WriteLine(Convert.ToString(l2_dw1, 16));
                     //Console.WriteLine("-------------------------------");
                     uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
+                    KeyEvent(position);
+                    return;
                     if (!pages[nowPageName].ContainsKey((int)position))
                         return;
                     if (dwParam1 > 16383)
@@ -230,6 +232,7 @@ namespace Maker.View
                         //打开
                         //Console.WriteLine("开："+position);
                         //System.Windows.Forms.MessageBox.Show(position.ToString());
+
                         positions[nowPageName][(int)position] = (positions[nowPageName][(int)position] + 1) % pages[nowPageName][(int)position].Count;
                         Thread newThread = new Thread(
                       new ParameterizedThreadStart(PlayToLaunchpad)
@@ -278,8 +281,35 @@ namespace Maker.View
                     //Console.WriteLine("-------------------------------");
                 }
             }
-        }
 
+            private void KeyEvent(uint position)
+            {
+                //模拟键盘输入
+                if(position == 44) { 
+                //System.Windows.Forms.SendKeys.SendWait("{Q}");
+                    button1_Click();
+                }
+                if (position == 45)
+                {
+                    System.Windows.Forms.SendKeys.SendWait("{W}");
+                }
+                if (position == 46)
+                {
+                    System.Windows.Forms.SendKeys.SendWait("{E}");
+                }
+                if (position == 47)
+                {
+                    System.Windows.Forms.SendKeys.SendWait("{R}");
+                }
+            }
+            [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
+            public static extern void keybd_event(System.Windows.Forms.Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+            private void button1_Click()
+            {
+                keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
+            }
+        }
+       
 
         internal static class NativeMethods
         {

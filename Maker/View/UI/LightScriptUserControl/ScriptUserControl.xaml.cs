@@ -4714,6 +4714,8 @@ namespace Maker.View.LightScriptUserControl
             try
             {
                 DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"Cache");
+                if (!dir.Exists)
+                    return;
                 FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
                 foreach (FileSystemInfo i in fileinfo)
                 {

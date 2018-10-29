@@ -121,7 +121,6 @@ namespace Maker.View.Play
                     Children.RemoveAt(i);
                 }
             }
-            //DrawNewShape();
         }
         /// <summary>
         /// 初始化底座
@@ -159,7 +158,7 @@ namespace Maker.View.Play
                     Children.Add(r);
             }
             //重新绘制辅助轨道
-            DrawNewShape();
+            //DrawNewShape();
         }
         public void StartAnimation()
         {

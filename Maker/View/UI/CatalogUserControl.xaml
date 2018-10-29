@@ -80,6 +80,23 @@
                 </src:FishEyePanel>
             </StackPanel>
         </Grid>
+        <Grid >
+        <Viewbox Name="vbChildLeftBorder" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Path Stroke="#566e9a" StrokeThickness="3" Data="M 0,40 40,0 640,320 600,360 0,360 0,40">
+                    <Path.Fill>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#30000000" Offset="0"/>
+                            <GradientStop Color="#30566e9a" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Path.Fill>
+                </Path>
+            </Viewbox>
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                <src:FishEyePanel x:Name="fishEyePanel4" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                    <Button  Margin="5" Click="tbHelp_MouseLeftButtonUp" x:Name="tbChildLeft" Content="{DynamicResource Help}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
+                </src:FishEyePanel>
+            </StackPanel>
+        </Grid>
         <Grid>
             <Viewbox Name="vbToolBorder" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Path Stroke="#566e9a" StrokeThickness="3" Data="M 0,48 48,0 48,360 0,312  0,48">

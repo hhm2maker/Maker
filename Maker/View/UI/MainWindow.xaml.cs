@@ -73,7 +73,7 @@ namespace Maker.View.Control
             iuc = new InputUserControl(this);
             mcuc = new MainControlUserControl(this);
             puc = new PageUserControl(this);
-            playuc = new PlayUserControl(this);
+            //playuc = new PlayUserControl(this);
             mpjuc = new MakerpjUserControl(this);
 
             wuc = new WelcomeUserControl(this);

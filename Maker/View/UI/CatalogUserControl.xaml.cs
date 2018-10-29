@@ -81,10 +81,12 @@ namespace Maker.View
             peuc = new PlayExportUserControl(mw);
             userControls.Add(peuc);
             //PlayUserControl - 未接入
-            userControls.Add(new PlayExportUserControl(mw));
+            //userControls.Add(new PlayUserControl(mw));
             //PlayerUserControl
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
+
+            gMain.Children.Add(new PlayUserControl(mw));
 
             tw = new ToolWindow
             {
@@ -104,8 +106,6 @@ namespace Maker.View
             //    Stretch = Stretch.Fill
             //};
             //Background = b;
-
-
         }
       
 
@@ -727,8 +727,11 @@ namespace Maker.View
             vbToolBorder.Width = ActualWidth / 10;
             vbToolBorder.Height = ActualHeight / 2;
 
-            vbHelpBorder.Height = ActualWidth / 4;
+            vbHelpBorder.Width = ActualWidth / 4;
             vbHelpBorder.Height = ActualHeight / 4;
+
+            vbChildLeftBorder.Width = ActualWidth / 4;
+            vbChildLeftBorder.Height = ActualHeight / 4;
 
             fishEyePanel.Width = ActualWidth / 5;
             fishEyePanel2.Width = ActualWidth / 20;
@@ -737,8 +740,7 @@ namespace Maker.View
             //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
             timer.Start();
 
-            //模拟键盘输入
-            //System.Windows.Forms.SendKeys.SendWait("{A}");
+          
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
