@@ -137,6 +137,7 @@
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Utils\StringUtil.cs" />
+    <Compile Include="View\CDD.cs" />
     <Compile Include="View\UI\AboutUserControl.xaml.cs">
       <DependentUpon>AboutUserControl.xaml</DependentUpon>
     </Compile>

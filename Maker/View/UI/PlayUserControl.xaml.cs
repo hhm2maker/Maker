@@ -149,14 +149,14 @@ namespace Maker.View
         }
         public class InputPort
         {
-
             private IntPtr handle;
-
+            private CDD dd = new CDD();
 
             public InputPort()
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
+                button1_Click();
             }
 
 
@@ -285,9 +285,14 @@ namespace Maker.View
             private void KeyEvent(uint position)
             {
                 //模拟键盘输入
-                if(position == 44) { 
-                //System.Windows.Forms.SendKeys.SendWait("{Q}");
-                    button1_Click();
+                if (position == 44)
+                {
+                        Console.WriteLine(dd == null);
+                    //System.Windows.Forms.SendKeys.SendWait("{Q}");
+                    int ddcode = 301;                         //tab键位在DD键码表的3区第1个位置
+                    dd.key(ddcode, 1);
+                    dd.key(ddcode, 2);                        // 1=按下 2=放开                    
+                    return;
                 }
                 if (position == 45)
                 {
@@ -302,15 +307,95 @@ namespace Maker.View
                     System.Windows.Forms.SendKeys.SendWait("{R}");
                 }
             }
-            [DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
-            public static extern void keybd_event(System.Windows.Forms.Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+
             private void button1_Click()
             {
-                keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
-            }
-        }
-       
+                //可从注册表中直接获取
+                //string dllfile = ReadDataFromReg();
 
+                //LoadDllFile(dllfile);
+                //return;
+
+                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"\DD85590.64.dll");
+            }
+
+
+            private void LoadDllFile(string dllfile)
+            {
+
+                System.IO.FileInfo fi = new System.IO.FileInfo(dllfile);
+                if (!fi.Exists)
+                {
+                    MessageBox.Show("文件不存在");
+                    return;
+                }
+
+                int ret = dd.Load(dllfile);
+                if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
+                if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
+                if (ret == 0) { MessageBox.Show("非增强模块"); }
+
+                return;
+            }
+            //[DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
+            //public static extern void keybd_event(System.Windows.Forms.Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+            //private void button1_Click()
+            //{
+            //    keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
+            //}
+
+
+        }
+
+        //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    unreg_hotkey();
+        //}
+
+
+      
+
+        private string ReadDataFromReg()
+        {
+            Microsoft.Win32.RegistryKey key;
+            key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\\DD XOFT\\", false);
+            if (key != null)
+            {
+                foreach (string vname in key.GetValueNames())
+                {
+                    if ("path" == vname.ToLower())
+                    {
+                        return key.GetValue(vname, "").ToString();
+                    }
+                }
+            }
+            return "";
+        }
+
+        private void Fun80()
+        {
+            //dd.str("  Keyboard char [A-Za_z] {@$} ");
+        }
+
+        private void Fun90()
+        {
+            //if (dd.key != null)
+            //{
+            //    //模拟 系统热键 CTRL+ALT+DEL
+            //    dd.key(600, 1);                                      // CTRL 键位在 6区1
+            //    dd.key(602, 1);                                      // ALT   键位在 6区3
+            //    dd.key(706, 1);                                      // DEL   键位在 7区7
+            //    System.Threading.Thread.Sleep(5);
+            //    dd.key(706, 2);
+            //    dd.key(602, 2);
+            //    dd.key(600, 2);
+            //}
+        }
+
+        private void Fun100()
+        {
+            MessageBox.Show("热键ID=100");
+        }
         internal static class NativeMethods
         {
             internal const int MMSYSERR_NOERROR = 0;
