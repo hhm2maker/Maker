@@ -93,7 +93,7 @@
             </Viewbox>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" >
                 <src:FishEyePanel x:Name="fishEyePanel4" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                    <Button  Margin="5" Click="tbHelp_MouseLeftButtonUp" x:Name="tbChildLeft" Content="{DynamicResource Help}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
+                    <!--<Button  Margin="5" Click="tbHelp_MouseLeftButtonUp" x:Name="tbChildLeft" Content="{DynamicResource Help}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />-->
                 </src:FishEyePanel>
             </StackPanel>
         </Grid>

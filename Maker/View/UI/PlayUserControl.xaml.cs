@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.Control;
 using System;
@@ -24,6 +25,55 @@ namespace Maker.View
         {
             InitializeComponent();
             this.mw = mw;
+
+            LoadKeyboards();
+        }
+
+        private void LoadKeyboards()
+        {
+            XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
+            XElement _root = _doc.Element("Root");
+
+
+            foreach (XElement keyElement in _root.Elements("Key"))
+            {
+                KeyboardModel keyboardModel = new KeyboardModel();
+                String strPosition = keyElement.Attribute("position").Value;
+                if (strPosition.Equals(String.Empty))
+                {
+                    keyboardModel.Position = -1;
+                }
+                else
+                {
+                    if (int.TryParse(strPosition, out int result))
+                    {
+                        keyboardModel.Position = result;
+                    }
+                    else
+                    {
+                        keyboardModel.Position = -1;
+                    }
+                }
+                String strDdKey = keyElement.Attribute("ddkey").Value;
+                if (strDdKey.Equals(String.Empty))
+                {
+                    keyboardModel.DdKey = -1;
+                }
+                else
+                {
+                    if (int.TryParse(strDdKey, out int result))
+                    {
+                        keyboardModel.DdKey = result;
+                    }
+                    else
+                    {
+                        keyboardModel.DdKey = -1;
+                    }
+                }
+                keyboardModel.SendKey = keyElement.Attribute("sendkey").Value;
+                if(keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
+                  keyboardModels.Add(keyboardModel.Position, keyboardModel);
+            }
         }
 
         private FileBusiness business = new FileBusiness();
@@ -322,7 +372,6 @@ namespace Maker.View
 
             private void LoadDllFile(string dllfile)
             {
-
                 System.IO.FileInfo fi = new System.IO.FileInfo(dllfile);
                 if (!fi.Exists)
                 {
@@ -343,8 +392,6 @@ namespace Maker.View
             //{
             //    keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
             //}
-
-
         }
 
         //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -353,7 +400,7 @@ namespace Maker.View
         //}
 
 
-      
+        private Dictionary<int,KeyboardModel> keyboardModels = new Dictionary<int,KeyboardModel>();
 
         private string ReadDataFromReg()
         {
