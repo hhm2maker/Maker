@@ -71,7 +71,6 @@ namespace Maker.View.Dialog
             if (!fileName.EndsWith(fileType)) {
                 fileName += fileType;
             }
-           
         }
     }
 }

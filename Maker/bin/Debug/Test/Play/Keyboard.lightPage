@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="36.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="36_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="37.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="37_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="38.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="38_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="39.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="39_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="44.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="44_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="45.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="45_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="46.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="46_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="47.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="47_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="48.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="48_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="49.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="49_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="50.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="50_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="51.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="51_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="52.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="52_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="39.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="39_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="39.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="39_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="39.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="39_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="80.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="80_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="81.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="81_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="82.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="82_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="83.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="83_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="Keyboard.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="" goto="" bpm="" />
+    </Button>
+  </Buttons>
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+  <Buttons />
+</Page>

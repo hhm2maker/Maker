@@ -22,7 +22,8 @@ namespace Maker.View.Play
             InitializeComponent();
             this.mw = mw;
 
-            _fileType = ".playExport";
+            _fileType = "Play";
+            _fileExtension = ".playExport";
             mainView = gMain;
             HideControl();
         }
@@ -33,14 +34,14 @@ namespace Maker.View.Play
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
-            if (sender == btnSelectFileTutorial || sender == btnSelectFileFirstPage)
+            if (sender == btnSelectFileTutorial )
             {
                 fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Light", new List<string>() { ".light" }));
                 fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
                 fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
             }
             else {
-                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightPage", new List<string>() { ".lightPage" }));
+                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
             }
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
             if (dialog.ShowDialog() == true)
@@ -148,7 +149,7 @@ namespace Maker.View.Play
                 XAttribute xPageName = new XAttribute("name", pageNames[i]);
                 xPage.Add(xPageName);
 
-                mw.cuc.puc.ReadPageFile(mw.lastProjectPath + @"\LightPage\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
+                mw.cuc.puc.ReadPageFile(mw.lastProjectPath + @"\Play\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
                 for (int x = 0; x < pageModes.Count; x++)
                 {
                     if (pageModes[x].Count == 0)
@@ -289,7 +290,7 @@ namespace Maker.View.Play
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;
         }
-
+        
         private new void SaveFile(object sender, RoutedEventArgs e)
         {
             XDocument doc = new XDocument();
@@ -325,6 +326,24 @@ namespace Maker.View.Play
             doc.Save(filePath);
         }
 
-       
+        protected override void CreateFile(String filePath)
+        {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            // 添加根节点
+            XElement xRoot = new XElement("Root");
+            // 添加节点使用Add
+            xDoc.Add(xRoot);
+            // 创建一个按钮加到root中
+            XElement xTutorial = new XElement("Tutorial");
+            xRoot.Add(xTutorial);
+            XElement xFirstPageName = new XElement("FirstPageName");
+            xRoot.Add(xFirstPageName);
+            XElement xPages = new XElement("Pages");
+            xRoot.Add(xPages);
+            // 保存该文档  
+            xDoc.Save(filePath);
+        }
+
     }
 }

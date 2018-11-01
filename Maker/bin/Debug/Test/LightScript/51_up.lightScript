@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiNTEiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjE3IiwnICcsJy0nKTsNCglMaWdodEdyb3VwIFN0ZXAxTGlnaHRHcm91cCA9IENyZWF0ZS5DcmVhdGVMaWdodEdyb3VwKDAsU3RlcDFQb3NpdGlvbkdyb3VwLDAsMCxTdGVwMUNvbG9yR3JvdXAsQ3JlYXRlLlVQLENyZWF0ZS5PUEVOKTs=" visible="true" contain="Step1" intersection="" complement="" />
+  </Scripts>
+</Root>
