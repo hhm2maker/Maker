@@ -82,7 +82,7 @@
         </Grid>
         <Grid >
         <Viewbox Name="vbChildLeftBorder" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                <Path Stroke="#566e9a" StrokeThickness="3" Data="M 0,40 40,0 640,320 600,360 0,360 0,40">
+                <Path Stroke="#566e9a" StrokeThickness="3" Data="M 0,80 80,0 A 640 320 180 0 0 640,280 M 640,280 560,360 0,360 0,80">
                     <Path.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#30000000" Offset="0"/>
