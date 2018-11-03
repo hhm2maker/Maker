@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Tutorial content="" />
+  <Pages first="Keyboard.lightPage">
+    <Page name="Keyboard.lightPage">
+      <Buttons position="36">
+        <Button>
+          <Down lightname="0" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="1" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="37">
+        <Button>
+          <Down lightname="2" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="3" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="38">
+        <Button>
+          <Down lightname="4" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="5" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="39">
+        <Button>
+          <Down lightname="6" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="7" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="44">
+        <Button>
+          <Down lightname="8" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="9" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="45">
+        <Button>
+          <Down lightname="10" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="11" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="46">
+        <Button>
+          <Down lightname="12" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="13" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="47">
+        <Button>
+          <Down lightname="14" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="15" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="48">
+        <Button>
+          <Down lightname="16" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="17" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="49">
+        <Button>
+          <Down lightname="18" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="19" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="50">
+        <Button>
+          <Down lightname="20" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="21" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="51">
+        <Button>
+          <Down lightname="22" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="23" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="52">
+        <Button>
+          <Down lightname="24" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="25" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="68">
+        <Button>
+          <Down lightname="6" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="7" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="69">
+        <Button>
+          <Down lightname="6" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="7" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="70">
+        <Button>
+          <Down lightname="6" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="7" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="80">
+        <Button>
+          <Down lightname="26" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="27" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="81">
+        <Button>
+          <Down lightname="28" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="29" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="82">
+        <Button>
+          <Down lightname="30" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="31" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="83">
+        <Button>
+          <Down lightname="32" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="33" goto="" bpm="120" />
+        </Button>
+      </Buttons>
+      <Buttons position="99">
+        <Button>
+          <Down lightname="34" goto="" bpm="120" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="" goto="" bpm="" />
+        </Button>
+      </Buttons>
+    </Page>
+  </Pages>
+  <Lights>
+    <Light name="0" value="AMKQJAM=" />
+    <Light name="1" value="AMKQJAU=" />
+    <Light name="2" value="AMKQJQM=" />
+    <Light name="3" value="AMKQJQU=" />
+    <Light name="4" value="AMKQJgM=" />
+    <Light name="5" value="AMKQJgU=" />
+    <Light name="6" value="AMKQJwMAwpBEAwDCkEUDAMKQRgM=" />
+    <Light name="7" value="AMKQJwkAwpBECQDCkEUJAMKQRgk=" />
+    <Light name="8" value="AMKQLAM=" />
+    <Light name="9" value="AMKQLA0=" />
+    <Light name="10" value="AMKQLQM=" />
+    <Light name="11" value="AMKQLQ0=" />
+    <Light name="12" value="AMKQLgM=" />
+    <Light name="13" value="AMKQLg0=" />
+    <Light name="14" value="AMKQLwM=" />
+    <Light name="15" value="AMKQLw0=" />
+    <Light name="16" value="AMKQMAM=" />
+    <Light name="17" value="AMKQMBE=" />
+    <Light name="18" value="AMKQMQM=" />
+    <Light name="19" value="AMKQMRE=" />
+    <Light name="20" value="AMKQMgM=" />
+    <Light name="21" value="AMKQMhE=" />
+    <Light name="22" value="AMKQMwM=" />
+    <Light name="23" value="AMKQMxE=" />
+    <Light name="24" value="AMKQNAM=" />
+    <Light name="25" value="AMKQNCU=" />
+    <Light name="26" value="AMKQUAM=" />
+    <Light name="27" value="AMKQUBE=" />
+    <Light name="28" value="AMKQUQM=" />
+    <Light name="29" value="AMKQURE=" />
+    <Light name="30" value="AMKQUgM=" />
+    <Light name="31" value="AMKQUhE=" />
+    <Light name="32" value="AMKQUwM=" />
+    <Light name="33" value="AMKQUxE=" />
+    <Light name="34" value="AMKQJAUAwpAlBQDCkCYFAMKQJwkAwpAsDQDCkC0NAMKQLg0AwpAvDQDCkDARAMKQMREAwpAyEQDCkDMRAMKQNCUAwpBECQDCkEUJAMKQRgkAwpBQEQDCkFERAMKQUhEAwpBTEQ==" />
+  </Lights>
+</Root>

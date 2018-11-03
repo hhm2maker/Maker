@@ -21,4 +21,10 @@
   <Key position="50" ddkey="603" sendkey="SPACE"/> 
   <Key position="51" ddkey="603" sendkey="SPACE"/> 
   <Key position="52" ddkey="603" sendkey="SPACE"/> 
+  <Key position="40" ddkey="401" sendkey="a"/> 
+  <Key position="41" ddkey="402" sendkey="s"/> 
+  <Key position="42" ddkey="402" sendkey="d"/> 
+  <Key position="41" ddkey="407" sendkey="j"/> 
+  <Key position="42" ddkey="408" sendkey="k"/> 
+  <Key position="42" ddkey="409" sendkey="l"/> 
 </Root>

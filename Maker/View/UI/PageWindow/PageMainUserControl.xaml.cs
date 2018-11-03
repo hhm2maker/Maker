@@ -27,6 +27,7 @@ namespace Maker.View.PageWindow
             this.mw = mw;
 
             _fileExtension = ".lightPage";
+            _fileType = "Play";
             mainView = gMain;
             HideControl();
 

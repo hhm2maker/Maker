@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Maker.Bridge
 {
@@ -42,6 +43,9 @@ namespace Maker.Bridge
             view.mBlockLightList.Clear();
             view.mBlockLightList = Results.Test(view.scriptModelDictionary,stepName); 
         }
-        
+
+        public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath) {
+            return Business.ViewBusiness.Currency.ScriptFileBusiness.GetScriptModelDictionary(filePath);
+        }
     }
 }

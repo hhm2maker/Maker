@@ -4920,53 +4920,9 @@ namespace Maker.View.LightScriptUserControl
             //    //    UpdateData(new List<Light>());
             //    //}}
             scriptModelDictionary.Clear();
-            XDocument xDoc = XDocument.Load(filePath);
-            XElement xRoot = xDoc.Element("Root");
-            XElement xScripts = xRoot.Element("Scripts");
 
-            foreach (var xScript in xScripts.Elements("Script"))
-            {
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.Name = xScript.Attribute("name").Value;
-                scriptModel.Value = fileBusiness.Base2String(xScript.Attribute("value").Value);
-                if (xScript.Attribute("parent") == null)
-                {
-                    scriptModel.Parent = "";
-                }
-                else
-                {
-                    scriptModel.Parent = xScript.Attribute("parent").Value;
-                }
-                if (xScript.Attribute("intersection") != null && !xScript.Attribute("intersection").Value.ToString().Trim().Equals(String.Empty))
-                {
-                    scriptModel.Intersection = xScript.Attribute("intersection").Value.Trim().Split(' ').ToList();
-                }
-                else
-                {
-                    scriptModel.Intersection = new List<String>();
-                }
-                if (xScript.Attribute("complement") != null && !xScript.Attribute("complement").Value.Equals(String.Empty))
-                {
-                    scriptModel.Complement = xScript.Attribute("complement").Value.Trim().Split(' ').ToList();
-                }
-                else
-                {
-                    scriptModel.Complement = new List<String>();
-                }
-                String visible = xScript.Attribute("visible").Value;
-                if (visible.Equals("true"))
-                {
-                    scriptModel.Visible = true;
-                }
-                else
-                {
-                    scriptModel.Visible = false;
-                }
-                scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
-                scriptModelDictionary.Add(scriptModel.Name, scriptModel);
+            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath);
 
-                //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
-            }
             UpdateStep();
             UpdateCollection();
             //command =
@@ -5068,7 +5024,7 @@ namespace Maker.View.LightScriptUserControl
             /// <summary>
             /// 清除输入控件里的数据
             /// </summary>
-            public void ClearInputUserControl()
+        public void ClearInputUserControl()
         {
             //UpdateData(new List<Light>());
             lbStep.Items.Clear();

@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.ViewBusiness.Currency;
 using Maker.Model;
 using Maker.View.Dialog;
 using System;
@@ -138,6 +139,7 @@ namespace Maker.View.Play
 
             //Pages
             XElement xPages = new XElement("Pages");
+            firstPageName = tbFirstPageName.Text;
             XAttribute xFirst = new XAttribute("first", firstPageName);
             xPages.Add(xFirst);
             xRoot.Add(xPages);
@@ -277,7 +279,7 @@ namespace Maker.View.Play
             List<Light> mLightList = new List<Light>();
             if (filePath.EndsWith(".lightScript"))
             {
-                mLightList = business.ScriptToLightGroup(business.GetCompleteLightScript(mw.lastProjectPath + @"\LightScript\" + filePath), "Main");
+                mLightList = ScriptFileBusiness.FileToLight(mw.lastProjectPath + @"\LightScript\" + filePath);
             }
             else if (filePath.EndsWith(".light"))
             {
@@ -303,6 +305,7 @@ namespace Maker.View.Play
             };
             xnroot.Add(xnTutorial);
 
+            firstPageName = tbFirstPageName.Text;
             XElement xnFirstPageName = new XElement("FirstPageName")
             {
                 Value = firstPageName

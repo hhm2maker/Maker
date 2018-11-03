@@ -41,6 +41,9 @@
                 <Viewbox Name="vbTime" HorizontalAlignment="Center">
                     <TextBlock Name="tbTime" FontSize="14" Foreground="#F0F0F0" FontFamily="Digiface" Text="00:00"  TextAlignment="Right"/>
                 </Viewbox>
+                <Button Click="Small" Style="{StaticResource EmptyButtonStyle}"  Margin="100,5,0,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Image Source="../Resources/Image/small.png" Width="25" RenderOptions.BitmapScalingMode="Fant"/>
+                </Button>
                 <Button Click="Close" Style="{StaticResource EmptyButtonStyle}"  Margin="0,5,100,0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Top">
                     <Image Source="../Resources/Image/close.png" Width="25" RenderOptions.BitmapScalingMode="Fant"/>
                 </Button>

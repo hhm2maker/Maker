@@ -108,6 +108,7 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Model\KeyboardModel.cs" />
+    <Compile Include="Business\ViewBusiness\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
     <Compile Include="Business\ViewBusiness\ScriptUserControl\Code.cs" />
     <Compile Include="Business\Commands\DataCommands.cs" />

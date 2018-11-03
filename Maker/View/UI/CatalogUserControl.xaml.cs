@@ -764,6 +764,9 @@ namespace Maker.View
         {
             mw.Close();
         }
-
+        private void Small(object sender, RoutedEventArgs e)
+        {
+            mw.WindowState = WindowState.Minimized;
+        }
     }
 }

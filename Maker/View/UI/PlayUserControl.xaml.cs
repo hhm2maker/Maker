@@ -208,7 +208,7 @@ namespace Maker.View
                 handle = IntPtr.Zero;
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
-                this.canOpenOrClose = canOpenOrClose;
+                this.noCanOpenOrClose = canOpenOrClose;
                 button1_Click();
             }
 
@@ -276,10 +276,10 @@ namespace Maker.View
                     //Console.WriteLine(Convert.ToString(l2_dw1, 16));
                     //Console.WriteLine("-------------------------------");
                     uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
-                  
                     if (!pages[nowPageName].ContainsKey((int)position))
                         return;
-                    if (dwParam1 > 16383)
+                  
+                    if (dwParam1 > 32767)
                     {
                         KeyEvent((int)position,0);
                         //打开
@@ -318,7 +318,6 @@ namespace Maker.View
                                 }
                             }
                         }
-
                         Thread newThread = new Thread(
                    new ParameterizedThreadStart(StopToLaunchpad)
                    );
@@ -336,7 +335,7 @@ namespace Maker.View
                 }
             }
             public int inputType = 0;//0浅度 1深度(驱动)
-            public int canOpenOrClose = 0;//随着LPD按下抬起来开关(仅限深度模式) 0浅度 1深度(驱动)
+            public int noCanOpenOrClose = 0;//随着LPD按下抬起来开关(仅限深度模式) 
             private void KeyEvent(int position,int openOrClose)
             {
                 //模拟键盘输入
@@ -349,7 +348,7 @@ namespace Maker.View
                 }
                 else if (inputType == 1)
                 {
-                    if (canOpenOrClose == 0)
+                    if (noCanOpenOrClose == 1)
                     {
                         if (openOrClose == 0)
                         {
@@ -392,11 +391,11 @@ namespace Maker.View
                 }
 
                 int ret = dd.Load(dllfile);
-                if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
-                if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
-                if (ret == 0) { MessageBox.Show("非增强模块"); }
+                //if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
+                //if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
+                //if (ret == 0) { MessageBox.Show("非增强模块"); }
 
-                return;
+                //return;
             }
             //[DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
             //public static extern void keybd_event(System.Windows.Forms.Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
@@ -486,6 +485,7 @@ namespace Maker.View
                 InitData();
                 isFirst = false;
             }
+            LoadExeXml();
         }
         private void InitData()
         {
@@ -677,6 +677,7 @@ namespace Maker.View
             Thread _thread = thread as Thread;
             List<object> _objects = threadsStop[_thread];
             //抬起
+
             UpButtonModel upModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
             if (!upModel._lightName.Equals(String.Empty) && lights.ContainsKey(upModel._lightName))
             {
@@ -924,7 +925,7 @@ namespace Maker.View
             if (sender == cbCanOpenOrClose)
             {
                 if (ip != null)
-                    ip.canOpenOrClose = 1;
+                    ip.noCanOpenOrClose = 1;
                 canOpenOrClose = 1;
             }
         }
@@ -940,7 +941,7 @@ namespace Maker.View
             if (sender == cbCanOpenOrClose)
             {
                 if (ip != null)
-                    ip.canOpenOrClose = 1;
+                    ip.noCanOpenOrClose = 1;
                 canOpenOrClose = 0;
             }
         }
