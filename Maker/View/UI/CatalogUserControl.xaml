@@ -60,11 +60,13 @@
                     </Path.Fill>
                 </Path>
             </Viewbox>
-            <Grid HorizontalAlignment="Left" >
-                <src:FishEyePanel x:Name="fishEyePanel2" VerticalAlignment="Bottom">
-                    <Button  Margin="5" Click="tbFile_MouseDown" x:Name="tbFile" Content="{DynamicResource File}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
-                </src:FishEyePanel>
-            </Grid>
+            <StackPanel x:Name="fishEyePanel2" Width="45" VerticalAlignment="Center"  HorizontalAlignment="Left" Margin="30,0,0,0">
+                    <Button  Style="{StaticResource RoundedGelButton}" Click="tbFile_MouseDown" HorizontalAlignment="Center">
+                        <Button.Content>
+                            <Image Source="../Resources/Image/file.png" Width="30" RenderOptions.BitmapScalingMode="Fant"  />
+                        </Button.Content>
+                    </Button>
+            </StackPanel>
         </Grid>
         <Grid >
             <Viewbox Name="vbHelpBorder" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -78,8 +80,13 @@
                 </Path>
             </Viewbox>
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" >
-                <src:FishEyePanel x:Name="fishEyePanel3" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                <src:FishEyePanel x:Name="fishEyePanel3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,30,30,0">
                     <Button  Margin="5" Click="tbHelp_MouseLeftButtonUp" x:Name="tbHelp" Content="{DynamicResource Help}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
+                    <Button  Style="{StaticResource RoundedGelButton}" Click="ChangeLanguage">
+                        <Button.Content>
+                            <Image Source="../Resources/Image/language.png" Width="30" RenderOptions.BitmapScalingMode="Fant"  />
+                        </Button.Content>
+                    </Button>
                 </src:FishEyePanel>
             </StackPanel>
         </Grid>
@@ -95,8 +102,17 @@
                 </Path>
             </Viewbox>
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                <src:FishEyePanel x:Name="fishEyePanel4" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                    <!--<Button  Margin="5" Click="tbHelp_MouseLeftButtonUp" x:Name="tbChildLeft" Content="{DynamicResource Help}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />-->
+                <src:FishEyePanel x:Name="fishEyePanel4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,30">
+                    <Button  Style="{StaticResource BigRoundedGelButton}" Click="ChangeLanguage" Margin="10">
+                        <Button.Content>
+                            <Image Source="../Resources/Image/piano.png" Width="60" RenderOptions.BitmapScalingMode="Fant"  />
+                        </Button.Content>
+                    </Button>
+                    <Button  Style="{StaticResource BigRoundedGelButton}" Click="ChangeLanguage" Margin="10">
+                        <Button.Content>
+                            <Image Source="../Resources/Image/keyboard.png" Width="60" RenderOptions.BitmapScalingMode="Fant"  />
+                        </Button.Content>
+                    </Button>
                 </src:FishEyePanel>
             </StackPanel>
         </Grid>
@@ -130,7 +146,7 @@
                 <src:FishEyePanel x:Name="fishEyePanel" VerticalAlignment="Bottom">
                     <Button  Margin="5" Click="TextBlock_MouseDown" x:Name="tbLight" Content="{DynamicResource Light}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
                     <Button  Margin="5"  Click="TextBlock_MouseDown" x:Name="tbLightScript"  Content="{DynamicResource LightScript}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
-                    <Button  Margin="5"  Click="TextBlock_MouseDown" x:Name="tbPlay" Content="{DynamicResource Play}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
+                    <Button  Margin="5"  Click="TextBlock_MouseDown" x:Name="tbPlay" Content="{DynamicResource Play_}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
                     <Button  Margin="5"  Click="TextBlock_MouseDown" x:Name="tbTool" Content="{DynamicResource Tool}" Style="{DynamicResource PulseButton}" Foreground="#F0F0F0"  />
                 </src:FishEyePanel>
             </StackPanel>
@@ -163,8 +179,8 @@
                             <Button Content="{DynamicResource Delete}" HorizontalAlignment="Right" Name="btnDelete" Click="btnDelete_Click"/>
                         </DockPanel>
                     </Grid>
-                    <Grid  Grid.Column="1">
-                        <Grid Name="gMain" />
+                    <Grid  Grid.Column="1" >
+                        <Grid Name="gMain" Margin="300"/>
                         <Canvas Name="gd" HorizontalAlignment="Stretch" SizeChanged="gd_SizeChanged"   >
                             <Thumb Name="thumb_player"  Canvas.Left="0" Canvas.Top="0" >
                                 <Thumb.Template>

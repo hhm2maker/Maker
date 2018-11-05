@@ -190,7 +190,7 @@ namespace Maker.View
             if (cbRealDeviceIn.SelectedIndex != -1)
             {
                 //Console.WriteLine("Hello");
-                ip = new InputPort(keyboardModels,inputType,canOpenOrClose);
+                ip = new InputPort(keyboardModels,inputType);
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
                 ip.Open(cbRealDeviceIn.SelectedIndex);
                 ip.Start();
@@ -202,13 +202,12 @@ namespace Maker.View
             private IntPtr handle;
             private CDD dd = new CDD();
             private  Dictionary<int, KeyboardModel> keyboardModels ;
-            public InputPort(Dictionary<int, KeyboardModel> keyboardModels ,int inputType,int canOpenOrClose)
+            public InputPort(Dictionary<int, KeyboardModel> keyboardModels ,int inputType)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
-                this.noCanOpenOrClose = canOpenOrClose;
                 button1_Click();
             }
 
@@ -335,36 +334,27 @@ namespace Maker.View
                 }
             }
             public int inputType = 0;//0浅度 1深度(驱动)
-            public int noCanOpenOrClose = 0;//随着LPD按下抬起来开关(仅限深度模式) 
             private void KeyEvent(int position,int openOrClose)
             {
                 //模拟键盘输入
                 if (!keyboardModels.ContainsKey(position)){
                     return;
                 }
-                if (inputType == 0)
+                if (inputType == 0 && openOrClose == 0)
                 {
-                    System.Windows.Forms.SendKeys.SendWait("{"+ keyboardModels[position].SendKey+ "}");
+                    System.Windows.Forms.SendKeys.SendWait(keyboardModels[position].SendKey);
                 }
                 else if (inputType == 1)
                 {
-                    if (noCanOpenOrClose == 1)
+                    if (openOrClose == 0)
                     {
-                        if (openOrClose == 0)
-                        {
-                            int ddcode = keyboardModels[position].DdKey;                         //tab键位在DD键码表的3区第1个位置
-                            dd.key(ddcode, 1);                                                  // 1=按下 2=放开          
-                        }
-                        if (openOrClose == 1)
-                        {
-                            int ddcode = keyboardModels[position].DdKey;                        
-                            dd.key(ddcode, 2);                                 
-                        }
+                        int ddcode = keyboardModels[position].DdKey;                         //tab键位在DD键码表的3区第1个位置
+                        dd.key(ddcode, 1);                                                  // 1=按下 2=放开          
                     }
-                    else {
-                        int ddcode = keyboardModels[position].DdKey;                         
-                        dd.key(ddcode, 1);
-                        dd.key(ddcode, 2);                           
+                    if (openOrClose == 1)
+                    {
+                        int ddcode = keyboardModels[position].DdKey;
+                        dd.key(ddcode, 2);
                     }
                 }
             }
@@ -914,36 +904,19 @@ namespace Maker.View
         } // class WinMM
 
         private int inputType = 0;
-        private int canOpenOrClose = 0;
         private void cbIsDD_Checked(object sender, RoutedEventArgs e)
         {
-            if (sender == cbIsDD) {
-                if (ip != null)
-                    ip.inputType = 1;
-                inputType = 1;
-            }
-            if (sender == cbCanOpenOrClose)
-            {
-                if (ip != null)
-                    ip.noCanOpenOrClose = 1;
-                canOpenOrClose = 1;
-            }
+            if (ip != null)
+                ip.inputType = 1;
+            inputType = 1;
         }
 
         private void cbIsDD_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (sender == cbIsDD)
-            {
-                if (ip != null)
-                    ip.inputType = 0;
-                inputType = 0;
-            }
-            if (sender == cbCanOpenOrClose)
-            {
-                if (ip != null)
-                    ip.noCanOpenOrClose = 1;
-                canOpenOrClose = 0;
-            }
+            if (ip != null)
+                ip.inputType = 0;
+            inputType = 0;
+
         }
 
       

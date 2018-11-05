@@ -38,8 +38,20 @@
   </Buttons>
   <Buttons />
   <Buttons />
-  <Buttons />
-  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="42.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="42_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
+  <Buttons>
+    <Button>
+      <Down lightname="43.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="43_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
   <Buttons>
     <Button>
       <Down lightname="44.lightScript" goto="" bpm="120" />
@@ -140,7 +152,13 @@
     </Button>
   </Buttons>
   <Buttons />
-  <Buttons />
+  <Buttons>
+    <Button>
+      <Down lightname="72.lightScript" goto="" bpm="120" />
+      <Loop lightname="" goto="" bpm="" />
+      <Up lightname="72_up.lightScript" goto="" bpm="120" />
+    </Button>
+  </Buttons>
   <Buttons />
   <Buttons />
   <Buttons />

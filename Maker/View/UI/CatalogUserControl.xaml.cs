@@ -86,7 +86,7 @@ namespace Maker.View
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
 
-            gMain.Children.Add(new PlayUserControl(mw));
+           
 
             tw = new ToolWindow
             {
@@ -292,7 +292,9 @@ namespace Maker.View
                 }
                 else if (sender == tbPlay)
                 {
-                    spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
+                    //spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
+                    gMain.Children.Clear();
+                    gMain.Children.Add(new PlayUserControl(mw));
                 }
                 else if (sender == tbTool)
                 {
@@ -671,7 +673,7 @@ namespace Maker.View
         /// 设置工具初始位置
         /// </summary>
         private void SetToolOldPosition() {
-            Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth);
+            Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth - 30);
             double left = Canvas.GetLeft(thumb_player);
             //double top = Canvas.GetTop(thumb_player);
             double top = (ActualHeight / 2) - 35;
@@ -734,7 +736,6 @@ namespace Maker.View
             vbChildLeftBorder.Height = ActualHeight / 4;
 
             fishEyePanel.Width = ActualWidth / 5;
-            fishEyePanel2.Width = ActualWidth / 20;
             fishEyePanel3.Width = ActualWidth / 20;
             timer.Tick += new EventHandler(Timer_Tick);
             //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
@@ -767,6 +768,38 @@ namespace Maker.View
         private void Small(object sender, RoutedEventArgs e)
         {
             mw.WindowState = WindowState.Minimized;
+        }
+
+        private void ChangeLanguage(object sender, RoutedEventArgs e)
+        {
+            if (mw.strMyLanguage.Equals("en-US"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "zh-CN";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "zh-CN";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
+            else if (mw.strMyLanguage.Equals("zh-CN"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "en-US";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "en-US";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
         }
     }
 }

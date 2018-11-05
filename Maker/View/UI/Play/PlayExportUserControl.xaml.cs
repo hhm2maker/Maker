@@ -95,7 +95,7 @@ namespace Maker.View.Play
             tutorialName = xnroot.Element("Tutorial").Value;
             tbTutorialName.Text = tutorialName;
             firstPageName = xnroot.Element("FirstPageName").Value;
-            tbFirstPageName.Text = tutorialName;
+            tbFirstPageName.Text = firstPageName;
 
             pageNames.Clear();
             XElement xnPages = xnroot.Element("Pages");

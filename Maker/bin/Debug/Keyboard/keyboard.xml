@@ -16,15 +16,16 @@
   <Key position="81" ddkey="206" sendkey="6"/>  
   <Key position="82" ddkey="207" sendkey="7"/>  
   <Key position="83" ddkey="208" sendkey="8"/>  
-  <Key position="52" ddkey="100" sendkey="ESC"/> 
-  <Key position="39" ddkey="603" sendkey="SPACE"/> 
-  <Key position="50" ddkey="603" sendkey="SPACE"/> 
-  <Key position="51" ddkey="603" sendkey="SPACE"/> 
-  <Key position="52" ddkey="603" sendkey="SPACE"/> 
+  <Key position="52" ddkey="100" sendkey="{ESC}"/> 
+  <Key position="39" ddkey="603" sendkey=" "/> 
+  <Key position="50" ddkey="603" sendkey=" "/> 
+  <Key position="51" ddkey="603" sendkey=" "/> 
+  <Key position="52" ddkey="603" sendkey=" "/> 
   <Key position="40" ddkey="401" sendkey="a"/> 
   <Key position="41" ddkey="402" sendkey="s"/> 
-  <Key position="42" ddkey="402" sendkey="d"/> 
-  <Key position="41" ddkey="407" sendkey="j"/> 
-  <Key position="42" ddkey="408" sendkey="k"/> 
-  <Key position="42" ddkey="409" sendkey="l"/> 
+  <Key position="42" ddkey="403" sendkey="d"/> 
+  <Key position="43" ddkey="404" sendkey="f"/> 
+  <Key position="73" ddkey="407" sendkey="j"/> 
+  <Key position="74" ddkey="408" sendkey="k"/> 
+  <Key position="75" ddkey="409" sendkey="l"/> 
 </Root>

@@ -84,4 +84,35 @@
     <Style TargetType="TextBlock" x:Key="addButtonStyle">
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+
+    <Style x:Key="RoundedGelButton" TargetType="Button">
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Name="GelBackground" StrokeThickness="2" Stroke="White" />
+                        <ContentPresenter Name="GelButtonContent" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Content="{TemplateBinding Content}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BigRoundedGelButton" TargetType="Button">
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="Height" Value="90"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Name="GelBackground" StrokeThickness="2" Stroke="White" />
+                        <ContentPresenter Name="GelButtonContent" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                           Content="{TemplateBinding Content}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

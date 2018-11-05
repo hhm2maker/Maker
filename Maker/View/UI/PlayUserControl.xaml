@@ -23,7 +23,6 @@
                 <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="btnSearchEquipmentIn_Click" />
             </ToolBar>
             <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
-            <CheckBox Content="随着LPD按下抬起(仅限深度)" FontSize="14" Foreground="#f0f0f0" Name="cbCanOpenOrClose" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
         </DockPanel>
         <DockPanel Background="#535353"  Grid.Row="1">
             <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
