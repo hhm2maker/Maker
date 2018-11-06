@@ -107,6 +107,9 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\CatalogUserControl.xaml.cs">
+      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Business\Model\KeyboardModel.cs" />
     <Compile Include="Business\ViewBusiness\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
@@ -145,8 +148,8 @@
     </Compile>
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
-    <Compile Include="View\UI\CatalogUserControl.xaml.cs">
-      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
+    <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
+      <DependentUpon>CatalogUserControl2.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\ColorPanel.cs" />
     <Compile Include="View\UI\Device\DrawLaunchpadPro.cs" />
@@ -498,6 +501,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\UI\CatalogUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NewMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -518,7 +525,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UI\CatalogUserControl.xaml">
+    <Page Include="Business\Discarded\CatalogUserControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1178,6 +1185,31 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\piano.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\open.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\help.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\lightdraw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\mycode.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\lightdraw2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

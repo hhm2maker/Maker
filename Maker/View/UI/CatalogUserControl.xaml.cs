@@ -1,6 +1,7 @@
 ﻿using Maker;
 using Maker.Business;
 using Maker.Model;
+using Maker.View;
 using Maker.View.Dialog;
 using Maker.View.Help;
 using Maker.View.Introduction;
@@ -30,7 +31,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Xml;
 
-namespace Maker.View
+namespace Maker.View.UI
 {
     /// <summary>
     /// CatalogUserControl.xaml 的交互逻辑
@@ -81,12 +82,10 @@ namespace Maker.View
             peuc = new PlayExportUserControl(mw);
             userControls.Add(peuc);
             //PlayUserControl - 未接入
-            //userControls.Add(new PlayUserControl(mw));
+            userControls.Add(new PlayExportUserControl(mw));
             //PlayerUserControl
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
-
-           
 
             tw = new ToolWindow
             {
@@ -106,6 +105,8 @@ namespace Maker.View
             //    Stretch = Stretch.Fill
             //};
             //Background = b;
+
+
         }
       
 
@@ -292,9 +293,7 @@ namespace Maker.View
                 }
                 else if (sender == tbPlay)
                 {
-                    //spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
-                    gMain.Children.Clear();
-                    gMain.Children.Add(new PlayUserControl(mw));
+                    spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
                 }
                 else if (sender == tbTool)
                 {
@@ -457,14 +456,15 @@ namespace Maker.View
             }
 
         }
-        private void tbFile_MouseDown(object sender, RoutedEventArgs e)
+        
+        private void ShowOrHideCatalog(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation;
-            if (dpFile.Width == 300)
+            if (bCatalog.Width == 300)
             {
                 animation = new DoubleAnimation
                 {
-                    To = 0,
+                    To = 75,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
             }
@@ -476,9 +476,18 @@ namespace Maker.View
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
             }
-            dpFile.BeginAnimation(WidthProperty, animation);
+            bCatalog.BeginAnimation(WidthProperty, animation);
         }
-
+        private void tbFile_MouseDown(object sender, RoutedEventArgs e)
+        {
+            if (dpFile.Visibility == Visibility.Visible)
+            {
+                dpFile.Visibility = Visibility.Collapsed;
+            }
+            else {
+                dpFile.Visibility = Visibility.Visible;
+            }
+        }
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbMain.SelectedIndex == -1)
@@ -633,8 +642,8 @@ namespace Maker.View
                 else if (position == 1)
                 {
                     //加入平铺页面
-                    PavedUserControl pavedUserControl = new PavedUserControl(this,baseMakerLightUserControl.GetData());
-                    userControl = pavedUserControl;
+                    //PavedUserControl pavedUserControl = new PavedUserControl(this,baseMakerLightUserControl.GetData());
+                    //userControl = pavedUserControl;
     }
                 gMost.Children.Add(userControl);
                 DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
@@ -673,16 +682,12 @@ namespace Maker.View
         /// 设置工具初始位置
         /// </summary>
         private void SetToolOldPosition() {
-            Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth - 30);
+            Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth);
             double left = Canvas.GetLeft(thumb_player);
-            //double top = Canvas.GetTop(thumb_player);
-            double top = (ActualHeight / 2) - 35;
-
+            double top = Canvas.GetTop(thumb_player);
             startPoints[0] = new Point(left, top);
             startPoints[1] = new Point(left, top+40);
 
-            Canvas.SetLeft(thumb_player, left);
-            Canvas.SetTop(thumb_player, top );
             Canvas.SetLeft(thumb_paved, left);
             Canvas.SetTop(thumb_paved, top + 40);
         }
@@ -712,36 +717,6 @@ namespace Maker.View
 
             SetToolOldPosition();
 
-            mediaElement.Source = new Uri(AppDomain.CurrentDomain.BaseDirectory+ @"Images\Redial.mp4");
-            mediaElement.Play();
-            mediaElement.MediaEnded += MediaElement_MediaEnded;
-
-            gTime.Width = ActualWidth / 2;
-            gTime.Height = ActualHeight / 15;
-            vbTimeBorder.Width = ActualWidth / 2;
-            vbTimeBorder.Height = ActualHeight / 15;
-
-            vbUserControlBorder.Width = ActualWidth / 3;
-            vbUserControlBorder.Height = ActualHeight / 15;
-
-            vbFileBorder.Width = ActualWidth / 10;
-            vbFileBorder.Height = ActualHeight / 2;
-            vbToolBorder.Width = ActualWidth / 10;
-            vbToolBorder.Height = ActualHeight / 2;
-
-            vbHelpBorder.Width = ActualWidth / 4;
-            vbHelpBorder.Height = ActualHeight / 4;
-
-            vbChildLeftBorder.Width = ActualWidth / 4;
-            vbChildLeftBorder.Height = ActualHeight / 4;
-
-            fishEyePanel.Width = ActualWidth / 5;
-            fishEyePanel3.Width = ActualWidth / 20;
-            timer.Tick += new EventHandler(Timer_Tick);
-            //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
-            timer.Start();
-
-          
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -754,52 +729,6 @@ namespace Maker.View
         private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetToolOldPosition();
-        }
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            tbTime.Text = DateTime.Now.ToString("hh:mm");
-        }
-        DispatcherTimer timer = new DispatcherTimer();
-
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            mw.Close();
-        }
-        private void Small(object sender, RoutedEventArgs e)
-        {
-            mw.WindowState = WindowState.Minimized;
-        }
-
-        private void ChangeLanguage(object sender, RoutedEventArgs e)
-        {
-            if (mw.strMyLanguage.Equals("en-US"))
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "zh-CN";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                mw.strMyLanguage = "zh-CN";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
-            else if (mw.strMyLanguage.Equals("zh-CN"))
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "en-US";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                mw.strMyLanguage = "en-US";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
         }
     }
 }

@@ -283,22 +283,22 @@ namespace Maker.Business.Discarded
             }
             else
             {
-                if (sender == tbLight)
-                {
-                    //spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
-                }
-                else if (sender == tbLightScript)
-                {
-                    //spIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 }));
-                }
-                else if (sender == tbPlay)
-                {
-                    //spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
-                }
-                else if (sender == tbTool)
-                {
-                    //spIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 }));
-                }
+                //if (sender == tbLight)
+                //{
+                //    spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
+                //}
+                //else if (sender == tbLightScript)
+                //{
+                //    spIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 }));
+                //}
+                //else if (sender == tbPlay)
+                //{
+                //    spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
+                //}
+                //else if (sender == tbTool)
+                //{
+                //    spIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 }));
+                //}
                 selectObject = sender;
             }
 
@@ -707,21 +707,6 @@ namespace Maker.Business.Discarded
 
             SetToolOldPosition();
 
-            mediaElement.Source = new Uri(@"E:\Sharer\Maker\Maker\View\Resources\Image\Redial.mp4");
-            mediaElement.Play();
-            mediaElement.MediaEnded += MediaElement_MediaEnded;
-
-            vbTime.Width = ActualWidth / 2;
-            vbTime.Height = ActualHeight / 15;
-            vbTimeBorder.Width = ActualWidth / 2;
-            vbTimeBorder.Height = ActualHeight / 15;
-            
-            timer.Tick += new EventHandler(Timer_Tick);
-            //timer.Interval = TimeSpan.FromSeconds(0.1);   //设置刷新的间隔时间
-            timer.Start();
-
-            //模拟键盘输入
-            //System.Windows.Forms.SendKeys.SendWait("{A}");
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -735,10 +720,5 @@ namespace Maker.Business.Discarded
         {
             SetToolOldPosition();
         }
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            tbTime.Text = DateTime.Now.ToString("hh:mm");
-        }
-        DispatcherTimer timer = new DispatcherTimer();
     }
 }

@@ -686,6 +686,8 @@ E:\Sharer\Maker\Maker\obj\Debug\View\UI\Work\WebBrowserWindow.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\MakerpjUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Resources\Language\StringResource.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\Resources\Language\StringResource_zh-CN.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\CatalogUserControlDictionary.baml
+E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl2.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl2.baml
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\CatalogUserControlDictionary.baml
