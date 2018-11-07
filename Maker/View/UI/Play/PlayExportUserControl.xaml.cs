@@ -65,7 +65,6 @@ namespace Maker.View.Play
                         pageNames.Add(dialog.lbMain.SelectedItems[i].ToString());
                     }
                 }
-                
             }
         }
         private void btnRemoveFile_Click(object sender, RoutedEventArgs e)
@@ -271,7 +270,7 @@ namespace Maker.View.Play
                 xLights.Add(xLight);
             }
             DirectoryInfo d = new DirectoryInfo(mw.lastProjectPath);
-            xDoc.Save(mw.lastProjectPath + @"\" + d.Name + ".makerpl");
+            xDoc.Save(mw.lastProjectPath + @"\Play\" + d.Name + ".play");
         }
         LightScriptBusiness business = new LightScriptBusiness();
         public List<Light> AllFileToLightList(String filePath)

@@ -548,7 +548,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\UI\PageWindow\PageMainUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PavedSetting.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Tool\PavedUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\PianoRoll\PianoRollUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Debug\View\UI\PlayUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayExportUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PlayerTypeSetting.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PlayerDefaultSetting.g.cs
@@ -653,7 +652,6 @@ E:\Sharer\Maker\Maker\obj\Debug\View\UI\PageWindow\PageMainUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PavedSetting.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Tool\PavedUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\PianoRoll\PianoRollUserControl.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\UI\PlayUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayExportUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PlayerTypeSetting.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Setting\PlayerDefaultSetting.baml
@@ -691,3 +689,5 @@ E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl2.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl2.baml
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayUserControl.baml

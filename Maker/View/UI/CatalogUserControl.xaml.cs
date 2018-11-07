@@ -50,6 +50,8 @@ namespace Maker.View.UI
         public PageMainUserControl puc;
         //Play
         public PlayExportUserControl peuc;
+        //Play
+        public PlayUserControl playuc;
         //Tool
         public ToolWindow tw;
         //PlayerManagement
@@ -81,8 +83,9 @@ namespace Maker.View.UI
             //PlayExportUserControl
             peuc = new PlayExportUserControl(mw);
             userControls.Add(peuc);
-            //PlayUserControl - 未接入
-            userControls.Add(new PlayExportUserControl(mw));
+            //PlayUserControl
+            playuc = new PlayUserControl(mw);
+            userControls.Add(playuc);
             //PlayerUserControl
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
@@ -271,96 +274,7 @@ namespace Maker.View.UI
         {
             gMain.Margin = new Thickness(0, 0, 0, 50);
         }
-
-       
-        private object selectObject;
-        private void TextBlock_MouseDown(object sender, RoutedEventArgs e)
-        {
-            if (selectObject != null && sender == selectObject)
-            {
-                RemoveIntroducePage();
-                selectObject = null;
-            }
-            else
-            {
-                if (sender == tbLight)
-                {
-                    spIntroduce.Children.Add(new LightIntroductionPage(this, new int[] { 0, 1, 2 }));
-                }
-                else if (sender == tbLightScript)
-                {
-                    spIntroduce.Children.Add(new LightScriptIntroductionPage(this, new int[] { 3, 4 }));
-                }
-                else if (sender == tbPlay)
-                {
-                    spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
-                }
-                else if (sender == tbTool)
-                {
-                    spIntroduce.Children.Add(new ToolIntroductionPage(this, new int[] { 8 }));
-                }
-                selectObject = sender;
-            }
-
-        }
-        public void RemoveIntroducePage()
-        {
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                To = 0,
-                Duration = TimeSpan.FromSeconds(0.5)
-            };
-            doubleAnimation.Completed += DoubleAnimation_Completed1;
-            spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
-        }
-
-        private void DoubleAnimation_Completed1(object sender, EventArgs e)
-        {
-            spIntroduce.Children.Clear();
-        }
-
-        public void AddIntroducePage(double introducePageHeight)
-        {
-            //上一个控件比现在的控件高
-            if (selectObjectHeight > introducePageHeight)
-            {
-                DoubleAnimation doubleAnimation = new DoubleAnimation()
-                {
-                    To = introducePageHeight,
-                    Duration = TimeSpan.FromSeconds(0.5)
-                };
-                doubleAnimation.Completed += DoubleAnimation_Completed2;
-                spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
-            }
-            //上一个控件比现在的控件低
-            else
-            {
-                RemoveLastIntroduceAndRecordSelectObjectHeight();
-                DoubleAnimation doubleAnimation = new DoubleAnimation()
-                {
-                    To = introducePageHeight,
-                    Duration = TimeSpan.FromSeconds(0.5)
-                };
-                spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
-            }
-        }
-        /// <summary>
-        /// 移除上一个介绍页且记录当前控件的高度
-        /// </summary>
-        private void RemoveLastIntroduceAndRecordSelectObjectHeight()
-        {
-            if (spIntroduce.Children.Count > 1)
-            {
-                spIntroduce.Children.RemoveAt(0);
-            }
-            selectObjectHeight = (spIntroduce.Children[0] as UserControl).ActualHeight;
-        }
-
-        private Double selectObjectHeight;
-        private void DoubleAnimation_Completed2(object sender, EventArgs e)
-        {
-            RemoveLastIntroduceAndRecordSelectObjectHeight();
-        }
+      
 
         public void IntoUserControl(int index)
         {
@@ -388,17 +302,8 @@ namespace Maker.View.UI
                 thumb_paved.DragStarted += DragStarted;
                 thumb_paved.DragCompleted += DragCompleted;
             }
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                To = 0,
-                Duration = TimeSpan.FromSeconds(0.3)
-            };
-            spIntroduce.BeginAnimation(HeightProperty, doubleAnimation);
             //载入文件
             LoadFileList();
-
-            //选中的类别为空
-            selectObject = null;
         }
 
         private void LoadFileList()
@@ -436,7 +341,34 @@ namespace Maker.View.UI
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
-
+        private void GotoBaseUserControl(object sender, RoutedEventArgs e)
+        {
+            
+            if (sender == btnFrame) {
+                IntoUserControl(0);
+            }
+            else if (sender == btnScript)
+            {
+                IntoUserControl(3);
+            }
+            else if (sender == btnPage)
+            {
+                IntoUserControl(5);
+            }
+            else if (sender == btnPlayExport)
+            {
+                IntoUserControl(6);
+            }
+            else if (sender == btnPlay)
+            {
+                IntoUserControl(7);
+            }
+            else if (sender == btnPlayer)
+            {
+                IntoUserControl(8);
+            }
+            
+        }
         private void Animation_Completed(object sender, EventArgs e)
         {
             logoView.ShowLogo();
@@ -444,17 +376,10 @@ namespace Maker.View.UI
 
         public void OpenFile()
         {
-            DoubleAnimation animation;
-            if (dpFile.Width == 0)
+            if (dpFile.Visibility == Visibility.Collapsed)
             {
-                animation = new DoubleAnimation
-                {
-                    To = 300,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-                dpFile.BeginAnimation(WidthProperty, animation);
+                dpFile.Visibility = Visibility.Visible;
             }
-
         }
         
         private void ShowOrHideCatalog(object sender, RoutedEventArgs e)
@@ -642,9 +567,9 @@ namespace Maker.View.UI
                 else if (position == 1)
                 {
                     //加入平铺页面
-                    //PavedUserControl pavedUserControl = new PavedUserControl(this,baseMakerLightUserControl.GetData());
-                    //userControl = pavedUserControl;
-    }
+                    PavedUserControl pavedUserControl = new PavedUserControl(this, baseMakerLightUserControl.GetData());
+                    userControl = pavedUserControl;
+                }
                 gMost.Children.Add(userControl);
                 DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
                 userControl.BeginAnimation(OpacityProperty, daV);

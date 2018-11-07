@@ -375,7 +375,7 @@
     <Compile Include="View\UI\PianoRoll\PianoRollUserControl.xaml.cs">
       <DependentUpon>PianoRollUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\PlayUserControl.xaml.cs">
+    <Compile Include="View\UI\Play\PlayUserControl.xaml.cs">
       <DependentUpon>PlayUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Play\PlayExportUserControl.xaml.cs">
@@ -835,7 +835,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\PlayUserControl.xaml">
+    <Page Include="View\UI\Play\PlayUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1104,7 +1104,9 @@
     <Resource Include="View\Resources\Image\open_blue.png" />
     <Resource Include="View\Resources\Image\open_white.png" />
     <Resource Include="View\Resources\Image\other.png" />
-    <Resource Include="View\Resources\Image\page.png" />
+    <Resource Include="View\Resources\Image\page.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\paved.png" />
     <Resource Include="View\Resources\Image\pen_black.png" />
     <Resource Include="View\Resources\Image\pen_white.png" />
@@ -1112,7 +1114,9 @@
     <Resource Include="View\Resources\Image\picture_black.png" />
     <Resource Include="View\Resources\Image\picture_white.png" />
     <Resource Include="View\Resources\Image\play.png" />
-    <Resource Include="View\Resources\Image\player.png" />
+    <Resource Include="View\Resources\Image\player.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\player_white.png" />
     <Resource Include="View\Resources\Image\playing.png" />
     <Resource Include="View\Resources\Image\plus.png" />
@@ -1210,6 +1214,26 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\lightdraw2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\page2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\playexport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\play2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\playersetting.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

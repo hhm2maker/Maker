@@ -26,7 +26,7 @@
             <WrapPanel Name="wpMain"/>
         </ScrollViewer>
         <Grid Grid.Row="1">
-            <Image x:Name="btnPaved"  Margin="15,10,10,10" Width="30"  Source="../../Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" IsEnabled="False"/>
+            <Image x:Name="btnPaved"  Margin="15,10,10,10" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" IsEnabled="False"/>
         </Grid>
     </Grid>
 </UserControl>

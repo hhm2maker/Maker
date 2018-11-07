@@ -19,7 +19,7 @@ namespace Maker.View.Introduction
         {
             this.cuc = cuc;
             this.iPosition = iPosition;
-            Loaded += BaseIntroductionPage_Loaded;
+            //Loaded += BaseIntroductionPage_Loaded;
         }
 
         protected List<Button> btnList;
@@ -38,10 +38,10 @@ namespace Maker.View.Introduction
             cuc.IntoUserControl(iPosition[btnList.IndexOf(sender as Button)]); 
         }
 
-        private void BaseIntroductionPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            cuc.AddIntroducePage(ActualHeight);
-        }
+        //private void BaseIntroductionPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        //{
+        //    cuc.AddIntroducePage(ActualHeight);
+        //}
 
     }
 }
