@@ -1748,43 +1748,43 @@ namespace Maker.View.LightUserControl
             selectView.Background = noSelectBrush;
             if (selectView == bDraw)
             {
-                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/Image/pen_black.png", UriKind.RelativeOrAbsolute));
+                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/pen_black.png", UriKind.RelativeOrAbsolute));
             }
             else if (selectView == bSelect)
             {
-                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/Image/select_black.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_black.png", UriKind.RelativeOrAbsolute));
             }
             else if (selectView == bPicture)
             {
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/Image/picture_black.png", UriKind.RelativeOrAbsolute));
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_black.png", UriKind.RelativeOrAbsolute));
             }
             else if (selectView == bFire)
             {
-                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/Image/fire_black.png", UriKind.RelativeOrAbsolute));
+                iFire.Source = new BitmapImage(new Uri("pack://application:,,/View/Resources/Image/fire_black.png", UriKind.RelativeOrAbsolute));
             }
             selectView = sender as Border;
             selectView.Background = selectBrush;
 
             if (sender == bDraw)
             {
-                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/Image/pen_white.png", UriKind.RelativeOrAbsolute));
+                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/pen_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Draw;
                 tcLeft.SelectedIndex = 0;
             }
             else if (sender == bSelect)
             {
-                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/Image/select_white.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Select;
                 tcLeft.SelectedIndex = 1;
             }
             else if (sender == bPicture)
             {
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/Image/picture_white.png", UriKind.RelativeOrAbsolute));
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Select;
             }
             else if (sender == bFire)
             {
-                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/Image/fire_white.png", UriKind.RelativeOrAbsolute));
+                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/fire_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Select;
             }
         }
@@ -1830,20 +1830,20 @@ namespace Maker.View.LightUserControl
             Image img = (sender as StackPanel).Children[0] as Image;
           
             if (sender == spNewFile) {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/file_blue.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_blue.png", UriKind.RelativeOrAbsolute));
                
             }
             else if (sender == spOpenFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/open_blue.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/open_blue.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spSaveFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/save_blue.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_blue.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spSaveAsFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/saveas_blue.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/saveas_blue.png", UriKind.RelativeOrAbsolute));
             }
             TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
             tb.Foreground = popSelectBrush;
@@ -1855,19 +1855,19 @@ namespace Maker.View.LightUserControl
           
             if (sender == spNewFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/file_white.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_white.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spOpenFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/open_white.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/open_white.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spSaveFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/save_white.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_white.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spSaveAsFile)
             {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Image/saveas_white.png", UriKind.RelativeOrAbsolute));
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/saveas_white.png", UriKind.RelativeOrAbsolute));
             }
             TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
             tb.Foreground = popNoSelectBrush;
