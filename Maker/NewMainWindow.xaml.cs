@@ -45,11 +45,7 @@ namespace Maker
         /// </summary>
         public Dictionary<string, PlayerUserControl> playerDictionary = new Dictionary<string, PlayerUserControl>();
 
-        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory +@"Test\";
-        public String LightFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Light\";
-        public String LightScriptFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightScript\";
-        public String LightPageFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\LightPage\";
-        public String PlayFilePath = AppDomain.CurrentDomain.BaseDirectory + @"Test\Play\";
+        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
         private bool isFirst = true;
         private NewMainWindowBridge bridge;
 
@@ -91,7 +87,8 @@ namespace Maker
             else {
                 auc.ShowLogo();
             }
-            cuc.tbProjectPath.Text = lastProjectPath;
+            DirectoryInfo directoryInfo = new DirectoryInfo(lastProjectPath);
+            cuc.tbProjectPath.Text = directoryInfo.Name;
 
             LoadConfig();
         }

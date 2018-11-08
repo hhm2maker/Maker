@@ -385,7 +385,7 @@ namespace Maker.View.UI
         private void ShowOrHideCatalog(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation;
-            if (bCatalog.Width == 300)
+            if (gCatalog.Width == 250)
             {
                 animation = new DoubleAnimation
                 {
@@ -397,11 +397,11 @@ namespace Maker.View.UI
             {
                 animation = new DoubleAnimation
                 {
-                    To = 300,
+                    To = 250,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
             }
-            bCatalog.BeginAnimation(WidthProperty, animation);
+            gCatalog.BeginAnimation(WidthProperty, animation);
         }
         private void tbFile_MouseDown(object sender, RoutedEventArgs e)
         {
@@ -654,6 +654,16 @@ namespace Maker.View.UI
         private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             SetToolOldPosition();
+        }
+
+        private void dpFile_MouseEnter(object sender, MouseEventArgs e)
+        {
+            tbProjectPath.Visibility = Visibility.Visible;
+        }
+
+        private void dpFile_MouseLeave(object sender, MouseEventArgs e)
+        {
+            tbProjectPath.Visibility = Visibility.Collapsed;
         }
     }
 }

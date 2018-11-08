@@ -142,7 +142,7 @@ namespace Maker.View
                 mw.strMyLanguage = "zh-CN";
 
                 ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"View\Resources\StringResource_zh-CN.xaml", UriKind.Relative);
+                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
             else if (cbLanguage.SelectedIndex == 1)

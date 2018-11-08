@@ -58,13 +58,13 @@ namespace Maker.View.Dialog
             }
             else if (type.Equals("FileName"))
             {
-                if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
-                {
-                    tbHelp.Visibility = Visibility.Visible;
-                    tbString.SelectAll();
-                    tbString.Focus();
-                    return;
-                }
+                //if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
+                //{
+                //    tbHelp.Visibility = Visibility.Visible;
+                //    tbString.SelectAll();
+                //    tbString.Focus();
+                //    return;
+                //}
             }
             DialogResult = true;
         }
@@ -88,14 +88,14 @@ namespace Maker.View.Dialog
         {
             if (type.Equals("FileName"))
             {
-                mString = tbString.Text;
-                if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
-                {
-                    tbHelp.Visibility = Visibility.Visible;
-                }
-                else {
-                    tbHelp.Visibility = Visibility.Collapsed;
-                }
+                //mString = tbString.Text;
+                //if (File.Exists(System.IO.Path.GetDirectoryName(mw.LightScriptFilePath) + @"\" + mString + ".lightScript"))
+                //{
+                //    tbHelp.Visibility = Visibility.Visible;
+                //}
+                //else {
+                //    tbHelp.Visibility = Visibility.Collapsed;
+                //}
             }
         }
     }

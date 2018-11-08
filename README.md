@@ -1,23 +1,23 @@
-本项目使用了V(View)B(Bridge)B(Business)架构。
+### 本项目使用了V(View)B(Bridge)B(Business)架构。
 
-View：
+#### View：
 
 - Resources(资源)：
   - 图片资源(Image)
   - 语言资源(Language) 
-- StyleResources ：样式资源资源
+- StyleResourcces ：样式资源资源
 - UI：界面
 - UIBusiness：纯UI业务
 
 ------
 
-Bridge：
+#### Bridge：
 
 绑定View和Business，View会传入this到Bridge，由Bridge获取View内的参数来调用Business相关代码（如FileBusiness - 文件业务）处理逻辑。
 
 ------
 
-Business：
+#### Business：
 
 - CurrencyBusiness（通用业务）
 - Model(业务模型)
