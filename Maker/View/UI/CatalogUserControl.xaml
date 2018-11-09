@@ -41,15 +41,15 @@
                     <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ShowOrHideCatalog" Background="#2E3033" Margin="0,20,0,0">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/open.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
+                                <Image Source="../Resources/Image/open.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbFile_MouseDown" Background="#2E3033" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/file.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource File}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/file.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource File}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -58,48 +58,48 @@
                     <Button Name="btnFrame" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/lightdraw.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Frame}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/lightdraw.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Frame}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Name="btnScript" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/mycode.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource LightScript}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/mycode.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource LightScript}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Name="btnPage" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/page.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Page}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/page.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Page}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Name="btnPlayExport" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/playexport.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource PlayExport}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/playexport.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource PlayExport}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Name="btnPlay" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/play.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Play_}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/play.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Play_}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
                     <Button Name="btnPlayer" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033" Margin="0,30,0,0">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/playersetting.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Player}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/playersetting.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Player}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -108,13 +108,11 @@
                     <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbHelp_MouseLeftButtonUp" Background="#2E3033" Margin="0,0,0,20">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                <Image Source="../Resources/Image/help.png" Width="30" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Help}" Foreground="white" VerticalAlignment="Center"  FontSize="20" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                <Image Source="../Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Help}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
-
-
                 </StackPanel>
             </Grid>
             <Grid Name="dpFile" Grid.Column="1" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave">
@@ -122,10 +120,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="0" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#9CA3A8" SelectionChanged="lbMain_SelectionChanged"/>
+                <ListBox Grid.Row="0" Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#9CA3A8" SelectionChanged="lbMain_SelectionChanged"/>
                 <Border  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="White">
                 <DockPanel>
-                    <TextBlock Name="tbProjectPath" Margin="0,10,0,0" Visibility="Collapsed" Foreground="Gray" FontSize="20" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                    <TextBlock Name="tbProjectPath" Margin="10" Visibility="Collapsed" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                 </DockPanel>
                 </Border>
                 <DockPanel  Grid.Row="1">

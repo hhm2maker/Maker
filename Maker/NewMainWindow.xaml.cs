@@ -45,7 +45,7 @@ namespace Maker
         /// </summary>
         public Dictionary<string, PlayerUserControl> playerDictionary = new Dictionary<string, PlayerUserControl>();
 
-        public String lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
+        public String lastProjectPath ;
         private bool isFirst = true;
         private NewMainWindowBridge bridge;
 
@@ -87,9 +87,7 @@ namespace Maker
             else {
                 auc.ShowLogo();
             }
-            DirectoryInfo directoryInfo = new DirectoryInfo(lastProjectPath);
-            cuc.tbProjectPath.Text = directoryInfo.Name;
-
+           
             LoadConfig();
         }
         /// <summary>
@@ -194,6 +192,28 @@ namespace Maker
         /// </summary>
         public int pavedMax = 0;
         private void LoadConfig()
+        {
+            LoadFile();
+            LoadPaved();
+        }
+        private void LoadFile()
+        {
+            //灯光语句页面
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/project.xml");
+            XmlNode root = doc.DocumentElement;
+            String path = root.SelectSingleNode("Path").InnerText;
+            if (path.Equals(String.Empty))
+            {
+                path = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
+            }
+            lastProjectPath = path;
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(lastProjectPath);
+            cuc.tbProjectPath.Text = directoryInfo.Name;
+
+        }
+        private void LoadPaved()
         {
             //灯光语句页面
             XmlDocument doc = new XmlDocument();
