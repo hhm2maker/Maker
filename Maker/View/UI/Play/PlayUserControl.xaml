@@ -16,14 +16,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Background="#535353" Grid.Row="0">
+        <DockPanel Background="#535353" Grid.Row="0" >
             <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                 <ComboBox Name="cbRealDeviceIn" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbRealDeviceIn_SelectionChanged"/>
-                <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="btnSearchEquipmentIn_Click" />
+                    <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="SearchEquipment" />
             </ToolBar>
-            <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
         </DockPanel>
         <DockPanel Background="#535353"  Grid.Row="1">
             <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
@@ -31,13 +31,18 @@
                 <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
                 <ComboBox Name="cbPassageway" Background="#454545" Width="50"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbPassageway_SelectionChanged" />
                 <Button Content="{DynamicResource Export}" FontSize="14" Width="50" Foreground="#6f6f6f" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click" />
-                <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipment" Click="btnSearchEquipment_Click" />
             </ToolBar>
-            <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Foreground="#f0f0f0" IsEnabled="False" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center"/>
+            <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Visibility="Collapsed" Foreground="#f0f0f0" IsEnabled="False" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center"/>
             <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbMustOpenNumber" Height="21" Margin="10,0,0,0" HorizontalAlignment="Left"/>
             <Button Content="强制开启" FontSize="14"  HorizontalAlignment="Left" Foreground="#f0f0f0" Name="btnMustOpenMidi" Click="btnMustOpenMidi_Click" Height="25" Margin="5,0,0,0" />-->
         </DockPanel>
-        <play:TeachingControl Grid.Row="2" x:Name="mTeachingControl" ClipToBounds="True"/>
+            <DockPanel Background="#535353" Grid.Row="2">
+                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                    <Button Content="加载键盘" FontSize="14"  Foreground="#f0f0f0" Click="LoadKeyboards" />
+                </ToolBar>
+                <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
+            </DockPanel>
+            <play:TeachingControl Grid.Row="3" x:Name="mTeachingControl" ClipToBounds="True"/>
     </Grid>
     </Grid>
 </local:BaseUserControl>

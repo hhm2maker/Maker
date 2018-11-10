@@ -107,6 +107,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\HintModel.cs" />
     <Compile Include="View\UI\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
@@ -418,8 +419,8 @@
     <Compile Include="View\UI\Tool\ToolWindow.xaml.cs">
       <DependentUpon>ToolWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\UserControlDialog\ChangeLanguageDialog.xaml.cs">
-      <DependentUpon>ChangeLanguageDialog.xaml</DependentUpon>
+    <Compile Include="View\UI\UserControlDialog\HintDialog.xaml.cs">
+      <DependentUpon>HintDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\User\Login\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
@@ -919,7 +920,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\UserControlDialog\ChangeLanguageDialog.xaml">
+    <Page Include="View\UI\UserControlDialog\HintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

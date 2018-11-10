@@ -2,6 +2,7 @@
 using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.Control;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Xml.Linq;
 
 namespace Maker.View
@@ -30,11 +33,8 @@ namespace Maker.View
             _fileType = "Play";
             mainView = gMain;
             HideControl();
-
-            LoadKeyboards();
         }
-
-        private void LoadKeyboards()
+        private void LoadKeyboards(object sender, RoutedEventArgs e)
         {
             XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
             XElement _root = _doc.Element("Root");
@@ -76,10 +76,71 @@ namespace Maker.View
                     }
                 }
                 keyboardModel.SendKey = keyElement.Attribute("sendkey").Value;
-                if(keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
-                  keyboardModels.Add(keyboardModel.Position, keyboardModel);
+                if (keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
+                    keyboardModels.Add(keyboardModel.Position, keyboardModel);
             }
         }
+        
+        private void LoadHint()
+        {
+            if (mw.hintModelDictionary.ContainsKey(0))
+            {
+                if (mw.hintModelDictionary[0].IsHint == false)
+                {
+                    //InstallUsbDriver();
+                    return;
+                }
+            }
+            mw.cuc.gMost.Children.Add(new Grid()
+            {
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            });
+            HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnChangeLanguage_NotHint_Click);
+            mw.cuc.gMost.Children.Add(hintDialog);
+
+            ThicknessAnimation marginAnimation = new ThicknessAnimation
+            {
+                From = new Thickness(0, 0, 0, 0),
+                To = new Thickness(0, 30, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+            hintDialog.BeginAnimation(MarginProperty, marginAnimation);
+        }
+     
+        private void InstallUsbDriver()
+        {
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory+ @"\Attachments\novation-usb-driver-2.7.exe");
+        }
+        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            InstallUsbDriver();
+            RemoveDialog();
+        }
+
+        private void BtnChangeLanguage_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveDialog();
+        }
+
+        private void BtnChangeLanguage_NotHint_Click(object sender, RoutedEventArgs e)
+        {
+            NotHint(1);
+        }
+
+        private void RemoveDialog()
+        {
+            mw.cuc.gMost.Children.RemoveAt(mw.cuc.gMost.Children.Count - 1);
+            mw.cuc.gMost.Children.RemoveAt(mw.cuc.gMost.Children.Count - 1);
+        }
+
+        public void NotHint(int id)
+        {
+            if (mw.hintModelDictionary.ContainsKey(id))
+                mw.hintModelDictionary[id].IsHint = false;
+        }
+ 
 
         private FileBusiness business = new FileBusiness();
         private static Dictionary<String, Dictionary<int, List<PageButtonModel>>> pages = new Dictionary<string, Dictionary<int, List<PageButtonModel>>>();
@@ -479,7 +540,8 @@ namespace Maker.View
             if (isFirst) {
                 InitData();
                 isFirst = false;
-            }        
+            }
+            LoadHint();
         }
 
         protected override void LoadFileContent()
@@ -497,7 +559,7 @@ namespace Maker.View
 
         private static IntPtr nowOutDeviceIntPtr = (IntPtr)(-1);
         private bool isSearchChangeSelect = false;
-        private void btnSearchEquipment_Click(object sender, RoutedEventArgs e)
+        private void SearchEquipmentOut()
         {
             isSearchChangeSelect = true;
             CloseMidiOut();
@@ -783,8 +845,14 @@ namespace Maker.View
             passageway = cbPassageway.SelectedIndex;
         }
 
-        private void btnSearchEquipmentIn_Click(object sender, RoutedEventArgs e)
+        
+
+        private void SearchEquipment(object sender, RoutedEventArgs e)
         {
+            SearchEquipmentIn();
+            SearchEquipmentOut();
+        }
+        public void SearchEquipmentIn() {
             StartMidiIn();
         }
 

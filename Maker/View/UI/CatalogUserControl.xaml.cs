@@ -737,15 +737,19 @@ namespace Maker.View.UI
 
         private void ChangeLanguage(object sender, RoutedEventArgs e)
         {
+            if (mw.hintModelDictionary.ContainsKey(0)) {
+                if (mw.hintModelDictionary[0].IsHint == false) {
+                    ChangeLanguage();
+                    return;
+                }
+            }
             gMost.Children.Add(new Grid() {
                 Background = new SolidColorBrush(Colors.Transparent),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
             });
-            ChangeLanguageDialog changeLanguageDialog = new ChangeLanguageDialog(BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click);
-            gMost.Children.Add(changeLanguageDialog);
-            //DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
-            //changeLanguageDialog.BeginAnimation(OpacityProperty, daV);
+            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click,BtnChangeLanguage_NotHint_Click);
+            gMost.Children.Add(hintDialog);
 
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
@@ -753,11 +757,9 @@ namespace Maker.View.UI
                 To = new Thickness(0, 30, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5)
             };
-            changeLanguageDialog.BeginAnimation(MarginProperty, marginAnimation);
+            hintDialog.BeginAnimation(MarginProperty, marginAnimation);
         }
-
-        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
-        {
+        private void ChangeLanguage() {
             if (mw.strMyLanguage.Equals("en-US"))
             {
                 XmlDocument doc = new XmlDocument();
@@ -786,6 +788,10 @@ namespace Maker.View.UI
                 dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
+        }
+        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            ChangeLanguage();
             RemoveDialog();
         }
 
@@ -794,12 +800,20 @@ namespace Maker.View.UI
             RemoveDialog();
         }
 
+        private void BtnChangeLanguage_NotHint_Click(object sender, RoutedEventArgs e)
+        {
+            NotHint(0);
+        }
+       
         private void RemoveDialog()
         {
-            gMost.Children.RemoveAt(gMost.Children.Count-1);
+            gMost.Children.RemoveAt(gMost.Children.Count - 1);
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
         }
 
-      
+        public void NotHint(int id) {
+           if (mw.hintModelDictionary.ContainsKey(id))
+                mw.hintModelDictionary[id].IsHint = false;
+        }
     }
 }

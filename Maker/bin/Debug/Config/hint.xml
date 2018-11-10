@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Hint id="0" content="切换语言" isHint="true" />
+  <Hint id="1" content="安装固件" isHint="false" />
+</Root>

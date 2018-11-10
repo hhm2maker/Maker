@@ -19,6 +19,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
+using System.Xml.Linq;
 using static Maker.Model.EnumCollection;
 
 namespace Maker
@@ -143,7 +144,23 @@ namespace Maker
         private void Window_Closed(object sender, EventArgs e)
         {
             ClearCache();
+            SaveConfig();
             Environment.Exit(0);
+        }
+
+        private void SaveConfig()
+        {
+            XDocument xDoc = new XDocument();
+            XElement xRoot = new XElement("Root");
+            foreach (var hintModel in hintModelDictionary) {
+                XElement xHint = new XElement("Hint");
+                xHint.SetAttributeValue("id",hintModel.Value.Id.ToString());
+                xHint.SetAttributeValue("content", hintModel.Value.Content);
+                xHint.SetAttributeValue("isHint", hintModel.Value.IsHint.ToString().ToLower());
+                xRoot.Add(xHint);
+            }
+            xDoc.Add(xRoot);
+            xDoc.Save("Config/hint.xml");
         }
 
         public void ClearCache()
@@ -195,6 +212,7 @@ namespace Maker
         {
             LoadFile();
             LoadPaved();
+            LoadHint();
         }
         private void LoadFile()
         {
@@ -230,6 +248,27 @@ namespace Maker
             pavedColumns = int.Parse(paved.SelectSingleNode("Columns").InnerText);
             pavedMax = int.Parse(paved.SelectSingleNode("Max").InnerText);
         }
-
+        public Dictionary<int,HintModel> hintModelDictionary = new Dictionary<int, HintModel>();
+        private void LoadHint()
+        {
+            XDocument xDoc = XDocument.Load("Config/hint.xml");
+            XElement xRoot = xDoc.Element("Root");
+            foreach (var xHint in xRoot.Elements("Hint"))
+            {
+                HintModel hintModel = new HintModel();
+                hintModel.Id = int.Parse(xHint.Attribute("id").Value);
+                hintModel.Content = xHint.Attribute("content").Value;
+                String isHint = xHint.Attribute("isHint").Value;
+                if (isHint.Equals("true"))
+                {
+                    hintModel.IsHint = true;
+                }
+                else
+                {
+                    hintModel.IsHint = false;
+                }
+                hintModelDictionary.Add(hintModel.Id,hintModel);
+            }
+        }
     }
 }
