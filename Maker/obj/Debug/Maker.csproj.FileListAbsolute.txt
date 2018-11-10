@@ -691,3 +691,7 @@ E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Play\PlayUserControl.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Dialog\GetStringDialog3.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Dialog\GetStringDialog3.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\ChangeLanguageDialog.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\ChangeLanguageDialog.baml

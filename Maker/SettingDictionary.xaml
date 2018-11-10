@@ -344,4 +344,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="EmptyButtonStyle" TargetType="Button">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

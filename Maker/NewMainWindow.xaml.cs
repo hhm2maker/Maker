@@ -211,7 +211,15 @@ namespace Maker
 
             DirectoryInfo directoryInfo = new DirectoryInfo(lastProjectPath);
             cuc.tbProjectPath.Text = directoryInfo.Name;
-
+        }
+        public void SaveFile()
+        {
+            //灯光语句页面
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/project.xml");
+            XmlNode root = doc.DocumentElement;
+            root.SelectSingleNode("Path").InnerText = lastProjectPath;
+            doc.Save("Config/project.xml");
         }
         private void LoadPaved()
         {

@@ -19,6 +19,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../StyleResources/AllDictionary.xaml" />
                 <ResourceDictionary Source="../../StyleResources/InputDictionary.xaml" />
+                <!--<ResourceDictionary Source="SettingDictionary.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -36,7 +37,6 @@
                         <Image Source="../../Resources/Image/revoke.png" Margin="5,5,5,0"  Name="miUnmake" Width="30" Height="30" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="Fant" />
                         <Image Source="../../Resources/Image/redo.png" Margin="5,10,5,10"  Name="miRedo" Width="30" Height="30" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="Fant" />
                         <TextBlock Height="3" Background="#282828"/>
-
                         <StackPanel Name="spStepControl" Background="#535353" >
                             <Image Source="../../Resources/Image/time.png" Margin="5,10,5,0" Name="miTime" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
                             <Popup x:Name="popTime" PlacementTarget="{Binding ElementName=miTime}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
@@ -427,7 +427,7 @@
                         <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353"/>
                     </Popup>
                 </TabControl>
-                <ListBox Focusable="True" Grid.Row="1" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown">
+                <ListBox Style="{StaticResource ListBoxStyle1}" Focusable="True" Grid.Row="1" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown">
                     <ListBox.ContextMenu >
                         <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                             <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

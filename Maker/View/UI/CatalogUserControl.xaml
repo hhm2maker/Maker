@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="../../View/StyleResources/StoryBoards.xaml" />
                 <ResourceDictionary Source="../../View/StyleResources/RoundBorderPanelStyle.xaml" />
                 <ResourceDictionary Source="../../View/StyleResources/PulseButton.xaml" />
+                <ResourceDictionary Source="../../View/StyleResources/InputDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -105,7 +106,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="2">
-                    <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbHelp_MouseLeftButtonUp" Background="#2E3033" Margin="0,0,0,20">
+                    <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbHelp_MouseLeftButtonUp" Background="#2E3033" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
                                 <Image Source="../Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -115,18 +116,32 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Grid Name="dpFile" Grid.Column="1" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave">
+            <Grid Name="dpFile" Background="#2E3033" Grid.Column="1" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/> 
                 </Grid.RowDefinitions>
-                <ListBox Grid.Row="0" Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#9CA3A8" SelectionChanged="lbMain_SelectionChanged"/>
-                <Border  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="White">
-                <DockPanel>
-                    <TextBlock Name="tbProjectPath" Margin="10" Visibility="Collapsed" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                </DockPanel>
-                </Border>
-                <DockPanel  Grid.Row="1">
+                    <Grid  Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Row="0" Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="{x:Null}" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8" SelectionChanged="lbMain_SelectionChanged"/>
+                    <Border  Grid.Row="1"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
+                        <DockPanel>
+                            <TextBlock Name="tbProjectPath" Margin="10" Visibility="Collapsed" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
+                        </DockPanel>
+                    </Border>
+                    <Border Name="bProjectPathControl" Grid.Row="1" CornerRadius="5" Visibility="Collapsed" Background="#363b40" BorderBrush="#b8bfc6" Width="296"   BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <StackPanel>
+                            <TextBlock Text="选择项目" Foreground="#72787d"  Margin="10"/>
+                            <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
+                            <TextBlock Text="操作" Foreground="#72787d"  Margin="10"/>
+                            <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <DockPanel  Grid.Row="1" Height="45">
                     <Button Content="{DynamicResource New}" HorizontalAlignment="Left" Name="btnNew" Click="btnNew_Click"/>
                     <Button Content="{DynamicResource Delete}" HorizontalAlignment="Right" Name="btnDelete" Click="btnDelete_Click"/>
                 </DockPanel>
@@ -192,6 +207,14 @@
             <Border BorderThickness="1" BorderBrush="#646464" Grid.Column="3" Width="0" Name="bHelp">
                 <Grid>
                     <StackPanel  VerticalAlignment="Top">
+                        <Button Name="btnChangeLanguage" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#2E3033" Margin="0,30,0,0">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
                         <TextBlock  MouseLeftButtonDown="ToAboutUserControl" Text="{DynamicResource ReturnTheTitle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                         <TextBlock  MouseLeftButtonDown="ToFeedbackDialog"  Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
                         <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>

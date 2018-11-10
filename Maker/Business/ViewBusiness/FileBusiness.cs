@@ -623,6 +623,20 @@ namespace Maker.Business
             }
             return filesName;
         }
+     
+        public List<String> GetDirectorysName(String directoryPath)
+        {
+            List<String> directorysName = new List<string>();
+            if (!Directory.Exists(directoryPath))
+                return new List<string>();
+            //遍历文件 
+            DirectoryInfo TheFolder = new DirectoryInfo(directoryPath);
+            foreach (DirectoryInfo NextDirectory in TheFolder.GetDirectories())
+            {
+                directorysName.Add(NextDirectory.Name);
+            }
+            return directorysName;
+        }
         /// <summary>
         /// 读取颜色文件
         /// </summary>

@@ -32,10 +32,11 @@ namespace Maker.View
         {
             //Closing += BaseLightWindow_Closing;
         }
+     
         /// <summary>
         /// 隐藏控制 - 新建或者打开之前隐藏界面
         /// </summary>
-        protected void HideControl()
+        public void HideControl()
         {
             //隐藏内部容器
             mainView.Children[0].Visibility = Visibility.Collapsed;

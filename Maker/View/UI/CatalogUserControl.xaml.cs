@@ -11,8 +11,11 @@ using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Setting;
 using Maker.View.Tool;
+using Maker.View.UI.UserControlDialog;
+using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -641,7 +644,6 @@ namespace Maker.View.UI
             RegisterName("MatrixTransform_02", MatrixTransform_02);
 
             SetToolOldPosition();
-
         }
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
@@ -664,6 +666,140 @@ namespace Maker.View.UI
         private void dpFile_MouseLeave(object sender, MouseEventArgs e)
         {
             tbProjectPath.Visibility = Visibility.Collapsed;
+            bProjectPathControl.Visibility = Visibility.Collapsed;
         }
+
+        private void tbProjectPath_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            bProjectPathControl.Visibility = Visibility.Visible;
+            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
+            for (int i = 0;i<strs.Count;i++)
+            {
+                strs[i] = "  " + strs[i];
+            }
+            GeneralViewBusiness.SetStringsToListBox(lbProject, strs,"  " + tbProjectPath.Text);
+        }
+
+        private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbProject.SelectedIndex == -1 || lbProject.SelectedItem.ToString().Equals("  " + tbProjectPath.Text)) {
+                return;
+            }
+
+            tbProjectPath.Text = lbProject.SelectedItem.ToString().Trim();
+            mw.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
+            if (gMain.Children.Count > 0)
+            {
+                LoadFileList();
+                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+                baseUserControl.HideControl();
+            }
+          
+            bProjectPathControl.Visibility = Visibility.Collapsed;
+            mw.SaveFile();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            String _projectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\";
+            GetStringDialog3 dialog = new GetStringDialog3(mw, _projectPath);
+            if (dialog.ShowDialog() == true)
+            {
+                _projectPath = _projectPath + dialog.fileName;
+                Console.WriteLine(_projectPath);
+                if (Directory.Exists(_projectPath))
+                {
+                    new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
+                    return;
+                }
+                else
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(_projectPath);
+                    directoryInfo.Create();
+                    DirectoryInfo directoryInfoLight = new DirectoryInfo(_projectPath+@"\Light");
+                    directoryInfoLight.Create();
+                    DirectoryInfo directoryInfoLightScript = new DirectoryInfo(_projectPath + @"\LightScript");
+                    directoryInfoLightScript.Create();
+                    DirectoryInfo directoryInfoPlay = new DirectoryInfo(_projectPath + @"\Play");
+                    directoryInfoPlay.Create();
+                    tbProjectPath.Text = dialog.fileName;
+                    mw.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
+                    if (gMain.Children.Count > 0)
+                    {
+                        LoadFileList();
+                        BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+                        baseUserControl.HideControl();
+                    }
+                    mw.SaveFile();
+                }
+            }
+        }
+
+        private void ChangeLanguage(object sender, RoutedEventArgs e)
+        {
+            gMost.Children.Add(new Grid() {
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            });
+            ChangeLanguageDialog changeLanguageDialog = new ChangeLanguageDialog(BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click);
+            gMost.Children.Add(changeLanguageDialog);
+            //DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
+            //changeLanguageDialog.BeginAnimation(OpacityProperty, daV);
+
+            ThicknessAnimation marginAnimation = new ThicknessAnimation
+            {
+                From = new Thickness(0, 0, 0, 0),
+                To = new Thickness(0, 30, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+            changeLanguageDialog.BeginAnimation(MarginProperty, marginAnimation);
+        }
+
+        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            if (mw.strMyLanguage.Equals("en-US"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "zh-CN";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "zh-CN";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
+            else if (mw.strMyLanguage.Equals("zh-CN"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "en-US";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "en-US";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
+            RemoveDialog();
+        }
+
+        private void BtnChangeLanguage_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveDialog();
+        }
+
+        private void RemoveDialog()
+        {
+            gMost.Children.RemoveAt(gMost.Children.Count-1);
+            gMost.Children.RemoveAt(gMost.Children.Count - 1);
+        }
+
+      
     }
 }

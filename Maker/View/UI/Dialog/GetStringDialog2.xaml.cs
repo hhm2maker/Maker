@@ -54,6 +54,7 @@ namespace Maker.View.Dialog
             }
             if (notContains.Contains(fileName))
             {
+                tbNumber.Focus();
                 return;
             }
            

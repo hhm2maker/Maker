@@ -231,6 +231,9 @@
     <Compile Include="View\UI\Dialog\FeedbackDialog.xaml.cs">
       <DependentUpon>FeedbackDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Dialog\GetStringDialog3.xaml.cs">
+      <DependentUpon>GetStringDialog3.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Dialog\GetStringDialog2.xaml.cs">
       <DependentUpon>GetStringDialog2.xaml</DependentUpon>
     </Compile>
@@ -415,6 +418,9 @@
     <Compile Include="View\UI\Tool\ToolWindow.xaml.cs">
       <DependentUpon>ToolWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\ChangeLanguageDialog.xaml.cs">
+      <DependentUpon>ChangeLanguageDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\User\Login\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
     </Compile>
@@ -540,6 +546,10 @@
     <Page Include="View\UI\Control\LiveUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Loading\LoadingUserControl.xaml">
       <SubType>Designer</SubType>
@@ -906,6 +916,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Tool\ToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\UserControlDialog\ChangeLanguageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
