@@ -100,7 +100,6 @@ namespace Maker.Business.ViewBusiness.Currency
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
                 List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
                 List<Light> mLights = new List<Light>();
-
                 for (int i = 0; i < lights.Count; i++)
                 {
                     mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));

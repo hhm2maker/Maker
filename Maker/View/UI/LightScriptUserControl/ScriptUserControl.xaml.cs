@@ -2603,13 +2603,17 @@ namespace Maker.View.LightScriptUserControl
                 new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                 return;
             }
-            lightScriptDictionary.Add(stepName, "");
-            visibleDictionary.Add(stepName, true);
-            containDictionary.Add(stepName, new List<string>() { stepName });
-            AddStep(stepName, "");
+            ScriptModel scriptModel = new ScriptModel();
+            scriptModel.Name = stepName;
+            scriptModel.Value = "LightGroup "+stepName +"LightGroup = new LightGroup();";
+            scriptModel.Visible = true;
+            scriptModel.Parent = "";
+            scriptModel.Contain = new List<string>() { stepName };
+            scriptModelDictionary.Add(stepName,scriptModel);
+            UpdateStep();
+            Test();
             //如果选中，就在列表选中最后一个
             lbStep.SelectedIndex = lbStep.Items.Count - 1;
-            RefreshData();
         }
 
         private void CopyStep(object sender, RoutedEventArgs e)

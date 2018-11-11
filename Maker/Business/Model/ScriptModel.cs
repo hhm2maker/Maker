@@ -8,6 +8,11 @@ namespace Maker.Model
 {
     public class ScriptModel
     {
+        public ScriptModel() {
+            Contain = new List<string>();
+            Intersection = new List<string>();
+            Complement = new List<string>();
+        }
         public String Name
         {
             get;

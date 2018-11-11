@@ -65,12 +65,12 @@ namespace Maker.Business.ScriptUserControlBusiness
                 if (scriptModel.Value.Visible)
                 {
                     sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                    if (!scriptModel.Value.Parent.Equals(String.Empty))
-                    {
-                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                    }
-                    sb.Append(scriptModel.Value.Value);
-                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
+                        if (!scriptModel.Value.Parent.Equals(String.Empty))
+                        {
+                            sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
+                        }
+                        sb.Append(scriptModel.Value.Value);
+                        sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");
@@ -138,13 +138,13 @@ namespace Maker.Business.ScriptUserControlBusiness
             {
                 if (scriptModel.Value.Visible)
                 {
-                    sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                    if (!scriptModel.Value.Parent.Equals(String.Empty))
-                    {
-                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                    }
-                    sb.Append(scriptModel.Value.Value);
-                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
+                  sb.Append("public LightGroup " + scriptModel.Key + "(){");
+                        if (!scriptModel.Value.Parent.Equals(String.Empty))
+                        {
+                            sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
+                        }
+                        sb.Append(scriptModel.Value.Value);
+                        sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");

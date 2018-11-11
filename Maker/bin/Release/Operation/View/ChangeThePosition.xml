@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Views> 
-  <View type="textblock" entext="Before number:" zhtext="改变前数字："/> 
-  <View type="textbox"/> 
-  <View type="textblock" entext="After number:" zhtext="改变后数字："/> 
-  <View type="textbox"/> 
-</Views>

@@ -40,34 +40,40 @@ namespace Maker.View
         {
             //隐藏内部容器
             mainView.Children[0].Visibility = Visibility.Collapsed;
-            //隐藏容器
-            spHint = new StackPanel
+            if (spHint == null)
             {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Orientation = Orientation.Horizontal
-            };
-            //提示
-            TextBlock tbOr = new TextBlock
-            {
-                Foreground = new SolidColorBrush(Colors.White),
-                FontSize = 20,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(20)
-            };
-            tbOr.SetResourceReference(TextBlock.TextProperty, "NoFileWasOpened");
-            //打开
-            Button btnOpen = new Button
-            {
-                Width = 180
-            };
-            btnOpen.SetResourceReference(ContentProperty, "Open");
-            btnOpen.Click += OpenFile;
-            //容器添加控件
-            spHint.Children.Add(tbOr);
-            spHint.Children.Add(btnOpen);
-            //总容器添加隐藏容器
-            mainView.Children.Add(spHint);
+                //隐藏容器
+                spHint = new StackPanel
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Orientation = Orientation.Horizontal
+                };
+                //提示
+                TextBlock tbOr = new TextBlock
+                {
+                    Foreground = new SolidColorBrush(Colors.White),
+                    FontSize = 20,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(20)
+                };
+                tbOr.SetResourceReference(TextBlock.TextProperty, "NoFileWasOpened");
+                //打开
+                Button btnOpen = new Button
+                {
+                    Width = 180
+                };
+                btnOpen.SetResourceReference(ContentProperty, "Open");
+                btnOpen.Click += OpenFile;
+                //容器添加控件
+                spHint.Children.Add(tbOr);
+                spHint.Children.Add(btnOpen);
+                //总容器添加隐藏容器
+                mainView.Children.Add(spHint);
+            }
+            else {
+                spHint.Visibility = Visibility.Visible;
+            }
         }
 
         protected virtual void BaseLightWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -112,8 +118,8 @@ namespace Maker.View
             filePath = GetFileDirectory() + childFileName;
             LoadFileContent();
             if(spHint != null) { 
-            spHint.Visibility = Visibility.Collapsed;
-            mainView.Children[0].Visibility = Visibility.Visible;
+                  spHint.Visibility = Visibility.Collapsed;
+                  mainView.Children[0].Visibility = Visibility.Visible;
             }
         }
         /// <summary>
