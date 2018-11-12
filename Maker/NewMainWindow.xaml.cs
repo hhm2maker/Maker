@@ -200,19 +200,22 @@ namespace Maker
         {
             auc.Visibility = Visibility.Collapsed;
         }
-        /// <summary>
-        /// 平铺列数
-        /// </summary>
-        public int pavedColumns = 0;
-        /// <summary>
-        /// 平铺最大个数
-        /// </summary>
-        public int pavedMax = 0;
+     
         private void LoadConfig()
         {
             LoadFile();
             LoadPaved();
             LoadHint();
+            LoadKeyboard();
+        }
+        public String keyboardDllName;
+        private void LoadKeyboard()
+        {
+            //灯光语句页面
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/keyboard.xml");
+            XmlNode root = doc.DocumentElement;
+            keyboardDllName = root.SelectSingleNode("DllName").InnerText;
         }
         private void LoadFile()
         {
@@ -239,6 +242,14 @@ namespace Maker
             root.SelectSingleNode("Path").InnerText = lastProjectPath;
             doc.Save("Config/project.xml");
         }
+        /// <summary>
+        /// 平铺列数
+        /// </summary>
+        public int pavedColumns = 0;
+        /// <summary>
+        /// 平铺最大个数
+        /// </summary>
+        public int pavedMax = 0;
         private void LoadPaved()
         {
             //灯光语句页面
@@ -270,5 +281,24 @@ namespace Maker
                 hintModelDictionary.Add(hintModel.Id,hintModel);
             }
         }
+        //范围列表显示数字
+        public bool bIsRangeListNumber = false;
+        private void LoadHide()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/hide.xml");
+            XmlNode hideRoot = doc.DocumentElement;
+            
+            XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
+            if (hideRangeListNumber.InnerText.Equals("true"))
+            {
+                bIsRangeListNumber = true;
+            }
+            else
+            {
+                bIsRangeListNumber = false;
+            }
+        }
+      
     }
 }

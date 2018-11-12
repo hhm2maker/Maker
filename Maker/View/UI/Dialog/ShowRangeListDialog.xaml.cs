@@ -35,14 +35,15 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Left = 0;
-            //if (iuc.mw.bIsRangeListNumber) {
-            //    cbShowNumber.IsChecked = true;
-            //}
-            //else
-            //{ 
-            //    cbShowNumber.IsChecked = false;
-            //}
-            //RefrushData();
+            if (iuc.mw.bIsRangeListNumber)
+            {
+                cbShowNumber.IsChecked = true;
+            }
+            else
+            {
+                cbShowNumber.IsChecked = false;
+            }
+            RefrushData();
         }
         public void RefrushData() {
             lbMain.Items.Clear();
@@ -86,37 +87,37 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(builder.ToString());
                 }
 
-                //if (iuc.mw_.bIsRangeListNumber)
-                //    return;
-                //XmlDocument doc = new XmlDocument();
-                //doc.Load("Config/hide.xml");
-                //XmlNode hideRoot = doc.DocumentElement;
-                //XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
-                //hideRangeListNumber.InnerText = "true";
-                //iuc.mw_.bIsRangeListNumber = true;
-                //doc.Save("Config/hide.xml");
+                if (iuc.mw.bIsRangeListNumber)
+                    return;
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Config/hide.xml");
+                XmlNode hideRoot = doc.DocumentElement;
+                XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
+                hideRangeListNumber.InnerText = "true";
+                iuc.mw.bIsRangeListNumber = true;
+                doc.Save("Config/hide.xml");
             }
         }
         private void cbShowNumber_Unchecked(object sender, RoutedEventArgs e)
         {
-            //if (iuc != null)
-            //{
-            //    lbMain.Items.Clear();
-            //    foreach (var item in iuc.rangeDictionary)
-            //    {
-            //        lbMain.Items.Add(item.Key);
-            //    }
+            if (iuc != null)
+            {
+                lbMain.Items.Clear();
+                foreach (var item in iuc.rangeDictionary)
+                {
+                    lbMain.Items.Add(item.Key);
+                }
 
-            //    if (!iuc.mw_.bIsRangeListNumber)
-            //        return;
-            //    XmlDocument doc = new XmlDocument();
-            //    doc.Load("Config/hide.xml");
-            //    XmlNode hideRoot = doc.DocumentElement;
-            //    XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
-            //    hideRangeListNumber.InnerText = "false";
-            //    iuc.mw_.bIsRangeListNumber = false;
-            //    doc.Save("Config/hide.xml");
-            //}
+                if (!iuc.mw.bIsRangeListNumber)
+                    return;
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Config/hide.xml");
+                XmlNode hideRoot = doc.DocumentElement;
+                XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
+                hideRangeListNumber.InnerText = "false";
+                iuc.mw.bIsRangeListNumber = false;
+                doc.Save("Config/hide.xml");
+            }
         }
         private void NewRangeList(object sender, RoutedEventArgs e)
         {

@@ -188,7 +188,7 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<String, String> lightScriptDictionary = new Dictionary<string, string>();
         public Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
 
-        public Dictionary<String, bool> visibleDictionary = new Dictionary<String, bool>();
+        //public Dictionary<String, bool> visibleDictionary = new Dictionary<String, bool>();
         public Dictionary<String, List<String>> containDictionary = new Dictionary<String, List<String>>();
         public Dictionary<String, List<String>> extendsDictionary = new Dictionary<string, List<String>>();
         public List<String> importList = new List<String>();
@@ -351,7 +351,7 @@ namespace Maker.View.LightScriptUserControl
                         DockPanel panel = (DockPanel)sp.Children[0];
                         Image visibleImage = (Image)panel.Children[0];
                         visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
-                        visibleDictionary[blockStepName.Text] = false;
+                        scriptModelDictionary[blockStepName.Text].Visible = false;
                     }
                 }
             }
@@ -1184,148 +1184,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        public void SaveLightScriptFile(String fileName, bool isSaveLocked)
-        {
-            StringBuilder mBuilder = new StringBuilder();
-            foreach (var item in lightScriptDictionary)
-            {
-                bool isMatch = false;
-                foreach (var itemChildren in extendsDictionary)
-                {
-                    if (itemChildren.Value.Contains(item.Key))
-                    {
-                        mBuilder.Append(item.Key + " extends " + itemChildren.Key + "{" + Environment.NewLine + item.Value + Environment.NewLine + "}" + Environment.NewLine);
-                        isMatch = true;
-                        break;
-                    }
-                }
-                foreach (var itemChildren in intersectionDictionary)
-                {
-                    if (itemChildren.Value.Contains(item.Key))
-                    {
-                        mBuilder.Append(item.Key + " intersection " + itemChildren.Key + "{" + Environment.NewLine + item.Value + Environment.NewLine + "}" + Environment.NewLine);
-                        isMatch = true;
-                        break;
-                    }
-                }
-                foreach (var itemChildren in complementDictionary)
-                {
-                    if (itemChildren.Value.Contains(item.Key))
-                    {
-                        mBuilder.Append(item.Key + " complement " + itemChildren.Key + "{" + Environment.NewLine + item.Value + Environment.NewLine + "}" + Environment.NewLine);
-                        isMatch = true;
-                        break;
-                    }
-                }
-                if (!isMatch)
-                {
-                    mBuilder.Append(item.Key + "{" + Environment.NewLine + item.Value + Environment.NewLine + "}" + Environment.NewLine);
-                }
-            }
-            StringBuilder mVisibleBuilder = new StringBuilder();
-            foreach (var item in visibleDictionary)
-            {
-                if (!item.Value)
-                {
-                    if (!mVisibleBuilder.ToString().Equals(String.Empty))
-                    {
-                        mVisibleBuilder.Append("\t" + item.Key + Environment.NewLine);
-                    }
-                    else
-                    {
-                        mVisibleBuilder.Append("NoVisible{" + Environment.NewLine);
-                        mVisibleBuilder.Append("\t" + item.Key + ";" + Environment.NewLine);
-                    }
-                }
-            }
-            if (!mVisibleBuilder.ToString().Equals(String.Empty))
-            {
-                mVisibleBuilder.Append("}" + Environment.NewLine);
-                mBuilder.Append(mVisibleBuilder.ToString());
-            }
-            if (containDictionary.Count != 0)
-            {
-                StringBuilder mContainBuilder = new StringBuilder();
-                mContainBuilder.Append("Contain{" + Environment.NewLine);
-                foreach (var item in containDictionary)
-                {
-                    mContainBuilder.Append("\t" + item.Key + ":");
-                    for (int i = 0; i < item.Value.Count; i++)
-                    {
-                        if (i != item.Value.Count - 1)
-                        {
-                            mContainBuilder.Append(item.Value[i] + ",");
-                        }
-                        else
-                        {
-                            mContainBuilder.Append(item.Value[i] + ";" + Environment.NewLine);
-                        }
-                    }
-                }
-                mContainBuilder.Append("}" + Environment.NewLine);
-                mBuilder.Append(mContainBuilder.ToString());
-            }
-            StringBuilder mIntroduceBuilder = new StringBuilder();
-            mIntroduceBuilder.Append("Introduce{" + Environment.NewLine);
-            mIntroduceBuilder.Append(introduceText + Environment.NewLine);
-            mIntroduceBuilder.Append("}" + Environment.NewLine);
-            mBuilder.Append(mIntroduceBuilder.ToString());
-            if (importList.Count != 0)
-            {
-                StringBuilder mImportBuilder = new StringBuilder();
-                mImportBuilder.Append("Import{" + Environment.NewLine);
-                foreach (var item in importList)
-                {
-                    mImportBuilder.Append("\t" + item + ";" + Environment.NewLine);
-                }
-                mImportBuilder.Append("}" + Environment.NewLine);
-                mBuilder.Append(mImportBuilder.ToString());
-            }
-            if (finalDictionary.Count != 0)
-            {
-                StringBuilder mFinalBuilder = new StringBuilder();
-                mFinalBuilder.Append("Final{" + Environment.NewLine);
-                foreach (var item in finalDictionary)
-                {
-                    if (!item.Value.Equals(String.Empty))
-                        mFinalBuilder.Append("\t" + item.Key + ":" + item.Value + "." + Environment.NewLine);
-                }
-                mFinalBuilder.Append("}" + Environment.NewLine);
-                mBuilder.Append(mFinalBuilder.ToString());
-            }
-            if (lockedDictionary.Count != 0)
-            {
-                FileBusiness fileBusiness = new FileBusiness();
-                StringBuilder mLockedBuilder = new StringBuilder();
-                mLockedBuilder.Append("Locked{" + Environment.NewLine);
-                foreach (var item in lockedDictionary)
-                {
-                    if (!item.Value.Equals(String.Empty))
-                        mLockedBuilder.Append("\t" + item.Key + ":" + fileBusiness.String2Base(fileBusiness.WriteMidiContent(item.Value)) + "." + Environment.NewLine);
-                }
-                mLockedBuilder.Append("}" + Environment.NewLine);
-                mBuilder.Append(mLockedBuilder.ToString());
-            }
-            if (fileName.Equals(String.Empty))
-            {
-                LightScriptBusiness _scriptBusiness = new LightScriptBusiness(this, mBuilder.ToString(), filePath);
-                _scriptBusiness.SaveScriptFile(mBuilder.ToString());
-            }
-            else
-            {
-                // 创建文件，准备写入
-                File.Delete(fileName);
-                using (FileStream fs = File.Open(fileName,
-                            FileMode.OpenOrCreate,
-                            FileAccess.Write))
-                {
-                    using (StreamWriter wr = new StreamWriter(fs))
-                    {
-                        wr.Write(mBuilder.ToString());
-                    }
-                }
-            }
-        }
+ 
         public String GetCompleteScript()
         {
             //添加导入库语句
@@ -1344,8 +1203,8 @@ namespace Maker.View.LightScriptUserControl
             }
             foreach (var item in lightScriptDictionary)
             {
-                if (!visibleDictionary[item.Key])
-                    continue;
+                //if (!visibleDictionary[item.Key])
+                //    continue;
                 bool isMatch = false;
                 foreach (var itemChildren in extendsDictionary)
                 {
@@ -1753,40 +1612,7 @@ namespace Maker.View.LightScriptUserControl
         }
         
 
-        public bool RefreshData()
-        {
-            SaveLightScriptFile("", false);
-
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), filePath, lockedDictionary);
-            mLightList = scriptBusiness.GetResult(null);
-
-            if (mLightList == null)
-            {
-                _bridge.UpdateData(new List<Light>());
-                //出错了回退
-                Unmake();
-                return false;
-            }
-            _bridge.UpdateData(mLightList);
-            return true;
-        }
-        public bool RefreshData(bool isSaveLocked)
-        {
-            SaveLightScriptFile("", isSaveLocked);
-
-            LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), filePath);
-            mLightList = scriptBusiness.GetResult(null);
-
-            if (mLightList == null)
-            {
-                _bridge.UpdateData(new List<Light>());
-                //出错了回退
-                Unmake();
-                return false;
-            }
-            _bridge.UpdateData(mLightList);
-            return true;
-        }
+      
 
         public List<Light> mLightList = new List<Light>();
         public List<Light> mBlockLightList = new List<Light>();
@@ -2177,7 +2003,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 lightScriptDictionary[GetStepName()] += command.ToString();
                 finalDictionary.Remove(GetStepName());
-                RefreshData();
+                //RefreshData();
             }
 
         }
@@ -2222,9 +2048,9 @@ namespace Maker.View.LightScriptUserControl
                     }
                     extendsDictionary = mExtendsDictionary;
                     //改变可见不可见
-                    bool b = visibleDictionary[oldName];
-                    visibleDictionary.Remove(oldName);
-                    visibleDictionary.Add(newName, b);
+                    //bool b = visibleDictionary[oldName];
+                    //visibleDictionary.Remove(oldName);
+                    //visibleDictionary.Add(newName, b);
 
                     String newScript = lightScriptDictionary[oldName];
                     //新的包含
@@ -2306,7 +2132,7 @@ namespace Maker.View.LightScriptUserControl
                     TextBlock block = (TextBlock)panel.Children[1];
                     block.Text = newName;
                     UpdateExtends();
-                    RefreshData();
+                    //RefreshData();
                 }
                 e.Handled = true;
             }
@@ -2474,7 +2300,7 @@ namespace Maker.View.LightScriptUserControl
                     i++;
                 }
                 lightScriptDictionary[GetStepName()] = builder.ToString();
-                RefreshData();
+               // RefreshData();
             }
         }
         /// <summary>
@@ -2650,8 +2476,8 @@ namespace Maker.View.LightScriptUserControl
                     }
                 }
                 //改变可见不可见
-                bool b = visibleDictionary[oldName];
-                visibleDictionary.Add(stepName, b);
+                //bool b = visibleDictionary[oldName];
+                //visibleDictionary.Add(stepName, b);
 
                 String newScript = lightScriptDictionary[oldName];
                 //新的包含
@@ -2708,7 +2534,7 @@ namespace Maker.View.LightScriptUserControl
                 //UpdateExtends();
             }
             UpdateVisible();
-            RefreshData();
+            //RefreshData();
         }
 
         private void DelStep(object sender, RoutedEventArgs e)
@@ -2974,11 +2800,11 @@ namespace Maker.View.LightScriptUserControl
                 }
                 lightScriptDictionary = _lightScriptDictionary;
 
-                visibleDictionary.Remove(GetStepName(oldPanel));
+                //visibleDictionary.Remove(GetStepName(oldPanel));
                 containDictionary.Remove(GetStepName(oldPanel));
                 lbStep.Items.Remove(lbStep.SelectedItems[1]);
             }
-            RefreshData();
+            //RefreshData();
         }
         private String GetVisibleImageStepName(Object sender)
         {
@@ -3129,7 +2955,7 @@ namespace Maker.View.LightScriptUserControl
                     if (!style._Content.Equals(String.Empty))
                         finalDictionary.Add(GetStepName(), style._Content);
                 }
-                RefreshData();
+                //RefreshData();
             }
         }
 
@@ -4171,13 +3997,13 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
             lightScriptDictionary.Add(stepName, commandLine);
-            visibleDictionary.Add(stepName, true);
+            //visibleDictionary.Add(stepName, true);
             containDictionary.Add(stepName, new List<string>() { stepName });
-            if (RefreshData())
-            {
-                AddStep(stepName, "");
-                lbStep.SelectedIndex = lbStep.Items.Count - 1;
-            }
+            //if (RefreshData())
+            //{
+            //    AddStep(stepName, "");
+            //    lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            //}
         }
 
         private void Translation(object sender, RoutedEventArgs e)
@@ -4200,13 +4026,13 @@ namespace Maker.View.LightScriptUserControl
                     + builder.ToString().Trim() + "\");";
 
                 lightScriptDictionary.Add(stepName, commandLine);
-                visibleDictionary.Add(stepName, true);
+                //visibleDictionary.Add(stepName, true);
                 containDictionary.Add(stepName, new List<string>() { stepName });
-                if (RefreshData())
-                {
-                    AddStep(stepName, "");
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                }
+                //if (RefreshData())
+                //{
+                //    AddStep(stepName, "");
+                //    lbStep.SelectedIndex = lbStep.Items.Count - 1;
+                //}
             }
         }
 
@@ -4423,7 +4249,7 @@ namespace Maker.View.LightScriptUserControl
             if (edit.ShowDialog() == true)
             {
                 introduceText = edit.GetData();
-                SaveLightScriptFile("", false);
+                //SaveLightScriptFile("", false);
             }
         }
 
@@ -4441,9 +4267,9 @@ namespace Maker.View.LightScriptUserControl
                 AddStep(UsableStepName, "");
                 String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
                 lightScriptDictionary.Add(UsableStepName, command);
-                visibleDictionary.Add(UsableStepName, true);
+                //visibleDictionary.Add(UsableStepName, true);
                 containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                RefreshData();
+                //RefreshData();
             }
         }
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
@@ -4464,9 +4290,9 @@ namespace Maker.View.LightScriptUserControl
                 AddStep(UsableStepName, "");
                 String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
                 lightScriptDictionary.Add(UsableStepName, command);
-                visibleDictionary.Add(UsableStepName, true);
+                //visibleDictionary.Add(UsableStepName, true);
                 containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                RefreshData();
+                //RefreshData();
             }
         }
 
@@ -4513,7 +4339,7 @@ namespace Maker.View.LightScriptUserControl
                     if (!style._Content.Equals(String.Empty))
                         finalDictionary.Add("Main", style._Content);
                 }
-                RefreshData();
+                //RefreshData();
             }
         }
 
@@ -4620,7 +4446,7 @@ namespace Maker.View.LightScriptUserControl
                     finalDictionary.Add("Main", "Color=Format-Diy-" + mBuilder.ToString() + ";");
                 }
             }
-            RefreshData();
+            //RefreshData();
         }
 
 
@@ -4640,7 +4466,7 @@ namespace Maker.View.LightScriptUserControl
                 lockedDictionary.Add(stepName, RefreshData(stepName));
             }
             UpdateLocked();
-            RefreshData();
+            //RefreshData();
             //多步骤锁定/解锁
             //for (int i = 0;i<lbStep.SelectedItems.Count;i++)
             //{
@@ -4743,188 +4569,10 @@ namespace Maker.View.LightScriptUserControl
 
         protected override void LoadFileContent()
         {
-            //if (_bIsEdit)
-            //{
-            //    _bIsEdit = false;
-            //}
-            //else
-            //{
-            //    //清除缓存/Cache
-            //    ClearCache();
-            //    iNowPosition = -1;
-            //}
-            ////读取灯光文件
-            //FileStream f2 = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            //int i = 0;
-            //StringBuilder sb2 = new StringBuilder();
-            //while ((i = f2.ReadByte()) != -1)
-            //{
-            //    sb2.Append((char)i);
-            //}
-            //f2.Close();
-            //String linShi = sb2.ToString();
-            ////linShi = linShi.Replace("\n", "");
-            ////linShi = linShi.Replace("\r", "");
-            //ClearInputUserControl();
-            //String linShi2 = linShi;
-            //if (linShi2.Trim().Equals(String.Empty))
-            //{
-            //    UpdateData(new List<Light>());
-            //    //仍需要保存到Cache
-            //    //TODO    
-            //    //LightScriptBusiness _scriptBusiness = new LightScriptBusiness(iuc, "", lightScriptFilePath);
-            //    //_scriptBusiness.SaveScriptFile("");
-            //}
-            //else
-            //{
-            //    LightScriptBusiness scriptBusiness = new LightScriptBusiness();
-            //    String command = scriptBusiness.LoadLightScript(filePath);
-            //    //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(this, command);
-            //    //if (dictionary == null)
-            //    //{
-            //    //    return;
-            //    //}
-            //    //String visibleStr = String.Empty;
-            //    //String containStr = String.Empty;
-            //    //String importStr = String.Empty;
-            //    //String finalStr = String.Empty;
-            //    //String lockedStr = String.Empty;
-            //    ////String introduceStr = String.Empty;
-            //    //foreach (var item in dictionary)
-            //    //{
-            //    //    if (item.Key.Trim().Equals("NoVisible"))
-            //    //    {
-            //    //        visibleStr = item.Value;
-            //    //    }
-            //    //    else if (item.Key.Trim().Equals("Contain"))
-            //    //    {
-            //    //        containStr = item.Value;
-            //    //    }
-            //    //    else if (item.Key.Trim().Equals("Import"))
-            //    //    {
-            //    //        importStr = item.Value;
-            //    //    }
-            //    //    else if (item.Key.Trim().Equals("Introduce"))
-            //    //    {
-            //    //        introduceText = item.Value;
-            //    //    }
-            //    //    else if (item.Key.Trim().Equals("Final"))
-            //    //    {
-            //    //        finalStr = item.Value;
-            //    //    }
-            //    //    else if (item.Key.Trim().Equals("Locked"))
-            //    //    {
-            //    //        lockedStr = item.Value;
-            //    //    }
-            //    //    else
-            //    //    {
-            //    //        lightScriptDictionary.Add(item.Key, item.Value);
-            //    //        visibleDictionary.Add(item.Key, true);
-            //    //        AddStep(item.Key, "");
-            //    //    }
-            //    //}
-            //    //UpdateExtends();
-            //    //UpdateIntersection();
-            //    //UpdateComplement();
-            //    //if (!visibleStr.Equals(String.Empty))
-            //    //{
-            //    //    visibleStr = visibleStr.Replace(System.Environment.NewLine, "");
-            //    //    visibleStr = visibleStr.Replace("\t", "");
-
-            //    //    String[] visibleStrs = visibleStr.Split(';');
-            //    //    foreach (String str in visibleStrs)
-            //    //    {
-            //    //        if (str.Trim().Equals(String.Empty))
-            //    //            continue;
-            //    //        if (visibleDictionary.ContainsKey(str))
-            //    //        {
-            //    //            visibleDictionary[str] = false;
-            //    //        }
-            //    //    }
-            //    //}
-            //    //UpdateVisible();
-            //    //if (!containStr.Equals(String.Empty))
-            //    //{
-            //    //    containStr = containStr.Replace(System.Environment.NewLine, "");
-            //    //    containStr = containStr.Replace("\t", "");
-
-            //    //    String[] containStrs = containStr.Split(';');
-            //    //    foreach (String str in containStrs)
-            //    //    {
-            //    //        if (str.Trim().Equals(String.Empty))
-            //    //            continue;
-
-            //    //        String[] strContentOrTile = str.Split(':');
-            //    //        containDictionary.Add(strContentOrTile[0], new List<string>());
-            //    //        String[] strs = strContentOrTile[1].Split(',');
-            //    //        for (int x = 0; x < strs.Length; x++)
-            //    //        {
-            //    //            if (!strs[x].Equals(String.Empty))
-            //    //                containDictionary[strContentOrTile[0]].Add(strs[x]);
-            //    //        }
-            //    //    }
-            //    //}
-            //    //if (!importStr.Equals(String.Empty))
-            //    //{
-            //    //    importStr = importStr.Replace(System.Environment.NewLine, "");
-            //    //    importStr = importStr.Replace("\t", "");
-
-            //    //    String[] importStrs = importStr.Split(';');
-            //    //    foreach (String str in importStrs)
-            //    //    {
-            //    //        if (str.Trim().Equals(String.Empty))
-            //    //            continue;
-
-            //    //        if (!importList.Contains(str))
-            //    //        {
-            //    //            importList.Add(str);
-            //    //        }
-            //    //    }
-            //    //}
-            //    //if (!finalStr.Equals(String.Empty))
-            //    //{
-            //    //    finalStr = finalStr.Replace(System.Environment.NewLine, "");
-            //    //    finalStr = finalStr.Replace("\t", "");
-
-            //    //    String[] finalStrs = finalStr.Split('.');
-            //    //    foreach (String str in finalStrs)
-            //    //    {
-            //    //        if (str.Trim().Equals(String.Empty))
-            //    //            continue;
-
-            //    //        String[] strs = str.Split(':');
-            //    //        finalDictionary.Add(strs[0], strs[1]);
-            //    //    }
-            //    //}
-            //    //if (!lockedStr.Equals(String.Empty))
-            //    //{
-            //    //    lockedStr = lockedStr.Replace(System.Environment.NewLine, "");
-            //    //    lockedStr = lockedStr.Replace("\t", "");
-
-            //    //    String[] lockedStrs = lockedStr.Split('.');
-            //    //    foreach (String str in lockedStrs)
-            //    //    {
-            //    //        if (str.Trim().Equals(String.Empty))
-            //    //            continue;
-
-            //    //        String[] strs = str.Split(':');
-
-            //    //        String strContent = fileBusiness.Base2String(strs[1]);
-            //    //        List<int> mContentList = new List<int>();
-            //    //        for (int x = 0; x < strContent.Length; x++)
-            //    //        {
-            //    //            mContentList.Add(strContent[x]);
-            //    //        }
-            //    //        lockedDictionary.Add(strs[0], fileBusiness.ReadMidiContent(mContentList));
-            //    //    }
-            //    //    UpdateLocked();
-            //    //}
-            //    //if (!RefreshData())
-            //    //{
-            //    //    UpdateData(new List<Light>());
-            //    //}}
+            ClearCache();
+            //Import Introduce Final Locked
+       
             scriptModelDictionary.Clear();
-
             scriptModelDictionary = bridge.GetScriptModelDictionary(filePath);
 
             UpdateStep();
@@ -5033,7 +4681,7 @@ namespace Maker.View.LightScriptUserControl
             //UpdateData(new List<Light>());
             lbStep.Items.Clear();
             lightScriptDictionary.Clear();
-            visibleDictionary.Clear();
+            //visibleDictionary.Clear();
             containDictionary.Clear();
             extendsDictionary.Clear();
             intersectionDictionary.Clear();

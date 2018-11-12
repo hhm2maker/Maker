@@ -256,7 +256,7 @@ namespace Maker.View
             if (cbRealDeviceIn.SelectedIndex != -1)
             {
                 //Console.WriteLine("Hello");
-                ip = new InputPort(keyboardModels,inputType);
+                ip = new InputPort(mw,keyboardModels,inputType);
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
                 ip.Open(cbRealDeviceIn.SelectedIndex);
                 ip.Start();
@@ -265,15 +265,17 @@ namespace Maker.View
         }
         public class InputPort
         {
+            private NewMainWindow mw;
             private IntPtr handle;
             private CDD dd = new CDD();
             private  Dictionary<int, KeyboardModel> keyboardModels ;
-            public InputPort(Dictionary<int, KeyboardModel> keyboardModels ,int inputType)
+            public InputPort(NewMainWindow mw,Dictionary<int, KeyboardModel> keyboardModels ,int inputType)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
+                this.mw = mw;
                 button1_Click();
             }
 
@@ -425,15 +427,14 @@ namespace Maker.View
                 }
             }
 
-            private void button1_Click()
+            public void button1_Click()
             {
                 //可从注册表中直接获取
                 //string dllfile = ReadDataFromReg();
 
                 //LoadDllFile(dllfile);
                 //return;
-
-                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"\DD85590.64.dll");
+                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\"+ mw.keyboardDllName);
             }
 
 
@@ -983,8 +984,9 @@ namespace Maker.View
         private int inputType = 0;
         private void cbIsDD_Checked(object sender, RoutedEventArgs e)
         {
-            if (ip != null)
+            if (ip != null) { 
                 ip.inputType = 1;
+            }
             inputType = 1;
         }
 
