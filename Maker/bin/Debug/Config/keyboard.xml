@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <DllName>DDHID64.dll</DllName>
-  <DllName>DD85590.64.dll</DllName>
+
+
+   <DllName>DD32.dll</DllName>
+     <DllName>DD85590.32.dll</DllName>
 </Root>

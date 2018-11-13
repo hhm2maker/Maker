@@ -2467,30 +2467,24 @@ namespace Maker.View.LightScriptUserControl
                 StackPanel sp = (StackPanel)lbStep.SelectedItems[0];
                 String oldName = GetStepName(sp);
                 String oldParent = GetParentName(sp);
-                //改变继承
-                foreach (var item in extendsDictionary)
-                {
-                    if (item.Value.Contains(oldName))
-                    {
-                        item.Value.Add(stepName);
-                    }
-                }
-                //改变可见不可见
-                //bool b = visibleDictionary[oldName];
-                //visibleDictionary.Add(stepName, b);
 
-                String newScript = lightScriptDictionary[oldName];
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.Name = stepName;
+                scriptModel.Parent = scriptModelDictionary[oldName].Parent;
+                scriptModel.Visible = scriptModelDictionary[oldName].Visible;
+               
+                String newScript = scriptModelDictionary[oldName].Value;
                 //新的包含
                 List<String> ls = new List<string>();
                 //是否包含
-                if (containDictionary[oldName].Contains(stepName))
+                if (scriptModelDictionary[oldName].Contain.Contains(stepName))
                 {
                     //如果包含
                     //将原包含字段的字段替换
                     int x = 1;
                     while (x <= 100000)
                     {
-                        if (!containDictionary[oldName].Contains("Step" + x))
+                        if (!scriptModelDictionary[oldName].Contain.Contains("Step" + x))
                         {
                             //不存在重复
                             break;
@@ -2504,16 +2498,19 @@ namespace Maker.View.LightScriptUserControl
                     }
                     newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
                     newScript = newScript.Replace(stepName + "LightGroup", "Step" + x + "LightGroup");
-                    newScript = newScript.Replace(stepName + "Range", "Step" + x + "Range");
-                    newScript = newScript.Replace(stepName + "Color", "Step" + x + "Color");
+                    newScript = newScript.Replace(stepName + "RangeGroup", "Step" + x + "RangeGroup");
+                    newScript = newScript.Replace(stepName + "ColorGroup", "Step" + x + "ColorGroup");
+                    newScript = newScript.Replace(stepName + "PositionGroup", "Step" + x + "PositionGroup");
                 }
                 //新名字和其他字段不冲突
                 newScript = newScript.Replace(oldName + "Light", stepName + "Light");
                 newScript = newScript.Replace(oldName + "LightGroup", stepName + "LightGroup");
-                newScript = newScript.Replace(oldName + "Range", stepName + "Range");
-                newScript = newScript.Replace(oldName + "Color", stepName + "Color");
+                newScript = newScript.Replace(oldName + "RangeGroup", stepName + "RangeGroup");
+                newScript = newScript.Replace(oldName + "ColorGroup", stepName + "ColorGroup");
+                newScript = newScript.Replace(oldName + "PositionGroup", stepName + "PositionGroup");
+
                 ls.Add(stepName);
-                foreach (String s in containDictionary[oldName])
+                foreach (String s in scriptModelDictionary[oldName].Contain)
                 {
                     ls.Add(s);
                 }
@@ -2521,20 +2518,20 @@ namespace Maker.View.LightScriptUserControl
                 {
                     ls.Remove(oldName);
                 }
-                containDictionary.Add(stepName, ls);
-                lightScriptDictionary.Add(stepName, newScript);
+                scriptModel.Contain = ls;
+                scriptModel.Value = newScript;
                 //决定样式还是复制吧。
                 if (finalDictionary.ContainsKey(oldName))
                 {
                     finalDictionary.Add(stepName, finalDictionary[oldName]);
                 }
                 //最后界面里更改以及刷新继承
-                AddStep(stepName, oldParent);
+                scriptModelDictionary.Add(stepName,scriptModel);
                 lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
-                //UpdateExtends();
             }
+            UpdateStep();
             UpdateVisible();
-            //RefreshData();
+            Test();
         }
 
         private void DelStep(object sender, RoutedEventArgs e)
