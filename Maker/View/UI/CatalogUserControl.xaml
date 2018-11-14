@@ -152,8 +152,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid  Grid.Column="0">
-                        <Grid Name="gMain" />
-                        <Canvas Name="gd" HorizontalAlignment="Stretch" SizeChanged="gd_SizeChanged" Margin="20" >
+                        <Grid Name="gMain" Margin="0,0,0,45"/>
+                        <Canvas Name="gd" HorizontalAlignment="Stretch" SizeChanged="gd_SizeChanged" Margin="5" >
                             <Thumb Name="thumb_player"  Canvas.Left="0" Canvas.Top="0" >
                                 <Thumb.Template>
                                     <ControlTemplate>

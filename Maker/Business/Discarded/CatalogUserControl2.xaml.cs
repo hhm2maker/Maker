@@ -295,7 +295,7 @@ namespace Maker.Business.Discarded
                 {
                     //spIntroduce.Children.Add(new PlayIntroductionPage(this, new int[] { 5, 6, 7 }));
                     gMain.Children.Clear();
-                    gMain.Children.Add(new PlayUserControl(mw));
+                    //gMain.Children.Add(new PlayUserControl(mw));
                 }
                 else if (sender == tbTool)
                 {

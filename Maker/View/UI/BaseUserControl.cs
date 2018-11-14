@@ -99,15 +99,6 @@ namespace Maker.View
         protected void OpenFile(object sender, RoutedEventArgs e)
         {
             mw.cuc.OpenFile();
-            //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            ////openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-            //openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
-            //openFileDialog1.RestoreDirectory = true;
-            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    filePath = openFileDialog1.FileName;
-            //    LoadFile();
-            //}
         }
         /// <summary>
         /// 加载文件

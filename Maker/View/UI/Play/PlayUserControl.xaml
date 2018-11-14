@@ -1,4 +1,4 @@
-﻿<local:BaseUserControl x:Class="Maker.View.PlayUserControl"
+﻿<local:BaseUserControl x:Class="Maker.View.UI.PlayUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -41,6 +42,11 @@
                     <Button Content="加载键盘" FontSize="14"  Foreground="#f0f0f0" Click="LoadKeyboards" />
                 </ToolBar>
                 <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
+            </DockPanel>
+            <DockPanel Background="#535353" Grid.Row="2">
+                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                    <Button Content="加载教程轨" FontSize="14"  Foreground="#f0f0f0" Click="LoadTutorial" />
+                </ToolBar>
             </DockPanel>
             <play:TeachingControl Grid.Row="3" x:Name="mTeachingControl" ClipToBounds="True"/>
     </Grid>

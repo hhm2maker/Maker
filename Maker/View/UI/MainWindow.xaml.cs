@@ -160,8 +160,8 @@ namespace Maker.View.Control
         private void MatchSize()
         {
             icMain.Width = icMain.Height = iInkCanvasSize;
-            playuc.Width = mainDockPanel.ActualWidth;
-            playuc.Height = mainDockPanel.ActualHeight;
+            //playuc.Width = mainDockPanel.ActualWidth;
+            //playuc.Height = mainDockPanel.ActualHeight;
             //Width = mw.dInkCanvasSize + 35 + gbEditingMode.ActualWidth;
         }
 
@@ -357,7 +357,7 @@ namespace Maker.View.Control
         private void ClosePlayUserControl()
         {
             if(mode == MainWindowMode.Play) {
-                playuc.CloseMidiConnect();
+                //playuc.CloseMidiConnect();
             }
         }
 
@@ -404,7 +404,7 @@ namespace Maker.View.Control
             NotCanImportToDevice();
             mode = MainWindowMode.Play;
             mainDockPanel.Children.Clear();
-            mainDockPanel.Children.Add(playuc);
+           // mainDockPanel.Children.Add(playuc);
         }
         private void ToNoneUserControl(bool isToHomePage)
         {
@@ -1171,8 +1171,8 @@ namespace Maker.View.Control
             }
             if (mode == MainWindowMode.Play)
             {
-                playuc.Width = gMain.ActualWidth;
-                playuc.Height = gMain.ActualHeight;
+                //playuc.Width = gMain.ActualWidth;
+                //playuc.Height = gMain.ActualHeight;
             }
             wuc.Width = mainDockPanel.Width;
             rdGridInkCanvs.MaxHeight = gMain.ActualHeight - 3;
@@ -1659,7 +1659,7 @@ namespace Maker.View.Control
             if (mode != MainWindowMode.Play)
             {
                 ToPlayUserControl();
-                playuc.LoadExeXml();
+                //playuc.LoadExeXml();
             }
         }
 

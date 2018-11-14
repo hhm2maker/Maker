@@ -206,7 +206,6 @@ namespace Maker
             LoadFile();
             LoadPaved();
             LoadHint();
-            LoadKeyboard();
         }
         private void LoadFile()
         {
@@ -215,7 +214,7 @@ namespace Maker
             doc.Load("Config/project.xml");
             XmlNode root = doc.DocumentElement;
             String path = root.SelectSingleNode("Path").InnerText;
-            if (path.Equals(String.Empty))
+            if (path.Equals(String.Empty) || !Directory.Exists(path))
             {
                 path = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
             }

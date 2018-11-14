@@ -506,7 +506,8 @@ namespace Maker.View.UI
             if (position == -1)
                 return;
             double left = Canvas.GetLeft(thumb);
-            if (left > gd.ActualWidth / 3 * 2 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty) )
+            double top = Canvas.GetTop(thumb);
+            if (top > gd.ActualHeight / 3 * 2 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty) )
             {
                 thumb.RenderTransformOrigin = new Point(0.5, 0.5);
                 if(position == 0) { 
@@ -516,8 +517,17 @@ namespace Maker.View.UI
                 {
                     thumb.RenderTransform = MatrixTransform_02;
                 }
-                double top = Canvas.GetTop(thumb);
-
+                if ((startPoints[position].X - left) / 2 == 0 && (top - startPoints[position].Y) / 2 == 0 && startPoints[position].X - left == 0 && startPoints[position].Y - top == 0) {
+                    if (thumb == thumb_player)
+                    {
+                        ToolBackToOld(thumb_player, 0);
+                    }
+                    else if (thumb == thumb_paved)
+                    {
+                        ToolBackToOld(thumb_paved, 1);
+                    }
+                    return;
+                }
                 QuadraticBezierSegment quadraticBezierSegment = new QuadraticBezierSegment();
                 quadraticBezierSegment.Point1 = new Point((startPoints[position].X - left) / 2, (top - startPoints[position].Y) / 2);
                 quadraticBezierSegment.Point2 = new Point(startPoints[position].X - left, startPoints[position].Y - top);
@@ -610,14 +620,14 @@ namespace Maker.View.UI
         /// 设置工具初始位置
         /// </summary>
         private void SetToolOldPosition() {
-            Canvas.SetLeft(thumb_player, gd.ActualWidth - thumb_player.ActualWidth);
+            Canvas.SetTop(thumb_player, gd.ActualHeight - thumb_player.ActualHeight);
             double left = Canvas.GetLeft(thumb_player);
             double top = Canvas.GetTop(thumb_player);
             startPoints[0] = new Point(left, top);
-            startPoints[1] = new Point(left, top+40);
+            startPoints[1] = new Point(left + 40, top);
 
-            Canvas.SetLeft(thumb_paved, left);
-            Canvas.SetTop(thumb_paved, top + 40);
+            Canvas.SetLeft(thumb_paved, left + 40);
+            Canvas.SetTop(thumb_paved, top );
         }
 
         private void MatrixAnimation_Completed(object sender, EventArgs e)

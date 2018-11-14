@@ -1,7 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Business.Model;
 using Maker.Model;
-using Maker.View.Control;
 using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
 
-namespace Maker.View
+namespace Maker.View.UI
 {
     /// <summary>
     /// PlayUserControl.xaml 的交互逻辑
@@ -34,6 +33,7 @@ namespace Maker.View
             mainView = gMain;
             HideControl();
         }
+        private int tutorialPosition = 0;
         private void LoadKeyboards(object sender, RoutedEventArgs e)
         {
             XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
@@ -80,7 +80,7 @@ namespace Maker.View
                     keyboardModels.Add(keyboardModel.Position, keyboardModel);
             }
         }
-        
+
         private void LoadHint()
         {
             if (mw.hintModelDictionary.ContainsKey(0))
@@ -108,10 +108,10 @@ namespace Maker.View
             };
             hintDialog.BeginAnimation(MarginProperty, marginAnimation);
         }
-     
+
         private void InstallUsbDriver()
         {
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory+ @"\Attachments\novation-usb-driver-2.7.exe");
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
         }
         private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
         {
@@ -140,7 +140,7 @@ namespace Maker.View
             if (mw.hintModelDictionary.ContainsKey(id))
                 mw.hintModelDictionary[id].IsHint = false;
         }
- 
+
 
         private FileBusiness business = new FileBusiness();
         private static Dictionary<String, Dictionary<int, List<PageButtonModel>>> pages = new Dictionary<string, Dictionary<int, List<PageButtonModel>>>();
@@ -165,7 +165,7 @@ namespace Maker.View
             DirectoryInfo d = new DirectoryInfo(mw.lastProjectPath);
             XDocument _doc = XDocument.Load(filePath);
             XElement _root = _doc.Element("Root");
-            
+
             XElement _tutorial = _root.Element("Tutorial");
             String strTutorial = business.Base2String(_tutorial.Attribute("content").Value);
             List<int> mTutorialList = new List<int>();
@@ -241,7 +241,8 @@ namespace Maker.View
                 //Console.WriteLine(caps.szPname + "----");
                 cbRealDeviceIn.Items.Add(caps.szPname);
             }
-            if (cbRealDeviceIn.Items.Count > 0) {
+            if (cbRealDeviceIn.Items.Count > 0)
+            {
                 cbRealDeviceIn.SelectedIndex = 0;
             }
         }
@@ -256,7 +257,7 @@ namespace Maker.View
             if (cbRealDeviceIn.SelectedIndex != -1)
             {
                 //Console.WriteLine("Hello");
-                ip = new InputPort(mw,keyboardModels,inputType);
+                ip = new InputPort(this, keyboardModels, inputType);
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
                 ip.Open(cbRealDeviceIn.SelectedIndex);
                 ip.Start();
@@ -265,17 +266,17 @@ namespace Maker.View
         }
         public class InputPort
         {
-            private NewMainWindow mw;
+            private PlayUserControl pc;
             private IntPtr handle;
             private CDD dd = new CDD();
-            private  Dictionary<int, KeyboardModel> keyboardModels ;
-            public InputPort(NewMainWindow mw,Dictionary<int, KeyboardModel> keyboardModels ,int inputType)
+            private Dictionary<int, KeyboardModel> keyboardModels;
+            public InputPort(PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
-                this.mw = mw;
+                this.pc = pc;
                 button1_Click();
             }
 
@@ -343,12 +344,54 @@ namespace Maker.View
                     //Console.WriteLine(Convert.ToString(l2_dw1, 16));
                     //Console.WriteLine("-------------------------------");
                     uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
-                    if (!pages[nowPageName].ContainsKey((int)position))
-                        return;
-                  
+
                     if (dwParam1 > 32767)
                     {
-                        KeyEvent((int)position,0);
+
+                        KeyEvent((int)position, 0);
+                        if (pc.tutorialParagraphLightIntList != null)
+                        {
+                            if (pc.tutorialParagraphLightIntList[pc.tutorialPosition].Contains((int)position))
+                            {
+                                pc.tutorialParagraphLightIntList[pc.tutorialPosition].Remove((int)position);
+                                MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(128 + (int)position * 0x100 + 64 * 0x10000 + passageway));
+                            }
+
+                            if (pc.tutorialParagraphLightIntList[pc.tutorialPosition].Count == 0)
+                            {
+                                pc.tutorialPosition++;
+                                pc.tutorialPosition = pc.tutorialPosition % pc.tutorialParagraphLightIntList.Count;
+
+                                for (int j = 0; j < pc.tutorialParagraphLightIntList[pc.tutorialPosition].Count; j++)
+                                {
+                                    if (pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] >= 28 && pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] <= 35)
+                                    {
+                                        //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
+                                        //顶部灯光
+                                        String str = "0x" + 3.ToString("X2").PadLeft(2, '0') + (pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+
+                                    }
+                                    else
+                                    {
+                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(144 + pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] * 0x100 + 3 * 0x10000 + passageway));
+                                    }
+                                }
+                            }
+                        }
+                        //----教程轨结束
+                    }
+                    else {
+                        KeyEvent((int)position, 1);
+                    }
+
+                    if (!pages[nowPageName].ContainsKey((int)position))
+                        return;
+
+                    if (dwParam1 > 32767)
+                    {
+                      
+                       
                         //打开
                         //Console.WriteLine("开："+position);
                         //System.Windows.Forms.MessageBox.Show(position.ToString());
@@ -362,7 +405,6 @@ namespace Maker.View
                     }
                     else
                     {
-                        KeyEvent((int)position, 1);
                         //关闭
                         //Console.WriteLine("关：" + position);
                         foreach (var bigItem in threads)
@@ -402,10 +444,11 @@ namespace Maker.View
                 }
             }
             public int inputType = 0;//0浅度 1深度(驱动)
-            private void KeyEvent(int position,int openOrClose)
+            private void KeyEvent(int position, int openOrClose)
             {
                 //模拟键盘输入
-                if (!keyboardModels.ContainsKey(position)){
+                if (!keyboardModels.ContainsKey(position))
+                {
                     return;
                 }
                 if (inputType == 0 && openOrClose == 0)
@@ -468,7 +511,7 @@ namespace Maker.View
         //}
 
 
-        private Dictionary<int,KeyboardModel> keyboardModels = new Dictionary<int,KeyboardModel>();
+        private Dictionary<int, KeyboardModel> keyboardModels = new Dictionary<int, KeyboardModel>();
 
         private string ReadDataFromReg()
         {
@@ -486,8 +529,8 @@ namespace Maker.View
             }
             return "";
         }
-      
-    
+
+
 
         private void Fun100()
         {
@@ -538,7 +581,8 @@ namespace Maker.View
         private bool isFirst = true;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if (isFirst) {
+            if (isFirst)
+            {
                 InitData();
                 isFirst = false;
             }
@@ -645,7 +689,8 @@ namespace Maker.View
                     {
                         if (downLight[j].Time == i)
                         {
-                            if (downLight[j].Position >= 28 && downLight[j].Position <= 35) {
+                            if (downLight[j].Position >= 28 && downLight[j].Position <= 35)
+                            {
                                 //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
                                 //顶部灯光
                                 if (downLight[j].Action == 144)
@@ -655,20 +700,22 @@ namespace Maker.View
                                     //Console.WriteLine(Convert.ToInt64(str, 16));
                                     MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
                                 }
-                                else {
+                                else
+                                {
                                     String str = "0x" + (downLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
                                     MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
                                 }
                             }
-                            else {
-                                 MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(downLight[j].Action + downLight[j].Position * 0x100 + downLight[j].Color * 0x10000 + passageway));
+                            else
+                            {
+                                MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(downLight[j].Action + downLight[j].Position * 0x100 + downLight[j].Color * 0x10000 + passageway));
                             }
                             //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x90 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
                             //Thread.Sleep(1000);
                             //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x80 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
                         }
                     }
-                
+
                     Thread.Sleep(wait);
                 }
             }
@@ -772,7 +819,7 @@ namespace Maker.View
                                 //顶部灯光
                                 if (upLight[j].Action == 144)
                                 {
-                                    String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";                    
+                                    String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
                                     MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
                                 }
                                 else
@@ -835,9 +882,10 @@ namespace Maker.View
         public void CloseMidiConnect()
         {
             CloseMidiOut();
-            if (ip != null) { 
-            ip.Stop();
-            ip.Close();
+            if (ip != null)
+            {
+                ip.Stop();
+                ip.Close();
             }
         }
 
@@ -846,14 +894,15 @@ namespace Maker.View
             passageway = cbPassageway.SelectedIndex;
         }
 
-        
+
 
         private void SearchEquipment(object sender, RoutedEventArgs e)
         {
             SearchEquipmentIn();
             SearchEquipmentOut();
         }
-        public void SearchEquipmentIn() {
+        public void SearchEquipmentIn()
+        {
             StartMidiIn();
         }
 
@@ -891,7 +940,7 @@ namespace Maker.View
 #endif
             //byte[] sx = { 0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7 }; // GM On sysex
             //byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0E, 0x7F }; // GM On sysex
-            byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0B, 0x0B,0x3f, 0x3f, 0x3f,0xF7 }; // GM On sysex
+            byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0B, 0x0B, 0x3f, 0x3f, 0x3f, 0xF7 }; // GM On sysex
             //byte[] sx = { 240, 0, 32, 41, 2, 4, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247 }; // GM On sysex
 
             //PREVIOUS CODE
@@ -905,7 +954,7 @@ namespace Maker.View
             Marshal.Copy(sx, 0, mhdr.data, mhdr.bufferLength); // copy message bytes from managed to native memory
             IntPtr nhdr = Marshal.AllocHGlobal(shdr); // allocate native hdr
             Marshal.StructureToPtr(mhdr, nhdr, false); // copy managed hdr to native hdr
-      
+
             //Chk(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr)); // prepare native hdr
             //Chk(WinMM.midiOutLongMsg(moHdl, nhdr, shdr)); // send native message bytes
             Console.WriteLine(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr));
@@ -984,7 +1033,8 @@ namespace Maker.View
         private int inputType = 0;
         private void cbIsDD_Checked(object sender, RoutedEventArgs e)
         {
-            if (ip != null) { 
+            if (ip != null)
+            {
                 ip.inputType = 1;
             }
             inputType = 1;
@@ -997,8 +1047,21 @@ namespace Maker.View
             inputType = 0;
 
         }
+        public List<List<int>> tutorialParagraphLightIntList;
+        private void LoadTutorial(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog1.Filter = "MIDI文件|*.mid;*.midi";
+            //openFileDialog1.Filter = _fileExtension.Substring(1) + "文件(*" + _fileExtension + ")|*" + _fileExtension + "|All files(*.*)|*.*";
+            openFileDialog1.RestoreDirectory = true;
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                List<Light> tutorialLightList = FileBusiness.CreateInstance().ReadMidiFile(openFileDialog1.FileName);
+                tutorialParagraphLightIntList = LightBusiness.GetParagraphLightIntListList(tutorialLightList);
+                tutorialPosition = 0;
+            }
+        }
 
-      
 
         //private void btnMustOpenMidi_Click(object sender, RoutedEventArgs e)
         //{
