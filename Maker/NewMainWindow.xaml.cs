@@ -208,15 +208,6 @@ namespace Maker
             LoadHint();
             LoadKeyboard();
         }
-        public String keyboardDllName;
-        private void LoadKeyboard()
-        {
-            //灯光语句页面
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/keyboard.xml");
-            XmlNode root = doc.DocumentElement;
-            keyboardDllName = root.SelectSingleNode("DllName").InnerText;
-        }
         private void LoadFile()
         {
             //灯光语句页面

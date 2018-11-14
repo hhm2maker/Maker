@@ -434,7 +434,7 @@ namespace Maker.View
 
                 //LoadDllFile(dllfile);
                 //return;
-                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\"+ mw.keyboardDllName);
+                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\DD85590.64.dll");
             }
 
 
@@ -448,9 +448,9 @@ namespace Maker.View
                 }
 
                 int ret = dd.Load(dllfile);
-                if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
-                if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
-                if (ret == 0) { MessageBox.Show("非增强模块"); }
+                //if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
+                //if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
+                //if (ret == 0) { MessageBox.Show("非增强模块"); }
 
                 //return;
             }
