@@ -1042,6 +1042,8 @@ namespace Maker.View.UI
             {
                 List<Light> tutorialLightList = FileBusiness.CreateInstance().ReadMidiFile(openFileDialog1.FileName);
                 tutorialParagraphLightIntList = LightBusiness.GetParagraphLightIntListList(tutorialLightList);
+				if(tutorialParagraphLightIntList.Count == 0)
+					tutorialParagraphLightIntList = null;
                 tutorialPosition = 0;
             }
         }
