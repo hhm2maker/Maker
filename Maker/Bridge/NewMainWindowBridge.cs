@@ -66,15 +66,6 @@ namespace Maker.Bridge
                 }
                 doc.Save("Config/language.xml");
             }
-            //语言
-            if (view.strMyLanguage.Equals("zh-CN"))
-            {
-                view.auc.cbLanguage.SelectedIndex = 0;
-            }
-            else if (view.strMyLanguage.Equals("en-US"))
-            {
-                view.auc.cbLanguage.SelectedIndex = 1;
-            }
         }
     }
 }

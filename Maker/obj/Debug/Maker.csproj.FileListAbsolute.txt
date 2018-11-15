@@ -446,7 +446,6 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.ResolveComReference.cache
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\CatalogUserControlDictionary.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\InputDictionary.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\AllDictionary.baml
-E:\Sharer\Maker\Maker\obj\Debug\View\UI\AboutUserControl.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\MainWindowStyle.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\Brushes.baml
 E:\Sharer\Maker\Maker\obj\Debug\View\StyleResources\PulseButton.baml
@@ -460,7 +459,6 @@ E:\Sharer\Maker\Maker\obj\Debug\App.baml
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\NewMainWindow.g.cs
-E:\Sharer\Maker\Maker\obj\Debug\View\UI\AboutUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\Business\Discarded\CatalogUserControl2.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\Control\FrameUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\InputUserControl.g.cs
@@ -695,3 +693,5 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.GenerateResource.Cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.csproj.CoreCompileInputs.cache
 E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\AboutDialog.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\AboutDialog.baml

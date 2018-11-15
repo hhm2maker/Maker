@@ -118,15 +118,15 @@ namespace Maker.Business.Discarded
 
         private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
         {
-            mw.auc.Visibility = Visibility.Visible;
+            //mw.auc.Visibility = Visibility.Visible;
             DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
             daV.Completed += DaV_Completed;
-            mw.auc.BeginAnimation(OpacityProperty, daV);
+            //mw.auc.BeginAnimation(OpacityProperty, daV);
         }
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-            mw.auc.ShowLogo();
+            //mw.auc.ShowLogo();
         }
 
         //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)

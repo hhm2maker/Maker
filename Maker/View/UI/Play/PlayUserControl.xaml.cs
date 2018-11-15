@@ -91,22 +91,8 @@ namespace Maker.View.UI
                     return;
                 }
             }
-            mw.cuc.gMost.Children.Add(new Grid()
-            {
-                Background = new SolidColorBrush(Colors.Transparent),
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-            });
             HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnChangeLanguage_NotHint_Click);
-            mw.cuc.gMost.Children.Add(hintDialog);
-
-            ThicknessAnimation marginAnimation = new ThicknessAnimation
-            {
-                From = new Thickness(0, 0, 0, 0),
-                To = new Thickness(0, 30, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5)
-            };
-            hintDialog.BeginAnimation(MarginProperty, marginAnimation);
+            mw.cuc.ShowMakerDialog(hintDialog);
         }
 
         private void InstallUsbDriver()
@@ -390,8 +376,6 @@ namespace Maker.View.UI
 
                     if (dwParam1 > 32767)
                     {
-                      
-                       
                         //打开
                         //Console.WriteLine("开："+position);
                         //System.Windows.Forms.MessageBox.Show(position.ToString());

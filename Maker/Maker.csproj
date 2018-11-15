@@ -144,9 +144,6 @@
     </Compile>
     <Compile Include="Business\Utils\StringUtil.cs" />
     <Compile Include="View\CDD.cs" />
-    <Compile Include="View\UI\AboutUserControl.xaml.cs">
-      <DependentUpon>AboutUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
@@ -419,9 +416,13 @@
     <Compile Include="View\UI\Tool\ToolWindow.xaml.cs">
       <DependentUpon>ToolWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\UserControlDialog\HintDialog.xaml.cs">
       <DependentUpon>HintDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\MakerDialog.cs" />
     <Compile Include="View\UI\User\Login\LoginUserControl.xaml.cs">
       <DependentUpon>LoginUserControl.xaml</DependentUpon>
     </Compile>
@@ -527,10 +528,6 @@
     <Page Include="View\StyleResources\AllDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\AboutUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Business\Discarded\CatalogUserControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -920,6 +917,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UI\UserControlDialog\AboutDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UI\UserControlDialog\HintDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1249,6 +1250,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\playersetting.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\about.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

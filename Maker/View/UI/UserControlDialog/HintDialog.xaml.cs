@@ -18,7 +18,7 @@ namespace Maker.View.UI.UserControlDialog
     /// <summary>
     /// ChangeLanguage.xaml 的交互逻辑
     /// </summary>
-    public partial class HintDialog : UserControl
+    public partial class HintDialog : MakerDialog
     {
         public HintDialog(String title,String content,RoutedEventHandler okEvent, RoutedEventHandler cancelEvent, RoutedEventHandler notHintEvent)
         {

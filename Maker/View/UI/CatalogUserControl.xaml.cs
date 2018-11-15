@@ -122,18 +122,7 @@ namespace Maker.View.UI
         private const int SPI_GETDESKWALLPAPER = 0x0073;
         #endregion
 
-        private void ToAboutUserControl(object sender, MouseButtonEventArgs e)
-        {
-            mw.auc.Visibility = Visibility.Visible;
-            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.3)));
-            daV.Completed += DaV_Completed;
-            mw.auc.BeginAnimation(OpacityProperty, daV);
-        }
 
-        private void DaV_Completed(object sender, EventArgs e)
-        {
-            mw.auc.ShowLogo();
-        }
 
         //private void ScrollViewer_MouseWheel(object sender, MouseWheelEventArgs e)
         //{
@@ -753,13 +742,19 @@ namespace Maker.View.UI
                     return;
                 }
             }
-            gMost.Children.Add(new Grid() {
+            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click,BtnChangeLanguage_NotHint_Click);
+            ShowMakerDialog(hintDialog);
+        }
+
+        public void ShowMakerDialog(MakerDialog makerdialog) {
+            gMost.Children.Add(new Grid()
+            {
                 Background = new SolidColorBrush(Colors.Transparent),
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
             });
-            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click,BtnChangeLanguage_NotHint_Click);
-            gMost.Children.Add(hintDialog);
+
+            gMost.Children.Add(makerdialog);
 
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
@@ -767,8 +762,9 @@ namespace Maker.View.UI
                 To = new Thickness(0, 30, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5)
             };
-            hintDialog.BeginAnimation(MarginProperty, marginAnimation);
+            makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
+
         private void ChangeLanguage() {
             if (mw.strMyLanguage.Equals("en-US"))
             {
@@ -815,7 +811,7 @@ namespace Maker.View.UI
             NotHint(0);
         }
        
-        private void RemoveDialog()
+        public void RemoveDialog()
         {
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
@@ -824,6 +820,11 @@ namespace Maker.View.UI
         public void NotHint(int id) {
            if (mw.hintModelDictionary.ContainsKey(id))
                 mw.hintModelDictionary[id].IsHint = false;
+        }
+
+        private void ToAboutUserControl(object sender, RoutedEventArgs e)
+        {
+            mw.ShowAbout();
         }
     }
 }

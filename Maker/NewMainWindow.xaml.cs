@@ -3,6 +3,7 @@ using Maker.Business;
 using Maker.Model;
 using Maker.View;
 using Maker.View.UI;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -68,28 +69,24 @@ namespace Maker
             InitializeComponent();
          
             InitStaticConstant();
-            //Width = SystemParameters.WorkArea.Width ;
-            //Height = SystemParameters.WorkArea.Height ;
 
             cuc = new CatalogUserControl(this);
-            auc = new AboutUserControl(this);
             gMain.Children.Add(cuc);
-            gMain.Children.Add(auc);
 
             bridge = new NewMainWindowBridge(this);
             bridge.LoadLanguage();
 
             InitConfig();
             InitPlayerType();
-            if (!isFirst)
+            if (isFirst)
             {
-                ToCatalogUserControl();
-            }
-            else {
-                auc.ShowLogo();
+                ShowAbout();
             }
            
             LoadConfig();
+        }
+        public void ShowAbout() {
+            cuc.ShowMakerDialog(new AboutDialog(cuc));
         }
         /// <summary>
         /// 初始化设置
@@ -135,10 +132,7 @@ namespace Maker
                 playerType = PlayerType.Accurate;
             }
         }
-        /// <summary>
-        /// 关于页面
-        /// </summary>
-        public AboutUserControl auc;
+      
         public CatalogUserControl cuc;
 
         private void Window_Closed(object sender, EventArgs e)
@@ -190,16 +184,6 @@ namespace Maker
             }
         }
 
-        public void ToCatalogUserControl()
-        {
-            DoubleAnimation daV = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.3)));
-            daV.Completed += DaV_Completed;
-            auc.BeginAnimation(OpacityProperty, daV);
-        }
-        private void DaV_Completed(object sender, EventArgs e)
-        {
-            auc.Visibility = Visibility.Collapsed;
-        }
      
         private void LoadConfig()
         {
