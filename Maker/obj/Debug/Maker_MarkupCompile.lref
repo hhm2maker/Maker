@@ -90,6 +90,7 @@ FE:\Sharer\Maker\Maker\View\UI\Online\Loading\CustomCircularProgressBar.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Test\Test3DWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\PlayerManagementUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\ToolWindow.xaml;;
+FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\AboutDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\HintDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\User\Login\UserInfoDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Online\OnlineWindow.xaml;;
@@ -108,5 +109,4 @@ FE:\Sharer\Maker\Maker\View\UI\Work\MediaPlayerWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Work\WebBrowserUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Work\WebBrowserWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\MakerpjUserControl.xaml;;
-FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\AboutDialog.xaml;;
 

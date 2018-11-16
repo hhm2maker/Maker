@@ -333,10 +333,15 @@ namespace Maker.View.UI
 
                     if (dwParam1 > 32767)
                     {
-
                         KeyEvent((int)position, 0);
                         if (pc.tutorialParagraphLightIntList != null)
                         {
+                            if ((int)position == 91)
+                            {
+                                CloseLight();
+                                pc.StartTutorial();
+                                return;
+                            }
                             if (pc.tutorialParagraphLightIntList[pc.tutorialPosition].Contains((int)position))
                             {
                                 pc.tutorialParagraphLightIntList[pc.tutorialPosition].Remove((int)position);
@@ -356,7 +361,6 @@ namespace Maker.View.UI
                                         //顶部灯光
                                         String str = "0x" + 3.ToString("X2").PadLeft(2, '0') + (pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] + 63).ToString("X2").PadLeft(2, '0') + "b5";
                                         MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
-
                                     }
                                     else
                                     {
@@ -382,7 +386,7 @@ namespace Maker.View.UI
 
                         positions[nowPageName][(int)position] = (positions[nowPageName][(int)position] + 1) % pages[nowPageName][(int)position].Count;
                         Thread newThread = new Thread(
-                      new ParameterizedThreadStart(PlayToLaunchpad)
+                        new ParameterizedThreadStart(PlayToLaunchpad)
                       );
                         threads.Add(newThread, new List<object>() { (int)position, true });
                         newThread.Start(newThread);
@@ -487,6 +491,36 @@ namespace Maker.View.UI
             //{
             //    keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
             //}
+
+            public void OpenLight() {
+                if (pc.tutorialParagraphLightIntList != null)
+                {
+                    for (int j = 0; j < pc.tutorialParagraphLightIntList[pc.tutorialPosition].Count; j++)
+                    {
+                        if (pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] >= 28 && pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] <= 35)
+                        {
+                            //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
+                            //顶部灯光
+                            String str = "0x" + 3.ToString("X2").PadLeft(2, '0') + (pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                        }
+                        else
+                        {
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(144 + pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] * 0x100 + 3 * 0x10000 + passageway));
+                        }
+                    }
+                }
+            }
+            public void CloseLight()
+            {
+                if (pc.tutorialParagraphLightIntList != null)
+                {
+                    for (int j = 0; j < pc.tutorialParagraphLightIntList[pc.tutorialPosition].Count; j++)
+                    {
+                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(128 + (int)pc.tutorialParagraphLightIntList[pc.tutorialPosition][j] * 0x100 + 64 * 0x10000 + passageway));
+                    }
+                }
+            }
         }
 
         //private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1031,6 +1065,7 @@ namespace Maker.View.UI
             inputType = 0;
 
         }
+        public List<List<int>> oldTutorialParagraphLightIntList;
         public List<List<int>> tutorialParagraphLightIntList;
         private void LoadTutorial(object sender, RoutedEventArgs e)
         {
@@ -1041,13 +1076,29 @@ namespace Maker.View.UI
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 List<Light> tutorialLightList = FileBusiness.CreateInstance().ReadMidiFile(openFileDialog1.FileName);
-                tutorialParagraphLightIntList = LightBusiness.GetParagraphLightIntListList(tutorialLightList);
-				if(tutorialParagraphLightIntList.Count == 0)
+
+                oldTutorialParagraphLightIntList = LightBusiness.GetParagraphLightIntListList(tutorialLightList);
+                if (oldTutorialParagraphLightIntList.Count == 0)
 					tutorialParagraphLightIntList = null;
-                tutorialPosition = 0;
+                StartTutorial();
             }
         }
+        public void StartTutorial() {
+            if (tutorialParagraphLightIntList == null)
+                tutorialParagraphLightIntList = new List<List<int>>();
+            tutorialPosition = 0;
+            tutorialParagraphLightIntList.Clear();
+            foreach (var item in oldTutorialParagraphLightIntList)
+            {
+                List<int> ints = new List<int>();
+                for (int i = 0; i < item.Count; i++) {
+                    ints.Add(item[i]);
+                }
+                tutorialParagraphLightIntList.Add(ints);
+            }
 
+            ip.OpenLight();
+        }
 
         //private void btnMustOpenMidi_Click(object sender, RoutedEventArgs e)
         //{
