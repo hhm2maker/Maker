@@ -208,8 +208,7 @@
                     </Border>
                 </StackPanel>
             </Grid>
-            <Border BorderThickness="1" BorderBrush="#646464" Grid.Column="3" Width="0" Name="bHelp" Background="#2E3033">
-                <Grid>
+                <Grid Grid.Column="3" Width="0" Name="bHelp" Background="#2E3033" Margin="0,20,0,0">
                     <StackPanel  VerticalAlignment="Top">
                         <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#2E3033" >
                             <Button.Content>
@@ -227,17 +226,50 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <TextBlock  MouseLeftButtonDown="ToFeedbackDialog"  Text="{DynamicResource Feedback}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                        <TextBlock  MouseLeftButtonDown="ToHelpOverview" Text="{DynamicResource HelpOverview}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" Foreground="Gray" FontSize="18"  MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToFeedbackDialog" Background="#2E3033" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToHelpOverview" Background="#2E3033" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource HelpOverview}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
-                    <view:LogoUserControl  VerticalAlignment="Center" x:Name="logoView" HorizontalAlignment="Left" Margin="70,0,0,0"/>
                     <StackPanel   VerticalAlignment="Bottom">
-                        <TextBlock  MouseLeftButtonDown="JoinQQGroup_Click"  Text="{DynamicResource JoinTheQGroup}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                        <TextBlock  MouseLeftButtonDown="ToDeveloperListWindow"  Text="{DynamicResource DeveloperList}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
-                        <TextBlock  MouseLeftButtonDown="ToAppreciateWindow"  Text="{DynamicResource Appreciate}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,20" Foreground="Gray" FontSize="18" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave"/>
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="JoinQQGroup_Click" Background="#2E3033" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToDeveloperListWindow" Background="#2E3033" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAppreciateWindow" Background="#2E3033" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                                    <Image Source="../Resources/Image/appreciate.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
                 </Grid>
-            </Border>
         </Grid>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->

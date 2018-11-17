@@ -83,9 +83,9 @@ namespace Maker.View.UI
 
         private void LoadHint()
         {
-            if (mw.hintModelDictionary.ContainsKey(0))
+            if (mw.hintModelDictionary.ContainsKey(1))
             {
-                if (mw.hintModelDictionary[0].IsHint == false)
+                if (mw.hintModelDictionary[1].IsHint == false)
                 {
                     //InstallUsbDriver();
                     return;
@@ -101,6 +101,13 @@ namespace Maker.View.UI
         }
         private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
         {
+            if (mw.hintModelDictionary.ContainsKey(1))
+            {
+                if (mw.hintModelDictionary[1].IsHint == false)
+                {
+                    return;
+                }
+            }
             InstallUsbDriver();
             RemoveDialog();
         }
@@ -952,13 +959,13 @@ namespace Maker.View.UI
             //PREVIOUS CODE
             //Chk(WinMM.midiStreamOpen(out moHdl, ref moID, 1, null, 0, 0)); // open midi out in stream mode
             //NEW CODE
-            IntPtr instance = IntPtr.Zero;
+            //IntPtr instance = IntPtr.Zero;
             //Chk(WinMM.midiStreamOpen(out moHdl, ref moID, 1, null, instance, 0)); // open midi out in stream mode
             //Chk(WinMM.midiOutOpen(out moHdl, moID, null, (IntPtr)0, 0));// open midi out in stream mode
 #endif
             //byte[] sx = { 0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7 }; // GM On sysex
-            //byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0E, 0x7F }; // GM On sysex
-            byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0B, 0x0B, 0x3f, 0x3f, 0x3f, 0xF7 }; // GM On sysex
+            byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0E, 0x7F }; // GM On sysex
+            //byte[] sx = { 240, 0, 32, 41, 2, 24, 34, 1, 247 }; // GM On sysex
             //byte[] sx = { 240, 0, 32, 41, 2, 4, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247 }; // GM On sysex
 
             //PREVIOUS CODE
@@ -973,10 +980,10 @@ namespace Maker.View.UI
             IntPtr nhdr = Marshal.AllocHGlobal(shdr); // allocate native hdr
             Marshal.StructureToPtr(mhdr, nhdr, false); // copy managed hdr to native hdr
 
-            //Chk(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr)); // prepare native hdr
-            //Chk(WinMM.midiOutLongMsg(moHdl, nhdr, shdr)); // send native message bytes
-            Console.WriteLine(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr));
-            Console.WriteLine(WinMM.midiOutLongMsg(moHdl, nhdr, shdr));
+            Chk(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr)); // prepare native hdr
+            Chk(WinMM.midiOutLongMsg(moHdl, nhdr, shdr)); // send native message bytes
+            //Console.WriteLine(WinMM.midiOutPrepareHeader(moHdl, nhdr, shdr));
+            //Console.WriteLine(WinMM.midiOutLongMsg(moHdl, nhdr, shdr));
         } // Test
 
         public static void Chk(int f)

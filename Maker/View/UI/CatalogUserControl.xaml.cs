@@ -169,7 +169,7 @@ namespace Maker.View.UI
             new MailDialog(mw, 0).ShowDialog();
         }
 
-        private void ToHelpOverview(object sender, MouseButtonEventArgs e)
+        private void ToHelpOverview(object sender, RoutedEventArgs e)
         {
             new HelpOverviewWindow(mw).Show();
         }
@@ -328,8 +328,6 @@ namespace Maker.View.UI
                     To = 400,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
-                animation.Completed += Animation_Completed;
-
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
@@ -359,12 +357,8 @@ namespace Maker.View.UI
             {
                 IntoUserControl(8);
             }
-            
         }
-        private void Animation_Completed(object sender, EventArgs e)
-        {
-            logoView.ShowLogo();
-        }
+        
 
         public void OpenFile()
         {
@@ -424,7 +418,7 @@ namespace Maker.View.UI
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
         }
 
-        private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
+        private void ToAppreciateWindow(object sender, RoutedEventArgs e)
         {
             new AppreciateWindow().Show();
         }

@@ -225,7 +225,6 @@ E:\Sharer\Maker\Maker\bin\Release\WpfAnimatedGif.xml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\CatalogUserControlDictionary.baml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\InputDictionary.baml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\AllDictionary.baml
-E:\Sharer\Maker\Maker\obj\Release\View\UI\AboutUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\MainWindowStyle.baml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\Brushes.baml
 E:\Sharer\Maker\Maker\obj\Release\View\StyleResources\PulseButton.baml
@@ -237,7 +236,6 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\User\Login\LoginWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\User\Login\RegisterUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\Business\Discarded\CatalogUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\CatalogUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Release\View\UI\AboutUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\Business\Discarded\CatalogUserControl2.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Control\FrameUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Control\LiveUserControl.g.cs
@@ -446,3 +444,5 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Work\MediaPlayerWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Work\WebBrowserUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Work\WebBrowserWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\MakerpjUserControl.baml
+E:\Sharer\Maker\Maker\obj\Release\View\UI\UserControlDialog\AboutDialog.g.cs
+E:\Sharer\Maker\Maker\obj\Release\View\UI\UserControlDialog\AboutDialog.baml
