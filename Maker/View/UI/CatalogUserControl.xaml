@@ -108,6 +108,14 @@
                             </StackPanel>
                         </Button.Content>
                     </Button>
+                    <Button Name="btnIdea" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033" >
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
+                                <Image Source="../Resources/Image/idea.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                <TextBlock Text="{DynamicResource Idea}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="2">
                     <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbHelp_MouseLeftButtonUp" Background="#2E3033" >

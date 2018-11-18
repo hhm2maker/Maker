@@ -468,5 +468,6 @@
     <sys:String x:Key="PlayExport">Play export</sys:String>
     <sys:String x:Key="GetStarted">Get Started</sys:String>
     <sys:String x:Key="ReturnTheTitle">Return the title</sys:String>
-    
+    <sys:String x:Key="Idea">Idea</sys:String>
+
 </ResourceDictionary>

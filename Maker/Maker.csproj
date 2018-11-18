@@ -107,6 +107,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
     <Compile Include="View\UI\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
@@ -412,6 +413,9 @@
     </Compile>
     <Compile Include="View\UI\Tool\PlayerManagementUserControl.xaml.cs">
       <DependentUpon>PlayerManagementUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Tool\IdeaUserControl.xaml.cs">
+      <DependentUpon>IdeaUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Tool\ToolWindow.xaml.cs">
       <DependentUpon>ToolWindow.xaml</DependentUpon>
@@ -885,6 +889,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\UI\Tool\IdeaUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UI\Tool\PlayerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1101,7 +1109,9 @@
     <Resource Include="View\Resources\Image\headportrait.png" />
     <Resource Include="View\Resources\Image\icon.ico" />
     <Resource Include="View\Resources\Image\icon.png" />
-    <Resource Include="View\Resources\Image\introduce.png" />
+    <Resource Include="View\Resources\Image\introduce.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\library.png" />
     <Resource Include="View\Resources\Image\light.png" />
     <Resource Include="View\Resources\Image\lightscript.png" />
@@ -1275,6 +1285,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\appreciate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\idea.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

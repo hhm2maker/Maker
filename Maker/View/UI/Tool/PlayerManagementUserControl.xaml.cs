@@ -28,7 +28,6 @@ namespace Maker.View.Tool
             HideControl();
         }
 
-   
         private void DeleteDevice(object sender, RoutedEventArgs e)
         {
             //if (lbMain.SelectedIndex == -1)
@@ -123,7 +122,7 @@ namespace Maker.View.Tool
             }
         }
 
-        public string iniName
+        public string IniName
         {
             get;
             set;

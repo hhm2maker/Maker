@@ -964,9 +964,9 @@ namespace Maker.View.UI
             //Chk(WinMM.midiOutOpen(out moHdl, moID, null, (IntPtr)0, 0));// open midi out in stream mode
 #endif
             //byte[] sx = { 0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7 }; // GM On sysex
-            byte[] sx = { 0xF0, 0x00, 0x20, 0x29, 0x02, 0x18, 0x0E, 0x7F }; // GM On sysex
+            //byte[] sx = { 240 ,0 ,32 ,41 ,2 ,16 ,11 ,44 ,63 ,63 ,63 ,247 }; // GM On sysex
             //byte[] sx = { 240, 0, 32, 41, 2, 24, 34, 1, 247 }; // GM On sysex
-            //byte[] sx = { 240, 0, 32, 41, 2, 4, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247 }; // GM On sysex
+            byte[] sx = { 240, 0, 32, 41, 2, 16, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247}; // GM On sysex
 
             //PREVIOUS CODE
             //int shdr = Marshal.SizeOf(typeof(MidiHdr)); // hdr size

@@ -268,10 +268,6 @@ namespace Maker.View
         {
             playLpd.Pause();
         }
-
-        public static implicit operator PlayerUserControl(PlayUserControl v)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

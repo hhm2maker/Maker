@@ -57,6 +57,8 @@ namespace Maker.View.UI
         public PlayUserControl playuc;
         //Tool
         public ToolWindow tw;
+        //Idea
+        public IdeaUserControl iuc;
         //PlayerManagement
         public PlayerManagementUserControl pmuc;
 
@@ -92,7 +94,9 @@ namespace Maker.View.UI
             //PlayerUserControl
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
-
+            //IdeaUserControl
+            iuc = new IdeaUserControl(mw);
+            userControls.Add(iuc);
             tw = new ToolWindow
             {
                 Topmost = true
@@ -356,6 +360,10 @@ namespace Maker.View.UI
             else if (sender == btnPlayer)
             {
                 IntoUserControl(8);
+            }
+            else if (sender == btnIdea)
+            {
+                IntoUserControl(9);
             }
         }
         

@@ -471,5 +471,6 @@
     <sys:String x:Key="PlayExport">演奏导出</sys:String>
     <sys:String x:Key="GetStarted">开始体验</sys:String>
     <sys:String x:Key="ReturnTheTitle">返回标题</sys:String>
+    <sys:String x:Key="Idea">想法</sys:String>
 
 </ResourceDictionary>

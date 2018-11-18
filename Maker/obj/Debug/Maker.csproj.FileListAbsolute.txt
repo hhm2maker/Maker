@@ -695,3 +695,5 @@ E:\Sharer\Maker\Maker\obj\Debug\Maker.exe
 E:\Sharer\Maker\Maker\obj\Debug\Maker.pdb
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\AboutDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Debug\View\UI\UserControlDialog\AboutDialog.baml
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Tool\IdeaUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Debug\View\UI\Tool\IdeaUserControl.baml
