@@ -58,7 +58,6 @@ namespace Maker.View
         private List<IdeaModel> ideaModels = new List<IdeaModel>();
         protected override void LoadFileContent()
         {
-            Console.WriteLine(filePath);
             foreach (XElement element in XDocument.Load(filePath).Element("Root").Element("Ideas").Elements("Idea"))
             {
                 IdeaModel ideaModel = new IdeaModel();

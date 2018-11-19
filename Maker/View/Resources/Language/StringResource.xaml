@@ -469,5 +469,7 @@
     <sys:String x:Key="GetStarted">Get Started</sys:String>
     <sys:String x:Key="ReturnTheTitle">Return the title</sys:String>
     <sys:String x:Key="Idea">Idea</sys:String>
+    <sys:String x:Key="LimitlessLamp">Limitless lamp</sys:String>
+    <sys:String x:Key="Colored">Colored</sys:String>
 
 </ResourceDictionary>
