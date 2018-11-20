@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Maker.View.Device"
              mc:Ignorable="d" 
     >
-    <ScrollViewer Width="600" Height="620" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Canvas  Background="#535353" Name="cMain" HorizontalAlignment="Left" VerticalAlignment="Top"  MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp"/>
     </ScrollViewer>
 </UserControl>

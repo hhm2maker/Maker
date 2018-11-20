@@ -155,7 +155,6 @@
                         <Popup x:Name="popAutomatic" PlacementTarget="{Binding ElementName=miAutomatic}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
                             <Menu>
                                 <MenuItem Header="{DynamicResource Generate}"  FontSize="16" Name="miChildAutomatic" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                    <MenuItem Header="{DynamicResource Translation}" FontSize="14" Click="Translation"/>
                                     <MenuItem Header="{DynamicResource RhombusDiffusion}" FontSize="14" Name="miRhombusDiffusion" Click="Automatic"/>
                                     <MenuItem Header="{DynamicResource CrossDiffusion}" FontSize="14" Name="miCross" Click="Automatic"/>
                                     <MenuItem Header="{DynamicResource Fountain}" FontSize="14" >

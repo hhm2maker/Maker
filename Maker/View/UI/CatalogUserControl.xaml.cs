@@ -59,6 +59,8 @@ namespace Maker.View.UI
         public ToolWindow tw;
         //Idea
         public IdeaUserControl iuc;
+        //LimitlessLamp
+        public LimitlessLampUserControl lluc;
         //PlayerManagement
         public PlayerManagementUserControl pmuc;
 
@@ -94,6 +96,9 @@ namespace Maker.View.UI
             //PlayerUserControl
             pmuc = new PlayerManagementUserControl(mw);
             userControls.Add(pmuc);
+            //LimitlessLampUserControl
+            lluc = new LimitlessLampUserControl(mw);
+            userControls.Add(lluc);
             //IdeaUserControl
             iuc = new IdeaUserControl(mw);
             userControls.Add(iuc);
@@ -361,10 +366,15 @@ namespace Maker.View.UI
             {
                 IntoUserControl(8);
             }
-            else if (sender == btnIdea)
+            else if (sender == btnLimitless)
             {
                 IntoUserControl(9);
             }
+            else if (sender == btnIdea)
+            {
+                IntoUserControl(10);
+            }
+           
         }
         
 
@@ -723,6 +733,9 @@ namespace Maker.View.UI
                     directoryInfoLightScript.Create();
                     DirectoryInfo directoryInfoPlay = new DirectoryInfo(_projectPath + @"\Play");
                     directoryInfoPlay.Create();
+                    DirectoryInfo directoryInfoLimitlessLamp = new DirectoryInfo(_projectPath + @"\LimitlessLamp");
+                    directoryInfoLimitlessLamp.Create();
+
                     tbProjectPath.Text = dialog.fileName;
                     mw.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
                     if (gMain.Children.Count > 0)

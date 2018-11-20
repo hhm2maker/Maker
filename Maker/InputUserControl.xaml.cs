@@ -3925,32 +3925,32 @@ namespace Maker
 
         private void Translation(object sender, RoutedEventArgs e)
         {
-            ChangeIntoMotionDialog dialog = new ChangeIntoMotionDialog(mw);
-            if (dialog.ShowDialog() == true)
-            {
-                StringBuilder builder = new StringBuilder();
-                foreach (int number in dialog.NumberList)
-                {
-                    builder.Append(number.ToString() + " ");
-                }
-                String stepName = GetUsableStepName();
-                if (stepName == null)
-                {
-                    new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                    return;
-                }
-                String commandLine = "\tLightGroup " + stepName + "LightGroup = Create.Animation(Translation,\""
-                    + builder.ToString().Trim() + "\");";
+            //ChangeIntoMotionDialog dialog = new ChangeIntoMotionDialog(mw);
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    StringBuilder builder = new StringBuilder();
+            //    foreach (int number in dialog.NumberList)
+            //    {
+            //        builder.Append(number.ToString() + " ");
+            //    }
+            //    String stepName = GetUsableStepName();
+            //    if (stepName == null)
+            //    {
+            //        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+            //        return;
+            //    }
+            //    String commandLine = "\tLightGroup " + stepName + "LightGroup = Create.Animation(Translation,\""
+            //        + builder.ToString().Trim() + "\");";
 
-                lightScriptDictionary.Add(stepName, commandLine);
-                visibleDictionary.Add(stepName, true);
-                containDictionary.Add(stepName, new List<string>() { stepName });
-                if (RefreshData())
-                {
-                    AddStep(stepName, "");
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                }
-            }
+            //    lightScriptDictionary.Add(stepName, commandLine);
+            //    visibleDictionary.Add(stepName, true);
+            //    containDictionary.Add(stepName, new List<string>() { stepName });
+            //    if (RefreshData())
+            //    {
+            //        AddStep(stepName, "");
+            //        lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            //    }
+            //}
         }
 
         private void Menu_MouseEnter(object sender, RoutedEventArgs e)

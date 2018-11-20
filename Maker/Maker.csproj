@@ -201,8 +201,8 @@
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
-    <Compile Include="View\UI\Dialog\ChangeIntoMotionDialog.xaml.cs">
-      <DependentUpon>ChangeIntoMotionDialog.xaml</DependentUpon>
+    <Compile Include="View\UI\Limitless\LimitlessLampUserControl.xaml.cs">
+      <DependentUpon>LimitlessLampUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\ChangeTimeDialog.cs" />
     <Compile Include="View\UI\Dialog\CheckPropertiesDialog.xaml.cs">
@@ -691,7 +691,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Dialog\ChangeIntoMotionDialog.xaml">
+    <Page Include="View\UI\Limitless\LimitlessLampUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
