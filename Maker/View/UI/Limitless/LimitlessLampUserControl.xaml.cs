@@ -78,5 +78,14 @@ namespace Maker.View.Dialog
                
             //}
         }
+
+        private void AddRow(object sender, RoutedEventArgs e)
+        {
+            mLaunchpad.AddRow();
+        }
+        private void RemoveRow(object sender, RoutedEventArgs e)
+        {
+            //mLaunchpad.RemoveRow();
+        }
     }
 }

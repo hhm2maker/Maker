@@ -15,6 +15,7 @@ namespace Maker.View.Device
         {
             InitializeComponent();
             ColumnsCount = 0;
+            RowsCount = 0;
             InitLaunchpad();
         }
         /// <summary>
@@ -40,10 +41,32 @@ namespace Maker.View.Device
             _smallCrevice = 600 / 75;//750 / 10 = 75
             _bigCrevice = 600 / 18.75; //750 / 40 = 75
 
-            AddColumn();
+            Rectangle r = new Rectangle();
+            r.Width = _blockWidth;
+            r.Height = _blockWidth;
+            r.Fill = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+
+            r.MouseEnter += ChangeColor;
+            r.MouseLeftButtonDown += SetColor;
+            r.MouseRightButtonDown += ClearColor;
+
+            Canvas.SetLeft(r, _bigCrevice + 0 * (_blockWidth + _smallCrevice));
+            Canvas.SetTop(r, _bigCrevice + 0 * (_blockWidth + _smallCrevice));
+            r.RadiusX = 5;
+            r.RadiusY = 5;
+            cMain.Children.Add(r);
+
+            ColumnsCount = 1;
+            RowsCount = 1;
         }
 
         public int ColumnsCount{
+            get;
+            set;
+        }
+
+        public int RowsCount
+        {
             get;
             set;
         }
@@ -53,7 +76,7 @@ namespace Maker.View.Device
         /// </summary>
         public void AddColumn()
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < RowsCount; j++)
             {
                 Rectangle r = new Rectangle();
                 r.Width = _blockWidth;
@@ -72,6 +95,32 @@ namespace Maker.View.Device
             }
             ColumnsCount++;
             cMain.Width = _bigCrevice * 2 + ColumnsCount * (_blockWidth + _smallCrevice);
+        }
+
+        /// <summary>
+        /// 增加一行
+        /// </summary>
+        public void AddRow()
+        {
+            for (int j = 0; j < ColumnsCount; j++)
+            {
+                Rectangle r = new Rectangle();
+                r.Width = _blockWidth;
+                r.Height = _blockWidth;
+                r.Fill = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+
+                r.MouseEnter += ChangeColor;
+                r.MouseLeftButtonDown += SetColor;
+                r.MouseRightButtonDown += ClearColor;
+
+                Canvas.SetLeft(r, _bigCrevice + j * (_blockWidth + _smallCrevice));
+                Canvas.SetTop(r, _bigCrevice + RowsCount * (_blockWidth + _smallCrevice));
+                r.RadiusX = 5;
+                r.RadiusY = 5;
+                cMain.Children.Add(r);
+            }
+            RowsCount++;
+            cMain.Height = _bigCrevice * 2 + RowsCount * (_blockWidth + _smallCrevice);
         }
 
         private void ChangeColor(object sender, RoutedEventArgs e)

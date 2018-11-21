@@ -23,7 +23,11 @@
             <Button  Click="AddColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource AddOneColumn}"></Button>
             <Button  Click="RemoveColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource ReduceOneColumn}"></Button>
         </StackPanel>
-        <StackPanel>
+            <StackPanel>
+                <Button  Click="AddRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource AddOneColumn}"></Button>
+                <Button  Click="RemoveRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource ReduceOneColumn}"></Button>
+            </StackPanel>
+            <StackPanel>
             <Button  Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}"></Button>
             <Button  Click="btnCancel_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource Cancel}"></Button>
 
