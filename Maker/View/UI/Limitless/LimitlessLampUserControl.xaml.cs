@@ -85,7 +85,7 @@ namespace Maker.View.Dialog
         }
         private void RemoveRow(object sender, RoutedEventArgs e)
         {
-            //mLaunchpad.RemoveRow();
+            mLaunchpad.RemoveRow();
         }
     }
 }

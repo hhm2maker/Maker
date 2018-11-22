@@ -58,6 +58,8 @@ namespace Maker.View.Device
 
             ColumnsCount = 1;
             RowsCount = 1;
+            cMain.Width = _bigCrevice * 2 + ColumnsCount * (_blockWidth + _smallCrevice);
+            cMain.Height = _bigCrevice * 2 + RowsCount * (_blockWidth + _smallCrevice);
         }
 
         public int ColumnsCount{
@@ -76,7 +78,7 @@ namespace Maker.View.Device
         /// </summary>
         public void AddColumn()
         {
-            for (int j = 0; j < RowsCount; j++)
+            for (int j = 1; j < RowsCount+1; j++)
             {
                 Rectangle r = new Rectangle();
                 r.Width = _blockWidth;
@@ -88,10 +90,10 @@ namespace Maker.View.Device
                 r.MouseRightButtonDown += ClearColor;
 
                 Canvas.SetLeft(r, _bigCrevice  + ColumnsCount * (_blockWidth + _smallCrevice));
-                Canvas.SetTop(r, _bigCrevice + j * (_blockWidth + _smallCrevice));
+                Canvas.SetTop(r, _bigCrevice + (j-1) * (_blockWidth + _smallCrevice));
                 r.RadiusX = 5;
                 r.RadiusY = 5;
-                cMain.Children.Add(r);
+                cMain.Children.Insert(j  *(ColumnsCount+1)-1, r);
             }
             ColumnsCount++;
             cMain.Width = _bigCrevice * 2 + ColumnsCount * (_blockWidth + _smallCrevice);
@@ -117,7 +119,7 @@ namespace Maker.View.Device
                 Canvas.SetTop(r, _bigCrevice + RowsCount * (_blockWidth + _smallCrevice));
                 r.RadiusX = 5;
                 r.RadiusY = 5;
-                cMain.Children.Add(r);
+                cMain.Children.Insert(RowsCount * ColumnsCount + j , r);
             }
             RowsCount++;
             cMain.Height = _bigCrevice * 2 + RowsCount * (_blockWidth + _smallCrevice);
@@ -161,15 +163,31 @@ namespace Maker.View.Device
         /// </summary>
         public void RemoveColumn()
         {
-            if (ColumnsCount > 0) {
-                for (int i = 0; i < 10; i++) {
-                    cMain.Children.RemoveAt(cMain.Children.Count-1);
+            if (ColumnsCount > 1) {
+                for (int j = RowsCount ; j > 0 ; j--)
+                {
+                    cMain.Children.RemoveAt(ColumnsCount * j - 1 );
                 }
                 ColumnsCount--;
                 cMain.Width = _bigCrevice * 2 + ColumnsCount * (_blockWidth + _smallCrevice);
             }
-          
         }
+        /// <summary>
+        /// 移除一行
+        /// </summary>
+        public void RemoveRow()
+        {
+            if (RowsCount > 1)
+            {
+                for (int j = 0; j< ColumnsCount; j++)
+                {
+                    cMain.Children.RemoveAt(cMain.Children.Count-1);
+                }
+                RowsCount--;
+                cMain.Height = _bigCrevice * 2 + RowsCount * (_blockWidth + _smallCrevice);
+            }
+        }
+        
         /// <summary>
         /// 根据传入的位置值返回Canvas里的按钮
         /// </summary>

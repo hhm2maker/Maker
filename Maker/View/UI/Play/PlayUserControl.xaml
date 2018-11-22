@@ -43,7 +43,7 @@
                 </ToolBar>
                 <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
             </DockPanel>
-            <DockPanel Background="#535353" Grid.Row="2">
+            <DockPanel Background="#535353" Grid.Row="3">
                 <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <Button Content="加载教程轨" FontSize="14"  Foreground="#f0f0f0" Click="LoadTutorial" />
                 </ToolBar>
