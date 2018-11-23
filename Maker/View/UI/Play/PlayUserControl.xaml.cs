@@ -963,11 +963,13 @@ namespace Maker.View.UI
             //Chk(WinMM.midiStreamOpen(out moHdl, ref moID, 1, null, instance, 0)); // open midi out in stream mode
             //Chk(WinMM.midiOutOpen(out moHdl, moID, null, (IntPtr)0, 0));// open midi out in stream mode
 #endif
-            //byte[] sx = { 0xF0, 0x7E, 0x7F, 0x09, 0x01, 0xF7 }; // GM On sysex
-            //byte[] sx = { 240 ,0 ,32 ,41 ,2 ,16 ,11 ,44 ,63 ,63 ,63 ,247 }; // GM On sysex
-            //byte[] sx = { 240, 0, 32, 41, 2, 24, 34, 1, 247 }; // GM On sysex
-            byte[] sx = { 240, 0, 32, 41, 2, 16, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247}; // GM On sysex
-
+            //byte[] sx = { 240, 0, 32, 41, 2, 16, 20, 124, 1, 5, 72, 101, 108, 108, 111, 32, 2, 119, 111, 114, 108,100, 33, 247}; // GM On sysex
+            String[] str = tbExport.Text.Split(',');
+            byte[] sx = new byte[str.Length];
+            for (int i = 0; i < str.Length; i++) {
+                sx[i] = (byte)int.Parse(str[i]);
+            }
+            //byte[] sx = {240, 0 ,32, 41, 2 ,16 ,11 ,99 ,63 ,63 ,63 ,247 }; // GM On sysex
             //PREVIOUS CODE
             //int shdr = Marshal.SizeOf(typeof(MidiHdr)); // hdr size
             //NEW CODE

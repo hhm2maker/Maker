@@ -18,6 +18,7 @@
             <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <DockPanel Background="#535353" Grid.Row="0" >
@@ -31,7 +32,6 @@
                 <ComboBox Name="cbRealDevice" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="CbRealDevice_SelectionChanged"/>
                 <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
                 <ComboBox Name="cbPassageway" Background="#454545" Width="50"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbPassageway_SelectionChanged" />
-                <Button Content="{DynamicResource Export}" FontSize="14" Width="50" Foreground="#6f6f6f" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click" />
             </ToolBar>
             <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Visibility="Collapsed" Foreground="#f0f0f0" IsEnabled="False" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center"/>
             <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbMustOpenNumber" Height="21" Margin="10,0,0,0" HorizontalAlignment="Left"/>
@@ -48,7 +48,13 @@
                     <Button Content="加载教程轨" FontSize="14"  Foreground="#f0f0f0" Click="LoadTutorial" />
                 </ToolBar>
             </DockPanel>
-            <play:TeachingControl Grid.Row="3" x:Name="mTeachingControl" ClipToBounds="True"/>
+            <DockPanel Background="#535353" Grid.Row="4">
+                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                    <TextBox Name="tbExport" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
+                    <Button Content="{DynamicResource Export}" FontSize="14"  Foreground="#f0f0f0" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click"/>
+                </ToolBar>
+            </DockPanel>
+            <play:TeachingControl Grid.Row="5" x:Name="mTeachingControl" ClipToBounds="True"/>
     </Grid>
     </Grid>
 </local:BaseUserControl>
