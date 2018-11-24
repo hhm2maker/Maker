@@ -264,7 +264,6 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Control\NumberUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Device\GrowLaunchpad.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Device\NewOrUpdateDeviceWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\Automatic\RandomFountainDialog.g.cs
-E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ChangeIntoMotionDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\CheckPropertiesDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ColorTabDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ControlScriptDialog.g.cs
@@ -373,7 +372,6 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Control\NumberUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Device\GrowLaunchpad.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Device\NewOrUpdateDeviceWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\Automatic\RandomFountainDialog.baml
-E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ChangeIntoMotionDialog.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\CheckPropertiesDialog.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ColorTabDialog.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Dialog\ControlScriptDialog.baml
@@ -446,3 +444,7 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Work\WebBrowserWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\MakerpjUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\UserControlDialog\AboutDialog.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\UserControlDialog\AboutDialog.baml
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Limitless\LimitlessLampUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\IdeaUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Limitless\LimitlessLampUserControl.baml
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\IdeaUserControl.baml

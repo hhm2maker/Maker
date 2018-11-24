@@ -544,19 +544,34 @@ namespace Maker.Business
         /// <param name="filePath">Light文件的路径</param>
         public List<Light> ReadLightFile(String filePath)
         {
-            FileStream f2 = new FileStream(filePath, FileMode.OpenOrCreate);
-            int i = 0;
-            StringBuilder sb2 = new StringBuilder();
-            while ((i = f2.ReadByte()) != -1)
+            List<Light> mActionBeanList = new List<Light>();//存放AB的集合
+            List<int> mData = new List<int>();//文件字符集合
+            List<String> mAction = new List<String>();
+            //获取文件里所有的字节
+            using (FileStream f = new FileStream(filePath, FileMode.OpenOrCreate))
             {
-                sb2.Append((char)i);
+                int i = 0;
+                while ((i = f.ReadByte()) != -1)
+                {
+                    mData.Add(i);
+                }
             }
-            f2.Close();
-            String linShi = sb2.ToString();
-            linShi = linShi.Replace("\n", "");
-            linShi = linShi.Replace("\r", "");
-            
-            return LightStringToLightList(linShi);
+            mActionBeanList = ReadMidiContent(mData);
+            //格式化时间
+            int time = 0;
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                if (mActionBeanList[l].Time == 0)
+                {
+                    mActionBeanList[l].Time = time;
+                }
+                else
+                {
+                    time += mActionBeanList[l].Time;
+                    mActionBeanList[l].Time = time;
+                }
+            }
+            return mActionBeanList;
         }
         public List<Light> LightStringToLightList(String lightString) {
             List<Light> lightList = new List<Light>();
@@ -581,19 +596,22 @@ namespace Maker.Business
         /// <param name="mActionBeanList">需要写入的灯光数组</param>
         public void WriteLightFile(String filePath, List<Light> mActionBeanList)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < mActionBeanList.Count; j++)
+            //StringBuilder sb = new StringBuilder();
+            //for (int j = 0; j < mActionBeanList.Count; j++)
+            //{
+            //    sb.Append(mActionBeanList[j].Time + "," + mActionBeanList[j].Action + "," + mActionBeanList[j].Position + "," + mActionBeanList[j].Color + ";");
+            //    if (j != mActionBeanList.Count - 1)
+            //    {
+            //        sb.Append(Environment.NewLine);
+            //    }
+            //}
+            String str = WriteMidiContent(mActionBeanList);
+            FileStream f = new FileStream(filePath, FileMode.OpenOrCreate);
+            for (int j = 0; j < str.Length; j++)
             {
-                sb.Append(mActionBeanList[j].Time + "," + mActionBeanList[j].Action + "," + mActionBeanList[j].Position + "," + mActionBeanList[j].Color + ";");
-                if (j != mActionBeanList.Count - 1)
-                {
-                    sb.Append(Environment.NewLine);
-                }
+                f.WriteByte((byte)str[j]);
             }
-            using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.Default))
-            {
-                sw.WriteLine(sb.ToString());
-            }
+          
         }
         /// <summary>
         /// 获得文件夹下所有符合条件的文件名

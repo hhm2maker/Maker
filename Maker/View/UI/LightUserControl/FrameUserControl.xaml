@@ -420,7 +420,7 @@
                                 <TextBlock Text="{DynamicResource OpenProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
                             </StackPanel>
                             <Rectangle Height="1" Fill="#303030"/>
-                            <StackPanel Orientation="Horizontal" Background="Transparent"  Name="spSaveFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
+                            <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown" Name="spSaveFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
                                 <Image Source="../../Resources/Image/save_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
                                 <TextBlock Text="{DynamicResource SaveProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
                             </StackPanel>

@@ -1884,5 +1884,11 @@ namespace Maker.View.LightUserControl
                 bShowMembrane.Background = noSelectBrush;
             }
         }
+
+        private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //FileBusiness.CreateInstance().WriteLightFile(filePath,GetData());
+            SaveFile();
+        }
     }
 }
