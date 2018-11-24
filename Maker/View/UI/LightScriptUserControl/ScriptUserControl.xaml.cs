@@ -2681,51 +2681,33 @@ namespace Maker.View.LightScriptUserControl
                     System.Windows.Forms.MessageBox.Show("请先取消与父类的关系");
                     return;
                 }
-                if (extendsDictionary.ContainsKey(GetStepName(sp)))
-                {
-                    if (extendsDictionary[GetStepName(sp)].Count > 0)
-                    {
+                foreach (var model in scriptModelDictionary) {
+                    if (model.Value.Parent.Equals(GetStepName(sp))) {
                         lbStep.SelectedItem = lbStep.Items[i];
                         System.Windows.Forms.MessageBox.Show("该步骤有子类，不允许合并!");
                         return;
                     }
                 }
+               
                 if (finalDictionary.ContainsKey(GetStepName(sp)))
                 {
                     lbStep.SelectedItem = lbStep.Items[i];
                     System.Windows.Forms.MessageBox.Show("该步骤有样式，请先将样式融入步骤!");
                     return;
                 }
-                if (intersectionDictionary.ContainsKey(GetStepName(sp)))
+                if (scriptModelDictionary[GetStepName(sp)].Intersection.Count>0)
                 {
                     lbStep.SelectedItem = lbStep.Items[i];
                     System.Windows.Forms.MessageBox.Show("该步骤有(交)子集，请先将集合融入步骤!");
                     return;
                 }
-                foreach (var item in intersectionDictionary)
-                {
-                    if (item.Value.Contains(GetStepName(sp)))
-                    {
-                        lbStep.SelectedItem = lbStep.Items[i];
-                        System.Windows.Forms.MessageBox.Show("该步骤是(交)子集，请先将集合融入步骤!");
-                        return;
-                    }
-                }
-                if (complementDictionary.ContainsKey(GetStepName(sp)))
+                if (scriptModelDictionary[GetStepName(sp)].Complement.Count > 0)
                 {
                     lbStep.SelectedItem = lbStep.Items[i];
                     System.Windows.Forms.MessageBox.Show("该步骤有(补)子集，请先将集合融入步骤!");
                     return;
                 }
-                foreach (var item in complementDictionary)
-                {
-                    if (item.Value.Contains(GetStepName(sp)))
-                    {
-                        lbStep.SelectedItem = lbStep.Items[i];
-                        System.Windows.Forms.MessageBox.Show("该步骤是(补)子集，请先将集合融入步骤!");
-                        return;
-                    }
-                }
+              
                 if (lockedDictionary.ContainsKey(GetStepName(sp)))
                 {
                     lbStep.SelectedItem = lbStep.Items[i];
@@ -2745,9 +2727,9 @@ namespace Maker.View.LightScriptUserControl
                 StackPanel oldPanel = (StackPanel)lbStep.SelectedItems[1];
                 StackPanel newPanel = (StackPanel)lbStep.SelectedItems[0];
 
-                foreach (String str in containDictionary[GetStepName(oldPanel)])
+                foreach (String str in scriptModelDictionary[GetStepName(oldPanel)].Contain)
                 {
-                    if (!containDictionary[GetStepName(newPanel)].Contains(str))
+                    if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains(str))
                     {
                         //该字段不存在重复
                         _dictionary.Add(str, str);
@@ -2758,7 +2740,7 @@ namespace Maker.View.LightScriptUserControl
                         int x = 1;
                         while (x <= 100000)
                         {
-                            if (!containDictionary[GetStepName(newPanel)].Contains("Step" + x) && !newKey.Contains("Step" + x))
+                            if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
                             {
                                 //不存在重复
                                 _dictionary.Add(str, "Step" + x);
@@ -2774,34 +2756,35 @@ namespace Maker.View.LightScriptUserControl
                         }
                     }
                 }
-                String parentCommand = lightScriptDictionary[GetStepName(oldPanel)];
+                String parentCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
                 foreach (var item in _dictionary)
                 {
                     parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
                     parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                    parentCommand = parentCommand.Replace(item.Key + "Range", item.Value + "Range");
-                    parentCommand = parentCommand.Replace(item.Key + "Color", item.Value + "Color");
-                    containDictionary[GetStepName(newPanel)].Add(item.Value);
+                    parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+                    parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+                    parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
+                    scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
                 }
-                String oldChildrenCommand = lightScriptDictionary[GetStepName(newPanel)];
+                String oldChildrenCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
                 String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
+                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.AddRange(" + _dictionary.Values.First() + "LightGroup);";
 
-                lightScriptDictionary[GetStepName(newPanel)] = newChildrenCommand;
-                lightScriptDictionary.Remove(GetStepName(oldPanel));
+                scriptModelDictionary[GetStepName(newPanel)].Value = newChildrenCommand;
+                scriptModelDictionary.Remove(GetStepName(oldPanel));
 
-                Dictionary<string, string> _lightScriptDictionary = new Dictionary<string, string>();
-                foreach (var item in lightScriptDictionary)
+                Dictionary<String, ScriptModel> _lightScriptDictionary = new Dictionary<String, ScriptModel>();
+                foreach (var item in scriptModelDictionary)
                 {
                     _lightScriptDictionary.Add(item.Key, item.Value);
                 }
-                lightScriptDictionary = _lightScriptDictionary;
+                scriptModelDictionary = _lightScriptDictionary;
 
                 //visibleDictionary.Remove(GetStepName(oldPanel));
-                containDictionary.Remove(GetStepName(oldPanel));
+                //containDictionary.Remove(GetStepName(oldPanel));
                 lbStep.Items.Remove(lbStep.SelectedItems[1]);
             }
-            //RefreshData();
+            Test();
         }
         private String GetVisibleImageStepName(Object sender)
         {
