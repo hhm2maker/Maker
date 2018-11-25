@@ -79,6 +79,7 @@ namespace Maker.View.UI
                 if (keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
                     keyboardModels.Add(keyboardModel.Position, keyboardModel);
             }
+            ip.button1_Click();
         }
 
         private void LoadHint()
@@ -239,7 +240,7 @@ namespace Maker.View.UI
                 cbRealDeviceIn.SelectedIndex = 0;
             }
         }
-        InputPort ip;
+       private InputPort ip;
         public void Check()
         {
             if (ip != null)
@@ -270,7 +271,6 @@ namespace Maker.View.UI
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
                 this.pc = pc;
-                button1_Click();
             }
 
 
@@ -442,7 +442,7 @@ namespace Maker.View.UI
             private void KeyEvent(int position, int openOrClose)
             {
                 //模拟键盘输入
-                if (!keyboardModels.ContainsKey(position))
+                if (!keyboardModels.ContainsKey(position) || dd != null)
                 {
                     return;
                 }
@@ -472,7 +472,8 @@ namespace Maker.View.UI
 
                 //LoadDllFile(dllfile);
                 //return;
-                LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\DD85590.64.dll");
+                if(dd == null)
+                    LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\DD85590.64.dll");
             }
 
 

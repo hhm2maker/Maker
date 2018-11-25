@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 
 namespace Maker.Business
 {
@@ -73,7 +74,6 @@ namespace Maker.Business
                 }
                 if (nowRecordPosition == 2)
                 {
-
                     ab.Color = mData[i];
                     nowRecordPosition = 3;
                     mActionBeanList.Add(ab);
@@ -670,23 +670,12 @@ namespace Maker.Business
             else {
                 colorPath = filePath;
             }
-            FileStream f;
-            f = new FileStream(colorPath, FileMode.OpenOrCreate);
-            int i = 0;
-            String LingShi = "";
-            while ((i = f.ReadByte()) != -1)
+            foreach (XElement element in XDocument.Load(colorPath).Element("Colors").Elements("Color"))
             {
-                if (i == ';')
-                {
-                    LingShi = LingShi.Replace("\n", "");
-                    LingShi = LingShi.Replace("\r", "");
-                    colorList.Add(LingShi);
-                    LingShi = "";
-                    continue;
-                }
-                LingShi += (char)i;
+                
+                colorList.Add(element.Value);
             }
-            f.Close();
+            Console.WriteLine(colorList.Count);
             return colorList;
         }
         /// <summary>

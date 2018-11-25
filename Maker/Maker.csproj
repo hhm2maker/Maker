@@ -364,8 +364,7 @@
     <Compile Include="View\UI\PageUserControl.xaml.cs">
       <DependentUpon>PageUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\PageWindow\BasePageUserControl.cs" />
-    <Compile Include="View\UI\PageWindow\PageMainUserControl.xaml.cs">
+    <Compile Include="View\UI\Play\PageMainUserControl.xaml.cs">
       <DependentUpon>PageMainUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Setting\PavedSetting.xaml.cs">
@@ -831,7 +830,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\PageWindow\PageMainUserControl.xaml">
+    <Page Include="View\UI\Play\PageMainUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

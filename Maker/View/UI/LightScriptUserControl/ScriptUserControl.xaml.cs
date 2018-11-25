@@ -113,8 +113,8 @@ namespace Maker.View.LightScriptUserControl
 
         private void InitView()
         {
-            lbColor.HideText();
-            lbColor.ToSmall();
+            //lbColor.HideText();
+            //lbColor.ToSmall();
 
             AddStepControlToolTip();
         }

@@ -47,6 +47,7 @@ namespace Maker.View.LightUserControl
             lbColor.SelectedIndex = 5;
             tbNowColor.Text = (lbColor.SelectedIndex).ToString();
             tbNowColor.Background = NumToBrush(lbColor.SelectedIndex);
+
         }
 
         private void InitLaunchpadEvent()
@@ -364,14 +365,7 @@ namespace Maker.View.LightUserControl
         /// <returns>SolidColorBrush笔刷</returns>
         private SolidColorBrush NumToBrush(int i)
         {
-            if (i == -1)
-            {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
-            }
-            else
-            {
-                return StaticConstant.brushList[i-1];
-            }
+            return StaticConstant.brushList[i];
         }
 
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -389,14 +383,7 @@ namespace Maker.View.LightUserControl
             tbNowColor.Text = (lbColor.SelectedIndex).ToString();
             tbNowColor.Background = NumToBrush(lbColor.SelectedIndex);
             nowColor = lbColor.SelectedIndex;
-            if (lbColor.SelectedIndex == 0)
-            {
-                mLaunchpad.SetNowBrush(StaticConstant.closeBrush);
-            }
-            else
-            {
-                mLaunchpad.SetNowBrush(StaticConstant.brushList[lbColor.SelectedIndex - 1]);
-            }
+            mLaunchpad.SetNowBrush(StaticConstant.brushList[lbColor.SelectedIndex]);
         }
 
         private void btnLeftUp_Click(object sender, RoutedEventArgs e)

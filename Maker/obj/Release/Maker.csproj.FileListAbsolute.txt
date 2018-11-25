@@ -298,7 +298,6 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Help\AppreciateWindow.g.cs
 E:\Sharer\Maker\Maker\obj\Release\Business\Discarded\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\LogoUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\PageUserControl.g.cs
-E:\Sharer\Maker\Maker\obj\Release\View\UI\PageWindow\PageMainUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Setting\PavedSetting.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\PavedUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\PianoRoll\PianoRollUserControl.g.cs
@@ -406,7 +405,6 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Help\AppreciateWindow.baml
 E:\Sharer\Maker\Maker\obj\Release\Business\Discarded\LogoUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\LogoUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\PageUserControl.baml
-E:\Sharer\Maker\Maker\obj\Release\View\UI\PageWindow\PageMainUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Setting\PavedSetting.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\PavedUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\PianoRoll\PianoRollUserControl.baml
@@ -448,3 +446,5 @@ E:\Sharer\Maker\Maker\obj\Release\View\UI\Limitless\LimitlessLampUserControl.g.c
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\IdeaUserControl.g.cs
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Limitless\LimitlessLampUserControl.baml
 E:\Sharer\Maker\Maker\obj\Release\View\UI\Tool\IdeaUserControl.baml
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Play\PageMainUserControl.g.cs
+E:\Sharer\Maker\Maker\obj\Release\View\UI\Play\PageMainUserControl.baml

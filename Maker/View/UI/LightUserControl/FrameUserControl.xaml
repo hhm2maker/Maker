@@ -458,7 +458,7 @@
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TabControl BorderThickness="0" Width="400" Name="tcLeft" >
+                    <TabControl BorderThickness="0" Width="240" Name="tcLeft" >
                         <TabControl.ItemContainerStyle>
                             <Style>
                                 <Setter Property="TabItem.Visibility" Value="Collapsed"/>
@@ -491,7 +491,7 @@
                                     <TextBlock   Width="120" FontSize="20"  Foreground="White" Text="{DynamicResource NowColorColon}" />
                                     <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
                                 </StackPanel>
-                                <view:ColorPanel x:Name="lbColor" SelectionChanged="lbColor_SelectionChanged" Background="#535353" BorderThickness="0" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
+                                <view:ColorPanel x:Name="lbColor" SelectionChanged="lbColor_SelectionChanged" BorderThickness="0" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
                             </Grid>
                         </TabItem>
                         <TabItem >
