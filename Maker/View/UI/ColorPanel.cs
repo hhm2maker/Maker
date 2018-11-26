@@ -28,8 +28,8 @@ namespace Maker.View
                 {
                     CornerRadius = new CornerRadius(3),
                     BorderThickness = new Thickness(3),
-                    Height = 27,
-                    Width = 27,
+                    Height = 25,
+                    Width = 25,
                 };
                 ListBoxItem item = new ListBoxItem
                 {
@@ -38,8 +38,8 @@ namespace Maker.View
                     Content = border,
                     Height = 29,
                     Width = 29,
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    VerticalContentAlignment = VerticalAlignment.Top,
                 };
                 border.BorderBrush = StaticConstant.brushList[i];
                 border.Background = new SolidColorBrush(Color.FromArgb(200,
