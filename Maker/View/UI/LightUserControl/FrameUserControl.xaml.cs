@@ -34,8 +34,9 @@ namespace Maker.View.LightUserControl
             selectView = bDraw;
 
             mLaunchpad.SetSize(600);
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(20, 36, 33)));
-      
+            //mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(20, 36, 33)));
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
+
             //初始化贴膜
             mLaunchpad.AddMembrane();
             mLaunchpad.ShowOrHideMembrane();
@@ -132,10 +133,6 @@ namespace Maker.View.LightUserControl
         private int nowTimePoint = 0;
         private int mouseType = 0;//0没按下 1按下
         private int nowColor = 5;//当前颜色
-        private Boolean bLeftUp = false;//左上角区域是否被选中
-        private Boolean bRightUp = false;
-        private Boolean bLeftDown = false;
-        private Boolean bRightDown = false;
 
         /// <summary>
         /// 获取主窗口数据
@@ -386,90 +383,12 @@ namespace Maker.View.LightUserControl
             mLaunchpad.SetNowBrush(StaticConstant.brushList[lbColor.SelectedIndex]);
         }
 
-        private void btnLeftUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (!bLeftUp)
-            {
-                //如果没被选中
-                Button btn = (Button)sender;
-                DependencyObject d1 = VisualTreeHelper.GetChild(btn, 0);
-                Border button = LogicalTreeHelper.FindLogicalNode(d1, "btnTabItem") as Border;
-                button.BorderBrush = Brushes.White;
-            }
-            else
-            {
-                //如果被选中
-                   Button btn = (Button)sender;
-                DependencyObject d1 = VisualTreeHelper.GetChild(btn, 0);
-                Border button = LogicalTreeHelper.FindLogicalNode(d1, "btnTabItem") as Border;
-                button.BorderBrush = new SolidColorBrush(Color.FromRgb(68, 119, 64));
-            }
-            bLeftUp = !bLeftUp;
-        }
-
-        private void btnRightUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (!bRightUp)
-            {
-                //如果没被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.Yellow;
-                btn.BorderThickness = new Thickness(3);
-            }
-            else
-            {
-                //如果被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.White;
-                btn.BorderThickness = new Thickness(1);
-            }
-            bRightUp = !bRightUp;
-        }
-
-        private void btnLeftDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (!bLeftDown)
-            {
-                //如果没被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.Yellow;
-                btn.BorderThickness = new Thickness(3);
-            }
-            else
-            {
-                //如果被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.White;
-                btn.BorderThickness = new Thickness(1);
-            }
-            bLeftDown = !bLeftDown;
-        }
-
-        private void btnRightDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (!bRightDown)
-            {
-                //如果没被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.Yellow;
-                btn.BorderThickness = new Thickness(3);
-            }
-            else
-            {
-                //如果被选中
-                Button btn = (Button)sender;
-                btn.BorderBrush = Brushes.White;
-                btn.BorderThickness = new Thickness(1);
-            }
-            bRightDown = !bRightDown;
-        }
-
         private void btnRegionHorizontalFlipping_Click(object sender, RoutedEventArgs e)
         {
             #region
             if (nowTimePoint == 0)
                 return;
-            if (bLeftDown)
+            if (cbLeftDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 8; i < 24; i++)
@@ -496,7 +415,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][22] = x[2];
                 dic[liTime[nowTimePoint - 1]][23] = x[3];
             }
-            if (bLeftUp)
+            if (cbLeftUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 24; i < 40; i++)
@@ -523,7 +442,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][38] = x[2];
                 dic[liTime[nowTimePoint - 1]][39] = x[3];
             }
-            if (bRightDown)
+            if (cbRightDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 40; i < 56; i++)
@@ -550,7 +469,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][54] = x[2];
                 dic[liTime[nowTimePoint - 1]][55] = x[3];
             }
-            if (bRightUp)
+            if (cbRightUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 56; i < 72; i++)
@@ -586,7 +505,7 @@ namespace Maker.View.LightUserControl
             #region
             if (nowTimePoint == 0)
                 return;
-            if (bLeftDown)
+            if (cbLeftDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 8; i < 24; i++)
@@ -613,7 +532,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][22] = x[13];
                 dic[liTime[nowTimePoint - 1]][23] = x[12];
             }
-            if (bLeftUp)
+            if (cbLeftUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 24; i < 40; i++)
@@ -640,7 +559,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][38] = x[13];
                 dic[liTime[nowTimePoint - 1]][39] = x[12];
             }
-            if (bRightDown)
+            if (cbRightDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 40; i < 56; i++)
@@ -667,7 +586,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][54] = x[13];
                 dic[liTime[nowTimePoint - 1]][55] = x[12];
             }
-            if (bRightUp)
+            if (cbRightUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 56; i < 72; i++)
@@ -703,7 +622,7 @@ namespace Maker.View.LightUserControl
             #region
             if (nowTimePoint == 0)
                 return;
-            if (bLeftDown)
+            if (cbLeftDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 8; i < 24; i++)
@@ -730,7 +649,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][22] = x[8];
                 dic[liTime[nowTimePoint - 1]][23] = x[12];
             }
-            if (bLeftUp)
+            if (cbLeftUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 24; i < 40; i++)
@@ -757,7 +676,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][38] = x[8];
                 dic[liTime[nowTimePoint - 1]][39] = x[12];
             }
-            if (bRightDown)
+            if (cbRightDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 40; i < 56; i++)
@@ -784,7 +703,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][54] = x[8];
                 dic[liTime[nowTimePoint - 1]][55] = x[12];
             }
-            if (bRightUp)
+            if (cbRightUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 56; i < 72; i++)
@@ -820,7 +739,7 @@ namespace Maker.View.LightUserControl
             #region
             if (nowTimePoint == 0)
                 return;
-            if (bLeftDown)
+            if (cbLeftDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 8; i < 24; i++)
@@ -847,7 +766,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][22] = x[7];
                 dic[liTime[nowTimePoint - 1]][23] = x[3];
             }
-            if (bLeftUp)
+            if (cbLeftUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 24; i < 40; i++)
@@ -874,7 +793,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][38] = x[7];
                 dic[liTime[nowTimePoint - 1]][39] = x[3];
             }
-            if (bRightDown)
+            if (cbRightDown.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 40; i < 56; i++)
@@ -901,7 +820,7 @@ namespace Maker.View.LightUserControl
                 dic[liTime[nowTimePoint - 1]][54] = x[7];
                 dic[liTime[nowTimePoint - 1]][55] = x[3];
             }
-            if (bRightUp)
+            if (cbRightUp.IsChecked == true)
             {
                 int[] x = new int[16];
                 for (int i = 56; i < 72; i++)
@@ -947,7 +866,7 @@ namespace Maker.View.LightUserControl
         {
             if (nowTimePoint == 0)
                 return;
-            if (bLeftDown)
+            if (cbLeftDown.IsChecked == true)
             {
                 for (int i = 8; i < 24; i++)
                 {
@@ -960,7 +879,7 @@ namespace Maker.View.LightUserControl
                 }
                 */
             }
-            if (bLeftUp)
+            if (cbLeftUp.IsChecked == true)
             {
                 for (int i = 24; i < 40; i++)
                 {
@@ -977,7 +896,7 @@ namespace Maker.View.LightUserControl
               }
               */
             }
-            if (bRightDown)
+            if (cbRightDown.IsChecked == true)
             {
                 for (int i = 40; i < 56; i++)
                 {
@@ -994,7 +913,7 @@ namespace Maker.View.LightUserControl
               }
                 */
             }
-            if (bRightUp)
+            if (cbRightUp.IsChecked == true)
             {
                 for (int i = 56; i < 72; i++)
                 {

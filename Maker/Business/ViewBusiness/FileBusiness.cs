@@ -675,7 +675,6 @@ namespace Maker.Business
                 
                 colorList.Add(element.Value);
             }
-            Console.WriteLine(colorList.Count);
             return colorList;
         }
         /// <summary>

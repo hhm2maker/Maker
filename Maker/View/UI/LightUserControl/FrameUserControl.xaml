@@ -8,7 +8,7 @@
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-                     >
+       >
     <UserControl.Resources>
         <Style TargetType="Button">
             <Style.Setters>
@@ -314,16 +314,16 @@
         <DockPanel >
             <DockPanel.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False"/>
+                    <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False" FontSize="16"/>
                     <Separator />
-                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" />
-                    <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click"/>
-                    <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" />
-                    <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  />
+                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  FontSize="16"/>
                     <Separator />
-                    <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click"  />
+                    <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click" FontSize="16"/>
                     <Separator />
-                    <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"  />
+                    <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click" FontSize="16"/>
                 </ContextMenu>
             </DockPanel.ContextMenu>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -441,7 +441,7 @@
                             </LinearGradientBrush>
                         </Border.Background>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Bpm:" VerticalAlignment="Center" />
+                            <TextBlock Text="BPM:" VerticalAlignment="Center" />
                             <TextBlock Text="96" Width="40" VerticalAlignment="Center" Margin="10,0,0,0" TextAlignment="Center"/>
                         </StackPanel>
                     </Border>
@@ -472,7 +472,7 @@
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0" Background="#151920">
-                                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Margin="10">
+                                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="35" Margin="10">
                                         <Border.Background>
                                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                 <GradientStop Color="#f1f4f6" Offset="0"/>
@@ -482,8 +482,8 @@
                                             </LinearGradientBrush>
                                         </Border.Background>
                                         <DockPanel >
-                                            <TextBlock Text="MK2 Palette" VerticalAlignment="Center" Margin="0,0,0,0" DockPanel.Dock="Left"/>
-                                            <Image Source="../../Resources/Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
+                                            <TextBlock Text="MK2 Palette" FontSize="16" VerticalAlignment="Center" Margin="0,0,0,0" DockPanel.Dock="Left"/>
+                                            <Image Source="../../Resources/Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="10" HorizontalAlignment="Right" DockPanel.Dock="Right"/>
                                         </DockPanel>
                                     </Border>
                                 </StackPanel>
@@ -496,15 +496,15 @@
                         </TabItem>
                         <TabItem >
                             <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
-                                <TextBlock  Margin="15,15,0,0" Text="{DynamicResource PositionFourAreaColon}" FontSize="22" Height="auto" FontWeight="Bold" />
-                                <StackPanel Orientation="Horizontal" Margin="10,35,10,0" Width="auto">
-                                    <Button Name="btnLeftUp"  Width="120" Click="btnLeftUp_Click" Content="{DynamicResource UpperLeft}" />
-                                    <Button Name="btnRightUp"   Width="120" Click="btnRightUp_Click"  Content="{DynamicResource UpperRight}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="10,0,10,0" Width="auto">
-                                    <Button Name="btnLeftDown"    Width="120" Click="btnLeftDown_Click" Content="{DynamicResource LowerLeft}"/>
-                                    <Button Name="btnRightDown"   Width="120" Click="btnRightDown_Click" Content="{DynamicResource LowerRight}"/>
-                                </StackPanel>
+                                <TextBlock  Margin="10,15,0,0" Foreground="#fff" Text="{DynamicResource PositionFourAreaColon}" FontSize="20" Height="auto" FontWeight="Medium" />
+                                <DockPanel  Margin="10,15,10,0" Width="auto">
+                                    <CheckBox Name="cbLeftUp" Content="{DynamicResource UpperLeft}" FontSize="16" Foreground="#fff"/>
+                                    <CheckBox Name="cbRightUp" Width="110"   HorizontalAlignment="Right" Content="{DynamicResource UpperRight}" FontSize="16" Foreground="#fff"/>
+                                </DockPanel>
+                                <DockPanel Margin="10,0,10,0" Width="auto">
+                                    <CheckBox Name="cbLeftDown"  Content="{DynamicResource LowerLeft}" FontSize="16" Foreground="#fff"/>
+                                    <CheckBox Name="cbRightDown" Width="110" HorizontalAlignment="Right"  Content="{DynamicResource LowerRight}" FontSize="16" Foreground="#fff"/>
+                                </DockPanel>
                                 <StackPanel  Margin="20,25,20,0" Width="auto">
                                     <Button Name="btnRegionHorizontalFlipping" Width="180" Click="btnRegionHorizontalFlipping_Click" Content="{DynamicResource HorizontalFlipping}"/>
                                     <Button Name="btnRegionVerticalFlipping" Width="180" Click="btnRegionVerticalFlipping_Click" Content="{DynamicResource VerticalFlipping}"/>
@@ -530,8 +530,8 @@
                         </LinearGradientBrush>
                     </StackPanel.Background>
                     <StackPanel Orientation="Horizontal" Width="auto" VerticalAlignment="Center">
-                        <TextBlock   Margin="25,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
-                        <TextBlock  Name="tbTimeNow"  Margin="5,0,25,0" Width="60"  Foreground="White" TextAlignment="Center">0</TextBlock>
+                        <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
+                        <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center">0</TextBlock>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
                         <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  MouseLeftButtonDown="btnLastTimePoint_Click">
@@ -563,7 +563,7 @@
                             <Image Source="../../Resources/Image/toright.png" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                         <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertTimePoint_Click">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -610,7 +610,7 @@
                         </Border>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                         <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertStartTimePoint_Click">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

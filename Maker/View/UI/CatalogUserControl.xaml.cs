@@ -282,27 +282,7 @@ namespace Maker.View.UI
             gMain.Children.Clear();
             //载入新界面
             gMain.Children.Add(userControls[index]);
-            //是否是制作灯光的用户控件
-            if (userControls[index].IsMakerLightUserControl())
-            {
-                thumb_player.DragDelta += DragDelta;
-                thumb_player.DragStarted += DragStarted;
-                thumb_player.DragCompleted += DragCompleted;
-
-                thumb_paved.DragDelta += DragDelta;
-                thumb_paved.DragStarted += DragStarted;
-                thumb_paved.DragCompleted += DragCompleted;
-            }
-            else
-            {
-                thumb_player.DragDelta -= DragDelta;
-                thumb_player.DragStarted -= DragStarted;
-                thumb_player.DragCompleted -= DragCompleted;
-
-                thumb_paved.DragDelta += DragDelta;
-                thumb_paved.DragStarted += DragStarted;
-                thumb_paved.DragCompleted += DragCompleted;
-            }
+          
             //载入文件
             LoadFileList();
         }
@@ -374,9 +354,7 @@ namespace Maker.View.UI
             {
                 IntoUserControl(10);
             }
-           
         }
-        
 
         public void OpenFile()
         {
@@ -419,11 +397,43 @@ namespace Maker.View.UI
         }
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //是否是制作灯光的用户控件
             if (lbMain.SelectedIndex == -1)
-                return;
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.filePath = mw.lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
-            baseUserControl.LoadFile(lbMain.SelectedItem.ToString());
+            {
+                thumb_player.DragDelta -= DragDelta;
+                thumb_player.DragStarted -= DragStarted;
+                thumb_player.DragCompleted -= DragCompleted;
+
+                thumb_paved.DragDelta -= DragDelta;
+                thumb_paved.DragStarted -= DragStarted;
+                thumb_paved.DragCompleted -= DragCompleted;
+            }
+            else {
+                if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl())
+                {
+
+                    thumb_player.DragDelta += DragDelta;
+                    thumb_player.DragStarted += DragStarted;
+                    thumb_player.DragCompleted += DragCompleted;
+
+                    thumb_paved.DragDelta += DragDelta;
+                    thumb_paved.DragStarted += DragStarted;
+                    thumb_paved.DragCompleted += DragCompleted;
+                }
+                else
+                {
+                    thumb_player.DragDelta -= DragDelta;
+                    thumb_player.DragStarted -= DragStarted;
+                    thumb_player.DragCompleted -= DragCompleted;
+
+                    thumb_paved.DragDelta -= DragDelta;
+                    thumb_paved.DragStarted -= DragStarted;
+                    thumb_paved.DragCompleted -= DragCompleted;
+                }
+                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+                baseUserControl.filePath = mw.lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
+                baseUserControl.LoadFile(lbMain.SelectedItem.ToString());
+            }
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
