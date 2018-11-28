@@ -10,25 +10,15 @@ namespace Maker.View.Device
 {
     public class DrawLaunchpadPro:LaunchpadPro
     {
-        /// <summary>
-        /// 是否可以绘制
-        /// </summary>
-        public bool CanDraw;
+       
         public DrawLaunchpadPro() : base()
         {
             //基础事件
             MouseDown += Canvas_MouseDown;
             MouseUp += Canvas_MouseUp;
-            InitState();
             nowBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         }
-        /// <summary>
-        /// 初始化状态
-        /// </summary>
-        private void InitState()
-        {
-            CanDraw = false;
-        }
+       
         /// <summary>
         /// 改变绘制状态
         /// </summary>
@@ -37,13 +27,21 @@ namespace Maker.View.Device
         {
             if (isCanDraw)
             {
-                CanDraw = isCanDraw;
                 for (int i = 0; i < Count; i++)
                 {
                     FrameworkElement element = (FrameworkElement)Children[i];
                     element.MouseEnter += ChangeColor;
                     element.MouseLeftButtonDown += SetColor;
                     element.MouseRightButtonDown += ClearColor;
+                }
+            }
+            else {
+                for (int i = 0; i < Count; i++)
+                {
+                    FrameworkElement element = (FrameworkElement)Children[i];
+                    element.MouseEnter -= ChangeColor;
+                    element.MouseLeftButtonDown -= SetColor;
+                    element.MouseRightButtonDown -= ClearColor;
                 }
             }
         }
@@ -97,6 +95,58 @@ namespace Maker.View.Device
             {
                 FrameworkElement element = (FrameworkElement)Children[i];
                 element.MouseRightButtonDown += mouseRightButtonDownEvent;
+            }
+        }
+
+        /// <summary>
+        /// 移除自定义鼠标进入事件
+        /// </summary>
+        /// <param name="mouseEnterEvent"></param>
+        public void RemoveMouseEnter(MouseEventHandler mouseEnterEvent)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                FrameworkElement element = (FrameworkElement)Children[i];
+                element.MouseEnter -= mouseEnterEvent;
+            }
+        }
+
+        /// <summary>
+        /// 移除自定义鼠标左键按下事件
+        /// </summary>
+        /// <param name="mouseLeftButtonDownEvent"></param>
+        public void RemoveMouseLeftButtonDown(MouseButtonEventHandler mouseLeftButtonDownEvent)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                FrameworkElement element = (FrameworkElement)Children[i];
+                element.MouseLeftButtonDown -= mouseLeftButtonDownEvent;
+            }
+        }
+
+        /// <summary>
+        /// 移除自定义鼠标左键抬起事件
+        /// </summary>
+        /// <param name="mouseLeftButtonUpEvent"></param>
+        public void RemoveMouseLeftButtonUp(MouseButtonEventHandler mouseLeftButtonUpEvent)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                FrameworkElement element = (FrameworkElement)Children[i];
+                element.MouseLeftButtonUp -= mouseLeftButtonUpEvent;
+            }
+        }
+
+        /// <summary>
+        /// 移除自定义鼠标右键按下事件
+        /// </summary>
+        /// <param name="mouseRightButtonDownEvent"></param>
+        public void RemoveMouseRightButtonDown(MouseButtonEventHandler mouseRightButtonDownEvent)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                FrameworkElement element = (FrameworkElement)Children[i];
+                element.MouseRightButtonDown -= mouseRightButtonDownEvent;
             }
         }
 
@@ -212,6 +262,12 @@ namespace Maker.View.Device
         {
             if (!CanDragMove)
             {
+                if (e.ChangedButton == MouseButton.Left) {
+                    LeftOrRight = 0;
+                }else if (e.ChangedButton == MouseButton.Right)
+                {
+                    LeftOrRight = 1;
+                }
                 mouseType = 1;
                 e.Handled = true;
             }

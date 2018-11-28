@@ -102,7 +102,6 @@ namespace Maker.View.LightUserControl
             int i = mLaunchpad.GetNumber(sender as Shape);
             if (i < 96)
             {
-
                 dic[liTime[nowTimePoint - 1]][i] = nowColor;
             }
             else
@@ -365,16 +364,48 @@ namespace Maker.View.LightUserControl
             return StaticConstant.brushList[i];
         }
 
+        private Point point = new Point();
+        private Rectangle rectangle = new Rectangle();
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mouseType = 1;
+            point = e.GetPosition(mLaunchpad);
         }
 
         private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouseType = 0;
+            if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
+            {
+                mLaunchpad.Children.Remove(rectangle);
+            }
         }
 
+        private void mLaunchpad_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseType == 1 && tcLeft.SelectedIndex == 1) {
+                if (!mLaunchpad.Children.Contains(rectangle))
+                {
+                    rectangle = new Rectangle()
+                    {
+                        Width = Math.Abs(e.GetPosition(mLaunchpad).X - point.X),
+                        Height = Math.Abs(e.GetPosition(mLaunchpad).Y - point.Y),
+                        StrokeThickness = 2,
+                        Stroke = new SolidColorBrush(Colors.Black),
+                        StrokeDashArray = new DoubleCollection(new List<Double> { 2, 2 }),
+                    };
+                    mLaunchpad.Children.Add(rectangle);
+                    Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X , point.X));
+                    Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y) );
+                }
+                else {
+                    Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X, point.X));
+                    Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y));
+                    rectangle.Width = Math.Abs(e.GetPosition(mLaunchpad).X - point.X);
+                    rectangle.Height = Math.Abs(e.GetPosition(mLaunchpad).Y - point.Y);
+                }
+            }
+        }
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbNowColor.Text = (lbColor.SelectedIndex).ToString();
@@ -1614,7 +1645,7 @@ namespace Maker.View.LightUserControl
 
         public bool IsCanDraw()
         {
-            return nowTimePoint != 0;
+            return nowTimePoint != 0 && tcLeft.SelectedIndex == 0;
         }
 
         private ControlType nowControlType = ControlType.Draw;
@@ -1795,6 +1826,19 @@ namespace Maker.View.LightUserControl
         {
             //FileBusiness.CreateInstance().WriteLightFile(filePath,GetData());
             SaveFile();
+        }
+
+        private void tcLeft_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tcLeft.SelectedIndex == 0)
+               
+              
+            if (tcLeft.SelectedIndex == 1)
+            {
+               
+            }
+              
+               
         }
     }
 }

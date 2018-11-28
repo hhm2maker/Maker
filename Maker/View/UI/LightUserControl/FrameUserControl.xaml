@@ -458,7 +458,7 @@
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TabControl BorderThickness="0" Width="240" Name="tcLeft" >
+                    <TabControl BorderThickness="0" Width="240" Name="tcLeft" SelectionChanged="tcLeft_SelectionChanged">
                         <TabControl.ItemContainerStyle>
                             <Style>
                                 <Setter Property="TabItem.Visibility" Value="Collapsed"/>
@@ -520,7 +520,7 @@
                             </StackPanel>
                         </TabItem>
                     </TabControl>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown" PreviewMouseUp="Canvas_MouseUp" x:Name="mLaunchpad" MouseEnter="mLaunchpad_MouseEnter"/>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
                     <StackPanel.Background>
@@ -609,7 +609,6 @@
                             <Image Source="../../Resources/Image/fire_black.png" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                     </StackPanel>
-
                     <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                         <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertStartTimePoint_Click">
                             <Border.Background>
@@ -625,7 +624,6 @@
                         <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="Black">
                             <TextBox Name="tbInsertDiyTimePoint" Background="Black" BorderThickness="0" Width="100"  />
                         </Border>
-
                         <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnInsertDiyTimePoint_Click" >
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

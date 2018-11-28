@@ -145,6 +145,10 @@ namespace Operation
             #region
             for (int k = 0; k < Count; k++)
             {
+                //List<int> oldList = new List<int>() { 36, 37, 38, 39 };
+                //List<int> newList = new List<int>() { 64, 65, 66, 67 };
+                //this[k].Position = newList[oldList.IndexOf(this[k].Position)];
+
                 //左下
                 if (this[k].Position == 36) { this[k].Position = 64; continue; }
                 if (this[k].Position == 37) { this[k].Position = 65; continue; }
