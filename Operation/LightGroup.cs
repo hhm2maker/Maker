@@ -13,7 +13,7 @@ namespace Operation
         public static int ACTION = 1;
         public static int POSITION = 2;
         public static int COLOR = 3;
-     
+
         public static int NORMAL = 10;
         public static int ADD = 11;
         public static int REMOVE = 12;
@@ -23,7 +23,8 @@ namespace Operation
         /// <param name="attribute">属性</param>
         /// <param name="value">值</param>
         /// <returns></returns>
-        public void SetAttribute(int attribute,String strValue) {
+        public void SetAttribute(int attribute, String strValue)
+        {
             int mOperator = 0;
             int value = 0;
             if (strValue[0] == '+')
@@ -36,7 +37,8 @@ namespace Operation
                 mOperator = 12;
                 value = int.Parse(strValue.Substring(1));
             }
-            else {
+            else
+            {
                 mOperator = 10;
                 value = int.Parse(strValue.Substring(0));
             }
@@ -145,10 +147,9 @@ namespace Operation
             #region
             for (int k = 0; k < Count; k++)
             {
-                //List<int> oldList = new List<int>() { 36, 37, 38, 39 };
-                //List<int> newList = new List<int>() { 64, 65, 66, 67 };
-                //this[k].Position = newList[oldList.IndexOf(this[k].Position)];
-
+                List<int> oldList = new List<int>() { 36, 37, 38, 39 };
+                List<int> newList = new List<int>() { 64, 65, 66, 67 };
+                this[k].Position = newList[oldList.IndexOf(this[k].Position)];
                 //左下
                 if (this[k].Position == 36) { this[k].Position = 64; continue; }
                 if (this[k].Position == 37) { this[k].Position = 65; continue; }
@@ -700,13 +701,14 @@ namespace Operation
             }
             else
             {
-                return ;
+                return;
             }
-            int _Min = startPosition - span < 0 ? _Min = startPosition : 100;
+            int _Min = startPosition - span < 0 ? startPosition : 100;
             int _Max = startPosition + span > 9 ? 10 - startPosition : 100;
+
             int mMin = _Min < _Max ? _Min : _Max;
             int min, max;
-            if (_Min != 100 && _Max != 100)
+            if (_Min != 100 && _Max != 100 || mMin == 100)
             {
                 min = startPosition - span < 0 ? 0 : startPosition - span;
                 max = startPosition + span > 9 ? 9 : startPosition + span;
@@ -741,18 +743,20 @@ namespace Operation
                 int p = before.IndexOf(l.Position);
                 if (p != -1)
                 {
+                    if(after.Count> p)
                     l.Position = after[p];
                     continue;
                 }
                 int p2 = after.IndexOf(l.Position);
                 if (p2 != -1)
                 {
-                    l.Position = before[p2];
+                    if (before.Count > p2)
+                        l.Position = before[p2];
                     //continue;无用
                 }
             }
             RemoveIncorrectlyData(this);
-            return ;
+            return;
         }
         /// <summary>
         /// 去掉无用的数据
@@ -1047,7 +1051,7 @@ namespace Operation
             int max = LightBusiness.GetMax(this);
             int min = LightBusiness.GetMin(this);
             if (max == -1 && min == -1 && this.Count / 2 != 0)
-                return ;
+                return;
             //两两组合
             List<Light> ll = LightBusiness.SortCouple(this);
             Clear();
@@ -1142,7 +1146,7 @@ namespace Operation
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        public void InterceptTime( int min, int max)
+        public void InterceptTime(int min, int max)
         {
             List<Light> ll = LightBusiness.SortCouple(this);
             Clear();
@@ -1166,7 +1170,7 @@ namespace Operation
                 }
                 else if (this[i].Time < min && this[i].Action == 144)
                 {
-                    if (this[i + 1].Time > min && this[i + 1].Action == 128 && this[i + 1].Time < max )
+                    if (this[i + 1].Time > min && this[i + 1].Action == 128 && this[i + 1].Time < max)
                     {
                         listLight.Add(new Light(min, this[i].Action, this[i].Position, this[i].Color));
                     }
@@ -1195,7 +1199,7 @@ namespace Operation
             List<Light> ll = LightBusiness.Sort(this);
             Clear();
             AddRange(ll);
-          
+
             int max = LightBusiness.GetMax(this);
             List<Light> mLl = new List<Light>();
             for (int i = 28; i <= 123; i++)
@@ -1234,11 +1238,11 @@ namespace Operation
         /// 设置颜色(格式化)
         /// </summary>
         /// <param name="geshihua">新颜色集合</param>
-        public void SetColor( List<int> geshihua)
+        public void SetColor(List<int> geshihua)
         {
             List<Light> ll = LightBusiness.Copy(this);
             Clear();
-         
+
             List<char> mColor = new List<char>();
             for (int j = 0; j < ll.Count; j++)
             {
@@ -1261,7 +1265,7 @@ namespace Operation
             int OldColorCount = mColor.Count;
             if (OldColorCount == 0)
             {
-                return ;
+                return;
             }
             int chuCount = OldColorCount / geshihua.Count;
             int yuCount = OldColorCount % geshihua.Count;
@@ -1427,40 +1431,40 @@ namespace Operation
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Action == 128)
                             l.Time += number;
                     }
-                    return ;
+                    return;
                 }
                 else if (v2.Contains("-"))
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Action == 128)
                             l.Time -= number;
                     }
-                    return ;
+                    return;
                 }
                 else
                 {
                     if (!int.TryParse(v2, out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Action == 128)
                             l.Time = number;
                     }
-                    return ;
+                    return;
                 }
             }
             else if (v1 == END)
@@ -1477,40 +1481,40 @@ namespace Operation
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Time == time && l.Action == 128)
                             l.Time += number;
                     }
-                    return ;
+                    return;
                 }
                 else if (v2.Contains("-"))
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Time == time && l.Action == 128)
                             l.Time -= number;
                     }
-                    return ;
+                    return;
                 }
                 else
                 {
                     if (!int.TryParse(v2, out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in this)
                     {
                         if (l.Time == time && l.Action == 128)
                             l.Time = number;
                     }
-                    return ;
+                    return;
                 }
             }
             else if (v1 == ALLANDEND)
@@ -1540,7 +1544,7 @@ namespace Operation
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in mLl)
                     {
@@ -1548,13 +1552,13 @@ namespace Operation
                     }
                     Clear();
                     AddRange(mLl);
-                    return ;
+                    return;
                 }
                 else if (v2.Contains("-"))
                 {
                     if (!int.TryParse(v2.Substring(1), out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in mLl)
                     {
@@ -1568,7 +1572,7 @@ namespace Operation
                 {
                     if (!int.TryParse(v2, out int number))
                     {
-                        return ;
+                        return;
                     }
                     foreach (Light l in mLl)
                     {
@@ -1610,7 +1614,7 @@ namespace Operation
         /// 跟随复制到最后
         /// </summary>
         /// <param name="colorList"></param>
-        public void CopyToTheFollow( List<int> colorList)
+        public void CopyToTheFollow(List<int> colorList)
         {
             List<Light> ll = LightBusiness.SortCouple(this);
             List<Light> _lightGroup = LightBusiness.Copy(this);
@@ -1649,7 +1653,7 @@ namespace Operation
         /// 加速或减速运动
         /// </summary>
         /// <param name="rangeList"></param>
-        public void AccelerationOrDeceleration( List<int> rangeList)
+        public void AccelerationOrDeceleration(List<int> rangeList)
         {
             List<Light> _lightGroup = LightBusiness.Sort(this);
             List<Light> lightGroup = new List<Light>();
@@ -1682,7 +1686,7 @@ namespace Operation
         /// </summary>
         /// <param name="_type"></param>
         /// <param name="v"></param>
-        public void ShapeColor( int _type, List<int> v)
+        public void ShapeColor(int _type, List<int> v)
         {
             List<Light> lightGroup = LightBusiness.Copy(this);
             //方形
@@ -1690,7 +1694,7 @@ namespace Operation
             {
                 if (v.Count != 5)
                 {
-                    return ;
+                    return;
                 }
                 List<List<int>> lli = new List<List<int>>();
                 lli.Add(new List<int>() { 51, 55, 80, 84 });
@@ -1763,7 +1767,7 @@ namespace Operation
             {
                 if (v.Count != 10)
                 {
-                    return ;
+                    return;
                 }
                 List<List<int>> lli = new List<List<int>>();
                 lli.Add(new List<int>() { 28, 29, 30, 31, 32, 33, 34, 35 });
@@ -1882,7 +1886,7 @@ namespace Operation
             {
                 if (v.Count != 10)
                 {
-                    return ;
+                    return;
                 }
                 List<List<int>> lli = new List<List<int>>();
                 lli.Add(new List<int>() { 108, 109, 110, 111, 112, 113, 114, 115 });
@@ -2003,7 +2007,7 @@ namespace Operation
         public static int INTERSECTION = 61;
         public static int COMPLEMENT = 62;
 
-        public void CollectionOperation(int type,LightGroup lightGroup)
+        public void CollectionOperation(int type, LightGroup lightGroup)
         {
             List<Light> ll = LightBusiness.Copy(this);
 

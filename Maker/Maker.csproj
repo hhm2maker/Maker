@@ -104,6 +104,7 @@
     </ApplicationDefinition>
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
+    <Compile Include="Business\Currency\CDD.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
@@ -113,7 +114,7 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Model\KeyboardModel.cs" />
-    <Compile Include="Business\ViewBusiness\Currency\ScriptFileBusiness.cs" />
+    <Compile Include="Business\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
     <Compile Include="Business\ViewBusiness\ScriptUserControl\Code.cs" />
     <Compile Include="Business\Commands\DataCommands.cs" />
@@ -144,7 +145,6 @@
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Utils\StringUtil.cs" />
-    <Compile Include="View\CDD.cs" />
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">

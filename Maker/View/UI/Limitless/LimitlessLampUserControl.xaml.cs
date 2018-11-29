@@ -1,6 +1,8 @@
 ﻿using Maker.View.Control;
+using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace Maker.View.Dialog
 {
@@ -17,20 +19,13 @@ namespace Maker.View.Dialog
 
             _fileExtension = ".limitlessLamp";
             _fileType = "LimitlessLamp";
+            mainView = gMain;
+            HideControl();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             
-        }
-
-        private void AddColumn(object sender, RoutedEventArgs e)
-        {
-            mLaunchpad.AddColumn();
-        }
-        private void RemoveColumn(object sender, RoutedEventArgs e)
-        {
-            mLaunchpad.RemoveColumn();
         }
 
         public List<int> NumberList {
@@ -39,6 +34,7 @@ namespace Maker.View.Dialog
         }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            SaveFile();
             NumberList = mLaunchpad.GetNumber();
             if (!NumberList.Contains(1))
             {
@@ -46,12 +42,11 @@ namespace Maker.View.Dialog
                 //DialogResult = false;
             }
             else {
+                for (int i = 0; i < NumberList.Count; i++) {
+                    System.Console.WriteLine(NumberList[i]);
+                }
                 //DialogResult = true;
             }
-        }
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            //DialogResult = false;
         }
 
         public void AA() {
@@ -79,6 +74,15 @@ namespace Maker.View.Dialog
             //}
         }
 
+        private void AddColumn(object sender, RoutedEventArgs e)
+        {
+            mLaunchpad.AddColumn();
+        }
+        private void RemoveColumn(object sender, RoutedEventArgs e)
+        {
+            mLaunchpad.RemoveColumn();
+        }
+
         private void AddRow(object sender, RoutedEventArgs e)
         {
             mLaunchpad.AddRow();
@@ -86,6 +90,90 @@ namespace Maker.View.Dialog
         private void RemoveRow(object sender, RoutedEventArgs e)
         {
             mLaunchpad.RemoveRow();
+        }
+
+        protected override void CreateFile(String filePath)
+        {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            // 添加根节点
+            XElement xRoot = new XElement("Root");
+            // 添加节点使用Add
+            xDoc.Add(xRoot);
+            // 创建一个按钮加到root中
+            XElement xData = new XElement("Data");
+            xRoot.Add(xData);
+            XElement xColumns = new XElement("Columns");
+            xColumns.Value = "1";
+            xRoot.Add(xColumns);
+            XElement xRows = new XElement("Rows");
+            xRows.Value = "1";
+            xRoot.Add(xRows);
+            XElement xPoints = new XElement("Points");
+            xRoot.Add(xPoints);
+            // 保存该文档  
+            xDoc.Save(filePath);
+        }
+
+        protected override void LoadFileContent()
+        {
+            XDocument doc = XDocument.Load(filePath);
+            XElement xnroot = doc.Element("Root");
+            int columns = int.Parse(xnroot.Element("Columns").Value);
+            for (int i = 0; i < columns - 1; i++) {
+                mLaunchpad.AddColumn();
+            }
+            int rows = int.Parse(xnroot.Element("Rows").Value);
+            for (int i = 0; i < rows - 1; i++)
+            {
+                mLaunchpad.AddRow();
+            }
+          
+
+            //pageNames.Clear();
+            //XElement xnPages = xnroot.Element("Pages");
+            //foreach (XElement pageElement in xnPages.Elements("Page"))
+            //{
+            //    pageNames.Add(pageElement.Value);
+            //}
+            //for (int i = 0; i < pageNames.Count; i++)
+            //    lbPages.Items.Add(pageNames[i]);
+        }
+
+        public override void SaveFile()
+        {
+            XDocument doc = new XDocument();
+            XElement xnroot = new XElement("Root");
+            doc.Add(xnroot);
+
+            XElement xnColumns = new XElement("Columns")
+            {
+                Value = mLaunchpad.ColumnsCount.ToString()
+            };
+            xnroot.Add(xnColumns);
+
+            XElement xnRows = new XElement("Rows")
+            {
+                Value = mLaunchpad.RowsCount.ToString()
+            };
+            xnroot.Add(xnRows);
+
+            //XElement xnPages = new XElement("Pages");
+            //foreach (XElement pageElement in xnPages.Elements("Page"))
+            //{
+            //    pageNames.Add(pageElement.Value);
+            //}
+            //for (int i = 0; i < pageNames.Count; i++)
+            //{
+            //    XElement xnPage = new XElement("Page")
+            //    {
+            //        Value = pageNames[i]
+            //    };
+            //    xnPages.Add(xnPage);
+            //}
+            //xnroot.Add(xnPages);
+
+            doc.Save(filePath);
         }
     }
 }

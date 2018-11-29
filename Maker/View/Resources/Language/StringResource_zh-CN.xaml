@@ -192,6 +192,8 @@
     <sys:String x:Key="MultipleValuesAreSeparatedBySpace">多个值之间用空格隔开</sys:String>
     <sys:String x:Key="AddOneColumn">增加一列</sys:String>
     <sys:String x:Key="ReduceOneColumn">减少一列</sys:String>
+    <sys:String x:Key="AddOneRow">增加一行</sys:String>
+    <sys:String x:Key="ReduceOneRow">减少一行</sys:String>
     <sys:String x:Key="Attribute">属性</sys:String>
     <sys:String x:Key="TopLightColon">上排灯光：</sys:String>
     <sys:String x:Key="OtherLightColon">其他灯光：</sys:String>

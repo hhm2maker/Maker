@@ -1,158 +1,161 @@
-#bbc5ba;
-#f0f0f0;
-#fbfbfd;
-#f8bcd5;
+<Colors>
+<Color>#000000</Color>
+<Color>#1c1c1c</Color>
+<Color>#7c7c7c</Color>
+<Color>#fcfcfc</Color>
 
-#ca2529;
-#c83138;
-#98252a;
-#f9f6e3;
+<Color>#ff4d47</Color>
+<Color>#ff0a00</Color>
+<Color>#5a0100</Color>
+<Color>#190000</Color>
 
-#f8ad16;
-#ffbb70;
-#fad27d;
-#fae4b2;
+<Color>#ffbd62</Color>
+<Color>#ff5600</Color>
+<Color>#5a1d00</Color>
+<Color>#241800</Color>
 
-#fcf050;
-#fcf79b;
-#fcfac9;
-#dcefcf;
+<Color>#fdfd21</Color>
+<Color>#fdfd00</Color>
+<Color>#585800</Color>
+<Color>#181800</Color>
 
-#89c742;
-#a8db7c;
-#bde29c;
-#53e2b6;
+<Color>#80fd2a</Color>
+<Color>#40fd00</Color>
+<Color>#165800</Color>
+<Color>#132800</Color>
 
-#02bc3d;
-#0db73c;
-#139c34;
-#4af0c8;
+<Color>#34fd2b</Color>
+<Color>#00fd00</Color>
+<Color>#005800</Color>
+<Color>#001800</Color>
 
-#0ce36c;
-#09d43a;
-#00dc3d;
-#70fdda;
+<Color>#33fd46</Color>
+<Color>#00fd00</Color>
+<Color>#005800</Color>
+<Color>#001800</Color>
 
-#00eec4;
-#00e4b3;
-#00e6ad;
-#0ce2e0;
+<Color>#32fd7e</Color>
+<Color>#00fd3a</Color>
+<Color>#005814</Color>
+<Color>#001c0f</Color>
 
-#05c7e0;
-#02b9d9;
-#00ffe5;
-#04daff;
+<Color>#2ffcb0</Color>
+<Color>#00fc91</Color>
+<Color>#005831</Color>
+<Color>#00180f</Color>
 
-#06d4fc;
-#00c3d2;
-#038bdf;
-#65d6f8;
+<Color>#39bfff</Color>
+<Color>#00a7ff</Color>
+<Color>#004051</Color>
+<Color>#001018</Color>
 
-#059bf2;
-#088fe1;
-#2275c3;
-#8193f9;
+<Color>#4186ff</Color>
+<Color>#0050ff</Color>
+<Color>#001a5a</Color>
+<Color>#000719</Color>
 
-#4046f4;
-#2c30ff;
-#0001cf;
-#ac98fb;
+<Color>#4647ff</Color>
+<Color>#0000ff</Color>
+<Color>#00005b</Color>
+<Color>#000019</Color>
 
-#8252fe;
-#5b43cd;
-#4948c7;
-#fcb6fc;
+<Color>#8347ff</Color>
+<Color>#5000ff</Color>
+<Color>#160067</Color>
+<Color>#0b0032</Color>
 
-#ee5efc;
-#d554ec;
-#df50f8;
-#fb94db;
+<Color>#ff49ff</Color>
+<Color>#ff00ff</Color>
+<Color>#5a005a</Color>
+<Color>#190019</Color>
 
-#ea2ecd;
-#af3087;
-#a00263;
-#e33831;
+<Color>#ff4d84</Color>
+<Color>#ff0752</Color>
+<Color>#5a011b</Color>
+<Color>#210010</Color>
 
-#fea316;
-#ede103;
-#5abe64;
-#56db04;
+<Color>#ff1900</Color>
+<Color>#9b3500</Color>
+<Color>#7a5100</Color>
+<Color>#3e6400</Color>
 
-#01d59b;
-#128bf3;
-#2a67fe;
-#00b8dc;
+<Color>#003800</Color>
+<Color>#005432</Color>
+<Color>#00537e</Color>
+<Color>#0000ff</Color>
 
-#3a5ed0;
-#b3bacc;
-#8ea3b4;
-#f4202c;
+<Color>#00444d</Color>
+<Color>#1b00d2</Color>
+<Color>#7c7c7c</Color>
+<Color>#202020</Color>
 
-#d6ed79;
-#cee010;
-#81e221;
-#00c82a;
+<Color>#ff0a00</Color>
+<Color>#bafd00</Color>
+<Color>#aaed00</Color>
+<Color>#56fd00</Color>
 
-#01d7a1;
-#00e2f7;
-#00a0f9;
-#545be9;
+<Color>#008800</Color>
+<Color>#00fc7a</Color>
+<Color>#00a7ff</Color>
+<Color>#001bff</Color>
 
-#ac5be6;
-#e783e5;
-#c27d46;
-#fb9519;
+<Color>#3500ff</Color>
+<Color>#7700ff</Color>
+<Color>#b4177e</Color>
+<Color>#412000</Color>
 
-#b1e215;
-#9fe14b;
-#55c466;
-#38d82c;
+<Color>#ff4a00</Color>
+<Color>#83e100</Color>
+<Color>#65fd00</Color>
+<Color>#00fd00</Color>
 
-#60e7bc;
-#1edadc;
-#93c7f6;
-#79baf4;
+<Color>#00fd00</Color>
+<Color>#45fd61</Color>
+<Color>#00fcca</Color>
+<Color>#5086ff</Color>
 
-#b0aff1;
-#d280ee;
-#ff3cd5;
-#f78918;
+<Color>#274dc9</Color>
+<Color>#827aed</Color>
+<Color>#d30cff</Color>
+<Color>#ff065a</Color>
 
-#e1dc06;
-#a7d713;
-#f4d324;
-#cab039;
+<Color>#ff7d00</Color>
+<Color>#b9b100</Color>
+<Color>#8afd00</Color>
+<Color>#825d00</Color>
 
-#00d169;
-#1fd4b5;
-#717abb;
-#5387d2;
+<Color>#392800</Color>
+<Color>#0d4c05</Color>
+<Color>#005037</Color>
+<Color>#131329</Color>
 
-#e6c5a4;
-#ea3637;
-#f7a6a3;
-#ed9e5b;
+<Color>#101f5a</Color>
+<Color>#6a3c17</Color>
+<Color>#ac0400</Color>
+<Color>#e15135</Color>
 
-#eacb79;
-#bbdb7a;
-#9ad926;
-#606bbb;
+<Color>#dc6900</Color>
+<Color>#ffe100</Color>
+<Color>#99e100</Color>
+<Color>#5fb500</Color>
 
-#cfcca3;
-#91d9c5;
-#cadef9;
-#bccff0;
+<Color>#1b1b31</Color>
+<Color>#dcfd54</Color>
+<Color>#76fcb8</Color>
+<Color>#9697ff</Color>
 
-#a1b4bb;
-#d2e2f9;
-#d3e3fa;
-#f51112;
+<Color>#8b61ff</Color>
+<Color>#404040</Color>
+<Color>#747474</Color>
+<Color>#defcfc</Color>
 
-#c6251d;
-#99ce5c;
-#01a012;
-#fbfd04;
+<Color>#a40400</Color>
+<Color>#350000</Color>
+<Color>#00d100</Color>
+<Color>#004000</Color>
 
-#bbb40c;
-#bcb50c;
-#dd792d;
+<Color>#b9b100</Color>
+<Color>#3d3000</Color>
+<Color>#b45d00</Color>
+<Color>#4a1400</Color>
+</Colors>

@@ -291,8 +291,8 @@ namespace Maker.View.Play
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;
         }
-        
-        private new void SaveFile(object sender, RoutedEventArgs e)
+
+        public override void SaveFile()
         {
             XDocument doc = new XDocument();
             XElement xnroot = new XElement("Root");
@@ -316,7 +316,8 @@ namespace Maker.View.Play
             {
                 pageNames.Add(pageElement.Value);
             }
-            for (int i = 0; i < pageNames.Count; i++) {
+            for (int i = 0; i < pageNames.Count; i++)
+            {
                 XElement xnPage = new XElement("Page")
                 {
                     Value = pageNames[i]
@@ -327,7 +328,6 @@ namespace Maker.View.Play
 
             doc.Save(filePath);
         }
-
         protected override void CreateFile(String filePath)
         {
             //获取对象
