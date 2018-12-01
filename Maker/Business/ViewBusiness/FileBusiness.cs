@@ -605,12 +605,20 @@ namespace Maker.Business
             //        sb.Append(Environment.NewLine);
             //    }
             //}
+            File.Delete(filePath);
             String str = WriteMidiContent(mActionBeanList);
-            FileStream f = new FileStream(filePath, FileMode.OpenOrCreate);
-            for (int j = 0; j < str.Length; j++)
+            if (str.Equals(String.Empty))
             {
-                f.WriteByte((byte)str[j]);
+                File.Create(filePath);
             }
+            else {
+                FileStream f = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+                for (int j = 0; j < str.Length; j++)
+                {
+                    f.WriteByte((byte)str[j]);
+                }
+            }
+           
           
         }
         /// <summary>

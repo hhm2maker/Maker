@@ -5,9 +5,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:view="clr-namespace:Maker.View"
+        xmlns:view="clr-namespace:Maker.View.UI.Device.ColorPanel"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
-        mc:Ignorable="d"
+    mc:Ignorable="d"
        >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -487,11 +487,7 @@
                                         </DockPanel>
                                     </Border>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Row="1" Margin="10">
-                                    <TextBlock   Width="120" FontSize="20"  Foreground="White" Text="{DynamicResource NowColorColon}" />
-                                    <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White">5</TextBlock>
-                                </StackPanel>
-                                <view:ColorPanel x:Name="lbColor" SelectionChanged="lbColor_SelectionChanged" BorderThickness="0" Style="{DynamicResource ListBoxStyle1}" Grid.Row="2"/>
+                                <view:CompleteColorPanel x:Name="completeColorPanel" Grid.Row="2"/>
                             </Grid>
                         </TabItem>
                         <TabItem >

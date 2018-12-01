@@ -6,18 +6,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:device="clr-namespace:Maker.View.Device"
-        mc:Ignorable="d"
+    xmlns:view1="clr-namespace:Maker.View.UI.Device.ColorPanel"
+    mc:Ignorable="d"
         Background="#535353"
         Loaded="Window_Loaded"
        >
     <Grid Name="gMain" >
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*" Name="cdMain"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <device:GrowLaunchpad Grid.Column="0" x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <StackPanel Orientation="Vertical" Grid.Column="1" >
+            <view1:CompleteColorPanel x:Name="completeColorPanel" Grid.Row="0"/>
+            <device:GrowLaunchpad Grid.Column="1" x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <StackPanel Orientation="Vertical" Grid.Column="2" >
         <StackPanel Margin="0,20,10,0">
         </StackPanel>
         <StackPanel>
@@ -30,8 +33,8 @@
             </StackPanel>
             <StackPanel>
                     <Button  Click="SaveFile" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}" />
-            <Button Content="{DynamicResource Translation}" FontSize="14" />
-        </StackPanel>
+                    <Button Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Translation}" />
+                </StackPanel>
         </StackPanel>
     </Grid>
     </Grid>

@@ -45,10 +45,7 @@ namespace Maker.View.LightUserControl
             //初始化绘制事件
             mLaunchpad.SetCanDraw(true);
 
-            lbColor.SelectedIndex = 5;
-            tbNowColor.Text = (lbColor.SelectedIndex).ToString();
-            tbNowColor.Background = NumToBrush(lbColor.SelectedIndex);
-
+            completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
         }
 
         private void InitLaunchpadEvent()
@@ -217,17 +214,17 @@ namespace Maker.View.LightUserControl
                 RoundedCornersPolygon rcp = mLaunchpad.GetButton(i) as RoundedCornersPolygon;
                 if (rcp != null)
                 {
-                    rcp.Fill = NumToBrush(x[i]);
+                    rcp.Fill = StaticConstant.NumToBrush(x[i]);
                 }
                 Ellipse e = mLaunchpad.GetButton(i) as Ellipse;
                 if (e != null)
                 {
-                    e.Fill = NumToBrush(x[i]);
+                    e.Fill = StaticConstant.NumToBrush(x[i]);
                 }
                 Rectangle r = mLaunchpad.GetButton(i) as Rectangle;
                 if (r != null)
                 {
-                    r.Fill = NumToBrush(x[i]);
+                    r.Fill = StaticConstant.NumToBrush(x[i]);
                 }
             }
         }
@@ -354,21 +351,20 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        /// <summary>
-        /// 数字转笔刷
-        /// </summary>
-        /// <param name="i">颜色数值</param>
-        /// <returns>SolidColorBrush笔刷</returns>
-        private SolidColorBrush NumToBrush(int i)
-        {
-            return StaticConstant.brushList[i];
-        }
 
         private Point point = new Point();
         private Rectangle rectangle = new Rectangle();
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             mouseType = 1;
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                LeftOrRight = 0;
+            }
+            else if (e.ChangedButton == MouseButton.Right)
+            {
+                LeftOrRight = 1;
+            }
             point = e.GetPosition(mLaunchpad);
         }
 
@@ -408,10 +404,7 @@ namespace Maker.View.LightUserControl
         }
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            tbNowColor.Text = (lbColor.SelectedIndex).ToString();
-            tbNowColor.Background = NumToBrush(lbColor.SelectedIndex);
-            nowColor = lbColor.SelectedIndex;
-            mLaunchpad.SetNowBrush(StaticConstant.brushList[lbColor.SelectedIndex]);
+            mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
         }
 
         private void btnRegionHorizontalFlipping_Click(object sender, RoutedEventArgs e)
@@ -1768,7 +1761,6 @@ namespace Maker.View.LightUserControl
           
             if (sender == spNewFile) {
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_blue.png", UriKind.RelativeOrAbsolute));
-               
             }
             else if (sender == spOpenFile)
             {

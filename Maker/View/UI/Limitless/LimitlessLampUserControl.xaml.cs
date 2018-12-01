@@ -1,7 +1,9 @@
-﻿using Maker.View.Control;
+﻿using Maker.Model;
+using Maker.View.Control;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xml.Linq;
 
 namespace Maker.View.Dialog
@@ -21,32 +23,23 @@ namespace Maker.View.Dialog
             _fileType = "LimitlessLamp";
             mainView = gMain;
             HideControl();
+
+            completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
+        }
+
+        private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            mLaunchpad.NowBrushNumber = completeColorPanel.NowColor;
+            mLaunchpad.NowBrush = StaticConstant.brushList[mLaunchpad.NowBrushNumber];
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
         }
 
-        public List<int> NumberList {
-            get;
-            set;
-        }
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             SaveFile();
-            NumberList = mLaunchpad.GetNumber();
-            if (!NumberList.Contains(1))
-            {
-                //啥也没有
-                //DialogResult = false;
-            }
-            else {
-                for (int i = 0; i < NumberList.Count; i++) {
-                    System.Console.WriteLine(NumberList[i]);
-                }
-                //DialogResult = true;
-            }
         }
 
         public void AA() {
@@ -128,8 +121,6 @@ namespace Maker.View.Dialog
             {
                 mLaunchpad.AddRow();
             }
-          
-
             //pageNames.Clear();
             //XElement xnPages = xnroot.Element("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
@@ -145,6 +136,12 @@ namespace Maker.View.Dialog
             XDocument doc = new XDocument();
             XElement xnroot = new XElement("Root");
             doc.Add(xnroot);
+
+            XElement xnData = new XElement("Data")
+            {
+                Value = mLaunchpad.GetData()
+            };
+            xnroot.Add(xnData);
 
             XElement xnColumns = new XElement("Columns")
             {
@@ -175,5 +172,6 @@ namespace Maker.View.Dialog
 
             doc.Save(filePath);
         }
+
     }
 }

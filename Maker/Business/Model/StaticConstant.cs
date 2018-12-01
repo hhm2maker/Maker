@@ -15,6 +15,15 @@ namespace Maker.Model
         /// </summary>
         public static List<SolidColorBrush> brushList = new List<SolidColorBrush>();
         /// <summary>
+        /// 数字转笔刷
+        /// </summary>
+        /// <param name="i">颜色数值</param>
+        /// <returns>SolidColorBrush笔刷</returns>
+        public static SolidColorBrush NumToBrush(int i)
+        {
+            return brushList[i];
+        }
+        /// <summary>
         /// 主窗体
         /// </summary>
         public static MainWindow mw;

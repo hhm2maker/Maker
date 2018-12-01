@@ -150,13 +150,16 @@
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
       <DependentUpon>CatalogUserControl2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\ColorPanel.cs" />
-    <Compile Include="View\UI\Device\DrawLaunchpadPro.cs" />
-    <Compile Include="View\UI\Device\ICanDraw.cs" />
-    <Compile Include="View\UI\Device\ParagraphLightListPlayerLaunchpadPro.cs" />
-    <Compile Include="View\UI\Device\ParagraphIntListPlayerLaunchpadPro.cs" />
-    <Compile Include="View\UI\Device\IPlay.cs" />
-    <Compile Include="View\UI\Device\LaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\ColorPanel\ColorPanel.cs" />
+    <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
+      <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Device\Launchpad\DrawLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\ICanDraw.cs" />
+    <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\ParagraphIntListPlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\IPlay.cs" />
+    <Compile Include="View\UI\Device\Launchpad\LaunchpadPro.cs" />
     <Compile Include="View\UI\Control\LiveUserControl.xaml.cs">
       <DependentUpon>LiveUserControl.xaml</DependentUpon>
     </Compile>
@@ -188,14 +191,14 @@
     <Compile Include="View\UI\Control\NumberUserControl.xaml.cs">
       <DependentUpon>NumberUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Device\GrowLaunchpad.xaml.cs">
+    <Compile Include="View\UI\Device\Launchpad\GrowLaunchpad.xaml.cs">
       <DependentUpon>GrowLaunchpad.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Device\NewOrUpdateDeviceWindow.xaml.cs">
+    <Compile Include="View\UI\Device\Launchpad\NewOrUpdateDeviceWindow.xaml.cs">
       <DependentUpon>NewOrUpdateDeviceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Device\AccuratePlayerLaunchpadPro.cs" />
-    <Compile Include="View\UI\Device\PlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\AccuratePlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\PlayerLaunchpadPro.cs" />
     <Compile Include="View\UI\Dialog\AdvancedExportDialog.cs" />
     <Compile Include="View\UI\Dialog\Automatic\RandomFountainDialog.xaml.cs">
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
@@ -548,6 +551,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -678,11 +685,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Device\GrowLaunchpad.xaml">
+    <Page Include="View\UI\Device\Launchpad\GrowLaunchpad.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Device\NewOrUpdateDeviceWindow.xaml">
+    <Page Include="View\UI\Device\Launchpad\NewOrUpdateDeviceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

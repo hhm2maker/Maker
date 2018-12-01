@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Maker.View.UI.Device.ColorPanel.CompleteColorPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.Device.ColorPanel"
+             xmlns:view="clr-namespace:Maker.View"
+             mc:Ignorable="d" 
+             >
+    <StackPanel Orientation="Vertical" Width="240">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <TextBlock   Width="120" FontSize="20"  Foreground="White" Text="{DynamicResource NowColorColon}" />
+            <TextBlock Name="tbNowColor"  Margin="5,0,0,0" Width="60" FontSize="20" Background="Red" TextAlignment="Center" Foreground="White" Text="5"/> 
+        </StackPanel>
+        <view:ColorPanel x:Name="lbColor" BorderThickness="0" SelectionChanged="lbColor_SelectionChanged" Style="{DynamicResource ListBoxStyle1}" />
+    </StackPanel>
+</UserControl>
