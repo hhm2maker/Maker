@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Maker.Model;
+using Maker.View.Dialog;
+using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +27,10 @@ namespace Maker.View.Device
             NowBrushNumber = 5;
             NowBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
         }
-
+        private LimitlessLampUserControl lluc;
+        public void SetParent(LimitlessLampUserControl lluc) {
+            this.lluc = lluc;
+        }
 
         public int NowBrushNumber
         {
@@ -154,6 +160,7 @@ namespace Maker.View.Device
 
         private void ChangeColor(object sender, RoutedEventArgs e)
         {
+
             if (mouseType == 1)
             {
                 if (LeftOrRight == 0)
@@ -168,6 +175,29 @@ namespace Maker.View.Device
                     r.Fill = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
                     mData[cMain.Children.IndexOf((UIElement)sender)] = 0;
                 }
+            }
+            else {
+                int index = cMain.Children.IndexOf((UIElement)sender);
+                int positionX = index % RowsCount;
+                int positionY = index / ColumnsCount;
+
+                List<Light> lightList = new List<Light>();
+                //Console.WriteLine(positionX + "---"+ positionY);
+                for (int x = 0; x < 8; x++) {
+                    for (int y = 0; y < 8; y++) {
+                        if (ColumnsCount > positionX + x && RowsCount > 7 - (positionY + y)) 
+                        {
+                            //有值
+                            Console.WriteLine(36 + x + 4 * y);
+                            lightList.Add(new Light(0,144, 36 + x+ 4 * y,5));
+                        }
+                        else {
+                            //没值，暂不处理
+                        }
+
+                    }
+                }
+                lluc.previewLaunchpad.SetData(lightList);
             }
         }
         /// <summary>
@@ -250,14 +280,31 @@ namespace Maker.View.Device
             return list;
         }
         
-        public string GetData() {
+        public String GetData() {
             StringBuilder sb = new StringBuilder();
             foreach (int i in mData) {
                 sb.Append(i+",");
             }
-            return sb.ToString();
+            if (sb.ToString().Length > 0)
+                return sb.ToString().Substring(0, sb.ToString().Length - 1);
+            else {
+                return "";
+            }
+           
         }
+        public void SetData(String str) {
+            String[] strs = str.Trim().Split(',');
 
+            for (int i = 0; i < strs.Length; i++) {
+                if(int.Parse(strs[i]) != 0)
+                {
+                    Rectangle r = (Rectangle)cMain.Children[i];
+                    int color = int.Parse(strs[i]);
+                    r.Fill = StaticConstant.brushList[color];
+                    mData[i] = color;
+                }
+            }
+        }
 
         public void SetLaunchpadBackground(Brush b)
         {

@@ -821,6 +821,7 @@ namespace Maker.View.Device
         /// <param name="mListList"></param>
         public virtual void SetData(List<Light> mListList)
         {
+            ClearAllColorExcept();
             for (int i = 0; i < mListList.Count; i++) {
                 if (mListList[i].Action == 128) {
                     SetButtonBackground(mListList[i].Position-28,closeBrush);

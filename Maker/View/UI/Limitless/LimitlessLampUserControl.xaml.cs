@@ -25,6 +25,9 @@ namespace Maker.View.Dialog
             HideControl();
 
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
+
+            previewLaunchpad.SetSize(300);
+            mLaunchpad.SetParent(this);
         }
 
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -121,6 +124,8 @@ namespace Maker.View.Dialog
             {
                 mLaunchpad.AddRow();
             }
+            String str = xnroot.Element("Data").Value;
+            mLaunchpad.SetData(str);
             //pageNames.Clear();
             //XElement xnPages = xnroot.Element("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
