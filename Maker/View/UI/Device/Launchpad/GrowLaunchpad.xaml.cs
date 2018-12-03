@@ -185,11 +185,11 @@ namespace Maker.View.Device
                 //Console.WriteLine(positionX + "---"+ positionY);
                 for (int x = 0; x < 8; x++) {
                     for (int y = 0; y < 8; y++) {
-                        if (ColumnsCount > positionX + x && RowsCount > 7 - (positionY + y)) 
+                        if (x+positionX < ColumnsCount &&  y+positionY < RowsCount) 
                         {
                             //有值
-                            Console.WriteLine(36 + x + 4 * y);
-                            lightList.Add(new Light(0,144, 36 + x+ 4 * y,5));
+                            if(mData[x + positionX + (y + positionY)*ColumnsCount] != 0)
+                            lightList.Add(new Light(0,144, 36 + x + 4 * (7-y), mData[x + positionX + (y + positionY) * ColumnsCount]));
                         }
                         else {
                             //没值，暂不处理
