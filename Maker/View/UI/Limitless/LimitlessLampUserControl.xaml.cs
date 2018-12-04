@@ -113,6 +113,7 @@ namespace Maker.View.Dialog
 
         protected override void LoadFileContent()
         {
+            mLaunchpad.Reset();
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
             int columns = int.Parse(xnroot.Element("Columns").Value);

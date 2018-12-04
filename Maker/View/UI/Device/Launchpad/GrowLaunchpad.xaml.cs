@@ -160,7 +160,6 @@ namespace Maker.View.Device
 
         private void ChangeColor(object sender, RoutedEventArgs e)
         {
-
             if (mouseType == 1)
             {
                 if (LeftOrRight == 0)
@@ -178,24 +177,35 @@ namespace Maker.View.Device
             }
             else {
                 int index = cMain.Children.IndexOf((UIElement)sender);
-                int positionX = index % RowsCount;
+                int positionX = index % ColumnsCount;
                 int positionY = index / ColumnsCount;
-
                 List<Light> lightList = new List<Light>();
                 //Console.WriteLine(positionX + "---"+ positionY);
-                for (int x = 0; x < 8; x++) {
-                    for (int y = 0; y < 8; y++) {
-                        if (x+positionX < ColumnsCount &&  y+positionY < RowsCount) 
+                for (int y = 0; y < 8; y++)
+                {
+                    for (int x = 0; x < 8; x++) {
+                        if (x + positionX < ColumnsCount && y + positionY < RowsCount)
                         {
                             //有值
-                            if(mData[x + positionX + (y + positionY)*ColumnsCount] != 0)
-                            lightList.Add(new Light(0,144, 36 + x + 4 * (7-y), mData[x + positionX + (y + positionY) * ColumnsCount]));
+                            if (x < 4)
+                            {
+                                if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
+                                {
+                                    lightList.Add(new Light(0, 144, 36 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                }
+                            }
+                            else
+                            {
+                                if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
+                                {
+                                    lightList.Add(new Light(0, 144, 36 + x + 4 * (6 - y)+32, mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                }
+                            }
                         }
                         else {
-                            //没值，暂不处理
+                                //没值，暂不处理
+                            }
                         }
-
-                    }
                 }
                 lluc.previewLaunchpad.SetData(lightList);
             }
@@ -293,10 +303,11 @@ namespace Maker.View.Device
            
         }
         public void SetData(String str) {
+            if (str.Equals(String.Empty))
+                return;
             String[] strs = str.Trim().Split(',');
-
             for (int i = 0; i < strs.Length; i++) {
-                if(int.Parse(strs[i]) != 0)
+                if (int.Parse(strs[i]) != 0)
                 {
                     Rectangle r = (Rectangle)cMain.Children[i];
                     int color = int.Parse(strs[i]);
@@ -331,5 +342,16 @@ namespace Maker.View.Device
             e.Handled = true;
         }
 
+        public void Reset() {
+            while (ColumnsCount > 1) {
+                RemoveColumn();
+            }
+            while (RowsCount > 1)
+            {
+                RemoveRow();
+            }
+            Rectangle r = (Rectangle)cMain.Children[0];
+            r.Fill = StaticConstant.closeBrush;
+        }
     }
 }
