@@ -20,17 +20,34 @@
         </Grid.ColumnDefinitions>
             <view1:CompleteColorPanel x:Name="completeColorPanel" Grid.Row="0"/>
             <device:GrowLaunchpad Grid.Column="1" x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <DockPanel Grid.Column="2" HorizontalAlignment="Center">
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                <Button  Click="AddColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,20,0,0" Content="{DynamicResource AddOneColumn}" />
-                <Button  Click="RemoveColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,10,0,0" Content="{DynamicResource ReduceOneColumn}" />
-                    <Button  Click="AddRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,20,0,0" Content="{DynamicResource AddOneRow}" />
-                    <Button  Click="RemoveRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,10,0,0" Content="{DynamicResource ReduceOneRow}" />
-                    <Button  Click="SaveFile" Foreground="White" FontSize="14" Width="130" Background="{x:Null}" BorderBrush="White" Margin="0,20,0,0" Content="{DynamicResource Ok}" />
-                    <Button Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="0,10,0,0" Content="{DynamicResource Translation}" />
+            <Grid Grid.Column="2" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button  Click="AddColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddOneColumn}" />
+                        <Button  Click="RemoveColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button  Click="AddRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource AddOneRow}" />
+                        <Button  Click="RemoveRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneRow}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button  Click="SaveFile" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource Ok}" />
+                        <Button Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource Translation}" />
+                    </StackPanel>
+                   </StackPanel>
+                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged"/>
+                <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="0,20,0,0">
+                    <Button  Click="AddPoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddOneColumn}" />
+                    <Button  Click="RemovePoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
                 </StackPanel>
-                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  DockPanel.Dock="Bottom"/>
-            </DockPanel>
+                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="3"/>
+            </Grid>
     </Grid>
     </Grid>
 </view:BaseUserControl>

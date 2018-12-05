@@ -110,10 +110,11 @@ namespace Maker.View.Dialog
             // 保存该文档  
             xDoc.Save(filePath);
         }
-
+        private List<Point> points = new List<Point>();
         protected override void LoadFileContent()
         {
             mLaunchpad.Reset();
+            points.Clear();
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
             int columns = int.Parse(xnroot.Element("Columns").Value);
@@ -127,6 +128,14 @@ namespace Maker.View.Dialog
             }
             String str = xnroot.Element("Data").Value;
             mLaunchpad.SetData(str);
+
+            foreach (XElement element in xnroot.Element("Points").Elements("Point")) {
+                points.Add(new Point(Double.Parse(element.Attribute("x").Value), Double.Parse(element.Attribute("y").Value)));
+            }
+            foreach (var point in points) {
+                lbPoint.Items.Add(point.X+","+point.Y);
+            }
+
             //pageNames.Clear();
             //XElement xnPages = xnroot.Element("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
@@ -161,6 +170,15 @@ namespace Maker.View.Dialog
             };
             xnroot.Add(xnRows);
 
+            XElement xnPoints = new XElement("Points");
+            foreach (var point in points)
+            {
+                XElement xnPoint = new XElement("Point");
+                xnPoint.SetAttributeValue("x",point.X);
+                xnPoint.SetAttributeValue("y", point.Y);
+                xnPoints.Add(xnPoint);
+            }
+            xnroot.Add(xnPoints);
             //XElement xnPages = new XElement("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
             //{
@@ -179,5 +197,28 @@ namespace Maker.View.Dialog
             doc.Save(filePath);
         }
 
+        private void AddPoint(object sender, RoutedEventArgs e)
+        {
+            GetNumberDialog dialog = new GetNumberDialog(mw,"",true);
+            if (dialog.ShowDialog() == true) {
+                points.Add(new Point(dialog.MultipleNumber[0], dialog.MultipleNumber[1]));
+                lbPoint.Items.Add(points[points.Count-1].X+","+ points[points.Count - 1].Y);
+            }
+        }
+        private void RemovePoint(object sender, RoutedEventArgs e)
+        {
+            if (lbPoint.SelectedIndex == -1)
+                return;
+            points.RemoveAt(lbPoint.SelectedIndex);
+            lbPoint.Items.RemoveAt(lbPoint.SelectedIndex);
+        }
+
+        private void lbPoint_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            String[] strs = lbPoint.SelectedItem.ToString().Split(',');
+            if (strs.Length != 2)
+                return;
+            mLaunchpad.SetDataToPreviewLaunchpad(int.Parse(strs[0]), int.Parse(strs[1]));
+        }
     }
 }

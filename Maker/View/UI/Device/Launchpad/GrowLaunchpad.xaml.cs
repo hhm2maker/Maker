@@ -179,37 +179,44 @@ namespace Maker.View.Device
                 int index = cMain.Children.IndexOf((UIElement)sender);
                 int positionX = index % ColumnsCount;
                 int positionY = index / ColumnsCount;
-                List<Light> lightList = new List<Light>();
-                //Console.WriteLine(positionX + "---"+ positionY);
-                for (int y = 0; y < 8; y++)
-                {
-                    for (int x = 0; x < 8; x++) {
-                        if (x + positionX < ColumnsCount && y + positionY < RowsCount)
-                        {
-                            //有值
-                            if (x < 4)
-                            {
-                                if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
-                                {
-                                    lightList.Add(new Light(0, 144, 36 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
-                                }
-                            }
-                            else
-                            {
-                                if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
-                                {
-                                    lightList.Add(new Light(0, 144, 36 + x + 4 * (6 - y)+32, mData[x + positionX + (y + positionY) * ColumnsCount]));
-                                }
-                            }
-                        }
-                        else {
-                                //没值，暂不处理
-                            }
-                        }
-                }
-                lluc.previewLaunchpad.SetData(lightList);
+                SetDataToPreviewLaunchpad(positionX, positionY);
             }
         }
+
+        public void SetDataToPreviewLaunchpad(int positionX, int positionY) {
+            List<Light> lightList = new List<Light>();
+            //Console.WriteLine(positionX + "---"+ positionY);
+            for (int y = 0; y < 8; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    if (x + positionX < ColumnsCount && y + positionY < RowsCount)
+                    {
+                        //有值
+                        if (x < 4)
+                        {
+                            if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
+                            {
+                                lightList.Add(new Light(0, 144, 36 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
+                            }
+                        }
+                        else
+                        {
+                            if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
+                            {
+                                lightList.Add(new Light(0, 144, 36 + x + 4 * (6 - y) + 32, mData[x + positionX + (y + positionY) * ColumnsCount]));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //没值，暂不处理
+                    }
+                }
+            }
+            lluc.previewLaunchpad.SetData(lightList);
+        }
+
         /// <summary>
         /// 0左键1右键
         /// </summary>

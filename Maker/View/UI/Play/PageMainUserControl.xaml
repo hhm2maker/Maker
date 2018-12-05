@@ -308,9 +308,6 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <launchpad:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
-                <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                    <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" Margin="0,0,0,20" Style="{StaticResource BigButton}"/>
-                </StackPanel>
             </StackPanel>
             <ScrollViewer  Margin="10,0,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" >
                 <StackPanel Orientation="Vertical">
@@ -354,10 +351,11 @@
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Goto}"  Click="GotoPage"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}"  Click="MovePage"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                    <TextBlock  Text="Bpm:" Width="150"/>
-                                    <TextBox Margin="30,0,0,0" Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
-                                </StackPanel>
+                                <DockPanel Margin="0,10,0,0">
+                                    <TextBlock DockPanel.Dock="Left"  Text="Bpm:" Width="150"/>
+                                    <TextBox DockPanel.Dock="Left"  Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
+                                    <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" />
+                                </DockPanel>
                             </StackPanel>
                         </StackPanel>
                     </Border>
