@@ -271,12 +271,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="3" Width="0" Name="bHelp" Background="#2E3033" >
-                <StackPanel  VerticalAlignment="Top" Margin="0,20,0,0">
+                <StackPanel  VerticalAlignment="Top" Margin="0,0,0,0">
                     <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#2E3033" >
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                 <Image Source="../Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                                <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
