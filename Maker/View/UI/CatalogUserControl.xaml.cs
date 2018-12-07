@@ -364,37 +364,7 @@ namespace Maker.View.UI
             }
         }
         
-        private void ShowOrHideCatalog(object sender, RoutedEventArgs e)
-        {
-            DoubleAnimation animation;
-            if (gCatalog.Width == 250)
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 75,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            else
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 250,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            gCatalog.BeginAnimation(WidthProperty, animation);
-        }
-        private void tbFile_MouseDown(object sender, RoutedEventArgs e)
-        {
-            if (dpFile.Visibility == Visibility.Visible)
-            {
-                dpFile.Visibility = Visibility.Collapsed;
-            }
-            else {
-                dpFile.Visibility = Visibility.Visible;
-            }
-        }
+     
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //是否是制作灯光的用户控件
@@ -850,6 +820,50 @@ namespace Maker.View.UI
         private void ToAboutUserControl(object sender, RoutedEventArgs e)
         {
             mw.ShowAbout();
+        }
+        private void ShowChild(object sender, MouseEventArgs e)
+        {
+            if (sender == gLight)
+            {
+                gLight.Height = 0;
+                popPlay.IsOpen = false;
+
+                popLight.IsOpen = false;
+                popLight.IsOpen = true;
+            }
+            else if (sender == gPlay)
+            {
+                gPlay.Height = 0;
+                popLight.IsOpen = false;
+
+                popPlay.IsOpen = false;
+                popPlay.IsOpen = true;
+            }
+        }
+
+        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender == sLight)
+            {
+                popLight.IsOpen = false;
+            }
+            else if (sender == sPlay)
+            {
+                popPlay.IsOpen = false;
+            }
+        }
+
+        private void PopupClosed(object sender, EventArgs e)
+        {
+            if (sender == popLight)
+            {
+                gLight.Height = 45;
+            }
+            else if (sender == popPlay)
+            {
+                gPlay.Height = 45;
+            }
+         
         }
     }
 }
