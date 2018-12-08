@@ -22,7 +22,7 @@ namespace Maker.View.Introduction
     /// </summary>
     public partial class LightIntroductionPage : BaseIntroductionPage
     {
-        public LightIntroductionPage(CatalogUserControl cuc,int[] iPosition) :base(cuc, iPosition)
+        public LightIntroductionPage(NewMainWindow cuc,int[] iPosition) :base(cuc, iPosition)
         {
             InitializeComponent();
         }

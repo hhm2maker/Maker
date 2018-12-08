@@ -21,6 +21,8 @@ namespace Maker.Model
         /// <returns>SolidColorBrush笔刷</returns>
         public static SolidColorBrush NumToBrush(int i)
         {
+            if (i == -1)
+                return closeBrush;
             return brushList[i];
         }
         /// <summary>

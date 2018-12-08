@@ -98,7 +98,7 @@ namespace Maker.View
         /// <param name="e"></param>
         protected void OpenFile(object sender, RoutedEventArgs e)
         {
-            mw.cuc.OpenFile();
+            mw.OpenFile();
         }
         /// <summary>
         /// 加载文件
@@ -177,8 +177,8 @@ namespace Maker.View
                     {
                     CreateFile(filePath);
                     LoadFile(dialog.fileName);
-                    mw.cuc.lbMain.Items.Add(dialog.fileName);
-                    mw.cuc.lbMain.SelectedIndex = mw.cuc.lbMain.Items.Count - 1;
+                    mw.lbMain.Items.Add(dialog.fileName);
+                    mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
                 }
             }
         }

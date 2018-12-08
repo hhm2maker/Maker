@@ -40,9 +40,5 @@ namespace Maker.View.LightUserControl
         {
             fileBusiness.WriteLightFile(filePath, GetData());
         }
-
-     
-
-
     }
 }

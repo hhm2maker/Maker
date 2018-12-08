@@ -10,14 +10,14 @@ namespace Maker.View.Introduction
 {
     public class BaseIntroductionPage : UserControl
     {
-        protected CatalogUserControl cuc;
+        //protected CatalogUserControl cuc;
         protected int[] iPosition;
         public BaseIntroductionPage()
         {
         }
-        public BaseIntroductionPage(CatalogUserControl cuc,int[] iPosition)
+        public BaseIntroductionPage(NewMainWindow cuc, int[] iPosition)
         {
-            this.cuc = cuc;
+            //this.cuc = cuc;
             this.iPosition = iPosition;
             //Loaded += BaseIntroductionPage_Loaded;
         }
@@ -35,7 +35,7 @@ namespace Maker.View.Introduction
 
         private void Button_Event(object sender, System.Windows.RoutedEventArgs e)
         {
-            cuc.IntoUserControl(iPosition[btnList.IndexOf(sender as Button)]); 
+            //cuc.IntoUserControl(iPosition[btnList.IndexOf(sender as Button)]); 
         }
 
         //private void BaseIntroductionPage_Loaded(object sender, System.Windows.RoutedEventArgs e)

@@ -49,7 +49,7 @@ namespace Maker.View.Setting
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
             mw.playerDefault = lbMain.SelectedItem.ToString();
             }
-            mw.cuc.RemoveSetting();
+            mw.RemoveSetting();
         }
     }
 }

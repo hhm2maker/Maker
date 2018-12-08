@@ -93,7 +93,7 @@ namespace Maker.View.UI
                 }
             }
             HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnChangeLanguage_NotHint_Click);
-            mw.cuc.ShowMakerDialog(hintDialog);
+            mw.ShowMakerDialog(hintDialog);
         }
 
         private void InstallUsbDriver()
@@ -125,8 +125,8 @@ namespace Maker.View.UI
 
         private void RemoveDialog()
         {
-            mw.cuc.gMost.Children.RemoveAt(mw.cuc.gMost.Children.Count - 1);
-            mw.cuc.gMost.Children.RemoveAt(mw.cuc.gMost.Children.Count - 1);
+            mw.gMost.Children.RemoveAt(mw.gMost.Children.Count - 1);
+            mw.gMost.Children.RemoveAt(mw.gMost.Children.Count - 1);
         }
 
         public void NotHint(int id)

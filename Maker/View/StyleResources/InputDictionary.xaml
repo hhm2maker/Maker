@@ -25,7 +25,7 @@
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Background" Value="#282828"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontSize" Value="15"/>
         <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="Margin" Value="1"/>

@@ -21,7 +21,7 @@ namespace Maker.View.Introduction
     /// </summary>
     public partial class PlayIntroductionPage : BaseIntroductionPage
     {
-        public PlayIntroductionPage(CatalogUserControl cuc, int[] iPosition) : base(cuc, iPosition)
+        public PlayIntroductionPage(NewMainWindow cuc, int[] iPosition) : base(cuc, iPosition)
         {
             InitializeComponent();
         }

@@ -314,16 +314,16 @@
         <DockPanel >
             <DockPanel.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False"/>
                     <Separator />
-                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" FontSize="16"/>
-                    <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click" FontSize="16"/>
-                    <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" FontSize="16"/>
-                    <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  FontSize="16"/>
+                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" />
+                    <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click" />
+                    <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" />
+                    <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  />
                     <Separator />
-                    <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click"/>
                     <Separator />
-                    <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click" FontSize="16"/>
+                    <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"/>
                 </ContextMenu>
             </DockPanel.ContextMenu>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -102,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Bridge\BaseBridge.cs" />
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
     <Compile Include="Business\Currency\CDD.cs" />
@@ -110,9 +111,9 @@
     </Compile>
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
-    <Compile Include="View\UI\CatalogUserControl.xaml.cs">
-      <DependentUpon>CatalogUserControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Business\Parameter\NewMainWindow.cs" />
+    <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
+    <Compile Include="Business\ViewBusiness\MainWindow\Init.cs" />
     <Compile Include="Business\Model\KeyboardModel.cs" />
     <Compile Include="Business\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
@@ -512,10 +513,6 @@
       <DependentUpon>MakerpjUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Business\Discarded\CatalogUserControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\UI\CatalogUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

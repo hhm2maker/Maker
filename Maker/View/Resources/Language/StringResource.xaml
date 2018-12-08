@@ -473,5 +473,6 @@
     <sys:String x:Key="Idea">Idea</sys:String>
     <sys:String x:Key="LimitlessLamp">Limitless lamp</sys:String>
     <sys:String x:Key="Colored">Colored</sys:String>
-
+    <sys:String x:Key="Effect">Effect</sys:String>
+    
 </ResourceDictionary>

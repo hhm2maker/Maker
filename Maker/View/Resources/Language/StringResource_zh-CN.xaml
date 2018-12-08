@@ -476,5 +476,6 @@
     <sys:String x:Key="Idea">随想</sys:String>
     <sys:String x:Key="LimitlessLamp">无线灯</sys:String>
     <sys:String x:Key="Colored">渲染</sys:String>
+    <sys:String x:Key="Effect">效果</sys:String>
 
 </ResourceDictionary>

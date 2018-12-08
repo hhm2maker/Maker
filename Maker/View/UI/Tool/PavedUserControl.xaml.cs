@@ -28,12 +28,12 @@ namespace Maker.View.Tool
     /// </summary>
     public partial class PavedUserControl : UserControl
     {
-        private CatalogUserControl cuc;
+        private NewMainWindow mw;
         private List<Light> mLightList;
-        public PavedUserControl(CatalogUserControl cuc,List<Light> mLightList)
+        public PavedUserControl(NewMainWindow mw,List<Light> mLightList)
         {
             InitializeComponent();
-            this.cuc = cuc;
+            this.mw = mw;
 
             this.mLightList = mLightList;
         }
@@ -53,7 +53,7 @@ namespace Maker.View.Tool
 
         private void Board_Completed(object sender, EventArgs e)
         {
-            cuc.RemoveSetting();
+            mw.RemoveSetting();
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -70,9 +70,9 @@ namespace Maker.View.Tool
         private void Animation_Completed(object sender, EventArgs e)
         {
             btnPaved.IsEnabled = true;
-            double d = wpMain.ActualWidth / cuc.mw.pavedColumns;
+            double d = wpMain.ActualWidth / mw.pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
-            int max = cuc.mw.pavedMax;
+            int max = mw.pavedMax;
             if (dil.Count > max) {
                 for (int i = dil.Count - 1; i >= max ; i--) {
                     dil.Remove(dil.Last().Key);

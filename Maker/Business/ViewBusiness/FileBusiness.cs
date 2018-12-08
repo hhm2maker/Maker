@@ -191,6 +191,7 @@ namespace Maker.Business
         /// <param name="mActionBeanList"></param>
         public void WriteMidiFile(String filePath, String fileName,List<Light> mActionBeanList, bool isWriteToFile)
         {
+            fileName = "";
             List<Light> lab = new List<Light>();
             for (int j = 0; j < mActionBeanList.Count; j++)
             {
@@ -326,13 +327,15 @@ namespace Maker.Business
             {
                 f.WriteByte((byte)line[j]);
             }
+            line.Clear();
+
             //gb2312
             Byte[] bytess = Encoding.Default.GetBytes(fileName);
             foreach (Byte b in bytess)
             {
                 f.WriteByte(b);
             }
-            line.Clear();
+
             for (int j = 0; j < StartStr2.Count; j++)
             {
                 line.Append(StartStr2[j]);
@@ -557,11 +560,12 @@ namespace Maker.Business
                 }
             }
             mActionBeanList = ReadMidiContent(mData);
+
             //格式化时间
             int time = 0;
             for (int l = 0; l < mActionBeanList.Count; l++)
             {
-                if (mActionBeanList[l].Time == 0)
+                if (mActionBeanList[l].Time == time)
                 {
                     mActionBeanList[l].Time = time;
                 }
@@ -596,6 +600,7 @@ namespace Maker.Business
         /// <param name="mActionBeanList">需要写入的灯光数组</param>
         public void WriteLightFile(String filePath, List<Light> mActionBeanList)
         {
+            LightBusiness.Print(mActionBeanList);
             //StringBuilder sb = new StringBuilder();
             //for (int j = 0; j < mActionBeanList.Count; j++)
             //{
@@ -609,7 +614,7 @@ namespace Maker.Business
             String str = WriteMidiContent(mActionBeanList);
             if (str.Equals(String.Empty))
             {
-                File.Create(filePath);
+                File.Create(filePath).Close();
             }
             else {
                 FileStream f = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -617,9 +622,8 @@ namespace Maker.Business
                 {
                     f.WriteByte((byte)str[j]);
                 }
+                f.Close();
             }
-           
-          
         }
         /// <summary>
         /// 获得文件夹下所有符合条件的文件名

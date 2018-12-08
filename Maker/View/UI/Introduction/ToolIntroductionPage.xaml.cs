@@ -23,7 +23,7 @@ namespace Maker.View.Introduction
     /// </summary>
     public partial class ToolIntroductionPage : BaseIntroductionPage
     {
-        public ToolIntroductionPage(CatalogUserControl cuc,int[] iPosition) :base(cuc, iPosition)
+        public ToolIntroductionPage(NewMainWindow cuc,int[] iPosition) :base(cuc, iPosition)
         {
             InitializeComponent();
         }
@@ -36,18 +36,18 @@ namespace Maker.View.Introduction
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(sender == tbPlayerTypeSetting)
-            {
-                 cuc.AddSetting(new PlayerTypeSetting(cuc.mw));
-            }
-            else if (sender == tbPlayerDefaultSetting)
-            {
-                cuc.AddSetting(new PlayerDefaultSetting(cuc.mw));
-            }
-            else if (sender == tbPavedSetting)
-            {
-                cuc.AddSetting(new PavedSetting(cuc.mw));
-            }
+            //if(sender == tbPlayerTypeSetting)
+            //{
+            //     cuc.AddSetting(new PlayerTypeSetting(cuc.mw));
+            //}
+            //else if (sender == tbPlayerDefaultSetting)
+            //{
+            //    cuc.AddSetting(new PlayerDefaultSetting(cuc.mw));
+            //}
+            //else if (sender == tbPavedSetting)
+            //{
+            //    cuc.AddSetting(new PavedSetting(cuc.mw));
+            //}
         }
     }
 }

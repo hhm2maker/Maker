@@ -138,6 +138,7 @@ namespace Maker.View.LightUserControl
             ClearFrame();
             liTime = LightBusiness.GetTimeList(mActionBeanList);
             dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
+
             if (liTime.Count == 0)
             {
                 tbTimeNow.Text = "0";
@@ -203,7 +204,6 @@ namespace Maker.View.LightUserControl
         {
             ClearFrame();
             int[] x = dic[liTime[nowTimePoint - 1]];
-
             for (int i = 0; i < x.Count(); i++)
             {
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
@@ -211,24 +211,20 @@ namespace Maker.View.LightUserControl
                 {
                     continue;
                 }
-                RoundedCornersPolygon rcp = mLaunchpad.GetButton(i) as RoundedCornersPolygon;
-                if (rcp != null)
+                if (mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
                 {
                     rcp.Fill = StaticConstant.NumToBrush(x[i]);
                 }
-                Ellipse e = mLaunchpad.GetButton(i) as Ellipse;
-                if (e != null)
+                if (mLaunchpad.GetButton(i) is Ellipse e)
                 {
                     e.Fill = StaticConstant.NumToBrush(x[i]);
                 }
-                Rectangle r = mLaunchpad.GetButton(i) as Rectangle;
-                if (r != null)
+                if (mLaunchpad.GetButton(i) is Rectangle r)
                 {
                     r.Fill = StaticConstant.NumToBrush(x[i]);
                 }
             }
         }
-
 
         public void ToLastTime()
         {
@@ -351,7 +347,6 @@ namespace Maker.View.LightUserControl
             }
         }
 
-
         private Point point = new Point();
         private Rectangle rectangle = new Rectangle();
         private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -404,6 +399,7 @@ namespace Maker.View.LightUserControl
         }
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            nowColor = completeColorPanel.NowColor;
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
         }
 
@@ -1618,7 +1614,7 @@ namespace Maker.View.LightUserControl
                     nowTimePoint = position;
                     LoadFrame();
                 }
-                LoadFrame();
+                //LoadFrame();
             }
             catch
             {
@@ -1816,7 +1812,6 @@ namespace Maker.View.LightUserControl
 
         private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //FileBusiness.CreateInstance().WriteLightFile(filePath,GetData());
             SaveFile();
         }
 

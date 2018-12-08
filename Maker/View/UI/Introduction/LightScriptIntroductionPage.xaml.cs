@@ -21,7 +21,7 @@ namespace Maker.View.Introduction
     /// </summary>
     public partial class LightScriptIntroductionPage : BaseIntroductionPage
     {
-        public LightScriptIntroductionPage(CatalogUserControl cuc, int[] iPosition) : base(cuc, iPosition)
+        public LightScriptIntroductionPage(NewMainWindow cuc, int[] iPosition) : base(cuc, iPosition)
         {
             InitializeComponent();
         }

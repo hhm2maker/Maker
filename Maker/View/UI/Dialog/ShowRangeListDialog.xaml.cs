@@ -35,7 +35,7 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Left = 0;
-            if (iuc.mw.bIsRangeListNumber)
+            if (iuc.mw.isRangeListNumber)
             {
                 cbShowNumber.IsChecked = true;
             }
@@ -87,14 +87,14 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(builder.ToString());
                 }
 
-                if (iuc.mw.bIsRangeListNumber)
+                if (iuc.mw.isRangeListNumber)
                     return;
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Config/hide.xml");
                 XmlNode hideRoot = doc.DocumentElement;
                 XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
                 hideRangeListNumber.InnerText = "true";
-                iuc.mw.bIsRangeListNumber = true;
+                iuc.mw.isRangeListNumber = true;
                 doc.Save("Config/hide.xml");
             }
         }
@@ -108,14 +108,14 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(item.Key);
                 }
 
-                if (!iuc.mw.bIsRangeListNumber)
+                if (!iuc.mw.isRangeListNumber)
                     return;
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Config/hide.xml");
                 XmlNode hideRoot = doc.DocumentElement;
                 XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
                 hideRangeListNumber.InnerText = "false";
-                iuc.mw.bIsRangeListNumber = false;
+                iuc.mw.isRangeListNumber = false;
                 doc.Save("Config/hide.xml");
             }
         }

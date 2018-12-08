@@ -160,7 +160,7 @@ namespace Maker.View
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-            mw.cuc.RemoveSetting();
+            mw.RemoveSetting();
         }
 
         private String AudioResources = String.Empty;

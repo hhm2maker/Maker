@@ -20,16 +20,16 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class AboutDialog : MakerDialog
     {
-        private CatalogUserControl cuc;
-        public AboutDialog(CatalogUserControl cuc)
+        private NewMainWindow mw;
+        public AboutDialog(NewMainWindow mw)
         {
             InitializeComponent();
-            this.cuc = cuc;
+            this.mw = mw;
         }
 
         private void RemoveDialog(object sender, RoutedEventArgs e)
         {
-            cuc.RemoveDialog();
+            mw.RemoveDialog();
         }
     }
 }

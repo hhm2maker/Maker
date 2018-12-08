@@ -38,7 +38,7 @@ namespace Maker.View.Setting
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mw.cuc.RemoveSetting();
+            mw.RemoveSetting();
         }
 
         private void tbPaved_LostFocus(object sender, RoutedEventArgs e)

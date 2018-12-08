@@ -249,6 +249,7 @@
                                 <Condition Property="IsSelected" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

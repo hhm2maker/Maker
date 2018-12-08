@@ -45,12 +45,12 @@ namespace Maker.View.Dialog
             mString = tbString.Text;
             if (type.Equals("StepName"))
             {
-                if (mString.Equals(mw.cuc.suc.GetStepName()))
+                if (mString.Equals(mw.suc.GetStepName()))
                 {
                     DialogResult = true;
                 }
 
-                if (mString.Equals(String.Empty) || mw.cuc.suc.lightScriptDictionary.ContainsKey(mString))
+                if (mString.Equals(String.Empty) || mw.suc.lightScriptDictionary.ContainsKey(mString))
                 {
                     System.Windows.Forms.MessageBox.Show("内容为空或已经存在!");
                     return;
