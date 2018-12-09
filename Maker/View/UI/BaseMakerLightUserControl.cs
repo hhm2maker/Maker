@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace Maker.View
 {
-    public class BaseMakerLightUserControl : BaseUserControl, IMakerLight
+    public class BaseMakerLightUserControl : BaseUserControl, ISimpleMakerLight
     {
         public BaseMakerLightUserControl()
         {

@@ -16,7 +16,7 @@ namespace Maker.View.Control
     /// <summary>
     /// LiveUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class LiveUserControl : UserControl,IMakerLight
+    public partial class LiveUserControl : UserControl, ISimpleMakerLight
     {
         private MainControlWindow mw;
         private MainControlUserControl mw2;

@@ -64,7 +64,25 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-                    <Grid  DockPanel.Dock="Left" Name="gPlay" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                <Grid  DockPanel.Dock="Left" Name="gEffect" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                    <TextBlock Text="{DynamicResource Effect}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
+                </Grid>
+                <Popup x:Name="popEffect" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gEffect}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
+                    <StackPanel Width="200" Margin="0,0,20,20" Name="sEffect" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
+                        <StackPanel.Effect>
+                            <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+                        </StackPanel.Effect>
+                        <Button Name="btnColored" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
+                                    <Image Source="View/Resources/Image/colored.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                    <TextBlock Text="{DynamicResource Colored}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Popup>
+                <Grid  DockPanel.Dock="Left" Name="gPlay" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Play_}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>
                     <Popup x:Name="popPlay" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gPlay}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -98,24 +116,7 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-                    <Grid  DockPanel.Dock="Left" Name="gEffect" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                        <TextBlock Text="{DynamicResource Effect}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                    </Grid>
-                    <Popup x:Name="popEffect" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gEffect}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                        <StackPanel Width="200" Margin="0,0,20,20" Name="sEffect" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <Button Name="btnColored" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/colored.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Colored}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Popup>
+                 
                     <Grid  DockPanel.Dock="Left" Name="gTool" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Tool}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>

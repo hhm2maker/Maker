@@ -11,13 +11,8 @@ namespace Maker.View
     public interface IMakerLight
     {
         /// <summary>
-        /// 设置数据
-        /// </summary>
-        void SetData(List<Light> lightList);
-        /// <summary>
         /// 获取数据
         /// </summary>
         List<Light>  GetData();
-
     }
 }

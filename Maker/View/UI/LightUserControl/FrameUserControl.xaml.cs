@@ -366,10 +366,9 @@ namespace Maker.View.LightUserControl
         private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouseType = 0;
-            if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
-            {
-                mLaunchpad.Children.Remove(rectangle);
-            }
+            RemoveSelectRectangle();
+            if(tcLeft.SelectedIndex == 1)
+                 mLaunchpad.SelectPosition(point, e.GetPosition(mLaunchpad));
         }
 
         private void mLaunchpad_MouseMove(object sender, MouseEventArgs e)
@@ -1634,7 +1633,7 @@ namespace Maker.View.LightUserControl
 
         public bool IsCanDraw()
         {
-            return nowTimePoint != 0 && tcLeft.SelectedIndex == 0;
+            return mouseType == 1 && nowTimePoint != 0 && tcLeft.SelectedIndex == 0;
         }
 
         private ControlType nowControlType = ControlType.Draw;
@@ -1812,6 +1811,7 @@ namespace Maker.View.LightUserControl
 
         private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            popFile.IsOpen = false;
             SaveFile();
         }
 
@@ -1819,13 +1819,26 @@ namespace Maker.View.LightUserControl
         {
             if (tcLeft.SelectedIndex == 0)
                
-              
             if (tcLeft.SelectedIndex == 1)
             {
                
             }
-              
-               
+        }
+
+        private void mLaunchpad_MouseLeave(object sender, MouseEventArgs e)
+        {
+            mouseType = 0;
+            RemoveSelectRectangle();
+        }
+        /// <summary>
+        /// 移除选择框
+        /// </summary>
+        private void RemoveSelectRectangle() {
+            if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
+            {
+                mLaunchpad.Children.Remove(rectangle);
+            }
+            mLaunchpad.ClearSelect();
         }
     }
 }

@@ -474,7 +474,7 @@
     <sys:String x:Key="GetStarted">开始体验</sys:String>
     <sys:String x:Key="ReturnTheTitle">返回标题</sys:String>
     <sys:String x:Key="Idea">随想</sys:String>
-    <sys:String x:Key="LimitlessLamp">无线灯</sys:String>
+    <sys:String x:Key="LimitlessLamp">无限灯</sys:String>
     <sys:String x:Key="Colored">渲染</sys:String>
     <sys:String x:Key="Effect">效果</sys:String>
 

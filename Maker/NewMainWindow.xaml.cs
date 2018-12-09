@@ -49,7 +49,7 @@ namespace Maker
         /// </summary>
         private void InitPopup()
         {
-            popups = new List<Popup>() { popLight,popPlay,popEffect,popTool,popHelp};
+            popups = new List<Popup>() { popLight, popEffect, popPlay,popTool,popHelp};
         }
 
         /// <summary>
@@ -251,7 +251,12 @@ namespace Maker
             List<String> fileNames = fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
             for (int i = 0; i < fileNames.Count; i++)
             {
-                lbMain.Items.Add(fileNames[i]);
+                ListBoxItem item = new ListBoxItem
+                {
+                    Height = 36,
+                    Content = fileNames[i],
+                };
+                lbMain.Items.Add(item);
             }
         }
 
@@ -358,8 +363,8 @@ namespace Maker
                     thumb_paved.DragCompleted -= DragCompleted;
                 }
                 BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-                baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
-                baseUserControl.LoadFile(lbMain.SelectedItem.ToString());
+                baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + ((ListBoxItem)lbMain.SelectedItem).Content.ToString();
+                baseUserControl.LoadFile(((ListBoxItem)lbMain.SelectedItem).Content.ToString());
             }
         }
 

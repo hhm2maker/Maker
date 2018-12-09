@@ -28,7 +28,29 @@ namespace Maker.View.Device
             //其余设置
             InitLaunchpadSize();
             InitBackground();
+            InitRainBowBrush();
+
         }
+
+        private void InitRainBowBrush()
+        {
+            GradientStopCollection collection = new GradientStopCollection();
+            collection.Add(new GradientStop(Color.FromRgb(0, 255, 255), 0));
+            collection.Add(new GradientStop(Color.FromRgb(255, 0, 255), 1));
+            //collection.Add(new GradientStop(Color.FromRgb(255,0,0),0));
+            //collection.Add(new GradientStop(Color.FromRgb(255, 128, 0), 0.14));
+            //collection.Add(new GradientStop(Color.FromRgb(255, 128, 0), 0.28));
+            //collection.Add(new GradientStop(Color.FromRgb(255, 255, 0), 0.42));
+            //collection.Add(new GradientStop(Color.FromRgb(0, 255, 0), 0.56));
+            //collection.Add(new GradientStop(Color.FromRgb(0, 255, 255), 0.7));
+            //collection.Add(new GradientStop(Color.FromRgb(0, 0, 255), 0.84));
+            //collection.Add(new GradientStop(Color.FromRgb(128, 0, 255), 1));
+            rainbowBrush = new LinearGradientBrush(collection) {
+                 EndPoint = new Point(1,1),
+                 StartPoint = new Point(0, 0),
+             };
+        }
+
         /// <summary>
         /// 容器大小
         /// </summary>
@@ -858,11 +880,66 @@ namespace Maker.View.Device
                 //停止播放=取消着色
                 if (item is RoundedCornersPolygon rcp)
                     rcp.Fill = closeBrush;
-                if (item is Ellipse e2)
-                    e2.Fill = closeBrush;
+                if (item is Ellipse e)
+                    e.Fill = closeBrush;
                 if (item is Rectangle r)
                     r.Fill = closeBrush;
             }
+        }
+
+        /// <summary>
+        /// 清除选择(Stroke)
+        /// </summary>
+        public void ClearSelect() {
+            foreach (var item in Children)
+            {
+                //停止播放=取消着色
+                if (item is RoundedCornersPolygon rcp)
+                    rcp.Stroke = null;
+                if (item is Ellipse e)
+                    e.Stroke = null;
+                if (item is Rectangle r)
+                    r.Stroke = null;
+            }
+        }
+
+        private Brush rainbowBrush;
+
+
+        public List<int> SelectPosition(Point p1,Point p2) {
+            List<int> selects = new List<int>();
+
+            double minX = Math.Min(p1.X, p2.X);
+            double maxX = Math.Max(p1.X, p2.X);
+
+            double minY = Math.Min(p1.Y, p2.Y);
+            double maxY = Math.Max(p1.Y, p2.Y);
+            for (int i = 0; i < 96; i++)
+            {
+                if (GetTop(Children[i]) > minY - _blockWidth &&
+                    GetTop(Children[i]) < maxY  &&
+                    GetLeft(Children[i]) > minX - _blockWidth &&
+                    GetLeft(Children[i]) < maxX 
+                    )
+                {
+                    selects.Add(i);
+                    
+                if (Children[i] is RoundedCornersPolygon rcp) { 
+                        rcp.Stroke = rainbowBrush;
+                        rcp.StrokeThickness = 3; 
+                    }
+                    if (Children[i] is Ellipse e) {
+                        e.Stroke = rainbowBrush;
+                        e.StrokeThickness = 3;
+                    }
+                    if (Children[i] is Rectangle r) { 
+                        r.Stroke = rainbowBrush;
+                        r.StrokeThickness = 3;
+                    }
+                }
+            }
+            return selects;
+
         }
     }
 }

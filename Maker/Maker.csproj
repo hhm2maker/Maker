@@ -205,6 +205,7 @@
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
+    <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Limitless\LimitlessLampUserControl.xaml.cs">
       <DependentUpon>LimitlessLampUserControl.xaml</DependentUpon>
     </Compile>

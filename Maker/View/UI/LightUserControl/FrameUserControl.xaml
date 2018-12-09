@@ -516,7 +516,7 @@
                             </StackPanel>
                         </TabItem>
                     </TabControl>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
                     <StackPanel.Background>
