@@ -474,5 +474,6 @@
     <sys:String x:Key="LimitlessLamp">Limitless lamp</sys:String>
     <sys:String x:Key="Colored">Colored</sys:String>
     <sys:String x:Key="Effect">Effect</sys:String>
-    
+    <sys:String x:Key="Intersection">Intersection</sys:String>
+    <sys:String x:Key="Complement">Complement</sys:String>
 </ResourceDictionary>

@@ -893,20 +893,13 @@ namespace Maker.View.Device
         public void ClearSelect() {
             foreach (var item in Children)
             {
-                //停止播放=取消着色
-                if (item is RoundedCornersPolygon rcp)
-                    rcp.Stroke = null;
-                if (item is Ellipse e)
-                    e.Stroke = null;
-                if (item is Rectangle r)
-                    r.Stroke = null;
+                (item as Shape).Stroke = null;
             }
         }
 
         private Brush rainbowBrush;
 
-
-        public List<int> SelectPosition(Point p1,Point p2) {
+        public List<int> GetSelectPosition(Point p1,Point p2) {
             List<int> selects = new List<int>();
 
             double minX = Math.Min(p1.X, p2.X);
@@ -917,29 +910,29 @@ namespace Maker.View.Device
             for (int i = 0; i < 96; i++)
             {
                 if (GetTop(Children[i]) > minY - _blockWidth &&
-                    GetTop(Children[i]) < maxY  &&
+                    GetTop(Children[i]) < maxY &&
                     GetLeft(Children[i]) > minX - _blockWidth &&
-                    GetLeft(Children[i]) < maxX 
+                    GetLeft(Children[i]) < maxX
                     )
                 {
                     selects.Add(i);
-                    
-                if (Children[i] is RoundedCornersPolygon rcp) { 
-                        rcp.Stroke = rainbowBrush;
-                        rcp.StrokeThickness = 3; 
-                    }
-                    if (Children[i] is Ellipse e) {
-                        e.Stroke = rainbowBrush;
-                        e.StrokeThickness = 3;
-                    }
-                    if (Children[i] is Rectangle r) { 
-                        r.Stroke = rainbowBrush;
-                        r.StrokeThickness = 3;
-                    }
+                    (Children[i] as Shape).Stroke = rainbowBrush;
+                    (Children[i] as Shape).StrokeThickness = 3;
+                }
+                else {
+                    (Children[i] as Shape).Stroke = null;
                 }
             }
             return selects;
-
+        }
+        public void SetSelectPosition(List<int> selects)
+        {
+            ClearSelect();
+            for (int i = 0; i < selects.Count; i++)
+            {
+                (Children[selects[i]] as Shape).Stroke = rainbowBrush;
+                (Children[selects[i]] as Shape).StrokeThickness = 3;
+            }
         }
     }
 }

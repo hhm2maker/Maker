@@ -493,14 +493,39 @@
                         <TabItem >
                             <StackPanel Orientation="Vertical"  Margin="0,0,0,30"  VerticalAlignment="Top">
                                 <TextBlock  Margin="10,15,0,0" Foreground="#fff" Text="{DynamicResource PositionFourAreaColon}" FontSize="20" Height="auto" FontWeight="Medium" />
-                                <DockPanel  Margin="10,15,10,0" Width="auto">
-                                    <CheckBox Name="cbLeftUp" Content="{DynamicResource UpperLeft}" FontSize="16" Foreground="#fff"/>
-                                    <CheckBox Name="cbRightUp" Width="110"   HorizontalAlignment="Right" Content="{DynamicResource UpperRight}" FontSize="16" Foreground="#fff"/>
-                                </DockPanel>
-                                <DockPanel Margin="10,0,10,0" Width="auto">
-                                    <CheckBox Name="cbLeftDown"  Content="{DynamicResource LowerLeft}" FontSize="16" Foreground="#fff"/>
-                                    <CheckBox Name="cbRightDown" Width="110" HorizontalAlignment="Right"  Content="{DynamicResource LowerRight}" FontSize="16" Foreground="#fff"/>
-                                </DockPanel>
+                                <GroupBox Header="选择模式" FontSize="15" Margin="3" Foreground="#fff" >
+                                    <StackPanel Orientation="Vertical">
+                                    <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <RadioButton IsChecked="true" GroupName="gnSelect" Grid.Column="0" Name="rbSelect" Content="{DynamicResource Select}" FontSize="16" Foreground="#fff"/>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="1" Name="rbAdd"  Content="{DynamicResource Add}" FontSize="16" Foreground="#fff"/>
+                                    </Grid>
+                                        <Grid >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="0" Name="rbIntersection"  Content="{DynamicResource Intersection}" FontSize="16" Foreground="#fff"/>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="1"  Name="rbComplement" Content="{DynamicResource Complement}" FontSize="16" Foreground="#fff"/>
+                                        </Grid>
+                                        <DockPanel  Width="auto">
+                                         
+                                        </DockPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                               
+                                <WrapPanel  Margin="0,15,0,0" Width="auto" HorizontalAlignment="Center">
+                                    <Button  Name="btnLeftUp"  Width="180" Click="btnLeftUp_Click" Content="{DynamicResource UpperLeft}"/>
+                                    <Button  Name="btnRightUp" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource UpperRight}"/>
+                                </WrapPanel>
+                                <WrapPanel  Margin="0,10,0,0" Width="auto" HorizontalAlignment="Center">
+                                    <Button  Name="cbLeftDown"  Width="180" Click="btnRegionClockwise_Click" Content="{DynamicResource LowerLeft}"/>
+                                    <Button  Name="cbRightDown" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource LowerRight}"/>
+                                </WrapPanel>
+                              
                                 <StackPanel  Margin="20,25,20,0" Width="auto">
                                     <Button Name="btnRegionHorizontalFlipping" Width="180" Click="btnRegionHorizontalFlipping_Click" Content="{DynamicResource HorizontalFlipping}"/>
                                     <Button Name="btnRegionVerticalFlipping" Width="180" Click="btnRegionVerticalFlipping_Click" Content="{DynamicResource VerticalFlipping}"/>
