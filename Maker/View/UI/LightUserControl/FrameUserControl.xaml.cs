@@ -46,6 +46,32 @@ namespace Maker.View.LightUserControl
             mLaunchpad.SetCanDraw(true);
 
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
+
+            InitPosition();
+        }
+        private List<int> leftDown,leftUp,rightDown,rightUp;
+        private void InitPosition()
+        {
+            leftDown = new List<int>();
+            for (int i = 8; i < 24; i++)
+            {
+                leftDown.Add(i);
+            }
+            leftUp = new List<int>();
+            for (int i = 24; i < 40; i++)
+            {
+                leftUp.Add(i);
+            }
+            rightDown = new List<int>();
+            for (int i = 40; i < 56; i++)
+            {
+                rightDown.Add(i);
+            }
+            rightUp = new List<int>();
+            for (int i = 56; i < 72; i++)
+            {
+                rightUp.Add(i);
+            }
         }
 
         private void InitLaunchpadEvent()
@@ -244,7 +270,7 @@ namespace Maker.View.LightUserControl
             tbTimePointCount.Text = " / " + liTime.Count;
             LoadFrame();
         }
-      
+
         private void btnInsertTimePoint_Click(object sender, MouseButtonEventArgs e)
         {
             GetNumberDialog dialog = new GetNumberDialog(mw, "TheFrameOfTheNewNodeColon", false, liTime, false);
@@ -368,8 +394,9 @@ namespace Maker.View.LightUserControl
         {
             mouseType = 0;
             RemoveSelectRectangle();
-            if(tcLeft.SelectedIndex == 1)
-                selects = mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad));
+            if (tcLeft.SelectedIndex == 1) {
+                SelectPosition(mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad)));
+            }
         }
 
         private void mLaunchpad_MouseMove(object sender, MouseEventArgs e)
@@ -386,8 +413,8 @@ namespace Maker.View.LightUserControl
                         StrokeDashArray = new DoubleCollection(new List<Double> { 2, 2 }),
                     };
                     mLaunchpad.Children.Add(rectangle);
-                    Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X , point.X));
-                    Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y) );
+                    Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X, point.X));
+                    Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y));
                 }
                 else {
                     Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X, point.X));
@@ -1668,7 +1695,7 @@ namespace Maker.View.LightUserControl
                         new GradientStop(Color.FromRgb(208, 224, 234), 1)
                     }
         };
-       
+
         private void ChangeControlType(object sender, MouseButtonEventArgs e)
         {
             selectView.Background = noSelectBrush;
@@ -1728,7 +1755,7 @@ namespace Maker.View.LightUserControl
         {
             popFile.IsOpen = true;
         }
-      
+
         private void mLaunchpad_MouseEnter(object sender, MouseEventArgs e)
         {
             if (nowTimePoint == 0)
@@ -1740,10 +1767,10 @@ namespace Maker.View.LightUserControl
                 {
                     mLaunchpad.Cursor = Cursors.Pen;
                 }
-                else if(nowControlType == ControlType.Select){
+                else if (nowControlType == ControlType.Select) {
                     mLaunchpad.Cursor = Cursors.Cross;
                 }
-                else 
+                else
                 {
                     mLaunchpad.Cursor = Cursors.Arrow;
                 }
@@ -1754,7 +1781,7 @@ namespace Maker.View.LightUserControl
         private void PopSpMouseEnter(object sender, MouseEventArgs e)
         {
             Image img = (sender as StackPanel).Children[0] as Image;
-          
+
             if (sender == spNewFile) {
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_blue.png", UriKind.RelativeOrAbsolute));
             }
@@ -1777,7 +1804,7 @@ namespace Maker.View.LightUserControl
         private void PopSpMouseLeave(object sender, MouseEventArgs e)
         {
             Image img = (sender as StackPanel).Children[0] as Image;
-          
+
             if (sender == spNewFile)
             {
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_white.png", UriKind.RelativeOrAbsolute));
@@ -1822,7 +1849,7 @@ namespace Maker.View.LightUserControl
                 mLaunchpad.ClearSelect();
             if (tcLeft.SelectedIndex == 1)
             {
-               
+
             }
         }
 
@@ -1831,6 +1858,12 @@ namespace Maker.View.LightUserControl
             mouseType = 0;
             RemoveSelectRectangle();
         }
+
+        private void SelectMove(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// 移除选择框
         /// </summary>
@@ -1838,25 +1871,38 @@ namespace Maker.View.LightUserControl
             if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
             {
                 mLaunchpad.Children.Remove(rectangle);
-            }   
+            }
         }
 
-        private void btnLeftUp_Click(object sender, RoutedEventArgs e)
+        private void FourAreaClick(object sender, RoutedEventArgs e)
         {
+            if(sender == btnLeftDown)
+                 SelectPosition(leftDown);
+            if (sender == btnLeftUp)
+                SelectPosition(leftUp);
+            if (sender == btnRightDown)
+                SelectPosition(rightDown);
+            if (sender == btnRightUp)
+                SelectPosition(rightUp);
+        }
+
+        public void SelectPosition(List<int> positions) {
             if (rbSelect.IsChecked == true)
             {
                 selects.Clear();
-                for (int i = 8; i < 24; i++) {
-                    selects.Add(i);
-                }
+                selects.AddRange(positions);
                 mLaunchpad.SetSelectPosition(selects);
             }
             if (rbAdd.IsChecked == true)
             {
-                for (int i = 8; i < 24; i++)
+                for (int i = 0; i < positions.Count; i++)
                 {
-                    selects.Add(i);
+                    if (!selects.Contains(positions[i]))
+                    {
+                        selects.Add(positions[i]);
+                    }
                 }
+                selects.AddRange(positions);
                 mLaunchpad.SetSelectPosition(selects);
             }
             if (rbIntersection.IsChecked == true)
@@ -1864,22 +1910,25 @@ namespace Maker.View.LightUserControl
                 List<int> nowSelects = new List<int>();
                 nowSelects.AddRange(selects);
                 selects.Clear();
-
-                for (int i = 8; i < 24; i++)
+                for (int i = 0; i < positions.Count; i++)
                 {
-                    if (nowSelects.Contains(i)) {
-                        selects.Add(i);
+                    if (nowSelects.Contains(positions[i]))
+                    {
+                        selects.Add(positions[i]);
                     }
                 }
                 mLaunchpad.SetSelectPosition(selects);
             }
             if (rbComplement.IsChecked == true)
             {
-                for (int i = 8; i < 24; i++)
+                for (int i = 0; i < positions.Count; i++)
                 {
-                    if (selects.Contains(i))
+                    if (selects.Contains(positions[i]))
                     {
-                        selects.Remove(i);
+                        selects.Remove(positions[i]);
+                    }
+                    else {
+                        selects.Add(positions[i]);
                     }
                 }
                 mLaunchpad.SetSelectPosition(selects);

@@ -916,11 +916,6 @@ namespace Maker.View.Device
                     )
                 {
                     selects.Add(i);
-                    (Children[i] as Shape).Stroke = rainbowBrush;
-                    (Children[i] as Shape).StrokeThickness = 3;
-                }
-                else {
-                    (Children[i] as Shape).Stroke = null;
                 }
             }
             return selects;
