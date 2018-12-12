@@ -1861,7 +1861,31 @@ namespace Maker.View.LightUserControl
 
         private void SelectMove(object sender, RoutedEventArgs e)
         {
-
+            List<List<int>> ints;
+            if (sender == btnToLeft) {
+                ints = Operation.IntCollection.VerticalIntList;
+                for (int i = 0; i < dic[liTime[nowTimePoint - 1]].Count(); i++) {
+                    if (dic[liTime[nowTimePoint - 1]][i] == 0) {
+                        continue;
+                    }
+                    for (int j = 0; j < ints.Count; j++) {
+                        if (ints[j].Contains(dic[liTime[nowTimePoint - 1]][i])) {
+                            if (j == 0)
+                            {
+                                Console.WriteLine(ints[ints.Count - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] +"---"+ dic[liTime[nowTimePoint - 1]][i]);
+                                ints[ints.Count - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] =  dic[liTime[nowTimePoint - 1]][i];
+                            }
+                            else
+                            {
+                                Console.WriteLine(ints[j - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] + "---" + dic[liTime[nowTimePoint - 1]][i]);
+                                ints[j-1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] = dic[liTime[nowTimePoint - 1]][i] ;
+                            }
+                            break;
+                        }
+                    }
+                }
+                LoadFrame();
+            }
         }
 
         /// <summary>
