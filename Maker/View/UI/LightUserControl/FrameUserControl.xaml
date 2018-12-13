@@ -798,8 +798,6 @@
                                     <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
                                     <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
                                 </StackPanel>
-
-                               
                             </StackPanel>
                             </ScrollViewer>
                         </TabItem>

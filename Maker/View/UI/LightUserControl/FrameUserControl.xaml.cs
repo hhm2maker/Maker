@@ -49,7 +49,7 @@ namespace Maker.View.LightUserControl
 
             InitPosition();
         }
-        private List<int> leftDown,leftUp,rightDown,rightUp;
+        private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
         {
             leftDown = new List<int>();
@@ -83,10 +83,7 @@ namespace Maker.View.LightUserControl
         }
         private void ChangeColor(object sender, RoutedEventArgs e)
         {
-            if (nowTimePoint == 0)
-                return;
-
-            if (mouseType == 1)
+            if (IsCanDraw())
             {
                 if (LeftOrRight == 0)
                 {
@@ -120,33 +117,35 @@ namespace Maker.View.LightUserControl
         private int LeftOrRight = -1;
         private void SetColor(object sender, RoutedEventArgs e)
         {
-            if (nowTimePoint == 0)
-                return;
-            int i = mLaunchpad.GetNumber(sender as Shape);
-            if (i < 96)
+            if (IsCanDraw())
             {
-                dic[liTime[nowTimePoint - 1]][i] = nowColor;
+                int i = mLaunchpad.GetNumber(sender as Shape);
+                if (i < 96)
+                {
+                    dic[liTime[nowTimePoint - 1]][i] = nowColor;
+                }
+                else
+                {
+                    dic[liTime[nowTimePoint - 1]][i - 96] = nowColor;
+                }
+                LeftOrRight = 0;
             }
-            else
-            {
-                dic[liTime[nowTimePoint - 1]][i - 96] = nowColor;
-            }
-            LeftOrRight = 0;
         }
         private void ClearColor(object sender, RoutedEventArgs e)
         {
-            if (nowTimePoint == 0)
-                return;
-            int i = mLaunchpad.GetNumber(sender as Shape);
-            if (i < 96)
+            if (IsCanDraw())
             {
-                dic[liTime[nowTimePoint - 1]][i] = 0;
+                int i = mLaunchpad.GetNumber(sender as Shape);
+                if (i < 96)
+                {
+                    dic[liTime[nowTimePoint - 1]][i] = 0;
+                }
+                else
+                {
+                    dic[liTime[nowTimePoint - 1]][i - 96] = 0;
+                }
+                LeftOrRight = 1;
             }
-            else
-            {
-                dic[liTime[nowTimePoint - 1]][i - 96] = 0;
-            }
-            LeftOrRight = 1;
         }
         private List<int> liTime = new List<int>();
         private Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
@@ -394,14 +393,16 @@ namespace Maker.View.LightUserControl
         {
             mouseType = 0;
             RemoveSelectRectangle();
-            if (tcLeft.SelectedIndex == 1) {
+            if (tcLeft.SelectedIndex == 1)
+            {
                 SelectPosition(mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad)));
             }
         }
 
         private void mLaunchpad_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseType == 1 && tcLeft.SelectedIndex == 1) {
+            if (mouseType == 1 && tcLeft.SelectedIndex == 1)
+            {
                 if (!mLaunchpad.Children.Contains(rectangle))
                 {
                     rectangle = new Rectangle()
@@ -416,7 +417,8 @@ namespace Maker.View.LightUserControl
                     Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X, point.X));
                     Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y));
                 }
-                else {
+                else
+                {
                     Canvas.SetLeft(rectangle, Math.Min(e.GetPosition(mLaunchpad).X, point.X));
                     Canvas.SetTop(rectangle, Math.Min(e.GetPosition(mLaunchpad).Y, point.Y));
                     rectangle.Width = Math.Abs(e.GetPosition(mLaunchpad).X - point.X);
@@ -1666,7 +1668,8 @@ namespace Maker.View.LightUserControl
 
         private ControlType nowControlType = ControlType.Draw;
         private Border selectView;
-        private enum ControlType {
+        private enum ControlType
+        {
             Draw = 0,
             Select = 1,
             Picture = 2,
@@ -1762,12 +1765,14 @@ namespace Maker.View.LightUserControl
             {
                 mLaunchpad.Cursor = Cursors.No;
             }
-            else {
+            else
+            {
                 if (nowControlType == ControlType.Draw)
                 {
                     mLaunchpad.Cursor = Cursors.Pen;
                 }
-                else if (nowControlType == ControlType.Select) {
+                else if (nowControlType == ControlType.Select)
+                {
                     mLaunchpad.Cursor = Cursors.Cross;
                 }
                 else
@@ -1782,7 +1787,8 @@ namespace Maker.View.LightUserControl
         {
             Image img = (sender as StackPanel).Children[0] as Image;
 
-            if (sender == spNewFile) {
+            if (sender == spNewFile)
+            {
                 img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_blue.png", UriKind.RelativeOrAbsolute));
             }
             else if (sender == spOpenFile)
@@ -1832,7 +1838,8 @@ namespace Maker.View.LightUserControl
             {
                 bShowMembrane.Background = selectBrush;
             }
-            else {
+            else
+            {
                 bShowMembrane.Background = noSelectBrush;
             }
         }
@@ -1861,29 +1868,74 @@ namespace Maker.View.LightUserControl
 
         private void SelectMove(object sender, RoutedEventArgs e)
         {
+            List<int> newSelect = new List<int>();
             List<List<int>> ints;
-            if (sender == btnToLeft) {
+            if (sender == btnToLeft || sender == btnToRight)
+            {
                 ints = Operation.IntCollection.VerticalIntList;
-                for (int i = 0; i < dic[liTime[nowTimePoint - 1]].Count(); i++) {
-                    if (dic[liTime[nowTimePoint - 1]][i] == 0) {
-                        continue;
-                    }
-                    for (int j = 0; j < ints.Count; j++) {
-                        if (ints[j].Contains(dic[liTime[nowTimePoint - 1]][i])) {
-                            if (j == 0)
+
+                for (int i = 0; i < selects.Count; i++)
+                {
+                    for (int j = 0; j < ints.Count; j++)
+                    {
+                        if (ints[j].Contains(selects[i] + 28))
+                        {
+                            int oldJ = j;
+                            int contraryJ = 0;
+                            if (sender == btnToLeft)
                             {
-                                Console.WriteLine(ints[ints.Count - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] +"---"+ dic[liTime[nowTimePoint - 1]][i]);
-                                ints[ints.Count - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] =  dic[liTime[nowTimePoint - 1]][i];
+                                if (oldJ == 0)
+                                {
+                                    j = ints.Count - 1;
+                                }
+                                else {
+                                    j -= 1; 
+                                }
+
+                                if (oldJ == ints.Count - 1)
+                                {
+                                    contraryJ = 0;
+                                }
+                                else
+                                {
+                                    contraryJ = oldJ + 1;
+                                }
                             }
-                            else
+                            if (sender == btnToRight)
                             {
-                                Console.WriteLine(ints[j - 1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] + "---" + dic[liTime[nowTimePoint - 1]][i]);
-                                ints[j-1][ints[j].IndexOf(dic[liTime[nowTimePoint - 1]][i])] = dic[liTime[nowTimePoint - 1]][i] ;
+                                if (oldJ == ints.Count - 1)
+                                {
+                                    j = 0;
+                                }
+                                else
+                                {
+                                    j += 1;
+                                }
+
+                                if (oldJ == 0)
+                                {
+                                    contraryJ = ints.Count - 1;
+                                }
+                                else
+                                {
+                                    contraryJ = oldJ - 1;
+                                }
                             }
+                            dic[liTime[nowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28] = dic[liTime[nowTimePoint - 1]][selects[i]];
+                            newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28);
+                            if (!selects.Contains(ints[contraryJ].IndexOf(selects[i] + 28)))
+                            {
+                                Console.WriteLine(contraryJ+"---"+ (selects[i] + 27));
+                                dic[liTime[nowTimePoint - 1]][selects[i]] = 0;
+                            }
+                                
                             break;
                         }
                     }
                 }
+                selects.Clear();
+                selects.AddRange(newSelect);
+                mLaunchpad.SetSelectPosition(selects);
                 LoadFrame();
             }
         }
@@ -1891,7 +1943,8 @@ namespace Maker.View.LightUserControl
         /// <summary>
         /// 移除选择框
         /// </summary>
-        private void RemoveSelectRectangle() {
+        private void RemoveSelectRectangle()
+        {
             if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
             {
                 mLaunchpad.Children.Remove(rectangle);
@@ -1900,8 +1953,8 @@ namespace Maker.View.LightUserControl
 
         private void FourAreaClick(object sender, RoutedEventArgs e)
         {
-            if(sender == btnLeftDown)
-                 SelectPosition(leftDown);
+            if (sender == btnLeftDown)
+                SelectPosition(leftDown);
             if (sender == btnLeftUp)
                 SelectPosition(leftUp);
             if (sender == btnRightDown)
@@ -1910,7 +1963,9 @@ namespace Maker.View.LightUserControl
                 SelectPosition(rightUp);
         }
 
-        public void SelectPosition(List<int> positions) {
+        public void SelectPosition(List<int> positions)
+        {
+
             if (rbSelect.IsChecked == true)
             {
                 selects.Clear();
@@ -1951,12 +2006,14 @@ namespace Maker.View.LightUserControl
                     {
                         selects.Remove(positions[i]);
                     }
-                    else {
+                    else
+                    {
                         selects.Add(positions[i]);
                     }
                 }
                 mLaunchpad.SetSelectPosition(selects);
             }
+
         }
     }
 }
