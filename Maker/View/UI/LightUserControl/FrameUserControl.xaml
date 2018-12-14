@@ -8,6 +8,8 @@
         xmlns:view="clr-namespace:Maker.View.UI.Device.ColorPanel"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
     mc:Ignorable="d"
+    Focusable="True"
+    PreviewKeyDown="BaseLightUserControl_KeyDown"
        >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -310,7 +312,7 @@
     <UserControl.Background>
         <ImageBrush ImageSource="../../Resources/Image/Galactic-Trilogy-Floral-UHD.png"/>
     </UserControl.Background>
-    <Grid Name="gMain" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid Name="gMain" HorizontalAlignment="Center" VerticalAlignment="Center" Focusable="True">
         <DockPanel >
             <DockPanel.ContextMenu>
                 <ContextMenu>
@@ -491,8 +493,8 @@
                             </Grid>
                         </TabItem>
                         <TabItem >
-                            <ScrollViewer VerticalAlignment="Top" Height="600" >
-                            <StackPanel Orientation="Vertical"   >
+                            <ScrollViewer VerticalAlignment="Top" Height="600" Focusable="True" >
+                                <StackPanel Orientation="Vertical"   >
                                 <TextBlock  Margin="10,15,0,0" Foreground="#fff" Text="{DynamicResource PositionFourAreaColon}" FontSize="20" Height="auto" FontWeight="Medium" />
                                 <GroupBox Header="选择模式" FontSize="15" Margin="10" Foreground="#fff" >
                                     <StackPanel Orientation="Vertical" Margin="10">
@@ -802,7 +804,7 @@
                             </ScrollViewer>
                         </TabItem>
                     </TabControl>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" Focusable="True" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
                     <StackPanel.Background>

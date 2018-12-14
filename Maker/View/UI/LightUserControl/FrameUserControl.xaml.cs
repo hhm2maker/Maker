@@ -396,6 +396,7 @@ namespace Maker.View.LightUserControl
             if (tcLeft.SelectedIndex == 1)
             {
                 SelectPosition(mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad)));
+                mLaunchpad.Focus();
             }
         }
 
@@ -1868,77 +1869,98 @@ namespace Maker.View.LightUserControl
 
         private void SelectMove(object sender, RoutedEventArgs e)
         {
+            if (sender == btnToLeft)
+                SelectMove(ToWhere.toLeft);
+            if (sender == btnToRight)
+                SelectMove(ToWhere.toRight);
+            if (sender == btnToUp)
+                SelectMove(ToWhere.toUp);
+            if (sender == btnToDown)
+                SelectMove(ToWhere.toDown);
+        }
+        private enum ToWhere {
+             toLeft = 0,
+            toUp = 1,
+             toRight = 2,
+             toDown = 3
+        }
+
+        private void SelectMove(ToWhere toWhere) {
             List<int> newSelect = new List<int>();
             List<List<int>> ints;
-            if (sender == btnToLeft || sender == btnToRight)
+
+            ints = new List<List<int>>();
+
+            if (toWhere == ToWhere.toLeft || toWhere == ToWhere.toRight)
+                ints.AddRange(Operation.IntCollection.VerticalIntList);
+            if (toWhere == ToWhere.toUp || toWhere == ToWhere.toDown)
+                ints.AddRange(Operation.IntCollection.HorizontalIntList);
+
+            if (toWhere == ToWhere.toRight || toWhere == ToWhere.toDown)
             {
-                ints = Operation.IntCollection.VerticalIntList;
+                ints.Reverse();
+                selects.Reverse();
+            }
 
-                for (int i = 0; i < selects.Count; i++)
+            for (int i = 0; i < selects.Count; i++)
+            {
+                for (int j = 0; j < ints.Count; j++)
                 {
-                    for (int j = 0; j < ints.Count; j++)
+                    if (ints[j].Contains(selects[i] + 28))
                     {
-                        if (ints[j].Contains(selects[i] + 28))
+                        int oldJ = j;
+                        int contraryJ = 0;
+
+                        if (oldJ == 0)
                         {
-                            int oldJ = j;
-                            int contraryJ = 0;
-                            if (sender == btnToLeft)
-                            {
-                                if (oldJ == 0)
-                                {
-                                    j = ints.Count - 1;
-                                }
-                                else {
-                                    j -= 1; 
-                                }
-
-                                if (oldJ == ints.Count - 1)
-                                {
-                                    contraryJ = 0;
-                                }
-                                else
-                                {
-                                    contraryJ = oldJ + 1;
-                                }
-                            }
-                            if (sender == btnToRight)
-                            {
-                                if (oldJ == ints.Count - 1)
-                                {
-                                    j = 0;
-                                }
-                                else
-                                {
-                                    j += 1;
-                                }
-
-                                if (oldJ == 0)
-                                {
-                                    contraryJ = ints.Count - 1;
-                                }
-                                else
-                                {
-                                    contraryJ = oldJ - 1;
-                                }
-                            }
-                            dic[liTime[nowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28] = dic[liTime[nowTimePoint - 1]][selects[i]];
-                            newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28);
-                            if (!selects.Contains(ints[contraryJ].IndexOf(selects[i] + 28)))
-                            {
-                                Console.WriteLine(contraryJ+"---"+ (selects[i] + 27));
-                                dic[liTime[nowTimePoint - 1]][selects[i]] = 0;
-                            }
-                                
-                            break;
+                            j = ints.Count - 1;
                         }
+                        else
+                        {
+                            j -= 1;
+                        }
+
+                        if (oldJ == ints.Count - 1)
+                        {
+                            contraryJ = 0;
+                        }
+                        else
+                        {
+                            contraryJ = oldJ + 1;
+                        }
+                        if (ints[j][ints[oldJ].IndexOf(selects[i] + 28)] < 0)
+                            break;
+                      
+                        dic[liTime[nowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28] = dic[liTime[nowTimePoint - 1]][selects[i]];
+                        newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28);
+                        if (!selects.Contains(ints[contraryJ].IndexOf(selects[i] + 28)))
+                        {
+                            dic[liTime[nowTimePoint - 1]][selects[i]] = 0;
+                        }
+                        break;
                     }
                 }
-                selects.Clear();
-                selects.AddRange(newSelect);
-                mLaunchpad.SetSelectPosition(selects);
-                LoadFrame();
             }
+            selects.Clear();
+            selects.AddRange(newSelect);
+            mLaunchpad.SetSelectPosition(selects);
+            if (toWhere == ToWhere.toRight || toWhere == ToWhere.toDown)
+                selects.Reverse();
+            LoadFrame();
         }
+
+        private void BaseLightUserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Left)
+                SelectMove(ToWhere.toLeft);
+            if (e.Key == Key.Right)
+                SelectMove(ToWhere.toRight);
+            if (e.Key == Key.Up)
+                SelectMove(ToWhere.toUp);
+            if (e.Key == Key.Down)
+                SelectMove(ToWhere.toDown);
+        }
+
 
         /// <summary>
         /// 移除选择框
@@ -1965,7 +1987,6 @@ namespace Maker.View.LightUserControl
 
         public void SelectPosition(List<int> positions)
         {
-
             if (rbSelect.IsChecked == true)
             {
                 selects.Clear();
