@@ -21,7 +21,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}" >
-                            <Border BorderThickness="2" CornerRadius="5,5,5,5" Background="#f5f5f5" BorderBrush="#447740" Name="btnTabItem">
+                            <Border BorderThickness="2" CornerRadius="5,5,5,5" Background="#f5f5f5" BorderBrush="#999999" Name="btnTabItem">
                                 <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                         </ControlTemplate>
@@ -803,8 +803,16 @@
                             </StackPanel>
                             </ScrollViewer>
                         </TabItem>
+                        <TabItem >
+                            <StackPanel VerticalAlignment="Center">
+                                <Button  Width="180" Click="SaveCanvas" Content="{DynamicResource SaveCanvas}"/>
+                                <Button  Width="180" Click="SaveLongCanvas" Content="{DynamicResource SaveLongCanvas}"/>
+                            </StackPanel>
+                        </TabItem>
                     </TabControl>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Left" Focusable="True" VerticalAlignment="Top"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                    <Border>
+                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                    </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
                     <StackPanel.Background>
@@ -923,5 +931,6 @@
                 </StackPanel>
             </StackPanel>
         </DockPanel>
+        
     </Grid>
 </lightusercontrol:BaseLightUserControl>

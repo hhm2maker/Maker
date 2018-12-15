@@ -476,4 +476,8 @@
     <sys:String x:Key="Effect">Effect</sys:String>
     <sys:String x:Key="Intersection">Intersection</sys:String>
     <sys:String x:Key="Complement">Complement</sys:String>
+    <sys:String x:Key="SaveCanvas">Save canvas</sys:String>
+    <sys:String x:Key="SaveLongCanvas">Save long canvas</sys:String>
+    
+
 </ResourceDictionary>
