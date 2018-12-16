@@ -9,8 +9,8 @@
         xmlns:launchpad="clr-namespace:Maker.View.Device"
     mc:Ignorable="d"
     Focusable="True"
-    PreviewKeyDown="BaseLightUserControl_KeyDown"
-       >
+   
+    >
     <UserControl.Resources>
         <Style TargetType="Button">
             <Style.Setters>
@@ -809,9 +809,16 @@
                                 <Button  Width="180" Click="SaveLongCanvas" Content="{DynamicResource SaveLongCanvas}"/>
                             </StackPanel>
                         </TabItem>
+                        <TabItem >
+                            <StackPanel VerticalAlignment="Center">
+                                <Button  Width="180" Click="NewText" Content="{DynamicResource NewText}"/>
+                                <Button  Width="180" Click="LoadText" Content="{DynamicResource LoadText}"/>
+                                <Button  Width="180" Click="SaveText" Content="{DynamicResource SaveText}"/>
+                            </StackPanel>
+                        </TabItem>
                     </TabControl>
                     <Border>
-                    <launchpad:DrawLaunchpadPro HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                        <launchpad:DrawLaunchpadPro  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >

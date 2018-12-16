@@ -481,5 +481,7 @@
     <sys:String x:Key="Complement">补集</sys:String>
     <sys:String x:Key="SaveCanvas">保存画布</sys:String>
     <sys:String x:Key="SaveLongCanvas">保存长画布</sys:String>
-
+    <sys:String x:Key="NewText">新建文本</sys:String>
+    <sys:String x:Key="LoadText">加载文本</sys:String>
+    <sys:String x:Key="SaveText">保存文本</sys:String>
 </ResourceDictionary>

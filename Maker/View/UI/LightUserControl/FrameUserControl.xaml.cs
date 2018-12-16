@@ -21,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml.Linq;
 
 namespace Maker.View.LightUserControl
 {
@@ -402,7 +403,6 @@ namespace Maker.View.LightUserControl
             if (tcLeft.SelectedIndex == 1)
             {
                 SelectPosition(mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad)));
-                mLaunchpad.Focus();
             }
         }
 
@@ -1750,6 +1750,7 @@ namespace Maker.View.LightUserControl
             {
                 iFire.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/fire_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Fire;
+                tcLeft.SelectedIndex = 3;
             }
         }
 
@@ -1903,12 +1904,19 @@ namespace Maker.View.LightUserControl
             if (toWhere == ToWhere.toUp || toWhere == ToWhere.toDown)
                 ints.AddRange(Operation.IntCollection.HorizontalIntList);
 
-            if (toWhere == ToWhere.toRight || toWhere == ToWhere.toDown)
+            if (toWhere == ToWhere.toRight)
             {
                 ints.Reverse();
                 selects.Reverse();
             }
-
+            if (toWhere == ToWhere.toDown)
+            {
+                ints.Reverse();
+            }
+            if (toWhere == ToWhere.toUp)
+            {
+                selects.Reverse();
+            }
             for (int i = 0; i < selects.Count; i++)
             {
                 for (int j = 0; j < ints.Count; j++)
@@ -1951,21 +1959,33 @@ namespace Maker.View.LightUserControl
             selects.Clear();
             selects.AddRange(newSelect);
             mLaunchpad.SetSelectPosition(selects);
-            if (toWhere == ToWhere.toRight || toWhere == ToWhere.toDown)
+            if (toWhere == ToWhere.toRight)
                 selects.Reverse();
+            if (toWhere == ToWhere.toUp)
+            {
+                selects.Reverse();
+            }
             LoadFrame();
+
+            mLaunchpad.Focus();
         }
 
         private void BaseLightUserControl_KeyDown(object sender, KeyEventArgs e)
         {
+            e.Handled = true;
+
             if (e.Key == Key.Left)
                 SelectMove(ToWhere.toLeft);
-            if (e.Key == Key.Right)
+            else if (e.Key == Key.Right)
                 SelectMove(ToWhere.toRight);
-            if (e.Key == Key.Up)
+            else if (e.Key == Key.Up)
                 SelectMove(ToWhere.toUp);
-            if (e.Key == Key.Down)
+            else if(e.Key == Key.Down)
                 SelectMove(ToWhere.toDown);
+        }
+        private void BaseLightUserControl_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void SaveCanvas(object sender, RoutedEventArgs e)
@@ -2008,9 +2028,6 @@ namespace Maker.View.LightUserControl
             return rtb;
         }
 
-        
-     
-
         private  void SaveRTBAsPNG(RenderTargetBitmap bmp, string filename)
         {
             var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
@@ -2021,8 +2038,109 @@ namespace Maker.View.LightUserControl
                 enc.Save(stm);
             }
         }
+        private void NewText(object sender, RoutedEventArgs e)
+        {
+            String _filePath = GetFileDirectory();
+            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath+ @"\Text\", new List<string>() { ".text" }), "Text");
+            if (dialog.ShowDialog() == true)
+            {
+                filePath = _filePath + dialog.fileName;
+                if (File.Exists(filePath))
+                {
+                    new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
+                    return;
+                }
+                else
+                {
+                    CreateText(filePath);
+                    LoadText(dialog.fileName);
+                }
+            }
+        }
 
-      
+        private void CreateText(String filePath) {
+            //获取对象
+            XDocument xDoc = new XDocument();
+            // 添加根节点
+            XElement xRoot = new XElement("Root");
+            // 保存该文档  
+            xDoc.Save(filePath);
+        }
+        private List<FramePointModel> points = new List<FramePointModel>();
+        private void LoadText(String fileName) {
+            points.Clear();
+            XDocument doc = XDocument.Load(filePath);
+
+            foreach (XElement element in doc.Elements("Point"))
+            {
+                FramePointModel framePointModel = new FramePointModel();
+                framePointModel.Value = int.Parse(element.Attribute("value").Value);
+                List<FramePointModel.Text> texts = new List<FramePointModel.Text>();
+
+                foreach (XElement _element in element.Elements("Text"))
+                {
+                    texts.Add(new FramePointModel.Text()
+                    {
+                        Value = _element.Attribute("value").Value,
+                        Point = new Point(Double.Parse(_element.Attribute("x").Value), Double.Parse(_element.Attribute("y").Value))
+                    });
+                }
+                framePointModel.Texts = texts;
+                points.Add(framePointModel);
+            }
+        }
+
+        private void LoadText(object sender, RoutedEventArgs e)
+        {
+            List<String> fileNames = new List<string>();
+            FileBusiness business = new FileBusiness();
+            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Text", new List<string>() { ".text" }));
+
+            ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
+            if (dialog.ShowDialog() == true)
+            {
+                LoadText(dialog.selectItem);
+            }
+        }
+
+        private void SaveText(object sender, RoutedEventArgs e)
+        {
+            XDocument doc = new XDocument();
+            foreach (FramePointModel framePointModel in points) {
+                XElement element = new XElement("Point");
+                element.SetAttributeValue("value", framePointModel.Value);
+                doc.Add(element);
+                foreach (FramePointModel.Text text in framePointModel.Texts)
+                {
+                    XElement _element = new XElement("Text");
+                    _element.SetAttributeValue("value", text.Value);
+                    _element.SetAttributeValue("x", text.Point.X);
+                    _element.SetAttributeValue("y", text.Point.Y);
+                    element.Add(_element);
+                }
+            }
+
+
+            foreach (XElement element in doc.Elements("Point"))
+            {
+                FramePointModel framePointModel = new FramePointModel();
+                framePointModel.Value = int.Parse(element.Attribute("value").Value);
+                List<FramePointModel.Text> texts = new List<FramePointModel.Text>();
+
+                foreach (XElement _element in element.Elements("Text"))
+                {
+                    texts.Add(new FramePointModel.Text()
+                    {
+                        Value = _element.Attribute("value").Value,
+                        Point = new Point(Double.Parse(_element.Attribute("x").Value), Double.Parse(_element.Attribute("y").Value))
+                    });
+                }
+                framePointModel.Texts = texts;
+                points.Add(framePointModel);
+            }
+        }
+
+
 
         /// <summary>
         /// 移除选择框
@@ -2096,7 +2214,7 @@ namespace Maker.View.LightUserControl
                 }
                 mLaunchpad.SetSelectPosition(selects);
             }
-
+            mLaunchpad.Focus();
         }
     }
 }

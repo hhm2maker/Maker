@@ -478,6 +478,9 @@
     <sys:String x:Key="Complement">Complement</sys:String>
     <sys:String x:Key="SaveCanvas">Save canvas</sys:String>
     <sys:String x:Key="SaveLongCanvas">Save long canvas</sys:String>
+    <sys:String x:Key="NewText">New text</sys:String>
+    <sys:String x:Key="LoadText">Load text</sys:String>
+    <sys:String x:Key="SaveText">Save text</sys:String>
     
-
+    
 </ResourceDictionary>
