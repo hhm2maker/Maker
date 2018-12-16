@@ -206,6 +206,9 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\Tool\Paved\ShowPavedWindow.xaml.cs">
+      <DependentUpon>ShowPavedWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Limitless\LimitlessLampUserControl.xaml.cs">
       <DependentUpon>LimitlessLampUserControl.xaml</DependentUpon>
     </Compile>
@@ -374,6 +377,9 @@
     </Compile>
     <Compile Include="View\UI\Setting\PavedSetting.xaml.cs">
       <DependentUpon>PavedSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Tool\ShowPavedUserControl.xaml.cs">
+      <DependentUpon>ShowPavedUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Tool\PavedUserControl.xaml.cs">
       <DependentUpon>PavedUserControl.xaml</DependentUpon>
@@ -556,6 +562,10 @@
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\Paved\ShowPavedWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Loading\LoadingUserControl.xaml">
       <SubType>Designer</SubType>
@@ -840,6 +850,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Setting\PavedSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\ShowPavedUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

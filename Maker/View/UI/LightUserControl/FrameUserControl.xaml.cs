@@ -2,6 +2,7 @@
 using Maker.Model;
 using Maker.View.Device;
 using Maker.View.Dialog;
+using Maker.View.UI.Tool.Paved;
 using Maker.View.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -1741,13 +1743,13 @@ namespace Maker.View.LightUserControl
             else if (sender == bPicture)
             {
                 iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Select;
+                nowControlType = ControlType.Picture;
                 tcLeft.SelectedIndex = 2;
             }
             else if (sender == bFire)
             {
                 iFire.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/fire_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Select;
+                nowControlType = ControlType.Fire;
             }
         }
 
@@ -1970,14 +1972,25 @@ namespace Maker.View.LightUserControl
         {
             if (nowTimePoint == 0)
                 return;
-            SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 96), "d:\\canvas.png");
+            var dlg = new Microsoft.Win32.SaveFileDialog
+            {
+                Filter = "png(*.png)|*.png"
+            };
+            var rst = dlg.ShowDialog();
+            if (rst == true)
+            {
+                String fileName = dlg.FileName;
+               SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 96), fileName);
+            }
         }
 
         private void SaveLongCanvas(object sender, RoutedEventArgs e)
         {
-            GetBitmapStream2(mLaunchpad,96);
-          
+            if (nowTimePoint == 0)
+                return;
+            new ShowPavedWindow(mw, GetData(), 1).ShowDialog();
         }
+
 
         public RenderTargetBitmap GetBitmapStream(Canvas canvas, int dpi)
         {
@@ -1995,66 +2008,8 @@ namespace Maker.View.LightUserControl
             return rtb;
         }
 
-        public void Calculate()
-        {
         
-
-        }
-
-
-        public void GetBitmapStream2(Canvas canvas, int dpi)
-        {
-            if (nowTimePoint == 0)
-                return;
-
-            ThreadStart threadStart = new ThreadStart(Calculate);//通过ThreadStart委托告诉子线程执行什么方法　　
-            Thread thread = new Thread(threadStart);
-            thread.Start();//启动新线程
-
-            List<System.Drawing.Bitmap> imgs = new List<System.Drawing.Bitmap>();
-            for (int i = 0; i < dic.Count; i++)
-            {
-                nowTimePoint = i + 1;
-                tbTimePointCountLeft.Text = nowTimePoint.ToString();
-                //LoadFrame();
-
-                var rtb = new RenderTargetBitmap(
-               (int)canvas.Width, //width
-               (int)canvas.Height, //height
-               dpi, //dpi x
-               dpi, //dpi y
-               PixelFormats.Pbgra32 // pixelformat
-               );
-                rtb.Render(canvas);
-
-                imgs.Add(ImageSourceToBitmap(rtb));
-            }
-
-            int width = imgs[0].Width;
-            int height = 0;
-            for (int i = 0; i < imgs.Count; i++) {
-                height += imgs[i].Height;
-            }
-
-            // 初始化画布(最终的拼图画布)并设置宽高
-            System.Drawing.Bitmap bitMap = new System.Drawing.Bitmap(width, height);
-            // 初始化画板
-            System.Drawing.Graphics g1 = System.Drawing.Graphics.FromImage(bitMap);
-            // 将画布涂为白色(底部颜色可自行设置)
-            g1.FillRectangle(System.Drawing.Brushes.White, new System.Drawing.Rectangle(0, 0, width, height));
-            for (int i = 0; i < imgs.Count; i++) {
-                //在x=0，y=0处画上图一
-                g1.DrawImage(imgs[i], 0, 0, imgs[i].Width, imgs[i].Height);
-                //在x=0，y在图一往下10像素处画上图二
-                g1.DrawImage(imgs[i], 0, imgs[i].Height + 10, imgs[i].Width, imgs[i].Height);
-            }
-
-            System.Drawing.Image img = bitMap;
-            //保存
-            img.Save("d:\\canvas.png");
-        }
-
-       
+     
 
         private  void SaveRTBAsPNG(RenderTargetBitmap bmp, string filename)
         {
@@ -2067,21 +2022,7 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        public  System.Drawing.Bitmap ImageSourceToBitmap(ImageSource imageSource)
-        {
-            BitmapSource m = (BitmapSource)imageSource;
-
-            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(m.PixelWidth, m.PixelHeight, System.Drawing.Imaging.PixelFormat.Format32bppPArgb); // 坑点：选Format32bppRgb将不带透明度
-
-            System.Drawing.Imaging.BitmapData data = bmp.LockBits(
-            new System.Drawing.Rectangle(System.Drawing.Point.Empty, bmp.Size), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-
-            m.CopyPixels(Int32Rect.Empty, data.Scan0, data.Height * data.Stride, data.Stride);
-            bmp.UnlockBits(data);
-
-            return bmp;
-        }
-
+      
 
         /// <summary>
         /// 移除选择框

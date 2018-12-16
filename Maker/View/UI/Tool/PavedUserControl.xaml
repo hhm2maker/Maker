@@ -17,16 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" Template="{DynamicResource ScrollViewerControlTemplate1}" >
-            <WrapPanel Name="wpMain"/>
-        </ScrollViewer>
-        <Grid Grid.Row="1">
-            <Image x:Name="btnPaved"  Margin="15,10,10,10" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" IsEnabled="False"/>
-        </Grid>
-    </Grid>
+    <ScrollViewer Grid.Row="0" Template="{DynamicResource ScrollViewerControlTemplate1}" >
+        <WrapPanel Name="wpMain"/>
+    </ScrollViewer>
 </UserControl>

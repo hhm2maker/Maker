@@ -796,7 +796,7 @@
                                     <Button  Name="btnRegionClockwise"  Width="180" Click="btnRegionClockwise_Click" Content="{DynamicResource ClockwiseRotation}"/>
                                     <Button  Name="btnRegionAntiClockwise" Width="180"  Click="btnRegionAntiClockwise_Click" Content="{DynamicResource AntiClockwiseRotation}"/>
                                 </StackPanel>
-                                <StackPanel  Margin="20,25,20,0" Width="auto">
+                                <StackPanel  Margin="20,25,20,15" Width="auto">
                                     <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
                                     <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
                                 </StackPanel>

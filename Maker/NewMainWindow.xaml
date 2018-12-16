@@ -29,8 +29,8 @@
     </Window.Resources>
     <Grid Name="gMost">
         <DockPanel>
-            <DockPanel Grid.Column="0" Name="dpCatalog" Background="#262526" DockPanel.Dock="Top">
-                    <Grid DockPanel.Dock="Left" Name="gLight" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+            <WrapPanel Name="dpCatalog" Background="#262526" DockPanel.Dock="Top">
+                    <Grid  Name="gLight" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Light}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>
                     <Popup x:Name="popLight" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gLight}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -64,7 +64,7 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-                <Grid  DockPanel.Dock="Left" Name="gEffect" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                <Grid  Name="gEffect" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                     <TextBlock Text="{DynamicResource Effect}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                 </Grid>
                 <Popup x:Name="popEffect" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gEffect}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -82,7 +82,7 @@
                         </Button>
                     </StackPanel>
                 </Popup>
-                <Grid  DockPanel.Dock="Left" Name="gPlay" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                <Grid  Name="gPlay" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Play_}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>
                     <Popup x:Name="popPlay" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gPlay}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -116,8 +116,7 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-                 
-                    <Grid  DockPanel.Dock="Left" Name="gTool" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                    <Grid   Name="gTool" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Tool}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>
                     <Popup x:Name="popTool" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gTool}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -143,7 +142,7 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-                    <Grid  DockPanel.Dock="Right" Name="gHelp" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
+                    <Grid  Name="gHelp" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
                         <TextBlock Text="{DynamicResource Help}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
                     </Grid>
                     <Popup x:Name="popHelp" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gHelp}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
@@ -161,7 +160,7 @@
                             </Button>
                         </StackPanel>
                     </Popup>
-            </DockPanel>
+            </WrapPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>

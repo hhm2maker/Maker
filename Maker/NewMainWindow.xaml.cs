@@ -526,7 +526,7 @@ namespace Maker
                 else if (position == 1)
                 {
                     //加入平铺页面
-                    PavedUserControl pavedUserControl = new PavedUserControl(this, baseMakerLightUserControl.GetData());
+                    ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, baseMakerLightUserControl.GetData());
                     userControl = pavedUserControl;
                 }
                 gMost.Children.Add(userControl);

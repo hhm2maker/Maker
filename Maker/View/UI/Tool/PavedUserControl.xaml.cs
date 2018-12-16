@@ -30,30 +30,23 @@ namespace Maker.View.Tool
     {
         private NewMainWindow mw;
         private List<Light> mLightList;
+        private int pavedColumns;
         public PavedUserControl(NewMainWindow mw,List<Light> mLightList)
         {
             InitializeComponent();
             this.mw = mw;
 
             this.mLightList = mLightList;
+            pavedColumns = mw.pavedColumns;
         }
 
-
-        private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public PavedUserControl(NewMainWindow mw, List<Light> mLightList,int pavedColumns)
         {
-            btnPaved.IsEnabled = false;
-            DoubleAnimation daHeight = new DoubleAnimation();
-                daHeight.From = 1;
-                daHeight.To = 0;
-                daHeight.Duration = TimeSpan.FromSeconds(0.3);
+            InitializeComponent();
+            this.mw = mw;
 
-            daHeight.Completed += Board_Completed;
-            wMain.BeginAnimation(OpacityProperty, daHeight);
-        }
-
-        private void Board_Completed(object sender, EventArgs e)
-        {
-            mw.RemoveSetting();
+            this.mLightList = mLightList;
+            this.pavedColumns = pavedColumns;
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -69,8 +62,7 @@ namespace Maker.View.Tool
 
         private void Animation_Completed(object sender, EventArgs e)
         {
-            btnPaved.IsEnabled = true;
-            double d = wpMain.ActualWidth / mw.pavedColumns;
+            double d = wpMain.ActualWidth / pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
             int max = mw.pavedMax;
             if (dil.Count > max) {
