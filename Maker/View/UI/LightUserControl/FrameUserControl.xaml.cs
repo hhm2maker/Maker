@@ -1888,7 +1888,7 @@ namespace Maker.View.LightUserControl
         }
         private enum ToWhere {
              toLeft = 0,
-            toUp = 1,
+             toUp = 1,
              toRight = 2,
              toDown = 3
         }
@@ -1970,6 +1970,27 @@ namespace Maker.View.LightUserControl
             mLaunchpad.Focus();
         }
 
+        private void LbText_PrevieKeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+
+            if (lbText.SelectedIndex == -1)
+                return;
+            TextBlock tb = cMain.Children[lbText.SelectedIndex+1] as TextBlock;
+            if (e.Key == Key.Left)
+                Canvas.SetLeft(tb,Canvas.GetLeft(tb) - 1);
+            else if (e.Key == Key.Right)
+                Canvas.SetLeft(tb, Canvas.GetLeft(tb) + 1);
+            else if (e.Key == Key.Up)
+                Canvas.SetTop(tb, Canvas.GetTop(tb) - 1);
+            else if (e.Key == Key.Down)
+                Canvas.SetTop(tb, Canvas.GetTop(tb) + 1);
+        }
+        private void LbText_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void BaseLightUserControl_KeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
@@ -2038,13 +2059,13 @@ namespace Maker.View.LightUserControl
                 enc.Save(stm);
             }
         }
-        private void NewText(object sender, RoutedEventArgs e)
+        private void NewTextFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath+ @"\Text\", new List<string>() { ".text" }), "Text");
+            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath+ @"\Text\", new List<string>() { ".text" }), ".text");
             if (dialog.ShowDialog() == true)
             {
-                filePath = _filePath + dialog.fileName;
+                filePath = mw.lastProjectPath + @"\Text\" + dialog.fileName;
                 if (File.Exists(filePath))
                 {
                     new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
@@ -2052,24 +2073,61 @@ namespace Maker.View.LightUserControl
                 }
                 else
                 {
-                    CreateText(filePath);
+                    CreateTextFile(filePath);
                     LoadText(dialog.fileName);
                 }
             }
         }
+        private void NewText(object sender, RoutedEventArgs e)
+        {
+            GetStringDialog getString = new GetStringDialog(mw,"","","");
+            if (getString.ShowDialog() == true) {
+                TextBlock tb = new TextBlock()
+                {
+                    Text = getString.mString,
+                    Foreground = StaticConstant.brushList[nowColor],
+                };
+                if (points.ContainsKey(nowTimePoint))
+                {
+                    points[nowTimePoint].Texts.Add(new FramePointModel.Text()
+                    {
+                        Value = getString.mString,
+                        Point = new Point(0, 0)
+                    });
+                }
+                else {
+                    points.Add(nowTimePoint,
+                    new FramePointModel() {
+                        Value = nowTimePoint,
+                        Texts = new List<FramePointModel.Text>() {
+                          new FramePointModel.Text(){
+                                Value = getString.mString,
+                                Point = new Point(0, 0)
+                          }
+                        }
+                    }); 
+                  
+                }
+                Canvas.SetLeft(tb,0);
+                Canvas.SetTop(tb, 0);
+                cMain.Children.Add(tb);
+                lbText.Items.Add(getString.mString);
+            }
+        }
 
-        private void CreateText(String filePath) {
+            private void CreateTextFile(String filePath) {
             //获取对象
             XDocument xDoc = new XDocument();
             // 添加根节点
             XElement xRoot = new XElement("Root");
+            xDoc.Add(xRoot);
             // 保存该文档  
             xDoc.Save(filePath);
         }
-        private List<FramePointModel> points = new List<FramePointModel>();
+        private Dictionary<int,FramePointModel> points = new Dictionary<int,FramePointModel>();
         private void LoadText(String fileName) {
             points.Clear();
-            XDocument doc = XDocument.Load(filePath);
+            XDocument doc = XDocument.Load(fileName);
 
             foreach (XElement element in doc.Elements("Point"))
             {
@@ -2086,11 +2144,11 @@ namespace Maker.View.LightUserControl
                     });
                 }
                 framePointModel.Texts = texts;
-                points.Add(framePointModel);
+                points.Add(int.Parse(element.Attribute("value").Value),framePointModel);
             }
         }
 
-        private void LoadText(object sender, RoutedEventArgs e)
+        private void LoadTextFile(object sender, RoutedEventArgs e)
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
@@ -2099,14 +2157,20 @@ namespace Maker.View.LightUserControl
             ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
             if (dialog.ShowDialog() == true)
             {
-                LoadText(dialog.selectItem);
+                nowTextFilePath = mw.lastProjectPath + @"\Text\"+dialog.selectItem;
+                LoadText(nowTextFilePath);
             }
+
         }
 
-        private void SaveText(object sender, RoutedEventArgs e)
+        private String nowTextFilePath = "";
+        private void SaveTextFile(object sender, RoutedEventArgs e)
         {
+            if (nowTextFilePath.Equals(String.Empty)) {
+                return;
+            }
             XDocument doc = new XDocument();
-            foreach (FramePointModel framePointModel in points) {
+            foreach (FramePointModel framePointModel in points.Values) {
                 XElement element = new XElement("Point");
                 element.SetAttributeValue("value", framePointModel.Value);
                 doc.Add(element);
@@ -2119,25 +2183,7 @@ namespace Maker.View.LightUserControl
                     element.Add(_element);
                 }
             }
-
-
-            foreach (XElement element in doc.Elements("Point"))
-            {
-                FramePointModel framePointModel = new FramePointModel();
-                framePointModel.Value = int.Parse(element.Attribute("value").Value);
-                List<FramePointModel.Text> texts = new List<FramePointModel.Text>();
-
-                foreach (XElement _element in element.Elements("Text"))
-                {
-                    texts.Add(new FramePointModel.Text()
-                    {
-                        Value = _element.Attribute("value").Value,
-                        Point = new Point(Double.Parse(_element.Attribute("x").Value), Double.Parse(_element.Attribute("y").Value))
-                    });
-                }
-                framePointModel.Texts = texts;
-                points.Add(framePointModel);
-            }
+            doc.Save(nowTextFilePath);
         }
 
 

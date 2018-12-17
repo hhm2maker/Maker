@@ -811,14 +811,18 @@
                         </TabItem>
                         <TabItem >
                             <StackPanel VerticalAlignment="Center">
+                                <Button  Width="180" Click="NewTextFile" Content="{DynamicResource NewTextFile}"/>
+                                <Button  Width="180" Click="LoadTextFile" Content="{DynamicResource LoadTextFile}"/>
+                                <Button  Width="180" Click="SaveTextFile" Content="{DynamicResource SaveTextFile}"/>
+                                <ListBox Name="lbText"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
                                 <Button  Width="180" Click="NewText" Content="{DynamicResource NewText}"/>
-                                <Button  Width="180" Click="LoadText" Content="{DynamicResource LoadText}"/>
-                                <Button  Width="180" Click="SaveText" Content="{DynamicResource SaveText}"/>
                             </StackPanel>
                         </TabItem>
                     </TabControl>
                     <Border>
-                        <launchpad:DrawLaunchpadPro  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                        <Canvas Name="cMain" Width="600" Height="600">
+                          <launchpad:DrawLaunchpadPro  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                        </Canvas>
                     </Border>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,30" Height="60" >
