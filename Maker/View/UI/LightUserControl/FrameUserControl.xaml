@@ -816,6 +816,8 @@
                                 <Button  Width="180" Click="SaveTextFile" Content="{DynamicResource SaveTextFile}"/>
                                 <ListBox Name="lbText"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
                                 <Button  Width="180" Click="NewText" Content="{DynamicResource NewText}"/>
+                                <Button  Width="180" Click="EditText" Content="{DynamicResource EditText}"/>
+                                <Button  Width="180" Click="DeleteText" Content="{DynamicResource DeleteText}"/>
                             </StackPanel>
                         </TabItem>
                     </TabControl>

@@ -485,5 +485,7 @@
     <sys:String x:Key="LoadTextFile">加载文本文件</sys:String>
     <sys:String x:Key="SaveTextFile">保存文本文件</sys:String>
     <sys:String x:Key="NewText">新建文本</sys:String>
+    <sys:String x:Key="EditText">编辑文本</sys:String>
+    <sys:String x:Key="DeleteText">删除文本</sys:String>
 
 </ResourceDictionary>

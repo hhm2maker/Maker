@@ -256,6 +256,7 @@ namespace Maker.View.LightUserControl
                     r.Fill = StaticConstant.NumToBrush(x[i]);
                 }
             }
+            LoadNowText();
         }
 
         public void ToLastTime()
@@ -437,6 +438,7 @@ namespace Maker.View.LightUserControl
         {
             nowColor = completeColorPanel.NowColor;
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
+            LoadNowText();
         }
 
         private void btnRegionHorizontalFlipping_Click(object sender, RoutedEventArgs e)
@@ -1886,14 +1888,16 @@ namespace Maker.View.LightUserControl
             if (sender == btnToDown)
                 SelectMove(ToWhere.toDown);
         }
-        private enum ToWhere {
-             toLeft = 0,
-             toUp = 1,
-             toRight = 2,
-             toDown = 3
+        private enum ToWhere
+        {
+            toLeft = 0,
+            toUp = 1,
+            toRight = 2,
+            toDown = 3
         }
 
-        private void SelectMove(ToWhere toWhere) {
+        private void SelectMove(ToWhere toWhere)
+        {
             List<int> newSelect = new List<int>();
             List<List<int>> ints;
 
@@ -1945,7 +1949,7 @@ namespace Maker.View.LightUserControl
                         }
                         if (ints[j][ints[oldJ].IndexOf(selects[i] + 28)] < 0)
                             break;
-                      
+
                         dic[liTime[nowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28] = dic[liTime[nowTimePoint - 1]][selects[i]];
                         newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28);
                         if (!selects.Contains(ints[contraryJ].IndexOf(selects[i] + 28)))
@@ -1976,15 +1980,18 @@ namespace Maker.View.LightUserControl
 
             if (lbText.SelectedIndex == -1)
                 return;
-            TextBlock tb = cMain.Children[lbText.SelectedIndex+1] as TextBlock;
+            TextBlock tb = cMain.Children[lbText.SelectedIndex + 1] as TextBlock;
             if (e.Key == Key.Left)
-                Canvas.SetLeft(tb,Canvas.GetLeft(tb) - 1);
+                Canvas.SetLeft(tb, Canvas.GetLeft(tb) - 1);
             else if (e.Key == Key.Right)
                 Canvas.SetLeft(tb, Canvas.GetLeft(tb) + 1);
             else if (e.Key == Key.Up)
                 Canvas.SetTop(tb, Canvas.GetTop(tb) - 1);
             else if (e.Key == Key.Down)
                 Canvas.SetTop(tb, Canvas.GetTop(tb) + 1);
+
+            points[nowTimePoint].Texts[lbText.SelectedIndex].Point.X = Canvas.GetLeft(tb);
+            points[nowTimePoint].Texts[lbText.SelectedIndex].Point.Y = Canvas.GetTop(tb);
         }
         private void LbText_PreviewKeyUp(object sender, KeyEventArgs e)
         {
@@ -2001,7 +2008,7 @@ namespace Maker.View.LightUserControl
                 SelectMove(ToWhere.toRight);
             else if (e.Key == Key.Up)
                 SelectMove(ToWhere.toUp);
-            else if(e.Key == Key.Down)
+            else if (e.Key == Key.Down)
                 SelectMove(ToWhere.toDown);
         }
         private void BaseLightUserControl_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -2021,7 +2028,7 @@ namespace Maker.View.LightUserControl
             if (rst == true)
             {
                 String fileName = dlg.FileName;
-               SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 96), fileName);
+                SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 96), fileName);
             }
         }
 
@@ -2049,7 +2056,7 @@ namespace Maker.View.LightUserControl
             return rtb;
         }
 
-        private  void SaveRTBAsPNG(RenderTargetBitmap bmp, string filename)
+        private void SaveRTBAsPNG(RenderTargetBitmap bmp, string filename)
         {
             var enc = new System.Windows.Media.Imaging.PngBitmapEncoder();
             enc.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bmp));
@@ -2062,7 +2069,7 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath+ @"\Text\", new List<string>() { ".text" }), ".text");
+            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text");
             if (dialog.ShowDialog() == true)
             {
                 filePath = mw.lastProjectPath + @"\Text\" + dialog.fileName;
@@ -2080,8 +2087,9 @@ namespace Maker.View.LightUserControl
         }
         private void NewText(object sender, RoutedEventArgs e)
         {
-            GetStringDialog getString = new GetStringDialog(mw,"","","");
-            if (getString.ShowDialog() == true) {
+            GetStringDialog getString = new GetStringDialog(mw, "", "", "");
+            if (getString.ShowDialog() == true)
+            {
                 TextBlock tb = new TextBlock()
                 {
                     Text = getString.mString,
@@ -2095,9 +2103,11 @@ namespace Maker.View.LightUserControl
                         Point = new Point(0, 0)
                     });
                 }
-                else {
+                else
+                {
                     points.Add(nowTimePoint,
-                    new FramePointModel() {
+                    new FramePointModel()
+                    {
                         Value = nowTimePoint,
                         Texts = new List<FramePointModel.Text>() {
                           new FramePointModel.Text(){
@@ -2105,17 +2115,47 @@ namespace Maker.View.LightUserControl
                                 Point = new Point(0, 0)
                           }
                         }
-                    }); 
-                  
+                    });
+
                 }
-                Canvas.SetLeft(tb,0);
+                Canvas.SetLeft(tb, 0);
                 Canvas.SetTop(tb, 0);
                 cMain.Children.Add(tb);
                 lbText.Items.Add(getString.mString);
             }
         }
+        private void EditText(object sender, RoutedEventArgs e)
+        {
+            if (!points.ContainsKey(nowTimePoint))
+                return;
 
-            private void CreateTextFile(String filePath) {
+            GetStringDialog getString = new GetStringDialog(mw, "", "", "");
+            if (getString.ShowDialog() == true)
+            {
+                TextBlock tb = cMain.Children[lbText.SelectedIndex + 1] as TextBlock;
+                tb.Text = getString.mString;
+                points[nowTimePoint].Texts[lbText.SelectedIndex].Value = getString.mString;
+                lbText.Items[lbText.SelectedIndex] = getString.mString;
+            }
+        }
+        private void DeleteText(object sender, RoutedEventArgs e)
+        {
+            if (cMain.Children.Count > 1)
+            {
+                lbText.Items.Clear();
+                cMain.Children.RemoveRange(1, cMain.Children.Count - 1);
+            }
+            if (!points.ContainsKey(nowTimePoint))
+                return;
+
+            int selectedIndex = lbText.SelectedIndex;
+            cMain.Children.RemoveAt(selectedIndex);
+            points[nowTimePoint].Texts.RemoveAt(selectedIndex);
+            lbText.Items.RemoveAt(selectedIndex);
+        }
+
+        private void CreateTextFile(String filePath)
+        {
             //获取对象
             XDocument xDoc = new XDocument();
             // 添加根节点
@@ -2124,8 +2164,9 @@ namespace Maker.View.LightUserControl
             // 保存该文档  
             xDoc.Save(filePath);
         }
-        private Dictionary<int,FramePointModel> points = new Dictionary<int,FramePointModel>();
-        private void LoadText(String fileName) {
+        private Dictionary<int, FramePointModel> points = new Dictionary<int, FramePointModel>();
+        private void LoadText(String fileName)
+        {
             points.Clear();
             XDocument doc = XDocument.Load(fileName);
 
@@ -2144,7 +2185,34 @@ namespace Maker.View.LightUserControl
                     });
                 }
                 framePointModel.Texts = texts;
-                points.Add(int.Parse(element.Attribute("value").Value),framePointModel);
+                points.Add(int.Parse(element.Attribute("value").Value), framePointModel);
+            }
+
+            LoadNowText();
+        }
+
+        private void LoadNowText()
+        {
+            if (cMain.Children.Count > 1)
+            {
+                lbText.Items.Clear();
+                cMain.Children.RemoveRange(1, cMain.Children.Count - 1);
+            }
+
+            if (!points.ContainsKey(nowTimePoint))
+                return;
+            //加载
+            foreach (var item in points[nowTimePoint].Texts)
+            {
+                lbText.Items.Add(item.Value);
+                TextBlock tb = new TextBlock()
+                {
+                    Text = item.Value,
+                    Foreground = StaticConstant.brushList[nowColor],
+                };
+                Canvas.SetLeft(tb, item.Point.X);
+                Canvas.SetTop(tb, item.Point.Y);
+                cMain.Children.Add(tb);
             }
         }
 
@@ -2157,7 +2225,7 @@ namespace Maker.View.LightUserControl
             ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
             if (dialog.ShowDialog() == true)
             {
-                nowTextFilePath = mw.lastProjectPath + @"\Text\"+dialog.selectItem;
+                nowTextFilePath = mw.lastProjectPath + @"\Text\" + dialog.selectItem;
                 LoadText(nowTextFilePath);
             }
 
@@ -2166,11 +2234,13 @@ namespace Maker.View.LightUserControl
         private String nowTextFilePath = "";
         private void SaveTextFile(object sender, RoutedEventArgs e)
         {
-            if (nowTextFilePath.Equals(String.Empty)) {
+            if (nowTextFilePath.Equals(String.Empty))
+            {
                 return;
             }
             XDocument doc = new XDocument();
-            foreach (FramePointModel framePointModel in points.Values) {
+            foreach (FramePointModel framePointModel in points.Values)
+            {
                 XElement element = new XElement("Point");
                 element.SetAttributeValue("value", framePointModel.Value);
                 doc.Add(element);
