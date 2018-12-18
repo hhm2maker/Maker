@@ -1,5 +1,6 @@
 ﻿using log4net;
 using Maker.View.Control;
+using Maker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,9 @@ namespace Maker.MyApp
                 Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative)
             };
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(englishResourceDictionary);
+            //初始化MVVMLight
+            ViewModelLocator viewModelLocator = new ViewModelLocator();
+            System.Windows.Application.Current.Resources.Add("Locator", viewModelLocator);
 
             NewMainWindow mw = new NewMainWindow();
             this.mw = mw;

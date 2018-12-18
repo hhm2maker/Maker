@@ -9,7 +9,7 @@
         xmlns:launchpad="clr-namespace:Maker.View.Device"
     mc:Ignorable="d"
     Focusable="True"
-   
+   DataContext="{Binding Source={StaticResource Locator},Path=Main}"
     >
     <UserControl.Resources>
         <Style TargetType="Button">
@@ -852,7 +852,7 @@
                         </Border>
                         <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="Black">
                             <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                <TextBox Name="tbTimePointCountLeft" Width="60" Background="Black" BorderThickness="0" TextAlignment="Right" TextChanged="tbTimePointCountLeft_TextChanged" Text="0"/>
+                                <TextBox Name="tbTimePointCountLeft" Width="60" Background="Black" TextChanged="tbTimePointCountLeft_TextChanged" BorderThickness="0" TextAlignment="Right"  Text="{Binding Welcome.NowTimePoint}"/>
                                 <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" > / 0</TextBlock>
                             </StackPanel>
                         </Border>

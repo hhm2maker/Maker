@@ -4,6 +4,7 @@ using Maker.View.Device;
 using Maker.View.Dialog;
 using Maker.View.UI.Tool.Paved;
 using Maker.View.Utils;
+using Maker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -33,6 +34,8 @@ namespace Maker.View.LightUserControl
         public FrameUserControl(NewMainWindow mw)
         {
             InitializeComponent();
+            //DataContext = new FrameUserControlViewModel();
+
             this.mw = mw;
 
             mainView = gMain;
@@ -158,7 +161,14 @@ namespace Maker.View.LightUserControl
         private Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
         //private List<FrameworkElement> lfe = new List<FrameworkElement>();
         private List<String> ColorList = new List<string>();
-        private int nowTimePoint = 0;
+        private int nowTimePoint {
+            set {
+                (DataContext as FrameUserControlViewModel).NowTimePoint = value;
+            }
+            get {
+                return (DataContext as FrameUserControlViewModel).NowTimePoint;
+            }
+        }
         private int mouseType = 0;//0没按下 1按下
         private int nowColor = 5;//当前颜色
 
@@ -232,7 +242,7 @@ namespace Maker.View.LightUserControl
             mLaunchpad.ClearAllColorExceptMembrane();
         }
 
-        private void LoadFrame()
+        public void LoadFrame()
         {
             ClearFrame();
             int[] x = dic[liTime[nowTimePoint - 1]];
@@ -264,7 +274,8 @@ namespace Maker.View.LightUserControl
             if (nowTimePoint <= 1) return;
             nowTimePoint--;
             tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-            tbTimePointCountLeft.Text = nowTimePoint.ToString();
+            (DataContext as FrameUserControlViewModel).NowTimePoint--;
+            //tbTimePointCountLeft.Text = nowTimePoint.ToString();
             tbTimePointCount.Text = " / " + liTime.Count;
             LoadFrame();
         }
