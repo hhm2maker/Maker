@@ -432,9 +432,31 @@ namespace Maker.View.Device
             if (ellipse != null)
                 ellipse.Fill = color;
             Rectangle rectangle = Children[position] as Rectangle;
-            if (rectangle != null)
+            if (rectangle != null) {
+                rectangle.Fill = color;
+            }
+        }
+
+        /// <summary>
+        /// 给指定位置的按钮设置颜色
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        public static void SetButtonBackground(LaunchpadPro pro ,int position, Brush color)
+        {
+            if (position < 0 || position > pro.Children.Count)
+                return;
+            RoundedCornersPolygon rcp = pro.Children[position] as RoundedCornersPolygon;
+            if (rcp != null)
+                rcp.Fill = color;
+            Ellipse ellipse = pro.Children[position] as Ellipse;
+            if (ellipse != null)
+                ellipse.Fill = color;
+            Rectangle rectangle = pro.Children[position] as Rectangle;
+            if (rectangle != null) 
                 rectangle.Fill = color;
         }
+
         /// <summary>
         /// 设置背景颜色
         /// </summary>
@@ -776,8 +798,6 @@ namespace Maker.View.Device
             get;
             set;
         }
-    
-      
 
         public List<int> GetNumbers()
         {
@@ -888,6 +908,25 @@ namespace Maker.View.Device
         }
 
         /// <summary>
+        /// 清除所有颜色
+        /// </summary>
+        /// <param name="_event"></param>
+        public static void MyClearAllColorExcept(LaunchpadPro pro)
+        {
+            foreach (var item in pro.Children)
+            {
+                //停止播放=取消着色
+                if (item is RoundedCornersPolygon rcp)
+                    rcp.Fill = StaticConstant.closeBrush;
+                if (item is Ellipse e)
+                    e.Fill = StaticConstant.closeBrush;
+                if (item is Rectangle r)
+                    r.Fill = StaticConstant.closeBrush; ;
+            }
+        }
+
+
+        /// <summary>
         /// 清除选择(Stroke)
         /// </summary>
         public void ClearSelect() {
@@ -929,5 +968,40 @@ namespace Maker.View.Device
                 (Children[selects[i]] as Shape).StrokeThickness = 3;
             }
         }
+
+        public static List<Light> GetData(DependencyObject obj)
+        {
+            return (List<Light>)obj.GetValue(DataProperty);
+        }
+
+        public static void SetData(DependencyObject obj, List<Light> value)
+        {
+            obj.SetValue(DataProperty, value);
+        }
+
+        public static readonly DependencyProperty DataProperty =
+            DependencyProperty.RegisterAttached("Data", typeof(List<Light>), typeof(LaunchpadPro), new PropertyMetadata(new List<Light>(),OnDataChanged));
+
+        private static void OnDataChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null) {
+                SetButtonBackground(my, 36 - 28, StaticConstant.brushList[5]);
+                return;
+                List<Light> mListList = e.NewValue as List<Light>;
+                    MyClearAllColorExcept(my);
+                for (int i = 0; i < mListList.Count; i++)
+                {
+                    if (mListList[i].Action == 128)
+                    {
+                        SetButtonBackground(my,mListList[i].Position - 28, StaticConstant.closeBrush);
+                    }
+                    else
+                    {
+                        SetButtonBackground(my,mListList[i].Position - 28, StaticConstant.brushList[mListList[i].Color]);
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -8,26 +8,31 @@ using System.Threading.Tasks;
 
 namespace Maker.Model
 {
-        public class FrameUserControlModel : ObservableObject
+    public class FrameUserControlModel : ObservableObject
+    {
+        private int nowTimePoint;
+        /// <summary>
+        /// 欢迎词
+        /// </summary>
+        public int NowTimePoint
         {
-            private int nowTimePoint;
-            /// <summary>
-            /// 欢迎词
-            /// </summary>
-            public int NowTimePoint
+            get { return nowTimePoint; }
+            set
             {
-                get { return nowTimePoint; }
-                set {
-                if (int.TryParse(value.ToString(), out int result))
-                {
-                    nowTimePoint = result;
-                }
-                else {
-                    nowTimePoint = 0;
-                }
-                    RaisePropertyChanged(() => NowTimePoint);
-                }
+                nowTimePoint = value;
+                RaisePropertyChanged(() => NowTimePoint);
             }
         }
 
+        private List<Light> nowLightLight;
+        public List<Light> NowLightLight
+        {
+            get { return nowLightLight; }
+            set
+            {
+                nowLightLight = value;
+                RaisePropertyChanged(() => NowLightLight);
+            }
+        }
+    }
 }

@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Maker.Model;
 using Maker.View.LightUserControl;
+using System.Windows.Controls;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Maker.ViewModel
 {
@@ -29,12 +32,21 @@ namespace Maker.ViewModel
                 get { return welcome; }
                 set { welcome = value; RaisePropertyChanged(() => Welcome); }
             }
+    }
 
-        public int NowTimePoint
+    public class NowTimePointRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
-            get { return Welcome.NowTimePoint; }
-            set { Welcome.NowTimePoint = value; }
+            if (int.TryParse(value.ToString(), out int result))
+            {
+                value = result;
+            }
+            else
+            {
+                value = 0;
+            }
+            return new ValidationResult(true, null);
         }
-
     }
 }

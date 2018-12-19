@@ -57,7 +57,6 @@ namespace Maker.View.LightUserControl
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
             InitPosition();
-
         }
         private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
@@ -163,10 +162,10 @@ namespace Maker.View.LightUserControl
         private List<String> ColorList = new List<string>();
         private int nowTimePoint {
             set {
-                (DataContext as FrameUserControlViewModel).NowTimePoint = value;
+                (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint = value;
             }
             get {
-                return (DataContext as FrameUserControlViewModel).NowTimePoint;
+                return (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint;
             }
         }
         private int mouseType = 0;//0没按下 1按下
@@ -181,21 +180,21 @@ namespace Maker.View.LightUserControl
             liTime = LightBusiness.GetTimeList(mActionBeanList);
             dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
 
-            if (liTime.Count == 0)
-            {
-                tbTimeNow.Text = "0";
-                nowTimePoint = 0;
-                tbTimePointCountLeft.Text = "0";
-                tbTimePointCount.Text = " / " + 0;
-            }
-            else
-            {
-                tbTimeNow.Text = liTime[0].ToString();
-                nowTimePoint = 1;
-                tbTimePointCountLeft.Text = nowTimePoint.ToString();
-                tbTimePointCount.Text = " / " + liTime.Count;
-                LoadFrame();
-            }
+            //if (liTime.Count == 0)
+            //{
+            //    tbTimeNow.Text = "0";
+            //    nowTimePoint = 0;
+            //    tbTimePointCountLeft.Text = "0";
+            //    tbTimePointCount.Text = " / " + 0;
+            //}
+            //else
+            //{
+            //    tbTimeNow.Text = liTime[0].ToString();
+            //    nowTimePoint = 1;
+            //    tbTimePointCountLeft.Text = nowTimePoint.ToString();
+            //    tbTimePointCount.Text = " / " + liTime.Count;
+            //    LoadFrame();
+            //}
         }
 
         /// <summary>
@@ -244,7 +243,12 @@ namespace Maker.View.LightUserControl
 
         public void LoadFrame()
         {
+            if (nowTimePoint == 0)
+                return;
             ClearFrame();
+
+            List<Light> mLightList = new List<Light>();
+
             int[] x = dic[liTime[nowTimePoint - 1]];
             for (int i = 0; i < x.Count(); i++)
             {
@@ -253,32 +257,34 @@ namespace Maker.View.LightUserControl
                 {
                     continue;
                 }
-                if (mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
-                {
-                    rcp.Fill = StaticConstant.NumToBrush(x[i]);
-                }
-                if (mLaunchpad.GetButton(i) is Ellipse e)
-                {
-                    e.Fill = StaticConstant.NumToBrush(x[i]);
-                }
-                if (mLaunchpad.GetButton(i) is Rectangle r)
-                {
-                    r.Fill = StaticConstant.NumToBrush(x[i]);
-                }
+                mLightList.Add(new Light(0,144, i+28, x[i]));
+                //if (mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
+                //{
+                //    rcp.Fill = StaticConstant.NumToBrush(x[i]);
+                //}
+                //if (mLaunchpad.GetButton(i) is Ellipse e)
+                //{
+                //    e.Fill = StaticConstant.NumToBrush(x[i]);
+                //}
+                //if (mLaunchpad.GetButton(i) is Rectangle r)
+                //{
+                //    r.Fill = StaticConstant.NumToBrush(x[i]);
+                //}
             }
+            (DataContext as FrameUserControlViewModel).Welcome.NowLightLight = mLightList;
             LoadNowText();
         }
 
         public void ToLastTime()
         {
             if (nowTimePoint <= 1) return;
-            nowTimePoint--;
             tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-            (DataContext as FrameUserControlViewModel).NowTimePoint--;
+            (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint--;
             //tbTimePointCountLeft.Text = nowTimePoint.ToString();
             tbTimePointCount.Text = " / " + liTime.Count;
             LoadFrame();
         }
+
         public void ToNextTime()
         {
             if (nowTimePoint > dic.Count - 1) return;
@@ -1649,7 +1655,6 @@ namespace Maker.View.LightUserControl
         {
             try
             {
-                ClearFrame();
                 if (liTime.Count == 0)
                     return;
                 int position = Convert.ToInt32(tbTimePointCountLeft.Text);
@@ -1663,7 +1668,6 @@ namespace Maker.View.LightUserControl
                     nowTimePoint = position;
                     LoadFrame();
                 }
-                //LoadFrame();
             }
             catch
             {

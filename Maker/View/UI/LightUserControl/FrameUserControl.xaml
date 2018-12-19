@@ -7,6 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:Maker.View.UI.Device.ColorPanel"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
+    xmlns:viewmodel="clr-namespace:Maker.ViewModel"
     mc:Ignorable="d"
     Focusable="True"
    DataContext="{Binding Source={StaticResource Locator},Path=Main}"
@@ -823,7 +824,7 @@
                     </TabControl>
                     <Border>
                         <Canvas Name="cMain" Width="600" Height="600">
-                          <launchpad:DrawLaunchpadPro  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                            <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                         </Canvas>
                     </Border>
                 </StackPanel>
@@ -852,7 +853,17 @@
                         </Border>
                         <Border  BorderBrush="Black" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="Black">
                             <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                <TextBox Name="tbTimePointCountLeft" Width="60" Background="Black" TextChanged="tbTimePointCountLeft_TextChanged" BorderThickness="0" TextAlignment="Right"  Text="{Binding Welcome.NowTimePoint}"/>
+                                <!--TextChanged="tbTimePointCountLeft_TextChanged"-->
+                                <TextBox Name="tbTimePointCountLeft" Width="60" Background="Black" BorderThickness="0" TextAlignment="Right" >
+                                    <TextBox.Text>
+                                        <Binding Path="Welcome.NowTimePoint" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <viewmodel:NowTimePointRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                    </TextBox.Text>
+
+                                </TextBox>
                                 <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" > / 0</TextBlock>
                             </StackPanel>
                         </Border>
