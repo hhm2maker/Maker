@@ -29,7 +29,6 @@ namespace Maker.View.Device
             InitLaunchpadSize();
             InitBackground();
             InitRainBowBrush();
-
         }
 
         private void InitRainBowBrush()
@@ -425,16 +424,8 @@ namespace Maker.View.Device
         {
             if (position < 0 || position > Children.Count)
                 return;
-            RoundedCornersPolygon rcp = Children[position] as RoundedCornersPolygon;
-            if (rcp != null)
-                rcp.Fill = color;
-            Ellipse ellipse = Children[position] as Ellipse;
-            if (ellipse != null)
-                ellipse.Fill = color;
-            Rectangle rectangle = Children[position] as Rectangle;
-            if (rectangle != null) {
-                rectangle.Fill = color;
-            }
+            Shape shape = Children[position] as Shape;
+            shape.Fill = color;
         }
 
         /// <summary>
@@ -446,15 +437,8 @@ namespace Maker.View.Device
         {
             if (position < 0 || position > pro.Children.Count)
                 return;
-            RoundedCornersPolygon rcp = pro.Children[position] as RoundedCornersPolygon;
-            if (rcp != null)
-                rcp.Fill = color;
-            Ellipse ellipse = pro.Children[position] as Ellipse;
-            if (ellipse != null)
-                ellipse.Fill = color;
-            Rectangle rectangle = pro.Children[position] as Rectangle;
-            if (rectangle != null) 
-                rectangle.Fill = color;
+            Shape shape = pro.Children[position] as Shape;
+            shape.Fill = color;
         }
 
         /// <summary>
@@ -979,25 +963,25 @@ namespace Maker.View.Device
             obj.SetValue(DataProperty, value);
         }
 
+
         public static readonly DependencyProperty DataProperty =
             DependencyProperty.RegisterAttached("Data", typeof(List<Light>), typeof(LaunchpadPro), new PropertyMetadata(new List<Light>(),OnDataChanged));
 
         private static void OnDataChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue != null) {
-                SetButtonBackground(my, 36 - 28, StaticConstant.brushList[5]);
-                return;
+                LaunchpadPro pro = obj as LaunchpadPro;
                 List<Light> mListList = e.NewValue as List<Light>;
-                    MyClearAllColorExcept(my);
+                MyClearAllColorExcept(pro);
                 for (int i = 0; i < mListList.Count; i++)
                 {
-                    if (mListList[i].Action == 128)
+                    if (mListList[i].Action == 128 || mListList[i].Color<0)
                     {
-                        SetButtonBackground(my,mListList[i].Position - 28, StaticConstant.closeBrush);
+                        SetButtonBackground(pro, mListList[i].Position - 28, StaticConstant.closeBrush);
                     }
                     else
                     {
-                        SetButtonBackground(my,mListList[i].Position - 28, StaticConstant.brushList[mListList[i].Color]);
+                        SetButtonBackground(pro, mListList[i].Position - 28, StaticConstant.brushList[mListList[i].Color]);
                     }
                 }
             }

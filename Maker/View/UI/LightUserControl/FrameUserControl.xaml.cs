@@ -43,7 +43,6 @@ namespace Maker.View.LightUserControl
             selectView = bDraw;
 
             mLaunchpad.SetSize(600);
-            //mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(20, 36, 33)));
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
 
             //初始化贴膜
@@ -156,16 +155,45 @@ namespace Maker.View.LightUserControl
                 LeftOrRight = 1;
             }
         }
-        private List<int> liTime = new List<int>();
-        private Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
+        public List<int> liTime {
+            set
+            {
+                (DataContext as FrameUserControlViewModel).Welcome.LiTime = value;
+            }
+            get
+            {
+                return (DataContext as FrameUserControlViewModel).Welcome.LiTime;
+            }
+        }
+        public Dictionary<int, int[]> dic {
+            set
+            {
+                (DataContext as FrameUserControlViewModel).Welcome.NowData = value;
+            }
+            get
+            {
+                return (DataContext as FrameUserControlViewModel).Welcome.NowData;
+            }
+        }
         //private List<FrameworkElement> lfe = new List<FrameworkElement>();
         private List<String> ColorList = new List<string>();
-        private int nowTimePoint {
+        public int nowTimePoint {
             set {
                 (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint = value;
             }
             get {
                 return (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint;
+            }
+        }
+        public int allTimePoint
+        {
+            set
+            {
+                (DataContext as FrameUserControlViewModel).Welcome.AllTimePoint = value;
+            }
+            get
+            {
+                return (DataContext as FrameUserControlViewModel).Welcome.AllTimePoint;
             }
         }
         private int mouseType = 0;//0没按下 1按下
@@ -179,22 +207,23 @@ namespace Maker.View.LightUserControl
             ClearFrame();
             liTime = LightBusiness.GetTimeList(mActionBeanList);
             dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
+            allTimePoint = liTime.Count;
 
-            //if (liTime.Count == 0)
-            //{
-            //    tbTimeNow.Text = "0";
-            //    nowTimePoint = 0;
-            //    tbTimePointCountLeft.Text = "0";
-            //    tbTimePointCount.Text = " / " + 0;
-            //}
-            //else
-            //{
-            //    tbTimeNow.Text = liTime[0].ToString();
-            //    nowTimePoint = 1;
-            //    tbTimePointCountLeft.Text = nowTimePoint.ToString();
-            //    tbTimePointCount.Text = " / " + liTime.Count;
-            //    LoadFrame();
-            //}
+            if (liTime.Count == 0)
+            {
+                //tbTimeNow.Text = "0";
+                nowTimePoint = 0;
+                tbTimePointCountLeft.Text = "0";
+                tbTimePointCount.Text = " / " + 0;
+            }
+            else
+            {
+                //tbTimeNow.Text = liTime[0].ToString();
+                nowTimePoint = 1;
+                tbTimePointCountLeft.Text = nowTimePoint.ToString();
+                //tbTimePointCount.Text = " / " + liTime.Count;
+                LoadFrame();
+            }
         }
 
         /// <summary>
@@ -252,47 +281,14 @@ namespace Maker.View.LightUserControl
             int[] x = dic[liTime[nowTimePoint - 1]];
             for (int i = 0; i < x.Count(); i++)
             {
-                //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
                 if (x[i] == 0)
                 {
                     continue;
                 }
                 mLightList.Add(new Light(0,144, i+28, x[i]));
-                //if (mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
-                //{
-                //    rcp.Fill = StaticConstant.NumToBrush(x[i]);
-                //}
-                //if (mLaunchpad.GetButton(i) is Ellipse e)
-                //{
-                //    e.Fill = StaticConstant.NumToBrush(x[i]);
-                //}
-                //if (mLaunchpad.GetButton(i) is Rectangle r)
-                //{
-                //    r.Fill = StaticConstant.NumToBrush(x[i]);
-                //}
             }
             (DataContext as FrameUserControlViewModel).Welcome.NowLightLight = mLightList;
             LoadNowText();
-        }
-
-        public void ToLastTime()
-        {
-            if (nowTimePoint <= 1) return;
-            tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-            (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint--;
-            //tbTimePointCountLeft.Text = nowTimePoint.ToString();
-            tbTimePointCount.Text = " / " + liTime.Count;
-            LoadFrame();
-        }
-
-        public void ToNextTime()
-        {
-            if (nowTimePoint > dic.Count - 1) return;
-            nowTimePoint++;
-            tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-            tbTimePointCountLeft.Text = nowTimePoint.ToString();
-            tbTimePointCount.Text = " / " + liTime.Count;
-            LoadFrame();
         }
 
         private void btnInsertTimePoint_Click(object sender, MouseButtonEventArgs e)
@@ -1771,15 +1767,6 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        private void btnLastTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            ToLastTime();
-        }
-        private void btnNextTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            ToNextTime();
-        }
-
         private void OpenFileControl(object sender, RoutedEventArgs e)
         {
             popFile.IsOpen = true;
@@ -2270,8 +2257,6 @@ namespace Maker.View.LightUserControl
             }
             doc.Save(nowTextFilePath);
         }
-
-
 
         /// <summary>
         /// 移除选择框

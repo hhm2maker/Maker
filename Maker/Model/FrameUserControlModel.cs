@@ -10,10 +10,10 @@ namespace Maker.Model
 {
     public class FrameUserControlModel : ObservableObject
     {
-        private int nowTimePoint;
         /// <summary>
-        /// 欢迎词
+        /// 当前时间节点
         /// </summary>
+        private int nowTimePoint;
         public int NowTimePoint
         {
             get { return nowTimePoint; }
@@ -24,6 +24,23 @@ namespace Maker.Model
             }
         }
 
+        /// <summary>
+        /// 总时间节点(次数)
+        /// </summary>
+        private int allTimePoint;
+        public int AllTimePoint
+        {
+            get { return allTimePoint; }
+            set
+            {
+                allTimePoint = value;
+                RaisePropertyChanged(() => AllTimePoint);
+            }
+        }
+
+        /// <summary>
+        /// 当前灯光
+        /// </summary>
         private List<Light> nowLightLight;
         public List<Light> NowLightLight
         {
@@ -34,5 +51,48 @@ namespace Maker.Model
                 RaisePropertyChanged(() => NowLightLight);
             }
         }
+
+        /// <summary>
+        /// 当前帧
+        /// </summary>
+        private int currentFrame;
+        public int CurrentFrame
+        {
+            get { return currentFrame; }
+            set
+            {
+                currentFrame = value;
+                RaisePropertyChanged(() => CurrentFrame);
+            }
+        }
+
+        /// <summary>
+        /// 当前数据
+        /// </summary>
+        private Dictionary<int, int[]> nowData = new Dictionary<int, int[]>();
+        public Dictionary<int, int[]> NowData
+        {
+            get { return nowData; }
+            set
+            {
+                nowData = value;
+                RaisePropertyChanged(() => NowData);
+            }
+        }
+
+        /// <summary>
+        /// 时间数组
+        /// </summary>
+        private List<int> liTime = new List<int>();
+        public List<int> LiTime
+        {
+            get { return liTime; }
+            set
+            {
+                liTime = value;
+                RaisePropertyChanged(() => LiTime);
+            }
+        }
+       
     }
 }

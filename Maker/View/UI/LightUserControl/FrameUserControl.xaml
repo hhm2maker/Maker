@@ -10,6 +10,7 @@
     xmlns:viewmodel="clr-namespace:Maker.ViewModel"
     mc:Ignorable="d"
     Focusable="True"
+     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
    DataContext="{Binding Source={StaticResource Locator},Path=Main}"
     >
     <UserControl.Resources>
@@ -837,10 +838,14 @@
                     </StackPanel.Background>
                     <StackPanel Orientation="Horizontal" Width="auto" VerticalAlignment="Center">
                         <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
-                        <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center">0</TextBlock>
+                        <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/> 
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
-                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  MouseLeftButtonDown="btnLastTimePoint_Click">
+                        <!--MouseLeftButtonDown="btnLastTimePoint_Click"-->
+                        <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  >
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeNowTimePointCmd}" CommandParameter="Left"  />
+                            </Border.InputBindings>
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FFECF1F4" Offset="0"/>
@@ -862,12 +867,15 @@
                                         </Binding.ValidationRules>
                                     </Binding>
                                     </TextBox.Text>
-
                                 </TextBox>
-                                <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" > / 0</TextBlock>
+                                <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " />
+                                <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}"/>
                             </StackPanel>
                         </Border>
-                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="btnNextTimePoint_Click" >
+                        <Border CornerRadius="0,5,5,0" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" >
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeNowTimePointCmd}" CommandParameter="Right"  />
+                            </Border.InputBindings>
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                     <GradientStop Color="#FFECF1F4" Offset="0"/>
