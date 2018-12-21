@@ -262,7 +262,7 @@ namespace Maker.View.UI
         {
             private PlayUserControl pc;
             private IntPtr handle;
-            private CDD dd = new CDD();
+            private CDD dd;
             private Dictionary<int, KeyboardModel> keyboardModels;
             public InputPort(PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
             {
@@ -441,8 +441,9 @@ namespace Maker.View.UI
             public int inputType = 0;//0浅度 1深度(驱动)
             private void KeyEvent(int position, int openOrClose)
             {
+                Console.WriteLine(keyboardModels.Count);
                 //模拟键盘输入
-                if (!keyboardModels.ContainsKey(position) || dd != null)
+                if (!keyboardModels.ContainsKey(position) )
                 {
                     return;
                 }
@@ -452,6 +453,8 @@ namespace Maker.View.UI
                 }
                 else if (inputType == 1)
                 {
+                    if (dd == null)
+                        return;
                     if (openOrClose == 0)
                     {
                         int ddcode = keyboardModels[position].DdKey;                         //tab键位在DD键码表的3区第1个位置
@@ -472,7 +475,7 @@ namespace Maker.View.UI
 
                 //LoadDllFile(dllfile);
                 //return;
-                if(dd == null)
+                if (dd == null)
                     LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\DD85590.64.dll");
             }
 
@@ -485,7 +488,7 @@ namespace Maker.View.UI
                     MessageBox.Show("文件不存在");
                     return;
                 }
-
+                dd = new CDD();
                 int ret = dd.Load(dllfile);
                 //if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
                 //if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
