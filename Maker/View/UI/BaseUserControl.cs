@@ -177,7 +177,13 @@ namespace Maker.View
                     {
                     CreateFile(filePath);
                     LoadFile(dialog.fileName);
-                    mw.lbMain.Items.Add(dialog.fileName);
+
+                    ListBoxItem item = new ListBoxItem
+                    {
+                        Height = 36,
+                        Content = dialog.fileName,
+                    };
+                    mw.lbMain.Items.Add(item);
                     mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
                 }
             }

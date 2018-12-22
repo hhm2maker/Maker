@@ -840,7 +840,7 @@
                         <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
                         <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/> 
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                    <StackPanel Orientation="Horizontal" >
                         <!--MouseLeftButtonDown="btnLastTimePoint_Click"-->
                         <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  >
                             <Border.InputBindings>

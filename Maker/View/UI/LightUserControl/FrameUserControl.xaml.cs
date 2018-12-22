@@ -214,7 +214,7 @@ namespace Maker.View.LightUserControl
                 //tbTimeNow.Text = "0";
                 nowTimePoint = 0;
                 tbTimePointCountLeft.Text = "0";
-                tbTimePointCount.Text = " / " + 0;
+                tbTimePointCount.Text = 0.ToString();
             }
             else
             {
@@ -2038,7 +2038,7 @@ namespace Maker.View.LightUserControl
         {
             if (nowTimePoint == 0)
                 return;
-            new ShowPavedWindow(mw, GetData(), 1).ShowDialog();
+            new ShowPavedWindow(mw, GetData(), 1,points, StaticConstant.brushList[nowColor]).ShowDialog();
         }
 
 

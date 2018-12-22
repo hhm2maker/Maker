@@ -160,6 +160,23 @@ namespace Maker.Business
         /// <param name="filePath">Midi文件的内容</param>
         public String WriteMidiContent(List<Light> lab)
         {
+            lab = LightBusiness.Sort(lab);
+            //还原时间
+            int NowTime = 0;
+            int jianTime = 0;
+            for (int j = 0; j < lab.Count; j++)
+            {
+                if (lab[j].Time != NowTime)
+                {
+                    NowTime = lab[j].Time;
+                    lab[j].Time -= jianTime;
+                    jianTime = NowTime;
+                }
+                else
+                {
+                    lab[j].Time -= jianTime;
+                }
+            }
             StringBuilder Action = new StringBuilder();
             //144 128
             for (int j = 0; j < lab.Count; j++)
@@ -214,6 +231,7 @@ namespace Maker.Business
                     lab[j].Time -= jianTime;
                 }
             }
+
             List<char> mData = new List<char>();//文件字符
             List<char> StartStr = new List<char>();//文件头
             List<char> EndStr = new List<char>();//文件尾
@@ -600,7 +618,6 @@ namespace Maker.Business
         /// <param name="mActionBeanList">需要写入的灯光数组</param>
         public void WriteLightFile(String filePath, List<Light> mActionBeanList)
         {
-            LightBusiness.Print(mActionBeanList);
             //StringBuilder sb = new StringBuilder();
             //for (int j = 0; j < mActionBeanList.Count; j++)
             //{

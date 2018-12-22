@@ -7,6 +7,18 @@
         Loaded="Window_Loaded"
         Title="ShowPavedWindow"
         Width="600">
-    <Grid Name="gMain" />
-
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+            <Canvas Name="cMain" Grid.Row="0">
+            <Grid Name="gMain" Width="600"/>
+        </Canvas>
+        <StackPanel Grid.Row="1" >
+            <Button Click="Button_Click" Content="{DynamicResource Save}"/>
+        </StackPanel>
+       
+    </Grid>
+    
 </Window>

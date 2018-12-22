@@ -17,7 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ScrollViewer Grid.Row="0" Template="{DynamicResource ScrollViewerControlTemplate1}" >
+    <ScrollViewer Grid.Row="0" Template="{DynamicResource ScrollViewerControlTemplate1}" Name="svMain">
         <WrapPanel Name="wpMain"/>
     </ScrollViewer>
 </UserControl>

@@ -59,11 +59,12 @@ namespace Maker.View.Tool
             daHeight.Completed += Animation_Completed;
             wMain.BeginAnimation(OpacityProperty, daHeight);
         }
-
+        public int Count;
         private void Animation_Completed(object sender, EventArgs e)
         {
             double d = wpMain.ActualWidth / pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
+            Count = dil.Count;
             int max = mw.pavedMax;
             if (dil.Count > max) {
                 for (int i = dil.Count - 1; i >= max ; i--) {
