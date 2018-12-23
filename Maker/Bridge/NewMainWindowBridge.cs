@@ -234,7 +234,9 @@ namespace Maker.Bridge
         /// </summary>
         public void InitStaticConstant()
         {
-            String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
+            StaticConstant.mw = view;
+
+           String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
             List<String> ColorList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
             List<SolidColorBrush> brushList = new List<SolidColorBrush>();
             foreach (String str in ColorList)

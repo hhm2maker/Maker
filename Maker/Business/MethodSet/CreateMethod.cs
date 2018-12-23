@@ -1256,7 +1256,7 @@ namespace Maker.MethodSet
                     //Resource
                     if (lastFilePath.Equals(""))
                     {
-                        filePath = StaticConstant.mw.lastProjectPath + @"\Resource\" + importContent[1];
+                        filePath = StaticConstant.mw3.lastProjectPath + @"\Resource\" + importContent[1];
                     }
                     else {
                         if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(lastFilePath)) + @"\Resource\" + importContent[1] + ".mid")
@@ -1342,7 +1342,7 @@ namespace Maker.MethodSet
                     //Resource
                     if (lastFilePath.Equals(""))
                     {
-                        filePath = StaticConstant.mw.lastProjectPath + @"\Resource\" + importContent[1];
+                        filePath = StaticConstant.mw3.lastProjectPath + @"\Resource\" + importContent[1];
                     }
                     else
                     {

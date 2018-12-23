@@ -28,10 +28,14 @@ namespace Maker.Model
         /// <summary>
         /// 主窗体
         /// </summary>
-        public static MainWindow mw;
+        public static MainWindow mw3;
         /// <summary>
         /// 关闭笔刷
         /// </summary>
         public static SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+        /// <summary>
+        /// 主窗体
+        /// </summary>
+        public static NewMainWindow mw;
     }
 }

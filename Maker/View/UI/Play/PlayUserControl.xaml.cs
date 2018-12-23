@@ -441,7 +441,6 @@ namespace Maker.View.UI
             public int inputType = 0;//0浅度 1深度(驱动)
             private void KeyEvent(int position, int openOrClose)
             {
-                Console.WriteLine(keyboardModels.Count);
                 //模拟键盘输入
                 if (!keyboardModels.ContainsKey(position) )
                 {

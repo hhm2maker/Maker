@@ -21,7 +21,32 @@ namespace Maker.Model
             {
                 nowTimePoint = value;
                 RaisePropertyChanged(() => NowTimePoint);
+                LoadFrame();
             }
+        }
+
+        private void LoadFrame()
+        {
+            if (NowTimePoint == 0)
+            {
+                CurrentFrame = 0;
+                return;
+            }
+
+            CurrentFrame = LiTime[NowTimePoint - 1];
+
+            List<Light> mLightList = new List<Light>();
+
+            int[] x = NowData[LiTime[NowTimePoint - 1]];
+            for (int i = 0; i < x.Count(); i++)
+            {
+                if (x[i] == 0)
+                {
+                    continue;
+                }
+                mLightList.Add(new Light(0, 144, i + 28, x[i]));
+            }
+            NowLightLight = mLightList;
         }
 
         /// <summary>

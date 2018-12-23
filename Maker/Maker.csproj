@@ -163,7 +163,9 @@
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Utils\StringUtil.cs" />
+    <Compile Include="ViewModel\BindingProxy.cs" />
     <Compile Include="ViewModel\FrameUserControlViewModel.cs" />
+    <Compile Include="ViewModel\NowTimePointValidationRule.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />

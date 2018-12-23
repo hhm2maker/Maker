@@ -34,7 +34,6 @@ namespace Maker.View.LightUserControl
         public FrameUserControl(NewMainWindow mw)
         {
             InitializeComponent();
-            //DataContext = new FrameUserControlViewModel();
 
             this.mw = mw;
 
@@ -213,16 +212,16 @@ namespace Maker.View.LightUserControl
             {
                 //tbTimeNow.Text = "0";
                 nowTimePoint = 0;
-                tbTimePointCountLeft.Text = "0";
-                tbTimePointCount.Text = 0.ToString();
+                //tbTimePointCountLeft.Text = "0";
+                //tbTimePointCount.Text = 0.ToString();
             }
             else
             {
                 //tbTimeNow.Text = liTime[0].ToString();
                 nowTimePoint = 1;
-                tbTimePointCountLeft.Text = nowTimePoint.ToString();
+                //tbTimePointCountLeft.Text = nowTimePoint.ToString();
                 //tbTimePointCount.Text = " / " + liTime.Count;
-                LoadFrame();
+                //LoadFrame();
             }
         }
 
@@ -279,9 +278,10 @@ namespace Maker.View.LightUserControl
             List<Light> mLightList = new List<Light>();
 
             int[] x = dic[liTime[nowTimePoint - 1]];
+
             for (int i = 0; i < x.Count(); i++)
             {
-                if (x[i] == 0)
+                if (x[i] == 0 || x[i] == -1)
                 {
                     continue;
                 }
@@ -291,19 +291,7 @@ namespace Maker.View.LightUserControl
             LoadNowText();
         }
 
-        private void btnInsertTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            GetNumberDialog dialog = new GetNumberDialog(mw, "TheFrameOfTheNewNodeColon", false, liTime, false);
-            if (dialog.ShowDialog() == true)
-            {
-                int[] x = new int[96];
-                for (int j = 0; j < 96; j++)
-                {
-                    x[j] = 0;
-                }
-                InsertTimePoint(dialog.OneNumber, x);
-            }
-        }
+      
         /// <summary>
         /// 插入时间点
         /// </summary>
@@ -353,45 +341,8 @@ namespace Maker.View.LightUserControl
                     LoadFrame();
                 }
             }
-
         }
-
-        private void btnDeleteTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            if (liTime.Count == 0)
-                return;
-
-            OkOrCancelDialog oocd = new OkOrCancelDialog(mw, "WhetherToDeleteTheTimeNode");
-            if (oocd.ShowDialog() == true)
-            {
-                dic.Remove(liTime[nowTimePoint - 1]);
-                liTime.RemoveAt(nowTimePoint - 1);
-                if (liTime.Count == 0)
-                {
-                    nowTimePoint = 0;
-                    tbTimeNow.Text = "0";
-                    tbTimePointCountLeft.Text = "0";
-                    tbTimePointCount.Text = " / " + 0;
-                    ClearFrame();
-                }
-                else
-                {
-                    if (nowTimePoint == 1)
-                    {
-                        nowTimePoint = 1;
-                    }
-                    else
-                    {
-                        nowTimePoint--;
-                    }
-
-                    tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-                    tbTimePointCountLeft.Text = nowTimePoint.ToString();
-                    tbTimePointCount.Text = " / " + liTime.Count;
-                    LoadFrame();
-                }
-            }
-        }
+        
 
         private Point point = new Point();
         private Rectangle rectangle = new Rectangle();
@@ -454,474 +405,6 @@ namespace Maker.View.LightUserControl
             LoadNowText();
         }
 
-        private void btnRegionHorizontalFlipping_Click(object sender, RoutedEventArgs e)
-        {
-            //#region
-            //if (nowTimePoint == 0)
-            //    return;
-            //if (cbLeftDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 8; i < 24; i++)
-            //    {
-            //        x[i - 8] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][8] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][9] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][10] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][11] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][12] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][13] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][14] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][15] = x[11];
-
-            //    dic[liTime[nowTimePoint - 1]][16] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][17] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][18] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][19] = x[7];
-
-            //    dic[liTime[nowTimePoint - 1]][20] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][21] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][22] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][23] = x[3];
-            //}
-            //if (cbLeftUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 24; i < 40; i++)
-            //    {
-            //        x[i - 24] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][24] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][25] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][26] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][27] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][28] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][29] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][30] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][31] = x[11];
-
-            //    dic[liTime[nowTimePoint - 1]][32] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][33] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][34] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][35] = x[7];
-
-            //    dic[liTime[nowTimePoint - 1]][36] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][37] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][38] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][39] = x[3];
-            //}
-            //if (cbRightDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 40; i < 56; i++)
-            //    {
-            //        x[i - 40] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][40] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][41] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][42] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][43] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][44] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][45] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][46] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][47] = x[11];
-
-            //    dic[liTime[nowTimePoint - 1]][48] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][49] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][50] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][51] = x[7];
-
-            //    dic[liTime[nowTimePoint - 1]][52] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][53] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][54] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][55] = x[3];
-            //}
-            //if (cbRightUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 56; i < 72; i++)
-            //    {
-            //        x[i - 56] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][56] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][57] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][58] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][59] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][60] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][61] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][62] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][63] = x[11];
-
-            //    dic[liTime[nowTimePoint - 1]][64] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][65] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][66] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][67] = x[7];
-
-            //    dic[liTime[nowTimePoint - 1]][68] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][69] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][70] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][71] = x[3];
-            //}
-            //LoadFrame();
-            //#endregion
-        }
-
-        private void btnRegionVerticalFlipping_Click(object sender, RoutedEventArgs e)
-        {
-            //#region
-            //if (nowTimePoint == 0)
-            //    return;
-            //if (cbLeftDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 8; i < 24; i++)
-            //    {
-            //        x[i - 8] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][8] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][9] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][10] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][11] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][12] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][13] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][14] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][15] = x[4];
-
-            //    dic[liTime[nowTimePoint - 1]][16] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][17] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][18] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][19] = x[8];
-
-            //    dic[liTime[nowTimePoint - 1]][20] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][21] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][22] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][23] = x[12];
-            //}
-            //if (cbLeftUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 24; i < 40; i++)
-            //    {
-            //        x[i - 24] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][24] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][25] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][26] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][27] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][28] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][29] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][30] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][31] = x[4];
-
-            //    dic[liTime[nowTimePoint - 1]][32] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][33] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][34] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][35] = x[8];
-
-            //    dic[liTime[nowTimePoint - 1]][36] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][37] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][38] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][39] = x[12];
-            //}
-            //if (cbRightDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 40; i < 56; i++)
-            //    {
-            //        x[i - 40] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][40] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][41] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][42] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][43] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][44] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][45] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][46] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][47] = x[4];
-
-            //    dic[liTime[nowTimePoint - 1]][48] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][49] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][50] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][51] = x[8];
-
-            //    dic[liTime[nowTimePoint - 1]][52] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][53] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][54] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][55] = x[12];
-            //}
-            //if (cbRightUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 56; i < 72; i++)
-            //    {
-            //        x[i - 56] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][56] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][57] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][58] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][59] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][60] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][61] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][62] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][63] = x[4];
-
-            //    dic[liTime[nowTimePoint - 1]][64] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][65] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][66] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][67] = x[8];
-
-            //    dic[liTime[nowTimePoint - 1]][68] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][69] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][70] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][71] = x[12];
-            //}
-            //LoadFrame();
-            //#endregion
-        }
-
-        private void btnRegionClockwise_Click(object sender, RoutedEventArgs e)
-        {
-            //#region
-            //if (nowTimePoint == 0)
-            //    return;
-            //if (cbLeftDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 8; i < 24; i++)
-            //    {
-            //        x[i - 8] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][8] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][9] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][10] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][11] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][12] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][13] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][14] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][15] = x[14];
-
-            //    dic[liTime[nowTimePoint - 1]][16] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][17] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][18] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][19] = x[13];
-
-            //    dic[liTime[nowTimePoint - 1]][20] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][21] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][22] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][23] = x[12];
-            //}
-            //if (cbLeftUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 24; i < 40; i++)
-            //    {
-            //        x[i - 24] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][24] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][25] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][26] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][27] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][28] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][29] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][30] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][31] = x[14];
-
-            //    dic[liTime[nowTimePoint - 1]][32] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][33] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][34] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][35] = x[13];
-
-            //    dic[liTime[nowTimePoint - 1]][36] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][37] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][38] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][39] = x[12];
-            //}
-            //if (cbRightDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 40; i < 56; i++)
-            //    {
-            //        x[i - 40] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][40] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][41] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][42] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][43] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][44] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][45] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][46] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][47] = x[14];
-
-            //    dic[liTime[nowTimePoint - 1]][48] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][49] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][50] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][51] = x[13];
-
-            //    dic[liTime[nowTimePoint - 1]][52] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][53] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][54] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][55] = x[12];
-            //}
-            //if (cbRightUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 56; i < 72; i++)
-            //    {
-            //        x[i - 56] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][56] = x[3];
-            //    dic[liTime[nowTimePoint - 1]][57] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][58] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][59] = x[15];
-
-            //    dic[liTime[nowTimePoint - 1]][60] = x[2];
-            //    dic[liTime[nowTimePoint - 1]][61] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][62] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][63] = x[14];
-
-            //    dic[liTime[nowTimePoint - 1]][64] = x[1];
-            //    dic[liTime[nowTimePoint - 1]][65] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][66] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][67] = x[13];
-
-            //    dic[liTime[nowTimePoint - 1]][68] = x[0];
-            //    dic[liTime[nowTimePoint - 1]][69] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][70] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][71] = x[12];
-            //}
-            //LoadFrame();
-            //#endregion
-        }
-
-        private void btnRegionAntiClockwise_Click(object sender, RoutedEventArgs e)
-        {
-            //#region
-            //if (nowTimePoint == 0)
-            //    return;
-            //if (cbLeftDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 8; i < 24; i++)
-            //    {
-            //        x[i - 8] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][8] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][9] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][10] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][11] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][12] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][13] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][14] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][15] = x[1];
-
-            //    dic[liTime[nowTimePoint - 1]][16] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][17] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][18] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][19] = x[2];
-
-            //    dic[liTime[nowTimePoint - 1]][20] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][21] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][22] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][23] = x[3];
-            //}
-            //if (cbLeftUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 24; i < 40; i++)
-            //    {
-            //        x[i - 24] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][24] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][25] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][26] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][27] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][28] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][29] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][30] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][31] = x[1];
-
-            //    dic[liTime[nowTimePoint - 1]][32] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][33] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][34] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][35] = x[2];
-
-            //    dic[liTime[nowTimePoint - 1]][36] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][37] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][38] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][39] = x[3];
-            //}
-            //if (cbRightDown.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 40; i < 56; i++)
-            //    {
-            //        x[i - 40] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][40] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][41] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][42] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][43] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][44] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][45] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][46] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][47] = x[1];
-
-            //    dic[liTime[nowTimePoint - 1]][48] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][49] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][50] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][51] = x[2];
-
-            //    dic[liTime[nowTimePoint - 1]][52] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][53] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][54] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][55] = x[3];
-            //}
-            //if (cbRightUp.IsChecked == true)
-            //{
-            //    int[] x = new int[16];
-            //    for (int i = 56; i < 72; i++)
-            //    {
-            //        x[i - 56] = dic[liTime[nowTimePoint - 1]][i];
-            //    }
-            //    dic[liTime[nowTimePoint - 1]][56] = x[12];
-            //    dic[liTime[nowTimePoint - 1]][57] = x[8];
-            //    dic[liTime[nowTimePoint - 1]][58] = x[4];
-            //    dic[liTime[nowTimePoint - 1]][59] = x[0];
-
-            //    dic[liTime[nowTimePoint - 1]][60] = x[13];
-            //    dic[liTime[nowTimePoint - 1]][61] = x[9];
-            //    dic[liTime[nowTimePoint - 1]][62] = x[5];
-            //    dic[liTime[nowTimePoint - 1]][63] = x[1];
-
-            //    dic[liTime[nowTimePoint - 1]][64] = x[14];
-            //    dic[liTime[nowTimePoint - 1]][65] = x[10];
-            //    dic[liTime[nowTimePoint - 1]][66] = x[6];
-            //    dic[liTime[nowTimePoint - 1]][67] = x[2];
-
-            //    dic[liTime[nowTimePoint - 1]][68] = x[15];
-            //    dic[liTime[nowTimePoint - 1]][69] = x[11];
-            //    dic[liTime[nowTimePoint - 1]][70] = x[7];
-            //    dic[liTime[nowTimePoint - 1]][71] = x[3];
-            //}
-            //LoadFrame();
-            //#endregion
-        }
-
         private void btnRegionCopy_Click(object sender, RoutedEventArgs e)
         {
             if (nowTimePoint == 0)
@@ -937,71 +420,11 @@ namespace Maker.View.LightUserControl
         {
             if (nowTimePoint == 0)
                 return;
-            //if (cbLeftDown.IsChecked == true)
-            //{
-            //    for (int i = 8; i < 24; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    /*
-            //    for (int i = 84; i < 92; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    */
-            //}
-            //if (cbLeftUp.IsChecked == true)
-            //{
-            //    for (int i = 24; i < 40; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    /*
-            //  for (int i = 80; i < 84; i++)
-            //  {
-            //      dic[liTime[nowTimePoint - 1]][i] = 0;
-            //  }
-            //  for (int i = 0; i < 4; i++)
-            //  {
-            //      dic[liTime[nowTimePoint - 1]][i] = 0;
-            //  }
-            //  */
-            //}
-            //if (cbRightDown.IsChecked == true)
-            //{
-            //    for (int i = 40; i < 56; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    /*
-            //  for (int i = 76; i < 80; i++)
-            //  {
-            //      dic[liTime[nowTimePoint - 1]][i] = 0;
-            //  }
-            //  for (int i = 92; i < 96; i++)
-            //  {
-            //      dic[liTime[nowTimePoint - 1]][i] = 0;
-            //  }
-            //    */
-            //}
-            //if (cbRightUp.IsChecked == true)
-            //{
-            //    for (int i = 56; i < 72; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    /*
-            //    for (int i = 72; i < 76; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    for (int i = 4; i < 8; i++)
-            //    {
-            //        dic[liTime[nowTimePoint - 1]][i] = 0;
-            //    }
-            //    */
-            //}
-            //LoadFrame();
+            for (int i = 0; i < selects.Count; i++)
+            {
+                dic[liTime[nowTimePoint - 1]][selects[i]] = 0;
+            }
+            LoadFrame();
         }
 
         private void btnHorizontalFlipping_Click(object sender, RoutedEventArgs e)
@@ -1573,112 +996,6 @@ namespace Maker.View.LightUserControl
             }
             dic[liTime[nowTimePoint - 1]] = x;
             LoadFrame();
-        }
-
-        private void btnInsertStartTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            //如果已经有该时间点，报错
-            if (liTime.Contains(0))
-            {
-                new MessageDialog(mw, "TheFrameHasATimeNode").ShowDialog();
-            }
-            else
-            {
-                int[] x = new int[96];
-                for (int i = 0; i < 96; i++)
-                {
-                    x[i] = 0;
-                }
-                InsertTimePoint(0, x);
-            }
-        }
-
-        private void btnInsertDiyTimePoint_Click(object sender, MouseButtonEventArgs e)
-        {
-            String str = tbInsertDiyTimePoint.Text.Trim();
-            if (str.Trim().Equals(""))
-            {
-                return;
-            }
-            int time = 0;
-            try
-            {
-                if (str.Contains("+"))
-                {
-                    //当前时间 +
-                    time = int.Parse(tbTimeNow.Text) + int.Parse(str.Substring(1));
-                }
-                else if (str.Contains("-"))
-                {
-                    //当前时间 -
-                    time = int.Parse(tbTimeNow.Text) - int.Parse(str.Substring(1));
-                }
-                else
-                {
-                    //当前时间
-                    time = int.Parse(str);
-                }
-
-                if (time < 0)
-                {
-                    new MessageDialog(mw, "TheInputFormatIsIncorrect").ShowDialog();
-                    return;
-                }
-
-            }
-            catch
-            {
-                new MessageDialog(mw, "TheInputFormatIsIncorrect").ShowDialog();
-                return;
-            }
-            //如果已经有该时间点，报错
-            if (liTime.Contains(time))
-            {
-                new MessageDialog(mw, "TheFrameHasATimeNode").ShowDialog();
-            }
-            else
-            {
-                int[] x = new int[96];
-                for (int i = 0; i < 96; i++)
-                {
-                    x[i] = 0;
-                }
-                InsertTimePoint(time, x);
-            }
-        }
-
-        private void tbTimePointCountLeft_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-                if (liTime.Count == 0)
-                    return;
-                int position = Convert.ToInt32(tbTimePointCountLeft.Text);
-                if (liTime.Count == 0)
-                {
-                    nowTimePoint = 0;
-                    tbTimePointCountLeft.Text = "0";
-                }
-                else
-                {
-                    nowTimePoint = position;
-                    LoadFrame();
-                }
-            }
-            catch
-            {
-                if (liTime.Count == 0)
-                {
-                    nowTimePoint = 0;
-                    tbTimePointCountLeft.Text = "0";
-                }
-                else
-                {
-                    nowTimePoint = 1;
-                    tbTimePointCountLeft.Text = "1";
-                    LoadFrame();
-                }
-            }
         }
 
         public bool IsCanDraw()
