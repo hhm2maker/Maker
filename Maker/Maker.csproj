@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="View\UI\Device\Launchpad\AccuratePlayerLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\PlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Widget\TextCanvas.cs" />
     <Compile Include="View\UI\Dialog\AdvancedExportDialog.cs" />
     <Compile Include="View\UI\Dialog\Automatic\RandomFountainDialog.xaml.cs">
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>

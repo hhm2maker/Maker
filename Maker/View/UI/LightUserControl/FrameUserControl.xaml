@@ -11,7 +11,8 @@
     mc:Ignorable="d"
     Focusable="True"
      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-   DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+    xmlns:widget="clr-namespace:Maker.View.UI.Device.Widget"
+    DataContext="{Binding Source={StaticResource Locator},Path=Main}"
     >
     <UserControl.Resources>
         <viewmodel:BindingProxy x:Key="BindingProxy"
@@ -821,6 +822,7 @@
                     <Border>
                         <Canvas Name="cMain" Width="600" Height="600">
                             <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                            <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" />
                         </Canvas>
                     </Border>
                 </StackPanel>

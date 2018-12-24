@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Maker.Model.FramePointModel;
 
 namespace Maker.Model
 {
@@ -47,6 +48,18 @@ namespace Maker.Model
                 mLightList.Add(new Light(0, 144, i + 28, x[i]));
             }
             NowLightLight = mLightList;
+
+            if (!points.ContainsKey(nowTimePoint))
+            {
+                if (Texts == null)
+                    Texts = new List<Text>();
+                else
+                    Texts.Clear();
+            }
+            else
+            {
+                Texts = points[nowTimePoint].Texts;
+            }
         }
 
         /// <summary>
@@ -118,6 +131,31 @@ namespace Maker.Model
                 RaisePropertyChanged(() => LiTime);
             }
         }
+
        
+        private Dictionary<int, FramePointModel> points = new Dictionary<int, FramePointModel>();
+        public Dictionary<int, FramePointModel> Points
+        {
+            get { return points; }
+            set
+            {
+                points = value;
+                //RaisePropertyChanged(() => Points);
+            }
+        }
+
+        /// <summary>
+        /// 文本数组
+        /// </summary>
+        private List<Text> texts;
+        public List<Text> Texts
+        {
+            get { return texts; }
+            set
+            {
+                texts = value;
+                RaisePropertyChanged(() => Texts);
+            }
+        }
     }
 }

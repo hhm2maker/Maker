@@ -1483,7 +1483,18 @@ namespace Maker.View.LightUserControl
             // 保存该文档  
             xDoc.Save(filePath);
         }
-        private Dictionary<int, FramePointModel> points = new Dictionary<int, FramePointModel>();
+
+       public Dictionary<int, FramePointModel> points
+        {
+            set
+            {
+                (DataContext as FrameUserControlViewModel).Welcome.Points = value;
+            }
+            get
+            {
+                return (DataContext as FrameUserControlViewModel).Welcome.Points;
+            }
+        }
         private void LoadText(String fileName)
         {
             points.Clear();
@@ -1512,6 +1523,7 @@ namespace Maker.View.LightUserControl
 
         private void LoadNowText()
         {
+            return;
             if (cMain.Children.Count > 1)
             {
                 lbText.Items.Clear();

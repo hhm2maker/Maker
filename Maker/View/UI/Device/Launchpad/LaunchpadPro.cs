@@ -963,9 +963,8 @@ namespace Maker.View.Device
             obj.SetValue(DataProperty, value);
         }
 
-
         public static readonly DependencyProperty DataProperty =
-            DependencyProperty.RegisterAttached("Data", typeof(List<Light>), typeof(LaunchpadPro), new PropertyMetadata(new List<Light>(),OnDataChanged));
+            DependencyProperty.RegisterAttached("Data", typeof(List<Light>), typeof(LaunchpadPro), new PropertyMetadata(OnDataChanged));
 
         private static void OnDataChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
