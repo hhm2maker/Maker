@@ -32,10 +32,7 @@ namespace Maker.View.UI.Device.Widget
                 TextCanvas textCanvas = obj as TextCanvas;
                 List<Text> texts = e.NewValue as List<Text>;
 
-                if (textCanvas.Children.Count > 1)
-                {
-                    textCanvas.Children.RemoveRange(1, textCanvas.Children.Count - 1);
-                }
+                textCanvas.Children.Clear();
 
                 foreach (var item in texts)
                 {
@@ -44,8 +41,8 @@ namespace Maker.View.UI.Device.Widget
                         Text = item.Value,
                         Foreground = StaticConstant.brushList[0],
                     };
-                    Canvas.SetLeft(tb, item.Point.X);
-                    Canvas.SetTop(tb, item.Point.Y);
+                    SetLeft(tb, item.Point.X);
+                    SetTop(tb, item.Point.Y);
                     textCanvas.Children.Add(tb);
                 }
             }

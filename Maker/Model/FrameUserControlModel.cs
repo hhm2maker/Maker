@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using Maker.View.LightUserControl;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,14 +53,18 @@ namespace Maker.Model
 
             if (!points.ContainsKey(nowTimePoint))
             {
-                if (Texts == null)
-                    Texts = new List<Text>();
-                else
-                    Texts.Clear();
+                Texts = new List<Text>();
+                ListBoxData = new ObservableCollection<dynamic>();
             }
             else
             {
                 Texts = points[nowTimePoint].Texts;
+
+                ListBoxData = new ObservableCollection<dynamic>();
+                for (int i = 0; i < Texts.Count; i++) {
+                    (ListBoxData as ObservableCollection<dynamic>).Add(Texts[i].Value);
+                }
+             
             }
         }
 
@@ -140,14 +146,13 @@ namespace Maker.Model
             set
             {
                 points = value;
-                //RaisePropertyChanged(() => Points);
             }
         }
 
         /// <summary>
         /// 文本数组
         /// </summary>
-        private List<Text> texts;
+        private List<Text> texts ;
         public List<Text> Texts
         {
             get { return texts; }
@@ -157,5 +162,19 @@ namespace Maker.Model
                 RaisePropertyChanged(() => Texts);
             }
         }
+
+        private IEnumerable listBoxData;
+        /// <summary>
+        /// LisBox数据模板
+        /// </summary>
+        public IEnumerable ListBoxData
+        {
+            get { return listBoxData; }
+            set {
+                listBoxData = value;
+                RaisePropertyChanged(() => ListBoxData);
+            }
+        }
+
     }
 }

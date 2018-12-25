@@ -7,6 +7,7 @@ using Maker.View.Utils;
 using Maker.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,9 @@ namespace Maker.View.LightUserControl
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
             InitPosition();
+
+            
+
         }
         private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
@@ -1299,7 +1303,7 @@ namespace Maker.View.LightUserControl
 
             if (lbText.SelectedIndex == -1)
                 return;
-            TextBlock tb = cMain.Children[lbText.SelectedIndex + 1] as TextBlock;
+            TextBlock tb = cMain.Children[lbText.SelectedIndex] as TextBlock;
             if (e.Key == Key.Left)
                 Canvas.SetLeft(tb, Canvas.GetLeft(tb) - 1);
             else if (e.Key == Key.Right)
@@ -1451,7 +1455,7 @@ namespace Maker.View.LightUserControl
             GetStringDialog getString = new GetStringDialog(mw, "", "", "");
             if (getString.ShowDialog() == true)
             {
-                TextBlock tb = cMain.Children[lbText.SelectedIndex + 1] as TextBlock;
+                TextBlock tb = cMain.Children[lbText.SelectedIndex] as TextBlock;
                 tb.Text = getString.mString;
                 points[nowTimePoint].Texts[lbText.SelectedIndex].Value = getString.mString;
                 lbText.Items[lbText.SelectedIndex] = getString.mString;

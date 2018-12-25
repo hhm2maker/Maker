@@ -812,7 +812,7 @@
                                 <Button  Width="180" Click="NewTextFile" Content="{DynamicResource NewTextFile}"/>
                                 <Button  Width="180" Click="LoadTextFile" Content="{DynamicResource LoadTextFile}"/>
                                 <Button  Width="180" Click="SaveTextFile" Content="{DynamicResource SaveTextFile}"/>
-                                <ListBox Name="lbText"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
+                                <ListBox Name="lbText" ItemsSource="{Binding Welcome.ListBoxData}"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
                                 <Button  Width="180" Click="NewText" Content="{DynamicResource NewText}"/>
                                 <Button  Width="180" Click="EditText" Content="{DynamicResource EditText}"/>
                                 <Button  Width="180" Click="DeleteText" Content="{DynamicResource DeleteText}"/>
@@ -820,9 +820,9 @@
                         </TabItem>
                     </TabControl>
                     <Border>
-                        <Canvas Name="cMain" Width="600" Height="600">
+                        <Canvas Width="600" Height="600">
                             <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
-                            <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" />
+                            <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" x:Name="cMain" />
                         </Canvas>
                     </Border>
                 </StackPanel>
