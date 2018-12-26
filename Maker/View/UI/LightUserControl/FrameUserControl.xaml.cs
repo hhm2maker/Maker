@@ -1040,6 +1040,23 @@ namespace Maker.View.LightUserControl
                     }
         };
 
+        private bool isShowPicture = true;
+        private void ShowImageControl(object sender, MouseButtonEventArgs e)
+        {
+            if (isShowPicture)
+            {
+                spRight.Visibility = Visibility.Collapsed;
+                bPicture.Background = noSelectBrush;
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_black.png", UriKind.RelativeOrAbsolute));
+            }
+            else {
+                spRight.Visibility = Visibility.Visible;
+                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_white.png", UriKind.RelativeOrAbsolute));
+                bPicture.Background = selectBrush;
+            }
+            isShowPicture = !isShowPicture;
+        }
+
         private void ChangeControlType(object sender, MouseButtonEventArgs e)
         {
             selectView.Background = noSelectBrush;
@@ -1051,14 +1068,7 @@ namespace Maker.View.LightUserControl
             {
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_black.png", UriKind.RelativeOrAbsolute));
             }
-            else if (selectView == bPicture)
-            {
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_black.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (selectView == bFire)
-            {
-                iFire.Source = new BitmapImage(new Uri("pack://application:,,/View/Resources/Image/fire_black.png", UriKind.RelativeOrAbsolute));
-            }
+           
             selectView = sender as Border;
             selectView.Background = selectBrush;
 
@@ -1074,18 +1084,7 @@ namespace Maker.View.LightUserControl
                 nowControlType = ControlType.Select;
                 tcLeft.SelectedIndex = 1;
             }
-            else if (sender == bPicture)
-            {
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Picture;
-                tcLeft.SelectedIndex = 2;
-            }
-            else if (sender == bFire)
-            {
-                iFire.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/fire_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Fire;
-                tcLeft.SelectedIndex = 3;
-            }
+          
         }
 
         private void OpenFileControl(object sender, RoutedEventArgs e)
