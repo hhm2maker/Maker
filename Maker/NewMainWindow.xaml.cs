@@ -41,7 +41,7 @@ namespace Maker
 
             InitUserControl();
             InitPopup();
-            
+
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Maker
         /// </summary>
         private void InitPopup()
         {
-            popups = new List<Popup>() { popLight, popEffect, popPlay,popTool,popHelp};
+            popups = new List<Popup>() { popLight, popEffect, popPlay, popTool, popHelp };
         }
 
         /// <summary>
@@ -419,8 +419,17 @@ namespace Maker
         {
             if (gMain.Children.Count == 0)
                 return;
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.DeleteFile(sender, e);
+
+            if (hintModelDictionary.ContainsKey(2))
+            {
+                if (hintModelDictionary[2].IsHint == false)
+                {
+                    DeleteFile(sender,e);
+                    return;
+                }
+            }
+            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？", BtnDeleteFile_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnDeleteFile_NotHint_Click);
+            ShowMakerDialog(hintDialog);
         }
 
         private void DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
@@ -762,6 +771,25 @@ namespace Maker
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
         }
+
+        private void BtnDeleteFile_Ok_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteFile(sender, e);
+            RemoveDialog();
+        }
+        private void DeleteFile(object sender, RoutedEventArgs e)
+        {
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            baseUserControl.DeleteFile(sender, e);
+            baseUserControl.HideControl();
+            lbMain.Items.RemoveAt(lbMain.SelectedIndex);
+        }
+
+        private void BtnDeleteFile_NotHint_Click(object sender, RoutedEventArgs e)
+        {
+            NotHint(2);
+        }
+
         private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
         {
             ChangeLanguage();

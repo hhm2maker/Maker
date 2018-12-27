@@ -13,6 +13,9 @@
      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:widget="clr-namespace:Maker.View.UI.Device.Widget"
     DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+    MouseDown="BaseLightUserControl_MouseDown"
+    MouseUp="BaseLightUserControl_MouseUp"
+    MouseMove="BaseLightUserControl_MouseMove"
     >
     <UserControl.Resources>
         <viewmodel:BindingProxy x:Key="BindingProxy"
@@ -250,6 +253,23 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- ScrollViewerControlTemplate -->
+        <ControlTemplate x:Key="ScrollViewerControlTemplate1" TargetType="{x:Type ScrollViewer}">
+            <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Rectangle x:Name="Corner" Grid.Column="1" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1"/>
+                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="0" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+                <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Background="#FF4A4A4A" BorderBrush="#FF4A4A4A" Style="{DynamicResource ScrollBarStyle1}"/>
+                <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}"/>
+            </Grid>
+        </ControlTemplate>
         <!-- TabControl -->
         <Style TargetType="{x:Type TabControl}">
             <Setter Property="Padding" Value="2"/>
@@ -334,6 +354,15 @@
                 <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
+            <Canvas ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <Viewbox Stretch="Fill" Name="cMain" Width="{Binding ElementName=sliderSize,Path=Value}" Height="{Binding ElementName=sliderSize,Path=Value}">
+                    <Canvas Width="600" Height="600" >
+                        <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                        <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" x:Name="cText" />
+                    </Canvas>
+                </Viewbox>
+            </Canvas>
+            <Slider Name="sliderSize" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
             <DockPanel Height="60" VerticalAlignment="Top">
                 <DockPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -456,21 +485,9 @@
                     </Border>
                 </StackPanel>
             </DockPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <TabControl BorderThickness="0" Width="240" Name="tcLeft" SelectionChanged="tcLeft_SelectionChanged" Padding="0,0,0,0" Margin="0,-2,0,0">
-                    <TabControl.ItemContainerStyle>
-                        <Style>
-                            <Setter Property="TabItem.Visibility" Value="Collapsed"/>
-                        </Style>
-                    </TabControl.ItemContainerStyle>
-                    <TabItem>
-                        <Grid Background="#2c3138">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Background="#151920">
+            <ScrollViewer Focusable="True" VerticalScrollBarVisibility="Auto"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,60,0,60" Template="{DynamicResource ScrollViewerControlTemplate1}">
+                        <StackPanel Background="#2c3138">
+                            <StackPanel  Background="#151920">
                                 <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="35" Margin="10">
                                     <Border.Background>
                                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -486,194 +503,259 @@
                                     </DockPanel>
                                 </Border>
                             </StackPanel>
-                            <view:CompleteColorPanel x:Name="completeColorPanel" Grid.Row="2"/>
-                        </Grid>
-                    </TabItem>
-                    <TabItem >
-                        <ScrollViewer VerticalAlignment="Top" Height="600" Focusable="True" VerticalScrollBarVisibility="Auto">
-                            <StackPanel Orientation="Vertical" >
-                                <GroupBox Header="选择模式" FontSize="15" Foreground="#fff" Margin="10,15,10,0" >
-                                    <StackPanel Orientation="Vertical" Margin="10">
-                                        <RadioButton IsChecked="true" GroupName="gnSelect" Grid.Column="0" Name="rbSelect" Content="{DynamicResource Select}" FontSize="16" Foreground="#fff"/>
-                                        <RadioButton GroupName="gnSelect" Grid.Column="1" Name="rbAdd"  Content="{DynamicResource Add}" FontSize="16" Foreground="#fff"/>
-                                        <RadioButton GroupName="gnSelect" Grid.Column="0" Name="rbIntersection"  Content="{DynamicResource Intersection}" FontSize="16" Foreground="#fff"/>
-                                        <RadioButton GroupName="gnSelect" Grid.Column="1"  Name="rbComplement" Content="{DynamicResource Complement}" FontSize="16" Foreground="#fff"/>
-                                    </StackPanel>
-                                </GroupBox>
-                                <WrapPanel  Margin="0,15,0,0" Width="auto" HorizontalAlignment="Center">
-                                    <Button  Name="btnLeftUp"  Width="180" Click="FourAreaClick" Content="{DynamicResource UpperLeft}"/>
-                                    <Button  Name="btnRightUp" Width="180"  Click="FourAreaClick" Content="{DynamicResource UpperRight}"/>
-                                </WrapPanel>
-                                <WrapPanel  Margin="0,10,0,0" Width="auto" HorizontalAlignment="Center">
-                                    <Button  Name="btnLeftDown"  Width="180" Click="FourAreaClick" Content="{DynamicResource LowerLeft}"/>
-                                    <Button  Name="btnRightDown" Width="180"  Click="FourAreaClick" Content="{DynamicResource LowerRight}"/>
-                                </WrapPanel>
-                                <Grid Margin="0,20,0,0" >
-                                    <StackPanel Margin="0,37,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" >
-                                        <Button Margin="-12"  Style="{x:Null}"  Name="btnToLeft" Click="SelectMove">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <Button.Triggers>
-                                                <EventTrigger RoutedEvent="MouseEnter">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path2" 
+                            <view:CompleteColorPanel x:Name="completeColorPanel" />
+                                <StackPanel Orientation="Vertical" >
+                                    <GroupBox Header="选择模式" FontSize="15" Foreground="#fff" Margin="10,15,10,0" >
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <RadioButton IsChecked="true" GroupName="gnSelect" Grid.Column="0" Name="rbSelect" Content="{DynamicResource Select}" FontSize="16" Foreground="#fff"/>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="1" Name="rbAdd"  Content="{DynamicResource Add}" FontSize="16" Foreground="#fff"/>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="0" Name="rbIntersection"  Content="{DynamicResource Intersection}" FontSize="16" Foreground="#fff"/>
+                                            <RadioButton GroupName="gnSelect" Grid.Column="1"  Name="rbComplement" Content="{DynamicResource Complement}" FontSize="16" Foreground="#fff"/>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <WrapPanel  Margin="0,15,0,0" Width="auto" HorizontalAlignment="Center">
+                                        <Button  Name="btnLeftUp"  Width="180" Click="FourAreaClick" Content="{DynamicResource UpperLeft}"/>
+                                        <Button  Name="btnRightUp" Width="180"  Click="FourAreaClick" Content="{DynamicResource UpperRight}"/>
+                                    </WrapPanel>
+                                    <WrapPanel  Margin="0,10,0,0" Width="auto" HorizontalAlignment="Center">
+                                        <Button  Name="btnLeftDown"  Width="180" Click="FourAreaClick" Content="{DynamicResource LowerLeft}"/>
+                                        <Button  Name="btnRightDown" Width="180"  Click="FourAreaClick" Content="{DynamicResource LowerRight}"/>
+                                    </WrapPanel>
+                                    <Grid Margin="0,20,0,0" >
+                                        <StackPanel Margin="0,37,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                                            <Button Margin="-12"  Style="{x:Null}"  Name="btnToLeft" Click="SelectMove">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <Button.Triggers>
+                                                    <EventTrigger RoutedEvent="MouseEnter">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path2" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Orange" />
-                                                            <ColorAnimation Storyboard.TargetName="path2" 
+                                                                <ColorAnimation Storyboard.TargetName="path2" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Yellow" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                                <EventTrigger RoutedEvent="MouseLeave">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path2" 
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                    <EventTrigger RoutedEvent="MouseLeave">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path2" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="#13191E" />
-                                                            <ColorAnimation Storyboard.TargetName="path2" 
+                                                                <ColorAnimation Storyboard.TargetName="path2" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Yellow" To="#13191E" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Button.Triggers>
-                                            <Button.Content>
-                                                <Grid>
-                                                    <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                        <Path.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Orange" Offset="0"/>
-                                                                <GradientStop Color="Yellow" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Path.Stroke>
-                                                    </Path>
-                                                    <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                        <Path.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Yellow" Offset="0"/>
-                                                                <GradientStop Color="Yellow" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Path.Stroke>
-                                                    </Path>
-                                                    <Rectangle x:Name="path2" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
-                                                        <Rectangle.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Orange" Offset="0"/>
-                                                                <GradientStop Color="Yellow" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Rectangle.Stroke>
-                                                        <Rectangle.Fill>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="#13191E" Offset="0"/>
-                                                                <GradientStop Color="#13191E" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Rectangle.Fill>
-                                                    </Rectangle>
-                                                    <TextBlock DockPanel.Dock="Top" Text="←" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
-                                                </Grid>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button Margin="0"  Style="{x:Null}" Name="btnToDown" Click="SelectMove">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <Button.Triggers>
-                                                <EventTrigger RoutedEvent="MouseEnter">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path3" 
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Button.Triggers>
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Orange" Offset="0"/>
+                                                                    <GradientStop Color="Yellow" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Yellow" Offset="0"/>
+                                                                    <GradientStop Color="Yellow" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Rectangle x:Name="path2" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                                                            <Rectangle.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Orange" Offset="0"/>
+                                                                    <GradientStop Color="Yellow" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Stroke>
+                                                            <Rectangle.Fill>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="#13191E" Offset="0"/>
+                                                                    <GradientStop Color="#13191E" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        <TextBlock DockPanel.Dock="Top" Text="←" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button Margin="0"  Style="{x:Null}" Name="btnToDown" Click="SelectMove">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <Button.Triggers>
+                                                    <EventTrigger RoutedEvent="MouseEnter">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path3" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Yellow" />
-                                                            <ColorAnimation Storyboard.TargetName="path3" 
+                                                                <ColorAnimation Storyboard.TargetName="path3" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Green" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                                <EventTrigger RoutedEvent="MouseLeave">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path3" 
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                    <EventTrigger RoutedEvent="MouseLeave">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path3" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Yellow" To="#13191E" />
-                                                            <ColorAnimation Storyboard.TargetName="path3" 
+                                                                <ColorAnimation Storyboard.TargetName="path3" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="Green" To="#13191E" />
-                                                        </Storyboard>
-                                                    </BeginStoryboard>
-                                                </EventTrigger>
-                                            </Button.Triggers>
-                                            <Button.Content>
-                                                <Grid>
-                                                    <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                        <Path.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Yellow" Offset="0"/>
-                                                                <GradientStop Color="Green" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Path.Stroke>
-                                                    </Path>
-                                                    <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                        <Path.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Green" Offset="0"/>
-                                                                <GradientStop Color="Green" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Path.Stroke>
-                                                    </Path>
-                                                    <Rectangle x:Name="path3" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
-                                                        <Rectangle.Stroke>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Yellow" Offset="0"/>
-                                                                <GradientStop Color="Green" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Rectangle.Stroke>
-                                                        <Rectangle.Fill>
-                                                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="#13191E" Offset="0"/>
-                                                                <GradientStop Color="#13191E" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </Rectangle.Fill>
-                                                    </Rectangle>
-                                                    <TextBlock DockPanel.Dock="Top" Text="↓" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
-                                                </Grid>
-                                            </Button.Content>
-                                        </Button>
-                                        <Button  Margin="-12"   Style="{x:Null}" Name="btnToRight" Click="SelectMove">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <Button.Triggers>
-                                                <EventTrigger RoutedEvent="MouseEnter">
-                                                    <BeginStoryboard>
-                                                        <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path4" 
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Button.Triggers>
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Yellow" Offset="0"/>
+                                                                    <GradientStop Color="Green" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Green" Offset="0"/>
+                                                                    <GradientStop Color="Green" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Rectangle x:Name="path3" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                                                            <Rectangle.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Yellow" Offset="0"/>
+                                                                    <GradientStop Color="Green" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Stroke>
+                                                            <Rectangle.Fill>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="#13191E" Offset="0"/>
+                                                                    <GradientStop Color="#13191E" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        <TextBlock DockPanel.Dock="Top" Text="↓" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                            <Button  Margin="-12"   Style="{x:Null}" Name="btnToRight" Click="SelectMove">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <Button.Triggers>
+                                                    <EventTrigger RoutedEvent="MouseEnter">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path4" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Green" />
-                                                            <ColorAnimation Storyboard.TargetName="path4" 
+                                                                <ColorAnimation Storyboard.TargetName="path4" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
 					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Cyan" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                    <EventTrigger RoutedEvent="MouseLeave">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <ColorAnimation Storyboard.TargetName="path4" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Green" To="#13191E" />
+                                                                <ColorAnimation Storyboard.TargetName="path4" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Cyan" To="#13191E" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Button.Triggers>
+                                                <Button.Content>
+                                                    <Grid>
+                                                        <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Green" Offset="0"/>
+                                                                    <GradientStop Color="Cyan" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                            <Path.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Cyan" Offset="0"/>
+                                                                    <GradientStop Color="Cyan" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Path.Stroke>
+                                                        </Path>
+                                                        <Rectangle x:Name="path4" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                                                            <Rectangle.Stroke>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="Green" Offset="0"/>
+                                                                    <GradientStop Color="Cyan" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Stroke>
+                                                            <Rectangle.Fill>
+                                                                <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                                                    <GradientStop Color="#13191E" Offset="0"/>
+                                                                    <GradientStop Color="#13191E" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        <TextBlock DockPanel.Dock="Top" Text="→" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
+                                                    </Grid>
+                                                </Button.Content>
+                                            </Button>
+                                        </StackPanel>
+                                        <Button Margin="0"  Style="{x:Null}" Name="btnToUp" Click="SelectMove" VerticalAlignment="Top">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                            <Button.Triggers>
+                                                <EventTrigger RoutedEvent="MouseEnter">
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Red" />
+                                                            <ColorAnimation Storyboard.TargetName="path" 
+					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Orange" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </EventTrigger>
                                                 <EventTrigger RoutedEvent="MouseLeave">
                                                     <BeginStoryboard>
                                                         <Storyboard>
-                                                            <ColorAnimation Storyboard.TargetName="path4" 
+                                                            <ColorAnimation Storyboard.TargetName="path" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="Green" To="#13191E" />
-                                                            <ColorAnimation Storyboard.TargetName="path4" 
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Red" To="#13191E" />
+                                                            <ColorAnimation Storyboard.TargetName="path" 
 					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="Cyan" To="#13191E" />
+					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="#13191E" />
                                                         </Storyboard>
                                                     </BeginStoryboard>
                                                 </EventTrigger>
@@ -683,24 +765,24 @@
                                                     <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
                                                         <Path.Stroke>
                                                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Green" Offset="0"/>
-                                                                <GradientStop Color="Cyan" Offset="1"/>
+                                                                <GradientStop Color="Red" Offset="0"/>
+                                                                <GradientStop Color="Orange" Offset="1"/>
                                                             </LinearGradientBrush>
                                                         </Path.Stroke>
                                                     </Path>
-                                                    <Path Data="M50,49 60,40 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
+                                                    <Path Data="M50,48 60,37 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
                                                         <Path.Stroke>
                                                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Cyan" Offset="0"/>
-                                                                <GradientStop Color="Cyan" Offset="1"/>
+                                                                <GradientStop Color="Orange" Offset="0"/>
+                                                                <GradientStop Color="Orange" Offset="1"/>
                                                             </LinearGradientBrush>
                                                         </Path.Stroke>
                                                     </Path>
-                                                    <Rectangle x:Name="path4" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
+                                                    <Rectangle x:Name="path" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
                                                         <Rectangle.Stroke>
                                                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                                <GradientStop Color="Green" Offset="0"/>
-                                                                <GradientStop Color="Cyan" Offset="1"/>
+                                                                <GradientStop Color="Red" Offset="0"/>
+                                                                <GradientStop Color="Orange" Offset="1"/>
                                                             </LinearGradientBrush>
                                                         </Rectangle.Stroke>
                                                         <Rectangle.Fill>
@@ -710,95 +792,19 @@
                                                             </LinearGradientBrush>
                                                         </Rectangle.Fill>
                                                     </Rectangle>
-                                                    <TextBlock DockPanel.Dock="Top" Text="→" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
+                                                    <TextBlock DockPanel.Dock="Top" Text="↑" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
                                                 </Grid>
                                             </Button.Content>
                                         </Button>
+                                    </Grid>
+                                    <StackPanel  Margin="20,25,20,20" Width="auto" >
+                                        <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
+                                        <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
                                     </StackPanel>
-                                    <Button Margin="0"  Style="{x:Null}" Name="btnToUp" Click="SelectMove" VerticalAlignment="Top">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="{x:Type Button}">
-                                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                        <Button.Triggers>
-                                            <EventTrigger RoutedEvent="MouseEnter">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ColorAnimation Storyboard.TargetName="path" 
-					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Red" />
-                                                        <ColorAnimation Storyboard.TargetName="path" 
-					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="#13191E" To="Orange" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                            <EventTrigger RoutedEvent="MouseLeave">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ColorAnimation Storyboard.TargetName="path" 
-					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="Red" To="#13191E" />
-                                                        <ColorAnimation Storyboard.TargetName="path" 
-					Storyboard.TargetProperty="(Rectangle.Fill).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-					BeginTime="00:00:00" Duration="00:00:0.5" From="Orange" To="#13191E" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </Button.Triggers>
-                                        <Button.Content>
-                                            <Grid>
-                                                <Path Data="M0.5,11 10,0 59,0 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                    <Path.Stroke>
-                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                            <GradientStop Color="Red" Offset="0"/>
-                                                            <GradientStop Color="Orange" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Path.Stroke>
-                                                </Path>
-                                                <Path Data="M50,48 60,37 60,1 49,11" StrokeThickness="2" Fill="Transparent" >
-                                                    <Path.Stroke>
-                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                            <GradientStop Color="Orange" Offset="0"/>
-                                                            <GradientStop Color="Orange" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Path.Stroke>
-                                                </Path>
-                                                <Rectangle x:Name="path" Width="51" Height="40" HorizontalAlignment="Left" Margin="0,10,0,0" StrokeThickness="2">
-                                                    <Rectangle.Stroke>
-                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                            <GradientStop Color="Red" Offset="0"/>
-                                                            <GradientStop Color="Orange" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Rectangle.Stroke>
-                                                    <Rectangle.Fill>
-                                                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
-                                                            <GradientStop Color="#13191E" Offset="0"/>
-                                                            <GradientStop Color="#13191E" Offset="1"/>
-                                                        </LinearGradientBrush>
-                                                    </Rectangle.Fill>
-                                                </Rectangle>
-                                                <TextBlock DockPanel.Dock="Top" Text="↑" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,10,0" Foreground="#fff" FontSize="20" />
-                                            </Grid>
-                                        </Button.Content>
-                                    </Button>
-                                </Grid>
-                                <StackPanel  Margin="20,25,20,0" Width="auto" >
-                                    <Button Name="btnRegionCopy"   Width="180" Click="btnRegionCopy_Click" Content="{DynamicResource CopyTo}"/>
-                                    <Button Name="btnRegionClear"   Width="180" Click="btnRegionClear_Click"  Content="{DynamicResource Clear}"/>
                                 </StackPanel>
                             </StackPanel>
-                        </ScrollViewer>
-                    </TabItem>
-                </TabControl>
-        </StackPanel>
-        
-        <Canvas Width="600" Height="600" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
-            <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" x:Name="cMain" />
-        </Canvas>
-        <DockPanel  Height="60" VerticalAlignment="Bottom" >
+            </ScrollViewer>
+            <DockPanel  Height="60" VerticalAlignment="Bottom" >
                 <DockPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF5E666C" Offset="1"/>

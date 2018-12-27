@@ -2,4 +2,5 @@
 <Root>
   <Hint id="0" content="切换语言" isHint="true" />
   <Hint id="1" content="安装固件" isHint="false" />
+  <Hint id="2" content="删除文件" isHint="true" />
 </Root>

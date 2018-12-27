@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Xml.Linq;
 using System.Windows.Media;
+using Maker.View.UI.UserControlDialog;
 
 namespace Maker.View
 {
@@ -155,7 +156,8 @@ namespace Maker.View
         /// </summary>
         /// <param name="file"></param>
         public virtual void DeleteFile(object sender, RoutedEventArgs e)
-        {
+        {  
+            File.Delete(filePath);
         }
       
         /// <summary>

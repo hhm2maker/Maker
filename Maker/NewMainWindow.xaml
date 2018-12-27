@@ -167,7 +167,6 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-
                 <Grid Name="dpFile" Background="#2E3033" Grid.Column="0" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

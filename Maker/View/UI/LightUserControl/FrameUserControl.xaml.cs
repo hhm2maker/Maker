@@ -369,7 +369,7 @@ namespace Maker.View.LightUserControl
         {
             mouseType = 0;
             RemoveSelectRectangle();
-            if (tcLeft.SelectedIndex == 1)
+            if (nowControlType == ControlType.Select)
             {
                 SelectPosition(mLaunchpad.GetSelectPosition(point, e.GetPosition(mLaunchpad)));
             }
@@ -377,7 +377,7 @@ namespace Maker.View.LightUserControl
 
         private void mLaunchpad_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseType == 1 && tcLeft.SelectedIndex == 1)
+            if (mouseType == 1 && nowControlType == ControlType.Select)
             {
                 if (!mLaunchpad.Children.Contains(rectangle))
                 {
@@ -1004,7 +1004,7 @@ namespace Maker.View.LightUserControl
 
         public bool IsCanDraw()
         {
-            return mouseType == 1 && nowTimePoint != 0 && tcLeft.SelectedIndex == 0;
+            return mouseType == 1 && nowTimePoint != 0 && nowControlType == ControlType.Draw;
         }
 
         private ControlType nowControlType = ControlType.Draw;
@@ -1013,8 +1013,6 @@ namespace Maker.View.LightUserControl
         {
             Draw = 0,
             Select = 1,
-            Picture = 2,
-            Fire = 3
         }
 
         private LinearGradientBrush selectBrush = new LinearGradientBrush
@@ -1076,13 +1074,11 @@ namespace Maker.View.LightUserControl
             {
                 iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/pen_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Draw;
-                tcLeft.SelectedIndex = 0;
             }
             else if (sender == bSelect)
             {
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_white.png", UriKind.RelativeOrAbsolute));
                 nowControlType = ControlType.Select;
-                tcLeft.SelectedIndex = 1;
             }
           
         }
@@ -1185,12 +1181,9 @@ namespace Maker.View.LightUserControl
 
         private void tcLeft_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tcLeft.SelectedIndex != 1)
+            if (nowControlType == ControlType.Draw)
                 mLaunchpad.ClearSelect();
-            if (tcLeft.SelectedIndex == 1)
-            {
-
-            }
+       
         }
 
         private void mLaunchpad_MouseLeave(object sender, MouseEventArgs e)
@@ -1302,7 +1295,7 @@ namespace Maker.View.LightUserControl
 
             if (lbText.SelectedIndex == -1)
                 return;
-            TextBlock tb = cMain.Children[lbText.SelectedIndex] as TextBlock;
+            TextBlock tb = cText.Children[lbText.SelectedIndex] as TextBlock;
             if (e.Key == Key.Left)
                 Canvas.SetLeft(tb, Canvas.GetLeft(tb) - 1);
             else if (e.Key == Key.Right)
@@ -1442,7 +1435,7 @@ namespace Maker.View.LightUserControl
                 }
                 Canvas.SetLeft(tb, 0);
                 Canvas.SetTop(tb, 0);
-                cMain.Children.Add(tb);
+                cText.Children.Add(tb);
                 lbText.Items.Add(getString.mString);
             }
         }
@@ -1454,7 +1447,7 @@ namespace Maker.View.LightUserControl
             GetStringDialog getString = new GetStringDialog(mw, "", "", "");
             if (getString.ShowDialog() == true)
             {
-                TextBlock tb = cMain.Children[lbText.SelectedIndex] as TextBlock;
+                TextBlock tb = cText.Children[lbText.SelectedIndex] as TextBlock;
                 tb.Text = getString.mString;
                 points[nowTimePoint].Texts[lbText.SelectedIndex].Value = getString.mString;
                 lbText.Items[lbText.SelectedIndex] = getString.mString;
@@ -1462,16 +1455,16 @@ namespace Maker.View.LightUserControl
         }
         private void DeleteText(object sender, RoutedEventArgs e)
         {
-            if (cMain.Children.Count > 1)
+            if (cText.Children.Count > 1)
             {
                 lbText.Items.Clear();
-                cMain.Children.RemoveRange(1, cMain.Children.Count - 1);
+                cText.Children.RemoveRange(1, cText.Children.Count - 1);
             }
             if (!points.ContainsKey(nowTimePoint))
                 return;
 
             int selectedIndex = lbText.SelectedIndex;
-            cMain.Children.RemoveAt(selectedIndex);
+            cText.Children.RemoveAt(selectedIndex);
             points[nowTimePoint].Texts.RemoveAt(selectedIndex);
             lbText.Items.RemoveAt(selectedIndex);
         }
@@ -1527,10 +1520,10 @@ namespace Maker.View.LightUserControl
         private void LoadNowText()
         {
             return;
-            if (cMain.Children.Count > 1)
+            if (cText.Children.Count > 1)
             {
                 lbText.Items.Clear();
-                cMain.Children.RemoveRange(1, cMain.Children.Count - 1);
+                cText.Children.RemoveRange(1, cText.Children.Count - 1);
             }
 
             if (!points.ContainsKey(nowTimePoint))
@@ -1546,7 +1539,7 @@ namespace Maker.View.LightUserControl
                 };
                 Canvas.SetLeft(tb, item.Point.X);
                 Canvas.SetTop(tb, item.Point.Y);
-                cMain.Children.Add(tb);
+                cText.Children.Add(tb);
             }
         }
 
@@ -1590,12 +1583,37 @@ namespace Maker.View.LightUserControl
             doc.Save(nowTextFilePath);
         }
 
+        private Point movePoint;
+        private Point startPoint = new Point(0,0);
+        private bool isMove = false;
+        private void BaseLightUserControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            isMove = true;
+            movePoint = e.GetPosition(this);
+        }
+
+        private void BaseLightUserControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            isMove = false;
+        }
+
+        private void BaseLightUserControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMove) {
+                startPoint.X += e.GetPosition(this).X - movePoint.X;
+                startPoint.Y += e.GetPosition(this).Y - movePoint.Y;
+                Canvas.SetLeft(cMain, startPoint.X);
+                Canvas.SetTop(cMain, startPoint.Y);
+                movePoint = e.GetPosition(this);
+            }
+        }
+
         /// <summary>
         /// 移除选择框
         /// </summary>
         private void RemoveSelectRectangle()
         {
-            if (mLaunchpad.Children.Contains(rectangle) && tcLeft.SelectedIndex == 1)
+            if (mLaunchpad.Children.Contains(rectangle) && nowControlType == ControlType.Select)
             {
                 mLaunchpad.Children.Remove(rectangle);
             }
