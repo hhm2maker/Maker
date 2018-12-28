@@ -15,6 +15,8 @@ namespace Maker.ViewModel
             get; set;
         }
 
+        public bool IsCanDraw = true;
+
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
             //时间总数
@@ -23,25 +25,31 @@ namespace Maker.ViewModel
                 if (int.TryParse(Params.Data.ToString(), out int count)) {
                     if (_value > count)
                     {
+                        IsCanDraw = false;
                         return new ValidationResult(false, null);//验证失败
                     }
                     else if (_value < 0)
                     {
+                        IsCanDraw = false;
                         return new ValidationResult(false, null);//验证失败
                     }
                     else if (_value == 0 && count>0)
                     {
+                        IsCanDraw = false;
                         return new ValidationResult(false, null);//验证失败
                     }
                     else
                     {
+                        IsCanDraw = true;
                         return new ValidationResult(true, null);
                     }
                 }else {
+                    IsCanDraw = false;
                     return new ValidationResult(false, null);//验证失败
                 }
             }
             else {
+                IsCanDraw = false;
                 return new ValidationResult(false, null);//验证失败
             }
         }

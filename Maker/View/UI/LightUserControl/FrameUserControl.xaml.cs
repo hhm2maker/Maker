@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.Device;
 using Maker.View.Dialog;
@@ -24,6 +25,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Maker.View.LightUserControl
 {
@@ -57,9 +59,18 @@ namespace Maker.View.LightUserControl
 
             InitPosition();
 
-            
+            XmlSerializer serializer = new XmlSerializer(typeof(FrameModel));
+            FileStream stream = new FileStream("Config/frame.xml", FileMode.Open);
+            dep = (FrameModel)serializer.Deserialize(stream);
+            stream.Close();
+            Canvas.SetLeft(cMain, dep.style.x);
+            Canvas.SetTop(cMain, dep.style.y);
 
+            sliderSize.Value = dep.style.size;
         }
+
+        FrameModel dep;
+
         private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
         {
@@ -255,6 +266,7 @@ namespace Maker.View.LightUserControl
                     }
                     if (dic[liTime[i]][j] != 0 && dic[liTime[i]][j] != -1)
                     {
+                        sliderSize.Value = dep.style.size;
                         if (b[j])
                         {
                             mActionBeanList.Add(new Light(liTime[i], 128, j + 28, 64));
@@ -1004,7 +1016,7 @@ namespace Maker.View.LightUserControl
 
         public bool IsCanDraw()
         {
-            return mouseType == 1 && nowTimePoint != 0 && nowControlType == ControlType.Draw;
+            return mouseType == 1 && nowTimePointValidationRule.IsCanDraw && nowControlType == ControlType.Draw;
         }
 
         private ControlType nowControlType = ControlType.Draw;
@@ -1602,6 +1614,10 @@ namespace Maker.View.LightUserControl
             if (isMove) {
                 startPoint.X += e.GetPosition(this).X - movePoint.X;
                 startPoint.Y += e.GetPosition(this).Y - movePoint.Y;
+
+                dep.style.x = startPoint.X;
+                dep.style.y = startPoint.Y;
+
                 Canvas.SetLeft(cMain, startPoint.X);
                 Canvas.SetTop(cMain, startPoint.Y);
                 movePoint = e.GetPosition(this);
@@ -1617,6 +1633,12 @@ namespace Maker.View.LightUserControl
             {
                 mLaunchpad.Children.Remove(rectangle);
             }
+        }
+
+        private void sliderSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (dep != null)
+                dep.style.size = sliderSize.Value;
         }
 
         private void FourAreaClick(object sender, RoutedEventArgs e)
@@ -1682,5 +1704,15 @@ namespace Maker.View.LightUserControl
             }
             mLaunchpad.Focus();
         }
+
+        public override void SaveFile()
+        {
+            base.SaveFile();
+            XmlSerializer serializer = new XmlSerializer(dep.GetType());
+            TextWriter writer = new StreamWriter("Config/frame.xml");
+            serializer.Serialize(writer, dep);
+            writer.Close();
+        }
+
     }
 }

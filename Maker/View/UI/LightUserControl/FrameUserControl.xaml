@@ -13,9 +13,6 @@
      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:widget="clr-namespace:Maker.View.UI.Device.Widget"
     DataContext="{Binding Source={StaticResource Locator},Path=Main}"
-    MouseDown="BaseLightUserControl_MouseDown"
-    MouseUp="BaseLightUserControl_MouseUp"
-    MouseMove="BaseLightUserControl_MouseMove"
     >
     <UserControl.Resources>
         <viewmodel:BindingProxy x:Key="BindingProxy"
@@ -354,7 +351,7 @@
                 <MenuItem Header="{DynamicResource Clear}" Click="btnClear_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
-            <Canvas ClipToBounds="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <Canvas ClipToBounds="True" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  MouseDown="BaseLightUserControl_MouseDown" MouseUp="BaseLightUserControl_MouseUp" MouseMove="BaseLightUserControl_MouseMove">
                 <Viewbox Stretch="Fill" Name="cMain" Width="{Binding ElementName=sliderSize,Path=Value}" Height="{Binding ElementName=sliderSize,Path=Value}">
                     <Canvas Width="600" Height="600" >
                         <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
@@ -362,7 +359,7 @@
                     </Canvas>
                 </Viewbox>
             </Canvas>
-            <Slider Name="sliderSize" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
+            <Slider Name="sliderSize" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
             <DockPanel Height="60" VerticalAlignment="Top">
                 <DockPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -837,7 +834,7 @@
                             <TextBox.Text>
                                 <Binding Path="Welcome.NowTimePoint" UpdateSourceTrigger="PropertyChanged" >
                                     <Binding.ValidationRules>
-                                        <viewmodel:NowTimePointValidationRule>
+                                                <viewmodel:NowTimePointValidationRule x:Name="nowTimePointValidationRule">
                                             <viewmodel:NowTimePointValidationRule.Params>
                                                 <viewmodel:ValidationParams Data="{Binding Source={StaticResource BindingProxy},Path=Data.Welcome.LiTime.Count}"/>
                                             </viewmodel:NowTimePointValidationRule.Params>
@@ -845,7 +842,6 @@
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
-
                         </TextBox>
                         <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " />
                         <TextBlock  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}"/>

@@ -98,6 +98,12 @@ namespace Maker
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            if (gMain.Children.Count > 0)
+            {
+                LoadFileList();
+                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+                baseUserControl.SaveFile();
+            }
             bridge.Close();
         }
 
