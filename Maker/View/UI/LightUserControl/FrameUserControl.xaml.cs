@@ -225,18 +225,11 @@ namespace Maker.View.LightUserControl
 
             if (liTime.Count == 0)
             {
-                //tbTimeNow.Text = "0";
                 nowTimePoint = 0;
-                //tbTimePointCountLeft.Text = "0";
-                //tbTimePointCount.Text = 0.ToString();
             }
             else
             {
-                //tbTimeNow.Text = liTime[0].ToString();
                 nowTimePoint = 1;
-                //tbTimePointCountLeft.Text = nowTimePoint.ToString();
-                //tbTimePointCount.Text = " / " + liTime.Count;
-                //LoadFrame();
             }
         }
 
@@ -419,6 +412,14 @@ namespace Maker.View.LightUserControl
             nowColor = completeColorPanel.NowColor;
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
             LoadNowText();
+
+            if (nowControlType == ControlType.Select && nowTimePointValidationRule.IsCanDraw) {
+                for (int i = 0; i < selects.Count; i++)
+                {
+                    dic[liTime[nowTimePoint - 1]][selects[i]] = completeColorPanel.NowColor;
+                    LoadFrame();
+                }
+            }
         }
 
         private void btnRegionCopy_Click(object sender, RoutedEventArgs e)
@@ -1525,7 +1526,6 @@ namespace Maker.View.LightUserControl
                 framePointModel.Texts = texts;
                 points.Add(int.Parse(element.Attribute("value").Value), framePointModel);
             }
-
             LoadNowText();
         }
 
@@ -1567,7 +1567,6 @@ namespace Maker.View.LightUserControl
                 nowTextFilePath = mw.lastProjectPath + @"\Text\" + dialog.selectItem;
                 LoadText(nowTextFilePath);
             }
-
         }
 
         private String nowTextFilePath = "";
@@ -1596,7 +1595,6 @@ namespace Maker.View.LightUserControl
         }
 
         private Point movePoint;
-        private Point startPoint = new Point(0,0);
         private bool isMove = false;
         private void BaseLightUserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1612,14 +1610,11 @@ namespace Maker.View.LightUserControl
         private void BaseLightUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMove) {
-                startPoint.X += e.GetPosition(this).X - movePoint.X;
-                startPoint.Y += e.GetPosition(this).Y - movePoint.Y;
+                dep.style.x += e.GetPosition(this).X - movePoint.X;
+                dep.style.y += e.GetPosition(this).Y - movePoint.Y;
 
-                dep.style.x = startPoint.X;
-                dep.style.y = startPoint.Y;
-
-                Canvas.SetLeft(cMain, startPoint.X);
-                Canvas.SetTop(cMain, startPoint.Y);
+                Canvas.SetLeft(cMain, dep.style.x);
+                Canvas.SetTop(cMain, dep.style.y);
                 movePoint = e.GetPosition(this);
             }
         }
