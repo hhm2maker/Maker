@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
           Background="#363B40"
-          Loaded="UserControl_Loaded"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -262,22 +260,13 @@
                         </Grid.ColumnDefinitions>
                         <Grid  Grid.Column="0">
                             <Grid Name="gMain" Margin="0,0,0,45"/>
-                            <Canvas Name="gd" HorizontalAlignment="Stretch" SizeChanged="gd_SizeChanged" Margin="5" >
-                                <Thumb Name="thumb_player"  Canvas.Left="0" Canvas.Top="0" >
-                                    <Thumb.Template>
-                                        <ControlTemplate>
-                                            <Image Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
-                                        </ControlTemplate>
-                                    </Thumb.Template>
-                                </Thumb>
-                                <Thumb Name="thumb_paved"  Canvas.Left="0" Canvas.Top="0" >
-                                    <Thumb.Template>
-                                        <ControlTemplate>
-                                            <Image Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant"   />
-                                        </ControlTemplate>
-                                    </Thumb.Template>
-                                </Thumb>
-                            </Canvas>
+                            <DockPanel VerticalAlignment="Bottom"  Margin="5">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
+                                    <Image Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Margin="10,0,0,0"/>
+                                </StackPanel>
+                                <Image HorizontalAlignment="Right" Source="View/Resources/Image/enlarge.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                            </DockPanel>
                         </Grid>
                     </Grid>
                     <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">

@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Xml;
 using Maker.View;
+using System.Windows.Media.Imaging;
 
 namespace Maker
 {
@@ -336,42 +337,11 @@ namespace Maker
         {
             //是否是制作灯光的用户控件
             if (lbMain.SelectedIndex == -1)
-            {
-                thumb_player.DragDelta -= DragDelta;
-                thumb_player.DragStarted -= DragStarted;
-                thumb_player.DragCompleted -= DragCompleted;
-
-                thumb_paved.DragDelta -= DragDelta;
-                thumb_paved.DragStarted -= DragStarted;
-                thumb_paved.DragCompleted -= DragCompleted;
-            }
-            else
-            {
-                if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl())
-                {
-
-                    thumb_player.DragDelta += DragDelta;
-                    thumb_player.DragStarted += DragStarted;
-                    thumb_player.DragCompleted += DragCompleted;
-
-                    thumb_paved.DragDelta += DragDelta;
-                    thumb_paved.DragStarted += DragStarted;
-                    thumb_paved.DragCompleted += DragCompleted;
-                }
-                else
-                {
-                    thumb_player.DragDelta -= DragDelta;
-                    thumb_player.DragStarted -= DragStarted;
-                    thumb_player.DragCompleted -= DragCompleted;
-
-                    thumb_paved.DragDelta -= DragDelta;
-                    thumb_paved.DragStarted -= DragStarted;
-                    thumb_paved.DragCompleted -= DragCompleted;
-                }
+                return;
                 BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
                 baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + ((ListBoxItem)lbMain.SelectedItem).Content.ToString();
                 baseUserControl.LoadFile(((ListBoxItem)lbMain.SelectedItem).Content.ToString());
-            }
+            
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
@@ -438,199 +408,13 @@ namespace Maker
             ShowMakerDialog(hintDialog);
         }
 
-        private void DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
-        {
-            Thumb thumb = sender as Thumb;
-            Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
-            Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
-        }
-
-        private void DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
-        {
-        }
-
-        private void DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
-        {
-            Thumb thumb = sender as Thumb;
-            int position = -1;
-            if (thumb == thumb_player)
-            {
-                position = 0;
-            }
-            else if (thumb == thumb_paved)
-            {
-                position = 1;
-            }
-            if (position == -1)
-                return;
-            double left = Canvas.GetLeft(thumb);
-            double top = Canvas.GetTop(thumb);
-            if (top > gd.ActualHeight / 3 * 2 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
-            {
-                thumb.RenderTransformOrigin = new Point(0.5, 0.5);
-                if (position == 0)
-                {
-                    thumb.RenderTransform = MatrixTransform_01;
-                }
-                else if (position == 1)
-                {
-                    thumb.RenderTransform = MatrixTransform_02;
-                }
-                if ((startPoints[position].X - left) / 2 == 0 && (top - startPoints[position].Y) / 2 == 0 && startPoints[position].X - left == 0 && startPoints[position].Y - top == 0)
-                {
-                    if (thumb == thumb_player)
-                    {
-                        ToolBackToOld(thumb_player, 0);
-                    }
-                    else if (thumb == thumb_paved)
-                    {
-                        ToolBackToOld(thumb_paved, 1);
-                    }
-                    return;
-                }
-                QuadraticBezierSegment quadraticBezierSegment = new QuadraticBezierSegment();
-                quadraticBezierSegment.Point1 = new Point((startPoints[position].X - left) / 2, (top - startPoints[position].Y) / 2);
-                quadraticBezierSegment.Point2 = new Point(startPoints[position].X - left, startPoints[position].Y - top);
-                PathSegmentCollection pathSegmentCollection = new PathSegmentCollection();
-                pathSegmentCollection.Add(quadraticBezierSegment);
-
-                PathFigure pathFigure = new PathFigure();
-                pathFigure.StartPoint = new Point(0, 0);
-                pathFigure.Segments = pathSegmentCollection;
-
-                PathFigureCollection pathFigureCollection = new PathFigureCollection();
-                pathFigureCollection.Add(pathFigure);
-
-                PathGeometry pathGeometry = new PathGeometry();
-                pathGeometry.Figures = pathFigureCollection;
-
-                MatrixAnimationUsingPath matrixAnimation = new MatrixAnimationUsingPath();
-                matrixAnimation.PathGeometry = pathGeometry;
-                //动画的路径
-                matrixAnimation.Duration = TimeSpan.FromSeconds(0.5);
-                matrixAnimation.Completed += MatrixAnimation_Completed;
-                //matrixAnimation.FillBehavior = FillBehavior.Stop;
-                //matrixAnimation.RepeatBehavior = RepeatBehavior.Forever;
-                //matrixAnimation.DoesRotateWithTangent = true;
-                //Storyboard.SetTarget(matrixAnimation, thumb);
-                if (position == 0)
-                {
-                    Storyboard.SetTargetName(matrixAnimation, "MatrixTransform_01");//动画的对象
-                }
-                else if (position == 1)
-                {
-                    Storyboard.SetTargetName(matrixAnimation, "MatrixTransform_02");//动画的对象
-                }
-                Storyboard.SetTargetProperty(matrixAnimation, new PropertyPath(MatrixTransform.MatrixProperty));
-
-                Storyboard pathAnimationStoryboard = new Storyboard();
-                pathAnimationStoryboard.Children.Add(matrixAnimation);
-                pathAnimationStoryboard.Begin(this);
-            }
-            else
-            {
-                BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
-                UserControl userControl = null;
-                if (position == 0)
-                {
-                    //加入播放器页面
-                    PlayerUserControl playerUserControl = new PlayerUserControl(this);
-                    playerUserControl.SetData(baseMakerLightUserControl.GetData());
-                    userControl = playerUserControl;
-                }
-                else if (position == 1)
-                {
-                    //加入平铺页面
-                    ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, baseMakerLightUserControl.GetData());
-                    userControl = pavedUserControl;
-                }
-                gMost.Children.Add(userControl);
-                DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
-                userControl.BeginAnimation(OpacityProperty, daV);
-                //回原位
-                ToolBackToOld(thumb, position);
-            }
-        }
-        //private List<Light> mLightList;
-        //private void BtnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (gMain.Children.Count > 0 && gMain.Children[0] is ScriptUserControl)
-        //    {
-        //        mLightList = (gMain.Children[0] as ScriptUserControl).mLightList;
-        //    }
-        //    else
-        //    {
-        //        mLightList = null;
-        //    }
-        //    if (mLightList == null || mLightList.Count == 0)
-        //    {
-        //        return;
-        //    }
-        //    PavedLaunchpadWindow raved = new PavedLaunchpadWindow(this, mLightList);
-        //    raved.ShowDialog();
-        //}
-        /// <summary>
-        /// 回到原位
-        /// </summary>
-        private void ToolBackToOld(Thumb thumb, int position)
-        {
-            thumb.RenderTransform = null;
-            Canvas.SetLeft(thumb, startPoints[position].X);
-            Canvas.SetTop(thumb, startPoints[position].Y);
-        }
-        /// <summary>
-        /// 设置工具初始位置
-        /// </summary>
-        private void SetToolOldPosition()
-        {
-            Canvas.SetTop(thumb_player, gd.ActualHeight - thumb_player.ActualHeight);
-            double left = Canvas.GetLeft(thumb_player);
-            double top = Canvas.GetTop(thumb_player);
-            startPoints[0] = new Point(left, top);
-            startPoints[1] = new Point(left + 40, top);
-
-            Canvas.SetLeft(thumb_paved, left + 40);
-            Canvas.SetTop(thumb_paved, top);
-        }
-
-        private void MatrixAnimation_Completed(object sender, EventArgs e)
-        {
-            AnimationTimeline timeline = (sender as AnimationClock).Timeline;
-            String targetName = Storyboard.GetTargetName(timeline);
-            if (targetName.Equals("MatrixTransform_01"))
-            {
-                ToolBackToOld(thumb_player, 0);
-            }
-            else if (targetName.Equals("MatrixTransform_02"))
-            {
-                ToolBackToOld(thumb_paved, 1);
-            }
-        }
-
-        MatrixTransform MatrixTransform_01;
-        MatrixTransform MatrixTransform_02;
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            MatrixTransform_01 = new MatrixTransform();
-            RegisterName("MatrixTransform_01", MatrixTransform_01);
-            MatrixTransform_02 = new MatrixTransform();
-            RegisterName("MatrixTransform_02", MatrixTransform_02);
-
-            SetToolOldPosition();
-        }
-
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             (sender as MediaElement).Stop();
             (sender as MediaElement).Play();
         }
 
-        private List<Point> startPoints = new List<Point>() { new Point(0, 0), new Point(0, 0) };
-        private void gd_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            SetToolOldPosition();
-        }
-
+     
         private void dpFile_MouseEnter(object sender, MouseEventArgs e)
         {
             tbProjectPath.Visibility = Visibility.Visible;
@@ -1067,6 +851,74 @@ namespace Maker
             //}
         }
 
-      
+        /// <summary>
+        /// 是否是放大状态
+        /// </summary>
+        bool isShrink = false;
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            isShrink = !isShrink;
+            //更改图标
+            Image image = (Image)sender;
+            if (isShrink) {
+                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/shrink.png", UriKind.RelativeOrAbsolute));
+                dpCatalog.Visibility = Visibility.Collapsed;
+            }
+            else {
+                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/enlarge.png", UriKind.RelativeOrAbsolute));
+                dpCatalog.Visibility = Visibility.Visible;
+            }
+            ShowOrHideFilePanel();
+        }
+
+        private void ShowOrHideFilePanel()
+        {
+            DoubleAnimation animation;
+            if (dpFile.Width == 300)
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 0,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            else
+            {
+                animation = new DoubleAnimation
+                {
+                    To = 300,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+            }
+            dpFile.BeginAnimation(WidthProperty, animation);
+        }
+
+        private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (gMain.Children.Count == 0 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+                return;
+
+            if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl()) {
+                BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
+            UserControl userControl = null;
+            if (sender == iPlayer)
+            {
+                //加入播放器页面
+                PlayerUserControl playerUserControl = new PlayerUserControl(this);
+                playerUserControl.SetData(baseMakerLightUserControl.GetData());
+                userControl = playerUserControl;
+            }
+            else if (sender == iPaved)
+            {
+                //加入平铺页面
+                ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, baseMakerLightUserControl.GetData());
+                userControl = pavedUserControl;
+            }
+            gMost.Children.Add(userControl);
+            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
+            userControl.BeginAnimation(OpacityProperty, daV);
+            }
+        }
     }
 }

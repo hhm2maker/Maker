@@ -184,6 +184,11 @@ namespace Maker.View.Device
         }
 
         public void SetDataToPreviewLaunchpad(int positionX, int positionY) {
+            lluc.previewLaunchpad.SetData(SetDataToPreviewLaunchpadFromXY(positionX, positionY));
+        }
+
+        public List<Light> SetDataToPreviewLaunchpadFromXY(int positionX, int positionY)
+        {
             List<Light> lightList = new List<Light>();
             //Console.WriteLine(positionX + "---"+ positionY);
             for (int y = 0; y < 8; y++)
@@ -214,8 +219,9 @@ namespace Maker.View.Device
                     }
                 }
             }
-            lluc.previewLaunchpad.SetData(lightList);
+            return lightList;
         }
+
 
         /// <summary>
         /// 0左键1右键

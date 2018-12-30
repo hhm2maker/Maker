@@ -252,6 +252,9 @@ namespace Maker.View.UI
             {
                 //Console.WriteLine("Hello");
                 ip = new InputPort(this, keyboardModels, inputType);
+                ip.tbPosition = tbPosition;
+                ip.cb = cbRealDeviceIn.SelectedItem.ToString();
+
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
                 ip.Open(cbRealDeviceIn.SelectedIndex);
                 ip.Start();
@@ -260,6 +263,8 @@ namespace Maker.View.UI
         }
         public class InputPort
         {
+            public TextBox tbPosition;
+            public String cb;
             private PlayUserControl pc;
             private IntPtr handle;
             private CDD dd;
@@ -341,9 +346,18 @@ namespace Maker.View.UI
                     if (dwParam1 > 32767)
                     {
                         KeyEvent((int)position, 0);
+
+                        tbPosition.Dispatcher.Invoke(new Action(() => { tbPosition.Text = tbPosition.Text + position + " "; }));
+
                         if (pc.tutorialParagraphLightIntList != null)
                         {
-                            if ((int)position == 91)
+                            if (cb.Contains("Pro") && (int)position == 91)
+                            {
+                                CloseLight();
+                                pc.StartTutorial();
+                                return;
+                            }
+                            if (cb.Contains("MK2") && (int)position == 104)
                             {
                                 CloseLight();
                                 pc.StartTutorial();
@@ -438,6 +452,8 @@ namespace Maker.View.UI
                     //Console.WriteLine("-------------------------------");
                 }
             }
+
+
             public int inputType = 0;//0浅度 1深度(驱动)
             private void KeyEvent(int position, int openOrClose)
             {
@@ -811,63 +827,66 @@ namespace Maker.View.UI
         }
         private static void StopToLaunchpad(object thread)
         {
-            Thread _thread = thread as Thread;
-            List<object> _objects = threadsStop[_thread];
-            //抬起
-
-            UpButtonModel upModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
-            if (!upModel._lightName.Equals(String.Empty) && lights.ContainsKey(upModel._lightName))
+            try
             {
-                List<Light> upLight = lights[upModel._lightName];
-                int maxTime = LightBusiness.GetMax(upLight);
-
-                if (!Double.TryParse(upModel._bpm, out double upBpm))
+                Thread _thread = thread as Thread;
+                List<object> _objects = threadsStop[_thread];
+                //抬起
+                UpButtonModel upModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
+                if (!upModel._lightName.Equals(String.Empty) && lights.ContainsKey(upModel._lightName))
                 {
-                    _thread.Abort();
-                    threadsStop.Remove(_thread);
-                    return;
-                }
-                TimeSpan wait = TimeSpan.FromMilliseconds(1000 / upBpm);
+                    List<Light> upLight = lights[upModel._lightName];
+                    int maxTime = LightBusiness.GetMax(upLight);
 
-                //翻页
-                String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
-                if (!page.Equals(String.Empty))
-                {
-                    nowPageName = page;
-                }
-
-                for (int i = 0; i <= maxTime; i++)
-                {
-                    for (int j = 0; j < upLight.Count; j++)
+                    if (!Double.TryParse(upModel._bpm, out double upBpm))
                     {
-                        if (upLight[j].Time == i)
+                        _thread.Abort();
+                        threadsStop.Remove(_thread);
+                        return;
+                    }
+                    TimeSpan wait = TimeSpan.FromMilliseconds(1000 / upBpm);
+
+                    //翻页
+                    String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
+                    if (!page.Equals(String.Empty))
+                    {
+                        nowPageName = page;
+                    }
+
+                    for (int i = 0; i <= maxTime; i++)
+                    {
+                        for (int j = 0; j < upLight.Count; j++)
                         {
-                            if (upLight[j].Position >= 28 && upLight[j].Position <= 35)
+                            if (upLight[j].Time == i)
                             {
-                                //顶部灯光
-                                if (upLight[j].Action == 144)
+                                if (upLight[j].Position >= 28 && upLight[j].Position <= 35)
                                 {
-                                    String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                    //顶部灯光
+                                    if (upLight[j].Action == 144)
+                                    {
+                                        String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                    }
+                                    else
+                                    {
+                                        String str = "0x" + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                    }
                                 }
                                 else
                                 {
-                                    String str = "0x" + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(upLight[j].Action + upLight[j].Position * 0x100 + upLight[j].Color * 0x10000 + passageway));
+
                                 }
                             }
-                            else
-                            {
-                                MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(upLight[j].Action + upLight[j].Position * 0x100 + upLight[j].Color * 0x10000 + passageway));
-
-                            }
                         }
+                        Thread.Sleep(wait);
                     }
-                    Thread.Sleep(wait);
+                    _thread.Abort();
+                    threadsStop.Remove(_thread);
                 }
-                _thread.Abort();
-                threadsStop.Remove(_thread);
             }
+            catch { }
         }
         private void CbRealDevice_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

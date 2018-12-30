@@ -484,5 +484,6 @@
     <sys:String x:Key="NewText">New text</sys:String>
     <sys:String x:Key="EditText">Edit text</sys:String>
     <sys:String x:Key="DeleteText">Delete text</sys:String>
-    
+    <sys:String x:Key="AddPoint">Add point</sys:String>
+    <sys:String x:Key="RemovePoint">Remove point</sys:String>
 </ResourceDictionary>

@@ -11,7 +11,7 @@ namespace Maker.View.Dialog
     /// <summary>
     /// ChangeIntoMotionDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class LimitlessLampUserControl : BaseUserControl
+    public partial class LimitlessLampUserControl : BaseMakerLightUserControl, IMakerLight
     {
         public LimitlessLampUserControl(NewMainWindow mw)
         {
@@ -28,6 +28,7 @@ namespace Maker.View.Dialog
 
             previewLaunchpad.SetSize(300);
             mLaunchpad.SetParent(this);
+
         }
 
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -129,9 +130,12 @@ namespace Maker.View.Dialog
             String str = xnroot.Element("Data").Value;
             mLaunchpad.SetData(str);
 
-            foreach (XElement element in xnroot.Element("Points").Elements("Point")) {
+            foreach (XElement element in xnroot.Element("Points").Elements("Point"))
+            {
                 points.Add(new Point(Double.Parse(element.Attribute("x").Value), Double.Parse(element.Attribute("y").Value)));
             }
+
+            lbPoint.Items.Clear();
             foreach (var point in points) {
                 lbPoint.Items.Add(point.X+","+point.Y);
             }
@@ -215,10 +219,28 @@ namespace Maker.View.Dialog
 
         private void lbPoint_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lbPoint.SelectedIndex == -1)
+                return;
             String[] strs = lbPoint.SelectedItem.ToString().Split(',');
             if (strs.Length != 2)
                 return;
             mLaunchpad.SetDataToPreviewLaunchpad(int.Parse(strs[0]), int.Parse(strs[1]));
+        }
+
+        public override List<Light> GetData()
+        {
+            List<Light> ll = new List<Light>();
+            if (int.TryParse(tbInterval.Text, out int interval)) {
+               
+                for (int i = 0; i < points.Count; i++)
+                {
+                    List<Light> mLl = mLaunchpad.SetDataToPreviewLaunchpadFromXY((int)points[i].X, (int)points[i].Y);
+                    for (int j = 0; j < mLl.Count; j++)
+                        mLl[j].Time = i * interval;
+                    ll.AddRange(mLl);
+                }
+            }
+            return ll;
         }
     }
 }

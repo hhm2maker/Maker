@@ -14,6 +14,5 @@ namespace Maker.View
         /// 设置数据
         /// </summary>
         void SetData(List<Light> lightList);
-
     }
 }

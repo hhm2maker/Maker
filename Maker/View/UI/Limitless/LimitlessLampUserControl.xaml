@@ -1,4 +1,4 @@
-﻿<view:BaseUserControl
+﻿<view:BaseMakerLightUserControl
     xmlns:view="clr-namespace:Maker.View"
     x:Class="Maker.View.Dialog.LimitlessLampUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +8,7 @@
         xmlns:device="clr-namespace:Maker.View.Device"
     xmlns:view1="clr-namespace:Maker.View.UI.Device.ColorPanel"
     mc:Ignorable="d"
-        Background="#535353"
+     Background="#363B40"
         Loaded="Window_Loaded"
        >
     <Grid Name="gMain" >
@@ -26,6 +26,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical" Grid.Row="0">
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
@@ -41,13 +42,17 @@
                         <Button Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource Translation}" />
                     </StackPanel>
                    </StackPanel>
-                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged"/>
+                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged" FontSize="16"  Background="Transparent" BorderBrush="White" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8"/>
                 <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="0,20,0,0">
-                    <Button  Click="AddPoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddOneColumn}" />
-                    <Button  Click="RemovePoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
+                    <Button  Click="AddPoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddPoint}" />
+                    <Button  Click="RemovePoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource RemovePoint}" />
                 </StackPanel>
-                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="3"/>
+                <StackPanel Grid.Row="3"  Orientation="Horizontal" Margin="0,20,0,0">
+                    <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="130"  />
+                    <TextBox Name="tbInterval" Width="130" Margin="10,0,0,0" Text="10"/>
+                </StackPanel>
+                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4"/>
             </Grid>
     </Grid>
     </Grid>
-</view:BaseUserControl>
+</view:BaseMakerLightUserControl>

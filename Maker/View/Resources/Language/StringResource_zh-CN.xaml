@@ -487,5 +487,6 @@
     <sys:String x:Key="NewText">新建文本</sys:String>
     <sys:String x:Key="EditText">编辑文本</sys:String>
     <sys:String x:Key="DeleteText">删除文本</sys:String>
-
+    <sys:String x:Key="AddPoint">添加节点</sys:String>
+    <sys:String x:Key="RemovePoint">删除节点</sys:String>
 </ResourceDictionary>
