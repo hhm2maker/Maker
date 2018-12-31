@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Tutorial></Tutorial>
+  <FirstPageName>Keyboard.lightPage</FirstPageName>
+  <Pages>
+    <Page>Keyboard.lightPage</Page>
+  </Pages>
+</Root>

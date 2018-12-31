@@ -1,0 +1,12 @@
+Step1{
+	LightGroup Step1LightGroup = 猫.Main();
+}
+Contain{
+	Step1:Step1;
+}
+Introduce{
+
+}
+Import{
+	猫.lightScript;
+}

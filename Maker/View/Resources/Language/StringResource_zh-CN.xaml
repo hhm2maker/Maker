@@ -489,4 +489,6 @@
     <sys:String x:Key="DeleteText">删除文本</sys:String>
     <sys:String x:Key="AddPoint">添加节点</sys:String>
     <sys:String x:Key="RemovePoint">删除节点</sys:String>
+    <sys:String x:Key="CreateFile">创建文件</sys:String>
+
 </ResourceDictionary>

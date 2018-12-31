@@ -64,7 +64,6 @@ namespace Maker.Model
                 for (int i = 0; i < Texts.Count; i++) {
                     (ListBoxData as ObservableCollection<dynamic>).Add(Texts[i].Value);
                 }
-             
             }
         }
 
@@ -146,6 +145,22 @@ namespace Maker.Model
             set
             {
                 points = value;
+
+                if (!points.ContainsKey(nowTimePoint))
+                {
+                    Texts = new List<Text>();
+                    ListBoxData = new ObservableCollection<dynamic>();
+                }
+                else
+                {
+                    Texts = points[nowTimePoint].Texts;
+
+                    ListBoxData = new ObservableCollection<dynamic>();
+                    for (int i = 0; i < Texts.Count; i++)
+                    {
+                        (ListBoxData as ObservableCollection<dynamic>).Add(Texts[i].Value);
+                    }
+                }
             }
         }
 

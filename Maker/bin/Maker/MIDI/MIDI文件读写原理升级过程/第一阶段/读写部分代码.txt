@@ -1,0 +1,242 @@
+读：
+public void ImportMidi()
+        {
+            String NeedReadMidi = strEngineeringDocumentsPath + '\\'+lbEngineeringDocuments.SelectedItem.ToString();
+
+            mActionBeanList.Clear();
+            List<int> mData = new List<int>();
+            List<String> mAction = new List<String>();
+
+            //int start_point = -1;
+
+            using (FileStream f = new FileStream(NeedReadMidi, FileMode.OpenOrCreate))
+            {
+                int i = 0;
+                while ((i = f.ReadByte()) != -1)
+                {
+                    mData.Add(i);
+                   
+                    Console.WriteLine(i.ToString("X2"));
+                }
+            }
+            
+            Boolean b = false;//是否需要记录
+            int p = 0; //记录位置
+            String action = "";
+
+            for (int j = 0; j < mData.Count; j++)
+            {
+                if (!b)
+                { 
+                    //如果不需要记录(记录完成)p清零
+                    p = 0;
+                    action = "";
+                }
+                //如果是开或者关则需要记录
+                if (mData[j] == 144 || mData[j] == 128)
+                {
+                    b = true;
+                }
+                else
+                {
+                    //如果不需要记录则跳过
+                    if (!b)
+                    {
+                        continue;
+                    }
+                }
+                //记录开始
+                if (p == 0)
+                {
+                    //if (start_point == -1)
+                    //{
+                    //    start_point = j - 2;
+                    //}
+
+                    ////时间不一定是一个字节表示
+                    //for (int k = j - 1; k >= 0; k++) {
+                    //    if(k)
+                    //}
+                    action += mData[j - 1];
+                }
+           
+                if (b && p != 3)
+                {
+                    action += '.';
+                    action += mData[j];
+                    p++;
+                }
+
+                if (p == 3)
+                {
+                    mAction.Add(action);
+                    b = false;
+                }
+            }
+            //放入数组  
+            for (int j = 0; j < mAction.Count; j++)
+            {
+                String[] a = mAction[j].Split('.');
+                ActionBeanDll.ActionBean ab = new ActionBeanDll.ActionBean();
+
+                ab.Time = Convert.ToInt32(a[0]);
+                ab.Action = Convert.ToInt32(a[1]);
+                ab.Position = Convert.ToInt32(a[2]);
+                ab.Color = Convert.ToInt32(a[3]);
+
+                mActionBeanList.Add(ab);
+            }
+            //格式化时间
+            int time = 0;
+
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                if (mActionBeanList[l].Time == 0)
+                {
+                    mActionBeanList[l].Time = time;
+                }
+                else
+                {
+                    time += mActionBeanList[l].Time;
+                    mActionBeanList[l].Time = time;
+                }
+            }
+
+            if (mode == Mode.None || mode == Mode.MainView || mode == Mode.Setting)
+            {
+                ToMainViewUserControl();
+            }
+            else {
+                SetDataToChildren();
+            }
+        }
+写：
+   private void ExportMidi()
+        {
+            if (lbProjectDocument.SelectedIndex == -1)
+                return;
+            SaveLight(lbProjectDocument.SelectedItem.ToString());//保存灯光
+            //导出
+            List<ActionBeanDll.ActionBean> lab = new List<ActionBeanDll.ActionBean>();
+            for (int j = 0; j < mActionBeanList.Count; j++)
+            {
+                lab.Add(new ActionBeanDll.ActionBean(mActionBeanList[j].Time, mActionBeanList[j].Action, mActionBeanList[j].Position, mActionBeanList[j].Color));
+            }
+          
+            lab = ActionBeanUtils.Sort(lab);
+            //还原时间
+            int NowTime = 0;
+            int jianTime = 0;
+            for (int j = 0; j < lab.Count; j++)
+            {
+                if (lab[j].Time != NowTime)
+                {
+                    NowTime = lab[j].Time;
+                    lab[j].Time -= jianTime;
+                    jianTime = NowTime;
+                }
+                else
+                {
+                    lab[j].Time -= jianTime;
+                }
+            }
+
+           List<char> mData = new List<char>();//文件字符
+           List<char> StartStr = new List<char>();//文件头
+           List<char> EndStr = new List<char>();//文件尾
+      
+            FileStream f;
+            f = new FileStream(System.Windows.Forms.Application.StartupPath + "\\MIDI\\MIDI.mid", FileMode.OpenOrCreate);
+
+            int i = 0;
+
+            while ((i = f.ReadByte()) != -1)
+            {
+                mData.Add((char)i);
+                //Console.WriteLine((int)i);
+            }
+            f.Close();
+
+            for (int j = 0; j < mData.Count; j++)
+            {
+                if (j <= mData.Count - 5 - 8)
+                {
+                    StartStr.Add(mData[j]);
+                }
+                else if (j > mData.Count - 5)
+                {
+                    EndStr.Add(mData[j]);
+                }
+            }
+
+            StringBuilder Action = new StringBuilder();
+            //144 128
+            for (int j = 0; j < lab.Count; j++)
+            {
+                Action.Append((char)lab[j].Time);
+                Action.Append((char)lab[j].Action);
+                Action.Append((char)lab[j].Position);
+                Action.Append((char)lab[j].Color);
+            }
+
+            //18 - 21 位置的数字可以由两种方法得出 25 + 动作次数（开始结束都算）* 4 或是 文件大小 - 22
+            String Zero = "";
+            String Size = System.Convert.ToString(25 + mActionBeanList.Count * 4, 2);
+            for (int j = 0; j < 32 - Size.Length; j++)
+            {
+                Zero += '0';
+            }
+
+            Size = Zero + Size;
+
+            String one = Size.Substring(0, 8);
+            String two = Size.Substring(8, 8);
+            String three = Size.Substring(16, 8);
+            String four = Size.Substring(24, 8);
+
+            StartStr[18] = (char)System.Convert.ToInt32(one, 2);
+            StartStr[19] = (char)System.Convert.ToInt32(two, 2);
+            StartStr[20] = (char)System.Convert.ToInt32(three, 2);
+            StartStr[21] = (char)System.Convert.ToInt32(four, 2);
+
+
+            StringBuilder line = new StringBuilder();
+
+            for (int j = 0; j < StartStr.Count; j++)
+            {
+                line.Append(StartStr[j]);
+            }
+            line.Append(Action.ToString());
+            for (int j = 0; j < EndStr.Count; j++)
+            {
+                line.Append(EndStr[j]);
+            }
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            //设置文件类型
+            saveFileDialog1.Filter = @"MIDI 序列|*.mid";
+            //设置默认文件类型显示顺序
+            saveFileDialog1.FilterIndex = 2;
+            //保存对话框是否记忆上次打开的目录
+            //saveFileDialog1.RestoreDirectory = true;
+            //默认路径
+            //saveFileDialog1.InitialDirectory = strFileName;  //注意这里写路径时要用c:\\而不是c:\
+            //点了保存按钮进入
+            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //获得文件路径
+                String localFilePath = saveFileDialog1.FileName.ToString();
+                if (File.Exists(localFilePath))
+                {
+                    File.Delete(localFilePath);
+                }
+
+                f = new FileStream(localFilePath, FileMode.OpenOrCreate);
+                for (int j = 0; j < line.Length; j++)
+                {
+                    //Console.WriteLine((int)line[j]);
+                    f.WriteByte((byte)line[j]);
+                }
+                f.Close();
+            }
+        }

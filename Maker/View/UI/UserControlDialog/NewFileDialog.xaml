@@ -1,0 +1,46 @@
+﻿<local:MakerDialog x:Class="Maker.View.UI.UserControlDialog.NewFileDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
+             mc:Ignorable="d" 
+             Background="#363b40"
+             Height="230" Width="600"
+             VerticalAlignment="Top"
+                   Loaded="MakerDialog_Loaded"
+             >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+    </UserControl.Effect>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+    <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBlock Text="{DynamicResource CreateFile}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
+            <TextBlock Text="{DynamicResource NewFileNameColon}" FontSize="14" Foreground="#b8bfc6" Margin="30,0,30,20" />
+            <Grid Margin="30,0,30,30" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" HorizontalAlignment="Stretch" FontSize="14" Background="{x:Null}" BorderBrush="#b8bfc6" Height="22"  Name="tbNumber" CaretBrush="#f0f0f0"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged"/>
+                <TextBlock Grid.Column="1" FontSize="14" Background="{x:Null}" Height="22" Width="100" Name="tbExtension" TextAlignment="Left" Foreground="#b8bfc6" Margin="10,0,0,0"/>
+            </Grid>
+        </StackPanel>
+        <DockPanel Grid.Row="1">
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnOk" Height="35" Width="100" BorderBrush="White" Background="{x:Null}"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Left" Click="btnOk_Click">
+                <Button.Content >
+                    <TextBlock Text="{StaticResource Ok }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnCancel"   Height="35" Width="100" BorderBrush="White" Background="{x:Null}"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Left" HorizontalAlignment="Left" Click="btnCancel_Click">
+                <Button.Content >
+                    <TextBlock Text="{StaticResource Cancel }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+        </DockPanel>
+    </Grid>
+</local:MakerDialog>

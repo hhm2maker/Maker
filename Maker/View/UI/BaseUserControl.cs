@@ -166,28 +166,32 @@ namespace Maker.View
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            GetStringDialog2 dialog = new GetStringDialog2(mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
-                if (dialog.ShowDialog() == true)
-                {
-                    filePath = _filePath + dialog.fileName;
-                    if (File.Exists(filePath))
-                    {
-                        new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
-                        return;
-                    }
-                    else
-                    {
-                    CreateFile(filePath);
-                    LoadFile(dialog.fileName);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(this,mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
+            mw.ShowMakerDialog(newFileDialog);
+        }
 
-                    ListBoxItem item = new ListBoxItem
-                    {
-                        Height = 36,
-                        Content = dialog.fileName,
-                    };
-                    mw.lbMain.Items.Add(item);
-                    mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
-                }
+        public void NewFileResult(String filePath)
+        {
+            mw.RemoveDialog();
+            String _filePath = GetFileDirectory();
+            _filePath = _filePath + filePath;
+            if (File.Exists(_filePath))
+            {
+                new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                CreateFile(filePath);
+                LoadFile(filePath);
+
+                ListBoxItem item = new ListBoxItem
+                {
+                    Height = 36,
+                    Content = filePath,
+                };
+                mw.lbMain.Items.Add(item);
+                mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
             }
         }
         /// <summary>

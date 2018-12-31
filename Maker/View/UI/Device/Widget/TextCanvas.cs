@@ -12,6 +12,11 @@ namespace Maker.View.UI.Device.Widget
 {
    public class TextCanvas :Canvas
     {
+        public int NowColorNum {
+            get;
+            set;
+        }
+
         public static List<Text> GetData(DependencyObject obj)
         {
             return (List<Text>)obj.GetValue(DataProperty);
@@ -39,7 +44,7 @@ namespace Maker.View.UI.Device.Widget
                     TextBlock tb = new TextBlock()
                     {
                         Text = item.Value,
-                        Foreground = StaticConstant.brushList[0],
+                        Foreground = StaticConstant.brushList[textCanvas.NowColorNum],
                     };
                     SetLeft(tb, item.Point.X);
                     SetTop(tb, item.Point.Y);

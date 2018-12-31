@@ -410,6 +410,8 @@ namespace Maker.View.LightUserControl
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             nowColor = completeColorPanel.NowColor;
+            cText.NowColorNum = nowColor;
+
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
             LoadNowText();
 
@@ -1400,16 +1402,16 @@ namespace Maker.View.LightUserControl
             GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text");
             if (dialog.ShowDialog() == true)
             {
-                filePath = mw.lastProjectPath + @"\Text\" + dialog.fileName;
-                if (File.Exists(filePath))
+                _filePath = mw.lastProjectPath + @"\Text\" + dialog.fileName;
+                if (File.Exists(_filePath))
                 {
                     new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
                     return;
                 }
                 else
                 {
-                    CreateTextFile(filePath);
-                    LoadText(dialog.fileName);
+                    CreateTextFile(_filePath);
+                    LoadText(_filePath);
                 }
             }
         }
@@ -1449,7 +1451,8 @@ namespace Maker.View.LightUserControl
                 Canvas.SetLeft(tb, 0);
                 Canvas.SetTop(tb, 0);
                 cText.Children.Add(tb);
-                lbText.Items.Add(getString.mString);
+
+                ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>).Add(getString.mString);
             }
         }
         private void EditText(object sender, RoutedEventArgs e)
@@ -1463,7 +1466,8 @@ namespace Maker.View.LightUserControl
                 TextBlock tb = cText.Children[lbText.SelectedIndex] as TextBlock;
                 tb.Text = getString.mString;
                 points[nowTimePoint].Texts[lbText.SelectedIndex].Value = getString.mString;
-                lbText.Items[lbText.SelectedIndex] = getString.mString;
+
+                ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>)[lbText.SelectedIndex] = getString.mString;
             }
         }
         private void DeleteText(object sender, RoutedEventArgs e)
@@ -1479,7 +1483,8 @@ namespace Maker.View.LightUserControl
             int selectedIndex = lbText.SelectedIndex;
             cText.Children.RemoveAt(selectedIndex);
             points[nowTimePoint].Texts.RemoveAt(selectedIndex);
-            lbText.Items.RemoveAt(selectedIndex);
+
+            ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>).RemoveAt(selectedIndex);
         }
 
         private void CreateTextFile(String filePath)
@@ -1506,7 +1511,7 @@ namespace Maker.View.LightUserControl
         }
         private void LoadText(String fileName)
         {
-            points.Clear();
+            Dictionary<int, FramePointModel> mPoints = new Dictionary<int, FramePointModel>();
             XDocument doc = XDocument.Load(fileName);
 
             foreach (XElement element in doc.Elements("Point"))
@@ -1524,8 +1529,9 @@ namespace Maker.View.LightUserControl
                     });
                 }
                 framePointModel.Texts = texts;
-                points.Add(int.Parse(element.Attribute("value").Value), framePointModel);
+                mPoints.Add(int.Parse(element.Attribute("value").Value), framePointModel);
             }
+            points = mPoints;
             LoadNowText();
         }
 
@@ -1618,7 +1624,10 @@ namespace Maker.View.LightUserControl
                 movePoint = e.GetPosition(this);
             }
         }
-
+        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            isMove = false;
+        }
         /// <summary>
         /// 移除选择框
         /// </summary>
@@ -1635,6 +1644,8 @@ namespace Maker.View.LightUserControl
             if (dep != null)
                 dep.style.size = sliderSize.Value;
         }
+
+     
 
         private void FourAreaClick(object sender, RoutedEventArgs e)
         {

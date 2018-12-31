@@ -33,7 +33,6 @@ namespace Maker.View.Dialog
             this.extension = extension;
             this.notContains = notContains;
             this.fileType = fileType;
-
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -57,7 +56,6 @@ namespace Maker.View.Dialog
                 tbNumber.Focus();
                 return;
             }
-           
             DialogResult = true;
         }
 

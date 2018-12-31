@@ -1,0 +1,18 @@
+
+----------------------header--------------------------
+记录时间：2018-12-31 22:38:07,804 线程ID:[1] 日志级别：ERROR 出错类：Maker.MyApp.WpfApp property:[(null)] - 错误描述：System.IO.DirectoryNotFoundException: 未能找到路径“E:\Sharer\Maker\Maker\bin\Release\Color\color.color”的一部分。
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   在 System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   在 System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   在 System.Xml.XmlTextReaderImpl.FinishInitUriString()
+   在 System.Xml.XmlReaderSettings.CreateReader(String inputUri, XmlParserContext inputContext)
+   在 System.Xml.Linq.XDocument.Load(String uri, LoadOptions options)
+   在 Maker.Business.FileBusiness.ReadColorFile(String filePath) 位置 E:\Sharer\Maker\Maker\Business\ViewBusiness\FileBusiness.cs:行号 700
+   在 Maker.Bridge.NewMainWindowBridge.InitStaticConstant() 位置 E:\Sharer\Maker\Maker\Bridge\NewMainWindowBridge.cs:行号 237
+   在 Maker.NewMainWindow..ctor() 位置 E:\Sharer\Maker\Maker\NewMainWindow.xaml.cs:行号 41
+   在 Maker.MyApp.WpfApp.OnStartup(StartupEventArgs e) 位置 E:\Sharer\Maker\Maker\Business\MyApp\WpfApp.cs:行号 36
+   在 System.Windows.Application.<.ctor>b__1_0(Object unused)
+   在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)

@@ -456,6 +456,9 @@
     <Compile Include="View\UI\UserControlDialog\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\NewFileDialog.xaml.cs">
+      <DependentUpon>NewFileDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\UserControlDialog\HintDialog.xaml.cs">
       <DependentUpon>HintDialog.xaml</DependentUpon>
     </Compile>
@@ -967,6 +970,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\UserControlDialog\AboutDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\UserControlDialog\NewFileDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
