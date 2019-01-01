@@ -25,156 +25,116 @@
     </UserControl.Resources>
     <Grid Name="gMain_" >
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <DockPanel  Background="#535353" Grid.Row="0" >
+                <Menu Background="#535353" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
+                    <MenuItem Style="{x:Null}" Header="{DynamicResource Edit_}"  FontSize="18" >
+                        <MenuItem Style="{x:Null}" Header="{DynamicResource Unmake}" Name="miUnmake" FontSize="18" Foreground="#000000" Click="ImageUnmake_MouseLeftButtonDown" />
+                        <MenuItem Style="{x:Null}" Header="{DynamicResource Redo}" Name="miRedo"  FontSize="18" Foreground="#000000" Click="ImageRedo_MouseLeftButtonDown" />
+                    </MenuItem>
+                    <MenuItem Style="{x:Null}" Header="{DynamicResource Debug}"  FontSize="18" >
+                        <MenuItem Style="{x:Null}" Header="{DynamicResource ExecutionTime}"  FontSize="18" Foreground="#000000" Click="GetExecutionTime" />
+                        <MenuItem Style="{x:Null}" Header="{DynamicResource CompleteScript}"   FontSize="18" Foreground="#000000" Click="GetCompleteScript" />
+                    </MenuItem>
+                    <MenuItem Style="{x:Null}" Header="{DynamicResource Introduce}"  FontSize="18" Foreground="#f0f0f0" Click="MiIntroduce_MouseLeftButtonDown" />
+                </Menu>
+            </DockPanel>
+            <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="#282828" BorderThickness="0,0,2,0" Grid.Column="0">
-                <DockPanel Background="#535353" >
-                    <StackPanel Margin="5" VerticalAlignment="Top" DockPanel.Dock="Top" >
-                        <Image Source="../../Resources/Image/revoke.png" Margin="5,5,5,0"  Name="miUnmake" Width="30" Height="30" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="Fant" />
-                        <Image Source="../../Resources/Image/redo.png" Margin="5,10,5,10"  Name="miRedo" Width="30" Height="30" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="Fant" />
-                        <TextBlock Height="3" Background="#282828"/>
-                        <StackPanel Name="spStepControl" Background="#535353" >
-                            <Image Source="../../Resources/Image/time.png" Margin="5,10,5,0" Name="miTime" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popTime" PlacementTarget="{Binding ElementName=miTime}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource Time}" FontSize="16"  Name="miChildTime" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource Reversal}" FontSize="14"  Name="btnReversal"  Click="EditToScript"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource LengtheningOrShortening}" FontSize="14" >
-                                            <MenuItem Header="{DynamicResource DoubleExtension}" Name="btnExtendTime"  Click="EditToScript" FontSize="14" />
-                                            <MenuItem Header="{DynamicResource DoubleShortening}" Name="btnShortenTime"  Click="EditToScript" FontSize="14"  />
-                                            <Separator />
-                                            <MenuItem Header="{DynamicResource Customized}" Name="btnDiyTime" Click="EditToScript" FontSize="14" />
-                                        </MenuItem>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource StartTime}" FontSize="14"  Name="btnSetStartTime"  Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource EndTime}" FontSize="14"  Name="btnSetEndTime"  Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource ConstantTime}" FontSize="14"  Name="btnSetAllTime"  Click="EditToScript"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource MatchTime}" FontSize="14" Name="btnMatchTime"  Click="EditToScript"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource Intercept}" FontSize="14" Name="btnInterceptTime"  Click="EditToScript"/>
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/shape.png" Margin="5,10,5,0"  Name="miShape" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popShape" PlacementTarget="{Binding ElementName=miShape}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource Shape}"  FontSize="16" Name="miChildShape" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource VerticalFlipping}" FontSize="14" Name="btnVerticalFlipping" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource HorizontalFlipping}" FontSize="14" Name="btnHorizontalFlipping" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource Fold}" FontSize="14" Name="btnFold" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource LowerLeftSlashFlipping}" FontSize="14" Name="btnLowerLeftSlashFlipping" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource LowerRightSlashFlipping}" FontSize="14" Name="btnLowerRightSlashFlipping" Click="EditToScript"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource ClockwiseRotation}" FontSize="14" Name="btnClockwise" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource AntiClockwiseRotation}" FontSize="14"  Name="btnAntiClockwise"  Click="EditToScript"/>
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/micolor.png" Margin="5,10,5,0" Name="miColor" Height="30" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popColor" PlacementTarget="{Binding ElementName=miColor}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
-                                <Menu >
-                                    <MenuItem Header="{DynamicResource Color}" FontSize="16" Name="miChildColor" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource Change}" FontSize="14"  Name="btnColorChange" Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource Format}" FontSize="14">
-                                            <MenuItem Name="btnChangeColorYellow" Click="EditToScript" Header="{DynamicResource YellowGreen}" FontSize="14" />
-                                            <MenuItem Name="btnChangeColorBlue" Click="EditToScript" Header="{DynamicResource CyanBlue}" FontSize="14" />
-                                            <MenuItem Name="btnChangeColorPink" Click="EditToScript" Header="{DynamicResource PinkWhite}" FontSize="14" />
-                                            <Separator />
-                                            <MenuItem Header="{DynamicResource Customized}" Click="EditToScript" Name="btnChangeColorDiy" FontSize="14" />
-                                        </MenuItem>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource Shape}" FontSize="14" >
-                                            <MenuItem Header="{DynamicResource Square}" FontSize="14"  Name="miSquare" Click="EditToScript"/>
-                                            <MenuItem Header="{DynamicResource Radial}" FontSize="14"  Click="EditToScript">
-                                                <MenuItem Header="{DynamicResource Vertical}" FontSize="14" Name="miRadialVertical" Click="EditToScript"/>
-                                                <MenuItem Header="{DynamicResource Horizontal}" FontSize="14" Name="miRadialHorizontal" Click="EditToScript"/>
-                                            </MenuItem>
-                                        </MenuItem>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource Fill}" Click="EditToScript" Name="btnFillColor" FontSize="14" />
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource WithCount}" Click="EditToScript" Name="btnColorWithCount" FontSize="14" />
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/superposition.png" Margin="5,10,5,0"   Name="miSuperposition" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popSuperposition" PlacementTarget="{Binding ElementName=miSuperposition}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource Superposition}" FontSize="16" Name="miChildSuperposition" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource ColorSuperposition}" FontSize="14" Name="btnCopyToTheEnd"  Click="EditToScript"/>
-                                        <MenuItem Header="{DynamicResource ColorSuperpositionFollow}" FontSize="14" Name="btnCopyToTheFollow"  Click="EditToScript"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource AccelerationOrDeceleration}" FontSize="14" Name="btnAccelerationOrDeceleration"  Click="EditToScript"/>
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/miother.png" Margin="5,10,5,0"  Name="miOther" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popOther" PlacementTarget="{Binding ElementName=miOther}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource Other}" FontSize="16" Name="miChildOther" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource RemoveTheBorder}" FontSize="14"  Name="btnRemoveBorder"  Click="EditToScript"/>
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/animation.png" Margin="5,10,5,0"  Name="miAnimation" Height="30" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popAnimation" PlacementTarget="{Binding ElementName=miAnimation}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10"  >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource Animation}"  FontSize="16" Name="miChildAnimation" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                        <MenuItem Header="{DynamicResource Disappear}" FontSize="14" Name="btnDisappear" Click="EditToScript" />
-                                        <MenuItem Header="{DynamicResource Windmill}" FontSize="14"  Name="btnWindmill" Click="EditToScript" />
-                                    </MenuItem>
-                                </Menu>
-                            </Popup>
-                            <Image Source="../../Resources/Image/thirdparty.png" Margin="5,10,5,10"  Name="miThirdParty" Height="30"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                            <Popup x:Name="popThirdParty" PlacementTarget="{Binding ElementName=miThirdParty}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
-                                <Menu>
-                                    <MenuItem Header="{DynamicResource ThirdParty}" FontSize="16" Name="miChildThirdParty" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed"/>
-                                </Menu>
-                            </Popup>
-                        </StackPanel>
-                        <TextBlock Height="3" Background="#282828"/>
-                        <Image Source="../../Resources/Image/library.png"  Name="miLibrary" Margin="5,10,5,0"  Height="30" MouseLeftButtonDown="Menu_MouseEnter" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                        <Popup x:Name="popLibrary" PlacementTarget="{Binding ElementName=miLibrary}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
-                            <Menu>
-                                <MenuItem Header="{DynamicResource Library}"  FontSize="16" Name="miChildLibrary" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed"/>
-                            </Menu>
-                        </Popup>
-                        <Image Source="../../Resources/Image/mycontent.png"  Name="miMycontent" Margin="5,10,5,0"  Height="30" MouseLeftButtonDown="Menu_MouseEnter" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                        <Popup x:Name="popMycontent" PlacementTarget="{Binding ElementName=miMycontent}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
-                            <Menu>
-                                <MenuItem Header="{DynamicResource Mycontent}"  FontSize="16" Name="miChildMycontent" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed"/>
-                            </Menu>
-                        </Popup>
-                        <Image Source="../../Resources/Image/automatic.png" Margin="5,10,5,0"  Name="miAutomatic" Height="30" MouseLeftButtonDown="Menu_MouseEnter" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                        <Popup x:Name="popAutomatic" PlacementTarget="{Binding ElementName=miAutomatic}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade" HorizontalOffset="10" >
-                            <Menu>
-                                <MenuItem Header="{DynamicResource Generate}"  FontSize="16" Name="miChildAutomatic" Style="{StaticResource bigMenuItem}" SubmenuClosed="Child_SubmenuClosed">
-                                    <MenuItem Header="{DynamicResource RhombusDiffusion}" FontSize="14" Name="miRhombusDiffusion" Click="Automatic"/>
-                                    <MenuItem Header="{DynamicResource CrossDiffusion}" FontSize="14" Name="miCross" Click="Automatic"/>
-                                    <MenuItem Header="{DynamicResource Fountain}" FontSize="14" >
-                                        <MenuItem Header="{DynamicResource Random}" FontSize="14"  Name="miRandomFountain" Click="Automatic"/>
-                                    </MenuItem>
-                                </MenuItem>
-                            </Menu>
-                        </Popup>
-                    </StackPanel>
-                    <StackPanel Margin="5" VerticalAlignment="Bottom" DockPanel.Dock="Bottom">
-                        <Image Source="../../Resources/Image/introduce.png" Name="miIntroduce" Margin="5,0,5,15" Height="30" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="Fant" />
-                        <Image Source="../../Resources/Image/debug.png" Name="miDebug" Margin="5,0,5,10" Height="30" MouseLeftButtonDown="Menu_MouseEnter" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Menu_MouseLeftButtonUp"/>
-                        <Popup x:Name="popDebug" PlacementTarget="{Binding ElementName=miDebug}"  Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade"  HorizontalOffset="10" >
-                            <Menu>
-                                <MenuItem Header="{DynamicResource Debug}" FontSize="16" Name="miChildDebug" Style="{StaticResource bigMenuItem}"  SubmenuClosed="Child_SubmenuClosed">
-                                    <MenuItem Header="{DynamicResource ExecutionTime}" Click="GetExecutionTime" FontSize="14"/>
-                                    <MenuItem Header="{DynamicResource CompleteScript}" Click="GetCompleteScript" FontSize="14"/>
-                                </MenuItem>
-                            </Menu>
-                        </Popup>
+            <Border BorderBrush="#282828" BorderThickness="0,0,2,0" Grid.Column="0" >
+                    <DockPanel Background="#535353" >
+                        <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" >
+                            <TabItem Header="{DynamicResource Time}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource Reversal}" Name="btnReversal" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource LengtheningOrShortening}"  Foreground="#ffffff">
+                                        <TreeViewItem Header="{DynamicResource DoubleExtension}" Name="btnExtendTime" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource DoubleShortening}" Name="btnShortenTime" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource Customized}" Name="btnDiyTime" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        </TreeViewItem>
+                                    <TreeViewItem Header="{DynamicResource StartTime}" Name="btnSetStartTime"  MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource EndTime}" Name="btnSetEndTime"  MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource ConstantTime}" Name="btnSetAllTime"  MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource MatchTime}" Name="btnMatchTime"  MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Intercept}" Name="btnInterceptTime"  MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource VerticalFlipping}" Name="btnVerticalFlipping" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource HorizontalFlipping}" Name="btnHorizontalFlipping" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Fold}" Name="btnFold" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource LowerLeftSlashFlipping}" Name="btnLowerLeftSlashFlipping" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource LowerRightSlashFlipping}" Name="btnLowerRightSlashFlipping" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource ClockwiseRotation}" Name="btnClockwise" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource Change}" Name="btnColorChange" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Format}"  Foreground="#ffffff">
+                                        <TreeViewItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    </TreeViewItem>
+                                    <TreeViewItem Header="{DynamicResource Shape}"  Foreground="#ffffff">
+                                        <TreeViewItem Header="{DynamicResource Square}" Name="miSquare" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource Radial}"  Foreground="#ffffff">
+                                            <TreeViewItem Header="{DynamicResource Vertical}" Name="miRadialVertical" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                            <TreeViewItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        </TreeViewItem>
+                                        <TreeViewItem Header="{DynamicResource Fill}" Name="btnFillColor" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                        <TreeViewItem Header="{DynamicResource WithCount}" Name="btnColorWithCount" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    </TreeViewItem>
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource ColorSuperposition}" Name="btnCopyToTheEnd" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource ColorSuperpositionFollow}" Name="btnCopyToTheFollow" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource AccelerationOrDeceleration}" Name="btnAccelerationOrDeceleration" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Other}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource RemoveTheBorder}" Name="btnRemoveBorder" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource Disappear}" Name="btnDisappear" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Windmill}" Name="btnWindmill" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                </TreeView>
+                            </TabItem>
+                            <TabItem Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildThirdParty" />
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" />
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" />
+                            </TabItem>
+                            <TabItem Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
+                                <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" >
+                                    <TreeViewItem Header="{DynamicResource RhombusDiffusion}" Name="miRhombusDiffusion" MouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource CrossDiffusion}" Name="miCross" MouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Random}" Name="miRandomFountain" MouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
+                                </TreeView>
+                            </TabItem>
+                        </TabControl>
+                        <StackPanel Margin="5" VerticalAlignment="Top" DockPanel.Dock="Top" >
                     </StackPanel>
                 </DockPanel>
             </Border>
@@ -409,7 +369,9 @@
                 </StackPanel>
             </ScrollViewer>-->
             </Grid>
-            <Grid   Grid.Column="3" HorizontalAlignment="Right" Width="310" Background="#4d4d4d">
+        </Grid>
+            <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
+            <Grid   Grid.Row="3" HorizontalAlignment="Stretch" Background="#4d4d4d">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />

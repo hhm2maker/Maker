@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 
 namespace Maker.View.Device
@@ -279,6 +280,34 @@ namespace Maker.View.Device
             {
                 mouseType = 0;
                 e.Handled = true;
+            }
+        }
+
+        public static List<int> GetSelectData(DependencyObject obj)
+        {
+            return (List<int>)obj.GetValue(SelectDataProperty);
+        }
+
+        public static void SetSelectData(DependencyObject obj, List<int> value)
+        {
+            obj.SetValue(SelectDataProperty, value);
+        }
+
+        public static readonly DependencyProperty SelectDataProperty =
+            DependencyProperty.RegisterAttached("SelectData", typeof(List<int>), typeof(LaunchpadPro), new PropertyMetadata(OnDataChanged));
+
+        private static void OnDataChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                LaunchpadPro pro = obj as LaunchpadPro;
+                List<int> selects = e.NewValue as List<int>;
+                pro.ClearSelect();
+                for (int i = 0; i < selects.Count; i++)
+                {
+                    (pro.Children[selects[i]] as Shape).Stroke = pro.rainbowBrush;
+                    (pro.Children[selects[i]] as Shape).StrokeThickness = 3;
+                }
             }
         }
     }

@@ -20,21 +20,24 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class NewFileDialog : MakerDialog
     {
-        private BaseUserControl uc;
         private NewMainWindow window;
         private String extension;
         private List<String> notContains = new List<string>();
         public String fileName = String.Empty;
         public String fileType = String.Empty;
-        public NewFileDialog(BaseUserControl uc,NewMainWindow window, String extension, List<String> notContains, String fileType)
+
+        public delegate void ReturnResult(String result);//该委托可以指向一个参数为空，返回值为string的方法。
+
+        ReturnResult toReturnResult;
+        public NewFileDialog(NewMainWindow window, String extension, List<String> notContains, String fileType, ReturnResult toReturnResult)
         {
             InitializeComponent();
 
-            this.uc = uc;
             this.window = window;
             this.extension = extension;
             this.notContains = notContains;
             this.fileType = fileType;
+            this.toReturnResult = toReturnResult;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -54,7 +57,8 @@ namespace Maker.View.UI.UserControlDialog
                 tbNumber.Focus();
                 return;
             }
-            uc.NewFileResult(fileName);
+
+            toReturnResult(fileName);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

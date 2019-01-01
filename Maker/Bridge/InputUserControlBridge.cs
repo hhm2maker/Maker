@@ -557,7 +557,7 @@ namespace Maker.Bridge
         /// <returns></returns>
         public void InitLibrary(List<String> librarys, RoutedEventHandler clickEvent)
         {
-            GeneralViewBusiness.SetStringsAndClickEventToMenuItem(iuc.miChildLibrary, librarys, clickEvent,false,14);
+            //GeneralViewBusiness.SetStringsAndClickEventToMenuItem(iuc.miChildLibrary, librarys, clickEvent,false,14);
         }
 
         /// <summary>
@@ -567,7 +567,7 @@ namespace Maker.Bridge
         /// <returns></returns>
         public void InitMyContent(List<String> contents, RoutedEventHandler clickEvent)
         {
-            GeneralViewBusiness.SetStringsAndClickEventToMenuItem(iuc.miChildMycontent, contents, clickEvent,true,14);
+            //GeneralViewBusiness.SetStringsAndClickEventToMenuItem(iuc.miChildMycontent, contents, clickEvent,true,14);
         }
 
         /// <summary>

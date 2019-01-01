@@ -96,6 +96,21 @@ namespace Maker.Model
         }
 
         /// <summary>
+        /// 当前选中位置
+        /// </summary>
+        private List<int> selects = new List<int>();
+        public List<int> Selects
+        {
+            get { return selects; }
+            set
+            {
+                selects = value;
+                RaisePropertyChanged(() => Selects);
+            }
+        }
+
+
+        /// <summary>
         /// 当前帧
         /// </summary>
         private int currentFrame;
@@ -190,6 +205,5 @@ namespace Maker.Model
                 RaisePropertyChanged(() => ListBoxData);
             }
         }
-
     }
 }

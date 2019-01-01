@@ -920,7 +920,7 @@ namespace Maker.View.Device
             }
         }
 
-        private Brush rainbowBrush;
+        public Brush rainbowBrush;
 
         public List<int> GetSelectPosition(Point p1,Point p2) {
             List<int> selects = new List<int>();

@@ -53,14 +53,7 @@ namespace Maker.View.LightScriptUserControl
             CommandBinding binding = new CommandBinding(DataCommands.Editcommand);
             binding.Executed += Binding_Executed;
             binding.CanExecute += Binding_CanExecute;
-            //左侧图片
-            miColor.CommandBindings.Add(binding);
-            miShape.CommandBindings.Add(binding);
-            miTime.CommandBindings.Add(binding);
-            miSuperposition.CommandBindings.Add(binding);
-            miOther.CommandBindings.Add(binding);
-            miAnimation.CommandBindings.Add(binding);
-            miThirdParty.CommandBindings.Add(binding);
+           
             //按钮
             btnSelectEditorReplace.CommandBindings.Add(binding);
             btnSelectEditorAdd.CommandBindings.Add(binding);
@@ -128,41 +121,7 @@ namespace Maker.View.LightScriptUserControl
         private void Binding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllPopup();
-            if (sender == miColor)
-            {
-                popColor.IsOpen = false;
-                popColor.IsOpen = true;
-            }
-            if (sender == miShape)
-            {
-                popShape.IsOpen = false;
-                popShape.IsOpen = true;
-            }
-            if (sender == miTime)
-            {
-                popTime.IsOpen = false;
-                popTime.IsOpen = true;
-            }
-            if (sender == miSuperposition)
-            {
-                popSuperposition.IsOpen = false;
-                popSuperposition.IsOpen = true;
-            }
-            if (sender == miAnimation)
-            {
-                popAnimation.IsOpen = false;
-                popAnimation.IsOpen = true;
-            }
-            if (sender == miOther)
-            {
-                popOther.IsOpen = false;
-                popOther.IsOpen = true;
-            }
-            if (sender == miThirdParty)
-            {
-                popThirdParty.IsOpen = false;
-                popThirdParty.IsOpen = true;
-            }
+         
             if (sender == btnSelectEditorReplace || sender == btnSelectEditorAdd || sender == tbIfThenReplace || sender == tbIfThenRemove)
             {
                 ToLightScript(sender);
@@ -2969,9 +2928,11 @@ namespace Maker.View.LightScriptUserControl
             }
             else
             {
+                
                 Test(GetStepName());
                 _bridge.UpdateForColor(mBlockLightList, true);
-                spStepControl.ToolTip = null;
+                //TODO:
+                //spStepControl.ToolTip = null;
             }
         }
         private void AddStepControlToolTip()
@@ -3989,32 +3950,7 @@ namespace Maker.View.LightScriptUserControl
         private void Menu_MouseEnter(object sender, RoutedEventArgs e)
         {
             HideAllPopup();
-
-            if (sender == miThirdParty)
-            {
-                popThirdParty.IsOpen = false;
-                popThirdParty.IsOpen = true;
-            }
-            if (sender == miAutomatic)
-            {
-                popAutomatic.IsOpen = false;
-                popAutomatic.IsOpen = true;
-            }
-            if (sender == miLibrary)
-            {
-                popLibrary.IsOpen = false;
-                popLibrary.IsOpen = true;
-            }
-            if (sender == miMycontent)
-            {
-                popMycontent.IsOpen = false;
-                popMycontent.IsOpen = true;
-            }
-            if (sender == miDebug)
-            {
-                popDebug.IsOpen = false;
-                popDebug.IsOpen = true;
-            }
+         
             e.Handled = true;
         }
 
@@ -4025,75 +3961,26 @@ namespace Maker.View.LightScriptUserControl
 
         private void HideAllPopup()
         {
-            popColor.IsOpen = false;
-            popShape.IsOpen = false;
-            popTime.IsOpen = false;
-            popSuperposition.IsOpen = false;
-            popOther.IsOpen = false;
-            popThirdParty.IsOpen = false;
-            popAnimation.IsOpen = false;
-            popAutomatic.IsOpen = false;
-            popDebug.IsOpen = false;
-            popLibrary.IsOpen = false;
-            popMycontent.IsOpen = false;
+          
         }
 
         private void Menu_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (sender == miColor)
-            {
-                miChildColor.IsSubmenuOpen = true;
-            }
-            if (sender == miShape)
-            {
-                miChildShape.IsSubmenuOpen = true;
-            }
-            if (sender == miTime)
-            {
-                miChildTime.IsSubmenuOpen = true;
-            }
-            if (sender == miSuperposition)
-            {
-                miChildSuperposition.IsSubmenuOpen = true;
-            }
-            if (sender == miThirdParty)
-            {
-                miChildThirdParty.IsSubmenuOpen = true;
-            }
-            if (sender == miOther)
-            {
-                miChildOther.IsSubmenuOpen = true;
-            }
-            if (sender == miAnimation)
-            {
-                miChildAnimation.IsSubmenuOpen = true;
-            }
-            if (sender == miAutomatic)
-            {
-                miChildAutomatic.IsSubmenuOpen = true;
-            }
-            if (sender == miLibrary)
-            {
-                miChildLibrary.IsSubmenuOpen = true;
-            }
-            if (sender == miMycontent)
-            {
-                //获取最新的我的内容
-                _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
-                miChildMycontent.IsSubmenuOpen = true;
-            }
-            if (sender == miDebug)
-            {
-                miChildDebug.IsSubmenuOpen = true;
-            }
+           
+            //if (sender == miMycontent)
+            //{
+            //    //获取最新的我的内容
+            //    _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
+            //    miChildMycontent.IsSubmenuOpen = true;
+            //}
         }
 
-        private void ImageUnmake_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ImageUnmake_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             Unmake();
         }
 
-        private void ImageRedo_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ImageRedo_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             Redo();
         }
@@ -4192,7 +4079,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void MiIntroduce_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MiIntroduce_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             EidtTextDialog edit = new EidtTextDialog();
             edit.SetData(introduceText);
@@ -4641,5 +4528,6 @@ namespace Maker.View.LightScriptUserControl
             introduceText = String.Empty;
             lockedDictionary.Clear();
         }
+
     }
 }

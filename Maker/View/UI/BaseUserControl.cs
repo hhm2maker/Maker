@@ -22,6 +22,15 @@ namespace Maker.View
         protected bool bMakerLightUserControl;
 
         /// <summary>
+        /// 是否可以新建
+        /// </summary>
+        public bool CanNew = true;
+        /// <summary>
+        /// 为什么不可以新建
+        /// </summary>
+        public String whyCanNotNew = String.Empty;
+
+        /// <summary>
         /// 是否是制作灯光的控件
         /// </summary>
         /// <returns></returns>
@@ -166,7 +175,7 @@ namespace Maker.View
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(this,mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension, NewFileResult);
             mw.ShowMakerDialog(newFileDialog);
         }
 
@@ -174,6 +183,7 @@ namespace Maker.View
         {
             mw.RemoveDialog();
             String _filePath = GetFileDirectory();
+
             _filePath = _filePath + filePath;
             if (File.Exists(_filePath))
             {
@@ -182,7 +192,7 @@ namespace Maker.View
             }
             else
             {
-                CreateFile(filePath);
+                CreateFile(_filePath);
                 LoadFile(filePath);
 
                 ListBoxItem item = new ListBoxItem

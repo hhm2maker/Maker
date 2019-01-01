@@ -242,12 +242,28 @@ namespace Maker
 
         public void IntoUserControl(int index)
         {
+            //清除旧界面
             gMain.Children.Clear();
             //载入新界面
             gMain.Children.Add(userControls[index]);
-
             //载入文件
             LoadFileList();
+            //是否可以新建文件
+            if (userControls[index].CanNew)
+            {
+                //可以新建
+                btnNew.ToolTip = null;
+                TextBlock tbNew = btnNew.Content as TextBlock;
+                tbNew.IsEnabled = true;
+                tbNew.Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+            else {
+                //不可以新建
+                btnNew.ToolTip = (string)Application.Current.FindResource(userControls[index].whyCanNotNew);
+                TextBlock tbNew = btnNew.Content as TextBlock;
+                tbNew.IsEnabled = false;
+                tbNew.Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+            }
         }
 
         private void LoadFileList()
@@ -388,7 +404,8 @@ namespace Maker
             if (gMain.Children.Count == 0)
                 return;
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.NewFile(sender, e);
+            if(baseUserControl.CanNew)
+                 baseUserControl.NewFile(sender, e);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -524,7 +541,8 @@ namespace Maker
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
                 From = new Thickness(0, 0, 0, 0),
-                To = new Thickness(0, 30, 0, 0),
+                //To = new Thickness(0, 30, 0, 0),
+                To = new Thickness(0, ActualHeight/2 - makerdialog.Height, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5)
             };
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);

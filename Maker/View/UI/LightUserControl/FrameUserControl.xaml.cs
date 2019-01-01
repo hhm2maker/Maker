@@ -297,7 +297,6 @@ namespace Maker.View.LightUserControl
                 mLightList.Add(new Light(0,144, i+28, x[i]));
             }
             (DataContext as FrameUserControlViewModel).Welcome.NowLightLight = mLightList;
-            LoadNowText();
         }
 
       
@@ -369,7 +368,18 @@ namespace Maker.View.LightUserControl
             point = e.GetPosition(mLaunchpad);
         }
 
-        List<int> selects = new List<int>();
+
+        public List<int> selects
+        {
+            set
+            {
+                (DataContext as FrameUserControlViewModel).Welcome.Selects = value;
+            }
+            get
+            {
+                return (DataContext as FrameUserControlViewModel).Welcome.Selects;
+            }
+        }
         private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             mouseType = 0;
@@ -413,7 +423,6 @@ namespace Maker.View.LightUserControl
             cText.NowColorNum = nowColor;
 
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
-            LoadNowText();
 
             if (nowControlType == ControlType.Select && nowTimePointValidationRule.IsCanDraw) {
                 for (int i = 0; i < selects.Count; i++)
@@ -1399,22 +1408,25 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            GetStringDialog2 dialog = new GetStringDialog2(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text");
-            if (dialog.ShowDialog() == true)
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
+            mw.ShowMakerDialog(newFileDialog);
+        }
+
+        public void NewTextFile(String result) {
+            mw.RemoveDialog();
+            String _filePath = mw.lastProjectPath + @"\Text\" + result;
+            if (File.Exists(_filePath))
             {
-                _filePath = mw.lastProjectPath + @"\Text\" + dialog.fileName;
-                if (File.Exists(_filePath))
-                {
-                    new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
-                    return;
-                }
-                else
-                {
-                    CreateTextFile(_filePath);
-                    LoadText(_filePath);
-                }
+                new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                CreateTextFile(_filePath);
+                LoadText(_filePath);
             }
         }
+
         private void NewText(object sender, RoutedEventArgs e)
         {
             GetStringDialog getString = new GetStringDialog(mw, "", "", "");
@@ -1532,35 +1544,9 @@ namespace Maker.View.LightUserControl
                 mPoints.Add(int.Parse(element.Attribute("value").Value), framePointModel);
             }
             points = mPoints;
-            LoadNowText();
         }
 
-        private void LoadNowText()
-        {
-            return;
-            if (cText.Children.Count > 1)
-            {
-                lbText.Items.Clear();
-                cText.Children.RemoveRange(1, cText.Children.Count - 1);
-            }
-
-            if (!points.ContainsKey(nowTimePoint))
-                return;
-            //加载
-            foreach (var item in points[nowTimePoint].Texts)
-            {
-                lbText.Items.Add(item.Value);
-                TextBlock tb = new TextBlock()
-                {
-                    Text = item.Value,
-                    Foreground = StaticConstant.brushList[nowColor],
-                };
-                Canvas.SetLeft(tb, item.Point.X);
-                Canvas.SetTop(tb, item.Point.Y);
-                cText.Children.Add(tb);
-            }
-        }
-
+      
         private void LoadTextFile(object sender, RoutedEventArgs e)
         {
             List<String> fileNames = new List<string>();

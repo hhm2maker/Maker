@@ -31,6 +31,11 @@ namespace Maker.View.UI
             _fileExtension = ".play";
             _fileType = "Play";
             mainView = gMain;
+
+            //只能通过演奏导出来生成
+            CanNew = false;
+           whyCanNotNew = "ItCanOnlyBeGeneratedByPlayingAnExport";
+
             HideControl();
         }
         private int tutorialPosition = 0;

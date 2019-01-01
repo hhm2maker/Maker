@@ -73,7 +73,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="ToolTip">
+    <!--<Style TargetType="ToolTip">
         <Setter Property="Background" Value="#282828"/>
         <Setter Property="Padding" Value="6"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -112,7 +112,7 @@
                             Margin="{TemplateBinding Padding}"/>
                         </Border>
                     </Grid>
-                    <!--<Border x:Name="Root" CornerRadius="2" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFFFFFFF" BorderBrush="{TemplateBinding BorderBrush}">  
+                    --><!--<Border x:Name="Root" CornerRadius="2" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFFFFFFF" BorderBrush="{TemplateBinding BorderBrush}">  
                           <Border BorderBrush="#FFFFFFFF" BorderThickness="1" CornerRadius="1" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">  
                               <Border.Resources>  
                                   <Storyboard x:Key="Visible State"/>  
@@ -124,11 +124,11 @@
                             Cursor="{TemplateBinding Cursor}"  
                             Margin="{TemplateBinding Padding}"/>  
                           </Border>  
-                      </Border>-->
+                      </Border>--><!--
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>

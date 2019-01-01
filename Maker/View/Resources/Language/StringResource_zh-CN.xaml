@@ -490,5 +490,6 @@
     <sys:String x:Key="AddPoint">添加节点</sys:String>
     <sys:String x:Key="RemovePoint">删除节点</sys:String>
     <sys:String x:Key="CreateFile">创建文件</sys:String>
-
+    <sys:String x:Key="ItCanOnlyBeGeneratedByPlayingAnExport">只能通过演奏导出来生成</sys:String>
+    <sys:String x:Key="Introduce">介绍</sys:String>
 </ResourceDictionary>

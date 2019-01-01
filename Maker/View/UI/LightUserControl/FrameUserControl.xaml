@@ -337,7 +337,7 @@
             <Canvas ClipToBounds="True" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  MouseDown="BaseLightUserControl_MouseDown" MouseUp="BaseLightUserControl_MouseUp" MouseMove="BaseLightUserControl_MouseMove" MouseLeave="Canvas_MouseLeave">
                 <Viewbox Stretch="Fill" Name="cMain" Width="{Binding ElementName=sliderSize,Path=Value}" Height="{Binding ElementName=sliderSize,Path=Value}">
                     <Canvas Width="600" Height="600" >
-                        <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}"  PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                        <launchpad:DrawLaunchpadPro Data="{Binding Welcome.NowLightLight}" SelectData="{Binding Welcome.Selects}" PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" HorizontalAlignment="Center" Focusable="True" VerticalAlignment="Center"  PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                         <widget:TextCanvas Width="600" Height="600" Data="{Binding Welcome.Texts}" x:Name="cText" />
                     </Canvas>
                 </Viewbox>

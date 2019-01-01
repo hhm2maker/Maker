@@ -264,9 +264,6 @@
     <Compile Include="View\UI\Dialog\GetStringDialog3.xaml.cs">
       <DependentUpon>GetStringDialog3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Dialog\GetStringDialog2.xaml.cs">
-      <DependentUpon>GetStringDialog2.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UI\Dialog\GetNumberDialog.xaml.cs">
       <DependentUpon>GetNumberDialog.xaml</DependentUpon>
     </Compile>
@@ -628,10 +625,6 @@
     <Page Include="View\UI\Control\MainControlUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Dialog\GetStringDialog2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Dialog\InterceptTimeDialog.xaml">
       <SubType>Designer</SubType>
