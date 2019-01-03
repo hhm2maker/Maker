@@ -3379,518 +3379,10 @@ namespace Maker.View.LightScriptUserControl
 
         private void EditToScript(object sender, RoutedEventArgs e)
         {
-            HideAllPopup();
+            DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
+            //DragDrop.DoDragDrop((TreeViewItem)sender, ((UIElement)sender).GetValue(NameProperty).ToString(), DragDropEffects.Copy);
 
-            //没有可操作的步骤
-            if (lbStep.SelectedIndex == -1)
-                return;
 
-            for (int k = 0; k < lbStep.SelectedItems.Count; k++)
-            {
-                StackPanel sp = (StackPanel)lbStep.SelectedItems[k];
-                if (lockedDictionary.ContainsKey(GetStepName(sp)))
-                {
-                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                    continue;
-                }
-                ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
-                //没有可操作的灯光组
-                if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
-                {
-                    continue;
-                }
-                String command = String.Empty;
-                if (sender == btnHorizontalFlipping)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
-                }
-                if (sender == btnVerticalFlipping)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
-                }
-
-                if (sender == btnLowerLeftSlashFlipping)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerLeftSlashFlipping();";
-                }
-                if (sender == btnLowerRightSlashFlipping)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerRightSlashFlipping();";
-                }
-                if (sender == btnFold)
-                {
-                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Fold(";
-                        if (dialog.cbOrientation.SelectedIndex == 0)
-                        {
-                            scriptModel.Value += "LightGroup.HORIZONTAL,";
-                        }
-                        else if (dialog.cbOrientation.SelectedIndex == 1)
-                        {
-                            scriptModel.Value += "LightGroup.VERTICAL,";
-                        }
-                        scriptModel.Value += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnClockwise)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Clockwise();";
-                }
-                if (sender == btnAntiClockwise)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.AntiClockwise();";
-                }
-                if (sender == btnReversal)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Reversal();";
-                }
-                if (sender == btnExtendTime)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,2);";
-                }
-                if (sender == btnShortenTime)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION,2);";
-                }
-                if (sender == btnDiyTime)
-                {
-                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
-                    if (ct.ShowDialog() == true)
-                    {
-                        if (ct.cbOperation.SelectedIndex == 0)
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + ct.tbPolyploidy.Text + ");";
-                        }
-                        else
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION," + ct.tbPolyploidy.Text + ");";
-                        }
-                    }
-                }
-                if (sender == btnMatchTime)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "TotalTimeLatticeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.MatchTotalTimeLattice(" + dialog.OneNumber + ");";
-                    }
-                }
-                if (sender == btnInterceptTime)
-                {
-                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.InterceptTime(" + dialog.Min + "," + dialog.Max + ");";
-                    }
-                }
-                if (sender == btnRemoveBorder)
-                {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
-                }
-
-                if (sender == btnFillColor)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.FillColor(" + dialog.OneNumber + ");";
-                    }
-                }
-
-                if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
-                {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
-                    if (sender == btnChangeColorYellow)
-                        command += "73 74 75 76";
-                    if (sender == btnChangeColorBlue)
-                        command += "33 37 41 45";
-                    if (sender == btnChangeColorPink)
-                        command += "4 94 53 57";
-                    if (sender == btnChangeColorDiy)
-                    {
-                        mLightList = RefreshData(GetStepName());
-                        List<int> mColor = new List<int>();
-                        for (int j = 0; j < mLightList.Count; j++)
-                        {
-                            if (mLightList[j].Action == 144)
-                            {
-                                if (!mColor.Contains(mLightList[j].Color))
-                                {
-                                    mColor.Add(mLightList[j].Color);
-                                }
-                            }
-                        }
-                        mColor.Sort();
-                        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
-                        if (dialog.ShowDialog() == true)
-                        {
-                            StringBuilder mBuilder = new StringBuilder();
-                            for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                            {
-                                if (x != dialog.MultipleNumber.Count - 1)
-                                {
-                                    mBuilder.Append(dialog.MultipleNumber[x] + " ");
-                                }
-                                else
-                                {
-                                    mBuilder.Append(dialog.MultipleNumber[x]);
-                                }
-                            }
-                            command += mBuilder.ToString();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    if (sender == btnColorChange)
-                    {
-                        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
-                        if (colorDialog.ShowDialog() == true)
-                        {
-                            StringBuilder mBuilder = new StringBuilder();
-                            for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
-                            {
-                                if (x != colorDialog.lbColor.Items.Count - 1)
-                                {
-                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString() + " ");
-                                }
-                                else
-                                {
-                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString());
-                                }
-                            }
-                            command += mBuilder.ToString();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    command += "\",' ','-');" + Environment.NewLine
-                  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
-                    scriptModel.Value += command;
-                }
-                if (sender == btnColorWithCount)
-                {
-
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        String colorGroupName = String.Empty;
-                        int i = 1;
-                        while (i <= 100000)
-                        {
-                            if (!scriptModel.Contain.Contains("Step" + i))
-                            {
-                                scriptModel.Contain.Add("Step" + i);
-                                colorGroupName = "Step" + i + "ColorGroup";
-                                break;
-                            }
-                            i++;
-                        }
-                        if (i > 100000)
-                        {
-                            new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                            return;
-                        }
-                        StringBuilder builder = new StringBuilder();
-                        foreach (int n in dialog.MultipleNumber)
-                        {
-                            builder.Append(n + " ");
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"" + builder.ToString().Trim();
-                        command += "\",' ','-');";
-                        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnSetStartTime)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheStartTimeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnSetEndTime)
-                {
-                    Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw, GetStepName(sp) + "LightGroup");
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetEndTime(";
-                        if (dialog.cbType.SelectedIndex == 0)
-                        {
-                            command += "LightGroup.ALL,";
-                        }
-                        else if (dialog.cbType.SelectedIndex == 1)
-                        {
-                            command += "LightGroup.END,";
-                        }
-                        else if (dialog.cbType.SelectedIndex == 2)
-                        {
-                            command += "LightGroup.ALLANDEND,";
-                        }
-                        command += "\"" + dialog.tbValue.Text + "\");";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnSetAllTime)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheConstantTimeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetAllTime(" + dialog.OneNumber + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnDisappear)
-                {
-                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Serpentine(" + GetStepName(sp) + "LightGroup," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnWindmill)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "IntervalColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Windmill(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
-                    }
-                }
-                if (sender == btnCopyToTheEnd)
-                {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheEnd(" + colorGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnCopyToTheFollow)
-                {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheFollow(" + colorGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                if (sender == btnAccelerationOrDeceleration)
-                {
-                    String rangeGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            rangeGroupName = "Step" + i + "RangeGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheDurationColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-
-                if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
-                {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-
-                    ShapeColorDialog dialog;
-                    if (sender == miSquare)
-                    {
-                        dialog = new ShapeColorDialog(mw, 0);
-                    }
-                    else if (sender == miRadialVertical)
-                    {
-                        dialog = new ShapeColorDialog(mw, 1);
-                    }
-                    else
-                    {
-                        dialog = new ShapeColorDialog(mw, 2);
-                    }
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                          + dialog.content + "\",' ','-');";
-
-                        if (sender == miSquare)
-                        {
-                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.SQUARE," + colorGroupName + ");";
-                        }
-                        else if (sender == miRadialVertical)
-                        {
-                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL," + colorGroupName + ");";
-                        }
-                        else if (sender == miRadialHorizontal)
-                        {
-                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL," + colorGroupName + ");";
-                        }
-                        scriptModel.Value += command;
-                    }
-                }
-            }
-            Test();
         }
         private void Automatic(object sender, RoutedEventArgs e)
         {
@@ -4529,5 +4021,519 @@ namespace Maker.View.LightScriptUserControl
             lockedDictionary.Clear();
         }
 
+
+        private void lbStep_Drop(object sender2, DragEventArgs e)
+        {
+            TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
+            //没有可操作的步骤
+            if (lbStep.SelectedIndex == -1)
+                return;
+          
+            for (int k = 0; k < lbStep.SelectedItems.Count; k++)
+            {
+                StackPanel sp = (StackPanel)lbStep.SelectedItems[k];
+                if (lockedDictionary.ContainsKey(GetStepName(sp)))
+                {
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                    continue;
+                }
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
+                //没有可操作的灯光组
+                if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
+                {
+                    continue;
+                }
+                String command = String.Empty;
+                if (sender == btnHorizontalFlipping)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
+                }
+                if (sender == btnVerticalFlipping)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
+                }
+                if (sender == btnLowerLeftSlashFlipping)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerLeftSlashFlipping();";
+                }
+                if (sender == btnLowerRightSlashFlipping)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.LowerRightSlashFlipping();";
+                }
+                if (sender == btnFold)
+                {
+                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Fold(";
+                        if (dialog.cbOrientation.SelectedIndex == 0)
+                        {
+                            scriptModel.Value += "LightGroup.HORIZONTAL,";
+                        }
+                        else if (dialog.cbOrientation.SelectedIndex == 1)
+                        {
+                            scriptModel.Value += "LightGroup.VERTICAL,";
+                        }
+                        scriptModel.Value += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnClockwise)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Clockwise();";
+                }
+                if (sender == btnAntiClockwise)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.AntiClockwise();";
+                }
+                if (sender == btnReversal)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Reversal();";
+                }
+                if (sender == btnExtendTime)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,2);";
+                }
+                if (sender == btnShortenTime)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION,2);";
+                }
+                if (sender == btnDiyTime)
+                {
+                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
+                    if (ct.ShowDialog() == true)
+                    {
+                        if (ct.cbOperation.SelectedIndex == 0)
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + ct.tbPolyploidy.Text + ");";
+                        }
+                        else
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION," + ct.tbPolyploidy.Text + ");";
+                        }
+                    }
+                }
+                if (sender == btnMatchTime)
+                {
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "TotalTimeLatticeColon", false);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.MatchTotalTimeLattice(" + dialog.OneNumber + ");";
+                    }
+                }
+                if (sender == btnInterceptTime)
+                {
+                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.InterceptTime(" + dialog.Min + "," + dialog.Max + ");";
+                    }
+                }
+                if (sender == btnRemoveBorder)
+                {
+                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
+                }
+
+                if (sender == btnFillColor)
+                {
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.FillColor(" + dialog.OneNumber + ");";
+                    }
+                }
+
+                if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
+                {
+                    String colorGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+                    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
+                    if (sender == btnChangeColorYellow)
+                        command += "73 74 75 76";
+                    if (sender == btnChangeColorBlue)
+                        command += "33 37 41 45";
+                    if (sender == btnChangeColorPink)
+                        command += "4 94 53 57";
+                    if (sender == btnChangeColorDiy)
+                    {
+                        mLightList = RefreshData(GetStepName());
+                        List<int> mColor = new List<int>();
+                        for (int j = 0; j < mLightList.Count; j++)
+                        {
+                            if (mLightList[j].Action == 144)
+                            {
+                                if (!mColor.Contains(mLightList[j].Color))
+                                {
+                                    mColor.Add(mLightList[j].Color);
+                                }
+                            }
+                        }
+                        mColor.Sort();
+                        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
+                        if (dialog.ShowDialog() == true)
+                        {
+                            StringBuilder mBuilder = new StringBuilder();
+                            for (int x = 0; x < dialog.MultipleNumber.Count; x++)
+                            {
+                                if (x != dialog.MultipleNumber.Count - 1)
+                                {
+                                    mBuilder.Append(dialog.MultipleNumber[x] + " ");
+                                }
+                                else
+                                {
+                                    mBuilder.Append(dialog.MultipleNumber[x]);
+                                }
+                            }
+                            command += mBuilder.ToString();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    if (sender == btnColorChange)
+                    {
+                        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
+                        if (colorDialog.ShowDialog() == true)
+                        {
+                            StringBuilder mBuilder = new StringBuilder();
+                            for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
+                            {
+                                if (x != colorDialog.lbColor.Items.Count - 1)
+                                {
+                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString() + " ");
+                                }
+                                else
+                                {
+                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString());
+                                }
+                            }
+                            command += mBuilder.ToString();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    command += "\",' ','-');" + Environment.NewLine
+                  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
+                    scriptModel.Value += command;
+                }
+                if (sender == btnColorWithCount)
+                {
+
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        String colorGroupName = String.Empty;
+                        int i = 1;
+                        while (i <= 100000)
+                        {
+                            if (!scriptModel.Contain.Contains("Step" + i))
+                            {
+                                scriptModel.Contain.Add("Step" + i);
+                                colorGroupName = "Step" + i + "ColorGroup";
+                                break;
+                            }
+                            i++;
+                        }
+                        if (i > 100000)
+                        {
+                            new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                            return;
+                        }
+                        StringBuilder builder = new StringBuilder();
+                        foreach (int n in dialog.MultipleNumber)
+                        {
+                            builder.Append(n + " ");
+                        }
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"" + builder.ToString().Trim();
+                        command += "\",' ','-');";
+                        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
+                        scriptModel.Value += command;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnSetStartTime)
+                {
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheStartTimeColon", false);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnSetEndTime)
+                {
+                    Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw, GetStepName(sp) + "LightGroup");
+                    if (dialog.ShowDialog() == true)
+                    {
+                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetEndTime(";
+                        if (dialog.cbType.SelectedIndex == 0)
+                        {
+                            command += "LightGroup.ALL,";
+                        }
+                        else if (dialog.cbType.SelectedIndex == 1)
+                        {
+                            command += "LightGroup.END,";
+                        }
+                        else if (dialog.cbType.SelectedIndex == 2)
+                        {
+                            command += "LightGroup.ALLANDEND,";
+                        }
+                        command += "\"" + dialog.tbValue.Text + "\");";
+                        scriptModel.Value += command;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnSetAllTime)
+                {
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheConstantTimeColon", false);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetAllTime(" + dialog.OneNumber + ");";
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnDisappear)
+                {
+                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Serpentine(" + GetStepName(sp) + "LightGroup," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnWindmill)
+                {
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "IntervalColon", false);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Windmill(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
+                    }
+                }
+                if (sender == btnCopyToTheEnd)
+                {
+                    String colorGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
+                        {
+                            if (x != dialog.MultipleNumber.Count - 1)
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
+                            }
+                            else
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
+                            }
+                        }
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
+                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
+                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheEnd(" + colorGroupName + "); ";
+                        scriptModel.Value += command;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnCopyToTheFollow)
+                {
+                    String colorGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
+                        {
+                            if (x != dialog.MultipleNumber.Count - 1)
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
+                            }
+                            else
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
+                            }
+                        }
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
+                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
+                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheFollow(" + colorGroupName + "); ";
+                        scriptModel.Value += command;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                if (sender == btnAccelerationOrDeceleration)
+                {
+                    String rangeGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            rangeGroupName = "Step" + i + "RangeGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheDurationColon", true);
+                    if (dialog.ShowDialog() == true)
+                    {
+                        StringBuilder mBuilder = new StringBuilder();
+                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
+                        {
+                            if (x != dialog.MultipleNumber.Count - 1)
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
+                            }
+                            else
+                            {
+                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
+                            }
+                        }
+                        command = Environment.NewLine + "\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
+                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
+                        + "\t" + GetStepName(sp) + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + "); ";
+                        scriptModel.Value += command;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+                if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
+                {
+                    String colorGroupName = String.Empty;
+                    int i = 1;
+                    while (i <= 100000)
+                    {
+                        if (!scriptModel.Contain.Contains("Step" + i))
+                        {
+                            scriptModel.Contain.Add("Step" + i);
+                            colorGroupName = "Step" + i + "ColorGroup";
+                            break;
+                        }
+                        i++;
+                    }
+                    if (i > 100000)
+                    {
+                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                        return;
+                    }
+
+                    ShapeColorDialog dialog;
+                    if (sender == miSquare)
+                    {
+                        dialog = new ShapeColorDialog(mw, 0);
+                    }
+                    else if (sender == miRadialVertical)
+                    {
+                        dialog = new ShapeColorDialog(mw, 1);
+                    }
+                    else
+                    {
+                        dialog = new ShapeColorDialog(mw, 2);
+                    }
+                    if (dialog.ShowDialog() == true)
+                    {
+                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
+                          + dialog.content + "\",' ','-');";
+
+                        if (sender == miSquare)
+                        {
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.SQUARE," + colorGroupName + ");";
+                        }
+                        else if (sender == miRadialVertical)
+                        {
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL," + colorGroupName + ");";
+                        }
+                        else if (sender == miRadialHorizontal)
+                        {
+                            command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL," + colorGroupName + ");";
+                        }
+                        scriptModel.Value += command;
+                    }
+                }
+            }
+            Test();
+        }
     }
 }
