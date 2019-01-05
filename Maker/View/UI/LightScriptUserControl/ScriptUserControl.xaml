@@ -72,7 +72,7 @@
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource VerticalFlipping}" Name="btnVerticalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource HorizontalFlipping}" Name="btnHorizontalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource Fold}" Name="btnFold" MouseLeftButtonDown="EditToScript"  PreviewMouseLeftButtonDown="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Fold}" Name="btnFold" MouseLeftButtonDown="EditToScript" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource LowerLeftSlashFlipping}" Name="btnLowerLeftSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource LowerRightSlashFlipping}" Name="btnLowerRightSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource ClockwiseRotation}" Name="btnClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -390,8 +390,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-
-                <ListBox AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" Grid.Row="0" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown">
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <ListBox AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                     <ListBox.ContextMenu >
                         <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                             <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
@@ -406,6 +406,8 @@
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
+                    <Canvas />
+                </StackPanel>
                 <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#4d4d4d" x:Name="spMainStep">
                     <TextBlock Background="#4d4d4d" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                 </StackPanel>

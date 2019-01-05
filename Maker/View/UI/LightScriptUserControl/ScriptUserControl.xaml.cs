@@ -2757,7 +2757,7 @@ namespace Maker.View.LightScriptUserControl
             Width = width;
             Height = height;
         }
-        public void UpdateData(List<Light> mLightList)
+        public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
             _bridge.UpdateData(mLightList);
         }
@@ -3936,6 +3936,8 @@ namespace Maker.View.LightScriptUserControl
   
         public override void SaveFile()
         {
+            if (filePath.Equals(String.Empty))
+                return;
             //获取对象
             XDocument xDoc = new XDocument();
             XElement xRoot = new XElement("Root");

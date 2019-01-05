@@ -25,8 +25,8 @@ namespace Maker.Bridge
       
         public void GetResult() {
             view.mLightList.Clear();
-            view.mLightList = Results.Test(view.scriptModelDictionary);
-            view.UpdateData(view.mLightList);
+            //view.mLightList = Results.Test(view.scriptModelDictionary);
+            view.UpdateData(Results.Test(view.scriptModelDictionary));
             if (!view._bIsEdit) {
                 view.SaveFile();
                 view.CopyFile();

@@ -277,12 +277,17 @@ namespace Maker.Bridge
         }
 
 
-        public void UpdateData(List<Light> mLightList)
+        public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
             List<Light> colorLightList = new List<Light>();
 
             //颜色面板
-            colorLightList = mLightList;
+            List<Light> lights = new List<Light>();
+            foreach (var item in mLightList)
+            {
+                lights.AddRange(item.Value);
+            }
+            colorLightList = lights;
             //if (iuc.lbStep.SelectedIndex == -1)
             //{
             //    colorLightList = mLightList;
@@ -346,11 +351,11 @@ namespace Maker.Bridge
             { 
                 //清空
                 ClearFrame();
-                SetDataToLaunchpad(mLightList);
+                SetDataToLaunchpad(lights);
             }
             else if (iuc.mShow == ScriptUserControl.ShowMode.DataGrid)
             {
-                SetDataToDataGrid(mLightList);
+                SetDataToDataGrid(lights);
             }
         }
         private List<int> liTime = new List<int>();

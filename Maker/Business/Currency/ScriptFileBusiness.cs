@@ -17,7 +17,12 @@ namespace Maker.Business.ViewBusiness.Currency
     public class ScriptFileBusiness
     {
         public static List<Light> FileToLight(String filePath) {
-            return Test(GetScriptModelDictionary(filePath));
+            Dictionary < string, List < Light >> mLights = Test(GetScriptModelDictionary(filePath));
+            List<Light> lights = new List<Light>();
+            foreach (var item in mLights) {
+                lights.AddRange(item.Value);
+            }
+            return lights;
         }
 
         public static Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath)
@@ -72,7 +77,7 @@ namespace Maker.Business.ViewBusiness.Currency
             return scriptModelDictionary;
         }
 
-        public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
+        public static Dictionary<string, List<Light>> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();
             CompilerParameters objCompilerParameters = new CompilerParameters();
@@ -98,12 +103,17 @@ namespace Maker.Business.ViewBusiness.Currency
                 Assembly objAssembly = cr.CompiledAssembly;
                 object objHelloWorld = objAssembly.CreateInstance("Test");
                 MethodInfo objMI = objHelloWorld.GetType().GetMethod("Hello");
-                List<Operation.Light> lights = (List<Operation.Light>)objMI.Invoke(objHelloWorld, new Object[] { });
-                List<Light> mLights = new List<Light>();
-                for (int i = 0; i < lights.Count; i++)
-                {
-                    mLights.Add(new Light(lights[i].Time, lights[i].Action, lights[i].Position, lights[i].Color));
+                Dictionary<string,List<Operation.Light>> lights = (Dictionary<string, List<Operation.Light>>)objMI.Invoke(objHelloWorld, new Object[] { });
+                Dictionary<string, List<Light>> mLights = new Dictionary<string, List<Light>>();
+                foreach (var item in lights) {
+                    List<Light> _lights = new List<Light>();
+                    for (int i = 0; i < item.Value.Count; i++)
+                    {
+                        _lights.Add(new Light(item.Value[i].Time, item.Value[i].Action, item.Value[i].Position, item.Value[i].Color));
+                    }
+                    mLights.Add(item.Key,_lights);
                 }
+                
                 return mLights;
             }
             return null;

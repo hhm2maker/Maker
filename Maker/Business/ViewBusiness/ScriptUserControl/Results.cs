@@ -16,7 +16,7 @@ namespace Maker.Business.ViewBusiness.ScriptUserControl
 {
     public static class Results
     {
-        public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
+        public static Dictionary<string, List<Light>> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
             return ScriptFileBusiness.Test(scriptModelDictionary) ;
         }

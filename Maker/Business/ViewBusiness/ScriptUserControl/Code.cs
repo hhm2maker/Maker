@@ -15,14 +15,15 @@ namespace Maker.Business.ScriptUserControlBusiness
         /// <returns></returns>
         public static String GetCode(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
+           
             StringBuilder sb = new StringBuilder();
             //头
             sb.Append("using System;");
             sb.Append("using System.Collections.Generic;");
             sb.Append("using Operation;");
             sb.Append("public class Test{");
-            sb.Append("public List<Light> Hello(){");
-            sb.Append("List<Light> mainLightGroup = new List<Light>();");
+            sb.Append("public Dictionary<string,List<Light>> Hello(){");
+            sb.Append("Dictionary<string,List<Light>> mainLightGroup = new Dictionary<string,List<Light>>();");
 
             List<String> childCollection = new List<String>();
 
@@ -54,7 +55,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                             childCollection.Add(scriptModel.Value.Complement[i]);
                         }
                     }
-                    sb.Append("mainLightGroup.AddRange(" + scriptModel.Key + "LightGroup);");
+                    sb.Append("mainLightGroup.Add(\"" + scriptModel.Key + "\","+ scriptModel.Key +"LightGroup);");
                 }
             }
             //尾

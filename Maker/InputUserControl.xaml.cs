@@ -1582,14 +1582,14 @@ namespace Maker
             //LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath,lockedDictionary);
             //mLightList = scriptBusiness.GetResult(null);
 
-            if (mLightList == null)
-            {
-                bridge.UpdateData(new List<Light>());
-                //出错了回退
-                Unmake();
-                return false;
-            }
-            bridge.UpdateData(mLightList);
+            //if (mLightList == null)
+            //{
+            //    bridge.UpdateData(new List<Light>());
+            //    //出错了回退
+            //    Unmake();
+            //    return false;
+            //}
+            //bridge.UpdateData(mLightList);
             return true;
         }
         public bool RefreshData(bool isSaveLocked)
@@ -1599,14 +1599,14 @@ namespace Maker
             //LightScriptBusiness scriptBusiness = new LightScriptBusiness(this, GetCompleteScript(), mw.lightScriptFilePath);
             //mLightList = scriptBusiness.GetResult(null);
 
-            if (mLightList == null)
-            {
-                bridge.UpdateData(new List<Light>());
-                //出错了回退
-                Unmake();
-                return false;
-            }
-            bridge.UpdateData(mLightList);
+            //if (mLightList == null)
+            //{
+            //    bridge.UpdateData(new List<Light>());
+            //    //出错了回退
+            //    Unmake();
+            //    return false;
+            //}
+            //bridge.UpdateData(mLightList);
             return true;
         }
 
@@ -2810,7 +2810,7 @@ namespace Maker
         }
         public void UpdateData(List<Light> mLightList)
         {
-            bridge.UpdateData(mLightList);
+            //bridge.UpdateData(mLightList);
         }
         private void BtnLastTimePoint_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
