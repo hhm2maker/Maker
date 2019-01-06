@@ -312,7 +312,6 @@
             </Grid.RowDefinitions>-->
                 <Grid Background="#535353" >
                     <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
-
                     <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow"  >
                         <TabItem Header="Launchpad" Foreground="#ffffff" >
                             <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
@@ -390,8 +389,12 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <ListBox AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                <Grid Grid.Row="0" MinHeight="100">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0" AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                     <ListBox.ContextMenu >
                         <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                             <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
@@ -406,8 +409,8 @@
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
-                    <Canvas />
-                </StackPanel>
+                    <Canvas Name="cTime" Grid.Column="1" SizeChanged="cTime_SizeChanged"  />
+                </Grid>
                 <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#4d4d4d" x:Name="spMainStep">
                     <TextBlock Background="#4d4d4d" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                 </StackPanel>

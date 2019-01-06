@@ -15,7 +15,6 @@ namespace Maker.Business.ScriptUserControlBusiness
         /// <returns></returns>
         public static String GetCode(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
-           
             StringBuilder sb = new StringBuilder();
             //头
             sb.Append("using System;");

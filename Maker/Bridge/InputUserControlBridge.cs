@@ -275,10 +275,14 @@ namespace Maker.Bridge
             iuc.lbColor.SelectedIndex = mColor[iuc.cColor.Children.IndexOf(p)-1];
             iuc.pColor.IsOpen = true;
         }
-
-
+        public void UpdateData()
+        {
+            UpdateData(mLightList);
+        }
+          private Dictionary<string, List<Light>> mLightList ;
         public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
+            this.mLightList = mLightList;
             List<Light> colorLightList = new List<Light>();
 
             //颜色面板
@@ -347,6 +351,43 @@ namespace Maker.Bridge
                     }
                 }
             }
+
+            //时间轴
+            iuc.cTime.Children.Clear();
+            double actualWidth = iuc.cTime.ActualWidth;
+            
+            int lightMaxTime = -1;
+
+            foreach (var item in mLightList) {
+                int nowMax = LightBusiness.GetMax(item.Value);
+                if (lightMaxTime < nowMax) {
+                    lightMaxTime = nowMax;
+                }
+            }
+            if (lightMaxTime == -1 || lightMaxTime == 0)
+                return;
+
+            int stepNum = 0;
+            foreach (var item in iuc.scriptModelDictionary) {
+                if (mLightList.ContainsKey(item.Key)) {
+                    int min = LightBusiness.GetMin(mLightList[item.Key]);
+                    int max = LightBusiness.GetMax(mLightList[item.Key]);
+
+                    Rectangle myRect = new Rectangle
+                    {
+                        Stroke = Brushes.Black,
+                        Fill = Brushes.SkyBlue,
+                        Height = 30+2,
+                        Width = (max - min)/ (lightMaxTime*1.0) * actualWidth
+                    };
+                    Canvas.SetTop(myRect, ((30 +2)) * stepNum + 2);
+                    Canvas.SetLeft(myRect, min / (lightMaxTime*1.0) * actualWidth);
+                   
+                    iuc.cTime.Children.Add(myRect);
+                }
+                stepNum++;
+            }
+
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             { 
                 //清空

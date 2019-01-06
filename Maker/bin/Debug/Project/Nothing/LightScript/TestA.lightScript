@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMTIsMTIsU3RlcDFDb2xvckdyb3VwLENyZWF0ZS5VUCxDcmVhdGUuQUxMKTs=" visible="true" contain="Step1" intersection="" complement="" />
+    <Script name="Step2" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMlBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzciLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDJDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDJMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMTIsU3RlcDJQb3NpdGlvbkdyb3VwLDEyLDEyLFN0ZXAyQ29sb3JHcm91cCxDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step2" intersection="" complement="" />
+  </Scripts>
+</Root>
