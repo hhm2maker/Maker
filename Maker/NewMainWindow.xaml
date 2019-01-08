@@ -259,7 +259,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid  Grid.Column="0">
-                            <Grid Name="gMain" Margin="0,0,0,45"/>
+                            <Grid  Margin="0,0,0,45"/>
                             <DockPanel VerticalAlignment="Bottom"  Margin="5">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
@@ -366,6 +366,7 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <Grid Name="gMain" />
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

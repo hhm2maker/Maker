@@ -420,10 +420,12 @@ namespace Maker.View.LightUserControl
         private void lbColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             nowColor = completeColorPanel.NowColor;
+
             cText.NowColorNum = nowColor;
+            popColor.IsOpen = false;
 
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
-
+            cColor.Background = StaticConstant.brushList[completeColorPanel.NowColor];
             if (nowControlType == ControlType.Select && nowTimePointValidationRule.IsCanDraw) {
                 for (int i = 0; i < selects.Count; i++)
                 {
@@ -1069,11 +1071,11 @@ namespace Maker.View.LightUserControl
             {
                 spRight.Visibility = Visibility.Collapsed;
                 bPicture.Background = noSelectBrush;
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_black.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
             }
             else {
                 spRight.Visibility = Visibility.Visible;
-                iPicture.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_white.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_blue.png", UriKind.RelativeOrAbsolute));
                 bPicture.Background = selectBrush;
             }
             isShowPicture = !isShowPicture;
@@ -1631,7 +1633,34 @@ namespace Maker.View.LightUserControl
                 dep.style.size = sliderSize.Value;
         }
 
-     
+        private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            popColor.IsOpen = true;
+        }
+
+        private void iSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (nowControlType == ControlType.Draw)
+            {
+                nowControlType = ControlType.Select;
+                (sender as Image).Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            else {
+                nowControlType = ControlType.Draw;
+                (sender as Image).Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+            }
+        }
+
+        private void iSelect2_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            popSelect.IsOpen = true;
+        }
+
+        private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Width = mw.ActualWidth * 0.7;
+            Height = mw.ActualHeight * 0.7;
+        }
 
         private void FourAreaClick(object sender, RoutedEventArgs e)
         {
