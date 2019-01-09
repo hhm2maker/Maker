@@ -21,6 +21,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -42,7 +43,6 @@ namespace Maker.View.LightUserControl
 
             mainView = gMain;
             HideControl();
-            selectView = bDraw;
 
             mLaunchpad.SetSize(600);
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
@@ -1034,11 +1034,11 @@ namespace Maker.View.LightUserControl
         }
 
         private ControlType nowControlType = ControlType.Draw;
-        private Border selectView;
         private enum ControlType
         {
-            Draw = 0,
-            Select = 1,
+            Style = 0,
+            Draw = 1,
+            Select = 2,
         }
 
         private LinearGradientBrush selectBrush = new LinearGradientBrush
@@ -1064,50 +1064,9 @@ namespace Maker.View.LightUserControl
                     }
         };
 
-        private bool isShowPicture = true;
-        private void ShowImageControl(object sender, MouseButtonEventArgs e)
-        {
-            if (isShowPicture)
-            {
-                spRight.Visibility = Visibility.Collapsed;
-                bPicture.Background = noSelectBrush;
-                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
-            }
-            else {
-                spRight.Visibility = Visibility.Visible;
-                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_blue.png", UriKind.RelativeOrAbsolute));
-                bPicture.Background = selectBrush;
-            }
-            isShowPicture = !isShowPicture;
-        }
+        
 
-        private void ChangeControlType(object sender, MouseButtonEventArgs e)
-        {
-            selectView.Background = noSelectBrush;
-            if (selectView == bDraw)
-            {
-                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/pen_black.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (selectView == bSelect)
-            {
-                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_black.png", UriKind.RelativeOrAbsolute));
-            }
-           
-            selectView = sender as Border;
-            selectView.Background = selectBrush;
-
-            if (sender == bDraw)
-            {
-                iDraw.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/pen_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Draw;
-            }
-            else if (sender == bSelect)
-            {
-                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_white.png", UriKind.RelativeOrAbsolute));
-                nowControlType = ControlType.Select;
-            }
-          
-        }
+     
 
         private void OpenFileControl(object sender, RoutedEventArgs e)
         {
@@ -1523,6 +1482,9 @@ namespace Maker.View.LightUserControl
                 return (DataContext as FrameUserControlViewModel).Welcome.Points;
             }
         }
+
+        public object DoubleAnimaltion { get; private set; }
+
         private void LoadText(String fileName)
         {
             Dictionary<int, FramePointModel> mPoints = new Dictionary<int, FramePointModel>();
@@ -1603,7 +1565,7 @@ namespace Maker.View.LightUserControl
 
         private void BaseLightUserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isMove) {
+            if (isMove && nowControlType == ControlType.Style) {
                 dep.style.x += e.GetPosition(this).X - movePoint.X;
                 dep.style.y += e.GetPosition(this).Y - movePoint.Y;
 
@@ -1633,22 +1595,73 @@ namespace Maker.View.LightUserControl
                 dep.style.size = sliderSize.Value;
         }
 
+        private void MoveRLeft(int index)
+        {
+            DoubleAnimation doubleAnimation = new DoubleAnimation
+            {
+                From = Canvas.GetTop(rLeft),
+                To = 100 * index,
+                Duration = new Duration(TimeSpan.FromSeconds(0.2))
+            };
+            rLeft.BeginAnimation(Canvas.TopProperty, doubleAnimation);
+
+        }
+
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            popColor.IsOpen = true;
+            MoveRLeft(1);
+            HideImageControl();
+            sliderSize.Visibility = Visibility.Collapsed;
+
+            if (nowControlType == ControlType.Draw)
+            {
+                popColor.IsOpen = true;
+            }
+            else {
+                nowControlType = ControlType.Draw;
+            }
+            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void iStyle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            MoveRLeft(0);
+            HideImageControl();
+            sliderSize.Visibility = Visibility.Visible;
+            nowControlType = ControlType.Style;
+            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
         }
 
         private void iSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (nowControlType == ControlType.Draw)
-            {
-                nowControlType = ControlType.Select;
-                (sender as Image).Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            else {
-                nowControlType = ControlType.Draw;
-                (sender as Image).Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
-            }
+            MoveRLeft(2);
+            HideImageControl();
+            sliderSize.Visibility = Visibility.Collapsed;
+            nowControlType = ControlType.Select;
+            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
+
+        }
+
+
+        private void ShowImageControl(object sender, MouseButtonEventArgs e)
+        {
+            MoveRLeft(3);
+            sliderSize.Visibility = Visibility.Collapsed;
+
+            ShowImageControl();
+            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+        }
+        private void ShowImageControl()
+        {
+            spRight.Visibility = Visibility.Visible;
+            iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_blue.png", UriKind.RelativeOrAbsolute));
+        }
+        private void HideImageControl() {
+            spRight.Visibility = Visibility.Collapsed;
+            iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
         }
 
         private void iSelect2_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
