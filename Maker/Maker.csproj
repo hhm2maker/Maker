@@ -1146,7 +1146,6 @@
     <Resource Include="View\Resources\Image\float.png" />
     <Resource Include="View\Resources\Image\forward.png" />
     <Resource Include="View\Resources\Image\frame.png" />
-    <Resource Include="View\Resources\Image\Galactic-Trilogy-Floral-UHD.png" />
     <Resource Include="View\Resources\Image\headportrait.png" />
     <Resource Include="View\Resources\Image\icon.ico" />
     <Resource Include="View\Resources\Image\icon.png" />
@@ -1196,7 +1195,9 @@
     <Resource Include="View\Resources\Image\roundcornersheet.png" />
     <Resource Include="View\Resources\Image\saveas_blue.png" />
     <Resource Include="View\Resources\Image\saveas_white.png" />
-    <Resource Include="View\Resources\Image\save_blue.png" />
+    <Resource Include="View\Resources\Image\save_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\save_white.png" />
     <Resource Include="View\Resources\Image\search.png" />
     <Resource Include="View\Resources\Image\select_black.png" />
@@ -1380,6 +1381,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\style_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\save_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\membrane_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\membrane_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\close_uc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -879,15 +879,15 @@ namespace Maker.View.Device
         /// <param name="_event"></param>
         public void ClearAllColorExcept()
         {
-            foreach (var item in Children)
+            for (int i = 0; i < 96; i++)
             {
                 //停止播放=取消着色
-                if (item is RoundedCornersPolygon rcp)
-                    rcp.Fill = closeBrush;
-                if (item is Ellipse e)
-                    e.Fill = closeBrush;
-                if (item is Rectangle r)
-                    r.Fill = closeBrush;
+                if (Children[i] is RoundedCornersPolygon rcp)
+                    rcp.Fill = StaticConstant.closeBrush;
+                if (Children[i] is Ellipse e)
+                    e.Fill = StaticConstant.closeBrush;
+                if (Children[i] is Rectangle r)
+                    r.Fill = StaticConstant.closeBrush; ;
             }
         }
 
@@ -897,16 +897,16 @@ namespace Maker.View.Device
         /// <param name="_event"></param>
         public static void MyClearAllColorExcept(LaunchpadPro pro)
         {
-            foreach (var item in pro.Children)
-            {
-                //停止播放=取消着色
-                if (item is RoundedCornersPolygon rcp)
+            for (int i = 0; i < 96; i++) {
+                 //停止播放=取消着色
+                if (pro.Children[i] is RoundedCornersPolygon rcp)
                     rcp.Fill = StaticConstant.closeBrush;
-                if (item is Ellipse e)
+                if (pro.Children[i] is Ellipse e)
                     e.Fill = StaticConstant.closeBrush;
-                if (item is Rectangle r)
+                if (pro.Children[i] is Rectangle r)
                     r.Fill = StaticConstant.closeBrush; ;
             }
+          
         }
 
 

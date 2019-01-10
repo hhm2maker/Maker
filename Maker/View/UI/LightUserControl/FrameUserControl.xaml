@@ -330,19 +330,32 @@
                 </Canvas>
                 <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Width="90" Name="spLeft">
                     <DockPanel Background="Transparent" MouseLeftButtonUp="iStyle_MouseLeftButtonUp" Width="90"  Height="100" >
-                        <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="40" Height="40" />
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="40" Height="40" />
+                            <TextBlock Name="tbStyle" Text="{DynamicResource Style}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0" />
+                        </StackPanel>
                     </DockPanel>
                     <DockPanel Name="dpColor" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp"  Width="90"  Height="100">
-                        <Canvas  Width="40" Height="40" >
-                            <Canvas Width="38" Height="38"  Background="Red" Canvas.Left="1" Canvas.Top="1" Name="cColor"/>
-                            <Image Source="../../Resources/Image/color_black.png" Width="40" Height="40" />
-                        </Canvas>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Canvas  Width="40" Height="40" >
+                                <Canvas Width="38" Height="38"  Background="Red" Canvas.Left="1" Canvas.Top="1" Name="cColor"/>
+                                <Image Source="../../Resources/Image/color_black.png" Width="40" Height="40" />
+                            </Canvas>
+                            <TextBlock Name="tbColor" Text="{DynamicResource Color}" FontSize="16" Foreground="#ffffff" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                        </StackPanel>
                     </DockPanel>
                     <DockPanel Name="dpSelect" Background="Transparent" MouseLeftButtonUp="iSelect_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"  Width="90"  Height="100">
-                        <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" />
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" />
+                            <TextBlock Name="tbSelect" Text="{DynamicResource Select}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                        </StackPanel>
                     </DockPanel>
                     <DockPanel Background="Transparent" MouseLeftButtonUp="ShowImageControl"  Width="90"  Height="100">
-                        <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
+                            <TextBlock Name="tbPicture" Text="{DynamicResource Image}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                        </StackPanel>
+                   
                     </DockPanel>
                 </StackPanel>
                 <Popup Name="popColor" PlacementTarget="{Binding ElementName=dpColor}" StaysOpen="False" Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade">
@@ -673,84 +686,20 @@
                     </Canvas>
                 </Viewbox>
             </Canvas>
-            <Slider Name="sliderSize" Visibility="Collapsed" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,60"/>
-            <DockPanel Height="60" VerticalAlignment="Top">
-                
-                <StackPanel Orientation="Horizontal"  >
-                <Button Background="{x:Null}" BorderBrush="{x:Null}" Style="{x:Null}" Margin="10,0,0,0"  Height="40" Name="btnOpenFileControl" Click="OpenFileControl">
-                    <Button.Template>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </ControlTemplate>
-                    </Button.Template>
-                    <Button.Content>
-                        <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8"  Name="bFile" >
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#f1f4f6" Offset="0"/>
-                                    <GradientStop Color="#e6ebee" Offset="1"/>
-                                    <GradientStop Color="#f1f4f6" Offset="0.5"/>
-                                    <GradientStop Color="#e6ebee" Offset="0.5"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Image Source="../../Resources/Image/file_black.png" RenderOptions.BitmapScalingMode="Fant" />
-                                <TextBlock Text="{DynamicResource File}" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                <Image Source="../../Resources/Image/more.png" RenderOptions.BitmapScalingMode="Fant" Width="15" Margin="5,0,0,0"/>
-                            </StackPanel>
-                        </Border>
-                    </Button.Content>
-                </Button>
-                
-            <Popup x:Name="popFile" PlacementTarget="{Binding ElementName=btnOpenFileControl}" StaysOpen="False" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade">
-                <StackPanel Orientation="Vertical" Width="200">
-                    <StackPanel.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF2F2F2F" Offset="0"/>
-                            <GradientStop Color="Black" Offset="1"/>
-                        </LinearGradientBrush>
-                    </StackPanel.Background>
-                    <StackPanel Orientation="Horizontal" Background="Transparent" Name="spNewFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
-                        <Image Source="../../Resources/Image/file_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
-                        <TextBlock Text="{DynamicResource NewProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
-                    </StackPanel>
-                    <Rectangle Height="1" Fill="#303030"/>
-                    <StackPanel Orientation="Horizontal" Background="Transparent"  Name="spOpenFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
-                        <Image Source="../../Resources/Image/open_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
-                        <TextBlock Text="{DynamicResource OpenProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
-                    </StackPanel>
-                    <Rectangle Height="1" Fill="#303030"/>
-                    <StackPanel Orientation="Horizontal" Background="Transparent" MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown" Name="spSaveFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
-                        <Image Source="../../Resources/Image/save_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
-                        <TextBlock Text="{DynamicResource SaveProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
-                    </StackPanel>
-                    <Rectangle Height="1" Fill="#303030"/>
-                    <StackPanel Orientation="Horizontal" Background="Transparent" Name="spSaveAsFile" MouseEnter="PopSpMouseEnter" MouseLeave="PopSpMouseLeave">
-                        <Image Source="../../Resources/Image/saveas_white.png" RenderOptions.BitmapScalingMode="Fant" Width="25" Margin="10,10,0,10"/>
-                        <TextBlock Text="{DynamicResource SaveAsProject}" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#aaaaaa"/>
-                    </StackPanel>
-                </StackPanel>
-            </Popup>
-            
-                    <Border CornerRadius="5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40" Margin="10,0,0,0" Name="bShowMembrane" MouseLeftButtonDown="ShowMembrane">
-                        <Border.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#FFECF1F4" Offset="0"/>
-                                <GradientStop Color="#FFD0E0EA" Offset="1"/>
-                                <GradientStop Color="#FFECF1F4" Offset="0.5"/>
-                                <GradientStop Color="#FFD0E0EA" Offset="0.5"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Image Source="../../Resources/Image/eye_black.png" RenderOptions.BitmapScalingMode="Fant" Stretch="UniformToFill"/>
-                    </Border>
-                </StackPanel>
-            </DockPanel>
+            <Grid Height="60" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="35" HorizontalAlignment="Left" Name="iSave" Source="../../Resources/Image/save_gray.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave"/>
+                            <Image Width="35" HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" Source="../../Resources/Image/membrane_gray.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
+                        </StackPanel>
+                      <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
+                            <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/>
+                        </StackPanel>
+                        <Image DockPanel.Dock="Right" Width="30" Margin="0,0,10,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                    </Grid>
             <DockPanel  Height="60" VerticalAlignment="Bottom" >
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
-                <StackPanel Orientation="Horizontal" Width="auto" VerticalAlignment="Center">
-                <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
-                <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/>
-            </StackPanel>
+              
             <StackPanel Orientation="Horizontal" >
                 <Border CornerRadius="5,0,0,5" BorderBrush="Black" BorderThickness="2" Padding="8" Height="40"  >
                     <Border.InputBindings>
@@ -885,7 +834,8 @@
                     </Border.Background>
                     <Image Source="../../Resources/Image/add.png" RenderOptions.BitmapScalingMode="Fant" />
                 </Border>
-            </StackPanel>
+                 <Slider Name="sliderSize" Visibility="Collapsed" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150" VerticalAlignment="Center"  />
+                            </StackPanel>
                 </StackPanel>
             </DockPanel>
             <StackPanel Orientation="Vertical" Name="spRight" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Collapsed">

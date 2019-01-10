@@ -1064,14 +1064,6 @@ namespace Maker.View.LightUserControl
                     }
         };
 
-        
-
-     
-
-        private void OpenFileControl(object sender, RoutedEventArgs e)
-        {
-            popFile.IsOpen = true;
-        }
 
         private void mLaunchpad_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -1095,72 +1087,23 @@ namespace Maker.View.LightUserControl
                 }
             }
         }
-        private SolidColorBrush popSelectBrush = new SolidColorBrush(Color.FromRgb(0, 255, 255));
-        private SolidColorBrush popNoSelectBrush = new SolidColorBrush(Colors.White);
-        private void PopSpMouseEnter(object sender, MouseEventArgs e)
-        {
-            Image img = (sender as StackPanel).Children[0] as Image;
-
-            if (sender == spNewFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spOpenFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/open_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spSaveFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spSaveAsFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/saveas_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
-            tb.Foreground = popSelectBrush;
-        }
-
-        private void PopSpMouseLeave(object sender, MouseEventArgs e)
-        {
-            Image img = (sender as StackPanel).Children[0] as Image;
-
-            if (sender == spNewFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/file_white.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spOpenFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/open_white.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spSaveFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_white.png", UriKind.RelativeOrAbsolute));
-            }
-            else if (sender == spSaveAsFile)
-            {
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/saveas_white.png", UriKind.RelativeOrAbsolute));
-            }
-            TextBlock tb = (sender as StackPanel).Children[1] as TextBlock;
-            tb.Foreground = popNoSelectBrush;
-        }
+     
 
         private void ShowMembrane(object sender, MouseButtonEventArgs e)
         {
             mLaunchpad.ShowOrHideMembrane();
             if (mLaunchpad.isMembrane)
             {
-                bShowMembrane.Background = selectBrush;
+                iMembrane.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/membrane_blue.png", UriKind.RelativeOrAbsolute));
             }
             else
             {
-                bShowMembrane.Background = noSelectBrush;
+                iMembrane.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/membrane_gray.png", UriKind.RelativeOrAbsolute));
             }
         }
 
         private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            popFile.IsOpen = false;
             SaveFile();
         }
 
@@ -1622,6 +1565,11 @@ namespace Maker.View.LightUserControl
             }
             iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
             iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+
+            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
         }
 
         private void iStyle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1631,6 +1579,11 @@ namespace Maker.View.LightUserControl
             sliderSize.Visibility = Visibility.Visible;
             nowControlType = ControlType.Style;
             iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
+
+            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
         }
 
         private void iSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1642,6 +1595,10 @@ namespace Maker.View.LightUserControl
             iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
             iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
 
+            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
         }
 
 
@@ -1653,6 +1610,11 @@ namespace Maker.View.LightUserControl
             ShowImageControl();
             iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
             iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+
+            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
         }
         private void ShowImageControl()
         {
@@ -1673,6 +1635,21 @@ namespace Maker.View.LightUserControl
         {
             Width = mw.ActualWidth * 0.7;
             Height = mw.ActualHeight * 0.7;
+        }
+
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        {
+            iSave.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_blue.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+            iSave.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_gray.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mw.RemoveChildren();
         }
 
         private void FourAreaClick(object sender, RoutedEventArgs e)

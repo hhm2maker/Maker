@@ -348,16 +348,20 @@ namespace Maker
             }
         }
 
+        public void RemoveChildren() {
+            gMain.Visibility = Visibility.Collapsed;
+        }
 
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //是否是制作灯光的用户控件
             if (lbMain.SelectedIndex == -1)
                 return;
-                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-                baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + ((ListBoxItem)lbMain.SelectedItem).Content.ToString();
-                baseUserControl.LoadFile(((ListBoxItem)lbMain.SelectedItem).Content.ToString());
-            
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + ((ListBoxItem)lbMain.SelectedItem).Content.ToString();
+            baseUserControl.LoadFile(((ListBoxItem)lbMain.SelectedItem).Content.ToString());
+
+            gMain.Visibility = Visibility.Visible;
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
