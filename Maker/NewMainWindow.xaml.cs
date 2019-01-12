@@ -41,16 +41,45 @@ namespace Maker
             bridge.Init();
 
             InitUserControl();
-            InitPopup();
-
+            InitFile();
         }
-
+        
         /// <summary>
-        /// 初始化弹窗
+        /// 初始化文件
         /// </summary>
-        private void InitPopup()
+        private void InitFile()
         {
-            popups = new List<Popup>() { popLight, popEffect, popPlay, popTool, popHelp };
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath+"Light", new List<string>() { ".light" })){
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                tvLight.Items.Add(item);
+            }
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str
+                };
+                tvLightScript.Items.Add(item);
+            }
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str
+                };
+                tvLimitlessLamp.Items.Add(item);
+            }
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str
+                };
+                tvPlay.Items.Add(item);
+            }
         }
 
         /// <summary>
@@ -247,7 +276,7 @@ namespace Maker
             //载入新界面
             gMain.Children.Add(userControls[index]);
             //载入文件
-            LoadFileList();
+            //LoadFileList();
             //是否可以新建文件
             if (userControls[index].CanNew)
             {
@@ -283,7 +312,7 @@ namespace Maker
             }
         }
 
-        private void tbHelp_MouseLeftButtonUp(object sender, RoutedEventArgs e)
+        private void tbHelp_MouseLeftButtonUp(object sender, MouseEventArgs e)
         {
             DoubleAnimation animation;
             if (bHelp.Width == 400)
@@ -304,41 +333,7 @@ namespace Maker
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
-        private void GotoBaseUserControl(object sender, RoutedEventArgs e)
-        {
-            if (sender == btnFrame)
-            {
-                IntoUserControl(0);
-            }
-            else if (sender == btnScript)
-            {
-                IntoUserControl(3);
-            }
-            else if (sender == btnPage)
-            {
-                IntoUserControl(5);
-            }
-            else if (sender == btnPlayExport)
-            {
-                IntoUserControl(6);
-            }
-            else if (sender == btnPlay)
-            {
-                IntoUserControl(7);
-            }
-            else if (sender == btnPlayer)
-            {
-                IntoUserControl(8);
-            }
-            else if (sender == btnLimitless)
-            {
-                IntoUserControl(9);
-            }
-            else if (sender == btnIdea)
-            {
-                IntoUserControl(10);
-            }
-        }
+      
 
         public void OpenFile()
         {
@@ -348,21 +343,12 @@ namespace Maker
             }
         }
 
+
         public void RemoveChildren() {
             gMain.Visibility = Visibility.Collapsed;
+            (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
         }
 
-        private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //是否是制作灯光的用户控件
-            if (lbMain.SelectedIndex == -1)
-                return;
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + ((ListBoxItem)lbMain.SelectedItem).Content.ToString();
-            baseUserControl.LoadFile(((ListBoxItem)lbMain.SelectedItem).Content.ToString());
-
-            gMain.Visibility = Visibility.Visible;
-        }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -591,10 +577,10 @@ namespace Maker
         }
         private void DeleteFile(object sender, RoutedEventArgs e)
         {
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.DeleteFile(sender, e);
-            baseUserControl.HideControl();
-            lbMain.Items.RemoveAt(lbMain.SelectedIndex);
+            //BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            //baseUserControl.DeleteFile(sender, e);
+            //baseUserControl.HideControl();
+            //lbMain.Items.RemoveAt(lbMain.SelectedIndex);
         }
 
         private void BtnDeleteFile_NotHint_Click(object sender, RoutedEventArgs e)
@@ -634,25 +620,7 @@ namespace Maker
         {
             ShowAbout();
         }
-        private List<Popup> popups;
-        private void ShowChild(object sender, MouseEventArgs e)
-        {
-            Grid grid = sender as Grid;
-            grid.Height = 0;
-            popups[dpCatalog.Children.IndexOf(grid) / 2].IsOpen = false;
-            popups[dpCatalog.Children.IndexOf(grid) / 2].IsOpen = true;
-        }
-
-        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ((Popup)((StackPanel)sender).Parent).IsOpen = false;
-        }
-
-        private void PopupClosed(object sender, EventArgs e)
-        {
-            Popup popup = sender as Popup;
-            (dpCatalog.Children[popups.IndexOf(popup) * 2] as Grid).Height = 45;
-        }
+       
 
         /// <summary>
         /// 导入文件
@@ -884,11 +852,9 @@ namespace Maker
             Image image = (Image)sender;
             if (isShrink) {
                 image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/shrink.png", UriKind.RelativeOrAbsolute));
-                dpCatalog.Visibility = Visibility.Collapsed;
             }
             else {
                 image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/enlarge.png", UriKind.RelativeOrAbsolute));
-                dpCatalog.Visibility = Visibility.Visible;
             }
             ShowOrHideFilePanel();
         }
@@ -941,6 +907,27 @@ namespace Maker
             DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
             userControl.BeginAnimation(OpacityProperty, daV);
             }
+        }
+
+        private void lbMain_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (lbMain.SelectedItem == null)
+                return;
+                String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
+                for (int i = 0;i < userControls.Count;i++) {
+                    if (fileName.EndsWith(userControls[i]._fileExtension)) {
+                        IntoUserControl(i);
+                        break;
+                    }
+                }
+            if (gMain.Children.Count == 0)
+                return;
+                //是否是制作灯光的用户控件
+                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+                baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
+                baseUserControl.LoadFile(fileName);
+
+                gMain.Visibility = Visibility.Visible;
         }
     }
 }

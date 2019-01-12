@@ -27,138 +27,6 @@
     </Window.Resources>
     <Grid Name="gMost">
         <DockPanel>
-            <WrapPanel Name="dpCatalog" Background="#262526" DockPanel.Dock="Top">
-                    <Grid  Name="gLight" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                        <TextBlock Text="{DynamicResource Light}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                    </Grid>
-                    <Popup x:Name="popLight" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gLight}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                        <StackPanel Width="200" Margin="0,0,20,20" Name="sLight" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <Button Name="btnFrame" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/lightdraw.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Frame}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Name="btnScript" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/mycode.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource LightScript}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Name="btnLimitless" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/limitless.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource LimitlessLamp}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Popup>
-                <Grid  Name="gEffect" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                    <TextBlock Text="{DynamicResource Effect}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                </Grid>
-                <Popup x:Name="popEffect" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gEffect}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                    <StackPanel Width="200" Margin="0,0,20,20" Name="sEffect" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                        <StackPanel.Effect>
-                            <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                        </StackPanel.Effect>
-                        <Button Name="btnColored" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                    <Image Source="View/Resources/Image/colored.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource Colored}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </StackPanel>
-                </Popup>
-                <Grid  Name="gPlay" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                        <TextBlock Text="{DynamicResource Play_}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                    </Grid>
-                    <Popup x:Name="popPlay" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gPlay}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                        <StackPanel Width="200" Margin="0,0,20,20" Name="sPlay" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <Button Name="btnPage" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/page.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Page}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Name="btnPlayExport" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/playexport.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource PlayExport}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Name="btnPlay" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/play.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Play_}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Popup>
-                    <Grid   Name="gTool" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                        <TextBlock Text="{DynamicResource Tool}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                    </Grid>
-                    <Popup x:Name="popTool" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gTool}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                        <StackPanel Width="200" Margin="0,0,20,20" Name="sTool" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <Button Name="btnPlayer" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/playersetting.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Player}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Name="btnIdea" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="GotoBaseUserControl" Background="#2E3033" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/idea.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Idea}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Popup>
-                    <Grid  Name="gHelp" MouseEnter="ShowChild" Background="#262526" Height="45" VerticalAlignment="Top">
-                        <TextBlock Text="{DynamicResource Help}" Foreground="white" TextAlignment="Center" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Center" Width="200" />
-                    </Grid>
-                    <Popup x:Name="popHelp" Closed="PopupClosed" PlacementTarget="{Binding ElementName=gHelp}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True" PopupAnimation="Fade"  >
-                        <StackPanel Width="200" Margin="20,0,0,20" Name="sHelp" Orientation="Vertical" Background="#2E3033" MouseLeave="StackPanel_MouseLeave" >
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="tbHelp_MouseLeftButtonUp" Background="#2E3033" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                        <Image Source="View/Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Help}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                    </Popup>
-            </WrapPanel>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -175,8 +43,8 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <ListBox Grid.Row="0" Name="lbMain" FontSize="16" Background="Transparent" BorderBrush="{x:Null}" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8" SelectionChanged="lbMain_SelectionChanged" >
-                            <ListBox.ContextMenu>
+                        <TreeView Grid.Row="0" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
+                            <TreeView.ContextMenu>
                                 <ContextMenu  Name="lbProjectDocumentMenu">
                                     <MenuItem Click="RenameFileName" Header="{DynamicResource Rename}"/>
                                     <Separator />
@@ -194,8 +62,12 @@
                                     <Separator />
                                     <!--<MenuItem Click="GoToFile" Header="{DynamicResource OpenFoldersInTheFileResourceManager}"/>-->
                                 </ContextMenu>
-                            </ListBox.ContextMenu>
-                        </ListBox>
+                            </TreeView.ContextMenu>
+                            <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
+                            <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                            <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                            <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                        </TreeView>
                         <Border  Grid.Row="1"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
                             <DockPanel>
                                 <TextBlock Name="tbProjectPath" Margin="10" Visibility="Collapsed" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
@@ -264,8 +136,18 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                                     <Image Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Margin="10,0,0,0"/>
+                                  
                                 </StackPanel>
-                                <Image HorizontalAlignment="Right" Source="View/Resources/Image/enlarge.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                                <Image Source="View/Resources/Image/help.png" Width="25" DockPanel.Dock="Right" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="tbHelp_MouseLeftButtonUp"/>
+                                <Button Name="btnPlayer" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch"  Background="#2E3033" >
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
+                                            <Image Source="View/Resources/Image/playersetting.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                                            <TextBlock Text="{DynamicResource Player}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Image Margin="0,0,10,0" HorizontalAlignment="Right" Source="View/Resources/Image/enlarge.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                             </DockPanel>
                         </Grid>
                     </Grid>

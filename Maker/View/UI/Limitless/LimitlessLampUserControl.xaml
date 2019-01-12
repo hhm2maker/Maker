@@ -8,9 +8,36 @@
         xmlns:device="clr-namespace:Maker.View.Device"
     xmlns:view1="clr-namespace:Maker.View.UI.Device.ColorPanel"
     mc:Ignorable="d"
-     Background="#363B40"
+         Background="#262829"
         Loaded="Window_Loaded"
        >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+    </UserControl.Effect>
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="#f0f0f0"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}" >
+                            <Border  CornerRadius="5,5,5,5" Background="#1c1e1f" Name="btnTabItem">
+                                <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+        </Style>
+    </UserControl.Resources>
     <Grid Name="gMain" >
     <Grid >
         <Grid.ColumnDefinitions>
@@ -29,29 +56,30 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <Image DockPanel.Dock="Right" Width="25" Margin="0,15,15,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Button  Click="AddColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddOneColumn}" />
-                        <Button  Click="RemoveColumn" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
+                        <Button  Click="AddColumn"  Content="{DynamicResource AddOneColumn}" />
+                        <Button  Click="RemoveColumn"  Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Button  Click="AddRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource AddOneRow}" />
-                        <Button  Click="RemoveRow" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource ReduceOneRow}" />
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button  Click="AddRow"  Content="{DynamicResource AddOneRow}" />
+                        <Button  Click="RemoveRow"  Margin="10,0,0,0" Content="{DynamicResource ReduceOneRow}" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Button  Click="SaveFile" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource Ok}" />
-                        <Button Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource Translation}" />
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Button  Click="SaveFile" Content="{DynamicResource Save}" Width="410"/>
                     </StackPanel>
                    </StackPanel>
-                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged" FontSize="16"  Background="Transparent" BorderBrush="White" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8"/>
-                <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="0,20,0,0">
-                    <Button  Click="AddPoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White"  Content="{DynamicResource AddPoint}" />
-                    <Button  Click="RemovePoint" Foreground="White" FontSize="14" Width="130" Height="22" Background="{x:Null}" BorderBrush="White" Margin="10,0,0,0" Content="{DynamicResource RemovePoint}" />
+                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged" FontSize="16" Margin="0,20,0,0" Background="Transparent" BorderBrush="White" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8"/>
+                <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button  Click="AddPoint"  Content="{DynamicResource AddPoint}" />
+                    <Button  Click="RemovePoint" Margin="10,0,0,0" Content="{DynamicResource RemovePoint}" />
                 </StackPanel>
-                <StackPanel Grid.Row="3"  Orientation="Horizontal" Margin="0,20,0,0">
-                    <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="130"  />
-                    <TextBox Name="tbInterval" Width="130" Margin="10,0,0,0" Text="10"/>
+                <StackPanel Grid.Row="3"  Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="200"  />
+                    <TextBox Name="tbInterval" Width="200" FontSize="18"  Margin="10,0,0,0" Text="10" TextAlignment="Right" Foreground="White" Background="#1c1e1f" BorderThickness="0" />
                 </StackPanel>
-                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4"/>
+                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0"/>
             </Grid>
     </Grid>
     </Grid>

@@ -201,7 +201,7 @@ namespace Maker.View
                     Content = filePath,
                 };
                 mw.lbMain.Items.Add(item);
-                mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
+                //mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
             }
         }
         /// <summary>

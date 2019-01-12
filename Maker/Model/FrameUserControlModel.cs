@@ -23,6 +23,30 @@ namespace Maker.Model
             set
             {
                 nowTimePoint = value;
+                if (nowTimePoint == 0)
+                {
+                    DeleteImgSource = "../../Resources/Image/delete_gray.png";
+                }
+                else
+                {
+                    DeleteImgSource = "../../Resources/Image/delete_blue.png";
+                }
+                if (nowTimePoint < 2)
+                {
+                    LeftImgSource = "../../Resources/Image/toleft_gray.png";
+                }
+                else
+                {
+                    LeftImgSource = "../../Resources/Image/toleft_blue.png";
+                }
+                if (nowTimePoint > liTime.Count-1)
+                {
+                    RightImgSource = "../../Resources/Image/toright_gray.png";
+                }
+                else
+                {
+                    RightImgSource = "../../Resources/Image/toright_blue.png";
+                }
                 RaisePropertyChanged(() => NowTimePoint);
                 LoadFrame();
             }
@@ -82,6 +106,62 @@ namespace Maker.Model
         }
 
         /// <summary>
+        /// 开始图片资源
+        /// </summary>
+        private String startImgSource = "../../Resources/Image/start_gray.png";
+        public String StartImgSource
+        {
+            get { return startImgSource; }
+            set
+            {
+                startImgSource = value;
+                RaisePropertyChanged(() => StartImgSource);
+            }
+        }
+
+        /// <summary>
+        /// 向左图片资源
+        /// </summary>
+        private String leftImgSource = "../../Resources/Image/toleft_gray.png";
+        public String LeftImgSource
+        {
+            get { return leftImgSource; }
+            set
+            {
+                leftImgSource = value;
+                RaisePropertyChanged(() => LeftImgSource);
+            }
+        }
+
+        /// <summary>
+        /// 向左图片资源
+        /// </summary>
+        private String rightImgSource = "../../Resources/Image/toright_gray.png";
+        public String RightImgSource
+        {
+            get { return rightImgSource; }
+            set
+            {
+                rightImgSource = value;
+                RaisePropertyChanged(() => RightImgSource);
+            }
+        }
+
+        /// <summary>
+        /// 删除图片资源
+        /// </summary>
+        private String deleteImgSource = "../../Resources/Image/delete_gray.png";
+        public String DeleteImgSource
+        {
+            get { return deleteImgSource; }
+            set
+            {
+                deleteImgSource = value;
+                RaisePropertyChanged(() => DeleteImgSource);
+            }
+        }
+
+        /// <summary>
         /// 当前灯光
         /// </summary>
         private List<Light> nowLightLight;
@@ -108,7 +188,6 @@ namespace Maker.Model
                 RaisePropertyChanged(() => Selects);
             }
         }
-
 
         /// <summary>
         /// 当前帧
@@ -148,6 +227,13 @@ namespace Maker.Model
             set
             {
                 liTime = value;
+                if (liTime.Contains(0))
+                {
+                    StartImgSource = "../../Resources/Image/start_gray.png";
+                }
+                else {
+                    StartImgSource = "../../Resources/Image/start_blue.png";
+                }
                 RaisePropertyChanged(() => LiTime);
             }
         }

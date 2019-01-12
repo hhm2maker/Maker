@@ -4,27 +4,19 @@ using Maker.Model;
 using Maker.View.Device;
 using Maker.View.Dialog;
 using Maker.View.UI.Tool.Paved;
-using Maker.View.Utils;
 using Maker.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -54,7 +46,8 @@ namespace Maker.View.LightUserControl
             InitLaunchpadEvent();
             //初始化绘制事件
             mLaunchpad.SetCanDraw(true);
-
+            //初始化回调函数
+            mLaunchpad.SetOnDataChange(OnLaunchpadDataChange);
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
             InitPosition();
@@ -1572,6 +1565,11 @@ namespace Maker.View.LightUserControl
             tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
         }
 
+        private void dpColor_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            popColor.IsOpen = true;
+        }
+
         private void iStyle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             MoveRLeft(0);
@@ -1652,6 +1650,8 @@ namespace Maker.View.LightUserControl
             mw.RemoveChildren();
         }
 
+    
+
         private void FourAreaClick(object sender, RoutedEventArgs e)
         {
             if (sender == btnLeftDown)
@@ -1662,6 +1662,56 @@ namespace Maker.View.LightUserControl
                 SelectPosition(rightDown);
             if (sender == btnRightUp)
                 SelectPosition(rightUp);
+        }
+
+        private void tbInsertDiyTimePoint_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String str = tbInsertDiyTimePoint.Text;
+            String strTime = str.Trim();
+            if (strTime.Trim().Equals(""))
+            {
+                return;
+            }
+            int time = 0;
+            try
+            {
+                if (strTime.Contains("+"))
+                {
+                    //当前时间 +
+                    time = int.Parse(strTime) + int.Parse(str.Substring(1));
+                }
+                else if (strTime.Contains("-"))
+                {
+                    //当前时间 -
+                    time = int.Parse(strTime) - int.Parse(str.Substring(1));
+                }
+                else
+                {
+                    //当前时间
+                    time = int.Parse(strTime);
+                }
+
+                if (time < 0)
+                {
+                    iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
+                    return;
+                }
+
+            }
+            catch
+            {
+                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
+                return;
+            }
+            //如果已经有该时间点，报错
+            if ((DataContext as FrameUserControlViewModel).Welcome.LiTime.Contains(time))
+            {
+                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
+            }
+            else
+            {
+                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_blue.png", UriKind.RelativeOrAbsolute));
+            }
         }
 
         public void SelectPosition(List<int> positions)
@@ -1725,5 +1775,9 @@ namespace Maker.View.LightUserControl
             writer.Close();
         }
 
+        private void  OnLaunchpadDataChange(List<Light> data) {
+            //当前页的回调
+            //LightBusiness.Print(data);
+        }
     }
 }

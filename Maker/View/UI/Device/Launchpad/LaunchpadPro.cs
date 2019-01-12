@@ -30,6 +30,11 @@ namespace Maker.View.Device
             InitBackground();
             InitRainBowBrush();
         }
+        public delegate void OnDataChange(List<Light> data);
+        public OnDataChange onDataChange;
+        public void SetOnDataChange(OnDataChange onDataChange) {
+            this.onDataChange = onDataChange;
+        }
 
         private void InitRainBowBrush()
         {
@@ -971,6 +976,10 @@ namespace Maker.View.Device
             if (e.NewValue != null) {
                 LaunchpadPro pro = obj as LaunchpadPro;
                 List<Light> mListList = e.NewValue as List<Light>;
+                pro.onDataChange(mListList);
+                if (pro.onDataChange != null) {
+                    pro.onDataChange(mListList);
+                }
                 MyClearAllColorExcept(pro);
                 for (int i = 0; i < mListList.Count; i++)
                 {
@@ -986,5 +995,6 @@ namespace Maker.View.Device
             }
         }
 
+        
     }
 }

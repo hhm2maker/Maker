@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Xml.Linq;
 
 namespace Maker.View.Dialog
@@ -26,7 +27,8 @@ namespace Maker.View.Dialog
 
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
-            previewLaunchpad.SetSize(300);
+            previewLaunchpad.SetSize(410);
+            previewLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(28,30,31)));
             mLaunchpad.SetParent(this);
 
         }
@@ -39,6 +41,8 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Width = mw.ActualWidth * 0.7;
+            Height = mw.ActualHeight * 0.7;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -241,6 +245,11 @@ namespace Maker.View.Dialog
                 }
             }
             return ll;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            mw.RemoveChildren();
         }
     }
 }

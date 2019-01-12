@@ -1193,8 +1193,6 @@
     <Resource Include="View\Resources\Image\revoke.png" />
     <Resource Include="View\Resources\Image\right.png" />
     <Resource Include="View\Resources\Image\roundcornersheet.png" />
-    <Resource Include="View\Resources\Image\saveas_blue.png" />
-    <Resource Include="View\Resources\Image\saveas_white.png" />
     <Resource Include="View\Resources\Image\save_blue.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -1206,7 +1204,6 @@
     <Resource Include="View\Resources\Image\shape.png" />
     <Resource Include="View\Resources\Image\small.png" />
     <Resource Include="View\Resources\Image\Star.png" />
-    <Resource Include="View\Resources\Image\start.png" />
     <Resource Include="View\Resources\Image\superposition.png" />
     <Resource Include="View\Resources\Image\switch.png" />
     <Resource Include="View\Resources\Image\textbox.png" />
@@ -1399,6 +1396,44 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\close_uc.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\start_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\start_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\add_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\add_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\toleft_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\toleft_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\toright_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\toright_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\delete_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\delete_gray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
