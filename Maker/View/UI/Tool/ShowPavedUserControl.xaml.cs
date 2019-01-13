@@ -37,6 +37,9 @@ namespace Maker.View.Tool
             this.mw = mw;
 
             this.mLightList = mLightList;
+
+            Width = mw.Width * 0.8;
+            Height = mw.Height * 0.8;
             pavedColumns = mw.pavedColumns;
         }
 
@@ -55,7 +58,7 @@ namespace Maker.View.Tool
             DoubleAnimation daHeight = new DoubleAnimation();
                 daHeight.From = 1;
                 daHeight.To = 0;
-                daHeight.Duration = TimeSpan.FromSeconds(0.3);
+                daHeight.Duration = TimeSpan.FromSeconds(0.2);
 
             daHeight.Completed += Board_Completed;
             wMain.BeginAnimation(OpacityProperty, daHeight);
@@ -63,7 +66,7 @@ namespace Maker.View.Tool
 
         private void Board_Completed(object sender, EventArgs e)
         {
-            mw.RemoveSetting();
+            mw.RemoveTool();
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)

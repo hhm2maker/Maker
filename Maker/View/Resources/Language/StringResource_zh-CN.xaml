@@ -492,4 +492,6 @@
     <sys:String x:Key="CreateFile">创建文件</sys:String>
     <sys:String x:Key="ItCanOnlyBeGeneratedByPlayingAnExport">只能通过演奏导出来生成</sys:String>
     <sys:String x:Key="Introduce">介绍</sys:String>
+    <sys:String x:Key="Basics">基础</sys:String>
+    
 </ResourceDictionary>

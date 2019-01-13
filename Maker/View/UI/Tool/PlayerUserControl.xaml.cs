@@ -53,6 +53,7 @@ namespace Maker.View
             gMain.Children.Add(playLpd);
 
             GeneralViewBusiness.SetLaunchpadStyle(playLpd, FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
+            gMain.Width = playLpd.Width;
             //if (lbMain.SelectedIndex == -1)
             //{
             //    return;
@@ -153,14 +154,14 @@ namespace Maker.View
 
         private void btnHide_Click(object sender, RoutedEventArgs e)
         {
-            DoubleAnimation daV = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.5)));
+            DoubleAnimation daV = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.2)));
             daV.Completed += DaV_Completed;
             BeginAnimation(OpacityProperty, daV);
         }
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-            mw.RemoveSetting();
+            mw.RemoveTool();
         }
 
         private String AudioResources = String.Empty;
@@ -226,8 +227,6 @@ namespace Maker.View
             {  
                 playLpd.SetWait(TimeSpan.FromMilliseconds(1000 / Double.Parse(tbBPM.Text)));
             }
-
-         
         }
 
         public void StopEvent()

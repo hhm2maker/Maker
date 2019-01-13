@@ -52,7 +52,163 @@
             </Grid.ColumnDefinitions>
             <Border BorderBrush="#282828" BorderThickness="0,0,2,0" Grid.Column="0" >
                     <DockPanel Background="#535353" >
-                        <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" >
+                        <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" Width="420">
+                            <TabItem Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
+                                <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#4A4A4A" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
+                                    <StackPanel  Background="#535353" Name="spMainLeft" Orientation="Vertical">
+                                        <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
+                                            <TextBlock Width="100" Text="{DynamicResource ModelColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="22" FontWeight="Bold" />
+                                            <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                <ComboBoxItem  Content="{DynamicResource Create}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                <ComboBoxItem Content="{DynamicResource Edit}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Background="#535353" Name="spMainContentLeft" Margin="10,0,10,0">
+                                            <GroupBox Header="{DynamicResource SelectEditorColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
+                                                <StackPanel Orientation="Vertical" Name="spSelectEditor"  HorizontalAlignment="Center">
+                                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Width="100" Text="{DynamicResource TimeColon}" />
+                                                        <TextBox  x:Name="tbSelectEditorTime"  Width="200" />
+                                                        <Image Width="27" Margin="10,0,0,0"  VerticalAlignment="Center" Source="../../Resources/Image/calc.png"/>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Width="100"  Text="{DynamicResource PositionColon}" />
+                                                        <TextBox x:Name="tbSelectEditorPosition" Width="240" />
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock   Width="100" Text="{DynamicResource ColorColon}" />
+                                                        <TextBox x:Name="tbSelectEditorColor" Width="240"  />
+                                                    </StackPanel>
+                                                    <WrapPanel  Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
+                                                        <Button x:Name="btnSelectEditorReplace"  Margin="0,15,10,0" Content="{DynamicResource Replace}" />
+                                                        <Button x:Name="btnSelectEditorAdd"  Margin="0,15,10,0" Content="{DynamicResource Add}"/>
+                                                        <Button x:Name="btnSelectEditorClear"  Margin="0,15,0,0" Click="ClearInput" Content="{DynamicResource Clear}" />
+                                                    </WrapPanel>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <GroupBox Header="{DynamicResource FastGenerationrColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
+                                                <StackPanel Orientation="Vertical"  VerticalAlignment="Top" Name="spFastGenerationr">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock Width="100" Text="{DynamicResource TimeColon}" />
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBox x:Name="tbFastGenerationrTime" Width="200" />
+                                                                <Image Width="27" Margin="10,0,0,0" VerticalAlignment="Center" Source="../../Resources/Image/calc.png"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock  Margin="0,15,0,0" Width="100" Text="{DynamicResource RangeColon}" />
+                                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
+                                                                <TextBox x:Name="tbFastGenerationrRange" Width="160" TextChanged="TextChanged" />
+                                                                <Border BorderThickness="1" BorderBrush="#363636">
+                                                                    <Image x:Name="btnFastGenerationrDraw" Source="../../Resources/Image/draw.png" Height="25" MouseLeftButtonDown="DrawRange" Width="38"/>
+                                                                </Border>
+                                                                <Button x:Name="btnFastGenerationrRange" Height="27" Click="ShowRangeList" Width="40"  FontSize="18" Content="..."  TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock Width="100"  Text="{DynamicResource IntervalColon}" />
+                                                            <TextBox x:Name="tbFastGenerationrInterval" Width="240" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock  Width="100" Text="{DynamicResource DurationColon}" />
+                                                            <TextBox x:Name="tbFastGenerationrContinued" Width="240" />
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock  Text="{DynamicResource ColorColon}" Width="100" />
+                                                            <StackPanel Orientation="Horizontal" >
+                                                                <TextBox x:Name="tbFastGenerationrColor" Width="200"  TextChanged="TextChanged"/>
+                                                                <Button x:Name="btnFastGenerationrColor" Height="27" Click="ShowRangeList" Width="40"  TabIndex="-1" FontSize="18" Content="..."  FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock   Text="{DynamicResource TypeColon}" Width="100" />
+                                                            <ComboBox SelectedIndex="0" FontSize="14" x:Name="cbFastGenerationrType" Height="27" VerticalAlignment="Center"  Width="240" HorizontalAlignment="Left"  Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                                <ComboBoxItem Content="{DynamicResource Up}" Style="{DynamicResource ComboBoxItemStyle1}" />
+                                                                <ComboBoxItem  Content="{DynamicResource Down}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource UpDown}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource DownUp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource UpAndDown}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource DownAndUp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource FreezeFrame}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                            </ComboBox>
+                                                        </StackPanel>
+                                                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                            <TextBlock Text="{DynamicResource ActionColon}" Width="100" />
+                                                            <ComboBox SelectionChanged="CbFastGenerationrAction_SelectionChanged" SelectedIndex="0" x:Name="cbFastGenerationrAction"  FontSize="14" Height="27"  VerticalAlignment="Center"  Width="240" HorizontalAlignment="Left" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                                <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                                <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                            </ComboBox>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <WrapPanel  Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
+                                                        <Button x:Name="btnFastGenerationrAdd"  Margin="0,15,0,0"  Click="ToLightScript" Content="{DynamicResource Add}" />
+                                                        <Button  x:Name="btnFastGenerationrSelect" Margin="15,15,0,0" Click="ToLightScript" Content="{DynamicResource Select}" />
+                                                        <Button  x:Name="btnFastGenerationrClear" Margin="15,15,0,0" Click="ClearInput"  Content="{DynamicResource Clear}" />
+                                                    </WrapPanel>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,30"  Style="{DynamicResource GroupBoxStyle2}" >
+                                                <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" Name="spConditionJudgment">
+                                                    <TextBlock  Margin="20,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
+                                                    <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Width="100" Text="{DynamicResource TimeEquals}" />
+                                                        <StackPanel Orientation="Horizontal" >
+                                                            <TextBox  x:Name="tbIfTime" Width="200"  />
+                                                            <Image Width="27" Margin="10,0,0,0" Source="../../Resources/Image/calc.png"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Text="{DynamicResource ActionEquals}" Width="100" />
+                                                        <ComboBox SelectedIndex="0" x:Name="cbIfAction"  FontSize="14" Height="27"  VerticalAlignment="Center"   Width="240" HorizontalAlignment="Left" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                            <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                            <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                            <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                                        </ComboBox>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock  Width="100" Text="{DynamicResource PositionEquals}" />
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBox x:Name="tbIfPosition" Width="160" TextChanged="TextChanged"/>
+                                                            <Border BorderThickness="1" BorderBrush="#363636">
+                                                                <Image x:Name="btnIfPositionDraw" Source="../../Resources/Image/draw.png" Height="25" MouseLeftButtonDown="DrawRange" Width="38"/>
+                                                            </Border>
+                                                            <Button x:Name="btnIfPositionRange" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Width="100" Text="{DynamicResource ColorEquals}" />
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBox x:Name="tbIfColor" Width="200" TextChanged="TextChanged"/>
+                                                            <Button x:Name="btnIfColor" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    <TextBlock  Margin="20,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Left"/>
+                                                    <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock  Width="100" Text="{DynamicResource TimeEquals}"/>
+                                                        <TextBox x:Name="tbThenTime" Width="240" />
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock Text="{DynamicResource PositionEquals}" Width="100" />
+                                                        <TextBox x:Name="tbThenPosition" Width="240"  />
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <TextBlock   Width="100" Text="{DynamicResource ColorEquals}" />
+                                                        <TextBox x:Name="tbThenColor" Width="240" />
+                                                    </StackPanel>
+                                                    <WrapPanel  Orientation="Horizontal"  Margin="0,10,0,10" HorizontalAlignment="Center" >
+                                                        <Button x:Name="tbIfThenReplace"  Margin="0,15,0,0"   Content="{DynamicResource Replace}" />
+                                                        <Button x:Name="tbIfThenRemove"  Margin="10,15,0,0"  Content="{DynamicResource Remove}" />
+                                                        <Button x:Name="tbIfThenClear"  Margin="10,15,0,0" Click="ClearInput" Content="{DynamicResource Clear}" />
+                                                    </WrapPanel>
+                                                </StackPanel>
+                                            </GroupBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </TabItem>
                             <TabItem Header="{DynamicResource Time}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource VerticalFlipping}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -151,160 +307,7 @@
                     </StackPanel>
                 </DockPanel>
             </Border>
-            <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#4A4A4A" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
-                <StackPanel  Background="#535353" Name="spMainLeft" Orientation="Vertical">
-                    <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
-                        <TextBlock Width="100" Text="{DynamicResource ModelColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="22" FontWeight="Bold" />
-                        <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
-                            <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
-                            <ComboBoxItem  Content="{DynamicResource Create}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
-                            <ComboBoxItem Content="{DynamicResource Edit}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                        </ComboBox>
-                    </StackPanel>
-                    <StackPanel Background="#535353" Name="spMainContentLeft" Margin="10,0,10,0">
-                        <GroupBox Header="{DynamicResource SelectEditorColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
-                            <StackPanel Orientation="Vertical" Name="spSelectEditor"  HorizontalAlignment="Center">
-                                <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Width="100" Text="{DynamicResource TimeColon}" />
-                                    <TextBox  x:Name="tbSelectEditorTime"  Width="200" />
-                                    <Image Width="27" Margin="10,0,0,0"  VerticalAlignment="Center" Source="../../Resources/Image/calc.png"/>
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Width="100"  Text="{DynamicResource PositionColon}" />
-                                    <TextBox x:Name="tbSelectEditorPosition" Width="240" />
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock   Width="100" Text="{DynamicResource ColorColon}" />
-                                    <TextBox x:Name="tbSelectEditorColor" Width="240"  />
-                                </StackPanel>
-                                <WrapPanel  Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
-                                    <Button x:Name="btnSelectEditorReplace"  Margin="0,15,10,0" Content="{DynamicResource Replace}" />
-                                    <Button x:Name="btnSelectEditorAdd"  Margin="0,15,10,0" Content="{DynamicResource Add}"/>
-                                    <Button x:Name="btnSelectEditorClear"  Margin="0,15,0,0" Click="ClearInput" Content="{DynamicResource Clear}" />
-                                </WrapPanel>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{DynamicResource FastGenerationrColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
-                            <StackPanel Orientation="Vertical"  VerticalAlignment="Top" Name="spFastGenerationr">
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock Width="100" Text="{DynamicResource TimeColon}" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBox x:Name="tbFastGenerationrTime" Width="200" />
-                                            <Image Width="27" Margin="10,0,0,0" VerticalAlignment="Center" Source="../../Resources/Image/calc.png"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock  Margin="0,15,0,0" Width="100" Text="{DynamicResource RangeColon}" />
-                                        <StackPanel Orientation="Horizontal" Margin="0,15,0,0" >
-                                            <TextBox x:Name="tbFastGenerationrRange" Width="160" TextChanged="TextChanged" />
-                                            <Border BorderThickness="1" BorderBrush="#363636">
-                                                <Image x:Name="btnFastGenerationrDraw" Source="../../Resources/Image/draw.png" Height="25" MouseLeftButtonDown="DrawRange" Width="38"/>
-                                            </Border>
-                                            <Button x:Name="btnFastGenerationrRange" Height="27" Click="ShowRangeList" Width="40"  FontSize="18" Content="..."  TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock Width="100"  Text="{DynamicResource IntervalColon}" />
-                                        <TextBox x:Name="tbFastGenerationrInterval" Width="240" />
-                                    </StackPanel>
-                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock  Width="100" Text="{DynamicResource DurationColon}" />
-                                        <TextBox x:Name="tbFastGenerationrContinued" Width="240" />
-                                    </StackPanel>
-                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock  Text="{DynamicResource ColorColon}" Width="100" />
-                                        <StackPanel Orientation="Horizontal" >
-                                            <TextBox x:Name="tbFastGenerationrColor" Width="200"  TextChanged="TextChanged"/>
-                                            <Button x:Name="btnFastGenerationrColor" Height="27" Click="ShowRangeList" Width="40"  TabIndex="-1" FontSize="18" Content="..."  FontWeight="Bold" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock   Text="{DynamicResource TypeColon}" Width="100" />
-                                        <ComboBox SelectedIndex="0" FontSize="14" x:Name="cbFastGenerationrType" Height="27" VerticalAlignment="Center"  Width="240" HorizontalAlignment="Left"  Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
-                                            <ComboBoxItem Content="{DynamicResource Up}" Style="{DynamicResource ComboBoxItemStyle1}" />
-                                            <ComboBoxItem  Content="{DynamicResource Down}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource UpDown}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource DownUp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource UpAndDown}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource DownAndUp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource FreezeFrame}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                        </ComboBox>
-                                    </StackPanel>
-                                    <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <TextBlock Text="{DynamicResource ActionColon}" Width="100" />
-                                        <ComboBox SelectionChanged="CbFastGenerationrAction_SelectionChanged" SelectedIndex="0" x:Name="cbFastGenerationrAction"  FontSize="14" Height="27"  VerticalAlignment="Center"  Width="240" HorizontalAlignment="Left" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
-                                            <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                            <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                        </ComboBox>
-                                    </StackPanel>
-                                </StackPanel>
-                                <WrapPanel  Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
-                                    <Button x:Name="btnFastGenerationrAdd"  Margin="0,15,0,0"  Click="ToLightScript" Content="{DynamicResource Add}" />
-                                    <Button  x:Name="btnFastGenerationrSelect" Margin="15,15,0,0" Click="ToLightScript" Content="{DynamicResource Select}" />
-                                    <Button  x:Name="btnFastGenerationrClear" Margin="15,15,0,0" Click="ClearInput"  Content="{DynamicResource Clear}" />
-                                </WrapPanel>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,30"  Style="{DynamicResource GroupBoxStyle2}" >
-                            <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" Name="spConditionJudgment">
-                                <TextBlock  Margin="20,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
-                                <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Width="100" Text="{DynamicResource TimeEquals}" />
-                                    <StackPanel Orientation="Horizontal" >
-                                        <TextBox  x:Name="tbIfTime" Width="200"  />
-                                        <Image Width="27" Margin="10,0,0,0" Source="../../Resources/Image/calc.png"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Text="{DynamicResource ActionEquals}" Width="100" />
-                                    <ComboBox SelectedIndex="0" x:Name="cbIfAction"  FontSize="14" Height="27"  VerticalAlignment="Center"   Width="240" HorizontalAlignment="Left" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
-                                        <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                        <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                        <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock  Width="100" Text="{DynamicResource PositionEquals}" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="tbIfPosition" Width="160" TextChanged="TextChanged"/>
-                                        <Border BorderThickness="1" BorderBrush="#363636">
-                                            <Image x:Name="btnIfPositionDraw" Source="../../Resources/Image/draw.png" Height="25" MouseLeftButtonDown="DrawRange" Width="38"/>
-                                        </Border>
-                                        <Button x:Name="btnIfPositionRange" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Width="100" Text="{DynamicResource ColorEquals}" />
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="tbIfColor" Width="200" TextChanged="TextChanged"/>
-                                        <Button x:Name="btnIfColor" Height="27" Click="ShowRangeList" Width="40" FontSize="18" Content="..." TabIndex="-1" FontWeight="Bold" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                <TextBlock  Margin="20,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Left"/>
-                                <StackPanel Margin="0,18,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock  Width="100" Text="{DynamicResource TimeEquals}"/>
-                                    <TextBox x:Name="tbThenTime" Width="240" />
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Text="{DynamicResource PositionEquals}" Width="100" />
-                                    <TextBox x:Name="tbThenPosition" Width="240"  />
-                                </StackPanel>
-                                <StackPanel Margin="0,15,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock   Width="100" Text="{DynamicResource ColorEquals}" />
-                                    <TextBox x:Name="tbThenColor" Width="240" />
-                                </StackPanel>
-                                <WrapPanel  Orientation="Horizontal"  Margin="0,10,0,10" HorizontalAlignment="Center" >
-                                    <Button x:Name="tbIfThenReplace"  Margin="0,15,0,0"   Content="{DynamicResource Replace}" />
-                                    <Button x:Name="tbIfThenRemove"  Margin="10,15,0,0"  Content="{DynamicResource Remove}" />
-                                    <Button x:Name="tbIfThenClear"  Margin="10,15,0,0" Click="ClearInput" Content="{DynamicResource Clear}" />
-                                </WrapPanel>
-                            </StackPanel>
-                        </GroupBox>
-                    </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
+           
             <Grid  x:Name="gMain"  Grid.Column="2" >
                 <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

@@ -8,7 +8,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
-          Background="#363B40"
+          Background="#1c1a1c"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -27,13 +27,19 @@
     </Window.Resources>
     <Grid Name="gMost">
         <DockPanel>
+            <Menu DockPanel.Dock="Top" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
+                <MenuItem Style="{x:Null}" Header="{DynamicResource Help}"  FontSize="16" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
+            </Menu>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid Name="dpFile" Background="#2E3033" Grid.Column="0" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave" >
+                <Grid Name="dpFile" Background="#222326" Grid.Column="0" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave" >
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+                    </Grid.Effect>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -127,29 +133,8 @@
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid  Grid.Column="0">
-                            <Grid  Margin="0,0,0,45"/>
-                            <DockPanel VerticalAlignment="Bottom"  Margin="5">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
-                                    <Image Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" Margin="10,0,0,0"/>
-                                  
-                                </StackPanel>
-                                <Image Source="View/Resources/Image/help.png" Width="25" DockPanel.Dock="Right" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="tbHelp_MouseLeftButtonUp"/>
-                                <Button Name="btnPlayer" Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch"  Background="#2E3033" >
-                                    <Button.Content>
-                                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Left">
-                                            <Image Source="View/Resources/Image/playersetting.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                            <TextBlock Text="{DynamicResource Player}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                        </StackPanel>
-                                    </Button.Content>
-                                </Button>
-                                <Image Margin="0,0,10,0" HorizontalAlignment="Right" Source="View/Resources/Image/enlarge.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                            </DockPanel>
-                        </Grid>
+                            <Grid  Margin="0,0,0,45" />
+                           
                     </Grid>
                     <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
@@ -184,9 +169,9 @@
                         </Border>
                     </StackPanel>
                 </Grid>
-                <Grid Grid.Column="2" Width="0" Name="bHelp" Background="#2E3033" >
+                <Grid Grid.Column="2" Width="0" Name="bHelp" Background="#222326" >
                     <StackPanel  VerticalAlignment="Top" Margin="0,0,0,0">
-                        <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#2E3033" >
+                        <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -194,7 +179,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAboutUserControl" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAboutUserControl" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/about.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -202,7 +187,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToFeedbackDialog" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToFeedbackDialog" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -210,7 +195,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToHelpOverview" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToHelpOverview" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -220,7 +205,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel   VerticalAlignment="Bottom">
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="JoinQQGroup_Click" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="JoinQQGroup_Click" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -228,7 +213,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToDeveloperListWindow" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToDeveloperListWindow" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -236,7 +221,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAppreciateWindow" Background="#2E3033" >
+                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAppreciateWindow" Background="#222326" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
                                     <Image Source="View/Resources/Image/appreciate.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -249,6 +234,21 @@
             </Grid>
         </DockPanel>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
+        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="90" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+            <StackPanel Orientation="Horizontal" Canvas.Top="40"  Background="#272727" Name="spBottomTool">
+                <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
+                <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
+            </StackPanel>
+        </Canvas>
+        <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
+        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Name="bToolChild" Background="#272727" Margin="0,0,0,45" >
+            <Border.Effect>
+                <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+            </Border.Effect>
+            <Grid>
+                <Grid Name="gTool" />
+            </Grid>
+        </Border>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

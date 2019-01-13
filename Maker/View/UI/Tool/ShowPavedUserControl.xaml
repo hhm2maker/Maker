@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:Maker.View"
              xmlns:tool="clr-namespace:Maker.View.Tool"
              mc:Ignorable="d"
-        Background="#282828"
         Name="wMain"
         Loaded="wMain_Loaded"
+             Margin="10"
+             Opacity="0"
         >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,9 +24,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0"  Name="dpMain"/>
+        <DockPanel Grid.Row="0"  Name="dpMain" />
         <Grid Grid.Row="1">
-            <Image x:Name="btnPaved"  Margin="15,10,10,10" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" />
+            <Image x:Name="btnPaved"  Margin="0,10,0,0" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" />
         </Grid>
     </Grid>
 </UserControl>

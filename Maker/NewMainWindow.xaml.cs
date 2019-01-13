@@ -21,6 +21,7 @@ using System.Windows.Media.Animation;
 using System.Xml;
 using Maker.View;
 using System.Windows.Media.Imaging;
+using Maker.Model;
 
 namespace Maker
 {
@@ -312,7 +313,7 @@ namespace Maker
             }
         }
 
-        private void tbHelp_MouseLeftButtonUp(object sender, MouseEventArgs e)
+        private void tbHelp_MouseLeftButtonUp(object sender, RoutedEventArgs e)
         {
             DoubleAnimation animation;
             if (bHelp.Width == 400)
@@ -383,10 +384,19 @@ namespace Maker
         /// <summary>
         /// 移除设置页面
         /// </summary>
-        /// <param name="ucSetting"></param>
         public void RemoveSetting()
         {
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
+        }
+
+        /// <summary>
+        /// 移除工具页面
+        /// </summary>
+        public void RemoveTool()
+        {
+            gTool.Children.RemoveAt(gTool.Children.Count - 1);
+            gToolBackGround.Visibility = Visibility.Collapsed;
+            HideTool();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -721,6 +731,7 @@ namespace Maker
             {
                 ImportFile(0, 1);
             }
+            gToolBackGround.Visibility = Visibility.Visible;
         }
         private void ExportFile(object sender, RoutedEventArgs e)
         {
@@ -841,46 +852,6 @@ namespace Maker
             //}
         }
 
-        /// <summary>
-        /// 是否是放大状态
-        /// </summary>
-        bool isShrink = false;
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            isShrink = !isShrink;
-            //更改图标
-            Image image = (Image)sender;
-            if (isShrink) {
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/shrink.png", UriKind.RelativeOrAbsolute));
-            }
-            else {
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/enlarge.png", UriKind.RelativeOrAbsolute));
-            }
-            ShowOrHideFilePanel();
-        }
-
-        private void ShowOrHideFilePanel()
-        {
-            DoubleAnimation animation;
-            if (dpFile.Width == 300)
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 0,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            else
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 300,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            dpFile.BeginAnimation(WidthProperty, animation);
-        }
-
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             
@@ -892,8 +863,12 @@ namespace Maker
             UserControl userControl = null;
             if (sender == iPlayer)
             {
-                //加入播放器页面
-                PlayerUserControl playerUserControl = new PlayerUserControl(this);
+                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
+                    //bToolChild.Width = deviceModel.DeviceSize;
+                    //bToolChild.Height = deviceModel.DeviceSize + 31;
+                    //bToolChild.Visibility = Visibility.Visible;
+                    //加入播放器页面
+                    PlayerUserControl playerUserControl = new PlayerUserControl(this);
                 playerUserControl.SetData(baseMakerLightUserControl.GetData());
                 userControl = playerUserControl;
             }
@@ -903,9 +878,11 @@ namespace Maker
                 ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, baseMakerLightUserControl.GetData());
                 userControl = pavedUserControl;
             }
-            gMost.Children.Add(userControl);
-            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
-            userControl.BeginAnimation(OpacityProperty, daV);
+                gTool.Children.Clear();
+                gTool.Children.Add(userControl);
+                gToolBackGround.Visibility = Visibility.Visible;
+                DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
+                userControl.BeginAnimation(OpacityProperty, daV);
             }
         }
 
@@ -928,6 +905,36 @@ namespace Maker
                 baseUserControl.LoadFile(fileName);
 
                 gMain.Visibility = Visibility.Visible;
+        }
+
+        private void Canvas_MouseEnter(object sender, MouseEventArgs e)
+        {
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                To = 0,
+                Duration = TimeSpan.FromSeconds(0.2),
+            };
+            spBottomTool.BeginAnimation(Canvas.TopProperty, animation);
+        }
+
+        private void HideTool() {
+            if (gTool.Children.Count > 0)
+                return;
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                To = 40,
+                Duration = TimeSpan.FromSeconds(0.2),
+            };
+            spBottomTool.BeginAnimation(Canvas.TopProperty, animation);
+        }
+        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            HideTool();
+        }
+
+        private void gToolBackGround_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            RemoveTool();
         }
     }
 }

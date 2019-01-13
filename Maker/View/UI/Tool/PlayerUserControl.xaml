@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-       Background="#13191E"
         Loaded="Window_Loaded"
              Opacity="0"
+                Margin="10"
         >
     <Grid Name="gMain">
-        <DockPanel Background="#535353" Height="31" VerticalAlignment="Bottom">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="1" Background="#535353" VerticalAlignment="Bottom">
             <ToolBar Background="#535353"  >
                 <TextBox Name="tbBPM" Margin="20,0,10,0" Width="50" FontSize="16"  Background="{x:Null}" Foreground="#FFFFFF" HorizontalContentAlignment="Right">96</TextBox>
                 <TextBlock  Margin="0,0,10,0" Foreground="#F0F0F0" FontSize="16" VerticalAlignment="Center"  Background="{x:Null}">BPM</TextBlock>
@@ -25,6 +29,6 @@
             <ToolBar  Background="#535353" HorizontalAlignment="Right">
                 <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Background="#535353" Name="btnHide" Click="btnHide_Click" Content="{DynamicResource Hide}"></Button>
             </ToolBar>
-        </DockPanel>
+        </WrapPanel>
     </Grid>
 </UserControl>

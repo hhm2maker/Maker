@@ -87,14 +87,14 @@
             <EventTrigger RoutedEvent="Button.MouseEnter">
                 <BeginStoryboard>
                     <Storyboard>
-                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#2E3033" To="#222222"   Duration="00:00:00.5" />
+                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#222326" To="#222222"   Duration="00:00:00.5" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
             <EventTrigger RoutedEvent="Button.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
-                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#222222" To="#2E3033"   Duration="00:00:00.5" />
+                        <ColorAnimation Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#222222" To="#222326"   Duration="00:00:00.5" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
