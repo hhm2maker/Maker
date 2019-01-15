@@ -42,6 +42,7 @@ namespace Maker
             bridge.Init();
 
             InitUserControl();
+
             InitFile();
         }
         
@@ -121,6 +122,8 @@ namespace Maker
             //IdeaUserControl
             iuc = new IdeaUserControl(this);
             userControls.Add(iuc);
+
+            gCenter.Children.Add(suc);
         }
 
         public void ShowAbout() {
@@ -296,6 +299,8 @@ namespace Maker
             }
         }
 
+       
+
         private void LoadFileList()
         {
             lbMain.Items.Clear();
@@ -335,15 +340,6 @@ namespace Maker
             bHelp.BeginAnimation(WidthProperty, animation);
         }
       
-
-        public void OpenFile()
-        {
-            if (dpFile.Visibility == Visibility.Collapsed)
-            {
-                dpFile.Visibility = Visibility.Visible;
-            }
-        }
-
 
         public void RemoveChildren() {
             gMain.Visibility = Visibility.Collapsed;
@@ -891,20 +887,28 @@ namespace Maker
             if (lbMain.SelectedItem == null)
                 return;
                 String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
-                for (int i = 0;i < userControls.Count;i++) {
-                    if (fileName.EndsWith(userControls[i]._fileExtension)) {
+            BaseUserControl baseUserControl = null;
+            if (!fileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (fileName.EndsWith(userControls[i]._fileExtension))
+                    {
                         IntoUserControl(i);
                         break;
                     }
                 }
-            if (gMain.Children.Count == 0)
-                return;
+                if (gMain.Children.Count == 0)
+                    return;
                 //是否是制作灯光的用户控件
-                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-                baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
-                baseUserControl.LoadFile(fileName);
-
+                baseUserControl = gMain.Children[0] as BaseUserControl;
                 gMain.Visibility = Visibility.Visible;
+            }
+            else {
+                baseUserControl = gCenter.Children[0] as BaseUserControl;
+            }
+            baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
+            baseUserControl.LoadFile(fileName);
         }
 
         private void Canvas_MouseEnter(object sender, MouseEventArgs e)

@@ -88,7 +88,6 @@ namespace Maker.View.LightScriptUserControl
             //svMainLeft.Width = 0;
             //svMainBottom.Visibility = Visibility.Visible;
 
-          
         }
         private String strInputFormatDelimiter;
         private String strInputFormatRange;
@@ -4544,5 +4543,7 @@ namespace Maker.View.LightScriptUserControl
         {
             _bridge.UpdateData();
         }
+
+     
     }
 }

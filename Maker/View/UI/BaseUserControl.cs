@@ -68,16 +68,9 @@ namespace Maker.View
                     Margin = new Thickness(20)
                 };
                 tbOr.SetResourceReference(TextBlock.TextProperty, "NoFileWasOpened");
-                //打开
-                Button btnOpen = new Button
-                {
-                    Width = 180
-                };
-                btnOpen.SetResourceReference(ContentProperty, "Open");
-                btnOpen.Click += OpenFile;
+              
                 //容器添加控件
                 spHint.Children.Add(tbOr);
-                spHint.Children.Add(btnOpen);
                 //总容器添加隐藏容器
                 mainView.Children.Add(spHint);
             }
@@ -101,15 +94,7 @@ namespace Maker.View
             set;
         }
        
-        /// <summary>
-        /// 打开文件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void OpenFile(object sender, RoutedEventArgs e)
-        {
-            mw.OpenFile();
-        }
+       
         /// <summary>
         /// 加载文件
         /// </summary>

@@ -132,10 +132,7 @@
                     </DockPanel>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Grid >
-                            <Grid  Margin="0,0,0,45" />
-                           
-                    </Grid>
+                            <Grid  Margin="0,0,0,45" Name="gCenter"/>
                     <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>

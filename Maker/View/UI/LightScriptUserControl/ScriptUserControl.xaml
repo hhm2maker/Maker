@@ -31,8 +31,8 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <DockPanel  Background="#535353" Grid.Row="0" >
-                <Menu Background="#535353" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
+            <DockPanel  Grid.Row="0" >
+                <Menu  Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
                     <MenuItem Style="{x:Null}" Header="{DynamicResource Edit_}"  FontSize="16" >
                         <MenuItem Style="{x:Null}" Header="{DynamicResource Unmake}" Name="miUnmake" FontSize="16" Foreground="#000000" Click="ImageUnmake_MouseLeftButtonDown" />
                         <MenuItem Style="{x:Null}" Header="{DynamicResource Redo}" Name="miRedo"  FontSize="16" Foreground="#000000" Click="ImageRedo_MouseLeftButtonDown" />
@@ -46,16 +46,14 @@
             </DockPanel>
             <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="425" MinWidth="425"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border BorderBrush="#282828" BorderThickness="0,0,2,0" Grid.Column="0" >
-                    <DockPanel Background="#535353" >
-                        <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" Width="420">
+                <TabControl BorderThickness="0" TabStripPlacement="Bottom" Grid.Column="0" Background="#222326">
                             <TabItem Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
-                                <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#4A4A4A" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
-                                    <StackPanel  Background="#535353" Name="spMainLeft" Orientation="Vertical">
+                        <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#222326" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
+                            <StackPanel  Background="#222326" Name="spMainLeft" Orientation="Vertical">
                                         <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
                                             <TextBlock Width="100" Text="{DynamicResource ModelColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="22" FontWeight="Bold" />
                                             <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
@@ -64,7 +62,7 @@
                                                 <ComboBoxItem Content="{DynamicResource Edit}" Style="{DynamicResource ComboBoxItemStyle1}"/>
                                             </ComboBox>
                                         </StackPanel>
-                                        <StackPanel Background="#535353" Name="spMainContentLeft" Margin="10,0,10,0">
+                                        <StackPanel Name="spMainContentLeft" Margin="10,0,10,0">
                                             <GroupBox Header="{DynamicResource SelectEditorColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
                                                 <StackPanel Orientation="Vertical" Name="spSelectEditor"  HorizontalAlignment="Center">
                                                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -266,7 +264,6 @@
                                         </TreeViewItem>
                                     </TreeView>
                                 </StackPanel>
-                               
                             </TabItem>
                             <TabItem Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
@@ -303,38 +300,33 @@
                                 </TreeView>
                             </TabItem>
                         </TabControl>
-                        <StackPanel Margin="5" VerticalAlignment="Top" DockPanel.Dock="Top" >
-                    </StackPanel>
-                </DockPanel>
-            </Border>
-           
-            <Grid  x:Name="gMain"  Grid.Column="2" >
+                <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" Width="3" Background="#282828"/>
+                <Grid  x:Name="gMain"  Grid.Column="2" >
                 <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
-                <Grid Background="#535353" >
+                    <Grid Background="#1c1a1c">
                     <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
-                    <TabControl BorderThickness="0" Margin="5" TabStripPlacement="Bottom" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow"  >
-                        <TabItem Header="Launchpad" Foreground="#ffffff" >
-                            <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                        <TabControl BorderThickness="0" TabStripPlacement="Bottom" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow" Background="#1c1a1c" >
+                            <TabItem Header="Launchpad" Foreground="#ffffff" >
+                                <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top"  HorizontalAlignment="Center" Width="auto" Margin="10,10,10,0">
                                     <TextBlock   Width="130" Foreground="White" FontSize="25"  Background="{x:Null}"  Text="{DynamicResource NowTimeColon}"/>
                                     <TextBlock  x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="25" TextAlignment="Right"><Run Text="0"/></TextBlock>
                                 </StackPanel>
-                                <launchpad:LaunchpadPro x:Name="mLaunchpad" DockPanel.Dock="Top"   HorizontalAlignment="Center" />
+                                <launchpad:LaunchpadPro x:Name="mLaunchpad"  DockPanel.Dock="Top"   HorizontalAlignment="Center" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top"  Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
                                     <Image x:Name="btnLastTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/back.png" Height="30"   MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown"/>
                                     <TextBox x:Name="tbTimePointCountLeft" Foreground="White" FontSize="20" Width="100" Height="30" TextAlignment="Center" Background="{x:Null}" TextChanged="TimePointCountLeft_TextChanged"/>
                                     <TextBlock Foreground="White" FontSize="20" Text=" / " Height="30" TextAlignment="Right" Background="{x:Null}" />
                                     <TextBlock  x:Name="tbTimePointCount" Width="100" TextAlignment="Center" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Background="{x:Null}" ><Run Text="100"/></TextBlock>
                                     <Image x:Name="btnNextTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/forward.png" Height="30"   MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown"/>
-
                                 </StackPanel>
                             </DockPanel>
                         </TabItem>
                         <TabItem Header="{DynamicResource DataGrid}" Foreground="#ffffff" >
-                            <DataGrid x:Name="dgMain" IsReadOnly="True"  AutoGenerateColumns="False" GridLinesVisibility="None" BorderThickness="0"  VerticalScrollBarVisibility="Visible"  FontSize="20" BorderBrush="{x:Null}"  RowHeaderWidth="0" DockPanel.Dock="Top" Style="{DynamicResource DataGridStyle1}"  Background="#282828">
+                            <DataGrid x:Name="dgMain" IsReadOnly="True"  AutoGenerateColumns="False" GridLinesVisibility="None" BorderThickness="0"  VerticalScrollBarVisibility="Visible"  FontSize="20" BorderBrush="{x:Null}"  RowHeaderWidth="0" DockPanel.Dock="Top" Style="{DynamicResource DataGridStyle1}"  Background="Transparent">
                                 <DataGrid.RowStyle>
                                     <Style TargetType="{x:Type DataGridRow}">
                                         <Setter Property="Background" Value="#00FFFFFF"/>
