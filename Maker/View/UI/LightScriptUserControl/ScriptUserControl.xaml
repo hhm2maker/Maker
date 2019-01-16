@@ -50,8 +50,8 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-                <TabControl BorderThickness="0" TabStripPlacement="Bottom" Grid.Column="0" Background="#222326">
-                            <TabItem Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
+                <TabControl Padding="0" BorderThickness="0" TabStripPlacement="Bottom" Grid.Column="0" Background="#1c1a1c">
+                            <TabItem  BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
                         <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#222326" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
                             <StackPanel  Background="#222326" Name="spMainLeft" Orientation="Vertical">
                                         <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
@@ -207,7 +207,7 @@
                                     </StackPanel>
                                 </ScrollViewer>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Time}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0"  Header="{DynamicResource Time}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource VerticalFlipping}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource LengtheningOrShortening}"  Foreground="#ffffff">
@@ -222,7 +222,7 @@
                                     <TreeViewItem Header="{DynamicResource Intercept}" Name="btnInterceptTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     </TreeView>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0"  Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource VerticalFlipping}" Name="btnVerticalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource HorizontalFlipping}" Name="btnHorizontalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -233,11 +233,11 @@
                                     <TreeViewItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                 </TreeView>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0" Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
                                 <StackPanel Orientation="Vertical">
                                     <TabControl BorderThickness="0" Margin="5">
                                         <TabItem Header="{DynamicResource Color}" Foreground="#ffffff" >
-                                            <Canvas Name="cColor" Height="60" Background="#535353" >
+                                    <Canvas Name="cColor" Height="60" Background="#222326" >
                                                 <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
                                             </Canvas>
                                         </TabItem>
@@ -265,34 +265,34 @@
                                     </TreeView>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource ColorSuperposition}" Name="btnCopyToTheEnd" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource ColorSuperpositionFollow}" Name="btnCopyToTheFollow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource AccelerationOrDeceleration}" Name="btnAccelerationOrDeceleration" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                 </TreeView>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Other}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0"  Header="{DynamicResource Other}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource RemoveTheBorder}" Name="btnRemoveBorder" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                 </TreeView>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem BorderThickness="0"  Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource Disappear}" Name="btnDisappear" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                 </TreeView>
                             </TabItem>
-                            <TabItem Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem  BorderThickness="0"  Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildThirdParty" BorderBrush="{x:Null}"/>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem BorderThickness="0"  Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
                             </TabItem>
-                            <TabItem Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem BorderThickness="0"  Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}"/>
                             </TabItem>
-                            <TabItem Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
+                    <TabItem BorderThickness="0"  Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource RhombusDiffusion}" Name="miRhombusDiffusion" PreviewMouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource CrossDiffusion}" Name="miCross" PreviewMouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
@@ -389,7 +389,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                <ListBox Grid.Column="0" AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick" Background="#4d4d4d" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                    <ListBox Background="#222326" Grid.Column="0" AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                     <ListBox.ContextMenu >
                         <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                             <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
@@ -404,13 +404,13 @@
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
-                    <Canvas Name="cTime" Grid.Column="1" SizeChanged="cTime_SizeChanged"  />
+                    <Canvas Name="cTime" Grid.Column="1" Background="#222326" SizeChanged="cTime_SizeChanged"  />
                 </Grid>
-                <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#4d4d4d" x:Name="spMainStep">
-                    <TextBlock Background="#4d4d4d" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
+                <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" x:Name="spMainStep">
+                    <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Background="#535353" Grid.Row="2" >
-                    <ToolBar Background="#535353"  ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                <StackPanel Background="#222326" Grid.Row="2" >
+                    <ToolBar Background="#222326"  ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                         <Image Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                         <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                         <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->
