@@ -3468,12 +3468,12 @@ namespace Maker.View.LightScriptUserControl
             //}
         }
 
-        private void ImageUnmake_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        private void ImageUnmake_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Unmake();
         }
 
-        private void ImageRedo_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        private void ImageRedo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Redo();
         }
@@ -3520,7 +3520,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void GetExecutionTime(object sender, RoutedEventArgs e)
+        private void GetExecutionTime(object sender, MouseButtonEventArgs e)
         {
             _bIsEdit = true;
             Stopwatch sw = new Stopwatch();
@@ -3534,7 +3534,7 @@ namespace Maker.View.LightScriptUserControl
             //iNowPosition--;
         }
 
-        private void GetCompleteScript(object sender, RoutedEventArgs e)
+        private void GetCompleteScript(object sender, MouseButtonEventArgs e)
         {
             new MessageDialog(mw, GetCompleteScript(), 0).ShowDialog();
         }
@@ -3572,7 +3572,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void MiIntroduce_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        private void MiIntroduce_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             EidtTextDialog edit = new EidtTextDialog();
             edit.SetData(introduceText);

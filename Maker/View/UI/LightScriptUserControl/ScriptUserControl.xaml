@@ -26,25 +26,11 @@
     <Grid Name="gMain_" >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <DockPanel  Grid.Row="0" >
-                <Menu  Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
-                    <MenuItem Style="{x:Null}" Header="{DynamicResource Edit_}"  FontSize="16" >
-                        <MenuItem Style="{x:Null}" Header="{DynamicResource Unmake}" Name="miUnmake" FontSize="16" Foreground="#000000" Click="ImageUnmake_MouseLeftButtonDown" />
-                        <MenuItem Style="{x:Null}" Header="{DynamicResource Redo}" Name="miRedo"  FontSize="16" Foreground="#000000" Click="ImageRedo_MouseLeftButtonDown" />
-                    </MenuItem>
-                    <MenuItem Style="{x:Null}" Header="{DynamicResource Debug}"  FontSize="16" >
-                        <MenuItem Style="{x:Null}" Header="{DynamicResource ExecutionTime}"  FontSize="16" Foreground="#000000" Click="GetExecutionTime" />
-                        <MenuItem Style="{x:Null}" Header="{DynamicResource CompleteScript}"   FontSize="16" Foreground="#000000" Click="GetCompleteScript" />
-                    </MenuItem>
-                    <MenuItem Style="{x:Null}" Header="{DynamicResource Introduce}"  FontSize="16" Foreground="#f0f0f0" Click="MiIntroduce_MouseLeftButtonDown" />
-                </Menu>
-            </DockPanel>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="425" MinWidth="425"/>
                 <ColumnDefinition Width="auto"/>
@@ -301,12 +287,12 @@
                             </TabItem>
                         </TabControl>
                 <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" Width="3" Background="#282828"/>
-                <Grid  x:Name="gMain"  Grid.Column="2" >
+                <Grid  x:Name="gMain"  Grid.Column="2">
                 <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
-                    <Grid Background="#1c1a1c">
+                    <Grid Background="#1c1a1c" Margin="0,55,0,0">
                     <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
                         <TabControl BorderThickness="0" TabStripPlacement="Bottom" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow" Background="#1c1a1c" >
                             <TabItem Header="Launchpad" Foreground="#ffffff" >
@@ -370,7 +356,15 @@
                         </TabItem>
                     </TabControl>
                 </Grid>
-                <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <Image Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown"/>
+                        <Image Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
+                        <Image Margin="20,0,0,0" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
+                        <Image Margin="10,0,0,0" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
+                        <Image Margin="20,0,0,0" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
+                    </StackPanel>
+
+                    <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
                 </StackPanel>

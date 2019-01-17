@@ -1149,9 +1149,6 @@
     <Resource Include="View\Resources\Image\headportrait.png" />
     <Resource Include="View\Resources\Image\icon.ico" />
     <Resource Include="View\Resources\Image\icon.png" />
-    <Resource Include="View\Resources\Image\introduce.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="View\Resources\Image\library.png" />
     <Resource Include="View\Resources\Image\light.png" />
     <Resource Include="View\Resources\Image\lightscript.png" />
@@ -1188,9 +1185,7 @@
     <Resource Include="View\Resources\Image\plus.png" />
     <Resource Include="View\Resources\Image\question.png" />
     <Resource Include="View\Resources\Image\record.png" />
-    <Resource Include="View\Resources\Image\redo.png" />
     <Resource Include="View\Resources\Image\remove.png" />
-    <Resource Include="View\Resources\Image\revoke.png" />
     <Resource Include="View\Resources\Image\right.png" />
     <Resource Include="View\Resources\Image\roundcornersheet.png" />
     <Resource Include="View\Resources\Image\save_blue.png">
@@ -1429,6 +1424,44 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\delete_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\redo_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\redo_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\revoke_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\revoke_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\executiontime_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\executiontime_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\completescript_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\completescript_gray.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\introduce_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\introduce_gray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
