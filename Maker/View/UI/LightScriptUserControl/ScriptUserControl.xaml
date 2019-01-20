@@ -303,11 +303,11 @@
                                 </StackPanel>
                                 <launchpad:LaunchpadPro x:Name="mLaunchpad"  DockPanel.Dock="Top"   HorizontalAlignment="Center" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top"  Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
-                                    <Image x:Name="btnLastTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/back.png" Height="30"   MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown"/>
+                                        <Image x:Name="btnLastTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/toleft_gray.png" Height="30"   MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown"/>
                                     <TextBox x:Name="tbTimePointCountLeft" Foreground="White" FontSize="20" Width="100" Height="30" TextAlignment="Center" Background="{x:Null}" TextChanged="TimePointCountLeft_TextChanged"/>
                                     <TextBlock Foreground="White" FontSize="20" Text=" / " Height="30" TextAlignment="Right" Background="{x:Null}" />
                                     <TextBlock  x:Name="tbTimePointCount" Width="100" TextAlignment="Center" Foreground="White" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Background="{x:Null}" ><Run Text="100"/></TextBlock>
-                                    <Image x:Name="btnNextTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/forward.png" Height="30"   MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown"/>
+                                        <Image x:Name="btnNextTimePoint"  Margin="10" Width="30"  Source="../../Resources/Image/toright_gray.png" Height="30"   MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown"/>
                                 </StackPanel>
                             </DockPanel>
                         </TabItem>

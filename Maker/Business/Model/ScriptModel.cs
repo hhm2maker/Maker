@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.Business.Model.OperationModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,5 +49,11 @@ namespace Maker.Model
             get;
             set;
         }
+        public List<BaseOperationModel> OperationModels
+        {
+            get;
+            set;
+        }
+        
     }
 }

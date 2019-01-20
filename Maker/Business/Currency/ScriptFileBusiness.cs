@@ -1,4 +1,5 @@
-﻿using Maker.Business.ScriptUserControlBusiness;
+﻿using Maker.Business.Model.OperationModel;
+using Maker.Business.ScriptUserControlBusiness;
 using Maker.Model;
 using Maker.View.LightScriptUserControl;
 using Microsoft.CSharp;
@@ -70,9 +71,14 @@ namespace Maker.Business.ViewBusiness.Currency
                     scriptModel.Visible = false;
                 }
                 scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
-                scriptModelDictionary.Add(scriptModel.Name, scriptModel);
-
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
+
+                foreach (var xEdit in xScript.Elements()) {
+                    if (xEdit.Name.Equals("VerticalFlipping")) {
+                        scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
+                    }
+                }
+                scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }
             return scriptModelDictionary;
         }
