@@ -13,6 +13,7 @@ namespace Maker.Model
             Contain = new List<string>();
             Intersection = new List<string>();
             Complement = new List<string>();
+            OperationModels = new List<BaseOperationModel>();
         }
         public String Name
         {

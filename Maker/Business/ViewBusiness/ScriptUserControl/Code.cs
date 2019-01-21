@@ -1,4 +1,5 @@
-﻿using Maker.Model;
+﻿using Maker.Business.Model.OperationModel;
+using Maker.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,7 +71,18 @@ namespace Maker.Business.ScriptUserControlBusiness
                             sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
                         }
                         sb.Append(scriptModel.Value.Value);
-                        sb.Append("return " + scriptModel.Key + "LightGroup;}");
+
+                    if (scriptModel.Value.Value.Contains(scriptModel.Key + "LightGroup")) {
+
+                        foreach (var mItem in scriptModel.Value.OperationModels)
+                    {
+                        if (mItem is VerticalFlippingOperationModel)
+                        {
+                                scriptModel.Value.Value += Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();";
+                        }
+                    }
+                    }
+                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");

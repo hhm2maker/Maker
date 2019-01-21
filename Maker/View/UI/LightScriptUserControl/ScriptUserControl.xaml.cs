@@ -23,6 +23,7 @@ using System.Windows.Media.Imaging;
 using static Maker.Model.EnumCollection;
 using System.Xml;
 using System.Xml.Linq;
+using Maker.Business.Model.OperationModel;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -3988,6 +3989,16 @@ namespace Maker.View.LightScriptUserControl
                 {
                     xScript.SetAttributeValue("complement", "");
                 }
+
+                foreach (var mItem in item.Value.OperationModels)
+                {
+                    if (mItem is VerticalFlippingOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("VerticalFlipping");
+                        xScript.Add(xVerticalFlipping);
+                    }
+                }
+
                 xScripts.Add(xScript);
             }
             xDoc.Save(filePath);
@@ -4029,22 +4040,34 @@ namespace Maker.View.LightScriptUserControl
         {
             TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
             //没有可操作的步骤
-            if (lbStep.SelectedIndex == -1)
-                return;
+            //if (lbStep.SelectedIndex == -1)
+            //    return;
+            StackPanel sp;
+            if (e.OriginalSource is StackPanel) {
+                 sp = (StackPanel)sender2;
+            }
+            else {
+                FrameworkElement element = (FrameworkElement)e.OriginalSource;
+                int i = 0;
+                while (!(element is StackPanel)) {
+                    element = (FrameworkElement)element.Parent;
+                    if (i == 10)
+                        break;
+                    i++;
+                }
+                sp = (StackPanel)element;
+            }
           
-            for (int k = 0; k < lbStep.SelectedItems.Count; k++)
-            {
-                StackPanel sp = (StackPanel)lbStep.SelectedItems[k];
                 if (lockedDictionary.ContainsKey(GetStepName(sp)))
                 {
                     new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                    continue;
+                    return;
                 }
                 ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
                 //没有可操作的灯光组
                 if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
                 {
-                    continue;
+                return;
                 }
                 String command = String.Empty;
                 if (sender == btnHorizontalFlipping)
@@ -4053,7 +4076,8 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnVerticalFlipping)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
+                    scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
+                    //scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.VerticalFlipping();";
                 }
                 if (sender == btnLowerLeftSlashFlipping)
                 {
@@ -4535,7 +4559,7 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += command;
                     }
                 }
-            }
+            Console.WriteLine("AAAAA");
             Test();
         }
 

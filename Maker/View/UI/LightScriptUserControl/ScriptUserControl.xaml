@@ -195,7 +195,7 @@
                             </TabItem>
                     <TabItem  BorderThickness="0"  Header="{DynamicResource Time}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
-                                    <TreeViewItem Header="{DynamicResource VerticalFlipping}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource Reversal}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource LengtheningOrShortening}"  Foreground="#ffffff">
                                         <TreeViewItem Header="{DynamicResource DoubleExtension}" Name="btnExtendTime" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                         <TreeViewItem Header="{DynamicResource DoubleShortening}" Name="btnShortenTime" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
