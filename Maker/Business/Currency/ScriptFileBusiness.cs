@@ -82,7 +82,6 @@ namespace Maker.Business.ViewBusiness.Currency
             }
             return scriptModelDictionary;
         }
-
         public static Dictionary<string, List<Light>> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();

@@ -22,3 +22,5 @@
 - CurrencyBusiness（通用业务）
 - Model(业务模型)
 - ViewBusiness(与UI一一对应，处理自己UI页独有的业务)
+
+![](img.jpg)

@@ -1665,8 +1665,11 @@ namespace Maker.View.LightScriptUserControl
         {
             StackPanel sp = new StackPanel
             {
-                Orientation = Orientation.Horizontal
+                Orientation = Orientation.Horizontal,
+                Background = new SolidColorBrush(Colors.Transparent),
+                AllowDrop = true,
             };
+            sp.PreviewDrop += lbStep_Drop;
             DockPanel visiblePanel = new DockPanel();
             visiblePanel.MouseLeftButtonDown += VisiblePanel_MouseLeftButtonDown;
             visiblePanel.Width = 30;
@@ -3998,7 +4001,6 @@ namespace Maker.View.LightScriptUserControl
                         xScript.Add(xVerticalFlipping);
                     }
                 }
-
                 xScripts.Add(xScript);
             }
             xDoc.Save(filePath);
@@ -4039,12 +4041,9 @@ namespace Maker.View.LightScriptUserControl
         private void lbStep_Drop(object sender2, DragEventArgs e)
         {
             TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
-            //没有可操作的步骤
-            //if (lbStep.SelectedIndex == -1)
-            //    return;
             StackPanel sp;
             if (e.OriginalSource is StackPanel) {
-                 sp = (StackPanel)sender2;
+                 sp = (StackPanel)e.OriginalSource;
             }
             else {
                 FrameworkElement element = (FrameworkElement)e.OriginalSource;
@@ -4559,7 +4558,6 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += command;
                     }
                 }
-            Console.WriteLine("AAAAA");
             Test();
         }
 

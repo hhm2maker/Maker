@@ -383,7 +383,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox Background="#222326" Grid.Column="0" AllowDrop="True" DragDrop.Drop="lbStep_Drop" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                    <ListBox Background="#222326" Grid.Column="0" Style="{StaticResource ListBoxStyle1}" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                     <ListBox.ContextMenu >
                         <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                             <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

@@ -78,7 +78,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                     {
                         if (mItem is VerticalFlippingOperationModel)
                         {
-                                scriptModel.Value.Value += Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();";
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();");
                         }
                     }
                     }
@@ -86,6 +86,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                 }
             }
             sb.Append("}");
+            //TODO:
             Console.WriteLine(sb.ToString());
             return sb.ToString();
         }
