@@ -74,7 +74,8 @@ namespace Maker.Business.ViewBusiness.Currency
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
                 foreach (var xEdit in xScript.Elements()) {
-                    if (xEdit.Name.Equals("VerticalFlipping")) {
+                    if (xEdit.Name.ToString().Equals("VerticalFlipping"))
+                    {
                         scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
                     }
                 }

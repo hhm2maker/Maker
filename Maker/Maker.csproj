@@ -231,6 +231,9 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.xaml.cs">
+      <DependentUpon>VerticalFlippingOperationChild.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\Paved\ShowPavedWindow.xaml.cs">
       <DependentUpon>ShowPavedWindow.xaml</DependentUpon>
     </Compile>
@@ -585,6 +588,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Style\Child\VerticalFlippingOperationChild.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

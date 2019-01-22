@@ -1,4 +1,5 @@
-﻿using Maker.View.Control;
+﻿using Maker.Business.Model.OperationModel;
+using Maker.View.Control;
 using Maker.View.Style.Child;
 using System;
 using System.Collections.Generic;
@@ -59,79 +60,73 @@ namespace Maker.View.Style
             DialogResult = true;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            LocationChanged += new EventHandler(RuntimePopup_LocationChanged);
-        }
-        void RuntimePopup_LocationChanged(object sender, EventArgs e)
-        {
-            var mi = typeof(System.Windows.Controls.Primitives.Popup).GetMethod("UpdatePosition", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            mi.Invoke(popup, null);//控制popup随window移动而移动
-        }
 
-        private int lastSelection = 0;
 
         private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lbCatalog.SelectedIndex == -1)
-                return;
-            UserControl sp;
-            if (lastSelection != -1) {
-                sp = (UserControl)svMain.Children[lastSelection];
-                sp.Visibility = Visibility.Collapsed;
+            {
+                svMain.Children.Clear();
             }
-            lastSelection = lbCatalog.SelectedIndex;
-            sp = (UserControl)svMain.Children[lastSelection];
-            sp.Visibility = Visibility.Visible;
+            else {
+                BaseOperationModel baseOperationModel = operationModels[lbCatalog.SelectedIndex];
+                    if (baseOperationModel is VerticalFlippingOperationModel)
+                    {
+                        svMain.Children.Add(new VerticalFlippingOperationChild());
+                    }
+            }
+
+            
         }
-
-        public void SetData(string content)
+       private List<BaseOperationModel> operationModels;
+        public void SetData(List<BaseOperationModel> operationModels)
         {
-            if (content.Equals(String.Empty))
+            this.operationModels = operationModels;
+
+            foreach (var item in operationModels)
             {
-                AddContent("Color");
-                AddContent("Shape");
-                AddContent("Time");
-                AddContent("ColorOverlay");
-                AddContent("SportOverlay");
-                AddContent("Other");
-            }
-            else
-            {
-                String[] contents = content.Split(';');
-                foreach (String str in contents)
+                if (item is VerticalFlippingOperationModel)
                 {
-                    if (str.Equals(String.Empty))
-                        continue;
-                    String[] strs = str.Split('=');
-                    String type = strs[0];
-                    String[] _contents = strs[1].Split(',');
-
-                    AddContent(type);
-                    CheckBox box = (CheckBox)lbCatalog.Items[lbCatalog.Items.Count - 1];
-                    box.IsChecked = true;
-
-                    BaseChild child = (BaseChild)svMain.Children[svMain.Children.Count - 1];
-                    child.SetString(_contents);
+                    TextBlock box = new TextBlock
+                    {
+                        FontSize = 16,
+                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240))
+                    };
+                    box.SetResourceReference(TextBlock.TextProperty, "VerticalFlipping");
+                    box.MouseLeftButtonDown += Box_Click;
+                    lbCatalog.Items.Add(box);
+                 
                 }
             }
-            foreach (object o in svMain.Children) {
-                UserControl u = (UserControl)o;
-                u.Visibility = Visibility.Collapsed;
-            }
-            lastSelection = 0;
+            //String[] contents = content.Split(';');
+            //   foreach (String str in contents)
+            //   {
+            //       if (str.Equals(String.Empty))
+            //           continue;
+            //       String[] strs = str.Split('=');
+            //       String type = strs[0];
+            //       String[] _contents = strs[1].Split(',');
+
+            //       AddContent(type);
+            //       CheckBox box = (CheckBox)lbCatalog.Items[lbCatalog.Items.Count - 1];
+            //       box.IsChecked = true;
+
+            //       BaseChild child = (BaseChild)svMain.Children[svMain.Children.Count - 1];
+            //       child.SetString(_contents);
+            //   }
             lbCatalog.SelectedIndex = 0;
-            UserControl sp = (UserControl)svMain.Children[0];
-            sp.Visibility = Visibility.Visible;
+         
         }
 
         private void AddContent(string type)
         {
-            CheckBox box = new CheckBox();
-            box.FontSize = 16;
-            box.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
+            CheckBox box = new CheckBox
+            {
+                FontSize = 16,
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240))
+            };
             box.SetValue(CheckBox.StyleProperty, Application.Current.Resources["CheckBoxStyle1"]);
-            box.Width = 200;
+            //box.Width = 200;
             if (type.Equals("Color")) {
                 box.SetResourceReference(CheckBox.ContentProperty, "Color");
                 svMain.Children.Add(new ColorChild());
@@ -161,104 +156,15 @@ namespace Maker.View.Style
                 box.SetResourceReference(CheckBox.ContentProperty, "Other");
                 svMain.Children.Add(new OtherChild());
             }
-            box.Click += Box_Click;
+            //box.Click += Box_Click;
             lbCatalog.Items.Add(box);
         }
 
-        private void Box_Click(object sender, RoutedEventArgs e)
+        private void Box_Click(object sender, MouseButtonEventArgs e)
         {
-            CheckBox box = (CheckBox)sender;
             lbCatalog.SelectedItem = sender;
         }
 
-        private void btnNewFx_Click(object sender, RoutedEventArgs e)
-        {
-            if (popup.IsOpen == true) {
-                popup.IsOpen = false;
-            }
-            else{
-                //刷新数据
-                //颜色、时间、其他不可以重复
-                //形状、颜色叠加、运动叠加可以重复
-                bool bColor = true;
-                bool bTime = true;
-                bool bOther = true;
-                foreach (Object obj in lbCatalog.Items) {
-                    CheckBox box = (CheckBox)obj;
-                    if (box.Content.Equals("颜色")|| box.Content.Equals("Color")) {
-                        bColor = false;
-                    }
-                    if (box.Content.Equals("时间") || box.Content.Equals("Time"))
-                    {
-                        bTime = false;
-                    }
-                    if (box.Content.Equals("其他") || box.Content.Equals("Other"))
-                    {
-                        bOther = false;
-                    }
-                }
-                lbFx.Items.Clear();
-                if (bColor == true) {
-                    ListBoxItem item = new ListBoxItem();
-                    item.SetResourceReference(ListBoxItem.ContentProperty, "Color");
-                    lbFx.Items.Add(item);
-                }
-                ListBoxItem item2 = new ListBoxItem();
-                item2.SetResourceReference(ListBoxItem.ContentProperty, "Shape");
-                lbFx.Items.Add(item2);
-                if (bTime == true) {
-                    ListBoxItem item3 = new ListBoxItem();
-                    item3.SetResourceReference(ListBoxItem.ContentProperty, "Time");
-                    lbFx.Items.Add(item3);
-                }
-                ListBoxItem item4 = new ListBoxItem();
-                item4.SetResourceReference(ListBoxItem.ContentProperty, "ColorSuperposition");
-                lbFx.Items.Add(item4);
-                ListBoxItem item5 = new ListBoxItem();
-                item5.SetResourceReference(ListBoxItem.ContentProperty, "AccelerationOrDeceleration");
-                lbFx.Items.Add(item5);
-                if (bOther == true) {
-                    ListBoxItem item6 = new ListBoxItem();
-                    item6.SetResourceReference(ListBoxItem.ContentProperty, "Other");
-                    lbFx.Items.Add(item6);
-                }
-                popup.IsOpen = true;
-            }
-         
-        }
-
-        private void lbFx_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (lbFx.SelectedIndex == -1) {
-                return;
-            }
-            ListBoxItem item = (ListBoxItem)lbFx.SelectedItem;
-            if (item.Content.Equals("颜色")|| item.Content.Equals("Color")) {
-                AddContent("Color");
-            }
-            if (item.Content.Equals("形状") || item.Content.Equals("Shape"))
-            {
-                AddContent("Shape");
-            }
-            if (item.Content.Equals("时间") || item.Content.Equals("Time"))
-            {
-                AddContent("Time");
-            }
-            if (item.Content.Equals("颜色叠加") || item.Content.Equals("Color Overlap"))
-            {
-                AddContent("ColorOverlay");
-            }
-            if (item.Content.Equals("运动叠加") || item.Content.Equals("Accelerate/Decelerate"))
-            {
-                AddContent("SportOverlay");
-            }
-            if (item.Content.Equals("其他") || item.Content.Equals("Other"))
-            {
-                AddContent("Other");
-            }
-            lbCatalog.SelectedIndex = lbCatalog.Items.Count - 1;
-            popup.IsOpen = false;
-        }
 
         private void BtnRemoveFx_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -267,7 +173,6 @@ namespace Maker.View.Style
             int position = lbCatalog.SelectedIndex;
             lbCatalog.Items.RemoveAt(position);
             svMain.Children.RemoveAt(position);
-            lastSelection = -1;
         }
 
         private void ImgUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

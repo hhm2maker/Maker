@@ -2869,20 +2869,14 @@ namespace Maker.View.LightScriptUserControl
 
         private void LbStep_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            return;
-            if (lbStep.SelectedIndex == -1)
+            if (lbStep.SelectedIndex == -1 || scriptModelDictionary[GetStepName()].OperationModels.Count == 0)
                 return;
             StyleWindow style = new StyleWindow(mw);
-            if (finalDictionary.ContainsKey(GetStepName()))
-            {
-                style.SetData(finalDictionary[GetStepName()]);
-            }
-            else
-            {
-                style.SetData("");
-            }
+            style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
+          
             if (style.ShowDialog() == true)
             {
+                return;
                 if (finalDictionary.ContainsKey(GetStepName()))
                 {
                     if (!style._Content.Equals(String.Empty))
@@ -3646,35 +3640,36 @@ namespace Maker.View.LightScriptUserControl
 
         private void SpMainStep_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            StyleWindow style = new StyleWindow(mw);
-            if (finalDictionary.ContainsKey("Main"))
-            {
-                style.SetData(finalDictionary["Main"]);
-            }
-            else
-            {
-                style.SetData("");
-            }
-            if (style.ShowDialog() == true)
-            {
-                if (finalDictionary.ContainsKey("Main"))
-                {
-                    if (!style._Content.Equals(String.Empty))
-                    {
-                        finalDictionary["Main"] = style._Content;
-                    }
-                    else
-                    {
-                        finalDictionary.Remove("Main");
-                    }
-                }
-                else
-                {
-                    if (!style._Content.Equals(String.Empty))
-                        finalDictionary.Add("Main", style._Content);
-                }
-                //RefreshData();
-            }
+            return;
+            //StyleWindow style = new StyleWindow(mw);
+            //if (finalDictionary.ContainsKey("Main"))
+            //{
+            //    style.SetData(finalDictionary["Main"]);
+            //}
+            //else
+            //{
+            //    style.SetData("");
+            //}
+            //if (style.ShowDialog() == true)
+            //{
+            //    if (finalDictionary.ContainsKey("Main"))
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //        {
+            //            finalDictionary["Main"] = style._Content;
+            //        }
+            //        else
+            //        {
+            //            finalDictionary.Remove("Main");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //            finalDictionary.Add("Main", style._Content);
+            //    }
+            //    //RefreshData();
+            //}
         }
 
         public int needChangeColor;

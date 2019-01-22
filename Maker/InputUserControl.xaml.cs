@@ -2914,37 +2914,37 @@ namespace Maker
       
         private void LbStep_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (lbStep.SelectedIndex == -1)
-                return;
-            StyleWindow style = new StyleWindow(mw);
-            if (finalDictionary.ContainsKey(GetStepName()))
-            {
-                style.SetData(finalDictionary[GetStepName()]);
-            }
-            else
-            {
-                style.SetData("");
-            }
-            if (style.ShowDialog() == true)
-            {
-                if (finalDictionary.ContainsKey(GetStepName()))
-                {
-                    if (!style._Content.Equals(String.Empty))
-                    {
-                        finalDictionary[GetStepName()] = style._Content;
-                    }
-                    else
-                    {
-                        finalDictionary.Remove(GetStepName());
-                    }
-                }
-                else
-                {
-                    if (!style._Content.Equals(String.Empty))
-                        finalDictionary.Add(GetStepName(), style._Content);
-                }
-                RefreshData();
-            }
+            //if (lbStep.SelectedIndex == -1)
+            //    return;
+            //StyleWindow style = new StyleWindow(mw);
+            //if (finalDictionary.ContainsKey(GetStepName()))
+            //{
+            //    style.SetData(finalDictionary[GetStepName()]);
+            //}
+            //else
+            //{
+            //    style.SetData("");
+            //}
+            //if (style.ShowDialog() == true)
+            //{
+            //    if (finalDictionary.ContainsKey(GetStepName()))
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //        {
+            //            finalDictionary[GetStepName()] = style._Content;
+            //        }
+            //        else
+            //        {
+            //            finalDictionary.Remove(GetStepName());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //            finalDictionary.Add(GetStepName(), style._Content);
+            //    }
+            //    RefreshData();
+            //}
         }
 
         private void DrawRange(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -4226,35 +4226,35 @@ namespace Maker
 
         private void SpMainStep_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            StyleWindow style = new StyleWindow(mw);
-            if (finalDictionary.ContainsKey("Main"))
-            {
-                style.SetData(finalDictionary["Main"]);
-            }
-            else
-            {
-                style.SetData("");
-            }
-            if (style.ShowDialog() == true)
-            {
-                if (finalDictionary.ContainsKey("Main"))
-                {
-                    if (!style._Content.Equals(String.Empty))
-                    {
-                        finalDictionary["Main"] = style._Content;
-                    }
-                    else
-                    {
-                        finalDictionary.Remove("Main");
-                    }
-                }
-                else
-                {
-                    if (!style._Content.Equals(String.Empty))
-                        finalDictionary.Add("Main", style._Content);
-                }
-                RefreshData();
-            }
+            //StyleWindow style = new StyleWindow(mw);
+            //if (finalDictionary.ContainsKey("Main"))
+            //{
+            //    style.SetData(finalDictionary["Main"]);
+            //}
+            //else
+            //{
+            //    style.SetData("");
+            //}
+            //if (style.ShowDialog() == true)
+            //{
+            //    if (finalDictionary.ContainsKey("Main"))
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //        {
+            //            finalDictionary["Main"] = style._Content;
+            //        }
+            //        else
+            //        {
+            //            finalDictionary.Remove("Main");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //            finalDictionary.Add("Main", style._Content);
+            //    }
+            //    RefreshData();
+            //}
         }
 
         public int needChangeColor;
