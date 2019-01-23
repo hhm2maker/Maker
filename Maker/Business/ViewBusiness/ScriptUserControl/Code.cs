@@ -80,7 +80,11 @@ namespace Maker.Business.ScriptUserControlBusiness
                         {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();");
                         }
-                    }
+                            else if (mItem is HorizontalFlippingOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.HorizontalFlipping();");
+                            }
+                        }
                     }
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }

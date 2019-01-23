@@ -129,6 +129,7 @@
     <Compile Include="Business\Model\FramePointModel.cs" />
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
+    <Compile Include="Business\Model\OperationModel\HorizontalFlippingOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\VerticalFlippingOperationModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
     <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
@@ -231,6 +232,9 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\Style\Child\HorizontalFlippingOperationChild.xaml.cs">
+      <DependentUpon>HorizontalFlippingOperationChild.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.xaml.cs">
       <DependentUpon>VerticalFlippingOperationChild.xaml</DependentUpon>
     </Compile>
@@ -588,6 +592,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Style\Child\HorizontalFlippingOperationChild.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

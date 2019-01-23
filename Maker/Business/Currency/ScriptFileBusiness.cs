@@ -78,6 +78,10 @@ namespace Maker.Business.ViewBusiness.Currency
                     {
                         scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
                     }
+                    else if (xEdit.Name.ToString().Equals("HorizontalFlipping"))
+                    {
+                        scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

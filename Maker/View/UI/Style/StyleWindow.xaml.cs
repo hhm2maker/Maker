@@ -40,22 +40,22 @@ namespace Maker.View.Style
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            StringBuilder builder = new StringBuilder();
-            for (int i = 0;i<lbCatalog.Items.Count;i++) {
-                CheckBox cb = (CheckBox)lbCatalog.Items[i];
-                if (cb.IsChecked == true) {
-                    BaseChild child = (BaseChild)svMain.Children[i];
-                    String result = child.GetString(this, i);
-                    if (result == null)
-                    {
-                        return;
-                    }
-                    else {
-                        builder.Append(result);
-                    }
-                }
-            }
-            _Content = builder.ToString();
+            //StringBuilder builder = new StringBuilder();
+            //for (int i = 0;i<lbCatalog.Items.Count;i++) {
+            //    CheckBox cb = (CheckBox)lbCatalog.Items[i];
+            //    if (cb.IsChecked == true) {
+            //        BaseChild child = (BaseChild)svMain.Children[i];
+            //        String result = child.GetString(this, i);
+            //        if (result == null)
+            //        {
+            //            return;
+            //        }
+            //        else {
+            //            builder.Append(result);
+            //        }
+            //    }
+            //}
+            //_Content = builder.ToString();
 
             DialogResult = true;
         }
@@ -64,9 +64,10 @@ namespace Maker.View.Style
 
         private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            svMain.Children.Clear();
             if (lbCatalog.SelectedIndex == -1)
             {
-                svMain.Children.Clear();
+                return;
             }
             else {
                 BaseOperationModel baseOperationModel = operationModels[lbCatalog.SelectedIndex];
@@ -74,6 +75,10 @@ namespace Maker.View.Style
                     {
                         svMain.Children.Add(new VerticalFlippingOperationChild());
                     }
+                else if (baseOperationModel is HorizontalFlippingOperationModel)
+                {
+                    svMain.Children.Add(new HorizontalFlippingOperationChild());
+                }
             }
 
             
@@ -85,18 +90,22 @@ namespace Maker.View.Style
 
             foreach (var item in operationModels)
             {
+                TextBlock box = new TextBlock
+                {
+                    FontSize = 16,
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240))
+                };
+                box.MouseLeftButtonDown += Box_Click;
+                lbCatalog.Items.Add(box);
                 if (item is VerticalFlippingOperationModel)
                 {
-                    TextBlock box = new TextBlock
-                    {
-                        FontSize = 16,
-                        Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240))
-                    };
                     box.SetResourceReference(TextBlock.TextProperty, "VerticalFlipping");
-                    box.MouseLeftButtonDown += Box_Click;
-                    lbCatalog.Items.Add(box);
-                 
                 }
+                else if (item is HorizontalFlippingOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "HorizontalFlipping");
+                }
+           
             }
             //String[] contents = content.Split(';');
             //   foreach (String str in contents)
@@ -172,7 +181,8 @@ namespace Maker.View.Style
                 return;
             int position = lbCatalog.SelectedIndex;
             lbCatalog.Items.RemoveAt(position);
-            svMain.Children.RemoveAt(position);
+            operationModels.RemoveAt(position);
+            //svMain.Children.RemoveAt(position);
         }
 
         private void ImgUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

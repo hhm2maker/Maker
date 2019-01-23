@@ -2874,8 +2874,10 @@ namespace Maker.View.LightScriptUserControl
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
           
+
             if (style.ShowDialog() == true)
             {
+                Test();
                 return;
                 if (finalDictionary.ContainsKey(GetStepName()))
                 {
@@ -3995,6 +3997,11 @@ namespace Maker.View.LightScriptUserControl
                         XElement xVerticalFlipping = new XElement("VerticalFlipping");
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is HorizontalFlippingOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("HorizontalFlipping");
+                        xScript.Add(xVerticalFlipping);
+                    }
                 }
                 xScripts.Add(xScript);
             }
@@ -4066,7 +4073,8 @@ namespace Maker.View.LightScriptUserControl
                 String command = String.Empty;
                 if (sender == btnHorizontalFlipping)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
+                      scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
+                    //scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.HorizontalFlipping();";
                 }
                 if (sender == btnVerticalFlipping)
                 {
