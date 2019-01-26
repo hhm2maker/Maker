@@ -129,6 +129,10 @@
     <Compile Include="Business\Model\FramePointModel.cs" />
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
+    <Compile Include="Business\Model\OperationModel\AntiClockwiseOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\ClockwiseOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\LowerRightSlashFlippingOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\LowerLeftSlashFlippingOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\HorizontalFlippingOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\VerticalFlippingOperationModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
@@ -232,12 +236,13 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
-    <Compile Include="View\UI\Style\Child\HorizontalFlippingOperationChild.xaml.cs">
-      <DependentUpon>HorizontalFlippingOperationChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.xaml.cs">
-      <DependentUpon>VerticalFlippingOperationChild.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="View\UI\Style\Child\AntiClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\ClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\LowerRightSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\LowerLeftSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\HorizontalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperationStyle.cs" />
     <Compile Include="View\UI\Tool\Paved\ShowPavedWindow.xaml.cs">
       <DependentUpon>ShowPavedWindow.xaml</DependentUpon>
     </Compile>
@@ -592,14 +597,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\UI\Style\Child\HorizontalFlippingOperationChild.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\UI\Style\Child\VerticalFlippingOperationChild.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

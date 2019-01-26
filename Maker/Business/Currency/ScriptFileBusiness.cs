@@ -82,6 +82,22 @@ namespace Maker.Business.ViewBusiness.Currency
                     {
                         scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
                     }
+                    else if (xEdit.Name.ToString().Equals("LowerLeftSlashFlipping"))
+                    {
+                        scriptModel.OperationModels.Add(new LowerLeftSlashFlippingOperationModel());
+                    }
+                    else if (xEdit.Name.ToString().Equals("LowerRightSlashFlipping"))
+                    {
+                        scriptModel.OperationModels.Add(new LowerRightSlashFlippingOperationModel());
+                    }
+                    else if (xEdit.Name.ToString().Equals("Clockwise"))
+                    {
+                        scriptModel.OperationModels.Add(new ClockwiseOperationModel());
+                    }
+                    else if (xEdit.Name.ToString().Equals("AntiClockwise"))
+                    {
+                        scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

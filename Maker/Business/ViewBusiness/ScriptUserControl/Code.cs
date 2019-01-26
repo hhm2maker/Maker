@@ -84,6 +84,22 @@ namespace Maker.Business.ScriptUserControlBusiness
                             {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.HorizontalFlipping();");
                             }
+                            else if (mItem is LowerLeftSlashFlippingOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.LowerLeftSlashFlipping();");
+                            }
+                            else if (mItem is LowerRightSlashFlippingOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.LowerRightSlashFlipping();");
+                            }
+                            else if (mItem is ClockwiseOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Clockwise();");
+                            }
+                            else if (mItem is AntiClockwiseOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.AntiClockwise();");
+                            }
                         }
                     }
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");

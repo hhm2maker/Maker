@@ -5,6 +5,12 @@
       <VerticalFlipping />
       <VerticalFlipping />
       <HorizontalFlipping />
+      <LowerLeftSlashFlipping />
+      <LowerRightSlashFlipping />
+      <LowerLeftSlashFlipping />
+      <VerticalFlipping />
+      <LowerRightSlashFlipping />
+      <Clockwise />
     </Script>
   </Scripts>
 </Root>

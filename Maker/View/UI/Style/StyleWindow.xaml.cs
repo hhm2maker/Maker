@@ -1,6 +1,7 @@
 ﻿using Maker.Business.Model.OperationModel;
 using Maker.View.Control;
 using Maker.View.Style.Child;
+using Maker.View.UI.Style.Child;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,13 +72,25 @@ namespace Maker.View.Style
             }
             else {
                 BaseOperationModel baseOperationModel = operationModels[lbCatalog.SelectedIndex];
-                    if (baseOperationModel is VerticalFlippingOperationModel)
+                if (baseOperationModel is VerticalFlippingOperationModel)
                     {
                         svMain.Children.Add(new VerticalFlippingOperationChild());
                     }
                 else if (baseOperationModel is HorizontalFlippingOperationModel)
                 {
                     svMain.Children.Add(new HorizontalFlippingOperationChild());
+                }
+                else if (baseOperationModel is LowerLeftSlashFlippingOperationModel)
+                {
+                    svMain.Children.Add(new LowerLeftSlashFlippingOperationChild());
+                }
+                else if (baseOperationModel is LowerRightSlashFlippingOperationModel)
+                {
+                    svMain.Children.Add(new LowerRightSlashFlippingOperationChild());
+                }
+                else if (baseOperationModel is ClockwiseOperationModel)
+                {
+                    svMain.Children.Add(new ClockwiseOperationChild());
                 }
             }
 
@@ -105,7 +118,23 @@ namespace Maker.View.Style
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "HorizontalFlipping");
                 }
-           
+                else if (item is LowerLeftSlashFlippingOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "LowerLeftSlashFlipping");
+                }
+                else if (item is LowerRightSlashFlippingOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "LowerRightSlashFlipping");
+                }
+                else if (item is ClockwiseOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ClockwiseRotation");
+                }
+                else if (item is AntiClockwiseOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "AntiClockwiseRotation");
+                }
+                
             }
             //String[] contents = content.Split(';');
             //   foreach (String str in contents)
