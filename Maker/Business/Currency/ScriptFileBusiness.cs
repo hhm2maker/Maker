@@ -98,6 +98,30 @@ namespace Maker.Business.ViewBusiness.Currency
                     {
                         scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
                     }
+                    else if (xEdit.Name.ToString().Equals("ChangeTime"))
+                    {
+                        ChangeTimeOperationModel changeTimeOperationModel = new ChangeTimeOperationModel();
+                        if (xEdit.Attribute("operator") != null && !xEdit.Attribute("operator").Value.ToString().Equals(String.Empty))
+                        {
+                            String operation = xEdit.Attribute("operator").Value;
+                            if (operation.Equals("multiplication"))
+                            {
+                                changeTimeOperationModel.MyOperator = ChangeTimeOperationModel.Operation.MULTIPLICATION;
+                            }
+                            else if (operation.Equals("division"))
+                            {
+                                changeTimeOperationModel.MyOperator = ChangeTimeOperationModel.Operation.DIVISION;
+                            }
+                        }
+                        if (xEdit.Attribute("multiple") != null && !xEdit.Attribute("multiple").Value.ToString().Equals(String.Empty))
+                        {
+                            String multiple = xEdit.Attribute("multiple").Value;
+                            if (Double.TryParse(multiple, out double dMultiple)){
+                                changeTimeOperationModel.Multiple = dMultiple;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(changeTimeOperationModel);
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

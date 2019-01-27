@@ -29,10 +29,6 @@ namespace Maker.View.Style
             Owner = mw;
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = false;
-        }
 
         public String _Content {
             get;
@@ -57,10 +53,10 @@ namespace Maker.View.Style
             //    }
             //}
             //_Content = builder.ToString();
-
+            if (!CanSave())
+                return;
             DialogResult = true;
         }
-
 
 
         private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,9 +88,15 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new ClockwiseOperationChild());
                 }
-            }
-
-            
+                else if (baseOperationModel is AntiClockwiseOperationModel)
+                {
+                    svMain.Children.Add(new AntiClockwiseOperationChild());
+                }
+                else if (baseOperationModel is ChangeTimeOperationModel)
+                {
+                    svMain.Children.Add(new ChangeTimeOperationChild(baseOperationModel as ChangeTimeOperationModel));
+                }
+            }       
         }
        private List<BaseOperationModel> operationModels;
         public void SetData(List<BaseOperationModel> operationModels)
@@ -103,13 +105,21 @@ namespace Maker.View.Style
 
             foreach (var item in operationModels)
             {
+                ListBoxItem mItem = new ListBoxItem()
+                {
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)),
+                    Background = new SolidColorBrush(Colors.Transparent),
+                };
                 TextBlock box = new TextBlock
                 {
                     FontSize = 16,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240))
+                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240)),
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
                 };
-                box.MouseLeftButtonDown += Box_Click;
-                lbCatalog.Items.Add(box);
+                mItem.Content = box;
+                //mItem.MouseLeftButtonDown += Box_Click;
+                lbCatalog.Items.Add(mItem);
                 if (item is VerticalFlippingOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "VerticalFlipping");
@@ -134,7 +144,10 @@ namespace Maker.View.Style
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "AntiClockwiseRotation");
                 }
-                
+                else if (item is ChangeTimeOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ChangeTime");
+                }
             }
             //String[] contents = content.Split(';');
             //   foreach (String str in contents)
@@ -153,7 +166,15 @@ namespace Maker.View.Style
             //       child.SetString(_contents);
             //   }
             lbCatalog.SelectedIndex = 0;
-         
+        }
+
+        public void SetData(List<BaseOperationModel> operationModels,bool isNew)
+        {
+            SetData(operationModels);
+            if (isNew) {
+                //是新增的
+                lbCatalog.SelectedIndex = lbCatalog.Items.Count-1;
+            }
         }
 
         private void AddContent(string type)
@@ -302,6 +323,32 @@ namespace Maker.View.Style
                 }
                 lbCatalog.SelectedIndex = i + 1;
             }
+        }
+
+        private void lbCatalog_MouseEnter(object sender, MouseEventArgs e)
+        {
+            lbCatalog.IsEnabled = CanSave();
+        }
+
+
+
+        private bool CanSave() {
+            if (svMain.Children.Count == 0)
+                return false;
+            if (svMain.Children[0] is NoOperationStyle)
+            {
+                return true;
+            }
+            else
+            {
+                return (svMain.Children[0] as OperationStyle).ToSave();
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(!CanSave())
+              e.Cancel = true;
         }
     }
 }

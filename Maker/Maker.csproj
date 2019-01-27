@@ -124,6 +124,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\BaseOperationModel.cs" />
     <Compile Include="Business\Model\FrameModel.cs" />
     <Compile Include="Business\Model\FramePointModel.cs" />
@@ -236,10 +237,13 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
+    <Compile Include="View\UI\Style\Child\ChangeTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\AntiClockwiseOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\ClockwiseOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\LowerRightSlashFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\LowerLeftSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\OperationStyle.cs" />
     <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\HorizontalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperationStyle.cs" />

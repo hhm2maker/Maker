@@ -76,10 +76,10 @@ namespace Maker.Business.ScriptUserControlBusiness
 
                         foreach (var mItem in scriptModel.Value.OperationModels)
                     {
-                        if (mItem is VerticalFlippingOperationModel)
-                        {
+                            if (mItem is VerticalFlippingOperationModel)
+                            {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();");
-                        }
+                            }
                             else if (mItem is HorizontalFlippingOperationModel)
                             {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.HorizontalFlipping();");
@@ -100,8 +100,20 @@ namespace Maker.Business.ScriptUserControlBusiness
                             {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.AntiClockwise();");
                             }
+                            else if (mItem is ChangeTimeOperationModel)
+                            {
+                                ChangeTimeOperationModel changeTimeOperationModel = mItem as ChangeTimeOperationModel;
+                                if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION) {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,"+ changeTimeOperationModel .Multiple.ToString()+ ");");
+                                }
+                                else if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.DIVISION)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() +");");
+                                }
+                            }
                         }
                     }
+                   
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }

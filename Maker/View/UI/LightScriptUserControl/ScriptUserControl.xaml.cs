@@ -4017,9 +4017,24 @@ namespace Maker.View.LightScriptUserControl
                         XElement xVerticalFlipping = new XElement("Clockwise");
                         xScript.Add(xVerticalFlipping);
                     }
-                    else if (mItem is ClockwiseOperationModel)
+                    else if (mItem is AntiClockwiseOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("AntiClockwise");
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is ChangeTimeOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("ChangeTime");
+                        ChangeTimeOperationModel changeTimeOperationModel =mItem as ChangeTimeOperationModel;
+                        if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION)
+                        {
+                            xVerticalFlipping.SetAttributeValue("operator", "multiplication");
+                        }
+                        else if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.DIVISION)
+                        {
+                            xVerticalFlipping.SetAttributeValue("operator", "division");
+                        }
+                        xVerticalFlipping.SetAttributeValue("multiple", changeTimeOperationModel.Multiple.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
                 }
@@ -4137,26 +4152,20 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnExtendTime)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,2);";
+                     scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 2));
                 }
                 if (sender == btnShortenTime)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION,2);";
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.DIVISION, 2));
                 }
                 if (sender == btnDiyTime)
                 {
-                    ChangeTimeDialog ct = new ChangeTimeDialog(mw);
-                    if (ct.ShowDialog() == true)
-                    {
-                        if (ct.cbOperation.SelectedIndex == 0)
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + ct.tbPolyploidy.Text + ");";
-                        }
-                        else
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ChangeTime(LightGroup.DIVISION," + ct.tbPolyploidy.Text + ");";
-                        }
-                    }
+                scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
+                StyleWindow style = new StyleWindow(mw);
+                style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels,true);
+                style.ShowDialog();
+                Test();
+                return;
                 }
                 if (sender == btnMatchTime)
                 {
