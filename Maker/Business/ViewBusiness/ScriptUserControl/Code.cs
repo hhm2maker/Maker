@@ -100,6 +100,10 @@ namespace Maker.Business.ScriptUserControlBusiness
                             {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.AntiClockwise();");
                             }
+                            else if (mItem is RemoveBorderOperationModel)
+                            {
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.RemoveBorder();");
+                            }
                             else if (mItem is ChangeTimeOperationModel)
                             {
                                 ChangeTimeOperationModel changeTimeOperationModel = mItem as ChangeTimeOperationModel;

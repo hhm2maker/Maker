@@ -98,6 +98,10 @@ namespace Maker.Business.ViewBusiness.Currency
                     {
                         scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
                     }
+                    else if (xEdit.Name.ToString().Equals("RemoveBorder"))
+                    {
+                        scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
+                    }
                     else if (xEdit.Name.ToString().Equals("ChangeTime"))
                     {
                         ChangeTimeOperationModel changeTimeOperationModel = new ChangeTimeOperationModel();

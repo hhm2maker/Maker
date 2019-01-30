@@ -4022,6 +4022,11 @@ namespace Maker.View.LightScriptUserControl
                         XElement xVerticalFlipping = new XElement("AntiClockwise");
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is RemoveBorderOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("RemoveBorder");
+                        xScript.Add(xVerticalFlipping);
+                    }
                     else if (mItem is ChangeTimeOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("ChangeTime");
@@ -4185,7 +4190,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnRemoveBorder)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.RemoveBorder();";
+                scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
                 }
 
                 if (sender == btnFillColor)

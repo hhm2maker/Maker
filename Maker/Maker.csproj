@@ -124,6 +124,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\RemoveBorderOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\BaseOperationModel.cs" />
     <Compile Include="Business\Model\FrameModel.cs" />
