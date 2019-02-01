@@ -1,0 +1,40 @@
+
+----------------------header--------------------------
+记录时间：2019-02-01 08:37:48,683 线程ID:[1] 日志级别：ERROR 出错类：Maker.MyApp.WpfApp property:[(null)] - 错误描述：System.Windows.ResourceReferenceKeyNotFoundException: 未找到“RemoveBorder”资源。
+   在 MS.Internal.Helper.FindResourceHelper.DoTryCatchWhen(Object arg)
+   在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+记录时间：2019-02-01 08:38:36,788 线程ID:[1] 日志级别：ERROR 出错类：Maker.MyApp.WpfApp property:[(null)] - 错误描述：System.Windows.ResourceReferenceKeyNotFoundException: 未找到“RemoveBorder”资源。
+   在 MS.Internal.Helper.FindResourceHelper.DoTryCatchWhen(Object arg)
+   在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+记录时间：2019-02-01 08:39:16,063 线程ID:[1] 日志级别：ERROR 出错类：Maker.MyApp.WpfApp property:[(null)] - 错误描述：System.Windows.ResourceReferenceKeyNotFoundException: 未找到“RemoveBorder”资源。
+   在 MS.Internal.Helper.FindResourceHelper.DoTryCatchWhen(Object arg)
+   在 System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   在 System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------
+
+----------------------header--------------------------
+
+----------------------footer--------------------------

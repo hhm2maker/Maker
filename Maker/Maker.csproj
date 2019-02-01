@@ -124,6 +124,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\ReversalOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\RemoveBorderOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\BaseOperationModel.cs" />
@@ -239,15 +240,17 @@
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
-    <Compile Include="View\UI\Style\Child\ChangeTimeOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\AntiClockwiseOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\ClockwiseOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\LowerRightSlashFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\LowerLeftSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\ChangeTimeOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\AntiClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\ClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\RemoveBorderOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\LowerRightSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\LowerLeftSlashFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\OperationStyle.cs" />
-    <Compile Include="View\UI\Style\Child\VerticalFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\HorizontalFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperationStyle.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\VerticalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\HorizontalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\NoOperation\NoOperationStyle.cs" />
     <Compile Include="View\UI\Tool\Paved\ShowPavedWindow.xaml.cs">
       <DependentUpon>ShowPavedWindow.xaml</DependentUpon>
     </Compile>

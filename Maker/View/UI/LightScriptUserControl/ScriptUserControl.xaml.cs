@@ -4027,6 +4027,11 @@ namespace Maker.View.LightScriptUserControl
                         XElement xVerticalFlipping = new XElement("RemoveBorder");
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is ReversalOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("Reversal");
+                        xScript.Add(xVerticalFlipping);
+                    }
                     else if (mItem is ChangeTimeOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("ChangeTime");
@@ -4153,7 +4158,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnReversal)
                 {
-                    scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Reversal();";
+                   scriptModel.OperationModels.Add(new ReversalOperationModel());
                 }
                 if (sender == btnExtendTime)
                 {
@@ -4165,12 +4170,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnDiyTime)
                 {
-                scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
-                StyleWindow style = new StyleWindow(mw);
-                style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels,true);
-                style.ShowDialog();
-                Test();
-                return;
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
                 }
                 if (sender == btnMatchTime)
                 {
@@ -4190,9 +4190,8 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnRemoveBorder)
                 {
-                scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
+                     scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
                 }
-
                 if (sender == btnFillColor)
                 {
                     GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
@@ -4588,6 +4587,9 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.Value += command;
                     }
                 }
+            StyleWindow style = new StyleWindow(mw);
+            style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
+            style.ShowDialog();
             Test();
         }
         //不写入XML,而是直接写入代码

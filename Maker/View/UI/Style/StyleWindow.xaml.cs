@@ -92,10 +92,19 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new AntiClockwiseOperationChild());
                 }
+                else if (baseOperationModel is RemoveBorderOperationModel)
+                {
+                    svMain.Children.Add(new RemoveBorderOperationChild());
+                }
+                else if (baseOperationModel is ReversalOperationModel)
+                {
+                    svMain.Children.Add(new ReversalOperationChild());
+                }
                 else if (baseOperationModel is ChangeTimeOperationModel)
                 {
                     svMain.Children.Add(new ChangeTimeOperationChild(baseOperationModel as ChangeTimeOperationModel));
                 }
+            
             }       
         }
        private List<BaseOperationModel> operationModels;
@@ -147,6 +156,14 @@ namespace Maker.View.Style
                 else if (item is ChangeTimeOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "ChangeTime");
+                }
+                else if (item is RemoveBorderOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "RemoveTheBorder");
+                }
+                else if (item is ReversalOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "Reversal");
                 }
             }
             //String[] contents = content.Split(';');
