@@ -4035,7 +4035,7 @@ namespace Maker.View.LightScriptUserControl
                     else if (mItem is ChangeTimeOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("ChangeTime");
-                        ChangeTimeOperationModel changeTimeOperationModel =mItem as ChangeTimeOperationModel;
+                        ChangeTimeOperationModel changeTimeOperationModel = mItem as ChangeTimeOperationModel;
                         if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION)
                         {
                             xVerticalFlipping.SetAttributeValue("operator", "multiplication");
@@ -4045,6 +4045,30 @@ namespace Maker.View.LightScriptUserControl
                             xVerticalFlipping.SetAttributeValue("operator", "division");
                         }
                         xVerticalFlipping.SetAttributeValue("multiple", changeTimeOperationModel.Multiple.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is FoldOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("Fold");
+                        FoldOperationModel foldOperationModel = mItem as FoldOperationModel;
+                        if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL)
+                        {
+                            xVerticalFlipping.SetAttributeValue("orientation", "vertical");
+                        }
+                        else if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.HORIZONTAL)
+                        {
+                            xVerticalFlipping.SetAttributeValue("orientation", "horizontal");
+                        }
+                        xVerticalFlipping.SetAttributeValue("startPosition", foldOperationModel.StartPosition.ToString());
+                        xVerticalFlipping.SetAttributeValue("span", foldOperationModel.Span.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is OneNumberOperationModel)
+                    {
+                        OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
+                        XElement xVerticalFlipping = new XElement(oneNumberOperationModel.Identifier);
+                        xVerticalFlipping.SetAttributeValue("number", oneNumberOperationModel.Number.ToString());
+                        xVerticalFlipping.SetAttributeValue("hintKeyword", oneNumberOperationModel.HintKeyword.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
                 }
@@ -4108,7 +4132,7 @@ namespace Maker.View.LightScriptUserControl
                 //没有可操作的灯光组
                 if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
                 {
-                return;
+                     return;
                 }
                 String command = String.Empty;
                 if (sender == btnHorizontalFlipping)
@@ -4129,24 +4153,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnFold)
                 {
-                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.Fold(";
-                        if (dialog.cbOrientation.SelectedIndex == 0)
-                        {
-                            scriptModel.Value += "LightGroup.HORIZONTAL,";
-                        }
-                        else if (dialog.cbOrientation.SelectedIndex == 1)
-                        {
-                            scriptModel.Value += "LightGroup.VERTICAL,";
-                        }
-                        scriptModel.Value += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                  scriptModel.OperationModels.Add(new FoldOperationModel(FoldOperationModel.Orientation.VERTICAL, 0,0));
                 }
                 if (sender == btnClockwise)
                 {
@@ -4172,14 +4179,10 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
                 }
-                if (sender == btnMatchTime)
-                {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "TotalTimeLatticeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.MatchTotalTimeLattice(" + dialog.OneNumber + ");";
-                    }
-                }
+            if (sender == btnMatchTime)
+            {
+                scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
+            }
                 if (sender == btnInterceptTime)
                 {
                     InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
@@ -4194,13 +4197,8 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnFillColor)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "FillColorColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.FillColor(" + dialog.OneNumber + ");";
-                    }
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor",5, "FillColorColon"));
                 }
-
                 if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
                 {
                     String colorGroupName = String.Empty;
@@ -4370,15 +4368,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetAllTime)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheConstantTimeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetAllTime(" + dialog.OneNumber + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                     scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon"));
                 }
                 if (sender == btnDisappear)
                 {

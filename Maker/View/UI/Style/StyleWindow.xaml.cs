@@ -104,7 +104,14 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new ChangeTimeOperationChild(baseOperationModel as ChangeTimeOperationModel));
                 }
-            
+                else if (baseOperationModel is FoldOperationModel)
+                {
+                    svMain.Children.Add(new FoldOperationChild(baseOperationModel as FoldOperationModel));
+                }
+                else if (baseOperationModel is OneNumberOperationModel)
+                {
+                    svMain.Children.Add(new OneNumberOperationChild(baseOperationModel as OneNumberOperationModel));
+                }
             }       
         }
        private List<BaseOperationModel> operationModels;
@@ -164,6 +171,14 @@ namespace Maker.View.Style
                 else if (item is ReversalOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "Reversal");
+                }
+                else if (item is FoldOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "Fold");
+                }
+                else if (item is OneNumberOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, (item as OneNumberOperationModel).Identifier);
                 }
             }
             //String[] contents = content.Split(';');

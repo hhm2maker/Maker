@@ -192,15 +192,15 @@ namespace Maker.View.Dialog
                     lbMain.Items[selectIndex] = dialog.result;
                 }
             }
-            else if (lbMain.SelectedItem.ToString().Contains("Edit.Fold("))
-            {
-                String str = lbMain.SelectedItem.ToString();
-                Edit_FoldDialog dialog = new Edit_FoldDialog(iuc.mw, ref str);
-                if (dialog.ShowDialog() == true)
-                {
-                    lbMain.Items[selectIndex] = dialog.result;
-                }
-            }
+            //else if (lbMain.SelectedItem.ToString().Contains("Edit.Fold("))
+            //{
+            //    String str = lbMain.SelectedItem.ToString();
+            //    Edit_FoldDialog dialog = new Edit_FoldDialog(iuc.mw, ref str);
+            //    if (dialog.ShowDialog() == true)
+            //    {
+            //        lbMain.Items[selectIndex] = dialog.result;
+            //    }
+            //}
             lbMain.SelectedIndex = selectIndex;
         }
     }

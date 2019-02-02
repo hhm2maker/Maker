@@ -203,8 +203,8 @@
                                         </TreeViewItem>
                                     <TreeViewItem Header="{DynamicResource StartTime}" Name="btnSetStartTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource EndTime}" Name="btnSetEndTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource ConstantTime}" Name="btnSetAllTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource MatchTime}" Name="btnMatchTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource SetAllTime}" Name="btnSetAllTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <TreeViewItem Header="{DynamicResource MatchTotalTimeLattice}" Name="btnMatchTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource Intercept}" Name="btnInterceptTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     </TreeView>
                             </TabItem>
@@ -229,23 +229,23 @@
                                         </TabItem>
                                     </TabControl>
                                     <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False">
-                                        <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353"/>
+                                        <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
                                     </Popup>
                                     <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                         <TreeViewItem Header="{DynamicResource Change}" Name="btnColorChange" MouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                        <TreeViewItem Header="{DynamicResource Format}"  Foreground="#ffffff">
+                                <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Format}"  Foreground="#ffffff">
                                             <TreeViewItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             <TreeViewItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             <TreeViewItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             <TreeViewItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                         </TreeViewItem>
-                                        <TreeViewItem Header="{DynamicResource Shape}"  Foreground="#ffffff">
+                                <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Shape}"  Foreground="#ffffff">
                                             <TreeViewItem Header="{DynamicResource Square}" Name="miSquare" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                            <TreeViewItem Header="{DynamicResource Radial}"  Foreground="#ffffff">
+                                    <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Radial}"  Foreground="#ffffff">
                                                 <TreeViewItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                                 <TreeViewItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             </TreeViewItem>
-                                            <TreeViewItem Header="{DynamicResource Fill}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                            <TreeViewItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             <TreeViewItem Header="{DynamicResource WithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                         </TreeViewItem>
                                     </TreeView>

@@ -3457,24 +3457,24 @@ namespace Maker
                 }
                 if (sender == btnFold)
                 {
-                    Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Fold(" + GetStepName(sp) + "LightGroup,";
-                        if (dialog.cbOrientation.SelectedIndex == 0)
-                        {
-                            command += "Horizontal,";
-                        }
-                        else if (dialog.cbOrientation.SelectedIndex == 1)
-                        {
-                            command += "Vertical,";
-                        }
-                        command += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    //Edit_FoldDialog dialog = new Edit_FoldDialog(mw, GetStepName(sp));
+                    //if (dialog.ShowDialog() == true)
+                    //{
+                    //    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Fold(" + GetStepName(sp) + "LightGroup,";
+                    //    if (dialog.cbOrientation.SelectedIndex == 0)
+                    //    {
+                    //        command += "Horizontal,";
+                    //    }
+                    //    else if (dialog.cbOrientation.SelectedIndex == 1)
+                    //    {
+                    //        command += "Vertical,";
+                    //    }
+                    //    command += dialog.tbStartPosition.Text + "," + dialog.tbSpan.Text + "); ";
+                    //}
+                    //else
+                    //{
+                    //    return;
+                    //}
                 }
                 if (sender == btnClockwise)
                 {

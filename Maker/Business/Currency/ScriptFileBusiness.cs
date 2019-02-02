@@ -130,6 +130,54 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeTimeOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("FillColor") || xEdit.Name.ToString().Equals("SetAllTime") || xEdit.Name.ToString().Equals("MatchTotalTimeLattice"))
+                    {
+                        OneNumberOperationModel oneNumberOperationModel = new OneNumberOperationModel();
+                        oneNumberOperationModel.Identifier = xEdit.Name.ToString();
+                        if (xEdit.Attribute("number") != null && !xEdit.Attribute("number").Value.ToString().Equals(String.Empty))
+                        {
+                            String multiple = xEdit.Attribute("number").Value;
+                            if (int.TryParse(multiple, out int iNumber))
+                            {
+                                oneNumberOperationModel.Number = iNumber;
+                            }
+                        }
+                        oneNumberOperationModel.HintKeyword = xEdit.Attribute("hintKeyword").Value;
+                        scriptModel.OperationModels.Add(oneNumberOperationModel);
+                    }
+                    else if (xEdit.Name.ToString().Equals("Fold"))
+                    {
+                        FoldOperationModel foldOperationModel = new FoldOperationModel();
+                        if (xEdit.Attribute("orientation") != null && !xEdit.Attribute("orientation").Value.ToString().Equals(String.Empty))
+                        {
+                            String operation = xEdit.Attribute("orientation").Value;
+                            if (operation.Equals("vertical"))
+                            {
+                                foldOperationModel.MyOrientation = FoldOperationModel.Orientation.VERTICAL;
+                            }
+                            else if (operation.Equals("horizontal"))
+                            {
+                                foldOperationModel.MyOrientation = FoldOperationModel.Orientation.HORIZONTAL;
+                            }
+                        }
+                        if (xEdit.Attribute("startPosition") != null && !xEdit.Attribute("startPosition").Value.ToString().Equals(String.Empty))
+                        {
+                            String startPosition = xEdit.Attribute("startPosition").Value;
+                            if (int.TryParse(startPosition, out int iStartPosition))
+                            {
+                                foldOperationModel.StartPosition = iStartPosition;
+                            }
+                        }
+                        if (xEdit.Attribute("span") != null && !xEdit.Attribute("span").Value.ToString().Equals(String.Empty))
+                        {
+                            String span = xEdit.Attribute("span").Value;
+                            if (int.TryParse(span, out int iSpan))
+                            {
+                                foldOperationModel.Span = iSpan;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(foldOperationModel);
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

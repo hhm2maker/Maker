@@ -32,7 +32,7 @@
     <sys:String x:Key="DoubleExtension">Double Extend</sys:String>
     <sys:String x:Key="DoubleShortening">Double Shorten</sys:String>
     <sys:String x:Key="StartTime">Start Time</sys:String>
-    <sys:String x:Key="ConstantTime">Constant Time</sys:String>
+    <sys:String x:Key="SetAllTime">Constant Time</sys:String>
     <sys:String x:Key="Superposition">Overlap</sys:String>
     <sys:String x:Key="ColorSuperposition">Color Overlap</sys:String>
     <sys:String x:Key="ColorSuperpositionFollow">Color Overlap(Follow)</sys:String>
@@ -279,7 +279,7 @@
     <sys:String x:Key="ActionEquals">Action =</sys:String>
     <sys:String x:Key="Open">Open</sys:String>
     <sys:String x:Key="Animation">Animation</sys:String>
-    <sys:String x:Key="Fill">Fill</sys:String>
+    <sys:String x:Key="FillColor">FillColor</sys:String>
     <sys:String x:Key="FillColorColon">Fill color:</sys:String>
     <sys:String x:Key="DiscardedDocuments">Discarded documents</sys:String>
     <sys:String x:Key="Disappear">Disappear</sys:String>
@@ -441,7 +441,7 @@
     <sys:String x:Key="TutorialColon">Tutorial:</sys:String>
     <sys:String x:Key="FirstPageColon">First page:</sys:String>
     <sys:String x:Key="Mycontent">My content</sys:String>
-    <sys:String x:Key="MatchTime">Match time</sys:String>
+    <sys:String x:Key="MatchTotalTimeLattice">Match time</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">Total time lattice:</sys:String>
     <sys:String x:Key="Windmill">Windmill</sys:String>
     <sys:String x:Key="Type">Type</sys:String>

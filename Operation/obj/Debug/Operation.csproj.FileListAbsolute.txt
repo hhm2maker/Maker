@@ -1,6 +1,0 @@
-E:\Maker\Operation\bin\Debug\Operation.dll
-E:\Maker\Operation\bin\Debug\Operation.pdb
-E:\Maker\Operation\obj\Debug\Operation.csprojResolveAssemblyReference.cache
-E:\Maker\Operation\obj\Debug\Operation.csproj.CoreCompileInputs.cache
-E:\Maker\Operation\obj\Debug\Operation.dll
-E:\Maker\Operation\obj\Debug\Operation.pdb

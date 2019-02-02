@@ -17,6 +17,10 @@
       <ChangeTime operator="multiplication" multiple="2" />
       <ChangeTime operator="multiplication" multiple="2" />
       <ChangeTime operator="division" multiple="2" />
+      <Fold orientation="vertical" startPosition="1" span="1" />
+      <FillColor number="13" hintKeyword="FillColorColon" />
+      <SetAllTime number="20" hintKeyword="PleaseEnterTheConstantTimeColon" />
+      <MatchTotalTimeLattice number="12" hintKeyword="TotalTimeLatticeColon" />
     </Script>
   </Scripts>
 </Root>

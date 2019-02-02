@@ -32,7 +32,7 @@
     <sys:String x:Key="DoubleExtension">延长一倍</sys:String>
     <sys:String x:Key="DoubleShortening">缩短一倍</sys:String>
     <sys:String x:Key="StartTime">开始时间</sys:String>
-    <sys:String x:Key="ConstantTime">固定时间</sys:String>
+    <sys:String x:Key="SetAllTime">固定时间</sys:String>
     <sys:String x:Key="Superposition">叠加</sys:String>
     <sys:String x:Key="ColorSuperposition">颜色叠加</sys:String>
     <sys:String x:Key="ColorSuperpositionFollow">颜色叠加(跟随)</sys:String>
@@ -283,7 +283,7 @@
     <sys:String x:Key="ActionEquals">行为 =</sys:String>
     <sys:String x:Key="Open">打开</sys:String>
     <sys:String x:Key="Animation">动画</sys:String>
-    <sys:String x:Key="Fill">填充</sys:String>
+    <sys:String x:Key="FillColor">填充颜色</sys:String>
     <sys:String x:Key="FillColorColon">填充颜色：</sys:String>
     <sys:String x:Key="DiscardedDocuments">废弃文档</sys:String>
     <sys:String x:Key="Disappear">消失</sys:String>
@@ -444,7 +444,7 @@
     <sys:String x:Key="TutorialColon">辅助：</sys:String>
     <sys:String x:Key="FirstPageColon">首页：</sys:String>
     <sys:String x:Key="Mycontent">我的内容</sys:String>
-    <sys:String x:Key="MatchTime">匹配时间</sys:String>
+    <sys:String x:Key="MatchTotalTimeLattice">匹配时间</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">时间总格数：</sys:String>
     <sys:String x:Key="Windmill">风车</sys:String>
     <sys:String x:Key="Type">类型</sys:String>

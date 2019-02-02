@@ -124,6 +124,8 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\OneNumberOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\FoldOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ReversalOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\RemoveBorderOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
@@ -241,6 +243,8 @@
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\OneNumberOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\FoldOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ChangeTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\AntiClockwiseOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ClockwiseOperationChild.cs" />
@@ -337,9 +341,6 @@
     </Compile>
     <Compile Include="View\UI\Dialog\Script\Edit_ChangeTime.xaml.cs">
       <DependentUpon>Edit_ChangeTime.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Dialog\Script\Edit_FoldDialog.xaml.cs">
-      <DependentUpon>Edit_FoldDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\Script\Edit_OverlapDialog.xaml.cs">
       <DependentUpon>Edit_OverlapDialog.xaml</DependentUpon>
@@ -835,10 +836,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\Script\Edit_ChangeTime.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Dialog\Script\Edit_FoldDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -119,9 +119,25 @@ namespace Maker.Business.ScriptUserControlBusiness
                                     sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() +");");
                                 }
                             }
+                            else if (mItem is FoldOperationModel)
+                            {
+                                FoldOperationModel foldOperationModel = mItem as FoldOperationModel;
+                                if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Fold(LightGroup.VERTICAL," + foldOperationModel.StartPosition.ToString() + ","+ foldOperationModel.Span.ToString() + ");");
+                                }
+                                else if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.HORIZONTAL)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Fold(LightGroup.HORIZONTAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
+                                }
+                            }
+                            else if (mItem is OneNumberOperationModel)
+                            {
+                                OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup."+oneNumberOperationModel.Identifier+"("+oneNumberOperationModel.Number.ToString() + ");");
+                            }
                         }
                     }
-                   
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
