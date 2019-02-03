@@ -92,6 +92,45 @@ namespace Maker.View.LightScriptUserControl
         }
         private String strInputFormatDelimiter;
         private String strInputFormatRange;
+
+        public char StrInputFormatDelimiter
+        {
+            get
+            {
+                if (strInputFormatDelimiter.Equals("Comma"))
+                {
+                    return ',';
+                }
+                else if (strInputFormatDelimiter.Equals("Space"))
+                {
+                    return ' ';
+                }
+                else
+                {
+                    return ' ';
+                }
+            }
+        }
+
+        public char StrInputFormatRange
+        {
+            get
+            {
+                if (strInputFormatRange.Equals("Shortbar"))
+                {
+                    return '-';
+                }
+                else if (strInputFormatRange.Equals("R"))
+                {
+                    return 'r';
+                }
+                else
+                {
+                    return '-';
+                }
+            }
+        }
+
         private void LoadConfig()
         {
             //输入
@@ -1571,11 +1610,9 @@ namespace Maker.View.LightScriptUserControl
         {
             return mLightList;
         }
-        
-
-      
 
         public List<Light> mLightList = new List<Light>();
+        public Dictionary<string, List<Light>> mLightDictionary;
         public List<Light> mBlockLightList = new List<Light>();
 
         public List<Light> RefreshData(String partName)
@@ -4047,6 +4084,23 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("multiple", changeTimeOperationModel.Multiple.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is ChangeColorOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("ChangeColor");
+                        ChangeColorOperationModel changeColorOperationModel = mItem as ChangeColorOperationModel;
+                        StringBuilder sb = new StringBuilder();
+                        for (int count = 0; count < changeColorOperationModel.Colors.Count; count++)
+                        {
+                            if (count != changeColorOperationModel.Colors.Count - 1)
+                                sb.Append(changeColorOperationModel.Colors[count] + " ");
+                            else
+                            {
+                                sb.Append(changeColorOperationModel.Colors[count] );
+                            }
+                        }
+                        xVerticalFlipping.SetAttributeValue("colors", sb.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
                     else if (mItem is FoldOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("Fold");
@@ -4179,10 +4233,10 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
                 }
-            if (sender == btnMatchTime)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
-            }
+                if (sender == btnMatchTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
+                }
                 if (sender == btnInterceptTime)
                 {
                     InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
@@ -4199,96 +4253,126 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor",5, "FillColorColon"));
                 }
-                if (sender == btnChangeColorYellow || sender == btnChangeColorBlue || sender == btnChangeColorPink || sender == btnChangeColorDiy || sender == btnColorChange)
+            if (sender == btnChangeColorYellow ) {
+                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 73, 74, 75, 76 }));
+            }
+            if (sender == btnChangeColorBlue)
+            {
+                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 33, 37, 41, 45 }));
+            }
+            if (sender == btnChangeColorPink)
+            {
+                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 4, 94, 53, 57 }));
+            }
+            if (sender == btnChangeColorDiy)
+            {
+                List<Light> mLightList = mLightDictionary[GetStepName(sp)];
+                List<int> mColor = new List<int>();
+                for (int j = 0; j < mLightList.Count; j++)
                 {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
+                    if (mLightList[j].Action == 144)
                     {
-                        if (!scriptModel.Contain.Contains("Step" + i))
+                        if (!mColor.Contains(mLightList[j].Color))
                         {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
-                    if (sender == btnChangeColorYellow)
-                        command += "73 74 75 76";
-                    if (sender == btnChangeColorBlue)
-                        command += "33 37 41 45";
-                    if (sender == btnChangeColorPink)
-                        command += "4 94 53 57";
-                    if (sender == btnChangeColorDiy)
-                    {
-                        mLightList = RefreshData(GetStepName());
-                        List<int> mColor = new List<int>();
-                        for (int j = 0; j < mLightList.Count; j++)
-                        {
-                            if (mLightList[j].Action == 144)
-                            {
-                                if (!mColor.Contains(mLightList[j].Color))
-                                {
-                                    mColor.Add(mLightList[j].Color);
-                                }
-                            }
-                        }
-                        mColor.Sort();
-                        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
-                        if (dialog.ShowDialog() == true)
-                        {
-                            StringBuilder mBuilder = new StringBuilder();
-                            for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                            {
-                                if (x != dialog.MultipleNumber.Count - 1)
-                                {
-                                    mBuilder.Append(dialog.MultipleNumber[x] + " ");
-                                }
-                                else
-                                {
-                                    mBuilder.Append(dialog.MultipleNumber[x]);
-                                }
-                            }
-                            command += mBuilder.ToString();
-                        }
-                        else
-                        {
-                            return;
+                            mColor.Add(mLightList[j].Color);
                         }
                     }
-                    if (sender == btnColorChange)
-                    {
-                        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
-                        if (colorDialog.ShowDialog() == true)
-                        {
-                            StringBuilder mBuilder = new StringBuilder();
-                            for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
-                            {
-                                if (x != colorDialog.lbColor.Items.Count - 1)
-                                {
-                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString() + " ");
-                                }
-                                else
-                                {
-                                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString());
-                                }
-                            }
-                            command += mBuilder.ToString();
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    command += "\",' ','-');" + Environment.NewLine
-                  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
-                    scriptModel.Value += command;
+                }
+                mColor.Sort();
+                Console.WriteLine(mColor);
+                scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+            }
+            if (  sender == btnColorChange)
+                {
+              
+                //String colorGroupName = String.Empty;
+                //    int i = 1;
+                //    while (i <= 100000)
+                //    {
+                //        if (!scriptModel.Contain.Contains("Step" + i))
+                //        {
+                //            scriptModel.Contain.Add("Step" + i);
+                //            colorGroupName = "Step" + i + "ColorGroup";
+                //            break;
+                //        }
+                //        i++;
+                //    }
+                //    if (i > 100000)
+                //    {
+                //        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                //        return;
+                //    }
+                //    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
+                //    if (sender == btnChangeColorYellow)
+                //        command += "73 74 75 76";
+                //    if (sender == btnChangeColorBlue)
+                //        command += "33 37 41 45";
+                //    if (sender == btnChangeColorPink)
+                //        command += "4 94 53 57";
+                //    if (sender == btnChangeColorDiy)
+                //    {
+                //        mLightList = RefreshData(GetStepName());
+                //        List<int> mColor = new List<int>();
+                //        for (int j = 0; j < mLightList.Count; j++)
+                //        {
+                //            if (mLightList[j].Action == 144)
+                //            {
+                //                if (!mColor.Contains(mLightList[j].Color))
+                //                {
+                //                    mColor.Add(mLightList[j].Color);
+                //                }
+                //            }
+                //        }
+                //        mColor.Sort();
+                //        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
+                //        if (dialog.ShowDialog() == true)
+                //        {
+                //            StringBuilder mBuilder = new StringBuilder();
+                //            for (int x = 0; x < dialog.MultipleNumber.Count; x++)
+                //            {
+                //                if (x != dialog.MultipleNumber.Count - 1)
+                //                {
+                //                    mBuilder.Append(dialog.MultipleNumber[x] + " ");
+                //                }
+                //                else
+                //                {
+                //                    mBuilder.Append(dialog.MultipleNumber[x]);
+                //                }
+                //            }
+                //            command += mBuilder.ToString();
+                //        }
+                //        else
+                //        {
+                //            return;
+                //        }
+                //    }
+                //    if (sender == btnColorChange)
+                //    {
+                //        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
+                //        if (colorDialog.ShowDialog() == true)
+                //        {
+                //            StringBuilder mBuilder = new StringBuilder();
+                //            for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
+                //            {
+                //                if (x != colorDialog.lbColor.Items.Count - 1)
+                //                {
+                //                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString() + " ");
+                //                }
+                //                else
+                //                {
+                //                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString());
+                //                }
+                //            }
+                //            command += mBuilder.ToString();
+                //        }
+                //        else
+                //        {
+                //            return;
+                //        }
+                //    }
+                //    command += "\",' ','-');" + Environment.NewLine
+                //  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
+                //    scriptModel.Value += command;
                 }
                 if (sender == btnColorWithCount)
                 {

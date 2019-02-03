@@ -11,6 +11,7 @@
     <sys:String x:Key="Export">导出</sys:String>
     <sys:String x:Key="Edit_">编辑(_E)</sys:String>
     <sys:String x:Key="Color">颜色</sys:String>
+    <sys:String x:Key="ChangeColor">改变颜色</sys:String>
     <sys:String x:Key="Change">改变</sys:String>
     <sys:String x:Key="Format">格式化</sys:String>
     <sys:String x:Key="YellowGreen">黄-绿</sys:String>

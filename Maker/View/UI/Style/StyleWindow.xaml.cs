@@ -112,6 +112,10 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new OneNumberOperationChild(baseOperationModel as OneNumberOperationModel));
                 }
+                else if (baseOperationModel is ChangeColorOperationModel)
+                {
+                    svMain.Children.Add(new ChangeColorOperationChild(baseOperationModel as ChangeColorOperationModel));
+                }
             }       
         }
        private List<BaseOperationModel> operationModels;
@@ -175,6 +179,10 @@ namespace Maker.View.Style
                 else if (item is FoldOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "Fold");
+                }
+                else if (item is ChangeColorOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ChangeColor");
                 }
                 else if (item is OneNumberOperationModel)
                 {

@@ -1174,7 +1174,6 @@ namespace Operation
                         AllCount += meigeyanseCount[j];
                     }
                 }
-
                 yansefanwei.Add(AllCount);
             }
             for (int i = 0; i < geshihua.Count; i++)

@@ -11,6 +11,7 @@
     <sys:String x:Key="Export">Export</sys:String>
     <sys:String x:Key="Edit_">Edit(_E)</sys:String>
     <sys:String x:Key="Color">Color</sys:String>
+    <sys:String x:Key="ChangeColor">Change color</sys:String>
     <sys:String x:Key="Change">Change</sys:String>
     <sys:String x:Key="Format">Format</sys:String>
     <sys:String x:Key="YellowGreen">Yellow-Green</sys:String>

@@ -178,6 +178,22 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(foldOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("ChangeColor"))
+                    {
+                        ChangeColorOperationModel changeColorOperationModel = new ChangeColorOperationModel();
+                        if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
+                        {
+                            String colors = xEdit.Attribute("colors").Value;
+                            String[] strsColor = colors.Split(' ');
+                            foreach (var item in strsColor) {
+                                if (int.TryParse(item, out int color)) {
+                                    changeColorOperationModel.Colors.Add(color);
+                                }
+                            }
+                        }
+                        scriptModel.OperationModels.Add(changeColorOperationModel);
+                    }
+                  
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

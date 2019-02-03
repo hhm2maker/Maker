@@ -1,5 +1,7 @@
 ﻿using Maker.Business.Model.OperationModel;
 using Maker.Model;
+using Maker.View.Dialog;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +74,10 @@ namespace Maker.Business.ScriptUserControlBusiness
                         }
                         sb.Append(scriptModel.Value.Value);
 
+                    //临时存放，即存放生成代码时会需要用到的变量
+                    //规则是Step前面加My,即MyStep1，MyStep2...
+                    List<String> myContain = new List<string>();
+
                     if (scriptModel.Value.Value.Contains(scriptModel.Key + "LightGroup")) {
 
                         foreach (var mItem in scriptModel.Value.OperationModels)
@@ -111,12 +117,13 @@ namespace Maker.Business.ScriptUserControlBusiness
                             else if (mItem is ChangeTimeOperationModel)
                             {
                                 ChangeTimeOperationModel changeTimeOperationModel = mItem as ChangeTimeOperationModel;
-                                if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION) {
-                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION,"+ changeTimeOperationModel .Multiple.ToString()+ ");");
+                                if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + changeTimeOperationModel.Multiple.ToString() + ");");
                                 }
                                 else if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.DIVISION)
                                 {
-                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() +");");
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() + ");");
                                 }
                             }
                             else if (mItem is FoldOperationModel)
@@ -124,7 +131,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                                 FoldOperationModel foldOperationModel = mItem as FoldOperationModel;
                                 if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL)
                                 {
-                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Fold(LightGroup.VERTICAL," + foldOperationModel.StartPosition.ToString() + ","+ foldOperationModel.Span.ToString() + ");");
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Fold(LightGroup.VERTICAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
                                 }
                                 else if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.HORIZONTAL)
                                 {
@@ -134,7 +141,46 @@ namespace Maker.Business.ScriptUserControlBusiness
                             else if (mItem is OneNumberOperationModel)
                             {
                                 OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup."+oneNumberOperationModel.Identifier+"("+oneNumberOperationModel.Number.ToString() + ");");
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
+                            }
+                            else if (mItem is ChangeColorOperationModel)
+                            {
+                                String colorGroupName = String.Empty;
+                                int i = 1;
+                                while (i <= 100000)
+                                {
+                                    if (!myContain.Contains("Step" + i))
+                                    {
+                                        myContain.Add("Step" + i);
+                                        colorGroupName = "MyStep" + i + "ColorGroup";
+                                        break;
+                                    }
+                                    i++;
+                                }
+                                if (i > 100000)
+                                {
+                                    new MessageDialog(StaticConstant.mw, "ThereIsNoProperName").ShowDialog();
+                                }
+                                else
+                                {
+                                    sb.Append(Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(");
+                                    ChangeColorOperationModel changeColorOperationModel = mItem as ChangeColorOperationModel;
+                                    if (changeColorOperationModel.Colors.Count == 1) {
+                                        sb.Append("\"" + changeColorOperationModel.Colors[0] + "\",'" +StaticConstant.mw.suc.StrInputFormatDelimiter.ToString()+"','"+ StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                    }
+                                    else { 
+                                    for (int count = 0; count < changeColorOperationModel.Colors.Count; count++) {
+                                        if (count == 0)
+                                            sb.Append("\"");
+                                        if (count != changeColorOperationModel.Colors.Count - 1)
+                                            sb.Append(changeColorOperationModel.Colors[count] + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString());
+                                        else {
+                                            sb.Append(changeColorOperationModel.Colors[count] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                        }
+                                    }
+                                    }
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + colorGroupName + ");");
+                                }
                             }
                         }
                     }

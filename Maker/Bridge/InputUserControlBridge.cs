@@ -282,6 +282,7 @@ namespace Maker.Bridge
           private Dictionary<string, List<Light>> mLightList ;
         public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
+            iuc.mLightDictionary = mLightList;
             this.mLightList = mLightList;
             List<Light> colorLightList = new List<Light>();
 
