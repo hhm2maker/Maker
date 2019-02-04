@@ -32,7 +32,7 @@
     <sys:String x:Key="LengtheningOrShortening">延长或缩短</sys:String>
     <sys:String x:Key="DoubleExtension">延长一倍</sys:String>
     <sys:String x:Key="DoubleShortening">缩短一倍</sys:String>
-    <sys:String x:Key="StartTime">开始时间</sys:String>
+    <sys:String x:Key="SetStartTime">开始时间</sys:String>
     <sys:String x:Key="SetAllTime">固定时间</sys:String>
     <sys:String x:Key="Superposition">叠加</sys:String>
     <sys:String x:Key="ColorSuperposition">颜色叠加</sys:String>

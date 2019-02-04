@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjczIiwnICcsJy0nKTsNCglMaWdodEdyb3VwIFN0ZXAxTGlnaHRHcm91cCA9IENyZWF0ZS5DcmVhdGVMaWdodEdyb3VwKDAsU3RlcDFQb3NpdGlvbkdyb3VwLDEyLDEyLFN0ZXAxQ29sb3JHcm91cCxDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step1" intersection="" complement="" />
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjczIiwnICcsJy0nKTsNCglMaWdodEdyb3VwIFN0ZXAxTGlnaHRHcm91cCA9IENyZWF0ZS5DcmVhdGVMaWdodEdyb3VwKDAsU3RlcDFQb3NpdGlvbkdyb3VwLDEyLDEyLFN0ZXAxQ29sb3JHcm91cCxDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step1" intersection="" complement="">
+      <SetEndTime type="all" value="16" />
+    </Script>
   </Scripts>
 </Root>

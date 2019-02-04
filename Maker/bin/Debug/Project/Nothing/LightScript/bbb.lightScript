@@ -7,6 +7,7 @@
       <ChangeColor colors="74 75 76 77" />
       <ChangeColor colors="33 37 41 45" />
       <ChangeColor colors="5" />
+      <SetAllTime number="12" hintKeyword="PleaseEnterTheConstantTimeColon" />
     </Script>
   </Scripts>
 </Root>

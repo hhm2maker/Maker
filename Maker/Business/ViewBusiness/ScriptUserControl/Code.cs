@@ -138,6 +138,22 @@ namespace Maker.Business.ScriptUserControlBusiness
                                     sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.Fold(LightGroup.HORIZONTAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
                                 }
                             }
+                            else if (mItem is SetEndTimeOperationModel)
+                            {
+                                SetEndTimeOperationModel setEndTimeOperationModel = mItem as SetEndTimeOperationModel;
+                                if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetEndTime(LightGroup.ALL,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                                }
+                                else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.END)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetEndTime(LightGroup.END,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                                }
+                                else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALLANDEND)
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetEndTime(LightGroup.ALLANDEND,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                                }
+                            }
                             else if (mItem is OneNumberOperationModel)
                             {
                                 OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;

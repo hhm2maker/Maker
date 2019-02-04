@@ -125,6 +125,7 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Model\OperationModel\ChangeColorOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\SetEndTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\OneNumberOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\FoldOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ReversalOperationModel.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ChangeColorOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\SetEndTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\OneNumberOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\FoldOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ChangeTimeOperationChild.cs" />

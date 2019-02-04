@@ -108,6 +108,10 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new FoldOperationChild(baseOperationModel as FoldOperationModel));
                 }
+                else if (baseOperationModel is SetEndTimeOperationModel)
+                {
+                    svMain.Children.Add(new SetEndTimeOperationChild(baseOperationModel as SetEndTimeOperationModel));
+                }
                 else if (baseOperationModel is OneNumberOperationModel)
                 {
                     svMain.Children.Add(new OneNumberOperationChild(baseOperationModel as OneNumberOperationModel));
@@ -183,6 +187,10 @@ namespace Maker.View.Style
                 else if (item is ChangeColorOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "ChangeColor");
+                }
+                else if (item is SetEndTimeOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "EndTime");
                 }
                 else if (item is OneNumberOperationModel)
                 {

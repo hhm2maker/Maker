@@ -32,7 +32,7 @@
     <sys:String x:Key="LengtheningOrShortening">Lengthen/Shorten</sys:String>
     <sys:String x:Key="DoubleExtension">Double Extend</sys:String>
     <sys:String x:Key="DoubleShortening">Double Shorten</sys:String>
-    <sys:String x:Key="StartTime">Start Time</sys:String>
+    <sys:String x:Key="SetStartTime">Start Time</sys:String>
     <sys:String x:Key="SetAllTime">Constant Time</sys:String>
     <sys:String x:Key="Superposition">Overlap</sys:String>
     <sys:String x:Key="ColorSuperposition">Color Overlap</sys:String>

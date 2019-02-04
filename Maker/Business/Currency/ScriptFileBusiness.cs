@@ -106,6 +106,31 @@ namespace Maker.Business.ViewBusiness.Currency
                     {
                         scriptModel.OperationModels.Add(new ReversalOperationModel());
                     }
+                    else if (xEdit.Name.ToString().Equals("SetEndTime"))
+                    {
+                        SetEndTimeOperationModel setEndTimeOperationModel = new SetEndTimeOperationModel();
+                        if (xEdit.Attribute("type") != null && !xEdit.Attribute("type").Value.ToString().Equals(String.Empty))
+                        {
+                            String type = xEdit.Attribute("type").Value;
+                            if (type.Equals("all"))
+                            {
+                                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.ALL;
+                            }
+                            else if (type.Equals("end"))
+                            {
+                                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.END;
+                            }
+                            else if (type.Equals("allandend"))
+                            {
+                                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.ALLANDEND;
+                            }
+                        }
+                        if (xEdit.Attribute("value") != null && !xEdit.Attribute("value").Value.ToString().Equals(String.Empty))
+                        {
+                            setEndTimeOperationModel.Value = xEdit.Attribute("value").Value;
+                        }
+                        scriptModel.OperationModels.Add(setEndTimeOperationModel);
+                    }
                     else if (xEdit.Name.ToString().Equals("ChangeTime"))
                     {
                         ChangeTimeOperationModel changeTimeOperationModel = new ChangeTimeOperationModel();

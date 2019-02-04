@@ -4084,6 +4084,25 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("multiple", changeTimeOperationModel.Multiple.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is SetEndTimeOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("SetEndTime");
+                        SetEndTimeOperationModel setEndTimeOperationModel = mItem as SetEndTimeOperationModel;
+                        if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)
+                        {
+                            xVerticalFlipping.SetAttributeValue("type", "all");
+                        }
+                        else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.END)
+                        {
+                            xVerticalFlipping.SetAttributeValue("type", "end");
+                        }
+                        else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALLANDEND)
+                        {
+                            xVerticalFlipping.SetAttributeValue("type", "allandend");
+                        }
+                        xVerticalFlipping.SetAttributeValue("value", setEndTimeOperationModel.Value.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
                     else if (mItem is ChangeColorOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("ChangeColor");
@@ -4279,104 +4298,32 @@ namespace Maker.View.LightScriptUserControl
                     }
                 }
                 mColor.Sort();
-                Console.WriteLine(mColor);
                 scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
             }
-            if (  sender == btnColorChange)
+            if (sender == btnColorChange)
                 {
-              
-                //String colorGroupName = String.Empty;
-                //    int i = 1;
-                //    while (i <= 100000)
-                //    {
-                //        if (!scriptModel.Contain.Contains("Step" + i))
-                //        {
-                //            scriptModel.Contain.Add("Step" + i);
-                //            colorGroupName = "Step" + i + "ColorGroup";
-                //            break;
-                //        }
-                //        i++;
-                //    }
-                //    if (i > 100000)
-                //    {
-                //        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                //        return;
-                //    }
-                //    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"";
-                //    if (sender == btnChangeColorYellow)
-                //        command += "73 74 75 76";
-                //    if (sender == btnChangeColorBlue)
-                //        command += "33 37 41 45";
-                //    if (sender == btnChangeColorPink)
-                //        command += "4 94 53 57";
-                //    if (sender == btnChangeColorDiy)
-                //    {
-                //        mLightList = RefreshData(GetStepName());
-                //        List<int> mColor = new List<int>();
-                //        for (int j = 0; j < mLightList.Count; j++)
-                //        {
-                //            if (mLightList[j].Action == 144)
-                //            {
-                //                if (!mColor.Contains(mLightList[j].Color))
-                //                {
-                //                    mColor.Add(mLightList[j].Color);
-                //                }
-                //            }
-                //        }
-                //        mColor.Sort();
-                //        GetNumberDialog dialog = new GetNumberDialog(mw, "CustomFormattedColorColon", true, mColor);
-                //        if (dialog.ShowDialog() == true)
-                //        {
-                //            StringBuilder mBuilder = new StringBuilder();
-                //            for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                //            {
-                //                if (x != dialog.MultipleNumber.Count - 1)
-                //                {
-                //                    mBuilder.Append(dialog.MultipleNumber[x] + " ");
-                //                }
-                //                else
-                //                {
-                //                    mBuilder.Append(dialog.MultipleNumber[x]);
-                //                }
-                //            }
-                //            command += mBuilder.ToString();
-                //        }
-                //        else
-                //        {
-                //            return;
-                //        }
-                //    }
-                //    if (sender == btnColorChange)
-                //    {
-                //        ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, RefreshData(GetStepName(sp)));
-                //        if (colorDialog.ShowDialog() == true)
-                //        {
-                //            StringBuilder mBuilder = new StringBuilder();
-                //            for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
-                //            {
-                //                if (x != colorDialog.lbColor.Items.Count - 1)
-                //                {
-                //                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString() + " ");
-                //                }
-                //                else
-                //                {
-                //                    mBuilder.Append(colorDialog.lbColor.Items[x].ToString());
-                //                }
-                //            }
-                //            command += mBuilder.ToString();
-                //        }
-                //        else
-                //        {
-                //            return;
-                //        }
-                //    }
-                //    command += "\",' ','-');" + Environment.NewLine
-                //  + "\t" + GetStepName(sp) + "LightGroup.SetColor(" + colorGroupName + ");";
-                //    scriptModel.Value += command;
+                ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, mLightDictionary[GetStepName(sp)]);
+                if (colorDialog.ShowDialog() == true)
+                {
+                    List<int> mColor = new List<int>();
+                    for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
+                    {
+                        if (int.TryParse(colorDialog.lbColor.Items[x].ToString(), out int color)) {
+                            mColor.Add(color);
+                        }
+                        else {
+                            return;
+                        }
+                    }
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
                 }
+                else
+                {
+                    return;
+                }
+            }
                 if (sender == btnColorWithCount)
                 {
-
                     GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
                     if (dialog.ShowDialog() == true)
                     {
@@ -4414,41 +4361,11 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetStartTime)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheStartTimeColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetStartTime(" + dialog.OneNumber + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                   scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon"));
                 }
                 if (sender == btnSetEndTime)
                 {
-                    Edit_SetEndTimeDialog dialog = new Edit_SetEndTimeDialog(mw, GetStepName(sp) + "LightGroup");
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.SetEndTime(";
-                        if (dialog.cbType.SelectedIndex == 0)
-                        {
-                            command += "LightGroup.ALL,";
-                        }
-                        else if (dialog.cbType.SelectedIndex == 1)
-                        {
-                            command += "LightGroup.END,";
-                        }
-                        else if (dialog.cbType.SelectedIndex == 2)
-                        {
-                            command += "LightGroup.ALLANDEND,";
-                        }
-                        command += "\"" + dialog.tbValue.Text + "\");";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    scriptModel.OperationModels.Add(new SetEndTimeOperationModel(SetEndTimeOperationModel.Type.ALL, "12"));
                 }
                 if (sender == btnSetAllTime)
                 {
@@ -4607,7 +4524,6 @@ namespace Maker.View.LightScriptUserControl
                         return;
                     }
                 }
-
                 if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
                 {
                     String colorGroupName = String.Empty;
