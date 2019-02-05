@@ -266,7 +266,7 @@
                     <TabItem BorderThickness="0"  Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
                                 <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
                                     <TreeViewItem Header="{DynamicResource Disappear}" Name="btnDisappear" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <TreeViewItem Header="{DynamicResource Animation.Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                 </TreeView>
                             </TabItem>
                     <TabItem  BorderThickness="0"  Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >

@@ -6,24 +6,16 @@ using System.Threading.Tasks;
 
 namespace Maker.Business.Model.OperationModel
 {
-    public class ChangeColorOperationModel : BaseOperationModel
+    public class ChangeColorOperationModel : ColorOperationModel
     {
-
-        public List<int> Colors
+        public ChangeColorOperationModel():base()
         {
-            get;
-            set;
-        } = new List<int>();
-
-        public ChangeColorOperationModel()
-        {
-
+            HintString = "CustomFormattedColorColon";
         }
 
-        public ChangeColorOperationModel(List<int> colors)
+        public ChangeColorOperationModel(List<int> colors) : base(colors)
         {
-            Colors = colors;
+            HintString = "CustomFormattedColorColon";
         }
-
     }
 }

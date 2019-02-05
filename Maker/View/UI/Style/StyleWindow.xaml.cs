@@ -118,7 +118,15 @@ namespace Maker.View.Style
                 }
                 else if (baseOperationModel is ChangeColorOperationModel)
                 {
-                    svMain.Children.Add(new ChangeColorOperationChild(baseOperationModel as ChangeColorOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(baseOperationModel as ChangeColorOperationModel));
+                }
+                else if (baseOperationModel is CopyToTheEndOperationModel)
+                {
+                    svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheEndOperationModel));
+                }
+                else if (baseOperationModel is CopyToTheFollowOperationModel)
+                {
+                    svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheFollowOperationModel));
                 }
             }       
         }
@@ -191,6 +199,14 @@ namespace Maker.View.Style
                 else if (item is SetEndTimeOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "EndTime");
+                }
+                else if (item is CopyToTheEndOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ColorSuperposition");
+                }
+                else if (item is CopyToTheFollowOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ColorSuperpositionFollow");
                 }
                 else if (item is OneNumberOperationModel)
                 {

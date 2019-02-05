@@ -444,7 +444,7 @@
     <sys:String x:Key="Mycontent">My content</sys:String>
     <sys:String x:Key="MatchTotalTimeLattice">Match time</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">Total time lattice:</sys:String>
-    <sys:String x:Key="Windmill">Windmill</sys:String>
+    <sys:String x:Key="Animation.Windmill">Windmill</sys:String>
     <sys:String x:Key="Type">Type</sys:String>
     <sys:String x:Key="ParagraphLightList">Paragraph light list</sys:String>
     <sys:String x:Key="Accurate">Accurate</sys:String>

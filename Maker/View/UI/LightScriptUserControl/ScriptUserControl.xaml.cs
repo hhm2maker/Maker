@@ -4103,10 +4103,23 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("value", setEndTimeOperationModel.Value.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
-                    else if (mItem is ChangeColorOperationModel)
+                    else if (mItem is ChangeColorOperationModel
+                        || mItem is CopyToTheEndOperationModel
+                        || mItem is CopyToTheFollowOperationModel)
                     {
-                        XElement xVerticalFlipping = new XElement("ChangeColor");
-                        ChangeColorOperationModel changeColorOperationModel = mItem as ChangeColorOperationModel;
+                        XElement xVerticalFlipping;
+                        if (mItem is ChangeColorOperationModel)
+                        {
+                            xVerticalFlipping = new XElement("ChangeColor");
+                        }
+                        else if (mItem is CopyToTheEndOperationModel)
+                       {
+                            xVerticalFlipping = new XElement("CopyToTheEnd");
+                        }
+                          else {
+                            xVerticalFlipping = new XElement("CopyToTheFollow");
+                        }
+                        ColorOperationModel changeColorOperationModel = mItem as ColorOperationModel;
                         StringBuilder sb = new StringBuilder();
                         for (int count = 0; count < changeColorOperationModel.Colors.Count; count++)
                         {
@@ -4385,101 +4398,16 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnWindmill)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "IntervalColon", false);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Windmill(" + GetStepName(sp) + "LightGroup," + dialog.OneNumber + ");";
-                    }
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon"));
                 }
                 if (sender == btnCopyToTheEnd)
                 {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheEnd(" + colorGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    scriptModel.OperationModels.Add(new CopyToTheEndOperationModel(new List<int>() { 5 }));
                 }
                 if (sender == btnCopyToTheFollow)
                 {
-                    String colorGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            colorGroupName = "Step" + i + "ColorGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterANewColorGroupColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.CopyToTheFollow(" + colorGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    scriptModel.OperationModels.Add(new CopyToTheFollowOperationModel(new List<int>() { 5 }));
                 }
-
                 if (sender == btnAccelerationOrDeceleration)
                 {
                     String rangeGroupName = String.Empty;

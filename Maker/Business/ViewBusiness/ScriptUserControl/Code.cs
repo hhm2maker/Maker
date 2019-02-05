@@ -57,7 +57,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                             childCollection.Add(scriptModel.Value.Complement[i]);
                         }
                     }
-                    sb.Append("mainLightGroup.Add(\"" + scriptModel.Key + "\","+ scriptModel.Key +"LightGroup);");
+                    sb.Append("mainLightGroup.Add(\"" + scriptModel.Key + "\"," + scriptModel.Key + "LightGroup);");
                 }
             }
             //尾
@@ -68,20 +68,21 @@ namespace Maker.Business.ScriptUserControlBusiness
                 if (scriptModel.Value.Visible)
                 {
                     sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                        if (!scriptModel.Value.Parent.Equals(String.Empty))
-                        {
-                            sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                        }
-                        sb.Append(scriptModel.Value.Value);
+                    if (!scriptModel.Value.Parent.Equals(String.Empty))
+                    {
+                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
+                    }
+                    sb.Append(scriptModel.Value.Value);
 
                     //临时存放，即存放生成代码时会需要用到的变量
                     //规则是Step前面加My,即MyStep1，MyStep2...
                     List<String> myContain = new List<string>();
 
-                    if (scriptModel.Value.Value.Contains(scriptModel.Key + "LightGroup")) {
+                    if (scriptModel.Value.Value.Contains(scriptModel.Key + "LightGroup"))
+                    {
 
                         foreach (var mItem in scriptModel.Value.OperationModels)
-                    {
+                        {
                             if (mItem is VerticalFlippingOperationModel)
                             {
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.VerticalFlipping();");
@@ -157,9 +158,18 @@ namespace Maker.Business.ScriptUserControlBusiness
                             else if (mItem is OneNumberOperationModel)
                             {
                                 OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
+                                if (oneNumberOperationModel.Identifier.Equals("Animation.Windmill"))
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup = Animation.Windmill(" + scriptModel.Key + "LightGroup," + oneNumberOperationModel.Number.ToString() + ");");
+                                }
+                                else
+                                {
+                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
+                                }
                             }
-                            else if (mItem is ChangeColorOperationModel)
+                            else if (mItem is ChangeColorOperationModel
+                                || mItem is CopyToTheEndOperationModel
+                                || mItem is CopyToTheFollowOperationModel)
                             {
                                 String colorGroupName = String.Empty;
                                 int i = 1;
@@ -180,22 +190,32 @@ namespace Maker.Business.ScriptUserControlBusiness
                                 else
                                 {
                                     sb.Append(Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(");
-                                    ChangeColorOperationModel changeColorOperationModel = mItem as ChangeColorOperationModel;
-                                    if (changeColorOperationModel.Colors.Count == 1) {
-                                        sb.Append("\"" + changeColorOperationModel.Colors[0] + "\",'" +StaticConstant.mw.suc.StrInputFormatDelimiter.ToString()+"','"+ StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                    ColorOperationModel changeColorOperationModel = mItem as ColorOperationModel;
+                                    if (changeColorOperationModel.Colors.Count == 1)
+                                    {
+                                        sb.Append("\"" + changeColorOperationModel.Colors[0] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
                                     }
-                                    else { 
-                                    for (int count = 0; count < changeColorOperationModel.Colors.Count; count++) {
-                                        if (count == 0)
-                                            sb.Append("\"");
-                                        if (count != changeColorOperationModel.Colors.Count - 1)
-                                            sb.Append(changeColorOperationModel.Colors[count] + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString());
-                                        else {
-                                            sb.Append(changeColorOperationModel.Colors[count] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                    else
+                                    {
+                                        for (int count = 0; count < changeColorOperationModel.Colors.Count; count++)
+                                        {
+                                            if (count == 0)
+                                                sb.Append("\"");
+                                            if (count != changeColorOperationModel.Colors.Count - 1)
+                                                sb.Append(changeColorOperationModel.Colors[count] + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString());
+                                            else
+                                            {
+                                                sb.Append(changeColorOperationModel.Colors[count] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                            }
                                         }
                                     }
-                                    }
-                                    sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + colorGroupName + ");");
+                                    if(mItem is ChangeColorOperationModel)
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + colorGroupName + ");");
+                                    else if (mItem is CopyToTheEndOperationModel)
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheEnd(" + colorGroupName + ");");
+                                    else if (mItem is CopyToTheFollowOperationModel)
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheFollow(" + colorGroupName + ");");
+
                                 }
                             }
                         }
@@ -214,7 +234,7 @@ namespace Maker.Business.ScriptUserControlBusiness
         /// </summary>
         /// <param name="scriptModelDictionary"></param>
         /// <returns></returns>
-        public static String GetCode(Dictionary<String, ScriptModel> scriptModelDictionary,String stepName)
+        public static String GetCode(Dictionary<String, ScriptModel> scriptModelDictionary, String stepName)
         {
             StringBuilder sb = new StringBuilder();
             //头
@@ -269,13 +289,13 @@ namespace Maker.Business.ScriptUserControlBusiness
             {
                 if (scriptModel.Value.Visible)
                 {
-                  sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                        if (!scriptModel.Value.Parent.Equals(String.Empty))
-                        {
-                            sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                        }
-                        sb.Append(scriptModel.Value.Value);
-                        sb.Append("return " + scriptModel.Key + "LightGroup;}");
+                    sb.Append("public LightGroup " + scriptModel.Key + "(){");
+                    if (!scriptModel.Value.Parent.Equals(String.Empty))
+                    {
+                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
+                    }
+                    sb.Append(scriptModel.Value.Value);
+                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");

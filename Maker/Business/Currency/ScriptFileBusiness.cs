@@ -155,7 +155,10 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeTimeOperationModel);
                     }
-                    else if (xEdit.Name.ToString().Equals("FillColor") || xEdit.Name.ToString().Equals("SetAllTime") || xEdit.Name.ToString().Equals("MatchTotalTimeLattice"))
+                    else if (xEdit.Name.ToString().Equals("FillColor") 
+                        || xEdit.Name.ToString().Equals("SetAllTime")
+                        || xEdit.Name.ToString().Equals("MatchTotalTimeLattice")
+                        || xEdit.Name.ToString().Equals("Animation.Windmill"))
                     {
                         OneNumberOperationModel oneNumberOperationModel = new OneNumberOperationModel();
                         oneNumberOperationModel.Identifier = xEdit.Name.ToString();
@@ -203,9 +206,22 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(foldOperationModel);
                     }
-                    else if (xEdit.Name.ToString().Equals("ChangeColor"))
+                    else if (xEdit.Name.ToString().Equals("ChangeColor") 
+                        || xEdit.Name.ToString().Equals("CopyToTheEnd")
+                        || xEdit.Name.ToString().Equals("CopyToTheFollow"))
                     {
-                        ChangeColorOperationModel changeColorOperationModel = new ChangeColorOperationModel();
+                        ColorOperationModel changeColorOperationModel;
+                        if (xEdit.Name.ToString().Equals("ChangeColor"))
+                        {
+                            changeColorOperationModel = new ChangeColorOperationModel();
+                        }
+                        else if (xEdit.Name.ToString().Equals("CopyToTheEnd"))
+                        {
+                            changeColorOperationModel = new CopyToTheEndOperationModel();
+                        }
+                         else {
+                            changeColorOperationModel = new CopyToTheFollowOperationModel();
+                        }
                         if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
                         {
                             String colors = xEdit.Attribute("colors").Value;
@@ -218,7 +234,6 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeColorOperationModel);
                     }
-                  
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }
