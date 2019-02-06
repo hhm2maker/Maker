@@ -124,6 +124,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\InterceptTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\CopyToTheFollowOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\CopyToTheEndOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ColorOperationModel.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\InterceptTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ColorOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\SetEndTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\OneNumberOperationChild.cs" />
@@ -311,9 +313,6 @@
     </Compile>
     <Compile Include="View\UI\Dialog\ImportPictureDialog.xaml.cs">
       <DependentUpon>ImportPictureDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Dialog\InterceptTimeDialog.xaml.cs">
-      <DependentUpon>InterceptTimeDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\LanguageDialog.xaml.cs">
       <DependentUpon>LanguageDialog.xaml</DependentUpon>
@@ -653,10 +652,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Control\MainControlUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Dialog\InterceptTimeDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

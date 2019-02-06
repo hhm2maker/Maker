@@ -155,6 +155,11 @@ namespace Maker.Business.ScriptUserControlBusiness
                                     sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetEndTime(LightGroup.ALLANDEND,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
                                 }
                             }
+                            else if (mItem is InterceptTimeOperationModel)
+                            {
+                                InterceptTimeOperationModel interceptTimeOperationModel = mItem as InterceptTimeOperationModel;
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + ","+ interceptTimeOperationModel.End.ToString() + ");");
+                            }
                             else if (mItem is OneNumberOperationModel)
                             {
                                 OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
@@ -220,6 +225,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                             }
                         }
                     }
+
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }

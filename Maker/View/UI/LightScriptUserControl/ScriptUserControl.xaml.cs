@@ -4157,6 +4157,14 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("hintKeyword", oneNumberOperationModel.HintKeyword.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is InterceptTimeOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("InterceptTime");
+                        InterceptTimeOperationModel interceptTimeOperationModel = mItem as InterceptTimeOperationModel;
+                        xVerticalFlipping.SetAttributeValue("start", interceptTimeOperationModel.Start.ToString());
+                        xVerticalFlipping.SetAttributeValue("end", interceptTimeOperationModel.End.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
                 }
                 xScripts.Add(xScript);
             }
@@ -4271,11 +4279,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnInterceptTime)
                 {
-                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.InterceptTime(" + dialog.Min + "," + dialog.Max + ");";
-                    }
+                    scriptModel.OperationModels.Add(new InterceptTimeOperationModel(0, 12));
                 }
                 if (sender == btnRemoveBorder)
                 {

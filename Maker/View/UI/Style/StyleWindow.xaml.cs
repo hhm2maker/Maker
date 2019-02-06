@@ -128,6 +128,10 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheFollowOperationModel));
                 }
+                else if (baseOperationModel is InterceptTimeOperationModel)
+                {
+                    svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
+                }
             }       
         }
        private List<BaseOperationModel> operationModels;
@@ -207,6 +211,10 @@ namespace Maker.View.Style
                 else if (item is CopyToTheFollowOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "ColorSuperpositionFollow");
+                }
+                else if (item is InterceptTimeOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "InterceptTime");
                 }
                 else if (item is OneNumberOperationModel)
                 {

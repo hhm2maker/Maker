@@ -3506,11 +3506,11 @@ namespace Maker
                 }
                 if (sender == btnInterceptTime)
                 {
-                    InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.InterceptTime(" + GetStepName(sp) + "LightGroup," + dialog.Min+","+dialog.Max + ");";
-                    }
+                    //InterceptTimeDialog dialog = new InterceptTimeDialog(mw);
+                    //if (dialog.ShowDialog() == true)
+                    //{
+                    //    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.InterceptTime(" + GetStepName(sp) + "LightGroup," + dialog.Min+","+dialog.Max + ");";
+                    //}
                 }
                 if (sender == btnRemoveBorder)
                 {

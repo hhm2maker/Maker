@@ -155,6 +155,27 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeTimeOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("InterceptTime"))
+                    {
+                       InterceptTimeOperationModel interceptTimeOperationModel = new InterceptTimeOperationModel();
+                        if (xEdit.Attribute("start") != null && !xEdit.Attribute("start").Value.ToString().Equals(String.Empty))
+                        {
+                            String start = xEdit.Attribute("start").Value;
+                            if (int.TryParse(start, out int iStart))
+                            {
+                                interceptTimeOperationModel.Start = iStart;
+                            }
+                        }
+                        if (xEdit.Attribute("end") != null && !xEdit.Attribute("end").Value.ToString().Equals(String.Empty))
+                        {
+                            String end = xEdit.Attribute("end").Value;
+                            if (int.TryParse(end, out int iEnd))
+                            {
+                                interceptTimeOperationModel.End = iEnd;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(interceptTimeOperationModel);
+                    }
                     else if (xEdit.Name.ToString().Equals("FillColor") 
                         || xEdit.Name.ToString().Equals("SetAllTime")
                         || xEdit.Name.ToString().Equals("MatchTotalTimeLattice")

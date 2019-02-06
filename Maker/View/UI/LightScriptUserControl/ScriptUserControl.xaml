@@ -205,7 +205,7 @@
                                     <TreeViewItem Header="{DynamicResource EndTime}" Name="btnSetEndTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     <TreeViewItem Header="{DynamicResource SetAllTime}" Name="btnSetAllTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                             <TreeViewItem Header="{DynamicResource MatchTotalTimeLattice}" Name="btnMatchTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource Intercept}" Name="btnInterceptTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                    <TreeViewItem Header="{DynamicResource InterceptTime}" Name="btnInterceptTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                     </TreeView>
                             </TabItem>
                     <TabItem  BorderThickness="0"  Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
