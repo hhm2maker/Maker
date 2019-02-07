@@ -112,6 +112,10 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new SetEndTimeOperationChild(baseOperationModel as SetEndTimeOperationModel));
                 }
+                else if (baseOperationModel is ShapeColorOperationModel)
+                {
+                    svMain.Children.Add(new ShapeColorOperationChild(baseOperationModel as ShapeColorOperationModel));
+                }
                 else if (baseOperationModel is OneNumberOperationModel)
                 {
                     svMain.Children.Add(new OneNumberOperationChild(baseOperationModel as OneNumberOperationModel));
@@ -239,6 +243,10 @@ namespace Maker.View.Style
                 else if (item is AnimationDisappearOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "Disappear");
+                }
+                else if (item is ShapeColorOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ShapeColor");
                 }
                 else if (item is ColorWithCountOperationModel)
                 {

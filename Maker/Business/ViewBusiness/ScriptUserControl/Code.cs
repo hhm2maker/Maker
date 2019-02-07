@@ -158,7 +158,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                             else if (mItem is InterceptTimeOperationModel)
                             {
                                 InterceptTimeOperationModel interceptTimeOperationModel = mItem as InterceptTimeOperationModel;
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + ","+ interceptTimeOperationModel.End.ToString() + ");");
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + "," + interceptTimeOperationModel.End.ToString() + ");");
                             }
                             else if (mItem is AnimationDisappearOperationModel)
                             {
@@ -180,7 +180,8 @@ namespace Maker.Business.ScriptUserControlBusiness
                             else if (mItem is ChangeColorOperationModel
                                 || mItem is CopyToTheEndOperationModel
                                 || mItem is CopyToTheFollowOperationModel
-                                || mItem is AccelerationOrDecelerationOperationModel)
+                                || mItem is AccelerationOrDecelerationOperationModel
+                                )
                             {
                                 String rangeGroupName = String.Empty;
                                 int i = 1;
@@ -220,7 +221,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                                             }
                                         }
                                     }
-                                    if(mItem is ChangeColorOperationModel)
+                                    if (mItem is ChangeColorOperationModel)
                                         sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + rangeGroupName + ");");
                                     else if (mItem is CopyToTheEndOperationModel)
                                         sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheEnd(" + rangeGroupName + ");");
@@ -230,12 +231,63 @@ namespace Maker.Business.ScriptUserControlBusiness
                                         sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + ");");
                                     else if (mItem is ColorWithCountOperationModel)
                                         sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ColorWithCount(" + rangeGroupName + ");");
-
                                 }
                             }
-                        }
+                            else if (mItem is ShapeColorOperationModel)
+                            {
+                                String rangeGroupName = String.Empty;
+                                int i = 1;
+                                while (i <= 100000)
+                                {
+                                    if (!myContain.Contains("Step" + i))
+                                    {
+                                        myContain.Add("Step" + i);
+                                        rangeGroupName = "MyStep" + i + "ColorGroup";
+                                        break;
+                                    }
+                                    i++;
+                                }
+                                if (i > 100000)
+                                {
+                                    new MessageDialog(StaticConstant.mw, "ThereIsNoProperName").ShowDialog();
+                                }
+                                else
+                                {
+                                    sb.Append(Environment.NewLine + "\tColorGroup " + rangeGroupName + " = new ColorGroup(");
+                                    ShapeColorOperationModel shapeColorOperationModel = mItem as ShapeColorOperationModel;
+                                    if (shapeColorOperationModel.Colors.Count == 1)
+                                    {
+                                        sb.Append("\"" + shapeColorOperationModel.Colors[0] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                    }
+                                    else
+                                    {
+                                        for (int count = 0; count < shapeColorOperationModel.Colors.Count; count++)
+                                        {
+                                            if (count == 0)
+                                                sb.Append("\"");
+                                            if (count != shapeColorOperationModel.Colors.Count - 1)
+                                                sb.Append(shapeColorOperationModel.Colors[count] + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString());
+                                            else
+                                            {
+                                                sb.Append(shapeColorOperationModel.Colors[count] + "\",'" + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString() + "','" + StaticConstant.mw.suc.StrInputFormatRange.ToString() + "');");
+                                            }
+                                        }
+                                    }
+                                    if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE) {
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ShapeColor(LightGroup.SQUARE, " + rangeGroupName + "); ");
+                                    }
+                                    else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
+                                    {
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL, " + rangeGroupName + "); ");
+                                    }
+                                    else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL)
+                                    {
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL, " + rangeGroupName + "); ");
+                                    }
+                                }
+                            }
+                            }
                     }
-
                     sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }

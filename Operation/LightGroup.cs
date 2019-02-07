@@ -1558,6 +1558,7 @@ namespace Operation
             Clear();
             AddRange(lightGroup);
         }
+
         public static int SQUARE = 50;
         public static int RADIALVERTICAL = 51;
         public static int RADIALHORIZONTAL = 52;

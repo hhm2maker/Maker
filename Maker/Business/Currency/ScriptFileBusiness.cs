@@ -291,6 +291,40 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeColorOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("ShapeColor"))
+                    {
+                        ShapeColorOperationModel shapeColorOperationModel;
+                        shapeColorOperationModel = new ShapeColorOperationModel();
+                        if (xEdit.Attribute("shapeType") != null && !xEdit.Attribute("shapeType").Value.ToString().Equals(String.Empty))
+                        {
+                            String shapeType = xEdit.Attribute("shapeType").Value.ToString();
+                            if (shapeType.Equals("square"))
+                            {
+                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.SQUARE;
+                            }
+                            else if(shapeType.Equals("radialVertical"))
+                            {
+                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.RADIALVERTICAL;
+                            }
+                            else if (shapeType.Equals("radialHorizontal"))
+                            {
+                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL;
+                            }
+                        }
+                        if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
+                        {
+                            String colors = xEdit.Attribute("colors").Value;
+                            String[] strsColor = colors.Split(' ');
+                            foreach (var item in strsColor)
+                            {
+                                if (int.TryParse(item, out int color))
+                                {
+                                    shapeColorOperationModel.Colors.Add(color);
+                                }
+                            }
+                        }
+                        scriptModel.OperationModels.Add(shapeColorOperationModel);
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

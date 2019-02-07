@@ -3835,34 +3835,34 @@ namespace Maker
                 }
                 if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
                 {
-                    ShapeColorDialog dialog;
-                    if (sender == miSquare)
-                    {
-                        dialog = new ShapeColorDialog(mw, 0);
-                    }
-                    else if (sender == miRadialVertical)
-                    {
-                        dialog = new ShapeColorDialog(mw, 1);
-                    }
-                    else
-                    {
-                        dialog = new ShapeColorDialog(mw, 2);
-                    }
-                    if (dialog.ShowDialog() == true)
-                    {
-                        if (sender == miSquare)
-                        {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,Square,\"" + dialog.content + "\");";
-                        }
-                        else if (sender == miRadialVertical)
-                        {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialVertical,\"" + dialog.content + "\");";
-                        }
-                        else if (sender == miRadialHorizontal)
-                        {
-                            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialHorizontal,\"" + dialog.content + "\");";
-                        }
-                    }
+                //    ShapeColorDialog dialog;
+                //    if (sender == miSquare)
+                //    {
+                //        dialog = new ShapeColorDialog(mw, 0);
+                //    }
+                //    else if (sender == miRadialVertical)
+                //    {
+                //        dialog = new ShapeColorDialog(mw, 1);
+                //    }
+                //    else
+                //    {
+                //        dialog = new ShapeColorDialog(mw, 2);
+                //    }
+                //    if (dialog.ShowDialog() == true)
+                //    {
+                //        if (sender == miSquare)
+                //        {
+                //            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,Square,\"" + dialog.content + "\");";
+                //        }
+                //        else if (sender == miRadialVertical)
+                //        {
+                //            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialVertical,\"" + dialog.content + "\");";
+                //        }
+                //        else if (sender == miRadialHorizontal)
+                //        {
+                //            command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.ShapeColor(" + GetStepName(sp) + "LightGroup,RadialHorizontal,\"" + dialog.content + "\");";
+                //        }
+                //    }
                 }
                 lightScriptDictionary[GetStepName(sp)] += command;
             }

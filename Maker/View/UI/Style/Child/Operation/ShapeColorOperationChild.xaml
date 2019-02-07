@@ -1,0 +1,38 @@
+﻿<child:OperationStyle
+    xmlns:child="clr-namespace:Maker.View.UI.Style.Child"
+    x:Class="Maker.View.UI.Style.Child.ShapeColorOperationChild"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        xmlns:device="clr-namespace:Maker.View.Device"
+        mc:Ignorable="d"
+        Background="#535353"
+        Width="620"
+        Height="420"
+       >
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <device:LaunchpadPro Width="350" Height="350" x:Name="mLaunchpad" Margin="20" />
+        <StackPanel Margin="0,20,20,0" VerticalAlignment="Center">
+            <TextBlock Name="tbTitle" Foreground="White" FontSize="20"  Background="{x:Null}" HorizontalAlignment="Center" />
+            <TextBlock Name="tbHelpOne" Foreground="White" FontSize="20"  Background="{x:Null}" HorizontalAlignment="Center" >中间</TextBlock>
+            <TextBox Name="tbNumberOne" Foreground="White" FontSize="20"  Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberTwo" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberThree" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}">0</TextBox>
+            <TextBox Name="tbNumberFour" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberFive" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberSix" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberSeven" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberEight" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberNine" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBox Name="tbNumberTen" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+            <TextBlock Name="tbHelpTwo" Foreground="White" FontSize="20"   Background="{x:Null}" HorizontalAlignment="Center" >外面</TextBlock>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center">
+            <Button  Click="Preview" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0"  Content="{DynamicResource Preview}"></Button>
+            <Button  Click="PasteRangeListContent" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource PasteValue}" ></Button>
+        </StackPanel>
+    </StackPanel>
+
+</child:OperationStyle>

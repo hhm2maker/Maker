@@ -124,6 +124,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ColorWithCountOperationModel.cs" />
@@ -361,8 +362,8 @@
     <Compile Include="View\UI\Dialog\Script\Main_NewColorGroupDialog.xaml.cs">
       <DependentUpon>Main_NewColorGroupDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Dialog\ShapeColorDialog.xaml.cs">
-      <DependentUpon>ShapeColorDialog.xaml</DependentUpon>
+    <Compile Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.xaml.cs">
+      <DependentUpon>ShapeColorOperationChild.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\ShowLightListDialog.xaml.cs">
       <DependentUpon>ShowLightListDialog.xaml</DependentUpon>
@@ -854,7 +855,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Dialog\ShapeColorDialog.xaml">
+    <Page Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
