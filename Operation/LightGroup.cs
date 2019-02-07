@@ -1258,7 +1258,7 @@ namespace Operation
         /// 复制到最后
         /// </summary>
         /// <param name="colorList"></param>
-        public void CopyToTheEnd(ColorGroup colorList)
+        public void CopyToTheEnd(RangeGroup colorList)
         {
             //就是复制自己
             if (colorList.Count == 0)

@@ -185,12 +185,12 @@ namespace Maker.View.Dialog
             }
             else if (lbMain.SelectedItem.ToString().Contains("Edit.Animation("))
             {
-                String str = lbMain.SelectedItem.ToString();
-                Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(iuc.mw, ref str);
-                if (dialog.ShowDialog() == true)
-                {
-                    lbMain.Items[selectIndex] = dialog.result;
-                }
+                //String str = lbMain.SelectedItem.ToString();
+                //Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(iuc.mw, ref str);
+                //if (dialog.ShowDialog() == true)
+                //{
+                //    lbMain.Items[selectIndex] = dialog.result;
+                //}
             }
             //else if (lbMain.SelectedItem.ToString().Contains("Edit.Fold("))
             //{

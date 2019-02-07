@@ -365,9 +365,9 @@ namespace Maker.Bridge
                     lightMaxTime = nowMax;
                 }
             }
-            if (lightMaxTime == -1 || lightMaxTime == 0)
-                return;
 
+            if (lightMaxTime != -1 && lightMaxTime != 0)
+            { 
             int stepNum = 0;
             foreach (var item in iuc.scriptModelDictionary) {
                 if (mLightList.ContainsKey(item.Key)) {
@@ -388,9 +388,9 @@ namespace Maker.Bridge
                 }
                 stepNum++;
             }
-
+            }
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
-            { 
+            {
                 //清空
                 ClearFrame();
                 SetDataToLaunchpad(lights);

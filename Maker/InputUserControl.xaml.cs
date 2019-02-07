@@ -3685,15 +3685,15 @@ namespace Maker
                 }
                 if (sender == btnDisappear)
                 {
-                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Animation(" + GetStepName(sp) + "LightGroup,Serpentine," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    //Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
+                    //if (dialog.ShowDialog() == true)
+                    //{
+                    //    command = Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Edit.Animation(" + GetStepName(sp) + "LightGroup,Serpentine," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
+                    //}
+                    //else
+                    //{
+                    //    return;
+                    //}
                 }
                 if (sender == btnWindmill)
                 {

@@ -4105,7 +4105,9 @@ namespace Maker.View.LightScriptUserControl
                     }
                     else if (mItem is ChangeColorOperationModel
                         || mItem is CopyToTheEndOperationModel
-                        || mItem is CopyToTheFollowOperationModel)
+                        || mItem is CopyToTheFollowOperationModel
+                        || mItem is AccelerationOrDecelerationOperationModel
+                        || mItem is ColorWithCountOperationModel)
                     {
                         XElement xVerticalFlipping;
                         if (mItem is ChangeColorOperationModel)
@@ -4116,8 +4118,17 @@ namespace Maker.View.LightScriptUserControl
                        {
                             xVerticalFlipping = new XElement("CopyToTheEnd");
                         }
-                          else {
+                          else if (mItem is CopyToTheFollowOperationModel)
+                        {
                             xVerticalFlipping = new XElement("CopyToTheFollow");
+                        }
+                        else if (mItem is AccelerationOrDecelerationOperationModel)
+                        {
+                            xVerticalFlipping = new XElement("AccelerationOrDeceleration");
+                        }
+                        else 
+                        {
+                            xVerticalFlipping = new XElement("ColorWithCount");
                         }
                         ColorOperationModel changeColorOperationModel = mItem as ColorOperationModel;
                         StringBuilder sb = new StringBuilder();
@@ -4155,6 +4166,14 @@ namespace Maker.View.LightScriptUserControl
                         XElement xVerticalFlipping = new XElement(oneNumberOperationModel.Identifier);
                         xVerticalFlipping.SetAttributeValue("number", oneNumberOperationModel.Number.ToString());
                         xVerticalFlipping.SetAttributeValue("hintKeyword", oneNumberOperationModel.HintKeyword.ToString());
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is AnimationDisappearOperationModel)
+                    {
+                        AnimationDisappearOperationModel animationDisappearOperationModel = mItem as AnimationDisappearOperationModel;
+                        XElement xVerticalFlipping = new XElement("AnimationDisappear");
+                        xVerticalFlipping.SetAttributeValue("startTime", animationDisappearOperationModel.StartTime.ToString());
+                        xVerticalFlipping.SetAttributeValue("interval", animationDisappearOperationModel.Interval.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
                     else if (mItem is InterceptTimeOperationModel)
@@ -4341,41 +4360,42 @@ namespace Maker.View.LightScriptUserControl
             }
                 if (sender == btnColorWithCount)
                 {
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        String colorGroupName = String.Empty;
-                        int i = 1;
-                        while (i <= 100000)
-                        {
-                            if (!scriptModel.Contain.Contains("Step" + i))
-                            {
-                                scriptModel.Contain.Add("Step" + i);
-                                colorGroupName = "Step" + i + "ColorGroup";
-                                break;
-                            }
-                            i++;
-                        }
-                        if (i > 100000)
-                        {
-                            new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                            return;
-                        }
-                        StringBuilder builder = new StringBuilder();
-                        foreach (int n in dialog.MultipleNumber)
-                        {
-                            builder.Append(n + " ");
-                        }
-                        command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"" + builder.ToString().Trim();
-                        command += "\",' ','-');";
-                        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
+                scriptModel.OperationModels.Add(new ColorWithCountOperationModel(new List<int>() { 5 }));
+                //GetNumberDialog dialog = new GetNumberDialog(mw, "WithCountColon", true);
+                //if (dialog.ShowDialog() == true)
+                //{
+                //    String colorGroupName = String.Empty;
+                //    int i = 1;
+                //    while (i <= 100000)
+                //    {
+                //        if (!scriptModel.Contain.Contains("Step" + i))
+                //        {
+                //            scriptModel.Contain.Add("Step" + i);
+                //            colorGroupName = "Step" + i + "ColorGroup";
+                //            break;
+                //        }
+                //        i++;
+                //    }
+                //    if (i > 100000)
+                //    {
+                //        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
+                //        return;
+                //    }
+                //    StringBuilder builder = new StringBuilder();
+                //    foreach (int n in dialog.MultipleNumber)
+                //    {
+                //        builder.Append(n + " ");
+                //    }
+                //    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\"" + builder.ToString().Trim();
+                //    command += "\",' ','-');";
+                //    command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ColorWithCount(" + colorGroupName + ");";
+                //    scriptModel.Value += command;
+                //}
+                //else
+                //{
+                //    return;
+                //}
+            }
                 if (sender == btnSetStartTime)
                 {
                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon"));
@@ -4390,15 +4410,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnDisappear)
                 {
-                    Edit_AnimationDisappearDialog dialog = new Edit_AnimationDisappearDialog(mw, GetStepName(sp));
-                    if (dialog.ShowDialog() == true)
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup = Animation.Serpentine(" + GetStepName(sp) + "LightGroup," + dialog.tbStartTime.Text + "," + dialog.tbInterval.Text + ");";
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    scriptModel.OperationModels.Add(new AnimationDisappearOperationModel(0, 12));
                 }
                 if (sender == btnWindmill)
                 {
@@ -4414,49 +4426,9 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnAccelerationOrDeceleration)
                 {
-                    String rangeGroupName = String.Empty;
-                    int i = 1;
-                    while (i <= 100000)
-                    {
-                        if (!scriptModel.Contain.Contains("Step" + i))
-                        {
-                            scriptModel.Contain.Add("Step" + i);
-                            rangeGroupName = "Step" + i + "RangeGroup";
-                            break;
-                        }
-                        i++;
-                    }
-                    if (i > 100000)
-                    {
-                        new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                        return;
-                    }
-                    GetNumberDialog dialog = new GetNumberDialog(mw, "PleaseEnterTheDurationColon", true);
-                    if (dialog.ShowDialog() == true)
-                    {
-                        StringBuilder mBuilder = new StringBuilder();
-                        for (int x = 0; x < dialog.MultipleNumber.Count; x++)
-                        {
-                            if (x != dialog.MultipleNumber.Count - 1)
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString() + " ");
-                            }
-                            else
-                            {
-                                mBuilder.Append(dialog.MultipleNumber[x].ToString());
-                            }
-                        }
-                        command = Environment.NewLine + "\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
-                          + mBuilder.ToString() + "\",' ','-');" + Environment.NewLine
-                        + "\t" + GetStepName(sp) + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + "); ";
-                        scriptModel.Value += command;
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
+                    scriptModel.OperationModels.Add(new AccelerationOrDecelerationOperationModel(new List<int>() { 100 }));
+            }
+            if (sender == miSquare || sender == miRadialVertical || sender == miRadialHorizontal)
                 {
                     String colorGroupName = String.Empty;
                     int i = 1;

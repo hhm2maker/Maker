@@ -205,7 +205,7 @@ namespace Operation
                         }
                     }
                 }
-                else if (_action==OPEN)
+                else if (_action == OPEN)
                 {
                     //只开始
                     for (int j = 0; j < colorList.Count; j++)
@@ -281,7 +281,7 @@ namespace Operation
                         }
                     }
                 }
-                else if (_action ==OPEN)
+                else if (_action == OPEN)
                 {
                     //只开始
                     for (int j = 0; j < colorList.Count; j++)
@@ -299,7 +299,7 @@ namespace Operation
                         }
                     }
                 }
-                else if (_action==CLOSE)
+                else if (_action == CLOSE)
                 {
                     //只结束
                     for (int j = 0; j < colorList.Count; j++)
@@ -319,7 +319,7 @@ namespace Operation
                 }
             }
             //以下三种只支持Action等于All
-            else if (_type ==UPANDDOWN || _type == DOWNANDUP)
+            else if (_type == UPANDDOWN || _type == DOWNANDUP)
             {
                 //开始
                 for (int j = 0; j < colorList.Count; j++)
@@ -417,7 +417,7 @@ namespace Operation
                     }
                 }
             }
-                return _lightGroup;
+            return _lightGroup;
         }
     }
 }

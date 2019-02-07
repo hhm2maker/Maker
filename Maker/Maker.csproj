@@ -124,6 +124,9 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
+    <Compile Include="Business\Model\OperationModel\ColorWithCountOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\InterceptTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\CopyToTheFollowOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\CopyToTheEndOperationModel.cs" />
@@ -249,6 +252,7 @@
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\InterceptTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ColorOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\SetEndTimeOperationChild.cs" />
@@ -341,9 +345,6 @@
     <Compile Include="View\UI\Dialog\AddNewRangeListDialog.cs" />
     <Compile Include="View\UI\Dialog\Script\Create_CreateLightGroupDialog.xaml.cs">
       <DependentUpon>Create_CreateLightGroupDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Dialog\Script\Edit_AnimationDisappearDialog.xaml.cs">
-      <DependentUpon>Edit_AnimationDisappearDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\Script\Edit_ChangeTime.xaml.cs">
       <DependentUpon>Edit_ChangeTime.xaml</DependentUpon>
@@ -830,10 +831,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\Script\Create_CreateLightGroupDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Dialog\Script\Edit_AnimationDisappearDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

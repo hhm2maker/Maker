@@ -34,9 +34,11 @@ namespace Maker.Business.ViewBusiness.Currency
             XElement xScripts = xRoot.Element("Scripts");
             foreach (var xScript in xScripts.Elements("Script"))
             {
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.Name = xScript.Attribute("name").Value;
-                scriptModel.Value = Business.FileBusiness.CreateInstance().Base2String(xScript.Attribute("value").Value);
+                ScriptModel scriptModel = new ScriptModel
+                {
+                    Name = xScript.Attribute("name").Value,
+                    Value = FileBusiness.CreateInstance().Base2String(xScript.Attribute("value").Value)
+                };
                 if (xScript.Attribute("parent") == null)
                 {
                     scriptModel.Parent = "";
@@ -155,6 +157,27 @@ namespace Maker.Business.ViewBusiness.Currency
                         }
                         scriptModel.OperationModels.Add(changeTimeOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("AnimationDisappear"))
+                    {
+                        AnimationDisappearOperationModel animationDisappearOperationModel = new AnimationDisappearOperationModel();
+                        if (xEdit.Attribute("startTime") != null && !xEdit.Attribute("startTime").Value.ToString().Equals(String.Empty))
+                        {
+                            String startTime = xEdit.Attribute("startTime").Value;
+                            if (int.TryParse(startTime, out int iStartTime))
+                            {
+                                animationDisappearOperationModel.StartTime = iStartTime;
+                            }
+                        }
+                        if (xEdit.Attribute("interval") != null && !xEdit.Attribute("interval").Value.ToString().Equals(String.Empty))
+                        {
+                            String interval = xEdit.Attribute("interval").Value;
+                            if (int.TryParse(interval, out int iInterval))
+                            {
+                                animationDisappearOperationModel.Interval = iInterval;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(animationDisappearOperationModel);
+                    }
                     else if (xEdit.Name.ToString().Equals("InterceptTime"))
                     {
                        InterceptTimeOperationModel interceptTimeOperationModel = new InterceptTimeOperationModel();
@@ -181,8 +204,10 @@ namespace Maker.Business.ViewBusiness.Currency
                         || xEdit.Name.ToString().Equals("MatchTotalTimeLattice")
                         || xEdit.Name.ToString().Equals("Animation.Windmill"))
                     {
-                        OneNumberOperationModel oneNumberOperationModel = new OneNumberOperationModel();
-                        oneNumberOperationModel.Identifier = xEdit.Name.ToString();
+                        OneNumberOperationModel oneNumberOperationModel = new OneNumberOperationModel
+                        {
+                            Identifier = xEdit.Name.ToString()
+                        };
                         if (xEdit.Attribute("number") != null && !xEdit.Attribute("number").Value.ToString().Equals(String.Empty))
                         {
                             String multiple = xEdit.Attribute("number").Value;
@@ -229,7 +254,9 @@ namespace Maker.Business.ViewBusiness.Currency
                     }
                     else if (xEdit.Name.ToString().Equals("ChangeColor") 
                         || xEdit.Name.ToString().Equals("CopyToTheEnd")
-                        || xEdit.Name.ToString().Equals("CopyToTheFollow"))
+                        || xEdit.Name.ToString().Equals("CopyToTheFollow")
+                        || xEdit.Name.ToString().Equals("AccelerationOrDeceleration")
+                        || xEdit.Name.ToString().Equals("ColorWithCount"))
                     {
                         ColorOperationModel changeColorOperationModel;
                         if (xEdit.Name.ToString().Equals("ChangeColor"))
@@ -240,8 +267,17 @@ namespace Maker.Business.ViewBusiness.Currency
                         {
                             changeColorOperationModel = new CopyToTheEndOperationModel();
                         }
-                         else {
+                         else if (xEdit.Name.ToString().Equals("CopyToTheFollow"))
+                        {
                             changeColorOperationModel = new CopyToTheFollowOperationModel();
+                        }
+                        else if (xEdit.Name.ToString().Equals("AccelerationOrDeceleration"))
+                        {
+                            changeColorOperationModel = new AccelerationOrDecelerationOperationModel();
+                        }
+                        else
+                        {
+                            changeColorOperationModel = new ColorWithCountOperationModel();
                         }
                         if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
                         {

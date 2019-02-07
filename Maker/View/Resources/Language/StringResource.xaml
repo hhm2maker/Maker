@@ -454,7 +454,7 @@
     <sys:String x:Key="LowerLeftSlashFlipping">Lower left slash flipping</sys:String>
     <sys:String x:Key="LowerRightSlashFlipping">Lower right slash flipping</sys:String>
     <sys:String x:Key="TheStepIsLocked">The step is locked.</sys:String>
-    <sys:String x:Key="WithCount">With count</sys:String>
+    <sys:String x:Key="ColorWithCount">Color with count</sys:String>
     <sys:String x:Key="WithCountColon">With count:</sys:String>
     <sys:String x:Key="YouNeedToSelectTheStep">You need to select the step</sys:String>
     <sys:String x:Key="InterceptTime">Intercept time</sys:String>

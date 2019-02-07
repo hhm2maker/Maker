@@ -128,6 +128,22 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheFollowOperationModel));
                 }
+                else if (baseOperationModel is AccelerationOrDecelerationOperationModel)
+                {
+                    svMain.Children.Add(new ColorOperationChild(baseOperationModel as AccelerationOrDecelerationOperationModel));
+                }
+                else if (baseOperationModel is AnimationDisappearOperationModel)
+                {
+                    svMain.Children.Add(new AnimationDisappearOperationChild(baseOperationModel as AnimationDisappearOperationModel));
+                }
+                else if (baseOperationModel is ColorWithCountOperationModel)
+                {
+                    svMain.Children.Add(new ColorOperationChild(baseOperationModel as ColorWithCountOperationModel));
+                }
+                else if (baseOperationModel is AnimationDisappearOperationModel)
+                {
+                    svMain.Children.Add(new AnimationDisappearOperationChild(baseOperationModel as AnimationDisappearOperationModel));
+                }
                 else if (baseOperationModel is InterceptTimeOperationModel)
                 {
                     svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
@@ -212,9 +228,21 @@ namespace Maker.View.Style
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "ColorSuperpositionFollow");
                 }
+                else if (item is AccelerationOrDecelerationOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "AccelerationOrDeceleration");
+                }
                 else if (item is InterceptTimeOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "InterceptTime");
+                }
+                else if (item is AnimationDisappearOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "Disappear");
+                }
+                else if (item is ColorWithCountOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ColorWithCount");
                 }
                 else if (item is OneNumberOperationModel)
                 {

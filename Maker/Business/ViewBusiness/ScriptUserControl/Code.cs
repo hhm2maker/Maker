@@ -160,6 +160,11 @@ namespace Maker.Business.ScriptUserControlBusiness
                                 InterceptTimeOperationModel interceptTimeOperationModel = mItem as InterceptTimeOperationModel;
                                 sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + ","+ interceptTimeOperationModel.End.ToString() + ");");
                             }
+                            else if (mItem is AnimationDisappearOperationModel)
+                            {
+                                AnimationDisappearOperationModel animationDisappearOperationModel = mItem as AnimationDisappearOperationModel;
+                                sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup = Animation.Serpentine(" + scriptModel.Key + "LightGroup," + animationDisappearOperationModel.StartTime.ToString() + ", " + animationDisappearOperationModel.Interval.ToString() + ");");
+                            }
                             else if (mItem is OneNumberOperationModel)
                             {
                                 OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
@@ -174,16 +179,17 @@ namespace Maker.Business.ScriptUserControlBusiness
                             }
                             else if (mItem is ChangeColorOperationModel
                                 || mItem is CopyToTheEndOperationModel
-                                || mItem is CopyToTheFollowOperationModel)
+                                || mItem is CopyToTheFollowOperationModel
+                                || mItem is AccelerationOrDecelerationOperationModel)
                             {
-                                String colorGroupName = String.Empty;
+                                String rangeGroupName = String.Empty;
                                 int i = 1;
                                 while (i <= 100000)
                                 {
                                     if (!myContain.Contains("Step" + i))
                                     {
                                         myContain.Add("Step" + i);
-                                        colorGroupName = "MyStep" + i + "ColorGroup";
+                                        rangeGroupName = "MyStep" + i + "ColorGroup";
                                         break;
                                     }
                                     i++;
@@ -194,7 +200,7 @@ namespace Maker.Business.ScriptUserControlBusiness
                                 }
                                 else
                                 {
-                                    sb.Append(Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(");
+                                    sb.Append(Environment.NewLine + "\tColorGroup " + rangeGroupName + " = new ColorGroup(");
                                     ColorOperationModel changeColorOperationModel = mItem as ColorOperationModel;
                                     if (changeColorOperationModel.Colors.Count == 1)
                                     {
@@ -215,11 +221,15 @@ namespace Maker.Business.ScriptUserControlBusiness
                                         }
                                     }
                                     if(mItem is ChangeColorOperationModel)
-                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + colorGroupName + ");");
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.SetColor(" + rangeGroupName + ");");
                                     else if (mItem is CopyToTheEndOperationModel)
-                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheEnd(" + colorGroupName + ");");
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheEnd(" + rangeGroupName + ");");
                                     else if (mItem is CopyToTheFollowOperationModel)
-                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheFollow(" + colorGroupName + ");");
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.CopyToTheFollow(" + rangeGroupName + ");");
+                                    else if (mItem is AccelerationOrDecelerationOperationModel)
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + ");");
+                                    else if (mItem is ColorWithCountOperationModel)
+                                        sb.Append(Environment.NewLine + "\t" + scriptModel.Key + "LightGroup.ColorWithCount(" + rangeGroupName + ");");
 
                                 }
                             }

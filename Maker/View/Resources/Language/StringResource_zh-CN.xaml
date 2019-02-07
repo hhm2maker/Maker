@@ -457,7 +457,7 @@
     <sys:String x:Key="LowerLeftSlashFlipping">左下角斜线翻转</sys:String>
     <sys:String x:Key="LowerRightSlashFlipping">右下角斜线翻转</sys:String>
     <sys:String x:Key="TheStepIsLocked">步骤被锁定。</sys:String>
-    <sys:String x:Key="WithCount">根据次数</sys:String>
+    <sys:String x:Key="ColorWithCount">根据次数改变颜色</sys:String>
     <sys:String x:Key="WithCountColon">根据次数：</sys:String>
     <sys:String x:Key="YouNeedToSelectTheStep">你需要选中步骤</sys:String>
     <sys:String x:Key="InterceptTime">截取时间</sys:String>

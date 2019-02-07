@@ -245,10 +245,10 @@
                                                 <TreeViewItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                                 <TreeViewItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                             </TreeViewItem>
-                                            <TreeViewItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                            <TreeViewItem Header="{DynamicResource WithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                                         </TreeViewItem>
-                                    </TreeView>
+                                <TreeViewItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                <TreeViewItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            </TreeView>
                                 </StackPanel>
                             </TabItem>
                     <TabItem  BorderThickness="0" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
