@@ -20,9 +20,9 @@ namespace Maker.Business.ViewBusiness.ScriptUserControl
         {
             return ScriptFileBusiness.Test(scriptModelDictionary) ;
         }
-        public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary,String stepName)
+        public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary, String stepName)
         {
-            return ScriptFileBusiness.Test(scriptModelDictionary, stepName);
+            return ScriptFileBusiness.Test(scriptModelDictionary, stepName)[stepName];
         }
     }
 }

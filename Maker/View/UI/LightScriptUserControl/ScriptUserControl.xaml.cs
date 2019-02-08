@@ -4448,56 +4448,6 @@ namespace Maker.View.LightScriptUserControl
                 {
                     scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
                 }
-                //String colorGroupName = String.Empty;
-                //int i = 1;
-                //while (i <= 100000)
-                //{
-                //    if (!scriptModel.Contain.Contains("Step" + i))
-                //    {
-                //        scriptModel.Contain.Add("Step" + i);
-                //        colorGroupName = "Step" + i + "ColorGroup";
-                //        break;
-                //    }
-                //    i++;
-                //}
-                //if (i > 100000)
-                //{
-                //    new MessageDialog(mw, "ThereIsNoProperName").ShowDialog();
-                //    return;
-                //}
-
-                //ShapeColorDialog dialog;
-                //if (sender == miSquare)
-                //{
-                //    dialog = new ShapeColorDialog(mw, 0);
-                //}
-                //else if (sender == miRadialVertical)
-                //{
-                //    dialog = new ShapeColorDialog(mw, 1);
-                //}
-                //else
-                //{
-                //    dialog = new ShapeColorDialog(mw, 2);
-                //}
-                //if (dialog.ShowDialog() == true)
-                //{
-                //    command = Environment.NewLine + "\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                //      + dialog.content + "\",' ','-');";
-
-                //    if (sender == miSquare)
-                //    {
-                //        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.SQUARE," + colorGroupName + ");";
-                //    }
-                //    else if (sender == miRadialVertical)
-                //    {
-                //        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL," + colorGroupName + ");";
-                //    }
-                //    else if (sender == miRadialHorizontal)
-                //    {
-                //        command += Environment.NewLine + "\t" + GetStepName(sp) + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL," + colorGroupName + ");";
-                //    }
-                //    scriptModel.Value += command;
-                //}
             }
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);

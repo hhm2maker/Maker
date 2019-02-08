@@ -154,7 +154,6 @@ namespace Maker.View.UI.Style.Child
      
         private void Preview(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("bbb");
             if (!int.TryParse(tbNumberOne.Text, out int numberOne))
             {
                 tbNumberOne.Select(0, tbNumberOne.Text.Length);
@@ -205,7 +204,6 @@ namespace Maker.View.UI.Style.Child
                 tbNumberTen.Select(0, tbNumberTen.Text.Length);
                 return;
             }
-            Console.WriteLine("AAAA");
             //方形
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE ) {
                 List<List<int>> lli = new List<List<int>>();

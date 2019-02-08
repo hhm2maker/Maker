@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace Operation
 {
-   
-    public class Test
-    {
-       
-    }
+
+   using System;
+using System.Collections.Generic;
+using Operation;
+public class Test{
+public Dictionary<string,List<Light>> Hello(){
+Dictionary<string,List<Light>> mainLightGroup = new Dictionary<string,List<Light>>();LightGroup Step1LightGroup = Step1();mainLightGroup.Add("Step1LightGroup",Step1LightGroup);return mainLightGroup;}public LightGroup Step1(){PositionGroup Step1PositionGroup = new PositionGroup("36",' ','-');
+	ColorGroup Step1ColorGroup = new ColorGroup("5",' ','-');
+	LightGroup Step1LightGroup = Create.CreateLightGroup(0,Step1PositionGroup,12,12,Step1ColorGroup,Create.UP,Create.ALL);
+	ColorGroup MyStep1ColorGroup = new ColorGroup("100 50",' ','-');
+	Step1LightGroup.AccelerationOrDeceleration(MyStep1ColorGroup);
+	ColorGroup MyStep2ColorGroup = new ColorGroup("5 5 5 5 5",' ','-');
+	Step1LightGroup.ShapeColor(LightGroup.SQUARE, MyStep2ColorGroup); return Step1LightGroup;}}
 
 }
