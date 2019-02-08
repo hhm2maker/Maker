@@ -269,4 +269,62 @@
             </Setter.Value>
         </Setter>
     </Style>
+     <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Padding" Value="6"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="ArialMT"/>
+        <Setter Property="Placement" Value="Bottom"/>
+        <Setter Property="HorizontalOffset" Value="-16"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="5*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Viewbox Grid.Row="0" Grid.Column="0" Stretch="Uniform"  HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <Path Data="M48.75,116.75 L40.5,124 57.25,124 z" Fill="{TemplateBinding Background}" HorizontalAlignment="Left" Height="8.25"  Stretch="Fill" Stroke="{TemplateBinding Background}" VerticalAlignment="Top" Width="17.75"/>
+                        </Viewbox>
+                        <Border Grid.Row="1" x:Name="Root" Grid.ColumnSpan="2"  CornerRadius="6" Margin="0,-2,0,0"  
+                                  Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <Border.Resources>
+                                <Storyboard x:Key="Visible State"/>
+                                <Storyboard x:Key="Normal State"/>
+                            </Border.Resources>
+                            <ContentPresenter TextBlock.Foreground="White" TextBlock.FontFamily="ArialMT"  
+                                                TextBlock.FontSize="16"
+                            Content="{TemplateBinding Content}"  
+                            ContentTemplate="{TemplateBinding ContentTemplate}"  
+                            Cursor="{TemplateBinding Cursor}"  
+                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </Grid>
+                    
+    <!--<Border x:Name="Root" CornerRadius="2" BorderThickness="{TemplateBinding BorderThickness}" Background="#FFFFFFFF" BorderBrush="{TemplateBinding BorderBrush}">  
+                          <Border BorderBrush="#FFFFFFFF" BorderThickness="1" CornerRadius="1" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">  
+                              <Border.Resources>  
+                                  <Storyboard x:Key="Visible State"/>  
+                                  <Storyboard x:Key="Normal State"/>  
+                              </Border.Resources>  
+                              <ContentPresenter  
+                            Content="{TemplateBinding Content}"  
+                            ContentTemplate="{TemplateBinding ContentTemplate}"  
+                            Cursor="{TemplateBinding Cursor}"  
+                            Margin="{TemplateBinding Padding}"/>  
+                          </Border>  
+                      </Border>-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

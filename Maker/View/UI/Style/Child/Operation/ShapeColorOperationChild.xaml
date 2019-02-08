@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:Maker.View.Dialog"
         xmlns:device="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-        Background="#535353"
+        Background="#363B40"
         Width="620"
         Height="420"
        >

@@ -496,5 +496,5 @@
     <sys:String x:Key="Basics">基础</sys:String>
     <sys:String x:Key="StartColon">开始:</sys:String>
     <sys:String x:Key="EndColon" >结束:</sys:String>
-
+    <sys:String x:Key="IDoNotThinkItWorks">我认为它不起作用。</sys:String>
 </ResourceDictionary>

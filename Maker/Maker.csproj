@@ -518,21 +518,6 @@
     <Compile Include="View\UI\Style\Child\ColorChild.xaml.cs">
       <DependentUpon>ColorChild.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Style\Child\ColorOverlayChild.xaml.cs">
-      <DependentUpon>ColorOverlayChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\OtherChild.xaml.cs">
-      <DependentUpon>OtherChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\ShapeChild.xaml.cs">
-      <DependentUpon>ShapeChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\SportOverlayChild.xaml.cs">
-      <DependentUpon>SportOverlayChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\TimeChild.xaml.cs">
-      <DependentUpon>TimeChild.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UI\Style\StyleWindow.xaml.cs">
       <DependentUpon>StyleWindow.xaml</DependentUpon>
     </Compile>
@@ -1022,26 +1007,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Style\Child\ColorChild.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\ColorOverlayChild.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\OtherChild.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\ShapeChild.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\SportOverlayChild.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\TimeChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

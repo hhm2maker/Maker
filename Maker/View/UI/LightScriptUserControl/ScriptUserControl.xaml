@@ -394,18 +394,19 @@
                             <MenuItem Click="CollectionIntegration" Header="{DynamicResource CollectionIntegration}" FontSize="14"/>
                             <Separator />
                             <MenuItem Click="StyleIntegration" Header="{DynamicResource StyleIntegration}" FontSize="14"/>
-                            <MenuItem Click="CheckProperties" Header="{DynamicResource CheckProperties}" FontSize="14"/>
+                           <Separator />
+                                <MenuItem Click="CheckProperties" Header="{DynamicResource CheckProperties}" FontSize="14"/>
                         </ContextMenu>
                     </ListBox.ContextMenu>
                 </ListBox>
                     <Canvas Name="cTime" Grid.Column="1" Background="#222326" SizeChanged="cTime_SizeChanged"  />
                 </Grid>
-                <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" x:Name="spMainStep">
+                <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">
                     <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Background="#222326" Grid.Row="2" >
                     <ToolBar Background="#222326"  ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                        <Image Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                         <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                         <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->
                         <Image Source="../../Resources/Image/merge_white.png" MouseLeftButtonDown="MergeStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />

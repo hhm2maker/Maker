@@ -1,15 +1,12 @@
 ﻿using Maker.Business.Model.OperationModel;
 using Maker.Business.ScriptUserControlBusiness;
 using Maker.Model;
-using Maker.View.LightScriptUserControl;
 using Microsoft.CSharp;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 

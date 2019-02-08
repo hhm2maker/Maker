@@ -180,6 +180,10 @@ namespace Maker.View.LightScriptUserControl
             {
                 (item as ListBoxItem).MouseLeftButtonUp += InputUserControl_MouseLeftButtonUp;
             }
+            ToolTip toolTip = new System.Windows.Controls.ToolTip();
+            toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
+            toolTip.SetValue(StyleProperty,null);
+            iNewStep.ToolTip = toolTip;
         }
         private void LoadRangeFile()
         {
@@ -1776,230 +1780,12 @@ namespace Maker.View.LightScriptUserControl
             {
                 return;
             }
-            if (!finalDictionary.ContainsKey(GetStepName()))
-                return;
             //没有可操作的灯光组
             if (!lightScriptDictionary[GetStepName()].Contains(GetStepName() + "LightGroup"))
             {
                 return;
             }
-            String[] contents = finalDictionary[GetStepName()].Split(';');
-            StringBuilder command = new StringBuilder();
-            foreach (String str in contents)
-            {
-                if (str.Equals(String.Empty))
-                    continue;
-                String[] strs = str.Split('=');
-                String type = strs[0];
-                String[] _contents = strs[1].Split(',');
-
-                if (type.Equals("Color"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        String[] mContents = _str.Split('-');
-                        if (mContents[0].Equals("Format"))
-                        {
-                            String colorGroupName = String.Empty;
-                            int i = 1;
-                            while (i <= 100000)
-                            {
-                                if (!containDictionary[GetStepName()].Contains("Step" + i))
-                                {
-                                    containDictionary[GetStepName()].Add("Step" + i);
-                                    colorGroupName = "Step" + i + "Color";
-                                    break;
-                                }
-                                i++;
-                            }
-                            if (i > 100000)
-                            {
-                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                                return;
-                            }
-
-                            if (mContents[1].Equals("Green"))
-                            {
-                                command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                                    + "73 74 75 76" + "\",' ','-');" + Environment.NewLine
-                                  + "\t" + GetStepName() + "LightGroup.Color = " + colorGroupName + ";" + Environment.NewLine
-                                   );
-                            }
-                            if (mContents[1].Equals("Blue"))
-                            {
-                                command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                                  + "33 37 41 45" + "\",' ','-');" + Environment.NewLine
-                                + "\t" + GetStepName() + "LightGroup.Color = " + colorGroupName + ";" + Environment.NewLine);
-                            }
-                            if (mContents[1].Equals("Pink"))
-                            {
-                                command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                                + "4 94 53 57" + "\",' ','-');" + Environment.NewLine
-                              + "\t" + GetStepName() + "LightGroup.Color = " + colorGroupName + ";" + Environment.NewLine);
-                            }
-                            if (mContents[1].Equals("Diy"))
-                            {
-                                command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                              + mContents[2] + "\",' ','-');" + Environment.NewLine
-                            + "\t" + GetStepName() + "LightGroup.Color = " + colorGroupName + ";" + Environment.NewLine);
-                            }
-                        }
-                        else if (mContents[0].Equals("Shape"))
-                        {
-                            if (mContents[1].Equals("Square"))
-                            {
-                                command.Append("\t" + GetStepName() + "LightGroup = Edit.ShapeColor(" + GetStepName() + "LightGroup,Square,\"" + mContents[2] + "\");" + Environment.NewLine);
-                            }
-                            else if (mContents[1].Equals("RadialVertical"))
-                            {
-                                command.Append("\t" + GetStepName() + "LightGroup = Edit.ShapeColor(" + GetStepName() + "LightGroup,RadialVertical,\"" + mContents[2] + "\");" + Environment.NewLine);
-                            }
-                            else if (mContents[1].Equals("RadialHorizontal"))
-                            {
-                                command.Append("\t" + GetStepName() + "LightGroup = Edit.ShapeColor(" + GetStepName() + "LightGroup,RadialHorizontal,\"" + mContents[2] + "\");" + Environment.NewLine);
-                            }
-                        }
-                    }
-                }
-                if (type.Equals("Shape"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        if (_str.Equals("HorizontalFlipping"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.HorizontalFlipping(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-                        }
-                        if (_str.Equals("VerticalFlipping"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.VerticalFlipping(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-                        }
-                        if (_str.Equals("Clockwise"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.Clockwise(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-
-                        }
-                        if (_str.Equals("AntiClockwise"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.AntiClockwise(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-                        }
-                    }
-                }
-                if (type.Equals("Time"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        if (_str.Equals("Reversal"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.Reversal(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-                        }
-                        String[] mContents = _str.Split('-');
-                        if (mContents[0].Equals("ChangeTime"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.ChangeTime(" + GetStepName() + "LightGroup," + mContents[1] + "," + mContents[2] + ");" + Environment.NewLine);
-
-                        }
-                        else if (mContents[0].Equals("StartTime"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = " + GetStepName() + "LightGroup.SetStartTime(" + mContents[1] + ");" + Environment.NewLine);
-                        }
-                        else if (mContents[0].Equals("AllTime"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = " + GetStepName() + "LightGroup.SetAllTime(" + mContents[1] + ");" + Environment.NewLine);
-                        }
-                    }
-                }
-                if (type.Equals("ColorOverlay"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        String[] mContents = _str.Split('-');
-                        if (mContents[0].Equals("true"))
-                        {
-                            String colorGroupName = String.Empty;
-                            int i = 1;
-                            while (i <= 100000)
-                            {
-                                if (!containDictionary[GetStepName()].Contains("Step" + i))
-                                {
-                                    containDictionary[GetStepName()].Add("Step" + i);
-                                    colorGroupName = "Step" + i + "Color";
-                                    break;
-                                }
-                                i++;
-                            }
-                            if (i > 100000)
-                            {
-                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                                return;
-                            }
-                            command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                              + mContents[1] + "\",' ','-');" + Environment.NewLine
-                            + "\t" + GetStepName() + "LightGroup = Edit.CopyToTheFollow(" + GetStepName() + "LightGroup," + colorGroupName + "); " + Environment.NewLine);
-                        }
-                        else
-                        {
-                            String colorGroupName = String.Empty;
-                            int i = 1;
-                            while (i <= 100000)
-                            {
-                                if (!containDictionary[GetStepName()].Contains("Step" + i))
-                                {
-                                    containDictionary[GetStepName()].Add("Step" + i);
-                                    colorGroupName = "Step" + i + "Color";
-                                    break;
-                                }
-                                i++;
-                            }
-                            if (i > 100000)
-                            {
-                                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                                return;
-                            }
-                            command.Append("\tColorGroup " + colorGroupName + " = new ColorGroup(\""
-                              + mContents[1] + "\",' ','-');" + Environment.NewLine
-                            + "\t" + GetStepName() + "LightGroup = Edit.CopyToTheEnd(" + GetStepName() + "LightGroup," + colorGroupName + "); " + Environment.NewLine);
-                        }
-                    }
-                }
-                if (type.Equals("SportOverlay"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        String[] mContents = _str.Split('-');
-
-                        String rangeGroupName = String.Empty;
-                        int i = 1;
-                        while (i <= 100000)
-                        {
-                            if (!containDictionary[GetStepName()].Contains("Step" + i))
-                            {
-                                containDictionary[GetStepName()].Add("Step" + i);
-                                rangeGroupName = "Step" + i + "Range";
-                                break;
-                            }
-                            i++;
-                        }
-                        if (i > 100000)
-                        {
-                            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                            return;
-                        }
-                        command.Append("\tRangeGroup " + rangeGroupName + " = new RangeGroup(\""
-                              + mContents[0] + "\",' ','-');" + Environment.NewLine
-                            + "\t" + GetStepName() + "LightGroup = Edit.AccelerationOrDeceleration(" + GetStepName() + "LightGroup," + rangeGroupName + "); " + Environment.NewLine);
-                    }
-                }
-                if (type.Equals("Other"))
-                {
-                    foreach (String _str in _contents)
-                    {
-                        if (_str.Equals("RemoveBorder"))
-                        {
-                            command.Append("\t" + GetStepName() + "LightGroup = Edit.RemoveBorder(" + GetStepName() + "LightGroup);" + Environment.NewLine);
-                        }
-                    }
-                }
-            }
+            //TODO:
             if (!command.ToString().Equals(String.Empty))
             {
                 lightScriptDictionary[GetStepName()] += command.ToString();
@@ -2413,6 +2199,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void NewStep(object sender, RoutedEventArgs e)
         {
+            return;
             String stepName = String.Empty;
             //从1开始计算
             int i = 1;
@@ -2914,30 +2701,28 @@ namespace Maker.View.LightScriptUserControl
                 return;
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
-
-
-            if (style.ShowDialog() == true)
-            {
-                Test();
-                return;
-                if (finalDictionary.ContainsKey(GetStepName()))
-                {
-                    if (!style._Content.Equals(String.Empty))
-                    {
-                        finalDictionary[GetStepName()] = style._Content;
-                    }
-                    else
-                    {
-                        finalDictionary.Remove(GetStepName());
-                    }
-                }
-                else
-                {
-                    if (!style._Content.Equals(String.Empty))
-                        finalDictionary.Add(GetStepName(), style._Content);
-                }
-                //RefreshData();
-            }
+            mw.ShowMakerDialog(style);
+            //if (style.ShowDialog() == true)
+            //{
+            //    Test();
+            //    if (finalDictionary.ContainsKey(GetStepName()))
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //        {
+            //            finalDictionary[GetStepName()] = style._Content;
+            //        }
+            //        else
+            //        {
+            //            finalDictionary.Remove(GetStepName());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (!style._Content.Equals(String.Empty))
+            //            finalDictionary.Add(GetStepName(), style._Content);
+            //    }
+            //    //RefreshData();
+            //}
         }
 
         private void DrawRange(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -4451,7 +4236,7 @@ namespace Maker.View.LightScriptUserControl
             }
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
-            style.ShowDialog();
+            mw.ShowMakerDialog(style);
             Test();
         }
         //不写入XML,而是直接写入代码

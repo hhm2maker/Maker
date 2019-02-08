@@ -22,7 +22,7 @@ namespace Maker.View.UI.Style.Child
             InitializeComponent();
             this.shapeColorOperationModel = shapeColorOperationModel;
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 83, 83, 83)));
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 54, 59, 64)));
             mLaunchpad.SetSize(350);
 
             tbNumberOne.Text = shapeColorOperationModel.Colors[0]+"";

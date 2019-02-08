@@ -493,5 +493,6 @@
     <sys:String x:Key="Basics">Basics</sys:String>
     <sys:String x:Key="StartColon">Start:</sys:String>
     <sys:String x:Key="EndColon" >End:</sys:String>
-
+    <sys:String x:Key="IDoNotThinkItWorks">I don't think it works.</sys:String>
+    
 </ResourceDictionary>
