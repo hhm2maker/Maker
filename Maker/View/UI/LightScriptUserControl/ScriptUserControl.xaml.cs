@@ -24,6 +24,7 @@ using static Maker.Model.EnumCollection;
 using System.Xml;
 using System.Xml.Linq;
 using Maker.Business.Model.OperationModel;
+using Maker.Business.ScriptUserControlBusiness;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -1781,18 +1782,15 @@ namespace Maker.View.LightScriptUserControl
                 return;
             }
             //没有可操作的灯光组
-            if (!lightScriptDictionary[GetStepName()].Contains(GetStepName() + "LightGroup"))
+            if (!scriptModelDictionary[GetStepName()].Value.Contains(GetStepName() + "LightGroup"))
             {
                 return;
             }
-            //TODO:
-            if (!command.ToString().Equals(String.Empty))
-            {
-                lightScriptDictionary[GetStepName()] += command.ToString();
-                finalDictionary.Remove(GetStepName());
-                //RefreshData();
-            }
-
+            List<String> contain = scriptModelDictionary[GetStepName()].Contain;
+            scriptModelDictionary[GetStepName()].Value += Code.OperationModelsToCode(scriptModelDictionary[GetStepName()], ref contain);
+            scriptModelDictionary[GetStepName()].OperationModels.Clear();
+            //TODO: 测试时需要测试，生成时可以去掉
+            Test();
         }
 
         private void RenameStepName(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -4237,7 +4235,7 @@ namespace Maker.View.LightScriptUserControl
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
             mw.ShowMakerDialog(style);
-            Test();
+            //Test();
         }
         //不写入XML,而是直接写入代码
         //private void lbStep_Drop(object sender2, DragEventArgs e)

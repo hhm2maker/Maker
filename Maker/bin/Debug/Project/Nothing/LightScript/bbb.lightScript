@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMTIsMTIsU3RlcDFDb2xvckdyb3VwLENyZWF0ZS5VUCxDcmVhdGUuQUxMKTs=" visible="true" contain="Step1 Step2 Step3 Step4" intersection="" complement="">
-      <AccelerationOrDeceleration colors="100 50" />
-      <ColorWithCount colors="9" />
-      <ShapeColor shapeType="square" colors="5 5 5 5 5" />
-    </Script>
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMTIsMTIsU3RlcDFDb2xvckdyb3VwLENyZWF0ZS5VUCxDcmVhdGUuQUxMKTsNCglDb2xvckdyb3VwIE15U3RlcDVDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjEwMCA1MCIsJyAnLCctJyk7DQoJU3RlcDFMaWdodEdyb3VwLkFjY2VsZXJhdGlvbk9yRGVjZWxlcmF0aW9uKE15U3RlcDVDb2xvckdyb3VwKTsNCglDb2xvckdyb3VwIE15U3RlcDZDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUgNSA1IDUgNSIsJyAnLCctJyk7DQoJU3RlcDFMaWdodEdyb3VwLlNoYXBlQ29sb3IoTGlnaHRHcm91cC5TUVVBUkUsIE15U3RlcDZDb2xvckdyb3VwKTsgDQoJU3RlcDFMaWdodEdyb3VwLlZlcnRpY2FsRmxpcHBpbmcoKTs=" visible="true" contain="Step1 Step2 Step3 Step4 Step5 Step6" intersection="" complement="" />
   </Scripts>
 </Root>

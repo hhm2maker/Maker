@@ -353,11 +353,9 @@ namespace Maker.View.Style
             lbCatalog.IsEnabled = CanSave();
         }
 
-
-
         private bool CanSave() {
             if (svMain.Children.Count == 0)
-                return false;
+                return true;
             if (svMain.Children[0] is NoOperationStyle)
             {
                 return true;
@@ -368,6 +366,5 @@ namespace Maker.View.Style
             }
         }
 
-      
     }
 }
