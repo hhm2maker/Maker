@@ -26,11 +26,20 @@ namespace Maker.View
     {
         private NewMainWindow mw;
         public PlayerLaunchpadPro playLpd;
+
         public PlayerUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
             InitPlayLaunchpad();
+        }
+
+        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList)
+        {
+            InitializeComponent();
+            this.mw = mw;
+            InitPlayLaunchpad();
+            SetData(mActionBeanList);
         }
 
         private void InitPlayLaunchpad()

@@ -429,6 +429,9 @@
     <Compile Include="View\UI\Setting\PavedSetting.xaml.cs">
       <DependentUpon>PavedSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Tool\ExportUserControl.xaml.cs">
+      <DependentUpon>ExportUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\ShowPavedUserControl.xaml.cs">
       <DependentUpon>ShowPavedUserControl.xaml</DependentUpon>
     </Compile>
@@ -873,6 +876,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Setting\PavedSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\ExportUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

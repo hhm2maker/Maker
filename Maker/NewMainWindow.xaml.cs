@@ -45,13 +45,14 @@ namespace Maker
 
             InitFile();
         }
-        
+
         /// <summary>
         /// 初始化文件
         /// </summary>
         private void InitFile()
         {
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath+"Light", new List<string>() { ".light" })){
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Light", new List<string>() { ".light" }))
+            {
                 TreeViewItem item = new TreeViewItem
                 {
                     Header = str,
@@ -126,7 +127,8 @@ namespace Maker
             gCenter.Children.Add(suc);
         }
 
-        public void ShowAbout() {
+        public void ShowAbout()
+        {
             ShowMakerDialog(new AboutDialog(this));
         }
 
@@ -281,25 +283,9 @@ namespace Maker
             gMain.Children.Add(userControls[index]);
             //载入文件
             //LoadFileList();
-            //是否可以新建文件
-            if (userControls[index].CanNew)
-            {
-                //可以新建
-                btnNew.ToolTip = null;
-                TextBlock tbNew = btnNew.Content as TextBlock;
-                tbNew.IsEnabled = true;
-                tbNew.Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
-            }
-            else {
-                //不可以新建
-                btnNew.ToolTip = (string)Application.Current.FindResource(userControls[index].whyCanNotNew);
-                TextBlock tbNew = btnNew.Content as TextBlock;
-                tbNew.IsEnabled = false;
-                tbNew.Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-            }
         }
 
-       
+
 
         private void LoadFileList()
         {
@@ -339,9 +325,11 @@ namespace Maker
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
-      
 
-        public void RemoveChildren() {
+
+        public void RemoveChildren()
+        {
+            gMain.Children.RemoveAt(gMain.Children.Count - 1);
             gMain.Visibility = Visibility.Collapsed;
             (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
         }
@@ -397,23 +385,41 @@ namespace Maker
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            if (gMain.Children.Count == 0)
+            BaseUserControl baseUserControl;
+            if (sender == miLight)
+            {
+                baseUserControl = userControls[0];
+            }
+            else if (sender == miLightScript)
+            {
+                baseUserControl = userControls[3];
+            }
+            else if (sender == miLimitlessLamp)
+            {
+                baseUserControl = userControls[9];
+            }
+            else if (sender == miPage)
+            {
+                baseUserControl = userControls[5];
+            }
+            else if (sender == miPlayExport)
+            {
+                baseUserControl = userControls[6];
+            }
+            else
+            {
                 return;
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            if(baseUserControl.CanNew)
-                 baseUserControl.NewFile(sender, e);
+            }
+            baseUserControl.NewFile(sender, e);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (gMain.Children.Count == 0)
-                return;
-
             if (hintModelDictionary.ContainsKey(2))
             {
                 if (hintModelDictionary[2].IsHint == false)
                 {
-                    DeleteFile(sender,e);
+                    DeleteFile(sender, e);
                     return;
                 }
             }
@@ -427,7 +433,7 @@ namespace Maker
             (sender as MediaElement).Play();
         }
 
-     
+
         private void dpFile_MouseEnter(object sender, MouseEventArgs e)
         {
             tbProjectPath.Visibility = Visibility.Visible;
@@ -537,10 +543,10 @@ namespace Maker
             {
                 From = new Thickness(0, 0, 0, 0),
                 //To = new Thickness(0, 30, 0, 0),
-                To = new Thickness(0, (ActualHeight - makerdialog.Height)/2, 0, 0),
+                To = new Thickness(0, (ActualHeight - makerdialog.Height) / 2, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5)
             };
-           
+
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
 
@@ -626,7 +632,7 @@ namespace Maker
         {
             ShowAbout();
         }
-       
+
 
         /// <summary>
         /// 导入文件
@@ -729,9 +735,12 @@ namespace Maker
             }
             gToolBackGround.Visibility = Visibility.Visible;
         }
+
+        private List<Light> mLightList = new List<Light>();
+
         private void ExportFile(object sender, RoutedEventArgs e)
         {
-            if (!(gMain.Children[0] is FrameUserControl))
+            if (gMain.Children[0] is FrameUserControl)
                 return;
             FrameUserControl baseUserControl = gMain.Children[0] as FrameUserControl;
 
@@ -749,37 +758,37 @@ namespace Maker
             {
                 ExportLight(System.IO.Path.GetFileNameWithoutExtension(baseUserControl.filePath));
             }
-            //if (sender == miExportAdvanced)
-            //{
-            //    AdvancedExportDialog dialog = new AdvancedExportDialog(this, Path.GetFileNameWithoutExtension(lightScriptFilePath));
-            //    if (dialog.ShowDialog() == true)
-            //    {
-            //        if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
-            //        {
-            //            mActionBeanList = LightBusiness.Split(mActionBeanList);
-            //        }
-            //        else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
-            //        {
-            //            mActionBeanList = LightBusiness.Splice(mActionBeanList);
-            //        }
-            //        if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true)
-            //        {
-            //            mActionBeanList = LightBusiness.RemoveNotLaunchpadNumbers(mActionBeanList);
-            //        }
-            //        if (dialog.cbCloseColorTo64.IsChecked == true)
-            //        {
-            //            mActionBeanList = LightBusiness.CloseColorTo64(mActionBeanList);
-            //        }
-            //        if (dialog.cbExportType.SelectedIndex == 0)
-            //        {
-            //            ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked);
-            //        }
-            //        else if (dialog.cbExportType.SelectedIndex == 1)
-            //        {
-            //            ExportLight(dialog.tbFileName.Text);
-            //        }
-            //    }
-            //}
+            if (sender == miExportAdvanced)
+            {
+                AdvancedExportDialog dialog = new AdvancedExportDialog(this, "");
+                if (dialog.ShowDialog() == true)
+                {
+                    if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
+                    {
+                        mLightList = LightBusiness.Split(mLightList);
+                    }
+                    else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
+                    {
+                        mLightList = LightBusiness.Splice(mLightList);
+                    }
+                    if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true)
+                    {
+                        mLightList = LightBusiness.RemoveNotLaunchpadNumbers(mLightList);
+                    }
+                    if (dialog.cbCloseColorTo64.IsChecked == true)
+                    {
+                        mLightList = LightBusiness.CloseColorTo64(mLightList);
+                    }
+                    if (dialog.cbExportType.SelectedIndex == 0)
+                    {
+                        ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked);
+                    }
+                    else if (dialog.cbExportType.SelectedIndex == 1)
+                    {
+                        ExportLight(dialog.tbFileName.Text);
+                    }
+                }
+            }
         }
         private void ExportMidi(String fileName, bool isWriteToFile)
         {
@@ -850,43 +859,60 @@ namespace Maker
 
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            
             if (gMain.Children.Count == 0 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
-                return;
-
-            if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl()) {
-                BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
-            UserControl userControl = null;
-            if (sender == iPlayer)
             {
-                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
+                if ((userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+                {
+                    return;
+                }
+                mLightList = (userControls[3] as BaseMakerLightUserControl).GetData();
+            }
+            else
+            {
+                if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl())
+                {
+                    BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
+                    mLightList = baseMakerLightUserControl.GetData();
+                }
+            }
+            mLightList = LightBusiness.Copy(mLightList);
+            UserControl userControl = null;
+                if (sender == iPlayer)
+                {
+                    //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
                     //bToolChild.Width = deviceModel.DeviceSize;
                     //bToolChild.Height = deviceModel.DeviceSize + 31;
                     //bToolChild.Visibility = Visibility.Visible;
                     //加入播放器页面
-                    PlayerUserControl playerUserControl = new PlayerUserControl(this);
-                playerUserControl.SetData(baseMakerLightUserControl.GetData());
-                userControl = playerUserControl;
-            }
-            else if (sender == iPaved)
+                    PlayerUserControl playerUserControl = new PlayerUserControl(this, mLightList);
+                    userControl = playerUserControl;
+                }
+                else if (sender == iPaved)
+                {
+                    //加入平铺页面
+                    ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, mLightList);
+                    userControl = pavedUserControl;
+                }
+            else if (sender == iExport)
             {
                 //加入平铺页面
-                ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, baseMakerLightUserControl.GetData());
-                userControl = pavedUserControl;
+                ExportUserControl exportUserControl = new ExportUserControl(this, mLightList);
+                userControl = exportUserControl;
             }
-                gTool.Children.Clear();
+            gTool.Children.Clear();
                 gTool.Children.Add(userControl);
                 gToolBackGround.Visibility = Visibility.Visible;
                 DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
                 userControl.BeginAnimation(OpacityProperty, daV);
-            }
         }
 
         private void lbMain_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (lbMain.SelectedItem == null)
                 return;
-                String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
+            String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
+            if ((lbMain.SelectedItem as TreeViewItem).Parent is TreeView)
+                return;
             BaseUserControl baseUserControl = null;
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -904,7 +930,8 @@ namespace Maker
                 baseUserControl = gMain.Children[0] as BaseUserControl;
                 gMain.Visibility = Visibility.Visible;
             }
-            else {
+            else
+            {
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
             }
             baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
@@ -921,7 +948,8 @@ namespace Maker
             spBottomTool.BeginAnimation(Canvas.TopProperty, animation);
         }
 
-        private void HideTool() {
+        private void HideTool()
+        {
             if (gTool.Children.Count > 0)
                 return;
             DoubleAnimation animation = new DoubleAnimation

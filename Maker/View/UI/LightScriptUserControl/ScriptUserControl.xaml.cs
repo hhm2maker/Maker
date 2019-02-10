@@ -1613,7 +1613,11 @@ namespace Maker.View.LightScriptUserControl
         }
         public override List<Light> GetData()
         {
-            return mLightList;
+            List<Light> ll = new List<Light>();
+            foreach (var item in mLightDictionary) {
+                ll.AddRange(item.Value);
+            }
+            return ll;
         }
 
         public List<Light> mLightList = new List<Light>();

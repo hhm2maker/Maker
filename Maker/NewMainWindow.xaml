@@ -28,7 +28,17 @@
     <Grid Name="gMost">
         <DockPanel>
             <Menu DockPanel.Dock="Top" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
-                <MenuItem Style="{x:Null}" Header="{DynamicResource Help}"  FontSize="16" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
+                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="16" Foreground="#f0f0f0"  >
+                    <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
+                        <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
+                        <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
+                        <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
+                        <Separator />
+                        <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
+                        <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Help}"  FontSize="16" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
             </Menu>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
@@ -66,6 +76,7 @@
                                         <MenuItem Header="{DynamicResource Advanced}" Click="ExportFile" Name="miExportAdvanced"/>
                                     </MenuItem>
                                     <Separator />
+                                    <MenuItem Header="{DynamicResource Delete}" Click="DeleteFile" />
                                     <!--<MenuItem Click="GoToFile" Header="{DynamicResource OpenFoldersInTheFileResourceManager}"/>-->
                                 </ContextMenu>
                             </TreeView.ContextMenu>
@@ -89,26 +100,6 @@
                         </Border>
                     </Grid>
                     <DockPanel  Grid.Row="1" Height="45">
-                        <Button  HorizontalAlignment="Left" Name="btnNew" Click="btnNew_Click" Background="Transparent" Style="{DynamicResource EmptyButtonStyle3}">
-                            <TextBlock  Text="{DynamicResource New}" VerticalAlignment="Center" Foreground="#b8bfc6" Width="80" TextAlignment="Center" >
-                                <TextBlock.Triggers>
-                                    <EventTrigger RoutedEvent="TextBlock.MouseEnter">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#b8bfc6" To="White"   Duration="00:00:00.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                    <EventTrigger RoutedEvent="TextBlock.MouseLeave">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="White" To="#b8bfc6"   Duration="00:00:00.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </TextBlock.Triggers>
-                            </TextBlock>
-                        </Button>
                         <Button HorizontalAlignment="Right" Name="btnDelete" Click="btnDelete_Click" Background="Transparent" Style="{DynamicResource EmptyButtonStyle3}">
                             <TextBlock  Text="{DynamicResource Delete}" VerticalAlignment="Center" Foreground="#b8bfc6" Width="80" TextAlignment="Center">
                                 <TextBlock.Triggers>
@@ -235,6 +226,7 @@
             <StackPanel Orientation="Horizontal" Canvas.Top="40"  Background="#272727" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
+                <Image Margin="5"  Name="iExport" Source="View/Resources/Image/switch.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
             </StackPanel>
         </Canvas>
         <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>

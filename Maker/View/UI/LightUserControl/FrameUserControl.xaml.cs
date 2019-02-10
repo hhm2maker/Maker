@@ -1650,8 +1650,6 @@ namespace Maker.View.LightUserControl
             mw.RemoveChildren();
         }
 
-    
-
         private void FourAreaClick(object sender, RoutedEventArgs e)
         {
             if (sender == btnLeftDown)

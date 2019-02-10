@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Maker.View.Tool.ExportUserControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View"
+             xmlns:tool="clr-namespace:Maker.View.Tool"
+             mc:Ignorable="d"
+        Name="wMain"
+        Loaded="wMain_Loaded"
+             Margin="10"
+             Opacity="0"
+             Width="500"
+             Height="500"
+        >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../StyleResources/AllDictionary.xaml" />
+                <ResourceDictionary Source="../../StyleResources/InputDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0"  Name="dpMain" />
+        <Grid Grid.Row="1">
+            <Image x:Name="btnPaved"  Margin="0,10,0,0" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" />
+        </Grid>
+    </Grid>
+</UserControl>

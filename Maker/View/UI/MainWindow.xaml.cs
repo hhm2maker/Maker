@@ -777,34 +777,34 @@ namespace Maker.View.Control
             }
             if (sender == miExportAdvanced)
             {
-                AdvancedExportDialog dialog = new AdvancedExportDialog(this,Path.GetFileNameWithoutExtension(lightScriptFilePath));
-                if (dialog.ShowDialog() == true)
-                {
-                    if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
-                    {
-                        mActionBeanList = LightBusiness.Split(mActionBeanList);
-                    }
-                    else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
-                    {
-                        mActionBeanList = LightBusiness.Splice(mActionBeanList);
-                    }
-                    if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true) {
-                        mActionBeanList = LightBusiness.RemoveNotLaunchpadNumbers(mActionBeanList);
-                    }
-                    if (dialog.cbCloseColorTo64.IsChecked == true)
-                    {
-                        mActionBeanList = LightBusiness.CloseColorTo64(mActionBeanList);
-                    }
-                    if (dialog.cbExportType.SelectedIndex == 0)
-                    {
-                        ExportMidi(dialog.tbFileName.Text,(bool)dialog.cbWriteToFile.IsChecked);
-                    }
-                    else if (dialog.cbExportType.SelectedIndex == 1)
-                    {
-                        ExportLight(dialog.tbFileName.Text);
-                    }
-                }
-            }
+            //    AdvancedExportDialog dialog = new AdvancedExportDialog(this,Path.GetFileNameWithoutExtension(lightScriptFilePath));
+            //    if (dialog.ShowDialog() == true)
+            //    {
+            //        if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
+            //        {
+            //            mActionBeanList = LightBusiness.Split(mActionBeanList);
+            //        }
+            //        else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
+            //        {
+            //            mActionBeanList = LightBusiness.Splice(mActionBeanList);
+            //        }
+            //        if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true) {
+            //            mActionBeanList = LightBusiness.RemoveNotLaunchpadNumbers(mActionBeanList);
+            //        }
+            //        if (dialog.cbCloseColorTo64.IsChecked == true)
+            //        {
+            //            mActionBeanList = LightBusiness.CloseColorTo64(mActionBeanList);
+            //        }
+            //        if (dialog.cbExportType.SelectedIndex == 0)
+            //        {
+            //            ExportMidi(dialog.tbFileName.Text,(bool)dialog.cbWriteToFile.IsChecked);
+            //        }
+            //        else if (dialog.cbExportType.SelectedIndex == 1)
+            //        {
+            //            ExportLight(dialog.tbFileName.Text);
+            //        }
+            //    }
+           }
         }
         private void ExportMidi(String fileName,bool isWriteToFile)
         {

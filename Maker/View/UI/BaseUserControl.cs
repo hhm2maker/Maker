@@ -22,15 +22,6 @@ namespace Maker.View
         protected bool bMakerLightUserControl;
 
         /// <summary>
-        /// 是否可以新建
-        /// </summary>
-        public bool CanNew = true;
-        /// <summary>
-        /// 为什么不可以新建
-        /// </summary>
-        public String whyCanNotNew = String.Empty;
-
-        /// <summary>
         /// 是否是制作灯光的控件
         /// </summary>
         /// <returns></returns>
@@ -179,14 +170,38 @@ namespace Maker.View
             {
                 CreateFile(_filePath);
                 LoadFile(filePath);
-
-                ListBoxItem item = new ListBoxItem
+                TreeViewItem item = new TreeViewItem
                 {
-                    Height = 36,
-                    Content = filePath,
+                    Header = filePath,
                 };
-                mw.lbMain.Items.Add(item);
-                //mw.lbMain.SelectedIndex = mw.lbMain.Items.Count - 1;
+                if (_filePath.EndsWith(".light"))
+                {
+                    mw.tvLight.Items.Add(item);
+                }
+                else if (_filePath.EndsWith(".lightScript"))
+                {
+                    mw.tvLightScript.Items.Add(item);
+                }
+                else if (_filePath.EndsWith(".limitlessLamp"))
+                {
+                    mw.tvLimitlessLamp.Items.Add(item);
+                }
+                else if (_filePath.EndsWith(".playExport"))
+                {
+                    mw.tvPlay.Items.Add(item);
+                }
+                else if (_filePath.EndsWith(".lightPage"))
+                {
+                    mw.tvPlay.Items.Add(item);
+                }
+                else if (_filePath.EndsWith(".play"))
+                {
+                    mw.tvPlay.Items.Add(item);
+                }
+                else {
+                    return;
+                }
+                item.IsSelected = true;
             }
         }
         /// <summary>

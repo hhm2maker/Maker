@@ -25,7 +25,7 @@ namespace Maker.View.Dialog
         public TextBox tbFileName;
         public CheckBox cbWriteToFile, cbRemoveNotLaunchpadNumbers, cbCloseColorTo64;
         public ComboBox cbExportType, cbDisassemblyOrSplicingColon;
-        public AdvancedExportDialog(MainWindow mw, String fileName)
+        public AdvancedExportDialog(NewMainWindow mw, String fileName)
         {
             Owner = mw;
             this.fileName = fileName;
@@ -42,10 +42,12 @@ namespace Maker.View.Dialog
             cbRemoveNotLaunchpadNumbers = UIViewBusiness.GetCheckBox("RemoveNotLaunchpadNumbers", true);
             cbRemoveNotLaunchpadNumbers.Width = 280;
             spRemove.Children.Add(cbRemoveNotLaunchpadNumbers);
-            Image imgRemove = new Image();
-            imgRemove.Width = 15;
+            Image imgRemove = new Image
+            {
+                Width = 15
+            };
             RenderOptions.SetBitmapScalingMode(imgRemove, BitmapScalingMode.Fant);
-            imgRemove.Source = new BitmapImage(new Uri("pack://application:,,,../../Image/ask.png", UriKind.RelativeOrAbsolute));
+            imgRemove.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/ask.png", UriKind.RelativeOrAbsolute));
             imgRemove.Margin = new Thickness(5, 20, 0, 0);
             ToolTip ttImgRemove = new ToolTip();
             StackPanel spTtImgRemove = new StackPanel();

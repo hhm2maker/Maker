@@ -38,8 +38,8 @@ namespace Maker.View.Tool
 
             this.mLightList = mLightList;
 
-            Width = mw.Width * 0.8;
-            Height = mw.Height * 0.8;
+            Width = mw.ActualWidth * 0.8;
+            Height = mw.ActualHeight * 0.8;
             pavedColumns = mw.pavedColumns;
         }
 
