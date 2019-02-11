@@ -41,11 +41,11 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.7;
-            Height = mw.ActualHeight * 0.7;
+            Width = mw.ActualWidth * 0.9;
+            Height = mw.gMost.ActualHeight;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+            private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             SaveFile();
         }

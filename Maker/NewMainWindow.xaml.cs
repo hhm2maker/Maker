@@ -277,15 +277,43 @@ namespace Maker
 
         public void IntoUserControl(int index)
         {
+            cMost.Background = new SolidColorBrush(Colors.Transparent);
             //清除旧界面
-            gMain.Children.Clear();
+            cMost.Children.Clear();
             //载入新界面
-            gMain.Children.Add(userControls[index]);
+            Canvas.SetLeft(userControls[index],gMost.ActualWidth);
+            cMost.Children.Add(userControls[index]);
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                From = gMost.ActualWidth,
+                To = gMost.ActualWidth * 0.1,
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            userControls[index].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+
             //载入文件
             //LoadFileList();
         }
 
+        public void RemoveChildren()
+        {
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                From = gMost.ActualWidth * 0.1,
+                To = gMost.ActualWidth ,
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            doubleAnimation.Completed += DoubleAnimation_Completed1;
+            userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+        }
 
+        private void DoubleAnimation_Completed1(object sender, EventArgs e)
+        {
+            cMost.Background = null;
+            cMost.Children.RemoveAt(cMost.Children.Count - 1);
+            cMost.Visibility = Visibility.Collapsed;
+            (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+        }
 
         private void LoadFileList()
         {
@@ -325,15 +353,6 @@ namespace Maker
             }
             bHelp.BeginAnimation(WidthProperty, animation);
         }
-
-
-        public void RemoveChildren()
-        {
-            gMain.Children.RemoveAt(gMain.Children.Count - 1);
-            gMain.Visibility = Visibility.Collapsed;
-            (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
-        }
-
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -924,11 +943,11 @@ namespace Maker
                         break;
                     }
                 }
-                if (gMain.Children.Count == 0)
+                if (cMost.Children.Count == 0)
                     return;
                 //是否是制作灯光的用户控件
-                baseUserControl = gMain.Children[0] as BaseUserControl;
-                gMain.Visibility = Visibility.Visible;
+                baseUserControl = cMost.Children[0] as BaseUserControl;
+                cMost.Visibility = Visibility.Visible;
             }
             else
             {

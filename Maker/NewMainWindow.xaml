@@ -238,6 +238,7 @@
                 <Grid Name="gTool" />
             </Grid>
         </Border>
+        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost"/>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

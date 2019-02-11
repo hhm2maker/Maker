@@ -13,7 +13,7 @@
      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:widget="clr-namespace:Maker.View.UI.Device.Widget"
     DataContext="{Binding Source={StaticResource Locator},Path=Main}"
-    HorizontalAlignment="Center"
+    HorizontalAlignment="Right"
     VerticalAlignment="Center"
     Background="#262829"
     Loaded="BaseLightUserControl_Loaded"
@@ -695,7 +695,7 @@
                             <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
                             <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/>
                         </StackPanel>
-                        <Image DockPanel.Dock="Right" Width="25" Margin="0,0,15,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                        <Image DockPanel.Dock="Right" Width="25" Margin="0,0,25,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     </Grid>
                     <DockPanel  Height="60" VerticalAlignment="Bottom" >
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
