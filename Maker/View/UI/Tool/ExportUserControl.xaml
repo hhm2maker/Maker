@@ -26,7 +26,22 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0"  Name="dpMain" />
+        <StackPanel  Grid.Row="0"  Orientation="Vertical" Margin="30">
+            <GroupBox Foreground="White" FontSize="18" Header="{DynamicResource Import}"  Name="miImport" >
+                <StackPanel Orientation="Horizontal"  Margin="10">
+                    <Button Content="{DynamicResource MidiFile}"  Click="ImportFile" Name="miMidiFile"/>
+                    <Button Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ImportFile" Name="miLightFile"/>
+                    <!--<MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />-->
+                </StackPanel>
+                </GroupBox>
+            <GroupBox Foreground="White" FontSize="18" Margin="0,20,0,0"  Header="{DynamicResource Export}"  Name="miExport" >
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Button Content="{DynamicResource MidiFile}" Click="ExportFile" Name="miExportMidi"/>
+                    <Button Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ExportFile" Name="miExportLight"/>
+                    <Button Content="{DynamicResource Advanced}" Margin="10,0,0,0" Click="ExportFile" Name="miExportAdvanced"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
         <Grid Grid.Row="1">
             <Image x:Name="btnPaved"  Margin="0,10,0,0" Width="30"  Source="../../Resources/Image/paved.png" Height="30"   MouseLeftButtonDown="btnPaved_MouseLeftButtonDown" />
         </Grid>

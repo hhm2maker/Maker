@@ -277,6 +277,9 @@ namespace Maker
 
         public void IntoUserControl(int index)
         {
+            spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+            bToolChild.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+
             cMost.Background = new SolidColorBrush(Colors.Transparent);
             //清除旧界面
             cMost.Children.Clear();
@@ -309,10 +312,20 @@ namespace Maker
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
+            spBottomTool.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
+            bToolChild.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
+
             cMost.Background = null;
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
-            (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+
+            if (selectedItem != null)
+            {
+                (selectedItem as TreeViewItem).IsSelected = true;
+            }
+            else {
+                (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+            }
         }
 
         private void LoadFileList()
@@ -652,213 +665,10 @@ namespace Maker
             ShowAbout();
         }
 
-
-        /// <summary>
-        /// 导入文件
-        /// </summary>
-        /// <param name="inputType">输入类型0-导入，1双击Midi列表</param>
-        /// <param name="type">文件类型0 - midi，1 - Light</param>
-        private void ImportFile(int inputType, int type)
-        {
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            if (!(baseUserControl is FrameUserControl))
-                return;
-            String fileName = String.Empty;
-            //文件 - 导入
-            if (inputType == 0)
-            {
-                System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-                if (type == 0)
-                {
-                    openFileDialog1.Filter = "Midi文件(*.mid)|*.mid|Midi文件(*.midi)|*.midi|All files(*.*)|*.*";
-                }
-                else
-                {
-                    openFileDialog1.Filter = "灯光文件(*.light)|*.light|All files(*.*)|*.*";
-                }
-
-                openFileDialog1.RestoreDirectory = true;
-                if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    fileName = openFileDialog1.FileName;
-                }
-            }
-            //if (!fileName.Equals(String.Empty))
-            //{
-            //    ImportOrGetDialog dialog = null;
-            //    if (type == 0)
-            //    {
-            //        dialog = new ImportOrGetDialog(this, fileName, 0);
-            //    }
-            //    else
-            //    {
-            //        dialog = new ImportOrGetDialog(this, fileName, 1);
-            //    }
-            //    if (dialog.ShowDialog() == true)
-            //    {
-            //        String usableStepName = dialog.UsableStepName;
-            //        if (dialog.rbImport.IsChecked == true)
-            //        {
-            //            iuc.lightScriptDictionary.Add(usableStepName, dialog.tbImport.Text);
-            //            iuc.containDictionary.Add(usableStepName, dialog.importList);
-            //            //如果选择导入，则或将复制文件到灯光语句同文件夹下
-            //            //判断同文件下是否有该文件
-            //            if (!File.Exists(lastProjectPath + @"\Resource\" + Path.GetFileName(fileName)))
-            //            {
-            //                //如果不存在，则复制
-            //                File.Copy(fileName, lastProjectPath + @"\Resource\" + Path.GetFileName(fileName));
-            //            }
-            //            else
-            //            {
-            //                //如果存在
-            //                //先判断是否是同路径
-            //                if (!Path.GetDirectoryName(fileName).Equals(lastProjectPath + @"\Resource"))
-            //                {
-            //                    //不是同路径
-            //                    //询问是否替换
-            //                    if (System.Windows.Forms.MessageBox.Show("该文件夹下已有同名文件，是否覆盖", "提示", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            //                    {
-            //                        //删除
-            //                        File.Delete(lastProjectPath + @"\Resource\" + Path.GetFileName(fileName));
-            //                        //复制
-            //                        File.Copy(fileName, lastProjectPath + @"\Resource\" + Path.GetFileName(fileName));
-            //                    }
-            //                    else
-            //                    {
-            //                        return;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //        if (dialog.rbGet.IsChecked == true)
-            //        {
-            //            iuc.lightScriptDictionary.Add(usableStepName, dialog.tbGet.Text);
-            //            iuc.containDictionary.Add(usableStepName, dialog.getList);
-            //        }
-            //        iuc.visibleDictionary.Add(usableStepName, true);
-            //        iuc.AddStep(usableStepName, "");
-            //        iuc.lbStep.SelectedIndex = iuc.lbStep.Items.Count - 1;
-            //        iuc.RefreshData();
-            //    }
-            // }
-        }
-        private void ImportFile(object sender, RoutedEventArgs e)
-        {
-            if (sender == miMidiFile)
-            {
-                ImportFile(0, 0);
-            }
-            else
-            {
-                ImportFile(0, 1);
-            }
-            gToolBackGround.Visibility = Visibility.Visible;
-        }
-
         private List<Light> mLightList = new List<Light>();
 
-        private void ExportFile(object sender, RoutedEventArgs e)
-        {
-            if (gMain.Children[0] is FrameUserControl)
-                return;
-            FrameUserControl baseUserControl = gMain.Children[0] as FrameUserControl;
-
-            //没有AB集合不能保存
-            if ((baseUserControl as FrameUserControl).GetData().Count == 0)
-            {
-                new MessageDialog(this, "CanNotExportEmptyFiles").ShowDialog();
-                return;
-            }
-            if (sender == miExportMidi)
-            {
-                ExportMidi(System.IO.Path.GetFileNameWithoutExtension(baseUserControl.filePath), false);
-            }
-            if (sender == miExportLight)
-            {
-                ExportLight(System.IO.Path.GetFileNameWithoutExtension(baseUserControl.filePath));
-            }
-            if (sender == miExportAdvanced)
-            {
-                AdvancedExportDialog dialog = new AdvancedExportDialog(this, "");
-                if (dialog.ShowDialog() == true)
-                {
-                    if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
-                    {
-                        mLightList = LightBusiness.Split(mLightList);
-                    }
-                    else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
-                    {
-                        mLightList = LightBusiness.Splice(mLightList);
-                    }
-                    if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true)
-                    {
-                        mLightList = LightBusiness.RemoveNotLaunchpadNumbers(mLightList);
-                    }
-                    if (dialog.cbCloseColorTo64.IsChecked == true)
-                    {
-                        mLightList = LightBusiness.CloseColorTo64(mLightList);
-                    }
-                    if (dialog.cbExportType.SelectedIndex == 0)
-                    {
-                        ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked);
-                    }
-                    else if (dialog.cbExportType.SelectedIndex == 1)
-                    {
-                        ExportLight(dialog.tbFileName.Text);
-                    }
-                }
-            }
-        }
-        private void ExportMidi(String fileName, bool isWriteToFile)
-        {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            //设置文件类型
-            if (strMyLanguage.Equals("en-US"))
-            {
-                saveFileDialog.Filter = @"MIDI File|*.mid";
-            }
-            else if (strMyLanguage.Equals("zh-CN"))
-            {
-                saveFileDialog.Filter = @"MIDI 序列|*.mid";
-            }
-            //设置默认文件类型显示顺序
-            saveFileDialog.FilterIndex = 2;
-            //默认保存名
-            saveFileDialog.FileName = fileName;
-            //保存对话框是否记忆上次打开的目录
-            saveFileDialog.RestoreDirectory = true;
-            //点了保存按钮进入
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-                FileBusiness.CreateInstance().WriteMidiFile(saveFileDialog.FileName.ToString(), fileName, (baseUserControl as FrameUserControl).GetData(), isWriteToFile);
-            }
-        }
-
-        private void ExportLight(String fileName)
-        {
-            //System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            ////设置文件类型
-            //if (mw.strMyLanguage.Equals("en-US"))
-            //{
-            //    saveFileDialog.Filter = @"Light File|*.light";
-            //}
-            //else if (mw.strMyLanguage.Equals("zh-CN"))
-            //{
-            //    saveFileDialog.Filter = @"Light 文件|*.light";
-            //}
-            ////设置默认文件类型显示顺序
-            //saveFileDialog.FilterIndex = 2;
-            ////默认保存名
-            //saveFileDialog.FileName = fileName;
-            ////保存对话框是否记忆上次打开的目录
-            //saveFileDialog.RestoreDirectory = true;
-            ////点了保存按钮进入
-            //if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    bridge.ExportLight(saveFileDialog.FileName.ToString(), mActionBeanList);
-            //}
-        }
+       
+        
         private void RenameFileName(object sender, RoutedEventArgs e)
         {
             //if (lbProjectDocument.SelectedIndex == -1)
@@ -878,7 +688,7 @@ namespace Maker
 
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            if (gMain.Children.Count == 0 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+            if (cMost.Children.Count == 0 || (cMost.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
             {
                 if ((userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
@@ -888,9 +698,9 @@ namespace Maker
             }
             else
             {
-                if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl())
+                if (userControls[userControls.IndexOf((BaseUserControl)cMost.Children[0])].IsMakerLightUserControl())
                 {
-                    BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
+                    BaseMakerLightUserControl baseMakerLightUserControl = cMost.Children[0] as BaseMakerLightUserControl;
                     mLightList = baseMakerLightUserControl.GetData();
                 }
             }
@@ -925,6 +735,7 @@ namespace Maker
                 userControl.BeginAnimation(OpacityProperty, daV);
         }
 
+        private object selectedItem;
         private void lbMain_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (lbMain.SelectedItem == null)
@@ -932,6 +743,7 @@ namespace Maker
             String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
             if ((lbMain.SelectedItem as TreeViewItem).Parent is TreeView)
                 return;
+          
             BaseUserControl baseUserControl = null;
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -952,7 +764,11 @@ namespace Maker
             else
             {
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
+                selectedItem = lbMain.SelectedItem;
+                if (baseUserControl.filePath.Equals(lastProjectPath + baseUserControl._fileType + @"\" + fileName))
+                    return;
             }
+           
             baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
         }

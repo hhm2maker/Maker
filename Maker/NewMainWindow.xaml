@@ -63,11 +63,11 @@
                             <TreeView.ContextMenu>
                                 <ContextMenu  Name="lbProjectDocumentMenu">
                                     <MenuItem Click="RenameFileName" Header="{DynamicResource Rename}"/>
-                                    <Separator />
+                                    <!--<Separator />
                                     <MenuItem Header="{DynamicResource Import}"  Name="miImport" >
                                         <MenuItem Header="{DynamicResource MidiFile}"  Click="ImportFile" Name="miMidiFile"/>
                                         <MenuItem Header="{DynamicResource LightFile}"  Click="ImportFile" Name="miLightFile"/>
-                                        <!--<MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />-->
+                                        --><!--<MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />--><!--
                                     </MenuItem>
                                     <MenuItem Header="{DynamicResource Export}"  Name="miExport" >
                                         <MenuItem Header="{DynamicResource MidiFile}"  Click="ExportFile" Name="miExportMidi"/>
@@ -75,7 +75,7 @@
                                         <Separator />
                                         <MenuItem Header="{DynamicResource Advanced}" Click="ExportFile" Name="miExportAdvanced"/>
                                     </MenuItem>
-                                    <Separator />
+                                    <Separator />-->
                                     <MenuItem Header="{DynamicResource Delete}" Click="DeleteFile" />
                                     <!--<MenuItem Click="GoToFile" Header="{DynamicResource OpenFoldersInTheFileResourceManager}"/>-->
                                 </ContextMenu>
@@ -221,6 +221,7 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" />
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
         <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="90" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
             <StackPanel Orientation="Horizontal" Canvas.Top="40"  Background="#272727" Name="spBottomTool">
@@ -238,7 +239,6 @@
                 <Grid Name="gTool" />
             </Grid>
         </Border>
-        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost"/>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

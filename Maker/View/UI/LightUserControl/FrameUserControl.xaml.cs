@@ -1632,7 +1632,7 @@ namespace Maker.View.LightUserControl
         private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Width = mw.ActualWidth * 0.9;
-            Height = mw.gMost.ActualHeight ;
+            Height = mw.gMost.ActualHeight;
         }
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
