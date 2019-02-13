@@ -31,9 +31,15 @@ namespace Maker.View
 
         public BaseUserControl()
         {
+            this.MouseLeftButtonDown += BaseUserControl_MouseLeftButtonDown;
             //Closing += BaseLightWindow_Closing;
         }
-     
+
+        private void BaseUserControl_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         /// <summary>
         /// 隐藏控制 - 新建或者打开之前隐藏界面
         /// </summary>
@@ -141,8 +147,8 @@ namespace Maker.View
         /// </summary>
         /// <param name="file"></param>
         public virtual void DeleteFile(object sender, RoutedEventArgs e)
-        {  
-            File.Delete(filePath);
+        {
+            File.Delete(GetFileDirectory() + filePath);
         }
       
         /// <summary>
@@ -174,6 +180,7 @@ namespace Maker.View
                 {
                     Header = filePath,
                 };
+                item.ContextMenu = mw.contextMenu;
                 if (_filePath.EndsWith(".light"))
                 {
                     mw.tvLight.Items.Add(item);

@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View"
         mc:Ignorable="d"
-        Background="#282828"
         Name="wMain"
         Loaded="wMain_Loaded"
         >

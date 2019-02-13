@@ -43,7 +43,34 @@ namespace Maker
 
             InitUserControl();
 
+
+            InitContextMenu();
             InitFile();
+        }
+        public ContextMenu contextMenu;
+        private void InitContextMenu()
+        {
+            contextMenu = new ContextMenu();
+            MenuItem renameMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Rename"]
+            };
+            renameMenuItem.Click += RenameFileName;
+            contextMenu.Items.Add(renameMenuItem);
+
+            MenuItem deleteMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Delete"]
+            };
+            deleteMenuItem.Click += btnDelete_Click;
+            contextMenu.Items.Add(deleteMenuItem);
+
+            MenuItem goToFileMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["OpenFoldersInTheFileResourceManager"]
+            };
+            //goToFileMenuItem.Click += GoToFile;
+            contextMenu.Items.Add(goToFileMenuItem);
         }
 
         /// <summary>
@@ -57,6 +84,7 @@ namespace Maker
                 {
                     Header = str,
                 };
+                item.ContextMenu = contextMenu;
                 tvLight.Items.Add(item);
             }
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
@@ -65,6 +93,7 @@ namespace Maker
                 {
                     Header = str
                 };
+                item.ContextMenu = contextMenu;
                 tvLightScript.Items.Add(item);
             }
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
@@ -73,6 +102,7 @@ namespace Maker
                 {
                     Header = str
                 };
+                item.ContextMenu = contextMenu;
                 tvLimitlessLamp.Items.Add(item);
             }
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
@@ -81,6 +111,7 @@ namespace Maker
                 {
                     Header = str
                 };
+                item.ContextMenu = contextMenu;
                 tvPlay.Items.Add(item);
             }
         }
@@ -286,6 +317,7 @@ namespace Maker
             //载入新界面
             Canvas.SetLeft(userControls[index],gMost.ActualWidth);
             cMost.Children.Add(userControls[index]);
+
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 From = gMost.ActualWidth,
@@ -445,19 +477,7 @@ namespace Maker
             baseUserControl.NewFile(sender, e);
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (hintModelDictionary.ContainsKey(2))
-            {
-                if (hintModelDictionary[2].IsHint == false)
-                {
-                    DeleteFile(sender, e);
-                    return;
-                }
-            }
-            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？", BtnDeleteFile_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnDeleteFile_NotHint_Click);
-            ShowMakerDialog(hintDialog);
-        }
+        
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -619,17 +639,114 @@ namespace Maker
             DeleteFile(sender, e);
             RemoveDialog();
         }
+
+        public TreeViewItem needControlTreeViewItem;
+        public String needControlFileName;
+        private void GetNeedControl(object sender) {
+            needControlTreeViewItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as TreeViewItem;
+            needControlFileName = needControlTreeViewItem.Header.ToString();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            if (hintModelDictionary.ContainsKey(2))
+            {
+                if (hintModelDictionary[2].IsHint == false)
+                {
+                    DeleteFile(sender, e);
+                    return;
+                }
+            }
+            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？", BtnDeleteFile_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnDeleteFile_NotHint_Click);
+            ShowMakerDialog(hintDialog);
+        }
+
         private void DeleteFile(object sender, RoutedEventArgs e)
         {
-            //BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            //baseUserControl.DeleteFile(sender, e);
-            //baseUserControl.HideControl();
-            //lbMain.Items.RemoveAt(lbMain.SelectedIndex);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        baseUserControl = userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            baseUserControl.filePath = needControlFileName;
+            baseUserControl.DeleteFile(sender, e);
+           
+            if(baseUserControl == userControls[3])
+                baseUserControl.HideControl();
+
+            for (int i = 0; i < lbMain.Items.Count; i++) {
+                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlTreeViewItem)) {
+                    (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlTreeViewItem);
+                }
+            }
         }
 
         private void BtnDeleteFile_NotHint_Click(object sender, RoutedEventArgs e)
         {
             NotHint(2);
+        }
+
+        private void RenameFileName(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        baseUserControl = userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            baseUserControl.filePath = needControlFileName;
+         
+            String _filePath = baseUserControl.GetFileDirectory();
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            ShowMakerDialog(newFileDialog);
+            //needControlTreeViewItem.Header = 
+
+            //if (lbProjectDocument.SelectedIndex == -1)
+            //    return;
+            //GetStringDialog dialog = new GetStringDialog(this, "FileName", "NewFileNameColon", "PleaseEnterANewFileNameThatDoesNotRepeat");
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    String oldPath = lightScriptFilePath;
+            //    System.IO.File.Move(lightScriptFilePath, Path.GetDirectoryName(lightScriptFilePath) + @"\" + dialog.mString + ".lightScript");
+            //    int position = lbProjectDocument.SelectedIndex;
+            //    lbProjectDocument.SelectedIndex = -1;
+            //    AddlbProjectDocumentItem(position, dialog.mString + ".lightScript");
+            //    lbProjectDocument.Items.RemoveAt(position + 1);
+            //    lbProjectDocument.SelectedIndex = position;
+            //}
+        }
+        public void NewFileResult(String filePath)
+        {
+            Console.WriteLine("AAAA");
         }
 
         private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
@@ -669,22 +786,7 @@ namespace Maker
 
        
         
-        private void RenameFileName(object sender, RoutedEventArgs e)
-        {
-            //if (lbProjectDocument.SelectedIndex == -1)
-            //    return;
-            //GetStringDialog dialog = new GetStringDialog(this, "FileName", "NewFileNameColon", "PleaseEnterANewFileNameThatDoesNotRepeat");
-            //if (dialog.ShowDialog() == true)
-            //{
-            //    String oldPath = lightScriptFilePath;
-            //    System.IO.File.Move(lightScriptFilePath, Path.GetDirectoryName(lightScriptFilePath) + @"\" + dialog.mString + ".lightScript");
-            //    int position = lbProjectDocument.SelectedIndex;
-            //    lbProjectDocument.SelectedIndex = -1;
-            //    AddlbProjectDocumentItem(position, dialog.mString + ".lightScript");
-            //    lbProjectDocument.Items.RemoveAt(position + 1);
-            //    lbProjectDocument.SelectedIndex = position;
-            //}
-        }
+       
 
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
@@ -802,6 +904,11 @@ namespace Maker
         private void gToolBackGround_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             RemoveTool();
+        }
+
+        private void cMost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            RemoveChildren();
         }
     }
 }

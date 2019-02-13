@@ -10,8 +10,6 @@
         Loaded="wMain_Loaded"
              Margin="10"
              Opacity="0"
-             Width="500"
-             Height="500"
         >
     <UserControl.Resources>
         <ResourceDictionary>

@@ -50,36 +50,7 @@
                     <Grid.Effect>
                         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                     </Grid.Effect>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid  Grid.Row="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <TreeView Grid.Row="0" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
-                            <TreeView.ContextMenu>
-                                <ContextMenu  Name="lbProjectDocumentMenu">
-                                    <MenuItem Click="RenameFileName" Header="{DynamicResource Rename}"/>
-                                    <!--<Separator />
-                                    <MenuItem Header="{DynamicResource Import}"  Name="miImport" >
-                                        <MenuItem Header="{DynamicResource MidiFile}"  Click="ImportFile" Name="miMidiFile"/>
-                                        <MenuItem Header="{DynamicResource LightFile}"  Click="ImportFile" Name="miLightFile"/>
-                                        --><!--<MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />--><!--
-                                    </MenuItem>
-                                    <MenuItem Header="{DynamicResource Export}"  Name="miExport" >
-                                        <MenuItem Header="{DynamicResource MidiFile}"  Click="ExportFile" Name="miExportMidi"/>
-                                        <MenuItem Header="{DynamicResource LightFile}"  Click="ExportFile" Name="miExportLight"/>
-                                        <Separator />
-                                        <MenuItem Header="{DynamicResource Advanced}" Click="ExportFile" Name="miExportAdvanced"/>
-                                    </MenuItem>
-                                    <Separator />-->
-                                    <MenuItem Header="{DynamicResource Delete}" Click="DeleteFile" />
-                                    <!--<MenuItem Click="GoToFile" Header="{DynamicResource OpenFoldersInTheFileResourceManager}"/>-->
-                                </ContextMenu>
-                            </TreeView.ContextMenu>
+                        <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
                             <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
                             <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                             <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
@@ -98,29 +69,6 @@
                                 <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
                             </StackPanel>
                         </Border>
-                    </Grid>
-                    <DockPanel  Grid.Row="1" Height="45">
-                        <Button HorizontalAlignment="Right" Name="btnDelete" Click="btnDelete_Click" Background="Transparent" Style="{DynamicResource EmptyButtonStyle3}">
-                            <TextBlock  Text="{DynamicResource Delete}" VerticalAlignment="Center" Foreground="#b8bfc6" Width="80" TextAlignment="Center">
-                                <TextBlock.Triggers>
-                                    <EventTrigger RoutedEvent="TextBlock.MouseEnter">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="#b8bfc6" To="White"   Duration="00:00:00.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                    <EventTrigger RoutedEvent="TextBlock.MouseLeave">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"   BeginTime="00:00:00" From="White" To="#b8bfc6"   Duration="00:00:00.5" />
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
-                                </TextBlock.Triggers>
-                            </TextBlock>
-                        </Button>
-                    </DockPanel>
                 </Grid>
                 <Grid Grid.Column="1">
                             <Grid  Margin="0,0,0,45" Name="gCenter"/>
@@ -158,6 +106,9 @@
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Column="2" Width="0" Name="bHelp" Background="#222326" >
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+                    </Grid.Effect>
                     <StackPanel  VerticalAlignment="Top" Margin="0,0,0,0">
                         <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#222326" >
                             <Button.Content>
@@ -221,9 +172,9 @@
                 </Grid>
             </Grid>
         </DockPanel>
-        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" />
+        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="90" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="135" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
             <StackPanel Orientation="Horizontal" Canvas.Top="40"  Background="#272727" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
