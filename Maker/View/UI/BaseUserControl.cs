@@ -157,7 +157,7 @@ namespace Maker.View
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension, NewFileResult);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension, NewFileResult);
             mw.ShowMakerDialog(newFileDialog);
         }
 

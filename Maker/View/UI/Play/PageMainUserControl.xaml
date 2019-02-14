@@ -354,7 +354,8 @@
                                 <DockPanel Margin="0,10,0,0">
                                     <TextBlock DockPanel.Dock="Left"  Text="Bpm:" Width="150"/>
                                     <TextBox DockPanel.Dock="Left"  Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
-                                    <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" />
+                                    <Button  DockPanel.Dock="Right"  Content="{DynamicResource Exit}" Click="SavePage" HorizontalAlignment="Right" />
+                                    <Button  DockPanel.Dock="Right" Margin="0,0,30,0" Content="{DynamicResource Save}" Click="Exit" HorizontalAlignment="Right" />
                                 </DockPanel>
                             </StackPanel>
                         </StackPanel>

@@ -10,7 +10,11 @@
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
              SizeChanged="UserControl_SizeChanged"
-             >
+          Background="#262829"
+        >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+    </UserControl.Effect>
     <Grid Name="gMain">
         <Grid>
         <Grid.RowDefinitions>
@@ -21,14 +25,14 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Background="#535353" Grid.Row="0" >
-            <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <DockPanel Background="#262829" Grid.Row="0" >
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                 <ComboBox Name="cbRealDeviceIn" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbRealDeviceIn_SelectionChanged"/>
                     <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="SearchEquipment" />
             </ToolBar>
         </DockPanel>
-        <DockPanel Background="#535353"  Grid.Row="1">
-            <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <DockPanel Background="#262829"  Grid.Row="1">
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                 <ComboBox Name="cbRealDevice" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="CbRealDevice_SelectionChanged"/>
                 <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
                 <ComboBox Name="cbPassageway" Background="#454545" Width="50"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbPassageway_SelectionChanged" />
@@ -38,25 +42,26 @@
             <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbMustOpenNumber" Height="21" Margin="10,0,0,0" HorizontalAlignment="Left"/>
             <Button Content="强制开启" FontSize="14"  HorizontalAlignment="Left" Foreground="#f0f0f0" Name="btnMustOpenMidi" Click="btnMustOpenMidi_Click" Height="25" Margin="5,0,0,0" />-->
         </DockPanel>
-            <DockPanel Background="#535353" Grid.Row="2">
-                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <DockPanel Background="#262829" Grid.Row="2">
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <Button Content="加载键盘" FontSize="14"  Foreground="#f0f0f0" Click="LoadKeyboards" />
                 </ToolBar>
                 <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
             
 </DockPanel>
-            <DockPanel Background="#535353" Grid.Row="3">
-                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <DockPanel Background="#262829" Grid.Row="3">
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <Button Content="加载教程轨" FontSize="14"  Foreground="#f0f0f0" Click="LoadTutorial" />
                 </ToolBar>
             </DockPanel>
-            <DockPanel Background="#535353" Grid.Row="4">
-                <ToolBar  Background="#535353" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+            <DockPanel Background="#262829" Grid.Row="4">
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <TextBox Name="tbExport" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                     <Button Content="{DynamicResource Export}" FontSize="14"  Foreground="#f0f0f0" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click"/>
                 </ToolBar>
             </DockPanel>
             <play:TeachingControl Grid.Row="5" x:Name="mTeachingControl" ClipToBounds="True"/>
-    </Grid>
+        </Grid>
+        <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
     </Grid>
 </local:BaseUserControl>

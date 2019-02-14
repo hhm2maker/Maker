@@ -162,7 +162,7 @@ namespace Maker.View.Play
         }
         public void StartAnimation()
         {
-            storyboard.Begin(this);
+            //storyboard.Begin(this);
         }
     }
 }

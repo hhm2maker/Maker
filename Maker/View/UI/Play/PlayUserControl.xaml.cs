@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
@@ -626,6 +627,8 @@ namespace Maker.View.UI
         private bool isFirst = true;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Width = mw.ActualWidth * 0.9;
+            Height = mw.gMost.ActualHeight;
             if (isFirst)
             {
                 InitData();
@@ -1142,5 +1145,10 @@ namespace Maker.View.UI
         //    System.Windows.Forms.MessageBox.Show(i.ToString());
 
         //}
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mw.RemoveChildren();
+        }
     }
 }

@@ -348,6 +348,10 @@ namespace Maker
             bToolChild.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
 
             cMost.Background = null;
+
+            if (cMost.Children.Count == 0)
+                return;
+
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
 
@@ -642,6 +646,7 @@ namespace Maker
 
         public TreeViewItem needControlTreeViewItem;
         public String needControlFileName;
+        public BaseUserControl needControlBaseUserControl;
         private void GetNeedControl(object sender) {
             needControlTreeViewItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as TreeViewItem;
             needControlFileName = needControlTreeViewItem.Header.ToString();
@@ -723,30 +728,32 @@ namespace Maker
 
             if (baseUserControl == null)
                 return;
-            baseUserControl.filePath = needControlFileName;
-         
-            String _filePath = baseUserControl.GetFileDirectory();
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
-            ShowMakerDialog(newFileDialog);
-            //needControlTreeViewItem.Header = 
+            needControlBaseUserControl = baseUserControl;
 
-            //if (lbProjectDocument.SelectedIndex == -1)
-            //    return;
-            //GetStringDialog dialog = new GetStringDialog(this, "FileName", "NewFileNameColon", "PleaseEnterANewFileNameThatDoesNotRepeat");
-            //if (dialog.ShowDialog() == true)
-            //{
-            //    String oldPath = lightScriptFilePath;
-            //    System.IO.File.Move(lightScriptFilePath, Path.GetDirectoryName(lightScriptFilePath) + @"\" + dialog.mString + ".lightScript");
-            //    int position = lbProjectDocument.SelectedIndex;
-            //    lbProjectDocument.SelectedIndex = -1;
-            //    AddlbProjectDocumentItem(position, dialog.mString + ".lightScript");
-            //    lbProjectDocument.Items.RemoveAt(position + 1);
-            //    lbProjectDocument.SelectedIndex = position;
-            //}
+            baseUserControl.filePath = needControlFileName;
+            
+            String _filePath = baseUserControl.GetFileDirectory();
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this,true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            ShowMakerDialog(newFileDialog);
         }
         public void NewFileResult(String filePath)
         {
-            Console.WriteLine("AAAA");
+            RemoveDialog();
+            String _filePath = needControlBaseUserControl.GetFileDirectory();
+
+            _filePath = _filePath + filePath;
+            if (File.Exists(_filePath))
+            {
+                new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                System.IO.File.Move(lastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
+                    , lastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
+                needControlTreeViewItem.Header = filePath;
+                needControlBaseUserControl.filePath = filePath;
+            }
         }
 
         private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
@@ -783,10 +790,6 @@ namespace Maker
         }
 
         private List<Light> mLightList = new List<Light>();
-
-       
-        
-       
 
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {

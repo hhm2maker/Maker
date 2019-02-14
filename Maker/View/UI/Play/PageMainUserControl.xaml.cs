@@ -39,6 +39,8 @@ namespace Maker.View.PageWindow
         bool isFirst = true;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Width = mw.ActualWidth * 0.9;
+            Height = mw.gMost.ActualHeight;
             if (isFirst)
             {
                 InitLaunchpad();
@@ -577,6 +579,10 @@ namespace Maker.View.PageWindow
             xDoc.Save(filePath);
         }
 
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            mw.RemoveChildren();
+        }
     }
     public class View : INotifyPropertyChanged
     {

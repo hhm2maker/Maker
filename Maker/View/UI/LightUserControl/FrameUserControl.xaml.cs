@@ -1305,7 +1305,7 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
             mw.ShowMakerDialog(newFileDialog);
         }
 

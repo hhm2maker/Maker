@@ -19,7 +19,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
     <StackPanel Orientation="Vertical" Grid.Row="0">
-            <TextBlock Text="{DynamicResource CreateFile}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
+            <TextBlock Name="tbTitle" Text="{DynamicResource CreateFile}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
             <TextBlock Text="{DynamicResource NewFileNameColon}" FontSize="14" Foreground="#b8bfc6" Margin="30,0,30,20" />
             <Grid Margin="30,0,30,30" >
                 <Grid.ColumnDefinitions>

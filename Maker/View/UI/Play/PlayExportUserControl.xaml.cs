@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -347,5 +348,15 @@ namespace Maker.View.Play
             xDoc.Save(filePath);
         }
 
+        private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Width = mw.ActualWidth * 0.9;
+            Height = mw.gMost.ActualHeight;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mw.RemoveChildren();
+        }
     }
 }

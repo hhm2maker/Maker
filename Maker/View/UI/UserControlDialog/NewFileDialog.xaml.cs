@@ -29,10 +29,13 @@ namespace Maker.View.UI.UserControlDialog
         public delegate void ReturnResult(String result);//该委托可以指向一个参数为空，返回值为string的方法。
 
         ReturnResult toReturnResult;
-        public NewFileDialog(NewMainWindow window, String extension, List<String> notContains, String fileType, ReturnResult toReturnResult)
+        public NewFileDialog(NewMainWindow window, bool isRename,String extension, List<String> notContains, String fileType, ReturnResult toReturnResult)
         {
             InitializeComponent();
 
+            if (isRename) {
+                tbTitle.Text = Application.Current.Resources["RenameFile"].ToString();
+            }
             this.window = window;
             this.extension = extension;
             this.notContains = notContains;
