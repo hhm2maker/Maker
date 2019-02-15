@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Maker.View"
         mc:Ignorable="d"
         Name="wMain"
-        Loaded="wMain_Loaded"
+        Loaded="WMain_Loaded"
         >
     <UserControl.Resources>
         <ResourceDictionary>

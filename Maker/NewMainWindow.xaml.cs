@@ -833,7 +833,13 @@ namespace Maker
                 ExportUserControl exportUserControl = new ExportUserControl(this, mLightList);
                 userControl = exportUserControl;
             }
-            gTool.Children.Clear();
+            else if (sender == iPianoRoll)
+            {
+                //加入平铺页面
+                ShowPianoRollUserControl exportUserControl = new ShowPianoRollUserControl(this, mLightList);
+                userControl = exportUserControl;
+            }
+                gTool.Children.Clear();
                 gTool.Children.Add(userControl);
                 gToolBackGround.Visibility = Visibility.Visible;
                 DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));

@@ -49,15 +49,17 @@ namespace Maker.View.Tool
             this.pavedColumns = pavedColumns;
         }
 
-        private void wMain_Loaded(object sender, RoutedEventArgs e)
+        private void WMain_Loaded(object sender, RoutedEventArgs e)
         {
-            //高
-            DoubleAnimation daHeight = new DoubleAnimation();
-            daHeight.From = 0;
-            daHeight.To = 1;
-            daHeight.Duration = TimeSpan.FromSeconds(0.3);
-            daHeight.Completed += Animation_Completed;
-            wMain.BeginAnimation(OpacityProperty, daHeight);
+            //透明度
+            DoubleAnimation daOpacity = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromSeconds(0.3)
+            };
+            daOpacity.Completed += Animation_Completed;
+            wMain.BeginAnimation(OpacityProperty, daOpacity);
         }
         public int Count;
         private void Animation_Completed(object sender, EventArgs e)
