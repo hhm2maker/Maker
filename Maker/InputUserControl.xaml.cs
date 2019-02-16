@@ -2840,7 +2840,7 @@ namespace Maker
                 dgMain.Width = dpShow.ActualWidth;
                 dgMain.Height = dpShow.ActualHeight;
 
-                viewBusiness.SetBackGroundFromWidth(dgMain.Width);
+                //viewBusiness.SetBackGroundFromWidth(dgMain.Width);
             }
         }
 

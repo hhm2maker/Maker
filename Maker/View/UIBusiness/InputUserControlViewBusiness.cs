@@ -45,23 +45,6 @@ namespace Maker.ViewBusiness
                 iuc.tbSelectEditorColor.Clear();
             }
         }
-        public void SetBackGroundFromWidth(double width) {
-            LinearGradientBrush brush = new LinearGradientBrush();
-            brush.StartPoint = new Point(0, 0);
-            brush.EndPoint = new Point(1, 0);
-            GradientStop stop1 = new GradientStop();
-            stop1.Color = Color.FromArgb(255, 40, 40, 40);
-            stop1.Offset = 0;
-            GradientStop stop2 = new GradientStop();
-            stop2.Color = Color.FromArgb(255, 40, 40, 40);
-            stop2.Offset = (width - 17.33) / width;
-            GradientStop stop3 = new GradientStop();
-            stop3.Color = Color.FromArgb(255, 74, 74, 74);
-            stop3.Offset = (width - 17.33) / width;
-            brush.GradientStops.Add(stop1);
-            brush.GradientStops.Add(stop2);
-            brush.GradientStops.Add(stop3);
-            iuc.dgMain.Background = brush;
-        }
+        
     }
 }

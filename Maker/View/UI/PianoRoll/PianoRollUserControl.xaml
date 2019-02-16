@@ -13,23 +13,23 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="20" >
             <StackPanel Orientation="Horizontal"  Margin="30,30,30,0">
-                <TextBlock  Text="最小单位：" Width="120" Margin="0,0,10,0" FontSize="20" />
-                <TextBox Name="tbMinimumUnit" Width="50" Text="6"  FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White"/>
+                <TextBlock  Text="最小单位：" Foreground="White" Width="120" Margin="0,0,10,0" FontSize="20" />
+                <TextBox Name="tbMinimumUnit" Foreground="White"  Width="50" Text="6"  FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
-                <TextBlock  Text="宽度(像素)：" Margin="0,0,10,0" Width="120"  FontSize="20" />
-                <TextBox TextChanged="TextChanged"  Name="tbWidth"   Width="50" Text="6" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+                <TextBlock  Text="宽度(像素)：" Foreground="White" Margin="0,0,10,0" Width="120"  FontSize="20" />
+                <TextBox TextChanged="TextChanged"  Foreground="White" Name="tbWidth"   Width="50" Text="6" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
-                <TextBlock  Text="时间线刻度：" Margin="0,0,10,0" Width="120"  FontSize="20" />
-                <TextBox TextChanged="TextChanged"  Name="tbTimeLine"   Width="50" Text="1" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+                <TextBlock  Text="时间线刻度：" Foreground="White" Margin="0,0,10,0" Width="120"  FontSize="20" />
+                <TextBox TextChanged="TextChanged" Foreground="White"  Name="tbTimeLine"   Width="50" Text="1" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
-                <TextBlock  Text="时间字刻度：" Margin="0,0,10,0" Width="120"  FontSize="20" />
-                <TextBox TextChanged="TextChanged"  Name="tbTimeFont"   Width="50" Text="4" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
+                <TextBlock  Text="时间字刻度：" Foreground="White" Margin="0,0,10,0" Width="120"  FontSize="20" />
+                <TextBox TextChanged="TextChanged" Foreground="White" Name="tbTimeFont"   Width="50" Text="4" FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" BorderBrush="White" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
-                <CheckBox   Name="cbPen" Content="画笔"  FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" />
+                <CheckBox   Name="cbPen" Foreground="White" Content="画笔"  FontSize="20" HorizontalContentAlignment="Right" Background="{x:Null}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal"  Margin="30,10,30,0">
                 <ListBox   Name="lbColor"  MouseDoubleClick="lbColor_MouseDoubleClick"  Foreground="White" FontSize="20"  Background="{x:Null}" BorderBrush="White" />

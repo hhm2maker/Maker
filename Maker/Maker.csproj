@@ -269,6 +269,9 @@
     <Compile Include="View\UI\Style\Child\NoOperation\VerticalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\HorizontalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\NoOperationStyle.cs" />
+    <Compile Include="View\UI\Tool\DataGridUserControl.xaml.cs">
+      <DependentUpon>DataGridUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\ShowPianoRollUserControl.xaml.cs">
       <DependentUpon>ShowPianoRollUserControl.xaml</DependentUpon>
     </Compile>
@@ -605,6 +608,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\DataGridUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1465,6 +1472,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\mypianoroll.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\data.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

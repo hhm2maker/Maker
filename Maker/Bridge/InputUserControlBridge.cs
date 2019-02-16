@@ -413,8 +413,7 @@ namespace Maker.Bridge
 
         public void SetDataToDataGrid(List<Light> mActionBeanList)
         {
-            //iuc.dgMain.ItemsSource = LightBusiness.GetImprovePerformanceLightList(mActionBeanList);
-            iuc.dgMain.ItemsSource = mActionBeanList;
+            //iuc.dgMain.ItemsSource = mActionBeanList;
         }
         /// <summary>
         /// 获取主窗口数据

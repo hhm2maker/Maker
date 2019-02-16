@@ -818,26 +818,24 @@ namespace Maker
                     //bToolChild.Height = deviceModel.DeviceSize + 31;
                     //bToolChild.Visibility = Visibility.Visible;
                     //加入播放器页面
-                    PlayerUserControl playerUserControl = new PlayerUserControl(this, mLightList);
-                    userControl = playerUserControl;
-                }
+                    userControl = new PlayerUserControl(this, mLightList);
+            }
                 else if (sender == iPaved)
                 {
                     //加入平铺页面
-                    ShowPavedUserControl pavedUserControl = new ShowPavedUserControl(this, mLightList);
-                    userControl = pavedUserControl;
+                    userControl = new ShowPavedUserControl(this, mLightList);
                 }
             else if (sender == iExport)
             {
-                //加入平铺页面
-                ExportUserControl exportUserControl = new ExportUserControl(this, mLightList);
-                userControl = exportUserControl;
+                userControl = new ExportUserControl(this, mLightList);
             }
             else if (sender == iPianoRoll)
             {
-                //加入平铺页面
-                ShowPianoRollUserControl exportUserControl = new ShowPianoRollUserControl(this, mLightList);
-                userControl = exportUserControl;
+                userControl = new ShowPianoRollUserControl(this, mLightList);
+            }
+            else if (sender == iData)
+            {
+                userControl = new DataGridUserControl(this, mLightList);
             }
                 gTool.Children.Clear();
                 gTool.Children.Add(userControl);

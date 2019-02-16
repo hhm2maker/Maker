@@ -2622,10 +2622,8 @@ namespace Maker.View.LightScriptUserControl
             }
             else if (mShow == ShowMode.DataGrid)
             {
-                dgMain.Width = dpShow.ActualWidth;
-                dgMain.Height = dpShow.ActualHeight;
-
-                viewBusiness.SetBackGroundFromWidth(dgMain.Width);
+                //dgMain.Width = dpShow.ActualWidth;
+                //dgMain.Height = dpShow.ActualHeight;
             }
         }
 
@@ -2636,6 +2634,15 @@ namespace Maker.View.LightScriptUserControl
 
         private void ShowRangeList(object sender, RoutedEventArgs e)
         {
+            ShowRangeList(sender);
+        }
+
+        private void ShowRangeList(object sender, MouseButtonEventArgs e)
+        {
+            ShowRangeList(sender);
+        }
+
+        private void ShowRangeList(object sender) {
             ShowRangeListDialog dialog = new ShowRangeListDialog(this);
             if (dialog.ShowDialog() == true)
             {
@@ -2727,7 +2734,17 @@ namespace Maker.View.LightScriptUserControl
             //}
         }
 
-        private void DrawRange(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DrawRange(object sender, MouseButtonEventArgs e)
+        {
+            DrawRange(sender);
+        }
+
+        private void DrawRange(object sender, RoutedEventArgs e)
+        {
+            DrawRange(sender);
+        }
+
+        private void DrawRange(object sender)
         {
             DrawRangeDialog dialog = new DrawRangeDialog(mw);
             StringBuilder builder = new StringBuilder();
@@ -4773,6 +4790,6 @@ namespace Maker.View.LightScriptUserControl
             _bridge.UpdateData();
         }
 
-
+       
     }
 }

@@ -30,13 +30,12 @@ namespace Maker.View.Tool
     public partial class ShowPianoRollUserControl : UserControl
     {
         private NewMainWindow mw;
-        private List<Light> mLightList;
         public ShowPianoRollUserControl(NewMainWindow mw,List<Light> mLightList)
         {
             InitializeComponent();
             this.mw = mw;
 
-            this.mLightList = mLightList;
+            pianoroll.SetData(mLightList);
         }
         
 
@@ -59,7 +58,7 @@ namespace Maker.View.Tool
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.8;
+            //Width = mw.ActualWidth * 0.8;
             Height = mw.ActualHeight * 0.8;
         }
 
