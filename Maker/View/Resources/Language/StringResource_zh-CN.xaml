@@ -98,7 +98,9 @@
     <sys:String x:Key="FastGenerationrColon">快速生成：</sys:String>
     <sys:String x:Key="RangeColon">范围：</sys:String>
     <sys:String x:Key="IntervalColon">间隔：</sys:String>
+    <sys:String x:Key="Interval">间隔</sys:String>
     <sys:String x:Key="DurationColon">持续：</sys:String>
+    <sys:String x:Key="Duration">持续</sys:String>
     <sys:String x:Key="Select">选中</sys:String>
     <sys:String x:Key="ConditionJudgmentColon">条件判断：</sys:String>
     <sys:String x:Key="IfColon">如果：</sys:String>
@@ -108,6 +110,7 @@
     <sys:String x:Key="ColorEquals">颜色 =</sys:String>
     <sys:String x:Key="Remove">移除</sys:String>
     <sys:String x:Key="NowTimeColon">当前时间：</sys:String>
+    <sys:String x:Key="NowTime">当前时间</sys:String>
     <sys:String x:Key="Action">行为</sys:String>
     <sys:String x:Key="Position">位置</sys:String>
     <sys:String x:Key="IntroduceColon">介绍：</sys:String>

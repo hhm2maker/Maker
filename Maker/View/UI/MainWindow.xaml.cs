@@ -461,9 +461,9 @@ namespace Maker.View.Control
         {
             ToSettingWindow();
         }
-        public void ToSettingWindow() {
-
-            new SettingWindow(this).ShowDialog();
+        public void ToSettingWindow()
+        {
+            //new SettingWindow(this).ShowDialog();
         }
         private void SystemTool(object sender, EventArgs e)
         {

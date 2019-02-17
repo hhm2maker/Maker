@@ -54,7 +54,14 @@ namespace Maker
         /// 范围列表显示数字
         /// </summary>
         public bool isRangeListNumber = false;
-
+        /// <summary>
+        /// 当前版本
+        /// </summary>
+        public String strNowVersion;
+        /// <summary>
+        /// 透明度
+        /// </summary>
+        public String strStyleOpacity = String.Empty;
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;

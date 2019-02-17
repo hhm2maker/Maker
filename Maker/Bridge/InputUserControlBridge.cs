@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Maker.Bridge
@@ -495,7 +496,6 @@ namespace Maker.Bridge
         }
         private void LoadFrame()
         {
-           
             int[] x = dic[liTime[nowTimePoint - 1]];
 
             for (int i = 0; i < x.Count(); i++)
@@ -517,6 +517,23 @@ namespace Maker.Bridge
                 {
                     r.Fill = NumToBrush(x[i]);
                 }
+            }
+
+            if (nowTimePoint == 1)
+            {
+                iuc.btnLastTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toleft_gray.png", UriKind.RelativeOrAbsolute));
+            }
+            else {
+                iuc.btnLastTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toleft_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            if (nowTimePoint == liTime.Count)
+            {
+                iuc.btnNextTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toright_gray.png", UriKind.RelativeOrAbsolute));
+
+            }
+            else
+            {
+                iuc.btnNextTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toright_blue.png", UriKind.RelativeOrAbsolute));
             }
         }
         /// <summary>
@@ -564,6 +581,9 @@ namespace Maker.Bridge
                 {
                     nowTimePoint = 0;
                     iuc.tbTimePointCountLeft.Text = "0";
+
+                    iuc.btnLastTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toleft_gray.png", UriKind.RelativeOrAbsolute));
+                    iuc.btnNextTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toright_gray.png", UriKind.RelativeOrAbsolute));
                 }
                 else
                 {

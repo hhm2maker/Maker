@@ -33,6 +33,30 @@ namespace Maker.Bridge
             InitPaved();
             InitHint();
             InitHide();
+            InitTest();
+            InitVersion();
+        }
+
+        private void InitTest()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/test.xml");
+            XmlNode testRoot = doc.DocumentElement;
+            XmlNode testOpacity = testRoot.SelectSingleNode("Opacity");
+            view.strStyleOpacity = testOpacity.InnerText;
+            view.Opacity = int.Parse(testOpacity.InnerText) / 100.0;
+        }
+
+        /// <summary>
+        /// 初始化版本
+        /// </summary>
+        private void InitVersion()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/version.xml");
+            XmlNode versionRoot = doc.DocumentElement;
+            XmlNode versionNowVersion = versionRoot.SelectSingleNode("NowVersion");
+            view.strNowVersion = versionNowVersion.InnerText;
         }
 
         /// <summary>

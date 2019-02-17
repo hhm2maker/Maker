@@ -22,6 +22,7 @@ using System.Xml;
 using Maker.View;
 using System.Windows.Media.Imaging;
 using Maker.Model;
+using Maker.View.Setting;
 
 namespace Maker
 {
@@ -539,7 +540,6 @@ namespace Maker
             if (dialog.ShowDialog() == true)
             {
                 _projectPath = _projectPath + dialog.fileName;
-                Console.WriteLine(_projectPath);
                 if (Directory.Exists(_projectPath))
                 {
                     new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
@@ -916,6 +916,12 @@ namespace Maker
         private void cMost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             RemoveChildren();
+        }
+
+        private void OpenSetting(object sender, RoutedEventArgs e)
+        {
+            SettingWindow settingWindow = new SettingWindow(this);
+            AddSetting(settingWindow);
         }
     }
 }

@@ -234,8 +234,6 @@ namespace Maker.View
                 else if(testShowMode.InnerText.Equals("PianoRoll"))
                 {
                     mw.iuc.mShow = InputUserControl.ShowMode.DataGrid;
-               
-                
                 }
             }
             //版本

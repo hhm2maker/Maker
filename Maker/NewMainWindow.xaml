@@ -10,6 +10,8 @@
         WindowState="Maximized"
           Background="#1c1a1c"
         >
+    <!--AllowsTransparency="True"
+        WindowStyle="None"-->
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,19 +29,6 @@
     </Window.Resources>
     <Grid Name="gMost">
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Name="mMain" FontSize="14" Foreground="#f0f0f0" Margin="5" VerticalAlignment="Center">
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="16" Foreground="#f0f0f0"  >
-                    <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
-                        <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
-                        <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
-                        <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
-                        <Separator />
-                        <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
-                        <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Help}"  FontSize="16" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
-            </Menu>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
@@ -50,7 +39,25 @@
                     <Grid.Effect>
                         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                     </Grid.Effect>
-                        <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Menu Grid.Row="0" Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
+                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="16" Foreground="#f0f0f0"  >
+                            <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
+                                <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <Separator />
+                                <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Setting}"  FontSize="16" Foreground="#f0f0f0" Click="OpenSetting" />
+                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Help}"  FontSize="16" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
+                    </Menu>
+                    <TreeView Grid.Row="1" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
                             <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
                             <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                             <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>

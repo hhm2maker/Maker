@@ -91,8 +91,8 @@ namespace Maker.View.LightScriptUserControl
             //svMainBottom.Visibility = Visibility.Visible;
 
         }
-        private String strInputFormatDelimiter;
-        private String strInputFormatRange;
+        public String strInputFormatDelimiter;
+        public String strInputFormatRange;
 
         public char StrInputFormatDelimiter
         {
@@ -109,6 +109,21 @@ namespace Maker.View.LightScriptUserControl
                 else
                 {
                     return ' ';
+                }
+            }
+
+            set {
+                if (value == ',')
+                {
+                    strInputFormatDelimiter = "Comma";
+                }
+                else if (value == ' ')
+                {
+                    strInputFormatDelimiter = "Space";
+                }
+                else
+                {
+                    strInputFormatDelimiter = "Comma";
                 }
             }
         }
@@ -128,6 +143,22 @@ namespace Maker.View.LightScriptUserControl
                 else
                 {
                     return '-';
+                }
+            }
+
+            set
+            {
+                if (value == '-')
+                {
+                    strInputFormatDelimiter = "Shortbar";
+                }
+                else if (value == 'r')
+                {
+                    strInputFormatDelimiter = "R";
+                }
+                else
+                {
+                    strInputFormatDelimiter = "Shortbar";
                 }
             }
         }
@@ -185,7 +216,23 @@ namespace Maker.View.LightScriptUserControl
             toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
             toolTip.SetValue(StyleProperty,null);
             iNewStep.ToolTip = toolTip;
+
+            InitFormat();
         }
+
+        private void InitFormat()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/input.xml");
+            XmlNode inputRoot = doc.DocumentElement;
+            //格式
+            XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
+            XmlNode Delimiter = inputFormat.SelectSingleNode("Delimiter");
+            strInputFormatDelimiter = Delimiter.InnerText;
+            XmlNode Range = inputFormat.SelectSingleNode("Range");
+            strInputFormatRange = Range.InnerText;
+        }
+
         private void LoadRangeFile()
         {
             _bridge.LoadRangeFile();
@@ -201,7 +248,8 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<String, List<String>> intersectionDictionary = new Dictionary<string, List<String>>();
         public Dictionary<String, List<String>> complementDictionary = new Dictionary<string, List<String>>();
         public Dictionary<String, List<Light>> lockedDictionary = new Dictionary<string, List<Light>>();
-        public String introduceText;
+
+        private String introduce = "";
         /// <summary>
         /// 更新步骤列表的父类
         /// </summary>
@@ -1606,6 +1654,23 @@ namespace Maker.View.LightScriptUserControl
         public void Test()
         {
             bridge.GetResult();
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition - 1) + ".lightScript"))
+            {
+                iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            else
+            {
+                iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_gray.png", UriKind.RelativeOrAbsolute));
+            }
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition + 1) + ".lightScript"))
+            {
+                iRedo.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/redo_blue.png", UriKind.RelativeOrAbsolute));
+            }
+            else
+            {
+                iRedo.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/redo_gray.png", UriKind.RelativeOrAbsolute));
+            }
         }
         public void Test(String stepName)
         {
@@ -2611,9 +2676,10 @@ namespace Maker.View.LightScriptUserControl
 
         public void SetLaunchpadSize()
         {
-            double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 52 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 52;
+            double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 40 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 40;
             mLaunchpad.SetSize(minSize);
         }
+
         private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (mShow == ShowMode.Launchpad)
@@ -3304,7 +3370,6 @@ namespace Maker.View.LightScriptUserControl
 
         private void Menu_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
             //if (sender == miMycontent)
             //{
             //    //获取最新的我的内容
@@ -3335,6 +3400,8 @@ namespace Maker.View.LightScriptUserControl
             {
                 File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
                 _bIsEdit = true;
+                isRedo = false;
+
                 iNowPosition -= 1;
                 //重新加载
                 LoadFile(Path.GetFileName(filePath));
@@ -3344,6 +3411,9 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
         }
+
+        public bool isRedo = false;
+
         private void Redo()
         {
             if (iNowPosition == -1)
@@ -3354,8 +3424,9 @@ namespace Maker.View.LightScriptUserControl
             {
                 File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
                 _bIsEdit = true;
-                //bIsEdit = true;
-                iNowPosition += 1;
+                isRedo = true;
+
+                 iNowPosition += 1;
                 //重新加载
                 LoadFile(Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
@@ -3420,10 +3491,11 @@ namespace Maker.View.LightScriptUserControl
         private void MiIntroduce_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             EidtTextDialog edit = new EidtTextDialog();
-            edit.SetData(introduceText);
+            edit.SetData(introduce);
             if (edit.ShowDialog() == true)
             {
-                introduceText = edit.GetData();
+                introduce = edit.GetData();
+                Test();
                 //SaveLightScriptFile("", false);
             }
         }
@@ -3745,11 +3817,16 @@ namespace Maker.View.LightScriptUserControl
 
         protected override void LoadFileContent()
         {
-            ClearCache();
+            if (!_bIsEdit)
+            {
+                ClearCache();
+                iNowPosition = -1;
+            }
             //Import Introduce Final Locked
 
             scriptModelDictionary.Clear();
-            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath);
+            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath,out String introduce);
+            this.introduce = introduce;
 
             UpdateStep();
             UpdateCollection();
@@ -3758,6 +3835,7 @@ namespace Maker.View.LightScriptUserControl
             //    "ColorGroup Step1Color = new ColorGroup(\"5\", ' ', '-');" +
             //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
+
             Test();
         }
 
@@ -3791,7 +3869,11 @@ namespace Maker.View.LightScriptUserControl
             XElement xScripts = new XElement("Scripts");
             xDoc.Add(xRoot);
             xRoot.Add(xScripts);
-
+            XElement xIntroduce = new XElement("Introduce")
+            {
+                Value = introduce
+            };
+            xRoot.Add(xIntroduce);
             foreach (var item in scriptModelDictionary)
             {
                 XElement xScript = new XElement("Script");
@@ -4026,8 +4108,15 @@ namespace Maker.View.LightScriptUserControl
             }
             xDoc.Save(filePath);
         }
+
         public void CopyFile()
         {
+            if (isRedo)
+                iNowPosition++;
+
+            if (_bIsEdit)
+                return;
+
             iNowPosition++;
             File.Copy(filePath, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iNowPosition + ".lightScript", true);
             if (iNowPosition == 999)
@@ -4054,7 +4143,7 @@ namespace Maker.View.LightScriptUserControl
             complementDictionary.Clear();
             importList.Clear();
             finalDictionary.Clear();
-            introduceText = String.Empty;
+            introduce = String.Empty;
             lockedDictionary.Clear();
         }
 
@@ -4790,6 +4879,25 @@ namespace Maker.View.LightScriptUserControl
             _bridge.UpdateData();
         }
 
-       
+        private void Image_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if(sender == iExecutionTime)
+                iExecutionTime.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/executiontime_blue.png", UriKind.RelativeOrAbsolute));
+            if (sender == iCompleteScript)
+                iCompleteScript.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/completescript_blue.png", UriKind.RelativeOrAbsolute));
+            if (sender == iIntroduce)
+                iIntroduce.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/introduce_blue.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void Image_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender == iExecutionTime)
+                iExecutionTime.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/executiontime_gray.png", UriKind.RelativeOrAbsolute));
+            if (sender == iCompleteScript)
+                iCompleteScript.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/completescript_gray.png", UriKind.RelativeOrAbsolute));
+            if (sender == iIntroduce)
+                iIntroduce.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/introduce_gray.png", UriKind.RelativeOrAbsolute));
+
+        }
     }
 }

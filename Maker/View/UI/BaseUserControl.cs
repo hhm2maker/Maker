@@ -91,7 +91,6 @@ namespace Maker.View
             set;
         }
        
-       
         /// <summary>
         /// 加载文件
         /// </summary>

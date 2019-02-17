@@ -44,8 +44,8 @@ namespace Maker.Bridge
             view.mBlockLightList = Results.Test(view.scriptModelDictionary,stepName); 
         }
 
-        public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath) {
-            return Business.ViewBusiness.Currency.ScriptFileBusiness.GetScriptModelDictionary(filePath);
+        public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce) {
+            return Business.ViewBusiness.Currency.ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Maker.Business.ViewBusiness.Currency
     public class ScriptFileBusiness
     {
         public static List<Light> FileToLight(String filePath) {
-            Dictionary < string, List < Light >> mLights = Test(GetScriptModelDictionary(filePath));
+            Dictionary < string, List < Light >> mLights = Test(GetScriptModelDictionary(filePath, out String introduce));
             List<Light> lights = new List<Light>();
             foreach (var item in mLights) {
                 lights.AddRange(item.Value);
@@ -23,11 +23,19 @@ namespace Maker.Business.ViewBusiness.Currency
             return lights;
         }
 
-        public static Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath)
+        public static Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce)
         {
             Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
             XDocument xDoc = XDocument.Load(filePath);
             XElement xRoot = xDoc.Element("Root");
+            XElement xIntroduce = xRoot.Element("Introduce");
+            if (xIntroduce != null)
+            {
+                introduce = xIntroduce.Value;
+            }
+            else {
+                introduce = "";
+            }
             XElement xScripts = xRoot.Element("Scripts");
             foreach (var xScript in xScripts.Elements("Script"))
             {
