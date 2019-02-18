@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#262829"
         Width="620"
-        Height="450"
+        Height="250"
         Loaded="Window_Loaded"
         >
     <UserControl.Effect>

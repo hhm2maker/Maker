@@ -79,6 +79,7 @@ namespace Maker
         /// </summary>
         private void InitFile()
         {
+            tvLight.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Light", new List<string>() { ".light" }))
             {
                 TreeViewItem item = new TreeViewItem
@@ -88,6 +89,7 @@ namespace Maker
                 item.ContextMenu = contextMenu;
                 tvLight.Items.Add(item);
             }
+            tvLightScript.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
             {
                 TreeViewItem item = new TreeViewItem
@@ -97,6 +99,7 @@ namespace Maker
                 item.ContextMenu = contextMenu;
                 tvLightScript.Items.Add(item);
             }
+            tvLimitlessLamp.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
             {
                 TreeViewItem item = new TreeViewItem
@@ -106,6 +109,7 @@ namespace Maker
                 item.ContextMenu = contextMenu;
                 tvLimitlessLamp.Items.Add(item);
             }
+            tvPlay.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
             {
                 TreeViewItem item = new TreeViewItem
@@ -169,6 +173,7 @@ namespace Maker
             if (gMain.Children.Count > 0)
             {
                 LoadFileList();
+               
                 BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
                 baseUserControl.SaveFile();
             }
@@ -522,12 +527,8 @@ namespace Maker
 
             tbProjectPath.Text = lbProject.SelectedItem.ToString().Trim();
             lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
-            if (gMain.Children.Count > 0)
-            {
-                LoadFileList();
-                BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-                baseUserControl.HideControl();
-            }
+            suc.HideControl();
+            InitFile();
 
             bProjectPathControl.Visibility = Visibility.Collapsed;
             bridge.SaveFile();
