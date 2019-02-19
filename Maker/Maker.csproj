@@ -432,9 +432,6 @@
     <Compile Include="View\UI\Play\PageMainUserControl.xaml.cs">
       <DependentUpon>PageMainUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Setting\PavedSetting.xaml.cs">
-      <DependentUpon>PavedSetting.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UI\Tool\ExportUserControl.xaml.cs">
       <DependentUpon>ExportUserControl.xaml</DependentUpon>
     </Compile>
@@ -454,12 +451,6 @@
       <DependentUpon>PlayExportUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Play\TeachingControl.cs" />
-    <Compile Include="View\UI\Setting\PlayerTypeSetting.xaml.cs">
-      <DependentUpon>PlayerTypeSetting.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Setting\PlayerDefaultSetting.xaml.cs">
-      <DependentUpon>PlayerDefaultSetting.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UI\Test\BeautifulWindow.xaml.cs">
       <DependentUpon>BeautifulWindow.xaml</DependentUpon>
     </Compile>
@@ -889,10 +880,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Setting\PavedSetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\UI\Tool\ExportUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -914,14 +901,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Play\PlayExportUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Setting\PlayerTypeSetting.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Setting\PlayerDefaultSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,6 +1,9 @@
-﻿using Maker.View.Control;
+﻿using Maker.Business;
+using Maker.View.Control;
 using Maker.View.Dialog;
+using Maker.ViewBusiness;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -80,12 +83,27 @@ namespace Maker.View.Setting
             sOpacity.Value = int.Parse(mw.strStyleOpacity);
             //版本
             tbNowVersion.Text = mw.strNowVersion;
-           
-             //灯光语句
-             //tbPavedColumns.Text = mw.pavedColumns.ToString();
-             //tbPavedMax.Text = mw.pavedMax.ToString();
+             //平铺
+             tbPavedColumns.Text = mw.pavedColumns.ToString();
+             tbPavedMax.Text = mw.pavedMax.ToString();
+            //播放器
+            //播放器 - 类型
+            switch (mw.playerType)
+            {
+                case PlayerType.ParagraphLightList:
+                    rbParagraphLightList.IsChecked = true;
+                    break;
+                case PlayerType.Accurate:
+                    rbAccurate.IsChecked = true;
+                    break;
+                case PlayerType.ParagraphIntList:
+                    rbParagraphIntList.IsChecked = true;
+                    break;
+            }
+            //播放器 - 默认
+            GeneralViewBusiness.SetStringsToListBox(lbMain, FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"\Device", new List<String>() { ".ini" }), mw.playerDefault);
 
-             lastSelection = 0;
+            lastSelection = 0;
             lbCatalog.SelectedIndex = 0;
             StackPanel sp =  (StackPanel)svMain.Children[0];
             sp.Visibility = Visibility.Visible;
@@ -287,6 +305,104 @@ namespace Maker.View.Setting
         private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             mw.RemoveSetting();
+        }
+
+        private void tbPaved_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (sender == tbPavedColumns)
+            {
+                if (int.TryParse(tbPavedColumns.Text, out int columns))
+                {
+                    if (mw.pavedColumns == columns)
+                        return;
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load("Config/paved.xml");
+                    XmlNode paved = doc.DocumentElement;
+                    XmlNode pavedColumns = paved.SelectSingleNode("Columns");
+                    pavedColumns.InnerText = columns.ToString();
+                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/paved.xml");
+                    mw.pavedColumns = columns;
+                }
+            }
+            else
+            {
+                tbPavedColumns.Select(0, tbPavedColumns.Text.Length);
+            }
+            if (sender == tbPavedMax)
+            {
+                if (int.TryParse(tbPavedMax.Text, out int max))
+                {
+                    if (mw.pavedMax == max)
+                        return;
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load("Config/paved.xml");
+                    XmlNode paved = doc.DocumentElement;
+                    XmlNode pavedMax = paved.SelectSingleNode("Max");
+                    pavedMax.InnerText = max.ToString();
+                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/paved.xml");
+                    mw.pavedMax = max;
+                }
+            }
+            else
+            {
+                tbPavedMax.Select(0, tbPavedMax.Text.Length);
+            }
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (rbParagraphLightList.IsChecked == true && mw.playerType == PlayerType.ParagraphLightList)
+                return;
+            if (rbAccurate.IsChecked == true && mw.playerType == PlayerType.Accurate)
+                return;
+            if (rbParagraphIntList.IsChecked == true && mw.playerType == PlayerType.ParagraphIntList)
+                return;
+            if (rbParagraphLightList.IsChecked == true)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                XmlNode playerRoot = doc.DocumentElement;
+                XmlNode playType = playerRoot.SelectSingleNode("Type");
+                playType.InnerText = "ParagraphLightList";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                mw.playerType = PlayerType.ParagraphLightList;
+            }
+            else if (rbAccurate.IsChecked == true)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                XmlNode playerRoot = doc.DocumentElement;
+                XmlNode playType = playerRoot.SelectSingleNode("Type");
+                playType.InnerText = "Accurate";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                mw.playerType = PlayerType.Accurate;
+            }
+            else if (rbParagraphIntList.IsChecked == true)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                XmlNode playerRoot = doc.DocumentElement;
+                XmlNode playType = playerRoot.SelectSingleNode("Type");
+                playType.InnerText = "ParagraphIntList";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                mw.playerType = PlayerType.ParagraphIntList;
+            }
+        }
+
+        private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbMain.SelectedIndex == -1)
+                return;
+            if (!mw.playerDefault.Equals(lbMain.SelectedItem.ToString()))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                XmlNode playerRoot = doc.DocumentElement;
+                XmlNode playType = playerRoot.SelectSingleNode("Default");
+                playType.InnerText = lbMain.SelectedItem.ToString();
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
+                mw.playerDefault = lbMain.SelectedItem.ToString();
+            }
         }
     }
 }

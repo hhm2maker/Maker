@@ -24,8 +24,6 @@
                 <Button  Click="RunDevice" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White"  HorizontalAlignment="Right" Content="{DynamicResource Run}" />
             </DockPanel>
         </StackPanel>
-
-
         <StackPanel>
             <Button Name="btnOk" Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,20" Content="{DynamicResource Ok}"/>
         </StackPanel>
