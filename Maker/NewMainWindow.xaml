@@ -179,6 +179,7 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
         <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="225" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">

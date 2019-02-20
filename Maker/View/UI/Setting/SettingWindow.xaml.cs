@@ -102,14 +102,9 @@ namespace Maker.View.Setting
             }
             //播放器 - 默认
             GeneralViewBusiness.SetStringsToListBox(lbMain, FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"\Device", new List<String>() { ".ini" }), mw.playerDefault);
-
-            lastSelection = 0;
-            lbCatalog.SelectedIndex = 0;
-            StackPanel sp =  (StackPanel)svMain.Children[0];
-            sp.Visibility = Visibility.Visible;
         }
 
-        private int lastSelection =0;
+       
       
         private void btnChangeColor_Click(object sender, RoutedEventArgs e)
         {
@@ -281,17 +276,11 @@ namespace Maker.View.Setting
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/test.xml");
         }
       
-        private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            StackPanel sp = (StackPanel)svMain.Children[lastSelection];
-            sp.Visibility = Visibility.Collapsed;
-            lastSelection = lbCatalog.SelectedIndex;
-            sp = (StackPanel)svMain.Children[lastSelection];
-            sp.Visibility = Visibility.Visible;
-        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Width = mw.ActualWidth * 0.8 ;
+            //Height = mw.ActualHeight * 0.8;
             SetData();
         }
 
@@ -403,6 +392,16 @@ namespace Maker.View.Setting
                 doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/player.xml");
                 mw.playerDefault = lbMain.SelectedItem.ToString();
             }
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (lbMain.SelectedIndex == -1)
+                return;
+
+            mw.pmuc.filePath = lbMain.SelectedItem.ToString();
+            mw.IntoUserControl(8);
+            mw.pmuc.LoadFile(lbMain.SelectedItem.ToString());
         }
     }
 }

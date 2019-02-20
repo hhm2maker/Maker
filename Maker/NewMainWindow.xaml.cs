@@ -311,7 +311,6 @@ namespace Maker
             gMain.Margin = new Thickness(0, 0, 0, 50);
         }
 
-
         public void IntoUserControl(int index)
         {
             spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
@@ -321,6 +320,7 @@ namespace Maker
             //清除旧界面
             cMost.Children.Clear();
             //载入新界面
+            cMost.Visibility = Visibility.Visible;
             Canvas.SetLeft(userControls[index],gMost.ActualWidth);
             cMost.Children.Add(userControls[index]);
 
@@ -346,7 +346,8 @@ namespace Maker
             };
             doubleAnimation.Completed += DoubleAnimation_Completed1;
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-        }
+      
+  }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
@@ -361,12 +362,14 @@ namespace Maker
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
 
+            if(lbMain.SelectedItem is TreeViewItem) { 
             if (selectedItem != null)
             {
                 (selectedItem as TreeViewItem).IsSelected = true;
             }
             else {
                 (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+            }
             }
         }
 
@@ -437,14 +440,14 @@ namespace Maker
         /// <param name="ucSetting"></param>
         public void AddSetting(UserControl ucSetting)
         {
-            gMost.Children.Add(ucSetting);
+            gSetting.Children.Add(ucSetting);
         }
         /// <summary>
         /// 移除设置页面
         /// </summary>
         public void RemoveSetting()
         {
-            gMost.Children.RemoveAt(gMost.Children.Count - 1);
+            gSetting.Children.RemoveAt(gSetting.Children.Count - 1);
         }
 
         /// <summary>
@@ -921,8 +924,7 @@ namespace Maker
 
         private void OpenSetting(object sender, RoutedEventArgs e)
         {
-            SettingWindow settingWindow = new SettingWindow(this);
-            AddSetting(settingWindow);
+            AddSetting(new SettingWindow(this));
         }
     }
 }

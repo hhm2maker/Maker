@@ -170,5 +170,11 @@ namespace Maker.View.Tool
             config.Set("IsMembrane", "false");
             config.Save();
         }
+
+        private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Width = mw.ActualWidth * 0.9;
+            Height = mw.gMost.ActualHeight;
+        }
     }
 }
