@@ -440,6 +440,11 @@ namespace Maker
         /// <param name="ucSetting"></param>
         public void AddSetting(UserControl ucSetting)
         {
+            //防止重复
+            if (gSetting.Children.Contains(ucSetting))
+                return;
+
+            spBlur.Visibility = Visibility.Visible;
             gSetting.Children.Add(ucSetting);
         }
         /// <summary>
@@ -447,6 +452,7 @@ namespace Maker
         /// </summary>
         public void RemoveSetting()
         {
+            spBlur.Visibility = Visibility.Collapsed;
             gSetting.Children.RemoveAt(gSetting.Children.Count - 1);
         }
 
@@ -489,8 +495,7 @@ namespace Maker
             }
             baseUserControl.NewFile(sender, e);
         }
-
-        
+        public SettingWindow settingWindow;
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -924,7 +929,10 @@ namespace Maker
 
         private void OpenSetting(object sender, RoutedEventArgs e)
         {
-            AddSetting(new SettingWindow(this));
+            if (settingWindow == null) {
+                settingWindow = new SettingWindow(this);
+            }
+            AddSetting(settingWindow);
         }
     }
 }

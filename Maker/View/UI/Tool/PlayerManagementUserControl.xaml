@@ -12,8 +12,9 @@
       Background="#262829"
         >
     <Grid Name="gMain">
-    <Grid >
-        <Grid.ColumnDefinitions>
+        <Image DockPanel.Dock="Right" Width="25" Margin="0,25,25,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+        <Grid >
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -22,13 +23,8 @@
             <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="mLaunchpad"/>
         </ScrollViewer>
         <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
-        <StackPanel Orientation="Vertical" Grid.Column="2">
-        <StackPanel Margin="20" Orientation="Vertical">
-            <DockPanel >
-                <Button  Click="DeleteDevice" HorizontalAlignment="Left" Content="{DynamicResource Delete}" />
-            </DockPanel>
-        </StackPanel>
-                <StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="0,70,0,0">
+                <StackPanel >
                     <StackPanel   Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceTypeColon}"></TextBlock>
                         <ComboBox Name="cbDeviceType" Background="#454545" Width="200"  BorderBrush="#666666"  >
@@ -51,7 +47,7 @@
                         <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource Pixel}"></TextBlock>
                     </StackPanel>
                     <StackPanel  Margin="20,50,23,0" Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Name="btnOk" Click="btnOk_Click" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,0,10,0" Content="{DynamicResource Ok}"></Button>
+                        <Button  Click="btnOk_Click" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource Save}" />
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

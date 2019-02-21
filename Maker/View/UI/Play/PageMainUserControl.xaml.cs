@@ -51,11 +51,8 @@ namespace Maker.View.PageWindow
         private void InitLaunchpad()
         {
             mLaunchpad.SetSize(600);
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 19, 40, 61)));
-            mLaunchpad.InitBackground(new SolidColorBrush(Color.FromArgb(255, 73, 191, 231)));
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
             mLaunchpad.SetButtonClickEvent(Button_MouseLeftButtonDown);
-            mLaunchpad.AddMembrane();
-            mLaunchpad.SetMembraneButtonClickEvent(MembraneButton_MouseLeftButtonDown);
         }
 
     
@@ -140,15 +137,7 @@ namespace Maker.View.PageWindow
             view.Count = count;
             RefreshContent();
         }
-        private void MembraneButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            noSaveBpm = true;
-            int position = mLaunchpad.GetNumber((Shape)sender) - 96;
-            tbPosition.Text = (position + 28).ToString();
-            int count = _pageModes[position].Count;
-            view.Count = count;
-            RefreshContent();
-        }
+   
 
         private void ReplaceLight(object sender, RoutedEventArgs e)
         {

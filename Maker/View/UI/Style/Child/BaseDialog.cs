@@ -25,7 +25,7 @@ namespace Maker.View.Style.Child
         /// 常规设置
         /// </summary>
         public void SetRoutine() {
-            Background = new SolidColorBrush(Color.FromArgb(255, 54, 59, 64));
+            Background = new SolidColorBrush(Color.FromArgb(255, 38, 39, 41));
         }
         /// <summary>
         /// 设置窗口大小

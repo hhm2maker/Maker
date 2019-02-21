@@ -2776,28 +2776,7 @@ namespace Maker.View.LightScriptUserControl
                 return;
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
-            mw.ShowMakerDialog(style);
-            //if (style.ShowDialog() == true)
-            //{
-            //    Test();
-            //    if (finalDictionary.ContainsKey(GetStepName()))
-            //    {
-            //        if (!style._Content.Equals(String.Empty))
-            //        {
-            //            finalDictionary[GetStepName()] = style._Content;
-            //        }
-            //        else
-            //        {
-            //            finalDictionary.Remove(GetStepName());
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (!style._Content.Equals(String.Empty))
-            //            finalDictionary.Add(GetStepName(), style._Content);
-            //    }
-            //    //RefreshData();
-            //}
+            mw.AddSetting(style);
         }
 
         private void DrawRange(object sender, MouseButtonEventArgs e)

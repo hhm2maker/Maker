@@ -7,7 +7,7 @@
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
+        Loaded="Window_Loaded" Background="#FF262829"
 >
     <UserControl.Resources>
         <ControlTemplate x:Key="ScrollViewerControlTemplate1" TargetType="{x:Type ScrollViewer}">
@@ -275,7 +275,7 @@
             </Style.Triggers>
         </Style>
         <!--自定义样式-->
-        <Style TargetType="Button">
+        <Style TargetType="Button" x:Key="NormalButton">
             <Setter Property="Button.Background" Value="#13283d"/>
             <Setter Property="Button.BorderBrush" Value="#49bfe7"/>
             <Setter Property="Button.Foreground" Value="#3AC6D4"/>
@@ -289,18 +289,12 @@
             <Setter Property="Button.FontSize" Value="18"/>
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="TextBlock.Foreground" Value="#0DBDE7"/>
+            <Setter Property="TextBlock.Foreground" Value="#FFFFFF"/>
             <Setter Property="TextBlock.Width" Value="100"/>
             <Setter Property="TextBlock.TextAlignment" Value="Center"/>
             <Setter Property="TextBlock.FontSize" Value="18"/>
         </Style>
     </UserControl.Resources>
-    <UserControl.Background>
-        <RadialGradientBrush Center="0.5,0" GradientOrigin="0.5,0">
-            <GradientStop Color="#FF0B2D45" Offset="0"/>
-            <GradientStop Color="#FF051525" Offset="1"/>
-        </RadialGradientBrush>
-    </UserControl.Background>
     <UserControl.DataContext>
         <local:View/>
     </UserControl.DataContext>
@@ -315,11 +309,11 @@
                         <StackPanel Orientation="Horizontal">
                             <Border BorderBrush="#282828" BorderThickness="0,0,1,0">
                                 <StackPanel Margin="10">
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel  Height="35" Orientation="Horizontal">
                                         <TextBlock  Text="{DynamicResource PositionColon}" />
                                         <TextBlock Margin="30,0,0,0" Name="tbPosition" Text="-1" Foreground="#ffffff" Width="100" FontSize="18"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0">
+                                    <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">
                                         <TextBlock  Text ="{DynamicResource CountColon}"  />
                                         <TextBlock Name="tbCount" Text="{Binding Count}"  Margin="30,0,0,0"   Foreground="#ffffff" Width="100" FontSize="18" />
                                         <Button Margin="30,0,0,0"  Content="{DynamicResource AddCount}"  Click="AddCount"/>
@@ -327,35 +321,35 @@
                                         <Button Margin="30,0,0,0"  Content="{DynamicResource LastCount}" Click="LastCount"/>
                                         <Button Margin="30,0,0,0"  Content="{DynamicResource NextCount}" Click="NextCount"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal"  Margin="0,10,0,0" >
+                                    <StackPanel Height="35" Orientation="Horizontal"  Margin="0,10,0,0" >
                                         <TextBlock  Text ="{DynamicResource TypeColon}"  FontSize="18"/>
-                                        <Button Name="btnDownButton" Margin="160,0,0,0"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
-                                        <Button Name="btnLoopButton" Margin="30,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
-                                        <Button Name="btnUpButton" Margin="30,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnDownButton" Margin="160,0,0,0"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnLoopButton" Margin="30,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnUpButton" Margin="30,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Border>
 
                             <StackPanel Margin="20,10,10,10" >
-                                <StackPanel Orientation="Horizontal" >
+                                <StackPanel  Height="35" Orientation="Horizontal" >
                                     <TextBlock  Text="{DynamicResource LightNameColon}" Width="150" VerticalAlignment="Center"/>
                                     <TextBlock Margin="30,0,0,0" Name="tbLightName"  Foreground="#ffffff" Width="150" FontSize="18" VerticalAlignment="Center"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplaceLight"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Edit}" Click="EditLight"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}" Click="MoveLight"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <StackPanel  Height="35" Orientation="Horizontal" Margin="0,10,0,0">
                                     <TextBlock  Text="{DynamicResource GotoColon}" Width="150" />
                                     <TextBlock Margin="30,0,0,0" Name="tbGoto"  Foreground="#ffffff" Width="150" FontSize="18"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplacePage"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Goto}"  Click="GotoPage"/>
                                     <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}"  Click="MovePage"/>
                                 </StackPanel>
-                                <DockPanel Margin="0,10,0,0">
+                                <DockPanel  Height="35" Margin="0,10,0,0">
                                     <TextBlock DockPanel.Dock="Left"  Text="Bpm:" Width="150"/>
                                     <TextBox DockPanel.Dock="Left"  Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
-                                    <Button  DockPanel.Dock="Right"  Content="{DynamicResource Exit}" Click="SavePage" HorizontalAlignment="Right" />
-                                    <Button  DockPanel.Dock="Right" Margin="0,0,30,0" Content="{DynamicResource Save}" Click="Exit" HorizontalAlignment="Right" />
+                                    <Button  DockPanel.Dock="Right"  Content="{DynamicResource Exit}" Click="Exit" HorizontalAlignment="Right" />
+                                    <Button  DockPanel.Dock="Right" Margin="0,0,30,0" Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" />
                                 </DockPanel>
                             </StackPanel>
                         </StackPanel>

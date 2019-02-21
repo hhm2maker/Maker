@@ -394,7 +394,7 @@ namespace Maker.View.Setting
             }
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void SettingPlayer(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (lbMain.SelectedIndex == -1)
                 return;
@@ -402,6 +402,31 @@ namespace Maker.View.Setting
             mw.pmuc.filePath = lbMain.SelectedItem.ToString();
             mw.IntoUserControl(8);
             mw.pmuc.LoadFile(lbMain.SelectedItem.ToString());
+        }
+
+        private void DeletePlayer(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (lbMain.SelectedIndex == -1)
+                return;
+
+            if (lbMain.Items.Count == 1) {
+                return;
+            }
+            String filePath = mw.pmuc.GetFileDirectory() + lbMain.SelectedItem.ToString();
+            if (File.Exists(filePath)) {
+                File.Delete(filePath);
+            }
+            lbMain.Items.RemoveAt(lbMain.SelectedIndex);
+            lbMain.SelectedIndex = 0;
+        }
+
+        private void NewPlayer(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            mw.pmuc.NewFile(sender, e);
+        }
+
+        public void AddPlayer(String filePath) {
+            lbMain.Items.Add(filePath);
         }
     }
 }

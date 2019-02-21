@@ -355,7 +355,6 @@
                             <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
                             <TextBlock Name="tbPicture" Text="{DynamicResource Image}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                         </StackPanel>
-
                     </DockPanel>
                 </StackPanel>
                 <Popup Name="popColor" PlacementTarget="{Binding ElementName=dpColor}" StaysOpen="False" Placement="Right"  AllowsTransparency="True" PopupAnimation="Fade">

@@ -10,6 +10,7 @@
         WindowState="Maximized"
           Background="#1c1a1c"
         >
+    
     <!--AllowsTransparency="True"
         WindowStyle="None"-->
     <Window.Resources>
@@ -179,6 +180,7 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>

@@ -23,15 +23,6 @@ namespace Maker.View.Style
             this.mw = mw;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            if (!CanSave())
-                return;
-            mw.RemoveDialog();
-            mw.suc.Test();
-        }
-
-
         private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             svMain.Children.Clear();
@@ -366,5 +357,12 @@ namespace Maker.View.Style
             }
         }
 
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!CanSave())
+                return;
+            mw.RemoveSetting();
+            mw.suc.Test();
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.ViewBusiness;
+using System.Windows.Input;
 
 namespace Maker.View.Tool
 {
@@ -169,12 +170,18 @@ namespace Maker.View.Tool
             config.Set("DeviceSize", "600");
             config.Set("IsMembrane", "false");
             config.Save();
+            mw.settingWindow.AddPlayer(Path.GetFileName(filePath));
         }
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Width = mw.ActualWidth * 0.9;
             Height = mw.gMost.ActualHeight;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            mw.RemoveChildren();
         }
     }
 }
