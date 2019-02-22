@@ -117,8 +117,8 @@
                                                     </Border>
                                                     <Border  Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Border Height="27" MouseLeftButtonDown="DrawRange" Width="40" VerticalAlignment="Center">
-                                                                <Image Name="btnFastGenerationrDraw" Source="../../Resources/Image/draw.png" Height="25" Width="38"/>
+                                                            <Border Name="btnFastGenerationrDraw" Height="27" MouseLeftButtonDown="DrawRange" Width="40" VerticalAlignment="Center">
+                                                                <Image  Source="../../Resources/Image/draw.png" Height="25" Width="38"/>
                                                             </Border>
                                                             <TextBlock Name="btnFastGenerationrRange" MouseLeftButtonDown="ShowRangeList" TextAlignment="Center" Text="..." FontSize="18" Width="40" FontWeight="Bold" Height="25" VerticalAlignment="Center"/>
                                                         </StackPanel>
@@ -228,8 +228,8 @@
                                                 </Border>
                                                 <Border  Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Border Height="27" MouseLeftButtonDown="DrawRange" Width="40" VerticalAlignment="Center">
-                                                            <Image Name="btnIfPositionDraw" Source="../../Resources/Image/draw.png" Height="25" Width="38"/>
+                                                        <Border Name="btnIfPositionDraw" Height="27" MouseLeftButtonDown="DrawRange" Width="40" VerticalAlignment="Center">
+                                                            <Image  Source="../../Resources/Image/draw.png" Height="25" Width="38"/>
                                                         </Border>
                                                         <TextBlock Name="btnIfPositionRange" MouseLeftButtonDown="ShowRangeList" TextAlignment="Center" Text="..." FontSize="18" Width="40" FontWeight="Bold" Height="25" VerticalAlignment="Center"/>
                                                     </StackPanel>

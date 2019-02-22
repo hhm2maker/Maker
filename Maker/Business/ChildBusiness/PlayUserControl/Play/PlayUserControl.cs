@@ -13,9 +13,7 @@ namespace Maker.View
     public partial class PlayUserControl
     {
         
-    
 
-    
     }
     public class InputPort
     {

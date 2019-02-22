@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMzYiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMTIsMTIsU3RlcDFDb2xvckdyb3VwLENyZWF0ZS5VUCxDcmVhdGUuQUxMKTs=" visible="true" contain="Step1" intersection="" complement="">
-      <Animation.Windmill number="12" hintKeyword="IntervalColon" />
-      <ChangeColor colors="5" />
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMjggMjkgMzAgMzEgMzIgMzMgMzQgMzUiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMCwxMixTdGVwMUNvbG9yR3JvdXAsQ3JlYXRlLlVQLENyZWF0ZS5BTEwpOw==" visible="true" contain="Step1" intersection="" complement="">
+      <VerticalFlipping />
     </Script>
   </Scripts>
   <Introduce></Introduce>

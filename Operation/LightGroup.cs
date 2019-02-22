@@ -138,159 +138,52 @@ namespace Operation
                 }
             }
         }
+
+        /// <summary>
+        /// 固定位置交换/替换
+        /// </summary>
+        public void ReplaceControl(List<int> arr)
+        {
+            for (int k = 0; k < Count; k++)
+            {
+                this[k].Position = arr[this[k].Position - 28];
+            }
+        }
+
         /// <summary>
         /// 水平翻转位置数组
         /// </summary>
-        List<int> horizontalFlippingArr = new List<int>()
+        private List<int> horizontalFlippingArr = new List<int>()
             {
                116,117,118,119,120,121,122,123,64,65,66,67,60,61,62,63,56,57,58,59,52,53,54,55,48,49,50,51,44,45,46,47,40,41,42,43,36,37,38,39,96,97,98,99,92,93,94,
                 95,88,89,90,91,84,85,86,87,80,81,82,83,76,77,78,79,72,73,74,75,68,69,70,71,107,106,105,104,103,102,101,100,115,114,113,112,111,110,109,108,28,29,30,
                 31,32,33,34,35
               };
+
         /// <summary>
         /// 水平翻转
         /// </summary>
         public void HorizontalFlipping()
         {
-            for (int k = 0; k < Count; k++)
-            {
-                this[k].Position = horizontalFlippingArr[this[k].Position - 28];
-            }
+            ReplaceControl(horizontalFlippingArr);
         }
+
+
+        /// <summary>
+        /// 垂直翻转位置数组
+        /// </summary>
+        private List<int> verticalFlippingArr = new List<int>()
+            {
+               35,34,33,32,31,30,29,28,71,70,69,68,75,74,73,72,79,78,77,76,83,82,81,80,87,86,85,84,91,90,89,88,95,94,93,92,99,98,97,96,39,38,37,36,43,42,41,40,47,46,45,44,
+            51,50,49,48,55,54,53,52,59,58,57,56,63,62,61,60,67,66,65,64,108,109,110,111,112,113,114,115,100,101,102,103,104,105,106,107,123,122,121,120,119,118,117,116,
+              };
 
         /// <summary>
         /// 垂直翻转
         /// </summary>
         public void VerticalFlipping()
         {
-            #region
-            for (int k = 0; k < Count; k++)
-            {
-                //左下
-                if (this[k].Position == 36) { this[k].Position = 71; continue; }
-                if (this[k].Position == 37) { this[k].Position = 70; continue; }
-                if (this[k].Position == 38) { this[k].Position = 69; continue; }
-                if (this[k].Position == 39) { this[k].Position = 68; continue; }
-
-                if (this[k].Position == 40) { this[k].Position = 75; continue; }
-                if (this[k].Position == 41) { this[k].Position = 74; continue; }
-                if (this[k].Position == 42) { this[k].Position = 73; continue; }
-                if (this[k].Position == 43) { this[k].Position = 72; continue; }
-
-                if (this[k].Position == 44) { this[k].Position = 79; continue; }
-                if (this[k].Position == 45) { this[k].Position = 78; continue; }
-                if (this[k].Position == 46) { this[k].Position = 77; continue; }
-                if (this[k].Position == 47) { this[k].Position = 76; continue; }
-
-                if (this[k].Position == 48) { this[k].Position = 83; continue; }
-                if (this[k].Position == 49) { this[k].Position = 82; continue; }
-                if (this[k].Position == 50) { this[k].Position = 81; continue; }
-                if (this[k].Position == 51) { this[k].Position = 80; continue; }
-
-                //左上
-                if (this[k].Position == 52) { this[k].Position = 87; continue; }
-                if (this[k].Position == 53) { this[k].Position = 86; continue; }
-                if (this[k].Position == 54) { this[k].Position = 85; continue; }
-                if (this[k].Position == 55) { this[k].Position = 84; continue; }
-
-                if (this[k].Position == 56) { this[k].Position = 91; continue; }
-                if (this[k].Position == 57) { this[k].Position = 90; continue; }
-                if (this[k].Position == 58) { this[k].Position = 89; continue; }
-                if (this[k].Position == 59) { this[k].Position = 88; continue; }
-
-                if (this[k].Position == 60) { this[k].Position = 95; continue; }
-                if (this[k].Position == 61) { this[k].Position = 94; continue; }
-                if (this[k].Position == 62) { this[k].Position = 93; continue; }
-                if (this[k].Position == 63) { this[k].Position = 92; continue; }
-
-                if (this[k].Position == 64) { this[k].Position = 99; continue; }
-                if (this[k].Position == 65) { this[k].Position = 98; continue; }
-                if (this[k].Position == 66) { this[k].Position = 97; continue; }
-                if (this[k].Position == 67) { this[k].Position = 96; continue; }
-
-                //右下
-                if (this[k].Position == 68) { this[k].Position = 39; continue; }
-                if (this[k].Position == 69) { this[k].Position = 38; continue; }
-                if (this[k].Position == 70) { this[k].Position = 37; continue; }
-                if (this[k].Position == 71) { this[k].Position = 36; continue; }
-
-                if (this[k].Position == 72) { this[k].Position = 43; continue; }
-                if (this[k].Position == 73) { this[k].Position = 42; continue; }
-                if (this[k].Position == 74) { this[k].Position = 41; continue; }
-                if (this[k].Position == 75) { this[k].Position = 40; continue; }
-
-                if (this[k].Position == 76) { this[k].Position = 47; continue; }
-                if (this[k].Position == 77) { this[k].Position = 46; continue; }
-                if (this[k].Position == 78) { this[k].Position = 45; continue; }
-                if (this[k].Position == 79) { this[k].Position = 44; continue; }
-
-                if (this[k].Position == 80) { this[k].Position = 51; continue; }
-                if (this[k].Position == 81) { this[k].Position = 50; continue; }
-                if (this[k].Position == 82) { this[k].Position = 49; continue; }
-                if (this[k].Position == 83) { this[k].Position = 48; continue; }
-
-                //右上
-                if (this[k].Position == 84) { this[k].Position = 55; continue; }
-                if (this[k].Position == 85) { this[k].Position = 54; continue; }
-                if (this[k].Position == 86) { this[k].Position = 53; continue; }
-                if (this[k].Position == 87) { this[k].Position = 52; continue; }
-
-                if (this[k].Position == 88) { this[k].Position = 59; continue; }
-                if (this[k].Position == 89) { this[k].Position = 58; continue; }
-                if (this[k].Position == 90) { this[k].Position = 57; continue; }
-                if (this[k].Position == 91) { this[k].Position = 56; continue; }
-
-                if (this[k].Position == 92) { this[k].Position = 63; continue; }
-                if (this[k].Position == 93) { this[k].Position = 62; continue; }
-                if (this[k].Position == 94) { this[k].Position = 61; continue; }
-                if (this[k].Position == 95) { this[k].Position = 60; continue; }
-
-                if (this[k].Position == 96) { this[k].Position = 67; continue; }
-                if (this[k].Position == 97) { this[k].Position = 66; continue; }
-                if (this[k].Position == 98) { this[k].Position = 65; continue; }
-                if (this[k].Position == 99) { this[k].Position = 64; continue; }
-
-                //右圆钮
-                if (this[k].Position == 100) { this[k].Position = 108; continue; }
-                if (this[k].Position == 101) { this[k].Position = 109; continue; }
-                if (this[k].Position == 102) { this[k].Position = 110; continue; }
-                if (this[k].Position == 103) { this[k].Position = 111; continue; }
-                if (this[k].Position == 104) { this[k].Position = 112; continue; }
-                if (this[k].Position == 105) { this[k].Position = 113; continue; }
-                if (this[k].Position == 106) { this[k].Position = 114; continue; }
-                if (this[k].Position == 107) { this[k].Position = 115; continue; }
-
-                //左圆钮
-                if (this[k].Position == 108) { this[k].Position = 100; continue; }
-                if (this[k].Position == 109) { this[k].Position = 101; continue; }
-                if (this[k].Position == 110) { this[k].Position = 102; continue; }
-                if (this[k].Position == 111) { this[k].Position = 103; continue; }
-                if (this[k].Position == 112) { this[k].Position = 104; continue; }
-                if (this[k].Position == 113) { this[k].Position = 105; continue; }
-                if (this[k].Position == 114) { this[k].Position = 106; continue; }
-                if (this[k].Position == 115) { this[k].Position = 107; continue; }
-
-                //下圆钮
-                if (this[k].Position == 116) { this[k].Position = 123; continue; }
-                if (this[k].Position == 117) { this[k].Position = 122; continue; }
-                if (this[k].Position == 118) { this[k].Position = 121; continue; }
-                if (this[k].Position == 119) { this[k].Position = 120; continue; }
-                if (this[k].Position == 120) { this[k].Position = 119; continue; }
-                if (this[k].Position == 121) { this[k].Position = 118; continue; }
-                if (this[k].Position == 122) { this[k].Position = 117; continue; }
-                if (this[k].Position == 123) { this[k].Position = 116; continue; }
-
-                //上圆钮
-                if (this[k].Position == 28) { this[k].Position = 35; continue; }
-                if (this[k].Position == 29) { this[k].Position = 34; continue; }
-                if (this[k].Position == 30) { this[k].Position = 33; continue; }
-                if (this[k].Position == 31) { this[k].Position = 32; continue; }
-                if (this[k].Position == 32) { this[k].Position = 31; continue; }
-                if (this[k].Position == 33) { this[k].Position = 30; continue; }
-                if (this[k].Position == 34) { this[k].Position = 29; continue; }
-                if (this[k].Position == 35) { this[k].Position = 28; continue; }
-            }
-            #endregion
+            ReplaceControl(verticalFlippingArr);
         }
 
         /// <summary>

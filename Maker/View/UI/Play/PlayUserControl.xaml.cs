@@ -223,46 +223,9 @@ namespace Maker.View.UI
             //    Console.WriteLine("----------");
             //}
         }
-        public unsafe void StartMidiIn()
-        {
-            //直接使用Thread类，以及其方法 
-            //Thread threadA = new Thread();
-            //threadA.Start();
-            cbRealDeviceIn.Items.Clear();
-            for (int j = 0; j < MidiDeviceBusiness.midiInGetNumDevs(); j++)
-            {
-                MidiDeviceBusiness.MIDIINCAPS caps = new MidiDeviceBusiness.MIDIINCAPS();
-                MidiDeviceBusiness.midiInGetDevCaps(new UIntPtr(new IntPtr(j).ToPointer()), ref caps, Convert.ToUInt32(Marshal.SizeOf(typeof(MidiDeviceBusiness.MIDIINCAPS))));
-                //midiOutOpen(out IntPtr mOut, (uint)j, (IntPtr)0, (IntPtr)0, 0);
-                //Console.WriteLine(caps.szPname + "----");
-                cbRealDeviceIn.Items.Add(caps.szPname);
-            }
-            if (cbRealDeviceIn.Items.Count > 0)
-            {
-                cbRealDeviceIn.SelectedIndex = 0;
-            }
-        }
-       private InputPort ip;
-        public void Check()
-        {
-            if (ip != null)
-            {
-                ip.Stop();
-                ip.Close();
-            }
-            if (cbRealDeviceIn.SelectedIndex != -1)
-            {
-                //Console.WriteLine("Hello");
-                ip = new InputPort(this, keyboardModels, inputType);
-                ip.tbPosition = tbPosition;
-                ip.cb = cbRealDeviceIn.SelectedItem.ToString();
-
-                //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
-                ip.Open(cbRealDeviceIn.SelectedIndex);
-                ip.Start();
-            }
-            //Console.WriteLine("Bye~");
-        }
+     
+       public InputPort ip;
+    
         public class InputPort
         {
             public TextBox tbPosition;
@@ -510,15 +473,7 @@ namespace Maker.View.UI
                 //if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
                 //if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
                 //if (ret == 0) { MessageBox.Show("非增强模块"); }
-
-                //return;
             }
-            //[DllImport("user32.dll", EntryPoint = "keybd_event", SetLastError = true)]
-            //public static extern void keybd_event(System.Windows.Forms.Keys bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
-            //private void button1_Click()
-            //{
-            //    keybd_event(System.Windows.Forms.Keys.Q, 0, 0, 0);
-            //}
 
             public void OpenLight() {
                 if (pc.tutorialParagraphLightIntList != null)
@@ -557,7 +512,7 @@ namespace Maker.View.UI
         //}
 
 
-        private Dictionary<int, KeyboardModel> keyboardModels = new Dictionary<int, KeyboardModel>();
+        public Dictionary<int, KeyboardModel> keyboardModels = new Dictionary<int, KeyboardModel>();
 
         private string ReadDataFromReg()
         {
@@ -575,8 +530,6 @@ namespace Maker.View.UI
             }
             return "";
         }
-
-
 
         private void Fun100()
         {
@@ -624,16 +577,12 @@ namespace Maker.View.UI
                 IntPtr hMidiIn);
         }
 
-        private bool isFirst = true;
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Width = mw.ActualWidth * 0.9;
             Height = mw.gMost.ActualHeight;
-            if (isFirst)
-            {
-                InitData();
-                isFirst = false;
-            }
+           
             LoadHint();
         }
 
@@ -641,57 +590,10 @@ namespace Maker.View.UI
         {
             LoadExeXml();
         }
-        private void InitData()
-        {
-            for (int i = 1; i <= 16; i++)
-            {
-                cbPassageway.Items.Add("ch." + i);
-            }
-            cbPassageway.SelectedIndex = 0;
-        }
 
-        private static IntPtr nowOutDeviceIntPtr = (IntPtr)(-1);
-        private bool isSearchChangeSelect = false;
-        private void SearchEquipmentOut()
-        {
-            isSearchChangeSelect = true;
-            CloseMidiOut();
-            cbRealDevice.Items.Clear();
-            for (int j = 0; j < MidiDeviceBusiness.midiOutGetNumDevs(); j++)
-            {
-                MidiDeviceBusiness.MIDIOUTCAPS caps = new MidiDeviceBusiness.MIDIOUTCAPS();
-                MidiDeviceBusiness.midiOutGetDevCaps(new UIntPtr((uint)j), ref caps, Convert.ToUInt32(Marshal.SizeOf(typeof(MidiDeviceBusiness.MIDIOUTCAPS))));
-                //midiOutOpen(out IntPtr mOut, (uint)j, (IntPtr)0, (IntPtr)0, 0);
-                String Pname = caps.szPname;
-                if (cbOnlySearchForLaunchpad.IsChecked == true)
-                {
-                    if (Pname.Contains("Launchpad"))
-                    {
-                        cbRealDevice.Items.Add(Pname);
-                        if (isFirst)
-                        {
-                            //MidiDeviceBusiness.midiOutOpen(out nowOutDeviceIntPtr, (uint)j, (IntPtr)0, (IntPtr)0, 0);
-                            isFirst = false;
-                        }
-                    }
-                }
-                else
-                {
-                    cbRealDevice.Items.Add(Pname);
-                    if (isFirst)
-                    {
-                        //MidiDeviceBusiness.midiOutOpen(out nowOutDeviceIntPtr, (uint)j, (IntPtr)0, (IntPtr)0, 0);
-                        isFirst = false;
-                    }
-                }
-            }
-            if (cbRealDevice.Items.Count > 0)
-            {
-                //isSearchChangeSelect = true;
-                cbRealDevice.SelectedIndex = 0;
-            }
-        }
-        static int passageway = 0;
+
+        public static IntPtr nowOutDeviceIntPtr = (IntPtr)(-1);
+        public static int passageway = 0;
         private unsafe void btnImportRealPlayer_Click(object sender, RoutedEventArgs e)
         {
             //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)0x7f5cb5));
@@ -892,20 +794,9 @@ namespace Maker.View.UI
             }
             catch { }
         }
-        private void CbRealDevice_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (isSearchChangeSelect)
-            {
-                isSearchChangeSelect = false;
-                return;
-            }
-            CloseMidiOut();
-            if (cbRealDevice.SelectedIndex == -1)
-                return;
-            MidiDeviceBusiness.midiOutOpen(out nowOutDeviceIntPtr, (uint)cbRealDevice.SelectedIndex, (IntPtr)0, (IntPtr)0, 0);
-        }
+        
 
-        private void CloseMidiOut()
+        public void CloseMidiOut()
         {
             try
             {
@@ -940,27 +831,7 @@ namespace Maker.View.UI
             }
         }
 
-        private void cbPassageway_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            passageway = cbPassageway.SelectedIndex;
-        }
-
-
-
-        private void SearchEquipment(object sender, RoutedEventArgs e)
-        {
-            SearchEquipmentIn();
-            SearchEquipmentOut();
-        }
-        public void SearchEquipmentIn()
-        {
-            StartMidiIn();
-        }
-
-        private void cbRealDeviceIn_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Check();
-        }
+     
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -1083,7 +954,7 @@ namespace Maker.View.UI
 
         } // class WinMM
 
-        private int inputType = 0;
+        public int inputType = 0;
         private void cbIsDD_Checked(object sender, RoutedEventArgs e)
         {
             if (ip != null)

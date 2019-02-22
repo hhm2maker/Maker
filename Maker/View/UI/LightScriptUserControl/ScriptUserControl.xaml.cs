@@ -4323,7 +4323,7 @@ namespace Maker.View.LightScriptUserControl
             }
             StyleWindow style = new StyleWindow(mw);
             style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
-            mw.ShowMakerDialog(style);
+            mw.AddSetting(style);
             //Test();
         }
         //不写入XML,而是直接写入代码

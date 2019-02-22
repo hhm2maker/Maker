@@ -272,6 +272,9 @@
     <Compile Include="View\UI\Tool\DataGridUserControl.xaml.cs">
       <DependentUpon>DataGridUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Tool\DeviceUserControl.xaml.cs">
+      <DependentUpon>DeviceUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\ShowPianoRollUserControl.xaml.cs">
       <DependentUpon>ShowPianoRollUserControl.xaml</DependentUpon>
     </Compile>
@@ -472,7 +475,7 @@
     <Compile Include="View\UI\Test\Test3DWindow.xaml.cs">
       <DependentUpon>Test3DWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Tool\PlayerManagementUserControl.xaml.cs">
+    <Compile Include="View\UI\Setting\PlayerManagementUserControl.xaml.cs">
       <DependentUpon>PlayerManagementUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Tool\IdeaUserControl.xaml.cs">
@@ -603,6 +606,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Tool\DataGridUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\DeviceUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -958,7 +965,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Tool\PlayerManagementUserControl.xaml">
+    <Page Include="View\UI\Setting\PlayerManagementUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1456,6 +1463,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\data.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\device.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

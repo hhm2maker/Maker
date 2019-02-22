@@ -1,0 +1,56 @@
+﻿<view:BaseUserControl
+    xmlns:view="clr-namespace:Maker.View"
+    x:Class="Maker.View.Tool.PlayerManagementUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.Tool"
+    xmlns:device="clr-namespace:Maker.View.Device"
+    mc:Ignorable="d" 
+    Loaded="BaseUserControl_Loaded"
+      Background="#262829"
+        >
+    <Grid Name="gMain">
+        <Image DockPanel.Dock="Right" Width="25" Margin="0,25,25,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+        <Grid >
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="mLaunchpad"/>
+        </ScrollViewer>
+        <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
+        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="0,70,0,0">
+                <StackPanel >
+                    <StackPanel   Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceTypeColon}"></TextBlock>
+                        <ComboBox Name="cbDeviceType" Background="#454545" Width="200"  BorderBrush="#666666"  >
+                            <ComboBoxItem IsSelected="True">Launchpad Pro</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <DockPanel   Margin="20,10,30,0" HorizontalAlignment="Stretch" >
+                        <TextBlock  Width="100" FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource BackgroundColon}"></TextBlock>
+                        <TextBlock Name="tbBackGround" Width="90" Background="#535353" Text="#535353" FontSize="14" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                        <Button Name="btnChangeColor" Width="50" Click="btnChangeColor_Click" HorizontalAlignment="Right" FontSize="14"  Background="{x:Null}"  DockPanel.Dock="Right" BorderBrush="White" Content="{DynamicResource Color}"></Button>
+                        <Button Name="btnOpenFile" Width="50" Click="btnOpenFile_Click" HorizontalAlignment="Right" FontSize="14"  Background="{x:Null}" DockPanel.Dock="Right" BorderBrush="White" Content="{DynamicResource Image}"></Button>
+                    </DockPanel>
+                    <StackPanel Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Width="100" Text="{DynamicResource StickerColon}" />
+                        <CheckBox FontSize="14" VerticalAlignment="Center" Foreground="White" Name="cbMembrane" Content="{DynamicResource Yes}" Checked="cbMembrane_Checked" Unchecked="cbMembrane_Unchecked"/>
+                    </StackPanel>
+                    <StackPanel Margin="20,10,20,0" Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock FontSize="14" Width="100" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource DeviceSizeColon}"></TextBlock>
+                        <TextBox Name="tbDeviceSize" Background="#454545" Width="172"  BorderBrush="#666666" Foreground="White" HorizontalContentAlignment="Right" TextChanged="tbDeviceSize_TextChanged"/>
+                        <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="White" Text="{DynamicResource Pixel}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel  Margin="20,50,23,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button  Click="btnOk_Click" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource Save}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+    </Grid>
+    </Grid>
+</view:BaseUserControl>
