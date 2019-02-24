@@ -11,6 +11,8 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using GalaSoft.MvvmLight.Command;
 using Maker.View.Dialog;
+using System.Windows.Media.Imaging;
+using Maker.View.Device;
 
 namespace Maker.ViewModel
 {
@@ -25,14 +27,14 @@ namespace Maker.ViewModel
             }
 
 
-        private FrameUserControlModel welcome;
+        private FrameUserControlModel model;
             /// <summary>
             /// 欢迎词属性
             /// </summary>
             public FrameUserControlModel Welcome
             {
-                get { return welcome; }
-                set { welcome = value; RaisePropertyChanged(() => Welcome); }
+                get { return model; }
+                set { model = value; RaisePropertyChanged(() => Welcome); }
             }
 
         /// <summary>
@@ -56,13 +58,13 @@ namespace Maker.ViewModel
         private void ChangeNowTimePoint(String str)
         {
             if (str.Equals("Left")) { 
-            if (welcome.NowTimePoint <= 1) return;
-                 welcome.NowTimePoint--;
+            if (model.NowTimePoint <= 1) return;
+                 model.NowTimePoint--;
             }
             else if (str.Equals("Right"))
             {
-                if (welcome.NowTimePoint > welcome.NowData.Count - 1) return;
-                welcome.NowTimePoint++;
+                if (model.NowTimePoint > model.NowData.Count - 1) return;
+                model.NowTimePoint++;
             }
         }
 
@@ -88,7 +90,7 @@ namespace Maker.ViewModel
         {
             if (str.Equals("Add"))
             {
-                GetNumberDialog dialog = new GetNumberDialog(StaticConstant.mw, "TheFrameOfTheNewNodeColon", false, welcome.LiTime, false);
+                GetNumberDialog dialog = new GetNumberDialog(StaticConstant.mw, "TheFrameOfTheNewNodeColon", false, model.LiTime, false);
                 if (dialog.ShowDialog() == true)
                 {
                     int[] x = new int[96];
@@ -102,7 +104,7 @@ namespace Maker.ViewModel
             else if (str.Equals("AddStart"))
             {
                 //如果已经有该时间点，报错
-                if (welcome.LiTime.Contains(0))
+                if (model.LiTime.Contains(0))
                 {
                     new MessageDialog(StaticConstant.mw, "TheFrameHasATimeNode").ShowDialog();
                 }
@@ -118,30 +120,30 @@ namespace Maker.ViewModel
             }
             else if (str.Equals("Delete"))
             {
-                if (welcome.LiTime.Count == 0)
+                if (model.LiTime.Count == 0)
                     return;
 
                 OkOrCancelDialog oocd = new OkOrCancelDialog(StaticConstant.mw, "WhetherToDeleteTheTimeNode");
                 if (oocd.ShowDialog() == true)
                 {
-                    welcome.NowData.Remove(welcome.LiTime[welcome.NowTimePoint - 1]);
-                    welcome.LiTime.RemoveAt(welcome.NowTimePoint - 1);
-                    if (welcome.LiTime.Count == 0)
+                    model.NowData.Remove(model.LiTime[model.NowTimePoint - 1]);
+                    model.LiTime.RemoveAt(model.NowTimePoint - 1);
+                    if (model.LiTime.Count == 0)
                     {
-                        welcome.NowTimePoint = 0;
+                        model.NowTimePoint = 0;
                     }
                     else
                     {
-                        if (welcome.NowTimePoint == 1)
+                        if (model.NowTimePoint == 1)
                         {
-                            welcome.NowTimePoint = 1;
+                            model.NowTimePoint = 1;
                         }
                         else
                         {
-                            welcome.NowTimePoint--;
+                            model.NowTimePoint--;
                         }
                     }
-                    welcome.AllTimePoint -= 1;
+                    model.AllTimePoint -= 1;
                 }
             }
             else {
@@ -182,7 +184,7 @@ namespace Maker.ViewModel
                     return;
                 }
                 //如果已经有该时间点，报错
-                if (welcome.LiTime.Contains(time))
+                if (model.LiTime.Contains(time))
                 {
                     new MessageDialog(StaticConstant.mw, "TheFrameHasATimeNode").ShowDialog();
                 }
@@ -198,7 +200,6 @@ namespace Maker.ViewModel
             }
         }
 
-     
         /// <summary>
         /// 插入时间点
         /// </summary>
@@ -206,23 +207,23 @@ namespace Maker.ViewModel
         /// <param name="shape">插入形状</param>
         private void InsertTimePoint(int time, int[] shape)
         {
-            welcome.NowData.Add(time, shape);
-            if (welcome.LiTime.Count == 0)
+            model.NowData.Add(time, shape);
+            if (model.LiTime.Count == 0)
             {
-                welcome.LiTime.Insert(0, time);
-                welcome.NowTimePoint = 1;
+                model.LiTime.Insert(0, time);
+                model.NowTimePoint = 1;
             }
             else
             {
                 //如果比最大的小，比较大小插入合适的位置
-                if (welcome.LiTime[welcome.LiTime.Count - 1] > time)
+                if (model.LiTime[model.LiTime.Count - 1] > time)
                 {
-                    for (int i = 0; i < welcome.LiTime.Count; i++)
+                    for (int i = 0; i < model.LiTime.Count; i++)
                     {
-                        if (welcome.LiTime[i] > time)
+                        if (model.LiTime[i] > time)
                         {
-                            welcome.LiTime.Insert(i, time);
-                            welcome.NowTimePoint = i + 1;
+                            model.LiTime.Insert(i, time);
+                            model.NowTimePoint = i + 1;
                             break;
                         }
                     }
@@ -230,11 +231,11 @@ namespace Maker.ViewModel
                 //比最大的大，插入最后
                 else
                 {
-                    welcome.LiTime.Add(time);
-                    welcome.NowTimePoint = welcome.LiTime.Count;
+                    model.LiTime.Add(time);
+                    model.NowTimePoint = model.LiTime.Count;
                 }
             }
-            welcome.AllTimePoint += 1;
+            model.AllTimePoint += 1;
         }
     }
 }

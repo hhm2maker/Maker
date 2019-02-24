@@ -291,5 +291,79 @@ namespace Maker.Model
                 RaisePropertyChanged(() => ListBoxData);
             }
         }
+
+        /// <summary>
+        /// 自定义添加时间节点图片资源
+        /// </summary>
+        private String diyAddImgSource = "../../Resources/Image/add_gray.png";
+        public String DiyAddImgSource
+        {
+            get { return diyAddImgSource; }
+            set
+            {
+                diyAddImgSource = value;
+                RaisePropertyChanged(() => DiyAddImgSource);
+            }
+        }
+
+        /// <summary>
+        /// 当前自定义字符串
+        /// </summary>
+        private String diyAddStr = String.Empty;
+        public String DiyAddStr
+        {
+            get { return diyAddStr; }
+            set
+            {
+                diyAddStr = value;
+
+                String strTime = diyAddStr.Trim();
+                if (strTime.Trim().Equals(""))
+                {
+                    DiyAddImgSource = "../../Resources/Image/add_gray.png";
+                    return;
+                }
+                int time = 0;
+                try
+                {
+                    if (strTime.Contains("+"))
+                    {
+                        //当前时间 +
+                        time = int.Parse(strTime) + int.Parse(diyAddStr.Substring(1));
+                    }
+                    else if (strTime.Contains("-"))
+                    {
+                        //当前时间 -
+                        time = int.Parse(strTime) - int.Parse(diyAddStr.Substring(1));
+                    }
+                    else
+                    {
+                        //当前时间
+                        time = int.Parse(strTime);
+                    }
+
+                    if (time < 0)
+                    {
+                        DiyAddImgSource = "../../Resources/Image/add_gray.png";
+                        return;
+                    }
+                }
+                catch
+                {
+                    DiyAddImgSource = "../../Resources/Image/add_gray.png";
+                    return;
+                }
+                //如果已经有该时间点，报错
+                if (LiTime.Contains(time))
+                {
+                    DiyAddImgSource = "../../Resources/Image/add_gray.png";
+                }
+                else
+                {
+                    DiyAddImgSource = "../../Resources/Image/add_blue.png";
+                }
+                RaisePropertyChanged(() => DiyAddStr);
+            }
+        }
     }
 }

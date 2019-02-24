@@ -17,11 +17,33 @@
     VerticalAlignment="Center"
     Background="#262829"
     Loaded="BaseLightUserControl_Loaded"
+  
     >
     <UserControl.Effect>
         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
     </UserControl.Effect>
     <UserControl.Resources>
+        <!--<Style x:Key="k1" TargetType="Image">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding  ElementName=mLaunchpad, Path=IsMembrane}" Value="True">
+                    <Setter Property="Source" Value="../../Resources/Image/membrane_gray.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=mLaunchpad, Path=IsMembrane}" Value="False">
+                    <Setter Property="Source" Value="../../Resources/Image/membrane_blue.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>-->
+        <Style x:Key="k1">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding  ElementName=mLaunchpad, Path=IsMembrane}" Value="True">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/membrane_blue.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=mLaunchpad, Path=IsMembrane}" Value="False">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/membrane_gray.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <viewmodel:BindingProxy x:Key="BindingProxy"
                             Data="{Binding}" />
 
@@ -332,7 +354,7 @@
                     <DockPanel Background="Transparent" MouseLeftButtonUp="iStyle_MouseLeftButtonUp" Width="90"  Height="100" >
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="40" Height="40" />
-                            <TextBlock Name="tbStyle" Text="{DynamicResource Style}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0" />
+                            <TextBlock  Name="tbStyle" Text="{DynamicResource Style}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0" />
                         </StackPanel>
                     </DockPanel>
                     <DockPanel Name="dpColor" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="dpColor_MouseRightButtonUp"  Width="90"  Height="100">
@@ -667,10 +689,10 @@
                         <ContextMenu>
                             <MenuItem Header="{DynamicResource WholePage}" IsEnabled="False"/>
                             <Separator />
-                            <MenuItem Header="{DynamicResource HorizontalFlipping}" Click="btnHorizontalFlipping_Click" />
-                            <MenuItem Header="{DynamicResource VerticalFlipping}" Click="btnVerticalFlipping_Click" />
-                            <MenuItem Header="{DynamicResource ClockwiseRotation}"  Click="btnClockwise_Click" />
-                            <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Click="btnAntiClockwise_Click"  />
+                            <MenuItem Header="{DynamicResource HorizontalFlipping}" Name="miHorizontalFlipping"  Click="OperationControl" />
+                            <MenuItem Header="{DynamicResource VerticalFlipping}" Name="miVerticalFlipping" Click="OperationControl" />
+                            <MenuItem Header="{DynamicResource ClockwiseRotation}" Name="miClockwiseRotation"  Click="OperationControl" />
+                            <MenuItem Header="{DynamicResource AntiClockwiseRotation}"  Name="miAntiClockwiseRotation"  Click="OperationControl" />
                             <Separator />
                             <MenuItem Header="{DynamicResource CopyTo}" Click="btnCopy_Click"/>
                             <Separator />
@@ -688,14 +710,15 @@
                     <Grid Height="60" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
                             <Image Width="35" HorizontalAlignment="Left" Name="iSave" Source="../../Resources/Image/save_gray.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave"/>
-                            <Image Width="35" HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" Source="../../Resources/Image/membrane_gray.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
+                            <Image Style="{DynamicResource k1}" Width="35"  HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
                         </StackPanel>
-                        <StackPanel  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock   Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
-                            <TextBlock  Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
+                            <TextBlock Name="tbTimeNow"  Margin="5,0,20,0" Width="60"  Foreground="White" TextAlignment="Center" Text="{Binding Welcome.CurrentFrame}"/>
                         </StackPanel>
                         <Image DockPanel.Dock="Right" Width="25" Margin="0,0,25,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     </Grid>
+                  
                     <DockPanel  Height="60" VerticalAlignment="Bottom" >
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
                             <StackPanel Orientation="Horizontal" >
@@ -705,7 +728,7 @@
                                     </Border.InputBindings>
                                     <Image Source="{Binding Welcome.LeftImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
-                                <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="#1c1e1f">
+                                <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5" Height="40" Background="#1c1e1f">
                                     <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
                                         <TextBox Name="tbTimePointCountLeft" Width="60" Background="#1c1e1f" BorderThickness="0" TextAlignment="Right" >
                                             <TextBox.Text>
@@ -753,14 +776,14 @@
                                     </Border.InputBindings>
                                     <Image Source="{Binding Welcome.StartImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
-                                <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="#1c1e1f">
-                                    <TextBox TextChanged="tbInsertDiyTimePoint_TextChanged" Name="tbInsertDiyTimePoint" Background="#1c1e1f" BorderThickness="0" Width="100"  />
+                                <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5" Height="40" Background="#1c1e1f">
+                                    <TextBox Text="{Binding Welcome.DiyAddStr,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Name="tbInsertDiyTimePoint" Background="#1c1e1f" BorderThickness="0" Width="100" />
                                 </Border>
                                 <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="8" Height="40" >
                                     <Border.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding AddOrDeleteTimePointCmd}" CommandParameter="{Binding ElementName=tbInsertDiyTimePoint,Path=Text}"  />
                                     </Border.InputBindings>
-                                    <Image Name="iAdd" Source="../../Resources/Image/add_gray.png" RenderOptions.BitmapScalingMode="Fant" />
+                                    <Image Name="iAdd" Source="{Binding Welcome.DiyAddImgSource}" RenderOptions.BitmapScalingMode="Fant" />
                                 </Border>
                                 <Slider Name="sliderSize" Margin="20,0,0,0" Visibility="Collapsed" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150" VerticalAlignment="Center"  />
                             </StackPanel>

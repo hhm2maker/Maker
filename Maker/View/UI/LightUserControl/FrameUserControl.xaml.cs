@@ -451,492 +451,48 @@ namespace Maker.View.LightUserControl
             LoadFrame();
         }
 
-        private void btnHorizontalFlipping_Click(object sender, RoutedEventArgs e)
+        public void OperationControl(object sender, RoutedEventArgs e)
         {
-            #region
             if (NowTimePoint == 0)
                 return;
-            int[] x = new int[96];
+            Operation.LightGroup operationLightGroup = new Operation.LightGroup();
             for (int i = 0; i < 96; i++)
             {
-                x[i] = Dic[LiTime[NowTimePoint - 1]][i];
+                int color = Dic[LiTime[NowTimePoint - 1]][i];
+                if (color != 0)
+                {
+                    operationLightGroup.Add(new Operation.Light(0, 144, i + 28, color));
+                }
             }
-            Dic[LiTime[NowTimePoint - 1]][0] = x[88];
-            Dic[LiTime[NowTimePoint - 1]][1] = x[89];
-            Dic[LiTime[NowTimePoint - 1]][2] = x[90];
-            Dic[LiTime[NowTimePoint - 1]][3] = x[91];
-            Dic[LiTime[NowTimePoint - 1]][4] = x[92];
-            Dic[LiTime[NowTimePoint - 1]][5] = x[93];
-            Dic[LiTime[NowTimePoint - 1]][6] = x[94];
-            Dic[LiTime[NowTimePoint - 1]][7] = x[95];
+            if (sender == miHorizontalFlipping) {
+                operationLightGroup.HorizontalFlipping();
+            }
+            else if (sender == miHorizontalFlipping)
+            {
+                operationLightGroup.VerticalFlipping();
+            }
+            else if (sender == miClockwiseRotation)
+            {
+                operationLightGroup.Clockwise();
+            }
+            else if (sender == miClockwiseRotation)
+            {
+                operationLightGroup.Clockwise();
+            }
+            else if (sender == miAntiClockwiseRotation)
+            {
+                operationLightGroup.AntiClockwise();
+            }
 
-            Dic[LiTime[NowTimePoint - 1]][8] = x[36];
-            Dic[LiTime[NowTimePoint - 1]][9] = x[37];
-            Dic[LiTime[NowTimePoint - 1]][10] = x[38];
-            Dic[LiTime[NowTimePoint - 1]][11] = x[39];
-            Dic[LiTime[NowTimePoint - 1]][12] = x[32];
-            Dic[LiTime[NowTimePoint - 1]][13] = x[33];
-            Dic[LiTime[NowTimePoint - 1]][14] = x[34];
-            Dic[LiTime[NowTimePoint - 1]][15] = x[35];
-
-            Dic[LiTime[NowTimePoint - 1]][16] = x[28];
-            Dic[LiTime[NowTimePoint - 1]][17] = x[29];
-            Dic[LiTime[NowTimePoint - 1]][18] = x[30];
-            Dic[LiTime[NowTimePoint - 1]][19] = x[31];
-            Dic[LiTime[NowTimePoint - 1]][20] = x[24];
-            Dic[LiTime[NowTimePoint - 1]][21] = x[25];
-            Dic[LiTime[NowTimePoint - 1]][22] = x[26];
-            Dic[LiTime[NowTimePoint - 1]][23] = x[27];
-
-            Dic[LiTime[NowTimePoint - 1]][24] = x[20];
-            Dic[LiTime[NowTimePoint - 1]][25] = x[21];
-            Dic[LiTime[NowTimePoint - 1]][26] = x[22];
-            Dic[LiTime[NowTimePoint - 1]][27] = x[23];
-            Dic[LiTime[NowTimePoint - 1]][28] = x[16];
-            Dic[LiTime[NowTimePoint - 1]][29] = x[17];
-            Dic[LiTime[NowTimePoint - 1]][30] = x[18];
-            Dic[LiTime[NowTimePoint - 1]][31] = x[19];
-
-            Dic[LiTime[NowTimePoint - 1]][32] = x[12];
-            Dic[LiTime[NowTimePoint - 1]][33] = x[13];
-            Dic[LiTime[NowTimePoint - 1]][34] = x[14];
-            Dic[LiTime[NowTimePoint - 1]][35] = x[15];
-            Dic[LiTime[NowTimePoint - 1]][36] = x[8];
-            Dic[LiTime[NowTimePoint - 1]][37] = x[9];
-            Dic[LiTime[NowTimePoint - 1]][38] = x[10];
-            Dic[LiTime[NowTimePoint - 1]][39] = x[11];
-
-            Dic[LiTime[NowTimePoint - 1]][40] = x[68];
-            Dic[LiTime[NowTimePoint - 1]][41] = x[69];
-            Dic[LiTime[NowTimePoint - 1]][42] = x[70];
-            Dic[LiTime[NowTimePoint - 1]][43] = x[71];
-            Dic[LiTime[NowTimePoint - 1]][44] = x[64];
-            Dic[LiTime[NowTimePoint - 1]][45] = x[65];
-            Dic[LiTime[NowTimePoint - 1]][46] = x[66];
-            Dic[LiTime[NowTimePoint - 1]][47] = x[67];
-
-            Dic[LiTime[NowTimePoint - 1]][48] = x[60];
-            Dic[LiTime[NowTimePoint - 1]][49] = x[61];
-            Dic[LiTime[NowTimePoint - 1]][50] = x[62];
-            Dic[LiTime[NowTimePoint - 1]][51] = x[63];
-            Dic[LiTime[NowTimePoint - 1]][52] = x[56];
-            Dic[LiTime[NowTimePoint - 1]][53] = x[57];
-            Dic[LiTime[NowTimePoint - 1]][54] = x[58];
-            Dic[LiTime[NowTimePoint - 1]][55] = x[59];
-
-            Dic[LiTime[NowTimePoint - 1]][56] = x[52];
-            Dic[LiTime[NowTimePoint - 1]][57] = x[53];
-            Dic[LiTime[NowTimePoint - 1]][58] = x[54];
-            Dic[LiTime[NowTimePoint - 1]][59] = x[55];
-            Dic[LiTime[NowTimePoint - 1]][60] = x[48];
-            Dic[LiTime[NowTimePoint - 1]][61] = x[49];
-            Dic[LiTime[NowTimePoint - 1]][62] = x[50];
-            Dic[LiTime[NowTimePoint - 1]][63] = x[51];
-
-            Dic[LiTime[NowTimePoint - 1]][64] = x[44];
-            Dic[LiTime[NowTimePoint - 1]][65] = x[45];
-            Dic[LiTime[NowTimePoint - 1]][66] = x[46];
-            Dic[LiTime[NowTimePoint - 1]][67] = x[47];
-            Dic[LiTime[NowTimePoint - 1]][68] = x[40];
-            Dic[LiTime[NowTimePoint - 1]][69] = x[41];
-            Dic[LiTime[NowTimePoint - 1]][70] = x[42];
-            Dic[LiTime[NowTimePoint - 1]][71] = x[43];
-
-            Dic[LiTime[NowTimePoint - 1]][72] = x[79];
-            Dic[LiTime[NowTimePoint - 1]][73] = x[78];
-            Dic[LiTime[NowTimePoint - 1]][74] = x[77];
-            Dic[LiTime[NowTimePoint - 1]][75] = x[76];
-            Dic[LiTime[NowTimePoint - 1]][76] = x[75];
-            Dic[LiTime[NowTimePoint - 1]][77] = x[74];
-            Dic[LiTime[NowTimePoint - 1]][78] = x[73];
-            Dic[LiTime[NowTimePoint - 1]][79] = x[72];
-
-            Dic[LiTime[NowTimePoint - 1]][80] = x[87];
-            Dic[LiTime[NowTimePoint - 1]][81] = x[86];
-            Dic[LiTime[NowTimePoint - 1]][82] = x[85];
-            Dic[LiTime[NowTimePoint - 1]][83] = x[84];
-            Dic[LiTime[NowTimePoint - 1]][84] = x[83];
-            Dic[LiTime[NowTimePoint - 1]][85] = x[82];
-            Dic[LiTime[NowTimePoint - 1]][86] = x[81];
-            Dic[LiTime[NowTimePoint - 1]][87] = x[80];
-
-            Dic[LiTime[NowTimePoint - 1]][88] = x[0];
-            Dic[LiTime[NowTimePoint - 1]][89] = x[1];
-            Dic[LiTime[NowTimePoint - 1]][90] = x[2];
-            Dic[LiTime[NowTimePoint - 1]][91] = x[3];
-            Dic[LiTime[NowTimePoint - 1]][92] = x[4];
-            Dic[LiTime[NowTimePoint - 1]][93] = x[5];
-            Dic[LiTime[NowTimePoint - 1]][94] = x[6];
-            Dic[LiTime[NowTimePoint - 1]][95] = x[7];
-
-            LoadFrame();
-            #endregion
-        }
-
-        private void btnVerticalFlipping_Click(object sender, RoutedEventArgs e)
-        {
-            #region
-            if (NowTimePoint == 0)
-                return;
-            int[] x = new int[96];
             for (int i = 0; i < 96; i++)
             {
-                x[i] = Dic[LiTime[NowTimePoint - 1]][i];
+                Dic[LiTime[NowTimePoint - 1]][i] = 0;
             }
-            Dic[LiTime[NowTimePoint - 1]][0] = x[7];
-            Dic[LiTime[NowTimePoint - 1]][1] = x[6];
-            Dic[LiTime[NowTimePoint - 1]][2] = x[5];
-            Dic[LiTime[NowTimePoint - 1]][3] = x[4];
-            Dic[LiTime[NowTimePoint - 1]][4] = x[3];
-            Dic[LiTime[NowTimePoint - 1]][5] = x[2];
-            Dic[LiTime[NowTimePoint - 1]][6] = x[1];
-            Dic[LiTime[NowTimePoint - 1]][7] = x[0];
-
-            Dic[LiTime[NowTimePoint - 1]][8] = x[43];
-            Dic[LiTime[NowTimePoint - 1]][9] = x[42];
-            Dic[LiTime[NowTimePoint - 1]][10] = x[41];
-            Dic[LiTime[NowTimePoint - 1]][11] = x[40];
-            Dic[LiTime[NowTimePoint - 1]][12] = x[47];
-            Dic[LiTime[NowTimePoint - 1]][13] = x[46];
-            Dic[LiTime[NowTimePoint - 1]][14] = x[45];
-            Dic[LiTime[NowTimePoint - 1]][15] = x[44];
-
-            Dic[LiTime[NowTimePoint - 1]][16] = x[51];
-            Dic[LiTime[NowTimePoint - 1]][17] = x[50];
-            Dic[LiTime[NowTimePoint - 1]][18] = x[49];
-            Dic[LiTime[NowTimePoint - 1]][19] = x[48];
-            Dic[LiTime[NowTimePoint - 1]][20] = x[55];
-            Dic[LiTime[NowTimePoint - 1]][21] = x[54];
-            Dic[LiTime[NowTimePoint - 1]][22] = x[53];
-            Dic[LiTime[NowTimePoint - 1]][23] = x[52];
-
-            Dic[LiTime[NowTimePoint - 1]][24] = x[59];
-            Dic[LiTime[NowTimePoint - 1]][25] = x[58];
-            Dic[LiTime[NowTimePoint - 1]][26] = x[57];
-            Dic[LiTime[NowTimePoint - 1]][27] = x[56];
-            Dic[LiTime[NowTimePoint - 1]][28] = x[63];
-            Dic[LiTime[NowTimePoint - 1]][29] = x[62];
-            Dic[LiTime[NowTimePoint - 1]][30] = x[61];
-            Dic[LiTime[NowTimePoint - 1]][31] = x[60];
-
-            Dic[LiTime[NowTimePoint - 1]][32] = x[67];
-            Dic[LiTime[NowTimePoint - 1]][33] = x[66];
-            Dic[LiTime[NowTimePoint - 1]][34] = x[65];
-            Dic[LiTime[NowTimePoint - 1]][35] = x[64];
-            Dic[LiTime[NowTimePoint - 1]][36] = x[71];
-            Dic[LiTime[NowTimePoint - 1]][37] = x[70];
-            Dic[LiTime[NowTimePoint - 1]][38] = x[69];
-            Dic[LiTime[NowTimePoint - 1]][39] = x[68];
-
-            Dic[LiTime[NowTimePoint - 1]][40] = x[11];
-            Dic[LiTime[NowTimePoint - 1]][41] = x[10];
-            Dic[LiTime[NowTimePoint - 1]][42] = x[9];
-            Dic[LiTime[NowTimePoint - 1]][43] = x[8];
-            Dic[LiTime[NowTimePoint - 1]][44] = x[15];
-            Dic[LiTime[NowTimePoint - 1]][45] = x[14];
-            Dic[LiTime[NowTimePoint - 1]][46] = x[13];
-            Dic[LiTime[NowTimePoint - 1]][47] = x[12];
-
-            Dic[LiTime[NowTimePoint - 1]][48] = x[19];
-            Dic[LiTime[NowTimePoint - 1]][49] = x[18];
-            Dic[LiTime[NowTimePoint - 1]][50] = x[17];
-            Dic[LiTime[NowTimePoint - 1]][51] = x[16];
-            Dic[LiTime[NowTimePoint - 1]][52] = x[23];
-            Dic[LiTime[NowTimePoint - 1]][53] = x[22];
-            Dic[LiTime[NowTimePoint - 1]][54] = x[21];
-            Dic[LiTime[NowTimePoint - 1]][55] = x[20];
-
-            Dic[LiTime[NowTimePoint - 1]][56] = x[27];
-            Dic[LiTime[NowTimePoint - 1]][57] = x[26];
-            Dic[LiTime[NowTimePoint - 1]][58] = x[25];
-            Dic[LiTime[NowTimePoint - 1]][59] = x[24];
-            Dic[LiTime[NowTimePoint - 1]][60] = x[31];
-            Dic[LiTime[NowTimePoint - 1]][61] = x[30];
-            Dic[LiTime[NowTimePoint - 1]][62] = x[29];
-            Dic[LiTime[NowTimePoint - 1]][63] = x[28];
-
-            Dic[LiTime[NowTimePoint - 1]][64] = x[35];
-            Dic[LiTime[NowTimePoint - 1]][65] = x[34];
-            Dic[LiTime[NowTimePoint - 1]][66] = x[33];
-            Dic[LiTime[NowTimePoint - 1]][67] = x[32];
-            Dic[LiTime[NowTimePoint - 1]][68] = x[39];
-            Dic[LiTime[NowTimePoint - 1]][69] = x[38];
-            Dic[LiTime[NowTimePoint - 1]][70] = x[37];
-            Dic[LiTime[NowTimePoint - 1]][71] = x[36];
-
-            Dic[LiTime[NowTimePoint - 1]][72] = x[80];
-            Dic[LiTime[NowTimePoint - 1]][73] = x[81];
-            Dic[LiTime[NowTimePoint - 1]][74] = x[82];
-            Dic[LiTime[NowTimePoint - 1]][75] = x[83];
-            Dic[LiTime[NowTimePoint - 1]][76] = x[84];
-            Dic[LiTime[NowTimePoint - 1]][77] = x[85];
-            Dic[LiTime[NowTimePoint - 1]][78] = x[86];
-            Dic[LiTime[NowTimePoint - 1]][79] = x[87];
-
-            Dic[LiTime[NowTimePoint - 1]][80] = x[72];
-            Dic[LiTime[NowTimePoint - 1]][81] = x[73];
-            Dic[LiTime[NowTimePoint - 1]][82] = x[74];
-            Dic[LiTime[NowTimePoint - 1]][83] = x[75];
-            Dic[LiTime[NowTimePoint - 1]][84] = x[76];
-            Dic[LiTime[NowTimePoint - 1]][85] = x[77];
-            Dic[LiTime[NowTimePoint - 1]][86] = x[78];
-            Dic[LiTime[NowTimePoint - 1]][87] = x[79];
-
-            Dic[LiTime[NowTimePoint - 1]][88] = x[95];
-            Dic[LiTime[NowTimePoint - 1]][89] = x[94];
-            Dic[LiTime[NowTimePoint - 1]][90] = x[93];
-            Dic[LiTime[NowTimePoint - 1]][91] = x[92];
-            Dic[LiTime[NowTimePoint - 1]][92] = x[91];
-            Dic[LiTime[NowTimePoint - 1]][93] = x[90];
-            Dic[LiTime[NowTimePoint - 1]][94] = x[89];
-            Dic[LiTime[NowTimePoint - 1]][95] = x[88];
-
-            LoadFrame();
-            #endregion
-        }
-
-        private void btnClockwise_Click(object sender, RoutedEventArgs e)
-        {
-            #region
-            if (NowTimePoint == 0)
-                return;
-            int[] x = new int[96];
-            for (int i = 0; i < 96; i++)
+            foreach (var item in operationLightGroup)
             {
-                x[i] = Dic[LiTime[NowTimePoint - 1]][i];
+                Dic[LiTime[NowTimePoint - 1]][item.Position - 28] = item.Color;
             }
-            Dic[LiTime[NowTimePoint - 1]][0] = x[87];
-            Dic[LiTime[NowTimePoint - 1]][1] = x[86];
-            Dic[LiTime[NowTimePoint - 1]][2] = x[85];
-            Dic[LiTime[NowTimePoint - 1]][3] = x[84];
-            Dic[LiTime[NowTimePoint - 1]][4] = x[83];
-            Dic[LiTime[NowTimePoint - 1]][5] = x[82];
-            Dic[LiTime[NowTimePoint - 1]][6] = x[81];
-            Dic[LiTime[NowTimePoint - 1]][7] = x[80];
-
-            Dic[LiTime[NowTimePoint - 1]][8] = x[43];
-            Dic[LiTime[NowTimePoint - 1]][9] = x[47];
-            Dic[LiTime[NowTimePoint - 1]][10] = x[51];
-            Dic[LiTime[NowTimePoint - 1]][11] = x[55];
-            Dic[LiTime[NowTimePoint - 1]][12] = x[42];
-            Dic[LiTime[NowTimePoint - 1]][13] = x[46];
-            Dic[LiTime[NowTimePoint - 1]][14] = x[50];
-            Dic[LiTime[NowTimePoint - 1]][15] = x[54];
-
-            Dic[LiTime[NowTimePoint - 1]][16] = x[41];
-            Dic[LiTime[NowTimePoint - 1]][17] = x[45];
-            Dic[LiTime[NowTimePoint - 1]][18] = x[49];
-            Dic[LiTime[NowTimePoint - 1]][19] = x[53];
-            Dic[LiTime[NowTimePoint - 1]][20] = x[40];
-            Dic[LiTime[NowTimePoint - 1]][21] = x[44];
-            Dic[LiTime[NowTimePoint - 1]][22] = x[48];
-            Dic[LiTime[NowTimePoint - 1]][23] = x[52];
-
-            Dic[LiTime[NowTimePoint - 1]][24] = x[11];
-            Dic[LiTime[NowTimePoint - 1]][25] = x[15];
-            Dic[LiTime[NowTimePoint - 1]][26] = x[19];
-            Dic[LiTime[NowTimePoint - 1]][27] = x[23];
-            Dic[LiTime[NowTimePoint - 1]][28] = x[10];
-            Dic[LiTime[NowTimePoint - 1]][29] = x[14];
-            Dic[LiTime[NowTimePoint - 1]][30] = x[18];
-            Dic[LiTime[NowTimePoint - 1]][31] = x[22];
-
-            Dic[LiTime[NowTimePoint - 1]][32] = x[9];
-            Dic[LiTime[NowTimePoint - 1]][33] = x[13];
-            Dic[LiTime[NowTimePoint - 1]][34] = x[17];
-            Dic[LiTime[NowTimePoint - 1]][35] = x[21];
-            Dic[LiTime[NowTimePoint - 1]][36] = x[8];
-            Dic[LiTime[NowTimePoint - 1]][37] = x[12];
-            Dic[LiTime[NowTimePoint - 1]][38] = x[16];
-            Dic[LiTime[NowTimePoint - 1]][39] = x[20];
-
-            Dic[LiTime[NowTimePoint - 1]][40] = x[59];
-            Dic[LiTime[NowTimePoint - 1]][41] = x[63];
-            Dic[LiTime[NowTimePoint - 1]][42] = x[67];
-            Dic[LiTime[NowTimePoint - 1]][43] = x[71];
-            Dic[LiTime[NowTimePoint - 1]][44] = x[58];
-            Dic[LiTime[NowTimePoint - 1]][45] = x[62];
-            Dic[LiTime[NowTimePoint - 1]][46] = x[66];
-            Dic[LiTime[NowTimePoint - 1]][47] = x[70];
-
-            Dic[LiTime[NowTimePoint - 1]][48] = x[57];
-            Dic[LiTime[NowTimePoint - 1]][49] = x[61];
-            Dic[LiTime[NowTimePoint - 1]][50] = x[65];
-            Dic[LiTime[NowTimePoint - 1]][51] = x[69];
-            Dic[LiTime[NowTimePoint - 1]][52] = x[56];
-            Dic[LiTime[NowTimePoint - 1]][53] = x[60];
-            Dic[LiTime[NowTimePoint - 1]][54] = x[64];
-            Dic[LiTime[NowTimePoint - 1]][55] = x[68];
-
-            Dic[LiTime[NowTimePoint - 1]][56] = x[27];
-            Dic[LiTime[NowTimePoint - 1]][57] = x[31];
-            Dic[LiTime[NowTimePoint - 1]][58] = x[35];
-            Dic[LiTime[NowTimePoint - 1]][59] = x[39];
-            Dic[LiTime[NowTimePoint - 1]][60] = x[26];
-            Dic[LiTime[NowTimePoint - 1]][61] = x[30];
-            Dic[LiTime[NowTimePoint - 1]][62] = x[34];
-            Dic[LiTime[NowTimePoint - 1]][63] = x[38];
-
-            Dic[LiTime[NowTimePoint - 1]][64] = x[25];
-            Dic[LiTime[NowTimePoint - 1]][65] = x[29];
-            Dic[LiTime[NowTimePoint - 1]][66] = x[33];
-            Dic[LiTime[NowTimePoint - 1]][67] = x[37];
-            Dic[LiTime[NowTimePoint - 1]][68] = x[24];
-            Dic[LiTime[NowTimePoint - 1]][69] = x[28];
-            Dic[LiTime[NowTimePoint - 1]][70] = x[32];
-            Dic[LiTime[NowTimePoint - 1]][71] = x[36];
-
-            Dic[LiTime[NowTimePoint - 1]][72] = x[0];
-            Dic[LiTime[NowTimePoint - 1]][73] = x[1];
-            Dic[LiTime[NowTimePoint - 1]][74] = x[2];
-            Dic[LiTime[NowTimePoint - 1]][75] = x[3];
-            Dic[LiTime[NowTimePoint - 1]][76] = x[4];
-            Dic[LiTime[NowTimePoint - 1]][77] = x[5];
-            Dic[LiTime[NowTimePoint - 1]][78] = x[6];
-            Dic[LiTime[NowTimePoint - 1]][79] = x[7];
-
-            Dic[LiTime[NowTimePoint - 1]][80] = x[88];
-            Dic[LiTime[NowTimePoint - 1]][81] = x[89];
-            Dic[LiTime[NowTimePoint - 1]][82] = x[90];
-            Dic[LiTime[NowTimePoint - 1]][83] = x[91];
-            Dic[LiTime[NowTimePoint - 1]][84] = x[92];
-            Dic[LiTime[NowTimePoint - 1]][85] = x[93];
-            Dic[LiTime[NowTimePoint - 1]][86] = x[94];
-            Dic[LiTime[NowTimePoint - 1]][87] = x[95];
-
-            Dic[LiTime[NowTimePoint - 1]][88] = x[79];
-            Dic[LiTime[NowTimePoint - 1]][89] = x[78];
-            Dic[LiTime[NowTimePoint - 1]][90] = x[77];
-            Dic[LiTime[NowTimePoint - 1]][91] = x[76];
-            Dic[LiTime[NowTimePoint - 1]][92] = x[75];
-            Dic[LiTime[NowTimePoint - 1]][93] = x[74];
-            Dic[LiTime[NowTimePoint - 1]][94] = x[73];
-            Dic[LiTime[NowTimePoint - 1]][95] = x[72];
-
             LoadFrame();
-            #endregion
-        }
-
-        private void btnAntiClockwise_Click(object sender, RoutedEventArgs e)
-        {
-            #region
-            if (NowTimePoint == 0)
-                return;
-            int[] x = new int[96];
-            for (int i = 0; i < 96; i++)
-            {
-                x[i] = Dic[LiTime[NowTimePoint - 1]][i];
-            }
-            Dic[LiTime[NowTimePoint - 1]][0] = x[72];
-            Dic[LiTime[NowTimePoint - 1]][1] = x[73];
-            Dic[LiTime[NowTimePoint - 1]][2] = x[74];
-            Dic[LiTime[NowTimePoint - 1]][3] = x[75];
-            Dic[LiTime[NowTimePoint - 1]][4] = x[76];
-            Dic[LiTime[NowTimePoint - 1]][5] = x[77];
-            Dic[LiTime[NowTimePoint - 1]][6] = x[78];
-            Dic[LiTime[NowTimePoint - 1]][7] = x[79];
-
-            Dic[LiTime[NowTimePoint - 1]][8] = x[36];
-            Dic[LiTime[NowTimePoint - 1]][9] = x[32];
-            Dic[LiTime[NowTimePoint - 1]][10] = x[28];
-            Dic[LiTime[NowTimePoint - 1]][11] = x[24];
-            Dic[LiTime[NowTimePoint - 1]][12] = x[37];
-            Dic[LiTime[NowTimePoint - 1]][13] = x[33];
-            Dic[LiTime[NowTimePoint - 1]][14] = x[29];
-            Dic[LiTime[NowTimePoint - 1]][15] = x[25];
-
-            Dic[LiTime[NowTimePoint - 1]][16] = x[38];
-            Dic[LiTime[NowTimePoint - 1]][17] = x[34];
-            Dic[LiTime[NowTimePoint - 1]][18] = x[30];
-            Dic[LiTime[NowTimePoint - 1]][19] = x[26];
-            Dic[LiTime[NowTimePoint - 1]][20] = x[39];
-            Dic[LiTime[NowTimePoint - 1]][21] = x[35];
-            Dic[LiTime[NowTimePoint - 1]][22] = x[31];
-            Dic[LiTime[NowTimePoint - 1]][23] = x[27];
-
-            Dic[LiTime[NowTimePoint - 1]][24] = x[68];
-            Dic[LiTime[NowTimePoint - 1]][25] = x[64];
-            Dic[LiTime[NowTimePoint - 1]][26] = x[60];
-            Dic[LiTime[NowTimePoint - 1]][27] = x[56];
-            Dic[LiTime[NowTimePoint - 1]][28] = x[69];
-            Dic[LiTime[NowTimePoint - 1]][29] = x[65];
-            Dic[LiTime[NowTimePoint - 1]][30] = x[61];
-            Dic[LiTime[NowTimePoint - 1]][31] = x[57];
-
-            Dic[LiTime[NowTimePoint - 1]][32] = x[70];
-            Dic[LiTime[NowTimePoint - 1]][33] = x[66];
-            Dic[LiTime[NowTimePoint - 1]][34] = x[62];
-            Dic[LiTime[NowTimePoint - 1]][35] = x[58];
-            Dic[LiTime[NowTimePoint - 1]][36] = x[71];
-            Dic[LiTime[NowTimePoint - 1]][37] = x[67];
-            Dic[LiTime[NowTimePoint - 1]][38] = x[63];
-            Dic[LiTime[NowTimePoint - 1]][39] = x[59];
-
-            Dic[LiTime[NowTimePoint - 1]][40] = x[20];
-            Dic[LiTime[NowTimePoint - 1]][41] = x[16];
-            Dic[LiTime[NowTimePoint - 1]][42] = x[12];
-            Dic[LiTime[NowTimePoint - 1]][43] = x[8];
-            Dic[LiTime[NowTimePoint - 1]][44] = x[21];
-            Dic[LiTime[NowTimePoint - 1]][45] = x[17];
-            Dic[LiTime[NowTimePoint - 1]][46] = x[13];
-            Dic[LiTime[NowTimePoint - 1]][47] = x[9];
-
-            Dic[LiTime[NowTimePoint - 1]][48] = x[22];
-            Dic[LiTime[NowTimePoint - 1]][49] = x[18];
-            Dic[LiTime[NowTimePoint - 1]][50] = x[14];
-            Dic[LiTime[NowTimePoint - 1]][51] = x[10];
-            Dic[LiTime[NowTimePoint - 1]][52] = x[23];
-            Dic[LiTime[NowTimePoint - 1]][53] = x[19];
-            Dic[LiTime[NowTimePoint - 1]][54] = x[15];
-            Dic[LiTime[NowTimePoint - 1]][55] = x[11];
-
-            Dic[LiTime[NowTimePoint - 1]][56] = x[52];
-            Dic[LiTime[NowTimePoint - 1]][57] = x[48];
-            Dic[LiTime[NowTimePoint - 1]][58] = x[44];
-            Dic[LiTime[NowTimePoint - 1]][59] = x[40];
-            Dic[LiTime[NowTimePoint - 1]][60] = x[53];
-            Dic[LiTime[NowTimePoint - 1]][61] = x[49];
-            Dic[LiTime[NowTimePoint - 1]][62] = x[45];
-            Dic[LiTime[NowTimePoint - 1]][63] = x[41];
-
-            Dic[LiTime[NowTimePoint - 1]][64] = x[54];
-            Dic[LiTime[NowTimePoint - 1]][65] = x[50];
-            Dic[LiTime[NowTimePoint - 1]][66] = x[46];
-            Dic[LiTime[NowTimePoint - 1]][67] = x[42];
-            Dic[LiTime[NowTimePoint - 1]][68] = x[55];
-            Dic[LiTime[NowTimePoint - 1]][69] = x[51];
-            Dic[LiTime[NowTimePoint - 1]][70] = x[47];
-            Dic[LiTime[NowTimePoint - 1]][71] = x[43];
-
-            Dic[LiTime[NowTimePoint - 1]][72] = x[95];
-            Dic[LiTime[NowTimePoint - 1]][73] = x[94];
-            Dic[LiTime[NowTimePoint - 1]][74] = x[93];
-            Dic[LiTime[NowTimePoint - 1]][75] = x[92];
-            Dic[LiTime[NowTimePoint - 1]][76] = x[91];
-            Dic[LiTime[NowTimePoint - 1]][77] = x[90];
-            Dic[LiTime[NowTimePoint - 1]][78] = x[89];
-            Dic[LiTime[NowTimePoint - 1]][79] = x[88];
-
-            Dic[LiTime[NowTimePoint - 1]][80] = x[7];
-            Dic[LiTime[NowTimePoint - 1]][81] = x[6];
-            Dic[LiTime[NowTimePoint - 1]][82] = x[5];
-            Dic[LiTime[NowTimePoint - 1]][83] = x[4];
-            Dic[LiTime[NowTimePoint - 1]][84] = x[3];
-            Dic[LiTime[NowTimePoint - 1]][85] = x[2];
-            Dic[LiTime[NowTimePoint - 1]][86] = x[1];
-            Dic[LiTime[NowTimePoint - 1]][87] = x[0];
-
-            Dic[LiTime[NowTimePoint - 1]][88] = x[80];
-            Dic[LiTime[NowTimePoint - 1]][89] = x[81];
-            Dic[LiTime[NowTimePoint - 1]][90] = x[82];
-            Dic[LiTime[NowTimePoint - 1]][91] = x[83];
-            Dic[LiTime[NowTimePoint - 1]][92] = x[84];
-            Dic[LiTime[NowTimePoint - 1]][93] = x[85];
-            Dic[LiTime[NowTimePoint - 1]][94] = x[86];
-            Dic[LiTime[NowTimePoint - 1]][95] = x[87];
-
-            LoadFrame();
-            #endregion
         }
 
         private void btnCopy_Click(object sender, RoutedEventArgs e)
@@ -1081,19 +637,11 @@ namespace Maker.View.LightUserControl
                 }
             }
         }
-     
 
         private void ShowMembrane(object sender, MouseButtonEventArgs e)
         {
             mLaunchpad.ShowOrHideMembrane();
-            if (mLaunchpad.isMembrane)
-            {
-                iMembrane.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/membrane_blue.png", UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                iMembrane.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/membrane_gray.png", UriKind.RelativeOrAbsolute));
-            }
+            mLaunchpad.SetValue(LaunchpadPro.IsMembraneProperty,!(bool)mLaunchpad.GetValue(LaunchpadPro.IsMembraneProperty));
         }
 
         private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1661,56 +1209,6 @@ namespace Maker.View.LightUserControl
                 SelectPosition(rightDown);
             if (sender == btnRightUp)
                 SelectPosition(rightUp);
-        }
-
-        private void tbInsertDiyTimePoint_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            String str = tbInsertDiyTimePoint.Text;
-            String strTime = str.Trim();
-            if (strTime.Trim().Equals(""))
-            {
-                return;
-            }
-            int time = 0;
-            try
-            {
-                if (strTime.Contains("+"))
-                {
-                    //当前时间 +
-                    time = int.Parse(strTime) + int.Parse(str.Substring(1));
-                }
-                else if (strTime.Contains("-"))
-                {
-                    //当前时间 -
-                    time = int.Parse(strTime) - int.Parse(str.Substring(1));
-                }
-                else
-                {
-                    //当前时间
-                    time = int.Parse(strTime);
-                }
-
-                if (time < 0)
-                {
-                    iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
-                    return;
-                }
-
-            }
-            catch
-            {
-                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
-                return;
-            }
-            //如果已经有该时间点，报错
-            if ((DataContext as FrameUserControlViewModel).Welcome.LiTime.Contains(time))
-            {
-                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_gray.png", UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                iAdd.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_blue.png", UriKind.RelativeOrAbsolute));
-            }
         }
 
         public void SelectPosition(List<int> positions)

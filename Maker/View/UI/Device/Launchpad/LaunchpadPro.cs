@@ -478,24 +478,21 @@ namespace Maker.View.Device
             }
         }
 
-        /// <summary>
-        /// 是否已经贴膜
-        /// </summary>
-        public bool isMembrane = false;
+      
 
         /// <summary>
         /// 设置贴膜
         /// </summary>
         public void AddMembrane()
         {
-            if (!isMembrane)
+            if (!toIsMembrane)
             {
                 InitBlackTop();
                 InitBlackBlock();
                 InitBlackRight();
                 InitBlackLeft();
                 InitBlackBottom();
-                isMembrane = true;
+                toIsMembrane = true;
             }
         }
         /// <summary>
@@ -504,18 +501,18 @@ namespace Maker.View.Device
         public void ClearMembrane()
         {
             Children.RemoveRange(96, Children.Count - 95);
-            isMembrane = false;
+            toIsMembrane = false;
         }
         /// <summary>
         /// 显示或隐藏贴膜 -- 取反
         /// </summary>
         public void ShowOrHideMembrane() {
-            if (!isMembrane)
+            if (!toIsMembrane)
             {
                 if (Children.Count != 96 * 2)
                 {
                     AddMembrane();
-                    isMembrane = true;
+                    toIsMembrane = true;
                     return;
                 }
                 else
@@ -533,7 +530,7 @@ namespace Maker.View.Device
                     Children[i].Visibility = Visibility.Collapsed;
                 }
             }
-            isMembrane = !isMembrane;
+            toIsMembrane = !toIsMembrane;
         }
 
         /// <summary>
@@ -958,32 +955,48 @@ namespace Maker.View.Device
             }
         }
 
+        /// <summary>
+        /// 是否已经贴膜
+        /// </summary>
+        public bool toIsMembrane = false;
+
+        public static bool GetIsMembrane(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsMembraneProperty);
+        }
+        public static void SetIsMembrane(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsMembraneProperty, value);
+        }
+        public static readonly DependencyProperty IsMembraneProperty =
+            DependencyProperty.RegisterAttached("IsMembrane", typeof(bool), typeof(LaunchpadPro));
+
+
         public static List<Light> GetData(DependencyObject obj)
         {
             return (List<Light>)obj.GetValue(DataProperty);
         }
-
         public static void SetData(DependencyObject obj, List<Light> value)
         {
             obj.SetValue(DataProperty, value);
         }
-
         public static readonly DependencyProperty DataProperty =
             DependencyProperty.RegisterAttached("Data", typeof(List<Light>), typeof(LaunchpadPro), new PropertyMetadata(OnDataChanged));
-
         private static void OnDataChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != null) {
+            if (e.NewValue != null)
+            {
                 LaunchpadPro pro = obj as LaunchpadPro;
                 List<Light> mListList = e.NewValue as List<Light>;
                 pro.onDataChange(mListList);
-                if (pro.onDataChange != null) {
+                if (pro.onDataChange != null)
+                {
                     pro.onDataChange(mListList);
                 }
                 MyClearAllColorExcept(pro);
                 for (int i = 0; i < mListList.Count; i++)
                 {
-                    if (mListList[i].Action == 128 || mListList[i].Color<0)
+                    if (mListList[i].Action == 128 || mListList[i].Color < 0)
                     {
                         SetButtonBackground(pro, mListList[i].Position - 28, StaticConstant.closeBrush);
                     }
@@ -995,6 +1008,5 @@ namespace Maker.View.Device
             }
         }
 
-        
     }
 }
