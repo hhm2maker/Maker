@@ -351,7 +351,7 @@
                     <Rectangle Width="3" Height="100" Canvas.Top="100" Name="rLeft" Fill="#3399ff"/>
                 </Canvas>
                 <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Width="90" Name="spLeft">
-                    <DockPanel Background="Transparent" MouseLeftButtonUp="iStyle_MouseLeftButtonUp" Width="90"  Height="100" >
+                    <DockPanel Name="dpStyle" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" Width="90"  Height="100" >
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="40" Height="40" />
                             <TextBlock  Name="tbStyle" Text="{DynamicResource Style}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0" />
@@ -366,13 +366,13 @@
                             <TextBlock Name="tbColor" Text="{DynamicResource Color}" FontSize="16" Foreground="#ffffff" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                         </StackPanel>
                     </DockPanel>
-                    <DockPanel Name="dpSelect" Background="Transparent" MouseLeftButtonUp="iSelect_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"  Width="90"  Height="100">
+                    <DockPanel Name="dpSelect" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"  Width="90"  Height="100">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" />
                             <TextBlock Name="tbSelect" Text="{DynamicResource Select}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                         </StackPanel>
                     </DockPanel>
-                    <DockPanel Background="Transparent" MouseLeftButtonUp="ShowImageControl"  Width="90"  Height="100">
+                    <DockPanel Name="dpPicture" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp"  Width="90"  Height="100">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
                             <TextBlock Name="tbPicture" Text="{DynamicResource Image}" FontSize="16" Foreground="#a8a9a9" HorizontalAlignment="Center" Margin="0,5,0,0"/>
@@ -709,7 +709,21 @@
                     </Canvas>
                     <Grid Height="60" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="35" HorizontalAlignment="Left" Name="iSave" Source="../../Resources/Image/save_gray.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave"/>
+                            <Image Width="35" HorizontalAlignment="Left" Name="iSave"  RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="spSaveFile_MouseLeftButtonDown">
+                                <Image.Resources>
+                                    <Style TargetType="{x:Type Image}">
+                                        <Style.Triggers>
+                                            <!--鼠标滑过时字体为红色-->
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Source" Value="../../Resources/Image/save_blue.png"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter Property="Source" Value="../../Resources/Image/save_gray.png"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Resources>
+                            </Image>
                             <Image Style="{DynamicResource k1}" Width="35"  HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">

@@ -610,9 +610,9 @@ namespace Maker
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
                 From = new Thickness(0, 0, 0, 0),
-                //To = new Thickness(0, 30, 0, 0),
-                To = new Thickness(0, (ActualHeight - makerdialog.Height) / 2, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5)
+                To = new Thickness(0, 30, 0, 0),
+                //To = new Thickness(0, (ActualHeight - makerdialog.Height) / 2, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.3)
             };
 
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);

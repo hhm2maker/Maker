@@ -1094,24 +1094,67 @@ namespace Maker.View.LightUserControl
 
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MoveRLeft(1);
-            HideImageControl();
-            sliderSize.Visibility = Visibility.Collapsed;
-
-            if (nowControlType == ControlType.Draw)
+            MoveRLeft(spLeft.Children.IndexOf(sender as UIElement));
+            if (sender != dpPicture) {
+                HideImageControl();
+            }
+           
+            if (sender == dpStyle)
             {
-                popColor.IsOpen = true;
-            }
-            else {
-                nowControlType = ControlType.Draw;
-            }
-            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
-            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+                sliderSize.Visibility = Visibility.Visible;
+                nowControlType = ControlType.Style;
+                iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
 
-            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            }
+            if (sender == dpColor)
+            {
+                sliderSize.Visibility = Visibility.Collapsed;
+
+                if (nowControlType == ControlType.Draw)
+                {
+                    popColor.IsOpen = true;
+                }
+                else
+                {
+                    nowControlType = ControlType.Draw;
+                }
+                iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+
+                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            }
+            if (sender == dpSelect)
+            {
+                sliderSize.Visibility = Visibility.Collapsed;
+                nowControlType = ControlType.Select;
+                iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
+
+                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            }
+            if (sender == dpPicture)
+            {
+                sliderSize.Visibility = Visibility.Collapsed;
+
+                ShowImageControl();
+                iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+
+                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+            }
         }
 
         private void dpColor_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -1119,50 +1162,8 @@ namespace Maker.View.LightUserControl
             popColor.IsOpen = true;
         }
 
-        private void iStyle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            MoveRLeft(0);
-            HideImageControl();
-            sliderSize.Visibility = Visibility.Visible;
-            nowControlType = ControlType.Style;
-            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
-
-            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-        }
-
-        private void iSelect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            MoveRLeft(2);
-            HideImageControl();
-            sliderSize.Visibility = Visibility.Collapsed;
-            nowControlType = ControlType.Select;
-            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
-            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
-
-            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-        }
-
-
-        private void ShowImageControl(object sender, MouseButtonEventArgs e)
-        {
-            MoveRLeft(3);
-            sliderSize.Visibility = Visibility.Collapsed;
-
-            ShowImageControl();
-            iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
-            iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
-
-            tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-            tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-        }
+     
+      
         private void ShowImageControl()
         {
             spRight.Visibility = Visibility.Visible;
@@ -1182,16 +1183,6 @@ namespace Maker.View.LightUserControl
         {
             Width = mw.ActualWidth * 0.9;
             Height = mw.gMost.ActualHeight;
-        }
-
-        private void Image_MouseEnter(object sender, MouseEventArgs e)
-        {
-            iSave.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_blue.png", UriKind.RelativeOrAbsolute));
-        }
-
-        private void Image_MouseLeave(object sender, MouseEventArgs e)
-        {
-            iSave.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/save_gray.png", UriKind.RelativeOrAbsolute));
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
