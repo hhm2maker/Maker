@@ -292,7 +292,6 @@ namespace Maker.View.LightUserControl
             }
             (DataContext as FrameUserControlViewModel).Welcome.NowLightLight = mLightList;
         }
-
       
         /// <summary>
         /// 插入时间点
@@ -1094,21 +1093,30 @@ namespace Maker.View.LightUserControl
 
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MoveRLeft(spLeft.Children.IndexOf(sender as UIElement));
+            int index = spLeft.Children.IndexOf(sender as UIElement);
+            MoveRLeft(index);
             if (sender != dpPicture) {
                 HideImageControl();
             }
-           
+
+            for (int i = 0; i < spLeft.Children.Count; i++)
+            {
+                TextBlock textBlock = ((Panel)((Panel)spLeft.Children[i]).Children[0]).Children[1] as TextBlock;
+                if (i == index)
+                {
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                }
+                else
+                {
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                }
+            }
+
             if (sender == dpStyle)
             {
                 sliderSize.Visibility = Visibility.Visible;
                 nowControlType = ControlType.Style;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
-
-                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
             }
             if (sender == dpColor)
             {
@@ -1124,11 +1132,6 @@ namespace Maker.View.LightUserControl
                 }
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
-
-                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
             }
             if (sender == dpSelect)
             {
@@ -1136,11 +1139,6 @@ namespace Maker.View.LightUserControl
                 nowControlType = ControlType.Select;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
-
-                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
             }
             if (sender == dpPicture)
             {
@@ -1149,11 +1147,6 @@ namespace Maker.View.LightUserControl
                 ShowImageControl();
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
-
-                tbStyle.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbPicture.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                tbColor.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
-                tbSelect.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
             }
         }
 
@@ -1161,9 +1154,7 @@ namespace Maker.View.LightUserControl
         {
             popColor.IsOpen = true;
         }
-
      
-      
         private void ShowImageControl()
         {
             spRight.Visibility = Visibility.Visible;
@@ -1241,13 +1232,9 @@ namespace Maker.View.LightUserControl
                 for (int i = 0; i < positions.Count; i++)
                 {
                     if (selects.Contains(positions[i]))
-                    {
                         selects.Remove(positions[i]);
-                    }
                     else
-                    {
                         selects.Add(positions[i]);
-                    }
                 }
                 mLaunchpad.SetSelectPosition(selects);
             }
