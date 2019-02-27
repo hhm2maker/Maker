@@ -52,7 +52,7 @@ namespace Maker.Model
             }
         }
 
-        private void LoadFrame()
+        public void LoadFrame()
         {
             if (NowTimePoint == 0)
             {

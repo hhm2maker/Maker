@@ -41,7 +41,7 @@ namespace Maker.View.LightUserControl
 
             //初始化贴膜
             mLaunchpad.AddMembrane();
-            mLaunchpad.ShowOrHideMembrane();
+            mLaunchpad.IsMembrane = false;
             //初始化事件
             InitLaunchpadEvent();
             //初始化绘制事件
@@ -62,7 +62,7 @@ namespace Maker.View.LightUserControl
             sliderSize.Value = dep.style.size;
         }
 
-        FrameModel dep;
+        private FrameModel dep;
 
         private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
@@ -165,42 +165,42 @@ namespace Maker.View.LightUserControl
         public List<int> LiTime {
             set
             {
-                (DataContext as FrameUserControlViewModel).Welcome.LiTime = value;
+                (DataContext as FrameUserControlViewModel).Model.LiTime = value;
             }
             get
             {
-                return (DataContext as FrameUserControlViewModel).Welcome.LiTime;
+                return (DataContext as FrameUserControlViewModel).Model.LiTime;
             }
         }
         public Dictionary<int, int[]> Dic {
             set
             {
-                (DataContext as FrameUserControlViewModel).Welcome.NowData = value;
+                (DataContext as FrameUserControlViewModel).Model.NowData = value;
             }
             get
             {
-                return (DataContext as FrameUserControlViewModel).Welcome.NowData;
+                return (DataContext as FrameUserControlViewModel).Model.NowData;
             }
         }
-        //private List<FrameworkElement> lfe = new List<FrameworkElement>();
+
         private List<String> ColorList = new List<string>();
         public int NowTimePoint {
             set {
-                (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint = value;
+                (DataContext as FrameUserControlViewModel).Model.NowTimePoint = value;
             }
             get {
-                return (DataContext as FrameUserControlViewModel).Welcome.NowTimePoint;
+                return (DataContext as FrameUserControlViewModel).Model.NowTimePoint;
             }
         }
         public int allTimePoint
         {
             set
             {
-                (DataContext as FrameUserControlViewModel).Welcome.AllTimePoint = value;
+                (DataContext as FrameUserControlViewModel).Model.AllTimePoint = value;
             }
             get
             {
-                return (DataContext as FrameUserControlViewModel).Welcome.AllTimePoint;
+                return (DataContext as FrameUserControlViewModel).Model.AllTimePoint;
             }
         }
 
@@ -266,9 +266,11 @@ namespace Maker.View.LightUserControl
             return mActionBeanList;
         }
 
+        /// <summary>
+        /// 清空当前页面所有颜色
+        /// </summary>
         private void ClearFrame()
         {
-            //清空
             mLaunchpad.ClearAllColorExceptMembrane();
         }
 
@@ -290,60 +292,9 @@ namespace Maker.View.LightUserControl
                 }
                 mLightList.Add(new Light(0,144, i+28, x[i]));
             }
-            (DataContext as FrameUserControlViewModel).Welcome.NowLightLight = mLightList;
+            (DataContext as FrameUserControlViewModel).Model.NowLightLight = mLightList;
         }
       
-        /// <summary>
-        /// 插入时间点
-        /// </summary>
-        /// <param name="time">插入时间</param>
-        /// <param name="shape">插入形状</param>
-        private void InsertTimePoint(int time, int[] shape)
-        {
-            if (LiTime.Count == 0)
-            {
-                LiTime.Insert(0, time);
-                Dic.Add(time, shape);
-                NowTimePoint = 1;
-                tbTimeNow.Text = LiTime[NowTimePoint - 1].ToString();
-                tbTimePointCountLeft.Text = NowTimePoint.ToString();
-                tbTimePointCount.Text = " / " + LiTime.Count;
-                LoadFrame();
-            }
-            else
-            {
-                //如果比最大的小，比较大小插入合适的位置
-                if (LiTime[LiTime.Count - 1] > time)
-                {
-                    for (int i = 0; i < LiTime.Count; i++)
-                    {
-                        if (LiTime[i] > time)
-                        {
-                            LiTime.Insert(i, time);
-                            Dic.Add(time, shape);
-                            NowTimePoint = i + 1;
-                            tbTimeNow.Text = LiTime[NowTimePoint - 1].ToString();
-                            tbTimePointCountLeft.Text = NowTimePoint.ToString();
-                            tbTimePointCount.Text = " / " + LiTime.Count;
-                            LoadFrame();
-                            break;
-                        }
-                    }
-                }
-                //比最大的大，插入最后
-                else
-                {
-                    LiTime.Add(time);
-                    Dic.Add(time, shape);
-                    NowTimePoint = LiTime.Count;
-                    tbTimeNow.Text = LiTime[NowTimePoint - 1].ToString();
-                    tbTimePointCountLeft.Text = NowTimePoint.ToString();
-                    tbTimePointCount.Text = " / " + LiTime.Count;
-                    LoadFrame();
-                }
-            }
-        }
-        
 
         private Point point = new Point();
         private Rectangle rectangle = new Rectangle();
@@ -366,11 +317,11 @@ namespace Maker.View.LightUserControl
         {
             set
             {
-                (DataContext as FrameUserControlViewModel).Welcome.Selects = value;
+                (DataContext as FrameUserControlViewModel).Model.Selects = value;
             }
             get
             {
-                return (DataContext as FrameUserControlViewModel).Welcome.Selects;
+                return (DataContext as FrameUserControlViewModel).Model.Selects;
             }
         }
         private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
@@ -515,66 +466,15 @@ namespace Maker.View.LightUserControl
                         if (LiTime[i] == c.OneNumber)
                         {
                             NowTimePoint = i + 1;
-                            tbTimeNow.Text = LiTime[NowTimePoint - 1].ToString();
-                            tbTimePointCountLeft.Text = NowTimePoint.ToString();
-                            tbTimePointCount.Text = " / " + LiTime.Count;
-                            LoadFrame();
                             break;
                         }
                     }
                 }
                 else
                 {
-                    InsertTimePoint(c.OneNumber, x);
+                    (DataContext as FrameUserControlViewModel).InsertTimePoint(c.OneNumber, x);
                 }
-                #region
-                /*
-                //如果没有该时间点，新建
-                else {
-                    //如果比最大的小，比较大小插入合适的位置
-                    if (liTime[liTime.Count - 1] > c.time)
-                    {
-                        for (int i = 0; i < liTime.Count; i++)
-                        {
-                            if (liTime[i] > c.time)
-                            {
-                                 liTime.Insert(i, c.time);
-                                dic.Add(c.time, x);
-                                nowTimePoint = i + 1;
-                                tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-                                tbTimePointCount.Text = nowTimePoint + " / " + liTime.Count;
-                                LoadFrame();
-                                break;
-                            }
-                        }
-                    }
-                    //比最大的大，插入最后
-                    else
-                    {
-                        liTime.Add(c.time);             
-                        dic.Add(c.time, x);
-                        nowTimePoint = liTime.Count;
-                        tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
-                        tbTimePointCount.Text = nowTimePoint + " / " + liTime.Count;
-                        LoadFrame();
-                    }
-                }
-                */
-                #endregion
             }
-        }
-
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
-            if (NowTimePoint == 0)
-                return;
-            int[] x = new int[96];
-            for (int i = 0; i < 96; i++)
-            {
-                x[i] = 0;
-            }
-            Dic[LiTime[NowTimePoint - 1]] = x;
-            LoadFrame();
         }
 
         public bool IsCanDraw()
@@ -589,30 +489,6 @@ namespace Maker.View.LightUserControl
             Draw = 1,
             Select = 2,
         }
-
-        private LinearGradientBrush selectBrush = new LinearGradientBrush
-        {
-            StartPoint = new Point(0.5, 0),
-            EndPoint = new Point(0.5, 1),
-            GradientStops = new GradientStopCollection
-                    {
-                        new GradientStop(Color.FromRgb(94, 106, 134), 0),
-                        new GradientStop(Color.FromRgb(64, 77, 108), 1)
-                    }
-        };
-        private LinearGradientBrush noSelectBrush = new LinearGradientBrush
-        {
-            StartPoint = new Point(0.5, 0),
-            EndPoint = new Point(0.5, 1),
-            GradientStops = new GradientStopCollection
-                    {
-                        new GradientStop(Color.FromRgb(236, 241, 244), 0),
-                        new GradientStop(Color.FromRgb(236, 241, 244), 0.5),
-                       new GradientStop(Color.FromRgb(208, 224, 234), 0.5),
-                        new GradientStop(Color.FromRgb(208, 224, 234), 1)
-                    }
-        };
-
 
         private void mLaunchpad_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -639,8 +515,7 @@ namespace Maker.View.LightUserControl
 
         private void ShowMembrane(object sender, MouseButtonEventArgs e)
         {
-            mLaunchpad.ShowOrHideMembrane();
-            mLaunchpad.SetValue(LaunchpadPro.IsMembraneProperty,!(bool)mLaunchpad.GetValue(LaunchpadPro.IsMembraneProperty));
+            mLaunchpad.IsMembrane = !mLaunchpad.IsMembrane;
         }
 
         private void spSaveFile_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -909,7 +784,7 @@ namespace Maker.View.LightUserControl
                 Canvas.SetTop(tb, 0);
                 cText.Children.Add(tb);
 
-                ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>).Add(getString.mString);
+                ((DataContext as FrameUserControlViewModel).Model.ListBoxData as ObservableCollection<dynamic>).Add(getString.mString);
             }
         }
         private void EditText(object sender, RoutedEventArgs e)
@@ -924,7 +799,7 @@ namespace Maker.View.LightUserControl
                 tb.Text = getString.mString;
                 points[NowTimePoint].Texts[lbText.SelectedIndex].Value = getString.mString;
 
-                ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>)[lbText.SelectedIndex] = getString.mString;
+                ((DataContext as FrameUserControlViewModel).Model.ListBoxData as ObservableCollection<dynamic>)[lbText.SelectedIndex] = getString.mString;
             }
         }
         private void DeleteText(object sender, RoutedEventArgs e)
@@ -941,7 +816,7 @@ namespace Maker.View.LightUserControl
             cText.Children.RemoveAt(selectedIndex);
             points[NowTimePoint].Texts.RemoveAt(selectedIndex);
 
-            ((DataContext as FrameUserControlViewModel).Welcome.ListBoxData as ObservableCollection<dynamic>).RemoveAt(selectedIndex);
+            ((DataContext as FrameUserControlViewModel).Model.ListBoxData as ObservableCollection<dynamic>).RemoveAt(selectedIndex);
         }
 
         private void CreateTextFile(String filePath)
@@ -959,11 +834,11 @@ namespace Maker.View.LightUserControl
         {
             set
             {
-                (DataContext as FrameUserControlViewModel).Welcome.Points = value;
+                (DataContext as FrameUserControlViewModel).Model.Points = value;
             }
             get
             {
-                return (DataContext as FrameUserControlViewModel).Welcome.Points;
+                return (DataContext as FrameUserControlViewModel).Model.Points;
             }
         }
 

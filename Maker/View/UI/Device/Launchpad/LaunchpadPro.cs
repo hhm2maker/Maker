@@ -478,21 +478,19 @@ namespace Maker.View.Device
             }
         }
 
-      
-
         /// <summary>
         /// 设置贴膜
         /// </summary>
         public void AddMembrane()
         {
-            if (!toIsMembrane)
+            if (!IsMembrane)
             {
                 InitBlackTop();
                 InitBlackBlock();
                 InitBlackRight();
                 InitBlackLeft();
                 InitBlackBottom();
-                toIsMembrane = true;
+                IsMembrane = true;
             }
         }
         /// <summary>
@@ -501,18 +499,19 @@ namespace Maker.View.Device
         public void ClearMembrane()
         {
             Children.RemoveRange(96, Children.Count - 95);
-            toIsMembrane = false;
+            IsMembrane = false;
         }
+      
         /// <summary>
         /// 显示或隐藏贴膜 -- 取反
         /// </summary>
-        public void ShowOrHideMembrane() {
-            if (!toIsMembrane)
+        private void ShowOrHideMembrane(bool isMembrane)
+        {
+            if (isMembrane)
             {
                 if (Children.Count != 96 * 2)
                 {
                     AddMembrane();
-                    toIsMembrane = true;
                     return;
                 }
                 else
@@ -520,17 +519,16 @@ namespace Maker.View.Device
                     for (int i = 96; i < 96 * 2; i++)
                     {
                         Children[i].Visibility = Visibility.Visible;
-                      
                     }
                 }
             }
-            else {
+            else
+            {
                 for (int i = 96; i < 96 * 2; i++)
                 {
                     Children[i].Visibility = Visibility.Collapsed;
                 }
             }
-            toIsMembrane = !toIsMembrane;
         }
 
         /// <summary>
@@ -958,7 +956,16 @@ namespace Maker.View.Device
         /// <summary>
         /// 是否已经贴膜
         /// </summary>
-        public bool toIsMembrane = false;
+        //public bool toIsMembrane = false;
+
+        public bool IsMembrane {
+            get {
+              return (bool)GetValue(IsMembraneProperty);
+            }
+            set {
+                SetValue(IsMembraneProperty, value);
+            }
+        }
 
         public static bool GetIsMembrane(DependencyObject obj)
         {
@@ -969,8 +976,16 @@ namespace Maker.View.Device
             obj.SetValue(IsMembraneProperty, value);
         }
         public static readonly DependencyProperty IsMembraneProperty =
-            DependencyProperty.RegisterAttached("IsMembrane", typeof(bool), typeof(LaunchpadPro));
+            DependencyProperty.RegisterAttached("IsMembrane", typeof(bool), typeof(LaunchpadPro), new PropertyMetadata(OnIsMembraneChanged));
 
+        private static void OnIsMembraneChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                LaunchpadPro pro = obj as LaunchpadPro;
+                pro.ShowOrHideMembrane((bool)e.NewValue);
+            }
+        }
 
         public static List<Light> GetData(DependencyObject obj)
         {

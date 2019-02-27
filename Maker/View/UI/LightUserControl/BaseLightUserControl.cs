@@ -38,7 +38,7 @@ namespace Maker.View.LightUserControl
 
         public override void SaveFile()
         {
-            //fileBusiness.WriteLightFile(filePath, GetData());
+            fileBusiness.WriteLightFile(filePath, GetData());
         }
     }
 }

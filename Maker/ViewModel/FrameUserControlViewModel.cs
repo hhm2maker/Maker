@@ -23,7 +23,7 @@ namespace Maker.ViewModel
             /// </summary>
             public FrameUserControlViewModel()
             {
-                Welcome = new FrameUserControlModel() { };
+                Model = new FrameUserControlModel() { };
             }
 
 
@@ -31,10 +31,10 @@ namespace Maker.ViewModel
             /// <summary>
             /// 欢迎词属性
             /// </summary>
-            public FrameUserControlModel Welcome
+            public FrameUserControlModel Model
             {
                 get { return model; }
-                set { model = value; RaisePropertyChanged(() => Welcome); }
+                set { model = value; RaisePropertyChanged(() => Model); }
             }
 
         /// <summary>
@@ -170,13 +170,11 @@ namespace Maker.ViewModel
                         //当前时间
                         time = int.Parse(strTime);
                     }
-
                     if (time < 0)
                     {
                         new MessageDialog(StaticConstant.mw, "TheInputFormatIsIncorrect").ShowDialog();
                         return;
                     }
-
                 }
                 catch
                 {
@@ -205,7 +203,7 @@ namespace Maker.ViewModel
         /// </summary>
         /// <param name="time">插入时间</param>
         /// <param name="shape">插入形状</param>
-        private void InsertTimePoint(int time, int[] shape)
+        public void InsertTimePoint(int time, int[] shape)
         {
             model.NowData.Add(time, shape);
             if (model.LiTime.Count == 0)
@@ -236,6 +234,32 @@ namespace Maker.ViewModel
                 }
             }
             model.AllTimePoint += 1;
+        }
+
+        /// <summary>
+        /// 命令添加或删除时间节点
+        /// </summary>
+        private RelayCommand clearNowFrameCmd;
+        public RelayCommand ClearNowFrameCmd
+        {
+            get
+            {
+                if (clearNowFrameCmd == null) return new RelayCommand(ClearNowFrame);
+                return clearNowFrameCmd;
+            }
+            set { clearNowFrameCmd = value; }
+        }
+
+        private void ClearNowFrame() {
+            if (model.NowTimePoint == 0)
+                return;
+            int[] x = new int[96];
+            for (int i = 0; i < 96; i++)
+            {
+                x[i] = 0;
+            }
+            model.NowData[model.LiTime[model.NowTimePoint - 1]] = x;
+            model.LoadFrame();
         }
     }
 }
