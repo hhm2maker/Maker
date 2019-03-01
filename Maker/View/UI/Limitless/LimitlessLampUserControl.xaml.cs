@@ -2,6 +2,7 @@
 using Maker.View.Control;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -250,6 +251,42 @@ namespace Maker.View.Dialog
         private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             mw.RemoveChildren();
+        }
+
+        private void TextBox_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (lbPoint.Visibility == Visibility.Collapsed)
+            {
+                lbPoint.Visibility = Visibility.Visible;
+                tbEdit.Visibility = Visibility.Collapsed;
+
+                lbPoint.Items.Clear();
+                String[] str = tbEdit.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                for (int i = 0; i < str.Length; i++) {
+                    if (str[i].Equals(String.Empty))
+                        continue;
+                    String[] _str = tbEdit.Text.Split(',');
+                    if (_str.Length >= 2) {
+                        lbPoint.Items.Add(_str[0].Trim() + ','+_str[1].Trim());
+                    }
+                }
+            }
+            else {
+                lbPoint.Visibility = Visibility.Collapsed;
+                tbEdit.Visibility = Visibility.Visible;
+
+                tbEdit.Clear();
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < lbPoint.Items.Count; i++)
+                {
+                    sb.Append(lbPoint.Items[i] + Environment.NewLine);
+                }
+                tbEdit.Text = sb.ToString();
+                tbEdit.Focus();
+                tbEdit.SelectionStart = tbEdit.Text.Length;
+            }
         }
     }
 }

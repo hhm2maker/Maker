@@ -43,11 +43,11 @@
         <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*" Name="cdMain"/>
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="410" />
         </Grid.ColumnDefinitions>
             <view1:CompleteColorPanel x:Name="completeColorPanel" Grid.Row="0"/>
             <device:GrowLaunchpad Grid.Column="1" x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Top" />
-            <Grid Grid.Column="2" HorizontalAlignment="Center">
+            <Grid Grid.Column="2" HorizontalAlignment="Center" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
@@ -55,9 +55,8 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Row="0">
+                <StackPanel Orientation="Vertical" Grid.Row="0" >
                     <Image DockPanel.Dock="Right" Width="25" Margin="0,15,25,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
-
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <Button  Click="AddColumn"  Content="{DynamicResource AddOneColumn}" />
                         <Button  Click="RemoveColumn"  Margin="10,0,0,0" Content="{DynamicResource ReduceOneColumn}" />
@@ -70,14 +69,15 @@
                         <Button  Click="SaveFile" Content="{DynamicResource Save}" Width="410"/>
                     </StackPanel>
                    </StackPanel>
-                <ListBox Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged" FontSize="16" Margin="0,20,0,0" Background="Transparent" BorderBrush="White" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8"/>
+                <ListBox MouseDoubleClick="TextBox_MouseDoubleClick" Grid.Row="1" Name="lbPoint" SelectionChanged="lbPoint_SelectionChanged" FontSize="16" Margin="0,20,0,0" Background="Transparent" BorderBrush="White" Style="{StaticResource ListBoxStyle1}" Foreground="#9CA3A8"/>
+                <TextBox MouseDoubleClick="TextBox_MouseDoubleClick" Grid.Row="1" Name="tbEdit" Visibility="Collapsed" Margin="0,20,0,0" Background="Transparent" CaretBrush="White"/>
                 <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="0,10,0,0">
                     <Button  Click="AddPoint"  Content="{DynamicResource AddPoint}" />
                     <Button  Click="RemovePoint" Margin="10,0,0,0" Content="{DynamicResource RemovePoint}" />
                 </StackPanel>
                 <StackPanel Grid.Row="3"  Orientation="Horizontal" Margin="0,10,0,0">
                     <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="200"  />
-                    <TextBox Name="tbInterval" Width="200" FontSize="18"  Margin="10,0,0,0" Text="10" TextAlignment="Right" Foreground="White" Background="#1c1e1f" BorderThickness="0" />
+                    <TextBox Name="tbInterval" Width="200" FontSize="18"  Margin="10,0,0,0" Text="10" TextAlignment="Center" Foreground="White" Background="#1c1e1f" BorderThickness="0" />
                 </StackPanel>
                 <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0"/>
             </Grid>
