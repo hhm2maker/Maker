@@ -184,14 +184,15 @@
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="270" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
-            <StackPanel Orientation="Horizontal" Canvas.Top="40"  Background="#272727" Name="spBottomTool">
+        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="317" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+            <StackPanel Orientation="Horizontal" Canvas.Top="40" Background="#1c1a1c" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iExport" Source="View/Resources/Image/switch.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iPianoRoll" Source="View/Resources/Image/mypianoroll.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iData" Source="View/Resources/Image/data.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iDevice" Source="View/Resources/Image/device.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
+                <Image Margin="5"  Name="iMy3D" Source="View/Resources/Image/3d.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
             </StackPanel>
         </Canvas>
         <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>

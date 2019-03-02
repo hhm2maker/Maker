@@ -38,9 +38,11 @@ namespace Maker.View.Device
 
         private void InitRainBowBrush()
         {
-            GradientStopCollection collection = new GradientStopCollection();
-            collection.Add(new GradientStop(Color.FromRgb(0, 255, 255), 0));
-            collection.Add(new GradientStop(Color.FromRgb(255, 0, 255), 1));
+            GradientStopCollection collection = new GradientStopCollection
+            {
+                new GradientStop(Color.FromRgb(0, 255, 255), 0),
+                new GradientStop(Color.FromRgb(255, 0, 255), 1)
+            };
             //collection.Add(new GradientStop(Color.FromRgb(255,0,0),0));
             //collection.Add(new GradientStop(Color.FromRgb(255, 128, 0), 0.14));
             //collection.Add(new GradientStop(Color.FromRgb(255, 128, 0), 0.28));
@@ -144,8 +146,8 @@ namespace Maker.View.Device
                     }
                     r.Width = _blockWidth;
                     r.Height = _blockWidth;
-                    Canvas.SetLeft(r, _bigCrevice + _blockWidth + i * (_blockWidth + _smallCrevice));
-                    Canvas.SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
+                    SetLeft(r, _bigCrevice + _blockWidth + i * (_blockWidth + _smallCrevice));
+                    SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
 
                     r.RadiusX = 5;
                     r.RadiusY = 5;
@@ -180,12 +182,11 @@ namespace Maker.View.Device
                         r = (Rectangle)Children[8 + 32 + 4 * j + i];
                     }
 
-
                     r.Width = _blockWidth;
                     r.Height = _blockWidth;
 
-                    Canvas.SetLeft(r, _bigCrevice + _blockWidth + (i + 4) * (_blockWidth + _smallCrevice));
-                    Canvas.SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
+                    SetLeft(r, _bigCrevice + _blockWidth + (i + 4) * (_blockWidth + _smallCrevice));
+                    SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
                     r.RadiusX = 5;
                     r.RadiusY = 5;
                     if (Children.Count != 96)
@@ -206,16 +207,18 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[8 + 15];
             }
 
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth / 4 * 3, 0));
-            pc.Add(new Point(_blockWidth, _blockWidth / 4));
-            pc.Add(new Point(_blockWidth, _blockWidth));
-            pc.Add(new Point(0, _blockWidth));
+            PointCollection pc = new PointCollection
+            {
+                new Point(0, 0),
+                new Point(_blockWidth / 4 * 3, 0),
+                new Point(_blockWidth, _blockWidth / 4),
+                new Point(_blockWidth, _blockWidth),
+                new Point(0, _blockWidth)
+            };
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 3 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 3 * (_blockWidth + _smallCrevice));
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
@@ -234,16 +237,18 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[8 + 16 + 3];
             }
 
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth, 0));
-            pc.Add(new Point(_blockWidth, _blockWidth / 4 * 3));
-            pc.Add(new Point(_blockWidth / 4 * 3, _blockWidth));
-            pc.Add(new Point(0, _blockWidth));
+            PointCollection pc = new PointCollection
+            {
+                new Point(0, 0),
+                new Point(_blockWidth, 0),
+                new Point(_blockWidth, _blockWidth / 4 * 3),
+                new Point(_blockWidth / 4 * 3, _blockWidth),
+                new Point(0, _blockWidth)
+            };
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 4 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 4 * (_blockWidth + _smallCrevice));
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
@@ -262,16 +267,18 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[8 + 32 + 12];
             }
 
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(_blockWidth / 4, 0));
-            pc.Add(new Point(_blockWidth, 0));
-            pc.Add(new Point(_blockWidth, _blockWidth));
-            pc.Add(new Point(0, _blockWidth));
-            pc.Add(new Point(0, _blockWidth / 4));
+            PointCollection pc = new PointCollection
+            {
+                new Point(_blockWidth / 4, 0),
+                new Point(_blockWidth, 0),
+                new Point(_blockWidth, _blockWidth),
+                new Point(0, _blockWidth),
+                new Point(0, _blockWidth / 4)
+            };
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 3 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 3 * (_blockWidth + _smallCrevice));
 
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
@@ -291,16 +298,18 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[8 + 32 + 16];
             }
 
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth, 0));
-            pc.Add(new Point(_blockWidth, _blockWidth));
-            pc.Add(new Point(_blockWidth / 4, _blockWidth));
-            pc.Add(new Point(0, _blockWidth / 4 * 3));
+            PointCollection pc = new PointCollection
+            {
+                new Point(0, 0),
+                new Point(_blockWidth, 0),
+                new Point(_blockWidth, _blockWidth),
+                new Point(_blockWidth / 4, _blockWidth),
+                new Point(0, _blockWidth / 4 * 3)
+            };
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 4 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - 4 * (_blockWidth + _smallCrevice));
 
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
@@ -327,8 +336,8 @@ namespace Maker.View.Device
 
                 e.Width = _circularWidth;
                 e.Height = _circularWidth;
-                Canvas.SetLeft(e, _canvasSize - _bigCrevice - _circularWidth);
-                Canvas.SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
+                SetLeft(e, _canvasSize - _bigCrevice - _circularWidth);
+                SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
                 if (Children.Count != 96)
                     Children.Add(e);
             }
@@ -351,8 +360,8 @@ namespace Maker.View.Device
                 }
                 e.Width = _circularWidth;
                 e.Height = _circularWidth;
-                Canvas.SetLeft(e, _bigCrevice);
-                Canvas.SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
+                SetLeft(e, _bigCrevice);
+                SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
                 if (Children.Count != 96)
                     Children.Add(e);
             }
@@ -538,10 +547,12 @@ namespace Maker.View.Device
         {
             for (int i = 0; i < 8; i++)
             {
-                Ellipse e = new Ellipse();
-                e.Width = _circularWidth * 0.9;
-                e.Height = _circularWidth * 0.9;
-                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+                Ellipse e = new Ellipse
+                {
+                    Width = _circularWidth * 0.9,
+                    Height = _circularWidth * 0.9,
+                    Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0))
+                };
                 SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
                 SetTop(e, _bigCrevice * 1.04);
                 Children.Add(e);
@@ -623,8 +634,8 @@ namespace Maker.View.Device
             pc.Add(new Point(0, _blockWidth * 0.9));
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.96 - 3 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.96 - 3 * (_blockWidth + _smallCrevice));
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
@@ -663,12 +674,14 @@ namespace Maker.View.Device
         {
             RoundedCornersPolygon rcp = new RoundedCornersPolygon();
 
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(_blockWidth * 0.9 / 4, 0));
-            pc.Add(new Point(_blockWidth * 0.9, 0));
-            pc.Add(new Point(_blockWidth * 0.9, _blockWidth * 0.9));
-            pc.Add(new Point(0, _blockWidth * 0.9));
-            pc.Add(new Point(0, _blockWidth * 0.9 / 4));
+            PointCollection pc = new PointCollection
+            {
+                new Point(_blockWidth * 0.9 / 4, 0),
+                new Point(_blockWidth * 0.9, 0),
+                new Point(_blockWidth * 0.9, _blockWidth * 0.9),
+                new Point(0, _blockWidth * 0.9),
+                new Point(0, _blockWidth * 0.9 / 4)
+            };
             rcp.Points = pc;
 
             Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));

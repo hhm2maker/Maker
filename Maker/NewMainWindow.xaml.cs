@@ -316,8 +316,8 @@ namespace Maker
 
         public void IntoUserControl(int index)
         {
-            spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
-            bToolChild.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+            //spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+            //bToolChild.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
 
             cMost.Background = new SolidColorBrush(Colors.Transparent);
             //清除旧界面
@@ -354,8 +354,8 @@ namespace Maker
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
-            spBottomTool.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
-            bToolChild.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
+            //spBottomTool.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
+            //bToolChild.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
 
             cMost.Background = null;
 
@@ -852,6 +852,10 @@ namespace Maker
             else if (sender == iDevice)
             {
                 userControl = new DeviceUserControl(this, mLightList);
+            }
+            else if (sender == iMy3D)
+            {
+                userControl = new My3DUserControl(this, mLightList);
             }
             gTool.Children.Clear();
                 gTool.Children.Add(userControl);

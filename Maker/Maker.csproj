@@ -275,6 +275,9 @@
     <Compile Include="View\UI\Tool\DeviceUserControl.xaml.cs">
       <DependentUpon>DeviceUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Tool\My3DUserControl.xaml.cs">
+      <DependentUpon>My3DUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\ShowPianoRollUserControl.xaml.cs">
       <DependentUpon>ShowPianoRollUserControl.xaml</DependentUpon>
     </Compile>
@@ -610,6 +613,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Tool\DeviceUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\My3DUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1468,6 +1475,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\device.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\3d.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

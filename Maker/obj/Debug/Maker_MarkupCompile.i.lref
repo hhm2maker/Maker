@@ -10,6 +10,7 @@ FE:\Sharer\Maker\Maker\View\UI\Device\ColorPanel\CompleteColorPanel.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Dialog\GetStringDialog3.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\DataGridUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\DeviceUserControl.xaml;;
+FE:\Sharer\Maker\Maker\View\UI\Tool\My3DUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\ShowPianoRollUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Loading\LoadingUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\StyleResources\ExpanderStyles.xaml;;
