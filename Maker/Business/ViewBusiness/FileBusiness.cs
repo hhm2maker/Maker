@@ -209,54 +209,31 @@ namespace Maker.Business
         public void WriteMidiFile(String filePath, String fileName,List<Light> mActionBeanList, bool isWriteToFile)
         {
             fileName = "";
-            List<Light> lab = new List<Light>();
-            for (int j = 0; j < mActionBeanList.Count; j++)
+            List<char> StartStr = new List<char>
             {
-                lab.Add(new Light(mActionBeanList[j].Time, mActionBeanList[j].Action, mActionBeanList[j].Position, mActionBeanList[j].Color));
-            }
-            lab = LightBusiness.Sort(lab);
-            //还原时间
-            int NowTime = 0;
-            int jianTime = 0;
-            for (int j = 0; j < lab.Count; j++)
-            {
-                if (lab[j].Time != NowTime)
-                {
-                    NowTime = lab[j].Time;
-                    lab[j].Time -= jianTime;
-                    jianTime = NowTime;
-                }
-                else
-                {
-                    lab[j].Time -= jianTime;
-                }
-            }
-
-            List<char> mData = new List<char>();//文件字符
-            List<char> StartStr = new List<char>();//文件头
-            List<char> EndStr = new List<char>();//文件尾
-            StartStr.Add((char)77);
-            StartStr.Add((char)84);
-            StartStr.Add((char)104);
-            StartStr.Add((char)100);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)6);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)1);
-            StartStr.Add((char)0);
-            StartStr.Add((char)96);
-            StartStr.Add((char)77);
-            StartStr.Add((char)84);
-            StartStr.Add((char)114);
-            StartStr.Add((char)107);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)0);
-            StartStr.Add((char)33);
+                (char)77,
+                (char)84,
+                (char)104,
+                (char)100,
+                (char)0,
+                (char)0,
+                (char)0,
+                (char)6,
+                (char)0,
+                (char)0,
+                (char)0,
+                (char)1,
+                (char)0,
+                (char)96,
+                (char)77,
+                (char)84,
+                (char)114,
+                (char)107,
+                (char)0,
+                (char)0,
+                (char)0,
+                (char)33
+            };//文件头
             //StartStr.Add((char)0);
             //StartStr.Add((char)255);
             //StartStr.Add((char)3);
@@ -275,30 +252,35 @@ namespace Maker.Business
                     StartStr.Add((char)fileName.Length);
                 }
             }
-            List<char> StartStr2 = new List<char>();//文件头
-            StartStr2.Add((char)0);
-            StartStr2.Add((char)255);
-            StartStr2.Add((char)88);
-            StartStr2.Add((char)4);
-            StartStr2.Add((char)4);
-            StartStr2.Add((char)2);
-            StartStr2.Add((char)36);
-            StartStr2.Add((char)8);
-            StartStr2.Add((char)0);
-            StartStr2.Add((char)255);
-            StartStr2.Add((char)88);
-            StartStr2.Add((char)4);
-            StartStr2.Add((char)4);
-            StartStr2.Add((char)2);
-            StartStr2.Add((char)36);
-            StartStr2.Add((char)8);
+            List<char> StartStr2 = new List<char>
+            {
+                (char)0,
+                (char)255,
+                (char)88,
+                (char)4,
+                (char)4,
+                (char)2,
+                (char)36,
+                (char)8,
+                (char)0,
+                (char)255,
+                (char)88,
+                (char)4,
+                (char)4,
+                (char)2,
+                (char)36,
+                (char)8
+            };//文件头
 
-            EndStr.Add((char)0);
-            EndStr.Add((char)255);
-            EndStr.Add((char)47);
-            EndStr.Add((char)0);
+            List<char> EndStr = new List<char>
+            {
+                (char)0,
+                (char)255,
+                (char)47,
+                (char)0
+            };//文件尾
 
-            String Action = WriteMidiContent(lab);
+            String Action = WriteMidiContent(LightBusiness.Copy(mActionBeanList));
             //18 - 21 位置的数字可以由两种方法得出 20 + 动作次数（开始结束都算）* 4 或是 文件大小 - 22
             String Zero = "";
             String Size;
@@ -358,11 +340,14 @@ namespace Maker.Business
             {
                 line.Append(StartStr2[j]);
             }
+
             line.Append(Action);
+
             for (int j = 0; j < EndStr.Count; j++)
             {
                 line.Append(EndStr[j]);
             }
+
             for (int j = 0; j < line.Length; j++)
             {
                 f.WriteByte((byte)line[j]);

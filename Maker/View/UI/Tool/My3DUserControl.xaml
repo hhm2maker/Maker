@@ -64,11 +64,12 @@
                                 <ModelVisual3D.Content>
                                     <Model3DGroup x:Name="model3DGroup">
                                         <!-- Lights -->
-                                        <AmbientLight Color="Gray" />
-                                        <DirectionalLight Color="Gray" Direction="1,-2,-3" />
-                                        <DirectionalLight Color="Gray" Direction="-1,2,3" />
-
-                                        <!-- Top -->
+                                    <AmbientLight Color="Gray" />
+                                    <!--<DirectionalLight Color="Blue" Direction="-9,-15,0" />
+                                    <DirectionalLight Color="Purple" Direction="9,-15,0" />-->
+                                    <DirectionalLight Color="Gray" Direction="-9,-15,0" />
+                                    <DirectionalLight Color="Gray" Direction="9,-15,0" />
+                                    <!-- Bottom -->
                                         <GeometryModel3D>
                                             <GeometryModel3D.Geometry>
                                                 <MeshGeometry3D Positions="-8.5,-1,-8.5 

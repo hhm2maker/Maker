@@ -81,6 +81,8 @@ namespace Maker.View.UI
                 if (keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
                     keyboardModels.Add(keyboardModel.Position, keyboardModel);
             }
+            if (ip == null)
+                return;
             ip.button1_Click();
         }
 
@@ -234,6 +236,11 @@ namespace Maker.View.UI
             private IntPtr handle;
             private CDD dd;
             private Dictionary<int, KeyboardModel> keyboardModels;
+
+            public InputPort() {
+
+            }
+
             public InputPort(PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
@@ -470,9 +477,9 @@ namespace Maker.View.UI
                 }
                 dd = new CDD();
                 int ret = dd.Load(dllfile);
-                //if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
-                //if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
-                //if (ret == 0) { MessageBox.Show("非增强模块"); }
+                if (ret == -2) { MessageBox.Show("装载库时发生错误"); return; }
+                if (ret == -1) { MessageBox.Show("取函数地址时发生错误"); return; }
+                if (ret == 0) { MessageBox.Show("非增强模块"); }
             }
 
             public void OpenLight() {
