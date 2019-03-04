@@ -517,8 +517,8 @@
     <Compile Include="View\UI\Setting\DeviceManagementWindow.xaml.cs">
       <DependentUpon>DeviceManagementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Setting\SettingWindow.xaml.cs">
-      <DependentUpon>SettingWindow.xaml</DependentUpon>
+    <Compile Include="View\UI\Setting\SettingUserControl.xaml.cs">
+      <DependentUpon>SettingUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Style\Child\BaseChild.cs" />
     <Compile Include="View\UI\Style\Child\ColorChild.xaml.cs">
@@ -1016,7 +1016,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Setting\SettingWindow.xaml">
+    <Page Include="View\UI\Setting\SettingUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

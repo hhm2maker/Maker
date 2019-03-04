@@ -18,9 +18,9 @@ namespace Maker.View.Setting
     /// <summary>
     /// SettingWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingWindow : System.Windows.Controls.UserControl
+    public partial class SettingUserControl : System.Windows.Controls.UserControl
     {
-        public SettingWindow(NewMainWindow mw)
+        public SettingUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;

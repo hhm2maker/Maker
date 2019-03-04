@@ -96,7 +96,7 @@ FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\HintDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\User\Login\UserInfoDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Online\OnlineWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Setting\DeviceManagementWindow.xaml;;
-FE:\Sharer\Maker\Maker\View\UI\Setting\SettingWindow.xaml;;
+FE:\Sharer\Maker\Maker\View\UI\Setting\SettingUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Style\Child\ColorChild.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Style\StyleWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\CalcTimeWindow.xaml;;

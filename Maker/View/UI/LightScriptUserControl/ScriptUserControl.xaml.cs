@@ -1998,8 +1998,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 return;
             }
-            CheckPropertiesDialog propertiesDialog = new CheckPropertiesDialog(mw, mBlockLightList);
-            propertiesDialog.ShowDialog();
+            mw.ShowMakerDialog(new CheckPropertiesDialog(mw, mBlockLightList));
         }
 
         private void VisiblePanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

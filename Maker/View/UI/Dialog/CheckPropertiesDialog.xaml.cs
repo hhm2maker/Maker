@@ -1,5 +1,6 @@
 ﻿using Maker.Model;
 using Maker.View.Control;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Maker.View.Dialog
     /// <summary>
     /// CheckPropertiesDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class CheckPropertiesDialog : Window
+    public partial class CheckPropertiesDialog : MakerDialog
     {
         private NewMainWindow mw;
         private List<Light> mLightList;
@@ -28,12 +29,6 @@ namespace Maker.View.Dialog
             InitializeComponent();
             this.mw = mw;
             this.mLightList = mLightList;
-            Owner = mw;
-        }
-
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -126,6 +121,11 @@ namespace Maker.View.Dialog
                 sb.Append("否");
             }
             tbOtherLight.Text = sb.ToString();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            mw.RemoveDialog();
         }
     }
 }

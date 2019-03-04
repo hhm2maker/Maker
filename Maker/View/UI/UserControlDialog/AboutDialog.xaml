@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
              mc:Ignorable="d" 
              Background="#363b40"
-             Height="500" Width="800"
+             Height="400" Width="700"
              VerticalAlignment="Top"
              >
     <UserControl.Resources>
@@ -53,17 +53,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Width="600">
-                <TextBlock Foreground="#3c64c3" Text="关于Maker Light" HorizontalAlignment="Center" FontSize="25"/>
-            <TextBlock Foreground="#919191" Text="Maker Light是一款灯光制作软件" HorizontalAlignment="Center" FontSize="20" Margin="0,30,0,0"/>
-            <Border Padding="10" CornerRadius="3" BorderBrush="#555555" BorderThickness="1" Margin="0,20,0,0">
-                <TextBox Foreground="#b8bfc6" Text="你可以从http://www.hhm2maker.com/获取最新的软件" HorizontalAlignment="Center" FontSize="18" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
+            <TextBlock Foreground="#939da0" Text="关于Maker Light" HorizontalAlignment="Center" FontSize="22"/>
+            <TextBlock Foreground="#919191" Text="Maker Light是一款灯光制作软件" HorizontalAlignment="Center" FontSize="18" Margin="0,20,0,0"/>
+            <Border Padding="10" CornerRadius="3" BorderBrush="#555555" BorderThickness="1" Margin="0,10,0,0">
+                <TextBox Foreground="#b8bfc6" Text="你可以从https://www.hhm2maker.com/获取最新的软件" HorizontalAlignment="Center" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True" />
                 </Border>
 
-                <TextBlock Foreground="#d94c93" Text="关于代码" HorizontalAlignment="Center" FontSize="25" Margin="0,50,0,0"/>
-            <Border Padding="10" CornerRadius="3" BorderBrush="#555555" BorderThickness="1" Margin="0,30,0,0">
+                <TextBlock Foreground="#d94c93" Text="关于代码" HorizontalAlignment="Center" FontSize="22" Margin="0,30,0,0"/>
+            <Border Padding="10" CornerRadius="3" BorderBrush="#555555" BorderThickness="1" Margin="0,20,0,0">
                     <TextBox Foreground="#b8bfc6" Text="你可以从https://github.com/hhm2maker/Maker/获取完整的代码" HorizontalAlignment="Center" FontSize="16" BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}" IsReadOnly="True"/>
                 </Border>
-            <Button Content="开始体验" Margin="0,50,0,0" Width="200" Height="50" FontSize="20" Foreground="#b8bfc6"  HorizontalAlignment="Center" Click="RemoveDialog">
+            <Button Content="开始体验" Margin="0,30,0,0" Width="160" Height="40" FontSize="18" Foreground="#b8bfc6"  HorizontalAlignment="Center" Click="RemoveDialog">
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border BorderThickness="3" CornerRadius="5,5,5,5" Background="Transparent" Name="borderBtn" BorderBrush="{StaticResource LGBrush}">

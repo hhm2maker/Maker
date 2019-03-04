@@ -498,7 +498,7 @@ namespace Maker
             }
             baseUserControl.NewFile(sender, e);
         }
-        public SettingWindow settingWindow;
+        public SettingUserControl settingWindow;
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -941,7 +941,7 @@ namespace Maker
         private void OpenSetting(object sender, RoutedEventArgs e)
         {
             if (settingWindow == null) {
-                settingWindow = new SettingWindow(this);
+                settingWindow = new SettingUserControl(this);
             }
             AddSetting(settingWindow);
         }
