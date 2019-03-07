@@ -204,6 +204,23 @@
                 <Grid Name="gTool" />
             </Grid>
         </Border>
+        <StackPanel MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"  Margin="0,50,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"   >
+            <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
+            <Viewbox Width="30"  Name="tbPositionTab">
+                <Grid  >
+                    <Image Source="View/Resources/Image/colortab.png"/>
+                    <Canvas>
+                        <Path Stroke="Red" StrokeThickness="5">
+                            <Path.Data>
+                                <EllipseGeometry Center="100,100" RadiusX="50" RadiusY="30"></EllipseGeometry>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Grid>
+            </Viewbox>
+        </StackPanel>
+       
     </Grid>
+    
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

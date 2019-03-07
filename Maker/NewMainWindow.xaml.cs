@@ -945,5 +945,17 @@ namespace Maker
             }
             AddSetting(settingWindow);
         }
+
+        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                From = tbPositionTab.ActualWidth,
+                To = tbPositionTab.ActualWidth * 10,
+                Duration = TimeSpan.FromSeconds(1)
+            };
+            tbPositionTab.BeginAnimation(WidthProperty,doubleAnimation);
+        }
     }
 }
