@@ -9,6 +9,7 @@
         Title="Maker" 
         WindowState="Maximized"
           Background="#1c1a1c"
+        Loaded="Window_Loaded"
         >
     
     <!--AllowsTransparency="True"
@@ -206,16 +207,9 @@
         </Border>
         <StackPanel MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"  Margin="0,50,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"   >
             <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
-            <Viewbox Width="30"  Name="tbPositionTab">
+            <Viewbox Width="300"  Name="tbPositionTab">
                 <Grid  >
                     <Image Source="View/Resources/Image/colortab.png"/>
-                    <Canvas>
-                        <Path Stroke="Red" StrokeThickness="5">
-                            <Path.Data>
-                                <EllipseGeometry Center="100,100" RadiusX="50" RadiusY="30"></EllipseGeometry>
-                            </Path.Data>
-                        </Path>
-                    </Canvas>
                 </Grid>
             </Viewbox>
         </StackPanel>

@@ -47,6 +47,8 @@ namespace Maker
 
             InitContextMenu();
             InitFile();
+
+         
         }
         public ContextMenu contextMenu;
         private void InitContextMenu()
@@ -946,16 +948,35 @@ namespace Maker
             AddSetting(settingWindow);
         }
 
+        bool isBig = false;
         private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            ElasticEase elasticEase = new ElasticEase();
+            elasticEase.Oscillations = 2;
+            elasticEase.Springiness = 1;
+            elasticEase.EasingMode = EasingMode.EaseOut;
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
-                From = tbPositionTab.ActualWidth,
-                To = tbPositionTab.ActualWidth * 10,
-                Duration = TimeSpan.FromSeconds(1)
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = elasticEase
             };
+            if (isBig)
+            {
+                doubleAnimation.From = tbPositionTab.ActualWidth;
+                doubleAnimation.To = ActualWidth / 4;
+               
+            }
+            else {
+                doubleAnimation.From = tbPositionTab.ActualWidth;
+                doubleAnimation.To = tbPositionTab.ActualWidth * 1.5;
+            }
             tbPositionTab.BeginAnimation(WidthProperty,doubleAnimation);
+            isBig = !isBig;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbPositionTab.Width = ActualWidth * 0.25;
         }
     }
 }
