@@ -86,8 +86,8 @@ namespace Maker.View.Setting
             //版本
             tbNowVersion.Text = mw.strNowVersion;
              //平铺
-             tbPavedColumns.Text = mw.pavedColumns.ToString();
-             tbPavedMax.Text = mw.pavedMax.ToString();
+             tbPavedColumns.Text = mw.pavedConfigModel.Columns.ToString();
+             tbPavedMax.Text = mw.pavedConfigModel.Max.ToString();
             //播放器
             //播放器 - 类型
             switch (mw.playerType)
@@ -305,15 +305,10 @@ namespace Maker.View.Setting
             {
                 if (int.TryParse(tbPavedColumns.Text, out int columns))
                 {
-                    if (mw.pavedColumns == columns)
+                    if (mw.pavedConfigModel.Columns == columns)
                         return;
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load("Config/paved.xml");
-                    XmlNode paved = doc.DocumentElement;
-                    XmlNode pavedColumns = paved.SelectSingleNode("Columns");
-                    pavedColumns.InnerText = columns.ToString();
-                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/paved.xml");
-                    mw.pavedColumns = columns;
+                    mw.pavedConfigModel.Columns = columns;
+                    XmlSerializerBusiness.Save(mw.pavedConfigModel, "Config/paved.xml");
                 }
             }
             else
@@ -324,15 +319,10 @@ namespace Maker.View.Setting
             {
                 if (int.TryParse(tbPavedMax.Text, out int max))
                 {
-                    if (mw.pavedMax == max)
+                    if (mw.pavedConfigModel.Columns == max)
                         return;
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load("Config/paved.xml");
-                    XmlNode paved = doc.DocumentElement;
-                    XmlNode pavedMax = paved.SelectSingleNode("Max");
-                    pavedMax.InnerText = max.ToString();
-                    doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/paved.xml");
-                    mw.pavedMax = max;
+                    mw.pavedConfigModel.Max = max;
+                    XmlSerializerBusiness.Save(mw.pavedConfigModel, "Config/paved.xml");
                 }
             }
             else

@@ -40,9 +40,12 @@ namespace Maker.Bridge
             InitVersion();
         }
 
+        /// <summary>
+        /// 初始化测试
+        /// </summary>
         private void InitTest()
         {
-            view.testConfigModel = XmlSerializerBusiness.Load(view.testConfigModel, "Config/test.xml");
+            XmlSerializerBusiness.Load(ref view.testConfigModel, "Config/test.xml");
             view.Opacity = view.testConfigModel.Opacity / 100.0;
         }
 
@@ -199,12 +202,7 @@ namespace Maker.Bridge
         /// </summary>
         private void InitPaved()
         {
-            //灯光语句页面
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/paved.xml");
-            XmlNode paved = doc.DocumentElement;
-            view.pavedColumns = int.Parse(paved.SelectSingleNode("Columns").InnerText);
-            view.pavedMax = int.Parse(paved.SelectSingleNode("Max").InnerText);
+            XmlSerializerBusiness.Load(ref view.pavedConfigModel, "Config/paved.xml");
         }
 
         /// <summary>

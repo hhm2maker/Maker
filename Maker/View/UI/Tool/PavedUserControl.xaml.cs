@@ -37,7 +37,7 @@ namespace Maker.View.Tool
             this.mw = mw;
 
             this.mLightList = mLightList;
-            pavedColumns = mw.pavedColumns;
+            pavedColumns = mw.pavedConfigModel.Columns;
         }
 
         public PavedUserControl(NewMainWindow mw, List<Light> mLightList,int pavedColumns)
@@ -67,7 +67,7 @@ namespace Maker.View.Tool
             double d = wpMain.ActualWidth / pavedColumns;
             Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
             Count = dil.Count;
-            int max = mw.pavedMax;
+            int max = mw.pavedConfigModel.Max;
             if (dil.Count > max) {
                 for (int i = dil.Count - 1; i >= max ; i--) {
                     dil.Remove(dil.Last().Key);

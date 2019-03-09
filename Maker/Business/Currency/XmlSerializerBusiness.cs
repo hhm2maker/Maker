@@ -11,11 +11,11 @@ namespace Maker.Business.Currency
 {
     public static class XmlSerializerBusiness
     {
-        public static T Load<T>(T obj, String filePath) where T : class
+        public static void Load<T>(ref T obj, String filePath) where T : class
         {
             using (FileStream stream = new FileStream(filePath, FileMode.Open)) {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-                return serializer.Deserialize(stream) as T;
+                obj = serializer.Deserialize(stream) as T;
             }
         }
 

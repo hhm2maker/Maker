@@ -40,7 +40,7 @@ namespace Maker.View.Tool
 
             Width = mw.ActualWidth * 0.8;
             Height = mw.ActualHeight * 0.8;
-            pavedColumns = mw.pavedColumns;
+            pavedColumns = mw.pavedConfigModel.Columns;
         }
 
         public ShowPavedUserControl(NewMainWindow mw, List<Light> mLightList,int pavedColumns)

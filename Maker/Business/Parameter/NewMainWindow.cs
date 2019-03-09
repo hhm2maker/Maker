@@ -40,14 +40,6 @@ namespace Maker
         /// </summary>
         public bool isFirst = true;
         /// <summary>
-        /// 平铺列数
-        /// </summary>
-        public int pavedColumns = 0;
-        /// <summary>
-        /// 平铺最大个数
-        /// </summary>
-        public int pavedMax = 0;
-        /// <summary>
         /// 提示字典
         /// </summary>
         public Dictionary<int, HintModel> hintModelDictionary = new Dictionary<int, HintModel>();
@@ -59,10 +51,9 @@ namespace Maker
         /// 当前版本
         /// </summary>
         public String strNowVersion;
-        /// <summary>
-        /// 透明度
-        /// </summary>
+      
         public TestConfigModel testConfigModel = new TestConfigModel();
+        public PavedConfigModel pavedConfigModel = new PavedConfigModel();
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;

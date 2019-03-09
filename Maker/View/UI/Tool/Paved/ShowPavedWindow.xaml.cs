@@ -37,7 +37,7 @@ namespace Maker.View.UI.Tool.Paved
             this.mw = mw;
 
             this.mLightList = mLightList;
-            pavedColumns = mw.pavedColumns;
+            pavedColumns = mw.pavedConfigModel.Columns;
         }
 
         public ShowPavedWindow(NewMainWindow mw, List<Light> mLightList, int pavedColumns, Dictionary<int, FramePointModel> points,Brush nowBrush)

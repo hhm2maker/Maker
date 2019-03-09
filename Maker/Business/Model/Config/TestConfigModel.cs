@@ -7,7 +7,10 @@ namespace Maker.Business.Model.Config
     [XmlRoot("Test")]
     public class TestConfigModel
     {
-        [XmlElementAttribute("Opacity", IsNullable = false)]
+        /// <summary>
+        /// 透明度
+        /// </summary>
+        [XmlElement("Opacity", IsNullable = false)]
         public int Opacity
         {
             get;

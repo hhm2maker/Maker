@@ -125,6 +125,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\Config\PavedConfigModel.cs" />
     <Compile Include="Business\Model\Config\TestConfigModel.cs" />
     <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
