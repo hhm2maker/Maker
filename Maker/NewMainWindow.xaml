@@ -181,6 +181,25 @@
                 </Grid>
             </Grid>
         </DockPanel>
+        <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
+                <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
+                <Viewbox Width="300"  Name="tbColorTab">
+                    <Grid  >
+                        <Image Source="View/Resources/Image/colortab.png"/>
+                    </Grid>
+                </Viewbox>
+            </StackPanel>
+            <StackPanel  Name="spPositionTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown" Margin="0,20,0,0"     >
+                <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
+                <Viewbox Width="300"  Name="tbPositionTab">
+                    <Grid  >
+                        <Image Source="View/Resources/Image/positiontab.png"/>
+                    </Grid>
+                </Viewbox>
+            </StackPanel>
+        </StackPanel>
+        <Image Margin="30" Source="View/Resources/Image/hint.png" Width="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
@@ -205,16 +224,7 @@
                 <Grid Name="gTool" />
             </Grid>
         </Border>
-        <StackPanel MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"  Margin="0,50,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"   >
-            <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
-            <Viewbox Width="300"  Name="tbPositionTab">
-                <Grid  >
-                    <Image Source="View/Resources/Image/colortab.png"/>
-                </Grid>
-            </Viewbox>
-        </StackPanel>
-       
-    </Grid>
+       </Grid>
     
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

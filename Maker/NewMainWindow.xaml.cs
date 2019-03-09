@@ -44,11 +44,8 @@ namespace Maker
 
             InitUserControl();
 
-
             InitContextMenu();
             InitFile();
-
-         
         }
         public ContextMenu contextMenu;
         private void InitContextMenu()
@@ -350,9 +347,10 @@ namespace Maker
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             doubleAnimation.Completed += DoubleAnimation_Completed1;
+            userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-      
-  }
+            
+        }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
@@ -945,10 +943,12 @@ namespace Maker
             if (settingWindow == null) {
                 settingWindow = new SettingUserControl(this);
             }
+            settingWindow.SetData();
             AddSetting(settingWindow);
         }
 
-        bool isBig = false;
+        bool isBigColorTab = false;
+        bool isBigPositionTab = false;
         private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             ElasticEase elasticEase = new ElasticEase();
@@ -960,23 +960,53 @@ namespace Maker
                 Duration = TimeSpan.FromSeconds(1),
                 EasingFunction = elasticEase
             };
-            if (isBig)
+
+            if (sender == spPositionTab) {
+                if (isBigPositionTab)
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
+                }
+                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigPositionTab = !isBigPositionTab;
+            }
+            else if (sender == spColorTab)
             {
-                doubleAnimation.From = tbPositionTab.ActualWidth;
-                doubleAnimation.To = ActualWidth / 4;
-               
+                if (isBigColorTab)
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
+                }
+                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigColorTab = !isBigColorTab;
             }
-            else {
-                doubleAnimation.From = tbPositionTab.ActualWidth;
-                doubleAnimation.To = tbPositionTab.ActualWidth * 1.5;
-            }
-            tbPositionTab.BeginAnimation(WidthProperty,doubleAnimation);
-            isBig = !isBig;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tbPositionTab.Width = ActualWidth * 0.25;
+            tbPositionTab.Width = ActualWidth * 0.125;
+            tbColorTab.Width = ActualWidth * 0.125;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (spHint.Visibility == Visibility.Collapsed)
+            {
+                spHint.Visibility = Visibility.Visible;
+            }
+            else {
+                spHint.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

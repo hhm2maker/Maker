@@ -9,6 +9,7 @@ using Maker.View.LightUserControl;
 using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Tool;
+using Maker.Business.Model.Config;
 
 namespace Maker
 {
@@ -61,7 +62,7 @@ namespace Maker
         /// <summary>
         /// 透明度
         /// </summary>
-        public String strStyleOpacity = String.Empty;
+        public TestConfigModel testConfigModel = new TestConfigModel();
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;

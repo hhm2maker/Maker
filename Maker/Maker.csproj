@@ -121,9 +121,11 @@
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
     <Compile Include="Business\Currency\CDD.cs" />
+    <Compile Include="Business\Currency\XmlSerializerBusiness.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Model\Config\TestConfigModel.cs" />
     <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
@@ -140,7 +142,7 @@
     <Compile Include="Business\Model\OperationModel\RemoveBorderOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\BaseOperationModel.cs" />
-    <Compile Include="Business\Model\FrameModel.cs" />
+    <Compile Include="Business\Model\Config\FrameConfigModel.cs" />
     <Compile Include="Business\Model\FramePointModel.cs" />
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
@@ -1488,6 +1490,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\positiontab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\hint.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

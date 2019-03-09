@@ -1,4 +1,6 @@
 ﻿using Maker.Business;
+using Maker.Business.Currency;
+using Maker.Business.Model.Config;
 using Maker.Model;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using static Maker.Model.EnumCollection;
 
 namespace Maker.Bridge
@@ -39,12 +42,8 @@ namespace Maker.Bridge
 
         private void InitTest()
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/test.xml");
-            XmlNode testRoot = doc.DocumentElement;
-            XmlNode testOpacity = testRoot.SelectSingleNode("Opacity");
-            view.strStyleOpacity = testOpacity.InnerText;
-            view.Opacity = int.Parse(testOpacity.InnerText) / 100.0;
+            view.testConfigModel = XmlSerializerBusiness.Load(view.testConfigModel, "Config/test.xml");
+            view.Opacity = view.testConfigModel.Opacity / 100.0;
         }
 
         /// <summary>

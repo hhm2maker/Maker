@@ -217,6 +217,14 @@ namespace Maker.View
         {
             File.Create(filePath).Close();
         }
-       
+
+        /// <summary>
+        /// 当窗口消失触发事件
+        /// </summary>
+        /// <param name="filePath"></param>
+        public virtual void OnDismiss()
+        {
+           
+        }
     }
 }

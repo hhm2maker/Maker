@@ -802,7 +802,7 @@
                                     </Border.InputBindings>
                                     <Image Name="iAdd" Source="{Binding Model.DiyAddImgSource}" RenderOptions.BitmapScalingMode="Fant" />
                                 </Border>
-                                <Slider Name="sliderSize" Margin="20,0,0,0" Visibility="Collapsed" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150" VerticalAlignment="Center"  />
+                                <Slider Name="sliderSize" IsSnapToTickEnabled="True" Margin="20,0,0,0" Visibility="Collapsed" ValueChanged="sliderSize_ValueChanged" Maximum="1200" Minimum="300" Value="600"  TickPlacement="BottomRight"  Width="150" VerticalAlignment="Center"  />
                             </StackPanel>
                         </StackPanel>
                     </DockPanel>

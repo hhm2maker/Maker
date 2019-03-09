@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.Currency;
 using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.ViewBusiness;
@@ -32,6 +33,7 @@ namespace Maker.View.Setting
         /// </summary>
         public void SetData()
         {
+
             //格式
             if (mw.suc.strInputFormatDelimiter.Equals("Comma"))
             {
@@ -80,7 +82,7 @@ namespace Maker.View.Setting
             //    tbColortabPath.Text = mw.strColortabPath;
             //}
             //测试
-            sOpacity.Value = int.Parse(mw.strStyleOpacity);
+            sOpacity.Value = mw.testConfigModel.Opacity;
             //版本
             tbNowVersion.Text = mw.strNowVersion;
              //平铺
@@ -261,19 +263,20 @@ namespace Maker.View.Setting
             if (mw == null)
                 return;
             int nowOpacity = Convert.ToInt32(sOpacity.Value);
-            if (int.Parse(mw.strStyleOpacity) == nowOpacity)
+            if (mw.testConfigModel.Opacity == nowOpacity)
             {
                 return;
             }
-            mw.strStyleOpacity = nowOpacity.ToString();
+            mw.testConfigModel.Opacity = nowOpacity;
             mw.Opacity = nowOpacity / 100.0;
 
-            XmlDocument doc = new XmlDocument();
-            doc.Load(AppDomain.CurrentDomain.BaseDirectory + "/Config/test.xml");
-            XmlNode testRoot = doc.DocumentElement;
-            XmlNode testOpacity = testRoot.SelectSingleNode("Opacity");
-            testOpacity.InnerText = nowOpacity.ToString();
-            doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/test.xml");
+            XmlSerializerBusiness.Save(mw.testConfigModel, "Config/test.xml");
+            //XmlDocument doc = new XmlDocument();
+            //doc.Load(AppDomain.CurrentDomain.BaseDirectory + "/Config/test.xml");
+            //XmlNode testRoot = doc.DocumentElement;
+            //XmlNode testOpacity = testRoot.SelectSingleNode("Opacity");
+            //testOpacity.InnerText = nowOpacity.ToString();
+            //doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/test.xml");
         }
       
 
@@ -281,7 +284,7 @@ namespace Maker.View.Setting
         {
             Width = mw.ActualWidth * 0.8 ;
             //Height = mw.ActualHeight * 0.8;
-            SetData();
+          
         }
 
         private void btnEditColortabPath_Click(object sender, RoutedEventArgs e)

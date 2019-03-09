@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
-using Maker.Business.Model;
+using Maker.Business.Currency;
+using Maker.Business.Model.Config;
 using Maker.Model;
 using Maker.View.Device;
 using Maker.View.Dialog;
@@ -52,17 +53,17 @@ namespace Maker.View.LightUserControl
 
             InitPosition();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(FrameModel));
+            XmlSerializer serializer = new XmlSerializer(typeof(FrameConfigModel));
             FileStream stream = new FileStream("Config/frame.xml", FileMode.Open);
-            dep = (FrameModel)serializer.Deserialize(stream);
+            frameModel = (FrameConfigModel)serializer.Deserialize(stream);
             stream.Close();
-            Canvas.SetLeft(cMain, dep.style.x);
-            Canvas.SetTop(cMain, dep.style.y);
+            Canvas.SetLeft(cMain, frameModel.style.x);
+            Canvas.SetTop(cMain, frameModel.style.y);
 
-            sliderSize.Value = dep.style.size;
+            sliderSize.Value = frameModel.style.size;
         }
 
-        private FrameModel dep;
+        private FrameConfigModel frameModel;
 
         private List<int> leftDown, leftUp, rightDown, rightUp;
         private void InitPosition()
@@ -253,7 +254,7 @@ namespace Maker.View.LightUserControl
                     }
                     if (Dic[LiTime[i]][j] != 0 && Dic[LiTime[i]][j] != -1)
                     {
-                        sliderSize.Value = dep.style.size;
+                        sliderSize.Value = frameModel.style.size;
                         if (b[j])
                         {
                             mActionBeanList.Add(new Light(LiTime[i], 128, j + 28, 64));
@@ -925,11 +926,11 @@ namespace Maker.View.LightUserControl
         private void BaseLightUserControl_MouseMove(object sender, MouseEventArgs e)
         {
             if (isMove && nowControlType == ControlType.Style) {
-                dep.style.x += e.GetPosition(this).X - movePoint.X;
-                dep.style.y += e.GetPosition(this).Y - movePoint.Y;
+                frameModel.style.x += (int)(e.GetPosition(this).X - movePoint.X);
+                frameModel.style.y += (int)(e.GetPosition(this).Y - movePoint.Y);
 
-                Canvas.SetLeft(cMain, dep.style.x);
-                Canvas.SetTop(cMain, dep.style.y);
+                Canvas.SetLeft(cMain, frameModel.style.x);
+                Canvas.SetTop(cMain, frameModel.style.y);
                 movePoint = e.GetPosition(this);
             }
         }
@@ -950,8 +951,8 @@ namespace Maker.View.LightUserControl
 
         private void sliderSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (dep != null)
-                dep.style.size = sliderSize.Value;
+            if (frameModel != null)
+                frameModel.style.size = sliderSize.Value;
         }
 
         private void MoveRLeft(int index)
@@ -1119,15 +1120,16 @@ namespace Maker.View.LightUserControl
         public override void SaveFile()
         {
             base.SaveFile();
-            XmlSerializer serializer = new XmlSerializer(dep.GetType());
-            TextWriter writer = new StreamWriter("Config/frame.xml");
-            serializer.Serialize(writer, dep);
-            writer.Close();
+            XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
         }
 
         private void  OnLaunchpadDataChange(List<Light> data) {
             //当前页的回调
             //LightBusiness.Print(data);
+        }
+
+        public override void OnDismiss() {
+            SaveFile();
         }
     }
 }
