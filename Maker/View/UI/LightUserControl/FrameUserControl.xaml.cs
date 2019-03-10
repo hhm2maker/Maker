@@ -126,6 +126,8 @@ namespace Maker.View.LightUserControl
                     }
                 }
             }
+
+            (DataContext as FrameUserControlViewModel).Model.LoadFrame();
         }
         /// <summary>
         /// 0左键1右键
@@ -146,6 +148,7 @@ namespace Maker.View.LightUserControl
                 }
                 LeftOrRight = 0;
             }
+                (DataContext as FrameUserControlViewModel).Model.LoadFrame();
         }
         private void ClearColor(object sender, RoutedEventArgs e)
         {
@@ -162,6 +165,7 @@ namespace Maker.View.LightUserControl
                 }
                 LeftOrRight = 1;
             }
+                (DataContext as FrameUserControlViewModel).Model.LoadFrame();
         }
         public List<int> LiTime {
             set
@@ -1129,7 +1133,23 @@ namespace Maker.View.LightUserControl
         }
 
         public override void OnDismiss() {
-            SaveFile();
+            //SaveFile();
+            XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
+        }
+
+        public void SetButton(int position)
+        {
+            if (NowTimePoint == 0)
+            {
+                return;
+            }
+            else {
+                if (Dic[LiTime[NowTimePoint - 1]][position - 28] == 0)
+                    Dic[LiTime[NowTimePoint - 1]][position - 28] = nowColor;
+                else 
+                    Dic[LiTime[NowTimePoint - 1]][position - 28] = 0;
+                (DataContext as FrameUserControlViewModel).Model.LoadFrame();
+            }
         }
     }
 }

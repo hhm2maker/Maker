@@ -23,6 +23,7 @@ using Maker.View;
 using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.View.Setting;
+using System.Threading;
 
 namespace Maker
 {
@@ -802,7 +803,7 @@ namespace Maker
         }
 
         private List<Light> mLightList = new List<Light>();
-
+        private DeviceUserControl deviceUserControl;
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             if (cMost.Children.Count == 0 || (cMost.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
@@ -851,7 +852,10 @@ namespace Maker
             }
             else if (sender == iDevice)
             {
-                userControl = new DeviceUserControl(this, mLightList);
+                if (deviceUserControl == null) {
+                    deviceUserControl = new DeviceUserControl(this, mLightList);
+                }
+                userControl = deviceUserControl;
             }
             else if (sender == iMy3D)
             {
@@ -1008,5 +1012,18 @@ namespace Maker
                 spHint.Visibility = Visibility.Collapsed;
             }
         }
+
+        public void SetButton(int position)
+        {
+            if (userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl) {
+                FrameUserControl frameUserControl = userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
+                frameUserControl.SetButton(position);
+            }
+        }
+     
+
+     
+
+
     }
 }

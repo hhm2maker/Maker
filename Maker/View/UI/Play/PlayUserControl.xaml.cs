@@ -241,7 +241,7 @@ namespace Maker.View.UI
 
             }
 
-            public InputPort(PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
+            public InputPort( PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
@@ -290,6 +290,7 @@ namespace Maker.View.UI
                     == NativeMethods.MMSYSERR_NOERROR;
             }
 
+           
 
             private void MidiProc(IntPtr hMidiIn,
                 uint wMsg,
@@ -317,6 +318,14 @@ namespace Maker.View.UI
 
                     if (dwParam1 > 32767)
                     {
+                        StaticConstant.mw.Dispatcher.Invoke(
+                         new Action(
+                          delegate
+                 {
+                     StaticConstant.mw.SetButton((int)position);
+                }
+                ));
+                  
                         KeyEvent((int)position, 0);
 
                         tbPosition.Dispatcher.Invoke(new Action(() => { tbPosition.Text = tbPosition.Text + position + " "; }));
@@ -367,7 +376,8 @@ namespace Maker.View.UI
                     else {
                         KeyEvent((int)position, 1);
                     }
-
+                    if(pages.Count == 0)
+                        return;
                     if (!pages[nowPageName].ContainsKey((int)position))
                         return;
 
@@ -464,6 +474,37 @@ namespace Maker.View.UI
                 //return;
                 if (dd == null)
                     LoadDllFile(AppDomain.CurrentDomain.BaseDirectory + @"Dll\Keyboard\DD85590.64.dll");
+            }
+
+            public void PlayIntLight(int[] intLight) {
+                for (int i = 0; i < intLight.Length; i++) {
+                    if (i ==0 && i <= 8)
+                    {
+                        //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
+                        //顶部灯光
+                        if (intLight[i] != 0)
+                        {
+                            String str = "0x" + intLight[i].ToString("X2").PadLeft(2, '0') + ((i+28) + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                        }
+                        else
+                        {
+                            String str = "0x" + ((i + 28) + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                        }
+                    }
+                    else
+                    {
+                        if (intLight[i] != 0)
+                        {
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(144 + (i + 28) * 0x100 + intLight[i] * 0x10000 + passageway));
+                        }
+                        else {
+                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(128 + (i + 28) * 0x100 + intLight[i] * 0x10000 + passageway));
+                        }
+                    }
+                }
+              
             }
 
 
@@ -672,7 +713,6 @@ namespace Maker.View.UI
                             //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x80 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
                         }
                     }
-
                     Thread.Sleep(wait);
                 }
             }
@@ -1028,5 +1068,13 @@ namespace Maker.View.UI
         {
             mw.RemoveChildren();
         }
+
+
+
+
+
+   
     }
+
+
 }
