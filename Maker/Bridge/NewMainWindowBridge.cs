@@ -187,14 +187,14 @@ namespace Maker.Bridge
             doc.Load("Config/project.xml");
             XmlNode root = doc.DocumentElement;
             String path = root.SelectSingleNode("Path").InnerText;
-            if (path.Equals(String.Empty) || !Directory.Exists(path))
+            if (path.Equals(String.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + path))
             {
-                path = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
+                view.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
             }
-            view.lastProjectPath = path;
-
-            DirectoryInfo directoryInfo = new DirectoryInfo(view.lastProjectPath);
-            view.tbProjectPath.Text = directoryInfo.Name;
+            else {
+                view.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ path+@"\";
+            }
+            view.tbProjectPath.Text = path;
         }
 
         /// <summary>
@@ -295,7 +295,8 @@ namespace Maker.Bridge
             XmlDocument doc = new XmlDocument();
             doc.Load("Config/project.xml");
             XmlNode root = doc.DocumentElement;
-            root.SelectSingleNode("Path").InnerText = view.lastProjectPath;
+            DirectoryInfo directoryInfo = new DirectoryInfo(view.lastProjectPath); 
+            root.SelectSingleNode("Path").InnerText = directoryInfo.Name;
             doc.Save("Config/project.xml");
         }
 
