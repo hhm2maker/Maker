@@ -657,7 +657,7 @@ namespace Maker.Bridge
         public List<String> GetMyContent()
         {
             List<String> contents = new List<String>();
-            DirectoryInfo folder = new DirectoryInfo(iuc.mw.lastProjectPath + @"\LightScript");
+            DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
             foreach (FileInfo file in folder.GetFiles("*.lightScript"))
             {
                 contents.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));

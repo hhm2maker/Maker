@@ -36,7 +36,7 @@ namespace Maker.Business
         public LightScriptBusiness(ScriptUserControl iuc, String InCommandLine, String nowControlPath, Dictionary<String, List<Light>> lockedDictionary)
         {
             this.iuc = iuc;
-            lastFilePath = iuc.mw.lastProjectPath;
+            lastFilePath = iuc.mw.LastProjectPath;
 
             this.InCommandLine = InCommandLine;
             this.nowControlPath = nowControlPath;
@@ -1624,9 +1624,9 @@ namespace Maker.Business
                 else if (importType.Equals("Resource"))
                 {
                     //Resource
-                    if (File.Exists(iuc.mw.lastProjectPath + @"\Resource\" + importContent[1]))
+                    if (File.Exists(iuc.mw.LastProjectPath + @"\Resource\" + importContent[1]))
                     {
-                        _importContent.Add(importContent[1], iuc.mw.lastProjectPath + @"\Resource\" + importContent[1]);
+                        _importContent.Add(importContent[1], iuc.mw.LastProjectPath + @"\Resource\" + importContent[1]);
                     }
                     else
                     {
@@ -1656,9 +1656,9 @@ namespace Maker.Business
                 //    ShowError("导入灯光脚本文件不存在");
                 //    return false;
                 //}
-                if (File.Exists(iuc.mw.lastProjectPath + @"\LightScript\" + importCommandLine))
+                if (File.Exists(iuc.mw.LastProjectPath + @"\LightScript\" + importCommandLine))
                 {
-                    _importContent.Add(importCommandLine.Split('.')[0], iuc.mw.lastProjectPath + @"\LightScript\"+ importCommandLine);
+                    _importContent.Add(importCommandLine.Split('.')[0], iuc.mw.LastProjectPath + @"\LightScript\"+ importCommandLine);
                 }
                 else
                 {

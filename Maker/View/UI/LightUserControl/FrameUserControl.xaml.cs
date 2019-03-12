@@ -733,13 +733,13 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.lastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
             mw.ShowMakerDialog(newFileDialog);
         }
 
         public void NewTextFile(String result) {
             mw.RemoveDialog();
-            String _filePath = mw.lastProjectPath + @"\Text\" + result;
+            String _filePath = mw.LastProjectPath + @"\Text\" + result;
             if (File.Exists(_filePath))
             {
                 new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
@@ -879,12 +879,12 @@ namespace Maker.View.LightUserControl
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Text", new List<string>() { ".text" }));
+            fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Text", new List<string>() { ".text" }));
 
             ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
             if (dialog.ShowDialog() == true)
             {
-                nowTextFilePath = mw.lastProjectPath + @"\Text\" + dialog.selectItem;
+                nowTextFilePath = mw.LastProjectPath + @"\Text\" + dialog.selectItem;
                 LoadText(nowTextFilePath);
             }
         }

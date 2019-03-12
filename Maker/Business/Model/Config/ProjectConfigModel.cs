@@ -11,11 +11,11 @@ namespace Maker.Business.Model.Config
         /// 平铺列数
         /// </summary>
         [XmlElement("Path", IsNullable = false)]
-        public int Path
+        public string Path
         {
             get;
             set;
-        } = 5;
+        }
 
        
     }

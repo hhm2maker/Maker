@@ -182,19 +182,8 @@ namespace Maker.Bridge
         /// </summary>
         private void InitFile()
         {
-            //灯光语句页面
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/project.xml");
-            XmlNode root = doc.DocumentElement;
-            String path = root.SelectSingleNode("Path").InnerText;
-            if (path.Equals(String.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + path))
-            {
-                view.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
-            }
-            else {
-                view.lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ path+@"\";
-            }
-            view.tbProjectPath.Text = path;
+            XmlSerializerBusiness.Load(ref view.projectConfigModel, "Config/project.xml");
+            view.tbProjectPath.Text = view.projectConfigModel.Path;
         }
 
         /// <summary>
@@ -291,13 +280,7 @@ namespace Maker.Bridge
         /// </summary>
         public void SaveFile()
         {
-            //灯光语句页面
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/project.xml");
-            XmlNode root = doc.DocumentElement;
-            DirectoryInfo directoryInfo = new DirectoryInfo(view.lastProjectPath); 
-            root.SelectSingleNode("Path").InnerText = directoryInfo.Name;
-            doc.Save("Config/project.xml");
+            XmlSerializerBusiness.Save(view.projectConfigModel, "Config/project.xml");
         }
 
         #region 获取windows桌面背景

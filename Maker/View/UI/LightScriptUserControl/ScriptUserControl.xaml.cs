@@ -3500,11 +3500,11 @@ namespace Maker.View.LightScriptUserControl
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem item = (MenuItem)sender;
-            if ((mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript").Equals(filePath))
+            if ((mw.LastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript").Equals(filePath))
             {
                 return;
             }
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
+            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
             if (dialog.ShowDialog() == true)
             {
                 if (!importList.Contains(item.Header.ToString() + ".lightScript"))

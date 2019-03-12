@@ -160,7 +160,7 @@ namespace Maker.View.UI
             positions.Clear();
             lights.Clear();
 
-            DirectoryInfo d = new DirectoryInfo(mw.lastProjectPath);
+            DirectoryInfo d = new DirectoryInfo(mw.LastProjectPath);
             XDocument _doc = XDocument.Load(filePath);
             XElement _root = _doc.Element("Root");
 

@@ -483,7 +483,7 @@ namespace Maker.Business.Discarded
             if (lbMain.SelectedIndex == -1)
                 return;
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            baseUserControl.filePath = mw.lastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
+            baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + lbMain.SelectedItem.ToString();
             baseUserControl.LoadFile(lbMain.SelectedItem.ToString());
         }
 

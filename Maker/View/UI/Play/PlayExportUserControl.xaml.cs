@@ -38,12 +38,12 @@ namespace Maker.View.Play
             FileBusiness business = new FileBusiness();
             if (sender == btnSelectFileTutorial )
             {
-                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Light", new List<string>() { ".light" }));
-                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
+                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light" }));
+                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
+                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Midi", new List<string>() { ".mid" }));
             }
             else {
-                fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
+                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
             }
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
             if (dialog.ShowDialog() == true)
@@ -151,7 +151,7 @@ namespace Maker.View.Play
                 XAttribute xPageName = new XAttribute("name", pageNames[i]);
                 xPage.Add(xPageName);
 
-                mw.puc.ReadPageFile(mw.lastProjectPath + @"\Play\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
+                mw.puc.ReadPageFile(mw.LastProjectPath + @"\Play\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
                 for (int x = 0; x < pageModes.Count; x++)
                 {
                     if (pageModes[x].Count == 0)
@@ -270,8 +270,8 @@ namespace Maker.View.Play
                 xLight.Add(xValue);
                 xLights.Add(xLight);
             }
-            DirectoryInfo d = new DirectoryInfo(mw.lastProjectPath);
-            xDoc.Save(mw.lastProjectPath + @"\Play\" + d.Name + ".play");
+            DirectoryInfo d = new DirectoryInfo(mw.LastProjectPath);
+            xDoc.Save(mw.LastProjectPath + @"\Play\" + d.Name + ".play");
         }
         LightScriptBusiness business = new LightScriptBusiness();
         public List<Light> AllFileToLightList(String filePath)
@@ -279,15 +279,15 @@ namespace Maker.View.Play
             List<Light> mLightList = new List<Light>();
             if (filePath.EndsWith(".lightScript"))
             {
-                mLightList = ScriptFileBusiness.FileToLight(mw.lastProjectPath + @"\LightScript\" + filePath);
+                mLightList = ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath);
             }
             else if (filePath.EndsWith(".light"))
             {
-                mLightList = fileBusiness.ReadLightFile(mw.lastProjectPath + @"\Light\" + filePath);
+                mLightList = fileBusiness.ReadLightFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             else if (filePath.EndsWith(".mid"))
             {
-                mLightList = fileBusiness.ReadMidiFile(mw.lastProjectPath + @"\Midi\" + filePath);
+                mLightList = fileBusiness.ReadMidiFile(mw.LastProjectPath + @"\Midi\" + filePath);
             }
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;

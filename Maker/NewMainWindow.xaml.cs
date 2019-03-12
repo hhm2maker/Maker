@@ -80,7 +80,7 @@ namespace Maker
         private void InitFile()
         {
             tvLight.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Light", new List<string>() { ".light" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light" }))
             {
                 TreeViewItem item = new TreeViewItem
                 {
@@ -90,7 +90,7 @@ namespace Maker
                 tvLight.Items.Add(item);
             }
             tvLightScript.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
             {
                 TreeViewItem item = new TreeViewItem
                 {
@@ -100,7 +100,7 @@ namespace Maker
                 tvLightScript.Items.Add(item);
             }
             tvLimitlessLamp.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
             {
                 TreeViewItem item = new TreeViewItem
                 {
@@ -110,7 +110,7 @@ namespace Maker
                 tvLimitlessLamp.Items.Add(item);
             }
             tvPlay.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(lastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
             {
                 TreeViewItem item = new TreeViewItem
                 {
@@ -538,7 +538,6 @@ namespace Maker
             }
 
             tbProjectPath.Text = lbProject.SelectedItem.ToString().Trim();
-            lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
             suc.HideControl();
             InitFile();
 
@@ -572,7 +571,7 @@ namespace Maker
                     directoryInfoLimitlessLamp.Create();
 
                     tbProjectPath.Text = dialog.fileName;
-                    lastProjectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\" + tbProjectPath.Text + @"\";
+                    projectConfigModel.Path = tbProjectPath.Text ;
                     if (gMain.Children.Count > 0)
                     {
                         LoadFileList();
@@ -762,8 +761,8 @@ namespace Maker
             }
             else
             {
-                System.IO.File.Move(lastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
-                    , lastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
+                System.IO.File.Move(LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
+                    , LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
                 needControlTreeViewItem.Header = filePath;
                 needControlBaseUserControl.filePath = filePath;
             }
@@ -898,11 +897,11 @@ namespace Maker
             {
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
                 selectedItem = lbMain.SelectedItem;
-                if (baseUserControl.filePath.Equals(lastProjectPath + baseUserControl._fileType + @"\" + fileName))
+                if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
                     return;
             }
            
-            baseUserControl.filePath = lastProjectPath + baseUserControl._fileType + @"\" + fileName;
+            baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
         }
 

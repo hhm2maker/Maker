@@ -139,7 +139,7 @@ namespace Maker.View
         /// </summary>
         /// <returns></returns>
         public virtual String GetFileDirectory() {
-            return mw.lastProjectPath + _fileType + @"\";
+            return mw.LastProjectPath + _fileType + @"\";
         }
         /// <summary>
         /// 删除文件

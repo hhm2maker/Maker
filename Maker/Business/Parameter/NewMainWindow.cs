@@ -10,6 +10,7 @@ using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Tool;
 using Maker.Business.Model.Config;
+using System.IO;
 
 namespace Maker
 {
@@ -34,7 +35,19 @@ namespace Maker
         /// <summary>
         /// 最后一个项目路径
         /// </summary>
-        public String lastProjectPath;
+        public String LastProjectPath {
+            get {
+                if (projectConfigModel.Path.Equals(String.Empty)
+                              || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
+                {
+                    return AppDomain.CurrentDomain.BaseDirectory + @"\Project\KeyBoard\";
+                }
+                else
+                {
+                    return AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\";
+                }
+            }
+        }
         /// <summary>
         /// 是否是第一次
         /// </summary>
@@ -54,6 +67,9 @@ namespace Maker
       
         public TestConfigModel testConfigModel = new TestConfigModel();
         public PavedConfigModel pavedConfigModel = new PavedConfigModel();
+        public ProjectConfigModel projectConfigModel = new ProjectConfigModel();
+        
+
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;
