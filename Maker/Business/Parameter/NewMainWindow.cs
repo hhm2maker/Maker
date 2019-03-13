@@ -56,10 +56,8 @@ namespace Maker
         /// 提示字典
         /// </summary>
         public Dictionary<int, HintModel> hintModelDictionary = new Dictionary<int, HintModel>();
-        /// <summary>
-        /// 范围列表显示数字
-        /// </summary>
-        public bool isRangeListNumber = false;
+       
+      
         /// <summary>
         /// 当前版本
         /// </summary>
@@ -68,7 +66,7 @@ namespace Maker
         public TestConfigModel testConfigModel = new TestConfigModel();
         public PavedConfigModel pavedConfigModel = new PavedConfigModel();
         public ProjectConfigModel projectConfigModel = new ProjectConfigModel();
-        
+        public HideConfigModel hideConfigModel = new HideConfigModel();
 
         //Light
         public FrameUserControl fuc;

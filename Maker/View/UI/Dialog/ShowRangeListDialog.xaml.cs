@@ -1,4 +1,5 @@
-﻿using Maker.View.LightScriptUserControl;
+﻿using Maker.Business.Currency;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Left = 0;
-            if (iuc.mw.isRangeListNumber)
+            if (iuc.mw.hideConfigModel.RangeListNumber)
             {
                 cbShowNumber.IsChecked = true;
             }
@@ -87,15 +88,10 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(builder.ToString());
                 }
 
-                if (iuc.mw.isRangeListNumber)
+                if (iuc.mw.hideConfigModel.RangeListNumber)
                     return;
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/hide.xml");
-                XmlNode hideRoot = doc.DocumentElement;
-                XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
-                hideRangeListNumber.InnerText = "true";
-                iuc.mw.isRangeListNumber = true;
-                doc.Save("Config/hide.xml");
+                iuc.mw.hideConfigModel.RangeListNumber = true;
+                XmlSerializerBusiness.Save(iuc.mw.hideConfigModel, "Config/hide.xml");
             }
         }
         private void cbShowNumber_Unchecked(object sender, RoutedEventArgs e)
@@ -108,15 +104,10 @@ namespace Maker.View.Dialog
                     lbMain.Items.Add(item.Key);
                 }
 
-                if (!iuc.mw.isRangeListNumber)
+                if (!iuc.mw.hideConfigModel.RangeListNumber)
                     return;
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/hide.xml");
-                XmlNode hideRoot = doc.DocumentElement;
-                XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
-                hideRangeListNumber.InnerText = "false";
-                iuc.mw.isRangeListNumber = false;
-                doc.Save("Config/hide.xml");
+                iuc.mw.hideConfigModel.RangeListNumber = false;
+                XmlSerializerBusiness.Save(iuc.mw.hideConfigModel, "Config/hide.xml");
             }
         }
         private void NewRangeList(object sender, RoutedEventArgs e)

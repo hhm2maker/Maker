@@ -224,19 +224,7 @@ namespace Maker.Bridge
         /// </summary>
         private void InitHide()
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/hide.xml");
-            XmlNode hideRoot = doc.DocumentElement;
-
-            XmlNode hideRangeListNumber = hideRoot.SelectSingleNode("RangeListNumber");
-            if (hideRangeListNumber.InnerText.Equals("true"))
-            {
-                view.isRangeListNumber = true;
-            }
-            else
-            {
-                view.isRangeListNumber = false;
-            }
+            XmlSerializerBusiness.Load(ref view.hideConfigModel, "Config/hide.xml");
         }
 
         /// <summary>
@@ -245,8 +233,7 @@ namespace Maker.Bridge
         public void InitStaticConstant()
         {
             StaticConstant.mw = view;
-
-           String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
+            String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
             List<String> ColorList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
             List<SolidColorBrush> brushList = new List<SolidColorBrush>();
             foreach (String str in ColorList)
