@@ -238,7 +238,7 @@ namespace Maker.Bridge
             List<SolidColorBrush> brushList = new List<SolidColorBrush>();
             foreach (String str in ColorList)
             {
-                brushList.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString(str)));
+                brushList.Add(new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(str)));
             }
             StaticConstant.brushList = brushList;
         }

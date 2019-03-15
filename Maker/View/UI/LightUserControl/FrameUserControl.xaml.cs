@@ -38,7 +38,7 @@ namespace Maker.View.LightUserControl
             HideControl();
 
             mLaunchpad.SetSize(600);
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(System.Windows.Media.Color.FromRgb(46, 48, 51)));
 
             //初始化贴膜
             mLaunchpad.AddMembrane();
@@ -984,11 +984,11 @@ namespace Maker.View.LightUserControl
                 TextBlock textBlock = ((Panel)((Panel)spLeft.Children[i]).Children[0]).Children[1] as TextBlock;
                 if (i == index)
                 {
-                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                    textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                 }
                 else
                 {
-                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                    textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(168, 169, 169));
                 }
             }
 

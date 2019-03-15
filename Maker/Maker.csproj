@@ -128,6 +128,7 @@
     <Compile Include="Business\Model\Config\ProjectConfigModel.cs" />
     <Compile Include="Business\Model\Config\PavedConfigModel.cs" />
     <Compile Include="Business\Model\Config\HideConfigModel.cs" />
+    <Compile Include="Business\Model\Config\ColorFileModel.cs" />
     <Compile Include="Business\Model\Config\TestConfigModel.cs" />
     <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />

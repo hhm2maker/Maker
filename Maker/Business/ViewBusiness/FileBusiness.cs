@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
+using Maker.Business.Currency;
+using Maker.Business.Model.Config;
 
 namespace Maker.Business
 {
@@ -675,18 +677,21 @@ namespace Maker.Business
         /// <param name="filePath">颜色文件的路径</param>
         public List<String> ReadColorFile(String filePath)
         {
+            ColorFileModel colorListModel = new ColorFileModel();
+            XmlSerializerBusiness.Load(ref colorListModel, System.Windows.Forms.Application.StartupPath + "\\Color\\color.color");
+            Console.WriteLine(colorListModel.Colors.Length);
             List<String> colorList = new List<string>();
             String colorPath;
             if (filePath.Equals(String.Empty))
             {
                 colorPath = System.Windows.Forms.Application.StartupPath + "\\Color\\color.color";
             }
-            else {
+            else
+            {
                 colorPath = filePath;
             }
             foreach (XElement element in XDocument.Load(colorPath).Element("Colors").Elements("Color"))
             {
-                
                 colorList.Add(element.Value);
             }
             return colorList;
@@ -841,8 +846,8 @@ namespace Maker.Business
             deviceModel.DeviceBackGroundStr = strBg;
             if (strBg[0] == '#' || strBg.Length == 7)
             {
-                Color c = Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
-                deviceModel.DeviceBackGround = new SolidColorBrush(Color.FromArgb(255, c.R, c.G, c.B));
+                System.Windows.Media.Color c = System.Windows.Media.Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
+                deviceModel.DeviceBackGround = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, c.R, c.G, c.B));
             }
             else {
                 deviceModel.DeviceBackGround = new ImageBrush(new BitmapImage(new Uri(strBg, UriKind.Absolute)));
