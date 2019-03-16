@@ -84,7 +84,7 @@ namespace Maker.View.Setting
             //测试
             sOpacity.Value = mw.testConfigModel.Opacity;
             //版本
-            tbNowVersion.Text = mw.strNowVersion;
+            tbNowVersion.Text = mw.versionConfigModel.NowVersion;
              //平铺
              tbPavedColumns.Text = mw.pavedConfigModel.Columns.ToString();
              tbPavedMax.Text = mw.pavedConfigModel.Max.ToString();

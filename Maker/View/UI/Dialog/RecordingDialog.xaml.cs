@@ -27,8 +27,8 @@ namespace Maker.View.Dialog
             Owner = mw;
             this.mActionBeanList = mActionBeanList;
 
-            FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.strColortabPath);
+            //FileBusiness file = new FileBusiness();
+            //ColorList = file.ReadColorFile(mw.strColortabPath);
         }
 
         //private int RecordingType = 0;//录制类型 0 - 低帧数 1 - 高帧数

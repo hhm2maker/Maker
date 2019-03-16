@@ -675,12 +675,8 @@ namespace Maker.Business
         /// 读取颜色文件
         /// </summary>
         /// <param name="filePath">颜色文件的路径</param>
-        public List<String> ReadColorFile(String filePath)
+        public List<SolidColorBrush> ReadColorFile(String filePath)
         {
-            ColorFileModel colorListModel = new ColorFileModel();
-            XmlSerializerBusiness.Load(ref colorListModel, System.Windows.Forms.Application.StartupPath + "\\Color\\color.color");
-            Console.WriteLine(colorListModel.Colors.Length);
-            List<String> colorList = new List<string>();
             String colorPath;
             if (filePath.Equals(String.Empty))
             {
@@ -690,11 +686,15 @@ namespace Maker.Business
             {
                 colorPath = filePath;
             }
-            foreach (XElement element in XDocument.Load(colorPath).Element("Colors").Elements("Color"))
+            ColorFileModel colorListModel = new ColorFileModel();
+            XmlSerializerBusiness.Load(ref colorListModel, filePath);
+            List<SolidColorBrush> brushList = new List<SolidColorBrush>();
+
+            foreach (String str in colorListModel.Colors)
             {
-                colorList.Add(element.Value);
+                brushList.Add(new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(str)));
             }
-            return colorList;
+            return brushList;
         }
         /// <summary>
         /// 读取范围文件

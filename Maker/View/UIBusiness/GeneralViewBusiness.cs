@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Maker.ViewBusiness
 {
@@ -120,6 +121,29 @@ namespace Maker.ViewBusiness
             if (deviceModel.IsMembrane)
             {
                 mLaunchpad.AddMembrane();
+            }
+        }
+
+        /// <summary>
+        /// 设置字符串数组和点击事件到MenuItem
+        /// </summary>
+        /// <param name="listbox"></param>
+        /// <param name="strings"></param>
+        public static void SetStringsAndClickEventToListBox(ListBox menuItem, List<String> strings, MouseButtonEventHandler clickEvent, bool isClearOld, int fontSize)
+        {
+            if (isClearOld)
+            {
+                menuItem.Items.Clear();
+            }
+            foreach (String str in strings)
+            {
+                ListBoxItem mItem = new ListBoxItem
+                {
+                    Content = str,
+                    FontSize = fontSize
+                };
+                mItem.PreviewMouseLeftButtonDown += clickEvent;
+                menuItem.Items.Add(mItem);
             }
         }
     }

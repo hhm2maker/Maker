@@ -367,7 +367,7 @@
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
-                        <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}"/>
+                        <ListBox FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}" />
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
@@ -447,7 +447,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!--Style="{StaticResource ListBoxStyle1}"-->
-                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" PreviewDrop="lbStep_PreviewDrop"  MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                         <ListBox.ContextMenu >
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

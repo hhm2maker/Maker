@@ -51,23 +51,24 @@ namespace Maker
         /// <summary>
         /// 是否是第一次
         /// </summary>
-        public bool isFirst = true;
+        //public bool isFirst = true;
         /// <summary>
         /// 提示字典
         /// </summary>
         public Dictionary<int, HintModel> hintModelDictionary = new Dictionary<int, HintModel>();
-       
-      
-        /// <summary>
-        /// 当前版本
-        /// </summary>
-        public String strNowVersion;
-      
+
+
+
+        //public String strNowVersion;
+
+        public IsFirstConfigModel isFirstConfigModel = new IsFirstConfigModel();
+        public LanguageConfigModel languageConfigModel = new LanguageConfigModel();
         public TestConfigModel testConfigModel = new TestConfigModel();
         public PavedConfigModel pavedConfigModel = new PavedConfigModel();
         public ProjectConfigModel projectConfigModel = new ProjectConfigModel();
         public HideConfigModel hideConfigModel = new HideConfigModel();
-
+        public VersionConfigModel versionConfigModel = new VersionConfigModel();
+        
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;

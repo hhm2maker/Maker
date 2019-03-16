@@ -25,30 +25,86 @@ namespace Maker.Model
                 nowTimePoint = value;
                 if (nowTimePoint == 0)
                 {
-                    DeleteImgSource = "../../Resources/Image/delete_gray.png";
+                    CanDelete = false; 
                 }
                 else
                 {
-                    DeleteImgSource = "../../Resources/Image/delete_blue.png";
+                    CanDelete = true;
                 }
                 if (nowTimePoint < 2)
                 {
-                    LeftImgSource = "../../Resources/Image/toleft_gray.png";
+                    CanLeft = false;
                 }
                 else
                 {
-                    LeftImgSource = "../../Resources/Image/toleft_blue.png";
+                    CanLeft = true;
                 }
                 if (nowTimePoint > liTime.Count-1)
                 {
-                    RightImgSource = "../../Resources/Image/toright_gray.png";
+                    CanRight = false;
                 }
                 else
                 {
-                    RightImgSource = "../../Resources/Image/toright_blue.png";
+                    CanRight = true;
                 }
                 RaisePropertyChanged(() => NowTimePoint);
                 LoadFrame();
+            }
+        }
+
+        /// <summary>
+        /// 时间节点是否可以向左
+        /// </summary>
+        private bool canLeft;
+        public bool CanLeft
+        {
+            get { return canLeft; }
+            set
+            {
+                canLeft = value;
+                RaisePropertyChanged(() => CanLeft);
+            }
+        }
+
+        /// <summary>
+        /// 时间节点是否可以向右
+        /// </summary>
+        private bool canRight;
+        public bool CanRight
+        {
+            get { return canRight; }
+            set
+            {
+                canRight = value;
+                RaisePropertyChanged(() => CanRight);
+            }
+        }
+
+        /// <summary>
+        /// 是否可以开始
+        /// </summary>
+        private bool canStart;
+        public bool CanStart
+        {
+            get { return canStart; }
+            set
+            {
+                canStart = value;
+                RaisePropertyChanged(() => CanStart);
+            }
+        }
+
+        /// <summary>
+        /// 是否可以删除
+        /// </summary>
+        private bool canDelete;
+        public bool CanDelete
+        {
+            get { return canDelete; }
+            set
+            {
+                canDelete = value;
+                RaisePropertyChanged(() => CanDelete);
             }
         }
 
@@ -90,7 +146,7 @@ namespace Maker.Model
                 }
             }
             if(StaticConstant.mw.playuc.ip != null)
-            StaticConstant.mw.playuc.ip.PlayIntLight(NowData[LiTime[NowTimePoint - 1]]);
+                StaticConstant.mw.playuc.ip.PlayIntLight(NowData[LiTime[NowTimePoint - 1]]);
         }
 
         /// <summary>
@@ -107,61 +163,7 @@ namespace Maker.Model
             }
         }
 
-        /// <summary>
-        /// 开始图片资源
-        /// </summary>
-        private String startImgSource = "../../Resources/Image/start_gray.png";
-        public String StartImgSource
-        {
-            get { return startImgSource; }
-            set
-            {
-                startImgSource = value;
-                RaisePropertyChanged(() => StartImgSource);
-            }
-        }
-
-        /// <summary>
-        /// 向左图片资源
-        /// </summary>
-        private String leftImgSource = "../../Resources/Image/toleft_gray.png";
-        public String LeftImgSource
-        {
-            get { return leftImgSource; }
-            set
-            {
-                leftImgSource = value;
-                RaisePropertyChanged(() => LeftImgSource);
-            }
-        }
-
-        /// <summary>
-        /// 向左图片资源
-        /// </summary>
-        private String rightImgSource = "../../Resources/Image/toright_gray.png";
-        public String RightImgSource
-        {
-            get { return rightImgSource; }
-            set
-            {
-                rightImgSource = value;
-                RaisePropertyChanged(() => RightImgSource);
-            }
-        }
-
-        /// <summary>
-        /// 删除图片资源
-        /// </summary>
-        private String deleteImgSource = "../../Resources/Image/delete_gray.png";
-        public String DeleteImgSource
-        {
-            get { return deleteImgSource; }
-            set
-            {
-                deleteImgSource = value;
-                RaisePropertyChanged(() => DeleteImgSource);
-            }
-        }
+       
 
         /// <summary>
         /// 当前灯光
@@ -231,10 +233,10 @@ namespace Maker.Model
                 liTime = value;
                 if (liTime.Contains(0))
                 {
-                    StartImgSource = "../../Resources/Image/start_gray.png";
+                    CanStart = false;
                 }
                 else {
-                    StartImgSource = "../../Resources/Image/start_blue.png";
+                    CanStart = true;
                 }
                 RaisePropertyChanged(() => LiTime);
             }

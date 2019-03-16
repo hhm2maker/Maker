@@ -35,8 +35,8 @@ namespace Maker.View.Dialog
             //b.ImageSource = new BitmapImage(new Uri(tbBgPath.Text));
             mLaunchpad.Background = b;
 
-            FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.strColortabPath);
+            //FileBusiness file = new FileBusiness();
+            //ColorList = file.ReadColorFile(mw.strColortabPath);
             for (int x = 0; x < ColorList.Count; x++)
             {
                 _ColorList.Add(NumToColor(x));

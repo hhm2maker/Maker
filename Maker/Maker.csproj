@@ -125,10 +125,14 @@
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business\Discarded\DiscardedClass.cs" />
+    <Compile Include="Business\Model\Config\IsFirstConfigModel.cs" />
     <Compile Include="Business\Model\Config\ProjectConfigModel.cs" />
     <Compile Include="Business\Model\Config\PavedConfigModel.cs" />
     <Compile Include="Business\Model\Config\HideConfigModel.cs" />
     <Compile Include="Business\Model\Config\ColorFileModel.cs" />
+    <Compile Include="Business\Model\Config\LanguageConfigModel.cs" />
+    <Compile Include="Business\Model\Config\VersionConfigModel.cs" />
     <Compile Include="Business\Model\Config\TestConfigModel.cs" />
     <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
@@ -158,7 +162,6 @@
     <Compile Include="Business\Model\OperationModel\VerticalFlippingOperationModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
     <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
-    <Compile Include="Business\ViewBusiness\MainWindow\Init.cs" />
     <Compile Include="Business\Model\KeyboardModel.cs" />
     <Compile Include="Business\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />

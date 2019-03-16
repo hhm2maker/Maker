@@ -112,7 +112,8 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
 
-            set {
+            set
+            {
                 if (value == ',')
                 {
                     strInputFormatDelimiter = "Comma";
@@ -214,10 +215,13 @@ namespace Maker.View.LightScriptUserControl
             }
             ToolTip toolTip = new System.Windows.Controls.ToolTip();
             toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
-            toolTip.SetValue(StyleProperty,null);
+            toolTip.SetValue(StyleProperty, null);
             iNewStep.ToolTip = toolTip;
 
             InitFormat();
+
+            //获取最新的我的内容
+            _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
         }
 
         private void InitFormat()
@@ -1679,7 +1683,8 @@ namespace Maker.View.LightScriptUserControl
         public override List<Light> GetData()
         {
             List<Light> ll = new List<Light>();
-            foreach (var item in mLightDictionary) {
+            foreach (var item in mLightDictionary)
+            {
                 ll.AddRange(item.Value);
             }
             return ll;
@@ -2707,7 +2712,8 @@ namespace Maker.View.LightScriptUserControl
             ShowRangeList(sender);
         }
 
-        private void ShowRangeList(object sender) {
+        private void ShowRangeList(object sender)
+        {
             ShowRangeListDialog dialog = new ShowRangeListDialog(this);
             if (dialog.ShowDialog() == true)
             {
@@ -3271,9 +3277,8 @@ namespace Maker.View.LightScriptUserControl
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
             //DragDrop.DoDragDrop((TreeViewItem)sender, ((UIElement)sender).GetValue(NameProperty).ToString(), DragDropEffects.Copy);
-
-
         }
+
         private void Automatic(object sender, RoutedEventArgs e)
         {
             HideAllPopup();
@@ -3346,15 +3351,6 @@ namespace Maker.View.LightScriptUserControl
 
         }
 
-        private void Menu_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            //if (sender == miMycontent)
-            //{
-            //    //获取最新的我的内容
-            //    _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
-            //    miChildMycontent.IsSubmenuOpen = true;
-            //}
-        }
 
         private void ImageUnmake_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -3404,7 +3400,7 @@ namespace Maker.View.LightScriptUserControl
                 _bIsEdit = true;
                 isRedo = true;
 
-                 iNowPosition += 1;
+                iNowPosition += 1;
                 //重新加载
                 LoadFile(Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
@@ -3499,26 +3495,7 @@ namespace Maker.View.LightScriptUserControl
         }
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            if ((mw.LastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript").Equals(filePath))
-            {
-                return;
-            }
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
-            if (dialog.ShowDialog() == true)
-            {
-                if (!importList.Contains(item.Header.ToString() + ".lightScript"))
-                {
-                    importList.Add(item.Header.ToString() + ".lightScript");
-                }
-                String UsableStepName = GetUsableStepName();
-                AddStep(UsableStepName, "");
-                String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                lightScriptDictionary.Add(UsableStepName, command);
-                //visibleDictionary.Add(UsableStepName, true);
-                containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                //RefreshData();
-            }
+            DragDrop.DoDragDrop((ListBoxItem)sender, (ListBoxItem)sender, DragDropEffects.Copy); 
         }
 
         private void Child_SubmenuClosed(object sender, RoutedEventArgs e)
@@ -3803,7 +3780,7 @@ namespace Maker.View.LightScriptUserControl
             //Import Introduce Final Locked
 
             scriptModelDictionary.Clear();
-            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath,out String introduce);
+            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce);
             this.introduce = introduce;
 
             UpdateStep();
@@ -4128,201 +4105,206 @@ namespace Maker.View.LightScriptUserControl
 
         private void lbStep_Drop(object sender2, DragEventArgs e)
         {
-            TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
-            StackPanel sp;
-            if (e.OriginalSource is StackPanel)
+            if (sender2 is TreeViewItem)
             {
-                sp = (StackPanel)e.OriginalSource;
-            }
-            else
-            {
-                FrameworkElement element = (FrameworkElement)e.OriginalSource;
-                while (!(element is StackPanel))
+                TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
+                StackPanel sp;
+                if (e.OriginalSource is StackPanel)
                 {
-                    element = (FrameworkElement)element.Parent;
-                }
-                sp = (StackPanel)element;
-            }
-            if (lockedDictionary.ContainsKey(GetStepName(sp)))
-            {
-                new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                return;
-            }
-            ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
-            //没有可操作的灯光组
-            if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
-            {
-                return;
-            }
-            String command = String.Empty;
-            if (sender == btnHorizontalFlipping)
-            {
-                scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
-            }
-            if (sender == btnVerticalFlipping)
-            {
-                scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
-            }
-            if (sender == btnLowerLeftSlashFlipping)
-            {
-                scriptModel.OperationModels.Add(new LowerLeftSlashFlippingOperationModel());
-            }
-            if (sender == btnLowerRightSlashFlipping)
-            {
-                scriptModel.OperationModels.Add(new LowerRightSlashFlippingOperationModel());
-            }
-            if (sender == btnFold)
-            {
-                scriptModel.OperationModels.Add(new FoldOperationModel(FoldOperationModel.Orientation.VERTICAL, 0, 0));
-            }
-            if (sender == btnClockwise)
-            {
-                scriptModel.OperationModels.Add(new ClockwiseOperationModel());
-            }
-            if (sender == btnAntiClockwise)
-            {
-                scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
-            }
-            if (sender == btnReversal)
-            {
-                scriptModel.OperationModels.Add(new ReversalOperationModel());
-            }
-            if (sender == btnExtendTime)
-            {
-                scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 2));
-            }
-            if (sender == btnShortenTime)
-            {
-                scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.DIVISION, 2));
-            }
-            if (sender == btnDiyTime)
-            {
-                scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
-            }
-            if (sender == btnMatchTime)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
-            }
-            if (sender == btnInterceptTime)
-            {
-                scriptModel.OperationModels.Add(new InterceptTimeOperationModel(0, 12));
-            }
-            if (sender == btnRemoveBorder)
-            {
-                scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
-            }
-            if (sender == btnFillColor)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon"));
-            }
-            if (sender == btnChangeColorYellow)
-            {
-                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 73, 74, 75, 76 }));
-            }
-            if (sender == btnChangeColorBlue)
-            {
-                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 33, 37, 41, 45 }));
-            }
-            if (sender == btnChangeColorPink)
-            {
-                scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 4, 94, 53, 57 }));
-            }
-            if (sender == btnChangeColorDiy)
-            {
-                List<Light> mLightList = mLightDictionary[GetStepName(sp)];
-                List<int> mColor = new List<int>();
-                for (int j = 0; j < mLightList.Count; j++)
-                {
-                    if (mLightList[j].Action == 144)
-                    {
-                        if (!mColor.Contains(mLightList[j].Color))
-                        {
-                            mColor.Add(mLightList[j].Color);
-                        }
-                    }
-                }
-                mColor.Sort();
-                scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
-            }
-            if (sender == btnColorChange)
-            {
-                ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, mLightDictionary[GetStepName(sp)]);
-                if (colorDialog.ShowDialog() == true)
-                {
-                    List<int> mColor = new List<int>();
-                    for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
-                    {
-                        if (int.TryParse(colorDialog.lbColor.Items[x].ToString(), out int color))
-                        {
-                            mColor.Add(color);
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+                    sp = (StackPanel)e.OriginalSource;
                 }
                 else
                 {
+                    FrameworkElement element = (FrameworkElement)e.OriginalSource;
+                    while (!(element is StackPanel))
+                    {
+                        element = (FrameworkElement)element.Parent;
+                    }
+                    sp = (StackPanel)element;
+                }
+                if (lockedDictionary.ContainsKey(GetStepName(sp)))
+                {
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
                     return;
                 }
-            }
-            if (sender == btnColorWithCount)
-            {
-                scriptModel.OperationModels.Add(new ColorWithCountOperationModel(new List<int>() { 5 }));
-            }
-            if (sender == btnSetStartTime)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon"));
-            }
-            if (sender == btnSetEndTime)
-            {
-                scriptModel.OperationModels.Add(new SetEndTimeOperationModel(SetEndTimeOperationModel.Type.ALL, "12"));
-            }
-            if (sender == btnSetAllTime)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon"));
-            }
-            if (sender == btnDisappear)
-            {
-                scriptModel.OperationModels.Add(new AnimationDisappearOperationModel(0, 12));
-            }
-            if (sender == btnWindmill)
-            {
-                scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon"));
-            }
-            if (sender == btnCopyToTheEnd)
-            {
-                scriptModel.OperationModels.Add(new CopyToTheEndOperationModel(new List<int>() { 5 }));
-            }
-            if (sender == btnCopyToTheFollow)
-            {
-                scriptModel.OperationModels.Add(new CopyToTheFollowOperationModel(new List<int>() { 5 }));
-            }
-            if (sender == btnAccelerationOrDeceleration)
-            {
-                scriptModel.OperationModels.Add(new AccelerationOrDecelerationOperationModel(new List<int>() { 100 }));
-            }
-            if (sender == miSquare
-                || sender == miRadialVertical
-                || sender == miRadialHorizontal)
-            {
-                if (sender == miSquare) {
-                    scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.SQUARE, new List<int>() { 5, 5, 5, 5, 5, 5 }));
-                }
-                if (sender == miRadialVertical)
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
+                //没有可操作的灯光组
+                if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
                 {
-                    scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALVERTICAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    return;
                 }
-                if (sender == miRadialHorizontal)
+                String command = String.Empty;
+                if (sender == btnHorizontalFlipping)
                 {
-                    scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
                 }
+                if (sender == btnVerticalFlipping)
+                {
+                    scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
+                }
+                if (sender == btnLowerLeftSlashFlipping)
+                {
+                    scriptModel.OperationModels.Add(new LowerLeftSlashFlippingOperationModel());
+                }
+                if (sender == btnLowerRightSlashFlipping)
+                {
+                    scriptModel.OperationModels.Add(new LowerRightSlashFlippingOperationModel());
+                }
+                if (sender == btnFold)
+                {
+                    scriptModel.OperationModels.Add(new FoldOperationModel(FoldOperationModel.Orientation.VERTICAL, 0, 0));
+                }
+                if (sender == btnClockwise)
+                {
+                    scriptModel.OperationModels.Add(new ClockwiseOperationModel());
+                }
+                if (sender == btnAntiClockwise)
+                {
+                    scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
+                }
+                if (sender == btnReversal)
+                {
+                    scriptModel.OperationModels.Add(new ReversalOperationModel());
+                }
+                if (sender == btnExtendTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 2));
+                }
+                if (sender == btnShortenTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.DIVISION, 2));
+                }
+                if (sender == btnDiyTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
+                }
+                if (sender == btnMatchTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
+                }
+                if (sender == btnInterceptTime)
+                {
+                    scriptModel.OperationModels.Add(new InterceptTimeOperationModel(0, 12));
+                }
+                if (sender == btnRemoveBorder)
+                {
+                    scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
+                }
+                if (sender == btnFillColor)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon"));
+                }
+                if (sender == btnChangeColorYellow)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 73, 74, 75, 76 }));
+                }
+                if (sender == btnChangeColorBlue)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 33, 37, 41, 45 }));
+                }
+                if (sender == btnChangeColorPink)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 4, 94, 53, 57 }));
+                }
+                if (sender == btnChangeColorDiy)
+                {
+                    List<Light> mLightList = mLightDictionary[GetStepName(sp)];
+                    List<int> mColor = new List<int>();
+                    for (int j = 0; j < mLightList.Count; j++)
+                    {
+                        if (mLightList[j].Action == 144)
+                        {
+                            if (!mColor.Contains(mLightList[j].Color))
+                            {
+                                mColor.Add(mLightList[j].Color);
+                            }
+                        }
+                    }
+                    mColor.Sort();
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+                }
+                if (sender == btnColorChange)
+                {
+                    ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, mLightDictionary[GetStepName(sp)]);
+                    if (colorDialog.ShowDialog() == true)
+                    {
+                        List<int> mColor = new List<int>();
+                        for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
+                        {
+                            if (int.TryParse(colorDialog.lbColor.Items[x].ToString(), out int color))
+                            {
+                                mColor.Add(color);
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnColorWithCount)
+                {
+                    scriptModel.OperationModels.Add(new ColorWithCountOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnSetStartTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon"));
+                }
+                if (sender == btnSetEndTime)
+                {
+                    scriptModel.OperationModels.Add(new SetEndTimeOperationModel(SetEndTimeOperationModel.Type.ALL, "12"));
+                }
+                if (sender == btnSetAllTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon"));
+                }
+                if (sender == btnDisappear)
+                {
+                    scriptModel.OperationModels.Add(new AnimationDisappearOperationModel(0, 12));
+                }
+                if (sender == btnWindmill)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon"));
+                }
+                if (sender == btnCopyToTheEnd)
+                {
+                    scriptModel.OperationModels.Add(new CopyToTheEndOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnCopyToTheFollow)
+                {
+                    scriptModel.OperationModels.Add(new CopyToTheFollowOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnAccelerationOrDeceleration)
+                {
+                    scriptModel.OperationModels.Add(new AccelerationOrDecelerationOperationModel(new List<int>() { 100 }));
+                }
+                if (sender == miSquare
+                    || sender == miRadialVertical
+                    || sender == miRadialHorizontal)
+                {
+                    if (sender == miSquare)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.SQUARE, new List<int>() { 5, 5, 5, 5, 5, 5 }));
+                    }
+                    if (sender == miRadialVertical)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALVERTICAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    }
+                    if (sender == miRadialHorizontal)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    }
+                }
+                StyleWindow style = new StyleWindow(mw);
+                style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
+                mw.AddSetting(style);
             }
-            StyleWindow style = new StyleWindow(mw);
-            style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
-            mw.AddSetting(style);
+          
             //Test();
         }
         //不写入XML,而是直接写入代码
@@ -4859,7 +4841,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void Image_MouseEnter(object sender, MouseEventArgs e)
         {
-            if(sender == iExecutionTime)
+            if (sender == iExecutionTime)
                 iExecutionTime.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/executiontime_blue.png", UriKind.RelativeOrAbsolute));
             if (sender == iCompleteScript)
                 iCompleteScript.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/completescript_blue.png", UriKind.RelativeOrAbsolute));
@@ -4876,6 +4858,34 @@ namespace Maker.View.LightScriptUserControl
             if (sender == iIntroduce)
                 iIntroduce.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/introduce_gray.png", UriKind.RelativeOrAbsolute));
 
+        }
+
+        private void lbStep_PreviewDrop(object sender, DragEventArgs e)
+        {
+            if (sender is ListBoxItem)
+            {
+                ListBoxItem item = e.Data.GetData(typeof(ListBoxItem)) as ListBoxItem;
+
+                if ((mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript").Equals(filePath))
+                {
+                    return;
+                }
+                ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript");
+                if (dialog.ShowDialog() == true)
+                {
+                    if (!importList.Contains(item.Content.ToString() + ".lightScript"))
+                    {
+                        importList.Add(item.Content.ToString() + ".lightScript");
+                    }
+                    String UsableStepName = GetUsableStepName();
+                    AddStep(UsableStepName, "");
+                    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Content.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
+                    lightScriptDictionary.Add(UsableStepName, command);
+                    //visibleDictionary.Add(UsableStepName, true);
+                    containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+                    Test();
+                }
+            }
         }
     }
 }

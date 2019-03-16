@@ -54,11 +54,7 @@ namespace Maker.Bridge
         /// </summary>
         private void InitVersion()
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("Config/version.xml");
-            XmlNode versionRoot = doc.DocumentElement;
-            XmlNode versionNowVersion = versionRoot.SelectSingleNode("NowVersion");
-            view.strNowVersion = versionNowVersion.InnerText;
+            XmlSerializerBusiness.Load(ref view.versionConfigModel, "Config/version.xml");
         }
 
         /// <summary>
@@ -85,8 +81,10 @@ namespace Maker.Bridge
         /// </summary>
         private void GetLanguage()
         {
-            view.strMyLanguage = Business.ViewBusiness.MainWindow.Init.GetLanguage();
+           XmlSerializerBusiness.Load(ref view.languageConfigModel, "Config/language.xml");
+            view.strMyLanguage = view.languageConfigModel.MyLanguage;
         }
+
 
         /// <summary>
         /// 加载语言
@@ -136,20 +134,16 @@ namespace Maker.Bridge
         /// </summary>
         private void InitIsFirst()
         {
-            GetIsFirst();
-            if (view.isFirst)
+            XmlSerializerBusiness.Load(ref view.isFirstConfigModel, "Config/isfirst.xml");
+            if (view.isFirstConfigModel.Value)
             {
                 view.ShowAbout();
+                view.isFirstConfigModel.Value = false;
+                XmlSerializerBusiness.Save(view.isFirstConfigModel, "Config/isfirst.xml");
             }
         }
-
-        /// <summary>
-        /// 获取是否是第一次
-        /// </summary>
-        private void GetIsFirst()
-        {
-            view.isFirst = Business.ViewBusiness.MainWindow.Init.GetIsFirst();
-        }
+       
+        
 
         /// <summary>
         /// 初始化播放器类型
@@ -234,13 +228,7 @@ namespace Maker.Bridge
         {
             StaticConstant.mw = view;
             String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
-            List<String> ColorList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
-            List<SolidColorBrush> brushList = new List<SolidColorBrush>();
-            foreach (String str in ColorList)
-            {
-                brushList.Add(new SolidColorBrush((System.Windows.Media.Color)ColorConverter.ConvertFromString(str)));
-            }
-            StaticConstant.brushList = brushList;
+            StaticConstant.brushList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
         }
 
         /// <summary>
@@ -270,25 +258,6 @@ namespace Maker.Bridge
             XmlSerializerBusiness.Save(view.projectConfigModel, "Config/project.xml");
         }
 
-        #region 获取windows桌面背景
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, SetLastError = true)]
-        public static extern int SystemParametersInfo(int uAction, int uParam, StringBuilder lpvParam, int fuWinIni);
-        private const int SPI_GETDESKWALLPAPER = 0x0073;
-        #endregion
-        public void SetDesktopImageToMaker() {
-            //定义存储缓冲区大小
-            StringBuilder s = new StringBuilder(300);
-            //获取Window 桌面背景图片地址，使用缓冲区
-            SystemParametersInfo(SPI_GETDESKWALLPAPER, 300, s, 0);
-            //缓冲区中字符进行转换
-            String wallpaper_path = s.ToString(); //系统桌面背景图片路径
-
-            ImageBrush b = new ImageBrush
-            {
-                ImageSource = new BitmapImage(new Uri(wallpaper_path)),
-                Stretch = Stretch.Fill
-            };
-            view.Background = b;
-        }
+     
     }
 }

@@ -17,7 +17,6 @@
     VerticalAlignment="Center"
     Background="#262829"
     Loaded="BaseLightUserControl_Loaded"
-  
     >
     <UserControl.Effect>
         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
@@ -33,13 +32,57 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>-->
-        <Style x:Key="k1">
+        <Style x:Key="imageSave">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding  ElementName=mLaunchpad, Path=IsMembrane}" Value="True">
                     <Setter Property="Image.Source" Value="../../Resources/Image/membrane_blue.png" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding ElementName=mLaunchpad, Path=IsMembrane}" Value="False">
                     <Setter Property="Image.Source" Value="../../Resources/Image/membrane_gray.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="imageLeft">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Model.CanLeft}" Value="True">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/toleft_blue.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.CanLeft}" Value="False">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/toleft_gray.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="imageRight">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Model.CanRight}" Value="True">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/toright_blue.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.CanRight}" Value="False">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/toright_gray.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="imageStart">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Model.CanStart}" Value="True">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/start_blue.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.CanStart}" Value="False">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/start_gray.png" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="imageDelete">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Model.CanDelete}" Value="True">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/delete_blue.png" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Model.CanDelete}" Value="False">
+                    <Setter Property="Image.Source" Value="../../Resources/Image/delete_gray.png" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -728,7 +771,7 @@
                                     </Style>
                                 </Image.Resources>
                             </Image>
-                            <Image Style="{DynamicResource k1}" Width="35"  HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
+                            <Image Style="{DynamicResource imageSave}" Width="35"  HorizontalAlignment="Left" Name="iMembrane"  Margin="10,0,0,0" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="ShowMembrane" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock Margin="20,0,5,0" Width="100"  Foreground="White" Text="{DynamicResource NowTimeColon}" />
@@ -743,7 +786,7 @@
                                     <Border.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeNowTimePointCmd}" CommandParameter="Left"  />
                                     </Border.InputBindings>
-                                    <Image Source="{Binding Model.LeftImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Style="{DynamicResource imageLeft}"  Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
                                 <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5" Height="40" Background="#1c1e1f">
                                     <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
@@ -768,7 +811,7 @@
                                     <Border.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding ChangeNowTimePointCmd}" CommandParameter="Right"  />
                                     </Border.InputBindings>
-                                    <Image Source="{Binding Model.RightImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Style="{DynamicResource imageRight}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
@@ -783,7 +826,7 @@
                                     <Border.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding AddOrDeleteTimePointCmd}" CommandParameter="Delete"  />
                                     </Border.InputBindings>
-                                    <Image Source="{Binding Model.DeleteImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Style="{DynamicResource imageDelete}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
@@ -791,7 +834,7 @@
                                     <Border.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" Command="{Binding AddOrDeleteTimePointCmd}" CommandParameter="AddStart"  />
                                     </Border.InputBindings>
-                                    <Image Source="{Binding Model.StartImgSource}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Style="{DynamicResource imageStart}" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                                 </Border>
                                 <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5" Height="40" Background="#1c1e1f">
                                     <TextBox Text="{Binding Model.DiyAddStr,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Name="tbInsertDiyTimePoint" Background="#1c1e1f" BorderThickness="0" Width="100" />

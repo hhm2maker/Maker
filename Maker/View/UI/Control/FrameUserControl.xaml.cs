@@ -31,8 +31,8 @@ namespace Maker.View.Control
 
             mw2 = mw;
 
-            FileBusiness file = new FileBusiness();
-            ColorList = file.ReadColorFile(mw.mw.strColortabPath);
+            //FileBusiness file = new FileBusiness();
+            //ColorList = file.ReadColorFile(mw.mw.strColortabPath);
         }
         public FrameUserControl(MainControlWindow mw)
         {

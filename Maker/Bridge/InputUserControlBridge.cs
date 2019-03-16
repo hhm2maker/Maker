@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -378,7 +379,7 @@ namespace Maker.Bridge
                     Rectangle myRect = new Rectangle
                     {
                         Stroke = Brushes.Black,
-                        Fill = Brushes.SkyBlue,
+                        Fill = Brushes.Gray,
                         Height = 30+2,
                         Width = (max - min)/ (lightMaxTime*1.0) * actualWidth
                     };
@@ -631,9 +632,9 @@ namespace Maker.Bridge
         /// </summary>
         /// <param name="clickEvent"></param>
         /// <returns></returns>
-        public void InitMyContent(List<String> contents, RoutedEventHandler clickEvent)
+        public void InitMyContent(List<String> contents, MouseButtonEventHandler clickEvent)
         {
-            //GeneralViewBusiness.SetStringsAndClickEventToMenuItem(iuc.miChildMycontent, contents, clickEvent,true,14);
+            GeneralViewBusiness.SetStringsAndClickEventToListBox(iuc.miChildMycontent, contents, clickEvent,true,16);
         }
 
         /// <summary>
