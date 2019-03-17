@@ -24,6 +24,7 @@ using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.View.Setting;
 using System.Threading;
+using Maker.View.UI.UserControlDialog.HintDialogCallback;
 
 namespace Maker
 {
@@ -593,7 +594,8 @@ namespace Maker
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnChangeLanguage_NotHint_Click);
+            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？");
+            new ChangeLanguageHintDialogCallBack(this,hintDialog);
             ShowMakerDialog(hintDialog);
         }
 
@@ -618,7 +620,7 @@ namespace Maker
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
 
-        private void ChangeLanguage()
+        public void ChangeLanguage()
         {
             if (strMyLanguage.Equals("en-US"))
             {
@@ -650,10 +652,9 @@ namespace Maker
             }
         }
 
-        private void BtnDeleteFile_Ok_Click(object sender, RoutedEventArgs e)
+        public void InstallUsbDriver()
         {
-            DeleteFile(sender, e);
-            RemoveDialog();
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
         }
 
         public TreeViewItem needControlTreeViewItem;
@@ -675,11 +676,12 @@ namespace Maker
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？", BtnDeleteFile_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnDeleteFile_NotHint_Click);
+            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？");
+            new DeleteFileHintDialogCallBack(this,hintDialog);
             ShowMakerDialog(hintDialog);
         }
 
-        private void DeleteFile(object sender, RoutedEventArgs e)
+        public void DeleteFile(object sender, RoutedEventArgs e)
         {
             BaseUserControl baseUserControl = null;
             if (!needControlFileName.EndsWith(".lightScript"))
@@ -713,10 +715,7 @@ namespace Maker
             }
         }
 
-        private void BtnDeleteFile_NotHint_Click(object sender, RoutedEventArgs e)
-        {
-            NotHint(2);
-        }
+    
 
         private void RenameFileName(object sender, RoutedEventArgs e)
         {
@@ -768,22 +767,7 @@ namespace Maker
             }
         }
 
-        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
-        {
-            ChangeLanguage();
-            RemoveDialog();
-        }
-
-        private void BtnChangeLanguage_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            RemoveDialog();
-        }
-
-        private void BtnChangeLanguage_NotHint_Click(object sender, RoutedEventArgs e)
-        {
-            NotHint(0);
-        }
-
+      
         public void RemoveDialog()
         {
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
@@ -897,12 +881,20 @@ namespace Maker
             {
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
                 selectedItem = lbMain.SelectedItem;
+               
                 if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
                     return;
+                if (baseUserControl is ScriptUserControl)
+                {
+                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
+                }
             }
            
             baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
+            if (baseUserControl is ScriptUserControl) {
+                (baseUserControl as ScriptUserControl).InitMyContent();
+            }
         }
 
         private void Canvas_MouseEnter(object sender, MouseEventArgs e)
@@ -1019,10 +1011,10 @@ namespace Maker
                 frameUserControl.SetButton(position);
             }
         }
-     
 
-     
+       
 
+        
 
     }
 }

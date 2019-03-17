@@ -50,7 +50,6 @@
         </Grid>
         <StackPanel Grid.Column="1">
             <Image  DockPanel.Dock="Right" Width="25" Margin="25,25,25,0" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
-
         </StackPanel>
     </Grid>
 </usercontroldialog:MakerDialog>

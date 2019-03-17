@@ -1,5 +1,4 @@
 ﻿using Maker.Business;
-using Maker.Business.ViewBusiness.Currency;
 using Maker.Model;
 using Maker.View.Dialog;
 using System;
@@ -279,7 +278,7 @@ namespace Maker.View.Play
             List<Light> mLightList = new List<Light>();
             if (filePath.EndsWith(".lightScript"))
             {
-                mLightList = ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath);
+                mLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Operation.ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath));
             }
             else if (filePath.EndsWith(".light"))
             {

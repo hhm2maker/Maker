@@ -121,6 +121,7 @@
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
     <Compile Include="Business\Currency\CDD.cs" />
+    <Compile Include="Business\Currency\OperationUtils.cs" />
     <Compile Include="Business\Currency\XmlSerializerBusiness.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
@@ -134,41 +135,16 @@
     <Compile Include="Business\Model\Config\LanguageConfigModel.cs" />
     <Compile Include="Business\Model\Config\VersionConfigModel.cs" />
     <Compile Include="Business\Model\Config\TestConfigModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ShapeColorOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\AnimationDisappearOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ColorWithCountOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\InterceptTimeOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\CopyToTheFollowOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\CopyToTheEndOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ColorOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ChangeColorOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\SetEndTimeOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\OneNumberOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\FoldOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ReversalOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\RemoveBorderOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ChangeTimeOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\BaseOperationModel.cs" />
     <Compile Include="Business\Model\Config\FrameConfigModel.cs" />
     <Compile Include="Business\Model\FramePointModel.cs" />
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
-    <Compile Include="Business\Model\OperationModel\AntiClockwiseOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\ClockwiseOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\LowerRightSlashFlippingOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\LowerLeftSlashFlippingOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\HorizontalFlippingOperationModel.cs" />
-    <Compile Include="Business\Model\OperationModel\VerticalFlippingOperationModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
     <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
     <Compile Include="Business\Model\KeyboardModel.cs" />
-    <Compile Include="Business\Currency\ScriptFileBusiness.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
-    <Compile Include="Business\ViewBusiness\ScriptUserControl\Code.cs" />
     <Compile Include="Business\Commands\DataCommands.cs" />
     <Compile Include="Business\Model\DeviceModel.cs" />
-    <Compile Include="Business\Model\ScriptModel.cs" />
     <Compile Include="Business\Model\StaticConstant.cs" />
     <Compile Include="Business\Model\StaticObject.cs" />
     <Compile Include="Business\MyApp\SingleInstanceApplicationWrapper.cs" />
@@ -182,7 +158,6 @@
     <Compile Include="Business\ViewBusiness\LightBusiness.cs" />
     <Compile Include="Business\ViewBusiness\LightScriptBusiness.cs" />
     <Compile Include="Business\ViewBusiness\MidiDeviceBusiness.cs" />
-    <Compile Include="Business\ViewBusiness\ScriptUserControl\Results.cs" />
     <Compile Include="Business\ViewBusiness\StringExtensions.cs" />
     <Compile Include="Business\ViewBusiness\UserBusiness.cs" />
     <Compile Include="Business\ChildBusiness\MainWindow\TreeView\MainWindow.cs" />
@@ -499,6 +474,10 @@
     <Compile Include="View\UI\UserControlDialog\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\InstallUsbDriverHintDialogCallBack.cs" />
+    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\DeleteFileHintDialogCallBack.cs" />
+    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\ChangeLanguageHintDialogCallBack.cs" />
+    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\BaseHintDialogCallBack.cs" />
     <Compile Include="View\UI\UserControlDialog\NewFileDialog.xaml.cs">
       <DependentUpon>NewFileDialog.xaml</DependentUpon>
     </Compile>

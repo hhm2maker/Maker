@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="Code.cs" />
+    <Compile Include="Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
+    <Compile Include="Model\OperationModel\AnimationDisappearOperationModel.cs" />
+    <Compile Include="Model\OperationModel\AntiClockwiseOperationModel.cs" />
+    <Compile Include="Model\OperationModel\BaseOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ChangeColorOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ChangeTimeOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ClockwiseOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ColorOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ColorWithCountOperationModel.cs" />
+    <Compile Include="Model\OperationModel\CopyToTheEndOperationModel.cs" />
+    <Compile Include="Model\OperationModel\CopyToTheFollowOperationModel.cs" />
+    <Compile Include="Model\OperationModel\FoldOperationModel.cs" />
+    <Compile Include="Model\OperationModel\HorizontalFlippingOperationModel.cs" />
+    <Compile Include="Model\OperationModel\InterceptTimeOperationModel.cs" />
+    <Compile Include="Model\OperationModel\LowerLeftSlashFlippingOperationModel.cs" />
+    <Compile Include="Model\OperationModel\LowerRightSlashFlippingOperationModel.cs" />
+    <Compile Include="Model\OperationModel\OneNumberOperationModel.cs" />
+    <Compile Include="Model\OperationModel\RemoveBorderOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ReversalOperationModel.cs" />
+    <Compile Include="Model\OperationModel\SetEndTimeOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ShapeColorOperationModel.cs" />
+    <Compile Include="Model\OperationModel\VerticalFlippingOperationModel.cs" />
+    <Compile Include="ProjectConfigModel.cs" />
     <Compile Include="RangeGroup.cs" />
     <Compile Include="ColorGroup.cs" />
     <Compile Include="Create.cs" />
@@ -54,7 +79,11 @@
     <Compile Include="LightGroupMethod.cs" />
     <Compile Include="PositionGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results.cs" />
+    <Compile Include="ScriptFileBusiness.cs" />
+    <Compile Include="ScriptModel.cs" />
     <Compile Include="Test.cs" />
+    <Compile Include="XmlSerializerBusiness.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -498,4 +498,6 @@
     <sys:String x:Key="EndColon" >End:</sys:String>
     <sys:String x:Key="IDoNotThinkItWorks">I don't think it works.</sys:String>
     <sys:String x:Key="RenameFile">Rename file</sys:String>
+    <sys:String x:Key="NoLongerPrompt">No longer prompt</sys:String>
+    
 </ResourceDictionary>

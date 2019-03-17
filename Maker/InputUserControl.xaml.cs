@@ -4046,7 +4046,7 @@ namespace Maker
             if (sender == miMycontent)
             {
                 //获取最新的我的内容
-                bridge.InitMyContent(bridge.GetMyContent(), MyContentMenuItem_Click);
+                bridge.InitMyContent(bridge.GetMyContent(""), MyContentMenuItem_Click);
                 miChildMycontent.IsSubmenuOpen = true;
             }
             if (sender == miDebug)
@@ -4169,22 +4169,22 @@ namespace Maker
 
         private void LibraryMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
-            if (dialog.ShowDialog() == true)
-            {
-                if (!importList.Contains(item.Header.ToString() + ".lightScript"))
-                {
-                    importList.Add(item.Header.ToString() + ".lightScript");
-                }
-                String UsableStepName = GetUsableStepName();
-                AddStep(UsableStepName, "");
-                String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                lightScriptDictionary.Add(UsableStepName, command);
-                visibleDictionary.Add(UsableStepName, true);
-                containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                RefreshData();
-            }
+            //MenuItem item = (MenuItem)sender;
+            //ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    if (!importList.Contains(item.Header.ToString() + ".lightScript"))
+            //    {
+            //        importList.Add(item.Header.ToString() + ".lightScript");
+            //    }
+            //    String UsableStepName = GetUsableStepName();
+            //    AddStep(UsableStepName, "");
+            //    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
+            //    lightScriptDictionary.Add(UsableStepName, command);
+            //    visibleDictionary.Add(UsableStepName, true);
+            //    containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+            //    RefreshData();
+            //}
         }
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -4193,21 +4193,21 @@ namespace Maker
             {
                 return;
             }
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
-            if (dialog.ShowDialog() == true)
-            {
-                if (!importList.Contains(item.Header.ToString() + ".lightScript"))
-                {
-                    importList.Add(item.Header.ToString() + ".lightScript");
-                }
-                String UsableStepName = GetUsableStepName();
-                AddStep(UsableStepName, "");
-                String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                lightScriptDictionary.Add(UsableStepName, command);
-                visibleDictionary.Add(UsableStepName, true);
-                containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                RefreshData();
-            }
+            //ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.lastProjectPath + @"\LightScript\" + item.Header.ToString() + ".lightScript");
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    if (!importList.Contains(item.Header.ToString() + ".lightScript"))
+            //    {
+            //        importList.Add(item.Header.ToString() + ".lightScript");
+            //    }
+            //    String UsableStepName = GetUsableStepName();
+            //    AddStep(UsableStepName, "");
+            //    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
+            //    lightScriptDictionary.Add(UsableStepName, command);
+            //    visibleDictionary.Add(UsableStepName, true);
+            //    containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+            //    RefreshData();
+            //}
         }
 
         private void Child_SubmenuClosed(object sender, RoutedEventArgs e)

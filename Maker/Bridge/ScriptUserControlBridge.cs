@@ -1,9 +1,8 @@
 ﻿using Maker.Business;
-using Maker.Business.ScriptUserControlBusiness;
-using Maker.Business.ViewBusiness.ScriptUserControl;
 using Maker.Model;
 using Maker.View.LightScriptUserControl;
 using Microsoft.CSharp;
+using Operation;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -26,7 +25,7 @@ namespace Maker.Bridge
         public void GetResult() {
             view.mLightList.Clear();
             //view.mLightList = Results.Test(view.scriptModelDictionary);
-            view.UpdateData(Results.Test(view.scriptModelDictionary));
+            view.UpdateData(Business.Currency.OperationUtils.OperationLightDictionaryToMakerLightDictionary(Results.Test(view.scriptModelDictionary)));
             if (!view._bIsEdit) {
                 view.SaveFile();
                 view.CopyFile();
@@ -41,11 +40,13 @@ namespace Maker.Bridge
         public void GetBlockResult(String stepName)
         {
             view.mBlockLightList.Clear();
-            view.mBlockLightList = Results.Test(view.scriptModelDictionary,stepName); 
+            view.mBlockLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(view.scriptModelDictionary,stepName)); 
         }
 
         public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce) {
-            return Business.ViewBusiness.Currency.ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce);
+            return ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce);
         }
+
+      
     }
 }

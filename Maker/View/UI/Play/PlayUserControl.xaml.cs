@@ -2,6 +2,7 @@
 using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.UI.UserControlDialog;
+using Maker.View.UI.UserControlDialog.HintDialogCallback;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -92,39 +93,12 @@ namespace Maker.View.UI
             {
                 if (mw.hintModelDictionary[1].IsHint == false)
                 {
-                    //InstallUsbDriver();
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？", BtnChangeLanguage_Ok_Click, BtnChangeLanguage_Cancel_Click, BtnChangeLanguage_NotHint_Click);
+            HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？");
+            new InstallUsbDriverHintDialogCallBack(mw, hintDialog);
             mw.ShowMakerDialog(hintDialog);
-        }
-
-        private void InstallUsbDriver()
-        {
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
-        }
-        private void BtnChangeLanguage_Ok_Click(object sender, RoutedEventArgs e)
-        {
-            if (mw.hintModelDictionary.ContainsKey(1))
-            {
-                if (mw.hintModelDictionary[1].IsHint == false)
-                {
-                    return;
-                }
-            }
-            InstallUsbDriver();
-            RemoveDialog();
-        }
-
-        private void BtnChangeLanguage_Cancel_Click(object sender, RoutedEventArgs e)
-        {
-            RemoveDialog();
-        }
-
-        private void BtnChangeLanguage_NotHint_Click(object sender, RoutedEventArgs e)
-        {
-            NotHint(1);
         }
 
         private void RemoveDialog()

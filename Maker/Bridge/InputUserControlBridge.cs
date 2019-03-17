@@ -655,13 +655,14 @@ namespace Maker.Bridge
         /// 获取我的文件列表
         /// </summary>
         /// <returns></returns>
-        public List<String> GetMyContent()
+        public List<String> GetMyContent(String exceptStr)
         {
             List<String> contents = new List<String>();
             DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
             foreach (FileInfo file in folder.GetFiles("*.lightScript"))
             {
-                contents.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));
+                if (!file.Name.Equals(exceptStr))
+                    contents.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));
             }
             return contents;
         }

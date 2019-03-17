@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Maker.View.UI.UserControlDialog
 {
@@ -20,17 +8,56 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class HintDialog : MakerDialog
     {
-        public HintDialog(String title,String content,RoutedEventHandler okEvent, RoutedEventHandler cancelEvent, RoutedEventHandler notHintEvent)
+        public HintDialog(String title,String content)
         {
             InitializeComponent();
 
             tbTitle.Text = title;
             tbContent.Text = content;
-            btnOk.Click += okEvent;
-            btnCancel.Click += cancelEvent;
-            btnNotHint.Click += notHintEvent;
+
+            btnOk.Click += BtnOk_Click;
+            btnCancel.Click += BtnCancel_Click;
+            btnNotHint.Click += BtnNotHint_Click;
         }
 
-        
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
+            OnOk();
+        }
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            OnCancel();
+        }
+
+        private void BtnNotHint_Click(object sender, RoutedEventArgs e)
+        {
+            OnCancel();
+        }
+
+        //1.声明关于事件的委托；
+        public delegate void OkEventHandler(object sender, EventArgs e);
+        public delegate void CancelEventHandler(object sender, EventArgs e);
+        public delegate void NotHintEventHandler(object sender, EventArgs e);
+
+        //2.声明事件；   
+        public event OkEventHandler Ok;
+        public event CancelEventHandler Cancel;
+        public event NotHintEventHandler NotHint;
+
+        //3.编写引发事件的函数；
+        public void OnOk()
+        {
+            Ok?.Invoke(this, new EventArgs());   //发出警报
+        }
+
+        public void OnCancel()
+        {
+            Cancel?.Invoke(this, new EventArgs());  
+        }
+
+        public void OnNotHint()
+        {
+            NotHint?.Invoke(this, new EventArgs());
+        }
     }
 }

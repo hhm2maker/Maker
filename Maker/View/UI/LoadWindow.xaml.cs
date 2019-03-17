@@ -367,24 +367,24 @@ namespace Maker.View
 
         private void Item_Click(object sender, RoutedEventArgs e)
         {
-            if (mw.mode == MainWindowMode.Input)
-                return;
-            MenuItem item = (MenuItem)sender;
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
-            if (dialog.ShowDialog() == true)
-            {
-                if (!mw.iuc.importList.Contains(item.Header.ToString() + ".lightScript"))
-                {
-                    mw.iuc.importList.Add(item.Header.ToString() + ".lightScript");
-                }
-                String UsableStepName = mw.iuc.GetUsableStepName();
-                mw.iuc.AddStep(UsableStepName, "");
-                String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                mw.iuc.lightScriptDictionary.Add(UsableStepName, command);
-                mw.iuc.visibleDictionary.Add(UsableStepName, true);
-                mw.iuc.containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                mw.iuc.RefreshData();
-            }
+            //if (mw.mode == MainWindowMode.Input)
+            //    return;
+            //MenuItem item = (MenuItem)sender;
+            //ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    if (!mw.iuc.importList.Contains(item.Header.ToString() + ".lightScript"))
+            //    {
+            //        mw.iuc.importList.Add(item.Header.ToString() + ".lightScript");
+            //    }
+            //    String UsableStepName = mw.iuc.GetUsableStepName();
+            //    mw.iuc.AddStep(UsableStepName, "");
+            //    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
+            //    mw.iuc.lightScriptDictionary.Add(UsableStepName, command);
+            //    mw.iuc.visibleDictionary.Add(UsableStepName, true);
+            //    mw.iuc.containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+            //    mw.iuc.RefreshData();
+            //}
         }
         public string ToLogin(string UserName, string PassWord)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Operation
@@ -418,6 +419,14 @@ namespace Operation
                 }
             }
             return _lightGroup;
+        }
+
+       
+        public static LightGroup CreateFromLightScriptFile(string fileName, string stepName)
+        {
+            ProjectConfigModel projectConfigModel = new ProjectConfigModel();
+            XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
+            return ScriptFileBusiness.FileToLight(AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ projectConfigModel.Path + @"\LightScript\"+fileName,stepName);
         }
     }
 }

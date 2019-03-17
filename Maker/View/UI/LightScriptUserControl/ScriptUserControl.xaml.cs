@@ -24,7 +24,7 @@ using static Maker.Model.EnumCollection;
 using System.Xml;
 using System.Xml.Linq;
 using Maker.Business.Model.OperationModel;
-using Maker.Business.ScriptUserControlBusiness;
+using Operation;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -219,9 +219,11 @@ namespace Maker.View.LightScriptUserControl
             iNewStep.ToolTip = toolTip;
 
             InitFormat();
+        }
 
+        public void InitMyContent() {
             //获取最新的我的内容
-            _bridge.InitMyContent(_bridge.GetMyContent(), MyContentMenuItem_Click);
+            _bridge.InitMyContent(_bridge.GetMyContent(System.IO.Path.GetFileName(filePath)), MyContentMenuItem_Click);
         }
 
         private void InitFormat()
@@ -251,7 +253,7 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<String, String> finalDictionary = new Dictionary<string, string>();
         public Dictionary<String, List<String>> intersectionDictionary = new Dictionary<string, List<String>>();
         public Dictionary<String, List<String>> complementDictionary = new Dictionary<string, List<String>>();
-        public Dictionary<String, List<Light>> lockedDictionary = new Dictionary<string, List<Light>>();
+        public Dictionary<String, List<Model.Light>> lockedDictionary = new Dictionary<string, List<Model.Light>>();
 
         private String introduce = "";
         /// <summary>
@@ -1658,7 +1660,7 @@ namespace Maker.View.LightScriptUserControl
         public void Test()
         {
             bridge.GetResult();
-
+            
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition - 1) + ".lightScript"))
             {
                 iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_blue.png", UriKind.RelativeOrAbsolute));
@@ -1680,9 +1682,9 @@ namespace Maker.View.LightScriptUserControl
         {
             bridge.GetBlockResult(stepName);
         }
-        public override List<Light> GetData()
+        public override List<Model.Light> GetData()
         {
-            List<Light> ll = new List<Light>();
+            List<Model.Light> ll = new List<Model.Light>();
             foreach (var item in mLightDictionary)
             {
                 ll.AddRange(item.Value);
@@ -1690,11 +1692,11 @@ namespace Maker.View.LightScriptUserControl
             return ll;
         }
 
-        public List<Light> mLightList = new List<Light>();
-        public Dictionary<string, List<Light>> mLightDictionary;
-        public List<Light> mBlockLightList = new List<Light>();
+        public List<Model.Light> mLightList = new List<Model.Light>();
+        public Dictionary<string, List<Model.Light>> mLightDictionary;
+        public List<Model.Light> mBlockLightList = new List<Model.Light>();
 
-        public List<Light> RefreshData(String partName)
+        public List<Model.Light> RefreshData(String partName)
         {
             //添加导入库语句
             StringBuilder importbuilder = new StringBuilder();
@@ -2151,7 +2153,7 @@ namespace Maker.View.LightScriptUserControl
                 StringBuilder builder = new StringBuilder();
                 builder.Append("\tLightGroup " + GetStepName() + "LightGroup = new LightGroup();" + Environment.NewLine);
                 int i = 1;
-                foreach (Light l in control.mLightList)
+                foreach (Model.Light l in control.mLightList)
                 {
                     builder.Append("\tLight light" + i + " = new LightGroup(" + l.Time + "," + l.Action + "," + l.Position + "," + l.Color + ");" + Environment.NewLine);
                     builder.Append("\t" + GetStepName() + "LightGroup.Add(" + "light" + i + ");" + Environment.NewLine);
@@ -2661,7 +2663,7 @@ namespace Maker.View.LightScriptUserControl
             Width = width;
             Height = height;
         }
-        public void UpdateData(Dictionary<string, List<Light>> mLightList)
+        public void UpdateData(Dictionary<string, List<Model.Light>> mLightList)
         {
             _bridge.UpdateData(mLightList);
         }
@@ -3476,23 +3478,26 @@ namespace Maker.View.LightScriptUserControl
 
         private void LibraryMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem item = (MenuItem)sender;
-            ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
-            if (dialog.ShowDialog() == true)
-            {
-                if (!importList.Contains(item.Header.ToString() + ".lightScript"))
-                {
-                    importList.Add(item.Header.ToString() + ".lightScript");
-                }
-                String UsableStepName = GetUsableStepName();
-                AddStep(UsableStepName, "");
-                String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                lightScriptDictionary.Add(UsableStepName, command);
-                //visibleDictionary.Add(UsableStepName, true);
-                containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                //RefreshData();
-            }
+            //MenuItem item = (MenuItem)sender;
+           // ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    if (!importList.Contains(item.Header.ToString() + ".lightScript"))
+            //    {
+            //        importList.Add(item.Header.ToString() + ".lightScript");
+            //    }
+            //    String UsableStepName = GetUsableStepName();
+            //    AddStep(UsableStepName, "");
+            //    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Header.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
+            //    lightScriptDictionary.Add(UsableStepName, command);
+            //    //visibleDictionary.Add(UsableStepName, true);
+            //    containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+            //    //RefreshData();
+            //}
         }
+
+
+
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DragDrop.DoDragDrop((ListBoxItem)sender, (ListBoxItem)sender, DragDropEffects.Copy); 
@@ -3778,7 +3783,6 @@ namespace Maker.View.LightScriptUserControl
                 iNowPosition = -1;
             }
             //Import Introduce Final Locked
-
             scriptModelDictionary.Clear();
             scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce);
             this.introduce = introduce;
@@ -4105,7 +4109,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void lbStep_Drop(object sender2, DragEventArgs e)
         {
-            if (sender2 is TreeViewItem)
+            if (e.Data.GetData(typeof(TreeViewItem)) is TreeViewItem)
             {
                 TreeViewItem sender = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
                 StackPanel sp;
@@ -4208,7 +4212,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnChangeColorDiy)
                 {
-                    List<Light> mLightList = mLightDictionary[GetStepName(sp)];
+                    List<Model.Light> mLightList = mLightDictionary[GetStepName(sp)];
                     List<int> mColor = new List<int>();
                     for (int j = 0; j < mLightList.Count; j++)
                     {
@@ -4862,30 +4866,45 @@ namespace Maker.View.LightScriptUserControl
 
         private void lbStep_PreviewDrop(object sender, DragEventArgs e)
         {
-            if (sender is ListBoxItem)
+            if (e.Data.GetData(typeof(ListBoxItem)) is ListBoxItem)
             {
                 ListBoxItem item = e.Data.GetData(typeof(ListBoxItem)) as ListBoxItem;
-
                 if ((mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript").Equals(filePath))
                 {
                     return;
                 }
                 ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript");
-                if (dialog.ShowDialog() == true)
-                {
-                    if (!importList.Contains(item.Content.ToString() + ".lightScript"))
-                    {
-                        importList.Add(item.Content.ToString() + ".lightScript");
-                    }
-                    String UsableStepName = GetUsableStepName();
-                    AddStep(UsableStepName, "");
-                    String command = "\tLightGroup " + UsableStepName + "LightGroup = " + item.Content.ToString() + "." + dialog.lbMain.SelectedItem.ToString() + "();";
-                    lightScriptDictionary.Add(UsableStepName, command);
-                    //visibleDictionary.Add(UsableStepName, true);
-                    containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-                    Test();
-                }
+                mw.AddSetting(dialog);
             }
         }
+
+        public void NewFromImport(String fileName,String stepName) {
+            //if (!importList.Contains(fileName + ".lightScript"))
+            //{
+            //    importList.Add(fileName + ".lightScript");
+            //}
+            //String UsableStepName = GetUsableStepName();
+            //AddStep(UsableStepName, "");
+            //lightScriptDictionary.Add(UsableStepName, command);
+            //containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
+
+            String commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + stepName + "\");";
+            ScriptModel scriptModel = new ScriptModel();
+            scriptModel.Name = stepName;
+            scriptModel.Value = commandLine;
+            scriptModel.Visible = true;
+            scriptModel.Parent = "";
+            scriptModel.Contain = new List<string>() { stepName };
+            scriptModel.Intersection = new List<string>();
+            scriptModel.Complement = new List<string>();
+            scriptModelDictionary.Add(stepName, scriptModel);
+            UpdateStep();
+
+            lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+            Test();
+        }
+
+      
     }
 }

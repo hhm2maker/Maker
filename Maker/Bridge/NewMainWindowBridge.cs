@@ -32,7 +32,7 @@ namespace Maker.Bridge
             InitLanguage();
             InitIsFirst();
             InitPlayerType();
-            InitFile();
+            InitProject();
             InitPaved();
             InitHint();
             InitHide();
@@ -172,9 +172,9 @@ namespace Maker.Bridge
         }
 
         /// <summary>
-        /// 初始化文件
+        /// 初始化项目
         /// </summary>
-        private void InitFile()
+        private void InitProject()
         {
             XmlSerializerBusiness.Load(ref view.projectConfigModel, "Config/project.xml");
             view.tbProjectPath.Text = view.projectConfigModel.Path;
