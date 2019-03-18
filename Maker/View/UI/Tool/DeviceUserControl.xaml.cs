@@ -32,13 +32,10 @@ namespace Maker.View.Tool
     public partial class DeviceUserControl : UserControl
     {
         private NewMainWindow mw;
-        private List<Light> mLightList;
-        public DeviceUserControl(NewMainWindow mw,List<Light> mLightList)
+        public DeviceUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
-
-            this.mLightList = mLightList;
         }
         
 

@@ -37,37 +37,35 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid Name="dpFile" Background="#222326" Grid.Column="0" Width="300" MouseEnter="dpFile_MouseEnter" MouseLeave="dpFile_MouseLeave" >
+                <Grid Name="dpFile" Background="#222326" Grid.Column="0" Width="300" MouseLeave="dpFile_MouseLeave" >
                     <Grid.Effect>
                         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                     </Grid.Effect>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Menu Grid.Row="0" Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
-                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="18" Foreground="#f0f0f0"  >
-                            <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
-                                <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <Separator />
-                                <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
-                            </MenuItem>
-                        </MenuItem>
-                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Setting}"  FontSize="18" Foreground="#f0f0f0" Click="OpenSetting" />
-                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Help}"  FontSize="18" Foreground="#f0f0f0" Click="tbHelp_MouseLeftButtonUp" />
-                    </Menu>
-                    <TreeView Grid.Row="1" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
-                            <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
-                            <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                            <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                            <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                        </TreeView>
-                        <Border  Grid.Row="1"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
+                    <TreeView Grid.Row="0" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
+                        <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                    </TreeView>
+                    <Border  Grid.Row="1"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
                             <DockPanel>
-                                <TextBlock Name="tbProjectPath" Margin="10" Visibility="Collapsed" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
+                            <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
+                                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="18" Foreground="#f0f0f0"  >
+                                    <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
+                                        <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
+                                        <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
+                                        <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
+                                        <Separator />
+                                        <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
+                                        <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
+                                    </MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <TextBlock Name="tbProjectPath" Margin="10" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
                             </DockPanel>
                         </Border>
                         <Border Name="bProjectPathControl" Grid.Row="1" CornerRadius="5" Visibility="Collapsed" Background="#363b40" BorderBrush="#b8bfc6" Width="296"   BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -79,6 +77,7 @@
                             </StackPanel>
                         </Border>
                 </Grid>
+              
                 <Grid Grid.Column="1">
                             <Grid  Name="gCenter"/>
                     <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
@@ -200,18 +199,31 @@
             </StackPanel>
         </StackPanel>
         <Image Margin="30" Source="View/Resources/Image/hint.png" Width="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+        <StackPanel Name="spLeftControl" HorizontalAlignment="Left"  Margin="300,100,0,0" >
+            <Border Background="#DA70D6" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenOrCloseFileControl">
+                <Image Width="25" Height="25" Source="View/Resources/Image/file.png"/>
+            </Border>
+            <Border Background="#A020F0" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenDevice">
+                <Image Width="25" Height="25" Source="View/Resources/Image/device.png"/>
+            </Border>
+            <Border Background="#8A2BE2" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenSetting">
+                <Image Width="25" Height="25" Source="View/Resources/Image/setting.png"/>
+            </Border>
+            <Border Background="#9933FA" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="tbHelp_MouseLeftButtonUp">
+                <Image Width="25" Height="25" Source="View/Resources/Image/help.png"/>
+            </Border>
+        </StackPanel>
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="317" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
             <StackPanel Orientation="Horizontal" Canvas.Top="40" Background="#1c1a1c" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iExport" Source="View/Resources/Image/switch.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iPianoRoll" Source="View/Resources/Image/mypianoroll.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iData" Source="View/Resources/Image/data.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-                <Image Margin="5"  Name="iDevice" Source="View/Resources/Image/device.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
                 <Image Margin="5"  Name="iMy3D" Source="View/Resources/Image/3d.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
             </StackPanel>
         </Canvas>

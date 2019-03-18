@@ -24,7 +24,6 @@ using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.View.Setting;
 using System.Threading;
-using Maker.View.UI.UserControlDialog.HintDialogCallback;
 
 namespace Maker
 {
@@ -178,7 +177,8 @@ namespace Maker
                 baseUserControl.SaveFile();
             }
 
-            if (!userControls[3].filePath.Equals(String.Empty)) {
+            if (!userControls[3].filePath.Equals(String.Empty))
+            {
                 userControls[3].SaveFile();
             }
             bridge.Close();
@@ -325,7 +325,7 @@ namespace Maker
             cMost.Children.Clear();
             //载入新界面
             cMost.Visibility = Visibility.Visible;
-            Canvas.SetLeft(userControls[index],gMost.ActualWidth);
+            Canvas.SetLeft(userControls[index], gMost.ActualWidth);
             cMost.Children.Add(userControls[index]);
 
             DoubleAnimation doubleAnimation = new DoubleAnimation()
@@ -345,13 +345,13 @@ namespace Maker
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 From = gMost.ActualWidth * 0.1,
-                To = gMost.ActualWidth ,
+                To = gMost.ActualWidth,
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             doubleAnimation.Completed += DoubleAnimation_Completed1;
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-            
+
         }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
@@ -367,14 +367,16 @@ namespace Maker
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
 
-            if(lbMain.SelectedItem is TreeViewItem) { 
-            if (selectedItem != null)
+            if (lbMain.SelectedItem is TreeViewItem)
             {
-                (selectedItem as TreeViewItem).IsSelected = true;
-            }
-            else {
-                (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
-            }
+                if (selectedItem != null)
+                {
+                    (selectedItem as TreeViewItem).IsSelected = true;
+                }
+                else
+                {
+                    (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+                }
             }
         }
 
@@ -500,7 +502,7 @@ namespace Maker
             }
             baseUserControl.NewFile(sender, e);
         }
-        public SettingUserControl settingWindow;
+        public SettingUserControl settingUserControl;
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -508,15 +510,8 @@ namespace Maker
             (sender as MediaElement).Play();
         }
 
-
-        private void dpFile_MouseEnter(object sender, MouseEventArgs e)
-        {
-            tbProjectPath.Visibility = Visibility.Visible;
-        }
-
         private void dpFile_MouseLeave(object sender, MouseEventArgs e)
         {
-            tbProjectPath.Visibility = Visibility.Collapsed;
             bProjectPathControl.Visibility = Visibility.Collapsed;
         }
 
@@ -572,7 +567,7 @@ namespace Maker
                     directoryInfoLimitlessLamp.Create();
 
                     tbProjectPath.Text = dialog.fileName;
-                    projectConfigModel.Path = tbProjectPath.Text ;
+                    projectConfigModel.Path = tbProjectPath.Text;
                     if (gMain.Children.Count > 0)
                     {
                         LoadFileList();
@@ -594,8 +589,20 @@ namespace Maker
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？");
-            new ChangeLanguageHintDialogCallBack(this,hintDialog);
+            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？",
+                delegate (System.Object _o, RoutedEventArgs _e)
+            {
+                ChangeLanguage();
+            },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    NotHint(0);
+                }
+               );
             ShowMakerDialog(hintDialog);
         }
 
@@ -652,15 +659,13 @@ namespace Maker
             }
         }
 
-        public void InstallUsbDriver()
-        {
-            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
-        }
+      
 
         public TreeViewItem needControlTreeViewItem;
         public String needControlFileName;
         public BaseUserControl needControlBaseUserControl;
-        private void GetNeedControl(object sender) {
+        private void GetNeedControl(object sender)
+        {
             needControlTreeViewItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as TreeViewItem;
             needControlFileName = needControlTreeViewItem.Header.ToString();
         }
@@ -676,8 +681,19 @@ namespace Maker
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？");
-            new DeleteFileHintDialogCallBack(this,hintDialog);
+            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？",
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    DeleteFile(_o,_e);
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    NotHint(2);
+                });
             ShowMakerDialog(hintDialog);
         }
 
@@ -704,18 +720,20 @@ namespace Maker
                 return;
             baseUserControl.filePath = needControlFileName;
             baseUserControl.DeleteFile(sender, e);
-           
-            if(baseUserControl == userControls[3])
+
+            if (baseUserControl == userControls[3])
                 baseUserControl.HideControl();
 
-            for (int i = 0; i < lbMain.Items.Count; i++) {
-                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlTreeViewItem)) {
+            for (int i = 0; i < lbMain.Items.Count; i++)
+            {
+                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlTreeViewItem))
+                {
                     (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlTreeViewItem);
                 }
             }
         }
 
-    
+
 
         private void RenameFileName(object sender, RoutedEventArgs e)
         {
@@ -742,9 +760,9 @@ namespace Maker
             needControlBaseUserControl = baseUserControl;
 
             baseUserControl.filePath = needControlFileName;
-            
+
             String _filePath = baseUserControl.GetFileDirectory();
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this,true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
             ShowMakerDialog(newFileDialog);
         }
         public void NewFileResult(String filePath)
@@ -767,7 +785,7 @@ namespace Maker
             }
         }
 
-      
+
         public void RemoveDialog()
         {
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
@@ -807,20 +825,20 @@ namespace Maker
             }
             mLightList = LightBusiness.Copy(mLightList);
             UserControl userControl = null;
-                if (sender == iPlayer)
-                {
-                    //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
-                    //bToolChild.Width = deviceModel.DeviceSize;
-                    //bToolChild.Height = deviceModel.DeviceSize + 31;
-                    //bToolChild.Visibility = Visibility.Visible;
-                    //加入播放器页面
-                    userControl = new PlayerUserControl(this, mLightList);
+            if (sender == iPlayer)
+            {
+                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
+                //bToolChild.Width = deviceModel.DeviceSize;
+                //bToolChild.Height = deviceModel.DeviceSize + 31;
+                //bToolChild.Visibility = Visibility.Visible;
+                //加入播放器页面
+                userControl = new PlayerUserControl(this, mLightList);
             }
-                else if (sender == iPaved)
-                {
-                    //加入平铺页面
-                    userControl = new ShowPavedUserControl(this, mLightList);
-                }
+            else if (sender == iPaved)
+            {
+                //加入平铺页面
+                userControl = new ShowPavedUserControl(this, mLightList);
+            }
             else if (sender == iExport)
             {
                 userControl = new ExportUserControl(this, mLightList);
@@ -833,22 +851,15 @@ namespace Maker
             {
                 userControl = new DataGridUserControl(this, mLightList);
             }
-            else if (sender == iDevice)
-            {
-                if (deviceUserControl == null) {
-                    deviceUserControl = new DeviceUserControl(this, mLightList);
-                }
-                userControl = deviceUserControl;
-            }
             else if (sender == iMy3D)
             {
                 userControl = new My3DUserControl(this, mLightList);
             }
             gTool.Children.Clear();
-                gTool.Children.Add(userControl);
-                gToolBackGround.Visibility = Visibility.Visible;
-                DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
-                userControl.BeginAnimation(OpacityProperty, daV);
+            gTool.Children.Add(userControl);
+            gToolBackGround.Visibility = Visibility.Visible;
+            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
+            userControl.BeginAnimation(OpacityProperty, daV);
         }
 
         private object selectedItem;
@@ -859,7 +870,7 @@ namespace Maker
             String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
             if ((lbMain.SelectedItem as TreeViewItem).Parent is TreeView)
                 return;
-          
+
             BaseUserControl baseUserControl = null;
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -881,7 +892,7 @@ namespace Maker
             {
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
                 selectedItem = lbMain.SelectedItem;
-               
+
                 if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
                     return;
                 if (baseUserControl is ScriptUserControl)
@@ -889,10 +900,11 @@ namespace Maker
                     (baseUserControl as ScriptUserControl)._bIsEdit = false;
                 }
             }
-           
+
             baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
-            if (baseUserControl is ScriptUserControl) {
+            if (baseUserControl is ScriptUserControl)
+            {
                 (baseUserControl as ScriptUserControl).InitMyContent();
             }
         }
@@ -935,11 +947,12 @@ namespace Maker
 
         private void OpenSetting(object sender, RoutedEventArgs e)
         {
-            if (settingWindow == null) {
-                settingWindow = new SettingUserControl(this);
+            if (settingUserControl == null)
+            {
+                settingUserControl = new SettingUserControl(this);
             }
-            settingWindow.SetData();
-            AddSetting(settingWindow);
+            settingUserControl.SetData();
+            AddSetting(settingUserControl);
         }
 
         bool isBigColorTab = false;
@@ -956,7 +969,8 @@ namespace Maker
                 EasingFunction = elasticEase
             };
 
-            if (sender == spPositionTab) {
+            if (sender == spPositionTab)
+            {
                 if (isBigPositionTab)
                 {
                     doubleAnimation.From = tbPositionTab.ActualWidth;
@@ -999,22 +1013,41 @@ namespace Maker
             {
                 spHint.Visibility = Visibility.Visible;
             }
-            else {
+            else
+            {
                 spHint.Visibility = Visibility.Collapsed;
             }
         }
 
         public void SetButton(int position)
         {
-            if (userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl) {
+            if (userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl)
+            {
                 FrameUserControl frameUserControl = userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
                 frameUserControl.SetButton(position);
             }
         }
 
-       
+        private void OpenOrCloseFileControl(object sender, MouseButtonEventArgs e)
+        {
+            if (dpFile.Visibility == Visibility.Visible)
+            {
+                dpFile.Visibility = Visibility.Collapsed;
+                spLeftControl.Margin = new Thickness(0, 100, 0, 0);
+            }
+            else {
+                dpFile.Visibility = Visibility.Visible;
+                spLeftControl.Margin = new Thickness(300, 100, 0, 0);
+            }
+        }
 
-        
-
+        private void OpenDevice(object sender, MouseButtonEventArgs e)
+        {
+            if (deviceUserControl == null)
+            {
+                deviceUserControl = new DeviceUserControl(this);
+            }
+            AddSetting(deviceUserControl);
+        }
     }
 }

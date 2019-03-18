@@ -2,7 +2,6 @@
 using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.UI.UserControlDialog;
-using Maker.View.UI.UserControlDialog.HintDialogCallback;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,9 +95,25 @@ namespace Maker.View.UI
                     return;
                 }
             }
-            HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？");
-            new InstallUsbDriverHintDialogCallBack(mw, hintDialog);
+            HintDialog hintDialog = new HintDialog("安装固件", "您是否要安装固件？",
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    InstallUsbDriver();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    NotHint(1);
+                });
             mw.ShowMakerDialog(hintDialog);
+        }
+
+        private void InstallUsbDriver()
+        {
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
         }
 
         private void RemoveDialog()

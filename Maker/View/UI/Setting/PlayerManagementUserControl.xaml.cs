@@ -170,7 +170,7 @@ namespace Maker.View.Tool
             config.Set("DeviceSize", "600");
             config.Set("IsMembrane", "false");
             config.Save();
-            mw.settingWindow.AddPlayer(Path.GetFileName(filePath));
+            mw.settingUserControl.AddPlayer(Path.GetFileName(filePath));
         }
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)

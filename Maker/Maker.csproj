@@ -474,10 +474,6 @@
     <Compile Include="View\UI\UserControlDialog\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\InstallUsbDriverHintDialogCallBack.cs" />
-    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\DeleteFileHintDialogCallBack.cs" />
-    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\ChangeLanguageHintDialogCallBack.cs" />
-    <Compile Include="View\UI\UserControlDialog\HintDialogCallback\BaseHintDialogCallBack.cs" />
     <Compile Include="View\UI\UserControlDialog\NewFileDialog.xaml.cs">
       <DependentUpon>NewFileDialog.xaml</DependentUpon>
     </Compile>
