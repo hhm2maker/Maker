@@ -11,7 +11,6 @@
           Background="#1c1a1c"
         Loaded="Window_Loaded"
         >
-    
     <!--AllowsTransparency="True"
         WindowStyle="None"-->
     <Window.Resources>
@@ -29,57 +28,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Name="gMost">
-        <DockPanel>
+        <Grid Name="gMost" DockPanel.Dock="Top">
+            <DockPanel>
+            <Grid DockPanel.Dock="Top"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Margin="25,25,0,0" Source="View/Resources/Image/open.png" Width="30" HorizontalAlignment="Left" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="OpenFileControl"/>
+            </Grid>
             <Grid DockPanel.Dock="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid Name="dpFile" Background="#222326" Grid.Column="0" Width="300" MouseLeave="dpFile_MouseLeave" >
-                    <Grid.Effect>
-                        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
-                    </Grid.Effect>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <TreeView Grid.Row="0" Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
-                        <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
-                        <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                        <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                        <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
-                    </TreeView>
-                    <Border  Grid.Row="1"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
-                            <DockPanel>
-                            <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
-                                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="18" Foreground="#f0f0f0"  >
-                                    <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
-                                        <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
-                                        <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
-                                        <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
-                                        <Separator />
-                                        <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
-                                        <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
-                                    </MenuItem>
-                                </MenuItem>
-                            </Menu>
-                            <TextBlock Name="tbProjectPath" Margin="10" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
-                            </DockPanel>
-                        </Border>
-                        <Border Name="bProjectPathControl" Grid.Row="1" CornerRadius="5" Visibility="Collapsed" Background="#363b40" BorderBrush="#b8bfc6" Width="296"   BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                            <StackPanel>
-                                <TextBlock Text="选择项目" Foreground="#72787d"  Margin="10"/>
-                                <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
-                                <TextBlock Text="操作" Foreground="#72787d"  Margin="10"/>
-                                <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
-                            </StackPanel>
-                        </Border>
-                </Grid>
-              
-                <Grid Grid.Column="1">
-                            <Grid  Name="gCenter"/>
+                    <Grid  Name="gCenter"/>
                     <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -112,74 +67,143 @@
                             <StackPanel Name="spTool" />
                         </Border>
                     </StackPanel>
-                </Grid>
-                <Grid Grid.Column="2" Width="0" Name="bHelp" Background="#222326" >
-                    <Grid.Effect>
-                        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
-                    </Grid.Effect>
-                    <StackPanel  VerticalAlignment="Top" Margin="0,0,0,0">
-                        <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAboutUserControl" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/about.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource About}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToFeedbackDialog" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToHelpOverview" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource HelpOverview}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </StackPanel>
-                    <StackPanel   VerticalAlignment="Bottom">
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="JoinQQGroup_Click" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToDeveloperListWindow" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                        <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAppreciateWindow" Background="#222326" >
-                            <Button.Content>
-                                <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
-                                    <Image Source="View/Resources/Image/appreciate.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                    <TextBlock Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                </StackPanel>
-                            </Button.Content>
-                        </Button>
-                    </StackPanel>
-                </Grid>
             </Grid>
         </DockPanel>
+        <Grid Width="0" HorizontalAlignment="Right" Name="bHelp" Background="#222326" >
+            <Grid.Effect>
+                <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+            </Grid.Effect>
+            <StackPanel  VerticalAlignment="Top" Margin="0,0,0,0">
+                <Button  Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ChangeLanguage" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAboutUserControl" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/about.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource About}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToFeedbackDialog" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToHelpOverview" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource HelpOverview}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+            <StackPanel   VerticalAlignment="Bottom">
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="JoinQQGroup_Click" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToDeveloperListWindow" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource EmptyButtonStyle2}" HorizontalAlignment="Stretch" Click="ToAppreciateWindow" Background="#222326" >
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal" Margin="20,10,20,10" HorizontalAlignment="Center">
+                            <Image Source="View/Resources/Image/appreciate.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <TextBlock Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Background="Transparent" Name="dpFile">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="gFile" Grid.Column="0" Width="600" Background="#222326" HorizontalAlignment="Left" MouseLeave="dpFile_MouseLeave" >
+                    <Grid.Effect>
+                <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+            </Grid.Effect>
+            <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+                    <Grid Name="spBg" Height="400">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
+                        </Grid.Background>
+                    <Grid Background="#50000000">
+                            <Image Width="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,25,0" Height="25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSetting"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,75,25,0"  MouseLeftButtonDown="OpenDevice">
+                            <TextBlock VerticalAlignment="Center" Text="管理你的设备" Foreground="White" Margin="0,0,15,0" />
+                                <Image Width="25" Height="25" Source="View/Resources/Image/device.png"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,110,25,0"  MouseLeftButtonDown="Image_MouseLeftButtonDown">
+                            <TextBlock VerticalAlignment="Center" Text="查看颜色表和位置表" Foreground="White" Margin="0,0,15,0" />
+                            <Image Width="25" Height="25" Source="View/Resources/Image/hint.png"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,25,25"  MouseLeftButtonDown="tbHelp_MouseLeftButtonUp">
+                            <TextBlock VerticalAlignment="Center" Text="获取帮助" Foreground="White" Margin="0,0,15,0" />
+                            <Image Width="25" Height="25" Source="View/Resources/Image/help.png"/>
+                        </StackPanel>
+                    </Grid>
+                    </Grid>
+                <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555">
+                    <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
+                        <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                        <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
+                    </TreeView>
+                </Border>
+                <Border  Grid.Row="2"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,5,0,0" BorderBrush="#555555">
+                <DockPanel>
+                    <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
+                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="18" Foreground="#f0f0f0"  >
+                            <MenuItem  Header="{DynamicResource New}"  FontSize="16" Foreground="#f0f0f0"  >
+                                <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <Separator />
+                                <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
+                                <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <TextBlock Name="tbProjectPath" Margin="10" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
+                </DockPanel>
+            </Border>
+            <Border Name="bProjectPathControl" Grid.Row="1" CornerRadius="5" Visibility="Collapsed" Background="#363b40" BorderBrush="#b8bfc6" Width="296"   BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <StackPanel>
+                    <TextBlock Text="选择项目" Foreground="#72787d"  Margin="10"/>
+                    <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
+                    <TextBlock Text="操作" Foreground="#72787d"  Margin="10"/>
+                    <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+            <StackPanel Grid.Column="1" Background="Transparent" MouseLeftButtonDown="CloseFileControl"/>
+        </Grid>
         <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
             <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
                 <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
@@ -197,21 +221,6 @@
                     </Grid>
                 </Viewbox>
             </StackPanel>
-        </StackPanel>
-        <Image Margin="30" Source="View/Resources/Image/hint.png" Width="35" HorizontalAlignment="Right" VerticalAlignment="Bottom" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-        <StackPanel Name="spLeftControl" HorizontalAlignment="Left"  Margin="300,100,0,0" >
-            <Border Background="#DA70D6" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenOrCloseFileControl">
-                <Image Width="25" Height="25" Source="View/Resources/Image/file.png"/>
-            </Border>
-            <Border Background="#A020F0" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenDevice">
-                <Image Width="25" Height="25" Source="View/Resources/Image/device.png"/>
-            </Border>
-            <Border Background="#8A2BE2" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="OpenSetting">
-                <Image Width="25" Height="25" Source="View/Resources/Image/setting.png"/>
-            </Border>
-            <Border Background="#9933FA" Margin="0,20,0,0" CornerRadius="0,3,3,0" Padding="5" MouseLeftButtonDown="tbHelp_MouseLeftButtonUp">
-                <Image Width="25" Height="25" Source="View/Resources/Image/help.png"/>
-            </Border>
         </StackPanel>
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
@@ -237,6 +246,5 @@
             </Grid>
         </Border>
        </Grid>
-    
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

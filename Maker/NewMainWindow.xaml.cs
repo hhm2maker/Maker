@@ -1005,6 +1005,9 @@ namespace Maker
         {
             tbPositionTab.Width = ActualWidth * 0.125;
             tbColorTab.Width = ActualWidth * 0.125;
+
+            gFile.Width = ActualWidth * 0.25;
+            spBg.Height = gFile.Width / 3 * 2;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1028,19 +1031,7 @@ namespace Maker
             }
         }
 
-        private void OpenOrCloseFileControl(object sender, MouseButtonEventArgs e)
-        {
-            if (dpFile.Visibility == Visibility.Visible)
-            {
-                dpFile.Visibility = Visibility.Collapsed;
-                spLeftControl.Margin = new Thickness(0, 100, 0, 0);
-            }
-            else {
-                dpFile.Visibility = Visibility.Visible;
-                spLeftControl.Margin = new Thickness(300, 100, 0, 0);
-            }
-        }
-
+       
         private void OpenDevice(object sender, MouseButtonEventArgs e)
         {
             if (deviceUserControl == null)
@@ -1049,5 +1040,34 @@ namespace Maker
             }
             AddSetting(deviceUserControl);
         }
+      
+        private void CloseFileControl(object sender, MouseButtonEventArgs e)
+        {
+            ThicknessAnimation animation = new ThicknessAnimation
+            {
+                  To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            animation.Completed += Animation_Completed;
+            gFile.BeginAnimation(MarginProperty, animation);
+        }
+
+        private void Animation_Completed(object sender, EventArgs e)
+        {
+            dpFile.Visibility = Visibility.Collapsed;
+        }
+
+        private void OpenFileControl(object sender, MouseButtonEventArgs e)
+        {
+            dpFile.Visibility = Visibility.Visible;
+            ThicknessAnimation animation = new ThicknessAnimation
+            {
+                To = new Thickness(0, 0, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            gFile.BeginAnimation(MarginProperty, animation);
+        }
+
+      
     }
 }

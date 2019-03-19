@@ -9,7 +9,8 @@
         Name="wMain"
         Loaded="wMain_Loaded"
              Margin="10"
-             Opacity="0"
+             Width="750"
+             Height="200"
         >
     <UserControl.Resources>
         <ResourceDictionary>
