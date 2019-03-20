@@ -397,28 +397,6 @@ namespace Maker
             }
         }
 
-        private void tbHelp_MouseLeftButtonUp(object sender, RoutedEventArgs e)
-        {
-            DoubleAnimation animation;
-            if (bHelp.Width == 400)
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 0,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            else
-            {
-                animation = new DoubleAnimation
-                {
-                    To = 400,
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-            }
-            bHelp.BeginAnimation(WidthProperty, animation);
-        }
-
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.White);
@@ -658,8 +636,6 @@ namespace Maker
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
         }
-
-      
 
         public TreeViewItem needControlTreeViewItem;
         public String needControlFileName;
@@ -1008,6 +984,7 @@ namespace Maker
 
             gFile.Width = ActualWidth * 0.25;
             spBg.Height = gFile.Width / 3 * 2;
+            lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.Width;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1068,6 +1045,14 @@ namespace Maker
             gFile.BeginAnimation(MarginProperty, animation);
         }
 
-      
+        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            ThicknessAnimation animation = new ThicknessAnimation
+            {
+                To = new Thickness(-gFile.Width * ((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock), 0, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            spFile.BeginAnimation(MarginProperty, animation);
+        }
     }
 }
