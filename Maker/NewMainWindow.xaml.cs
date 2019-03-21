@@ -24,6 +24,7 @@ using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.View.Setting;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Maker
 {
@@ -79,45 +80,45 @@ namespace Maker
         /// </summary>
         private void InitFile()
         {
-            tvLight.Items.Clear();
+            lbLight.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light" }))
             {
-                TreeViewItem item = new TreeViewItem
+                ListBoxItem item = new ListBoxItem
                 {
-                    Header = str,
+                    Content = str,
                 };
                 item.ContextMenu = contextMenu;
-                tvLight.Items.Add(item);
+                lbLight.Items.Add(item);
             }
-            tvLightScript.Items.Clear();
+            lbLightScript.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
             {
-                TreeViewItem item = new TreeViewItem
+                ListBoxItem item = new ListBoxItem
                 {
-                    Header = str
+                    Content = str
                 };
                 item.ContextMenu = contextMenu;
-                tvLightScript.Items.Add(item);
+                lbLightScript.Items.Add(item);
             }
-            tvLimitlessLamp.Items.Clear();
+            lbLimitlessLamp.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
             {
-                TreeViewItem item = new TreeViewItem
+                ListBoxItem item = new ListBoxItem
                 {
-                    Header = str
+                    Content = str
                 };
                 item.ContextMenu = contextMenu;
-                tvLimitlessLamp.Items.Add(item);
+                lbLimitlessLamp.Items.Add(item);
             }
-            tvPlay.Items.Clear();
+            lbPlay.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
             {
-                TreeViewItem item = new TreeViewItem
+                ListBoxItem item = new ListBoxItem
                 {
-                    Header = str
+                    Content = str
                 };
                 item.ContextMenu = contextMenu;
-                tvPlay.Items.Add(item);
+                lbPlay.Items.Add(item);
             }
         }
 
@@ -571,6 +572,15 @@ namespace Maker
                 delegate (System.Object _o, RoutedEventArgs _e)
             {
                 ChangeLanguage();
+
+                foo();
+                // .net 4.5
+                async void foo()
+                {
+                    await Task.Delay(50);
+                    SetSpFilePosition(filePosition);
+                }
+                RemoveDialog();
             },
                 delegate (System.Object _o, RoutedEventArgs _e)
                 {
@@ -661,6 +671,7 @@ namespace Maker
                 delegate (System.Object _o, RoutedEventArgs _e)
                 {
                     DeleteFile(_o,_e);
+                    RemoveDialog();
                 },
                 delegate (System.Object _o, RoutedEventArgs _e)
                 {
@@ -839,14 +850,12 @@ namespace Maker
         }
 
         private object selectedItem;
-        private void lbMain_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void lbMain_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbMain.SelectedItem == null)
+            ListBox listBox = sender as ListBox;
+            if (listBox.SelectedItem == null)
                 return;
-            String fileName = (lbMain.SelectedItem as TreeViewItem).Header.ToString();
-            if ((lbMain.SelectedItem as TreeViewItem).Parent is TreeView)
-                return;
-
+            String fileName = (listBox.SelectedItem as ListBoxItem).Content.ToString();
             BaseUserControl baseUserControl = null;
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -876,7 +885,6 @@ namespace Maker
                     (baseUserControl as ScriptUserControl)._bIsEdit = false;
                 }
             }
-
             baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
             if (baseUserControl is ScriptUserControl)
@@ -983,8 +991,11 @@ namespace Maker
             tbColorTab.Width = ActualWidth * 0.125;
 
             gFile.Width = ActualWidth * 0.25;
+
             spBg.Height = gFile.Width / 3 * 2;
             lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.Width;
+
+            SetSpFilePosition(0);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1047,12 +1058,32 @@ namespace Maker
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
+            SetSpFilePosition(((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock));
+        }
+
+        private int filePosition = 0;
+        private void SetSpFilePosition(int position) {
+            filePosition = position;
             ThicknessAnimation animation = new ThicknessAnimation
             {
-                To = new Thickness(-gFile.Width * ((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock), 0, 0, 0),
+                To = new Thickness(-ActualWidth * 0.25 * position, 0, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             spFile.BeginAnimation(MarginProperty, animation);
+            Console.WriteLine((spFileTitle.Children[position] as TextBlock).ActualWidth);
+            double _p = 0.0;
+            for (int i = 0; i < position; i++)
+            {
+                _p += (spFileTitle.Children[i] as TextBlock).ActualWidth;
+            }
+            double _p2 = (((spFileTitle.Children[position] as TextBlock).ActualWidth - 70) / 2);
+
+            ThicknessAnimation animation2 = new ThicknessAnimation
+            {
+                To = new Thickness(_p + _p2 + (ActualWidth * 0.25 - spFileTitle.ActualWidth) / 2, 0, 0, 0),
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            rFile.BeginAnimation(MarginProperty, animation2);
         }
     }
 }

@@ -163,24 +163,28 @@
                     <Grid  >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <StackPanel Grid.Row="0" Name="spFileTitle" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock Padding="10" Text="{DynamicResource Light}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                             <TextBlock Padding="10" Text="{DynamicResource LightScript}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                             <TextBlock Padding="10" Text="{DynamicResource LimitlessLamp}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                             <TextBlock Padding="10" Text="{DynamicResource Play}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                         </StackPanel>
-                        <StackPanel Name="spFile" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Stretch">
-                            <ListBox Name="lbLight" Background="Red" BorderThickness="0"/>
-                            <ListBox Name="lbLightScript" Background="Orange" BorderThickness="0"/>
-                            <ListBox Name="lbLimitlessLamp" Background="Green" BorderThickness="0"/>
-                            <ListBox Name="lbPlay" Background="Blue" BorderThickness="0"/>
+                        <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
+                        <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555">
+                        <StackPanel Name="spFile"  Orientation="Horizontal" VerticalAlignment="Stretch">
+                            <ListBox Name="lbLight" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
+                            <ListBox Name="lbLightScript" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
+                            <ListBox Name="lbLimitlessLamp" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
+                            <ListBox Name="lbPlay" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" SelectionChanged="lbMain_SelectedItemChanged"/>
                         </StackPanel>
+                        </Border>
                     </Grid>
                 </Border>
                 <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">
-                    <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" SelectedItemChanged="lbMain_SelectedItemChanged">
+                    <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" >
                         <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
                         <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                         <TreeViewItem Name="tvLimitlessLamp" Header="LimitlessLamp" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>

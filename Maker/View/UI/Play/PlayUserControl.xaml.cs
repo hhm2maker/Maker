@@ -99,6 +99,7 @@ namespace Maker.View.UI
                 delegate (System.Object _o, RoutedEventArgs _e)
                 {
                     InstallUsbDriver();
+                    RemoveDialog();
                 },
                 delegate (System.Object _o, RoutedEventArgs _e)
                 {

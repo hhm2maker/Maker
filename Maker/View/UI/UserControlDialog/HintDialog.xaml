@@ -24,12 +24,12 @@
         <DockPanel Grid.Row="1">
             <Button Style="{StaticResource EmptyButtonStyle}" Name="btnOk" Height="35" Width="100" BorderBrush="White" Background="{x:Null}"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Left" >
                 <Button.Content >
-                    <TextBlock Text="{StaticResource Ok }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Ok }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource EmptyButtonStyle}" Name="btnCancel"   Height="35" Width="100" BorderBrush="White" Background="{x:Null}"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Left" HorizontalAlignment="Left">
                 <Button.Content >
-                    <TextBlock Text="{StaticResource Cancel }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Cancel }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource EmptyButtonStyle}" Name="btnNotHint"   Height="35" Width="150" BorderBrush="White" Background="{x:Null}"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Right" HorizontalAlignment="Right">
