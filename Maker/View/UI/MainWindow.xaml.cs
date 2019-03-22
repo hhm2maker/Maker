@@ -453,7 +453,6 @@ namespace Maker.View.Control
                     Arguments = "/e,/select," + folderPath
                 };
             }
-          
             System.Diagnostics.Process.Start(psi);
         }
 

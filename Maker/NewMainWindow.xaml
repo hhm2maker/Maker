@@ -69,16 +69,17 @@
                 </StackPanel>
             </Grid>
         </DockPanel>
-        <Grid Background="Transparent" Name="dpFile">
+        <Grid Background="Transparent" Name="dpFile" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Name="gFile" Grid.Column="0" Width="600" Background="#222326" HorizontalAlignment="Left" MouseLeave="dpFile_MouseLeave" >
+            <Grid Name="gFile" Grid.Column="0" Width="600" Background="#222326" HorizontalAlignment="Left"  >
                 <Grid.Effect>
                     <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                 </Grid.Effect>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
@@ -160,7 +161,16 @@
                     </Grid>
                 </Grid>
                 <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555">
-                    <Grid  >
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="我的项目" VerticalAlignment="Center"/>
+                        <TextBlock Margin="20,0,0,0" Grid.Column="1" Name="tbProjectPath" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonUp="tbProjectPath_MouseLeftButtonDown"/>
+                    </Grid>
+                </Border>
+                    <Grid  Grid.Row="2" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -175,14 +185,13 @@
                         <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
                         <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555">
                         <StackPanel Name="spFile"  Orientation="Horizontal" VerticalAlignment="Stretch">
-                            <ListBox Name="lbLight" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
-                            <ListBox Name="lbLightScript" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
-                            <ListBox Name="lbLimitlessLamp" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" SelectionChanged="lbMain_SelectedItemChanged"/>
-                            <ListBox Name="lbPlay" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" SelectionChanged="lbMain_SelectedItemChanged"/>
+                            <ListBox Name="lbLight" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
+                            <ListBox Name="lbLightScript" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
+                            <ListBox Name="lbLimitlessLamp" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
+                            <ListBox Name="lbPlay" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" />
                         </StackPanel>
                         </Border>
                     </Grid>
-                </Border>
                 <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">
                     <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" >
                         <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
@@ -191,7 +200,7 @@
                         <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                     </TreeView>
                 </Border>
-                <Border  Grid.Row="2"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,5,0,0" BorderBrush="#555555">
+                <Border  Grid.Row="3"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,5,0,0" BorderBrush="#555555">
                     <DockPanel>
                         <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
                             <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource File}"  FontSize="18" Foreground="#f0f0f0"  >
@@ -205,17 +214,18 @@
                                 </MenuItem>
                             </MenuItem>
                         </Menu>
-                        <TextBlock Name="tbProjectPath" Margin="10" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Center" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonDown="tbProjectPath_MouseLeftButtonDown"/>
                     </DockPanel>
                 </Border>
-                <Border Name="bProjectPathControl" Grid.Row="2" CornerRadius="5" Visibility="Collapsed" Background="#363b40" BorderBrush="#b8bfc6" Width="296"   BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <StackPanel>
-                        <TextBlock Text="选择项目" Foreground="#72787d"  Margin="10"/>
-                        <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
-                        <TextBlock Text="操作" Foreground="#72787d"  Margin="10"/>
-                        <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
-                    </StackPanel>
-                </Border>
+                <Popup  PlacementTarget="{Binding ElementName=tbProjectPath}" Name="popFile" Placement="Bottom" AllowsTransparency="True" VerticalOffset="10" PopupAnimation="Fade"  StaysOpen="False">
+                    <Border Name="bProjectPathControl" CornerRadius="5" Background="#363b40" BorderBrush="#b8bfc6" Width="296"  BorderThickness="2" >
+                        <StackPanel>
+                            <TextBlock Text="选择项目" Foreground="#72787d"  Margin="10"/>
+                            <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
+                            <TextBlock Text="操作" Foreground="#72787d"  Margin="10"/>
+                            <TextBlock Text="  新建项目" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
             </Grid>
             <StackPanel Grid.Column="1" Background="Transparent" MouseLeftButtonDown="CloseFileControl"/>
         </Grid>

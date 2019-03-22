@@ -71,8 +71,46 @@ namespace Maker
             {
                 Header = Application.Current.Resources["OpenFoldersInTheFileResourceManager"]
             };
-            //goToFileMenuItem.Click += GoToFile;
+            goToFileMenuItem.Click += GoToFile;
             contextMenu.Items.Add(goToFileMenuItem);
+        }
+
+        private void GoToFile(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        baseUserControl = userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            needControlBaseUserControl = baseUserControl;
+
+            baseUserControl.filePath = needControlFileName;
+
+            String _filePath = baseUserControl.GetFileDirectory() + baseUserControl.filePath;
+            Console.WriteLine(_filePath);
+
+            System.Diagnostics.ProcessStartInfo psi;
+            psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe")
+            {
+
+                Arguments = "/e,/select," + _filePath
+            };
+            System.Diagnostics.Process.Start(psi);
         }
 
         /// <summary>
@@ -88,6 +126,7 @@ namespace Maker
                     Content = str,
                 };
                 item.ContextMenu = contextMenu;
+                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
                 lbLight.Items.Add(item);
             }
             lbLightScript.Items.Clear();
@@ -98,6 +137,7 @@ namespace Maker
                     Content = str
                 };
                 item.ContextMenu = contextMenu;
+                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
                 lbLightScript.Items.Add(item);
             }
             lbLimitlessLamp.Items.Clear();
@@ -108,6 +148,7 @@ namespace Maker
                     Content = str
                 };
                 item.ContextMenu = contextMenu;
+                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
                 lbLimitlessLamp.Items.Add(item);
             }
             lbPlay.Items.Clear();
@@ -118,7 +159,49 @@ namespace Maker
                     Content = str
                 };
                 item.ContextMenu = contextMenu;
+                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
                 lbPlay.Items.Add(item);
+            }
+        }
+
+        private object selectedItem;
+        private void Item_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            String fileName = (sender as ListBoxItem).Content.ToString();
+            BaseUserControl baseUserControl = null;
+            if (!fileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (fileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        IntoUserControl(i);
+                        break;
+                    }
+                }
+                if (cMost.Children.Count == 0)
+                    return;
+                //是否是制作灯光的用户控件
+                baseUserControl = cMost.Children[0] as BaseUserControl;
+                cMost.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                baseUserControl = gCenter.Children[0] as BaseUserControl;
+                selectedItem = sender as ListBoxItem;
+
+                if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
+                    return;
+                if (baseUserControl is ScriptUserControl)
+                {
+                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
+                }
+            }
+            baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
+            baseUserControl.LoadFile(fileName);
+            if (baseUserControl is ScriptUserControl)
+            {
+                (baseUserControl as ScriptUserControl).InitMyContent();
             }
         }
 
@@ -368,15 +451,15 @@ namespace Maker
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
 
-            if (lbMain.SelectedItem is TreeViewItem)
+            if (lbMain.SelectedItem is ListBoxItem)
             {
                 if (selectedItem != null)
                 {
-                    (selectedItem as TreeViewItem).IsSelected = true;
+                    (selectedItem as ListBoxItem).IsSelected = true;
                 }
                 else
                 {
-                    (lbMain.SelectedItem as TreeViewItem).IsSelected = false;
+                    (lbMain.SelectedItem as ListBoxItem).IsSelected = false;
                 }
             }
         }
@@ -489,14 +572,9 @@ namespace Maker
             (sender as MediaElement).Play();
         }
 
-        private void dpFile_MouseLeave(object sender, MouseEventArgs e)
-        {
-            bProjectPathControl.Visibility = Visibility.Collapsed;
-        }
-
         private void tbProjectPath_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            bProjectPathControl.Visibility = Visibility.Visible;
+            popFile.IsOpen = true;
             List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
             for (int i = 0; i < strs.Count; i++)
             {
@@ -516,7 +594,7 @@ namespace Maker
             suc.HideControl();
             InitFile();
 
-            bProjectPathControl.Visibility = Visibility.Collapsed;
+            popFile.IsOpen = false;
             bridge.SaveFile();
         }
 
@@ -647,13 +725,13 @@ namespace Maker
             }
         }
 
-        public TreeViewItem needControlTreeViewItem;
+        public ListBoxItem needControlListBoxItem;
         public String needControlFileName;
         public BaseUserControl needControlBaseUserControl;
         private void GetNeedControl(object sender)
         {
-            needControlTreeViewItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as TreeViewItem;
-            needControlFileName = needControlTreeViewItem.Header.ToString();
+            needControlListBoxItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as ListBoxItem;
+            needControlFileName = needControlListBoxItem.Content.ToString();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -713,9 +791,9 @@ namespace Maker
 
             for (int i = 0; i < lbMain.Items.Count; i++)
             {
-                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlTreeViewItem))
+                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlListBoxItem))
                 {
-                    (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlTreeViewItem);
+                    (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlListBoxItem);
                 }
             }
         }
@@ -767,7 +845,7 @@ namespace Maker
             {
                 System.IO.File.Move(LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
                     , LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
-                needControlTreeViewItem.Header = filePath;
+                needControlListBoxItem.Content = filePath;
                 needControlBaseUserControl.filePath = filePath;
             }
         }
@@ -849,49 +927,7 @@ namespace Maker
             userControl.BeginAnimation(OpacityProperty, daV);
         }
 
-        private object selectedItem;
-        private void lbMain_SelectedItemChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListBox listBox = sender as ListBox;
-            if (listBox.SelectedItem == null)
-                return;
-            String fileName = (listBox.SelectedItem as ListBoxItem).Content.ToString();
-            BaseUserControl baseUserControl = null;
-            if (!fileName.EndsWith(".lightScript"))
-            {
-                for (int i = 0; i < userControls.Count; i++)
-                {
-                    if (fileName.EndsWith(userControls[i]._fileExtension))
-                    {
-                        IntoUserControl(i);
-                        break;
-                    }
-                }
-                if (cMost.Children.Count == 0)
-                    return;
-                //是否是制作灯光的用户控件
-                baseUserControl = cMost.Children[0] as BaseUserControl;
-                cMost.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                baseUserControl = gCenter.Children[0] as BaseUserControl;
-                selectedItem = lbMain.SelectedItem;
-
-                if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
-                    return;
-                if (baseUserControl is ScriptUserControl)
-                {
-                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
-                }
-            }
-            baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
-            baseUserControl.LoadFile(fileName);
-            if (baseUserControl is ScriptUserControl)
-            {
-                (baseUserControl as ScriptUserControl).InitMyContent();
-            }
-        }
+     
 
         private void Canvas_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -995,6 +1031,8 @@ namespace Maker
             spBg.Height = gFile.Width / 3 * 2;
             lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.Width;
 
+            bProjectPathControl.Margin = new Thickness(0, spBg.Height, 0,0);
+            popFile.HorizontalOffset = tbProjectPath.ActualWidth /2;
             SetSpFilePosition(0);
         }
 
@@ -1070,7 +1108,6 @@ namespace Maker
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             spFile.BeginAnimation(MarginProperty, animation);
-            Console.WriteLine((spFileTitle.Children[position] as TextBlock).ActualWidth);
             double _p = 0.0;
             for (int i = 0; i < position; i++)
             {
