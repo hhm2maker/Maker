@@ -180,6 +180,7 @@
     <sys:String x:Key="Message">消息</sys:String>
     <sys:String x:Key="CreateScript">创建语句</sys:String>
     <!--设备-->
+    <sys:String x:Key="Device">设备</sys:String>
     <sys:String x:Key="DeviceNameColon">设备名称：</sys:String>
     <sys:String x:Key="DeviceTypeColon">设备类型：</sys:String>
     <sys:String x:Key="BackgroundColon">背景：</sys:String>
@@ -502,4 +503,9 @@
     <sys:String x:Key="IDoNotThinkItWorks">我认为它不起作用。</sys:String>
     <sys:String x:Key="RenameFile">重命名文件</sys:String>
     <sys:String x:Key="NoLongerPrompt">不再提示</sys:String>
+    <sys:String x:Key="MyProject">我的项目</sys:String>
+    <sys:String x:Key="SelectProject">选择项目</sys:String>
+    <sys:String x:Key="SpaceNewProject">&#160;&#160;新建项目</sys:String>
+    <sys:String x:Key="Control">控制</sys:String>
+
 </ResourceDictionary>

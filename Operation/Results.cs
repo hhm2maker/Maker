@@ -20,7 +20,10 @@ namespace Operation
         }
         public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary, String stepName)
         {
-            return ScriptFileBusiness.Test(scriptModelDictionary, stepName)[stepName];
+            if(ScriptFileBusiness.Test(scriptModelDictionary, stepName).ContainsKey(stepName))
+               return ScriptFileBusiness.Test(scriptModelDictionary, stepName)[stepName];
+            else
+               return new List<Light>();
         }
     }
 }

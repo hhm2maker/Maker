@@ -25,6 +25,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Maker.Business.Model.OperationModel;
 using Operation;
+using Maker.View.UI.UserControlDialog;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -213,10 +214,10 @@ namespace Maker.View.LightScriptUserControl
             {
                 (item as ListBoxItem).MouseLeftButtonUp += InputUserControl_MouseLeftButtonUp;
             }
-            ToolTip toolTip = new System.Windows.Controls.ToolTip();
-            toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
-            toolTip.SetValue(StyleProperty, null);
-            iNewStep.ToolTip = toolTip;
+            //ToolTip toolTip = new System.Windows.Controls.ToolTip();
+            //toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
+            //toolTip.SetValue(StyleProperty, null);
+            //iNewStep.ToolTip = toolTip;
 
             InitFormat();
         }
@@ -2404,14 +2405,33 @@ namespace Maker.View.LightScriptUserControl
             if (lbStep.SelectedIndex == -1)
                 return;
 
-            System.Windows.Forms.MessageBoxButtons mssBoxBt = System.Windows.Forms.MessageBoxButtons.OKCancel;
-            System.Windows.Forms.MessageBoxIcon mssIcon = System.Windows.Forms.MessageBoxIcon.Warning;
-            System.Windows.Forms.MessageBoxDefaultButton mssDefbt = System.Windows.Forms.MessageBoxDefaultButton.Button1;
-            System.Windows.Forms.DialogResult dr = System.Windows.Forms.MessageBox.Show("是否删除\"" + GetStepName() + "\"", "提示", mssBoxBt, mssIcon, mssDefbt);
-            if (dr == System.Windows.Forms.DialogResult.Cancel)
+            if (mw.hintModelDictionary.ContainsKey(3))
             {
-                return;
+                if (mw.hintModelDictionary[0].IsHint == false)
+                {
+                    ToDelStep();
+                    return;
+                }
             }
+            HintDialog hintDialog = new HintDialog("删除步骤", "您是否要删除步骤？",
+              delegate (System.Object _o, RoutedEventArgs _e)
+              {
+                  ToDelStep();
+                  mw.RemoveDialog();
+              },
+              delegate (System.Object _o, RoutedEventArgs _e)
+              {
+                  mw.RemoveDialog();
+              },
+              delegate (System.Object _o, RoutedEventArgs _e)
+              {
+                  mw.NotHint(3);
+              }
+             );
+            mw.ShowMakerDialog(hintDialog);
+        }
+
+        private void ToDelStep() {
             List<int> selectIndexList = new List<int>();
             for (int i = 0; i < lbStep.SelectedItems.Count; i++)
             {
@@ -2513,6 +2533,7 @@ namespace Maker.View.LightScriptUserControl
             }
             Test();
         }
+
         private void MergeStep(object sender, RoutedEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
@@ -4879,15 +4900,6 @@ namespace Maker.View.LightScriptUserControl
         }
 
         public void NewFromImport(String fileName,String stepName) {
-            //if (!importList.Contains(fileName + ".lightScript"))
-            //{
-            //    importList.Add(fileName + ".lightScript");
-            //}
-            //String UsableStepName = GetUsableStepName();
-            //AddStep(UsableStepName, "");
-            //lightScriptDictionary.Add(UsableStepName, command);
-            //containDictionary.Add(UsableStepName, new List<String>() { UsableStepName });
-
             String commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + stepName + "\");";
             ScriptModel scriptModel = new ScriptModel();
             scriptModel.Name = stepName;

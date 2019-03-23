@@ -20,7 +20,13 @@ namespace Maker.View.LightUserControl
         private List<Light> lightList;
         protected override void  LoadFileContent()
         {
-            lightList = fileBusiness.ReadLightFile(filePath);
+            if (filePath.EndsWith(".light")) {
+                lightList = fileBusiness.ReadLightFile(filePath);
+            }
+            else
+            {
+                lightList = fileBusiness.ReadMidiFile(filePath);
+            }
             SetData(lightList);
             if (spHint != null)
             {
@@ -38,7 +44,14 @@ namespace Maker.View.LightUserControl
 
         public override void SaveFile()
         {
-            fileBusiness.WriteLightFile(filePath, GetData());
+            if (filePath.EndsWith(".light"))
+            {
+                fileBusiness.WriteLightFile(filePath, GetData());
+            }
+            else
+            {
+                fileBusiness.WriteMidiFile(filePath, GetData());
+            }
         }
     }
 }

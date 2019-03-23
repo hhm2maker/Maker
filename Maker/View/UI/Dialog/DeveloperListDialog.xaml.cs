@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.View.UI.UserControlDialog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +18,18 @@ namespace Maker.View.Dialog
     /// <summary>
     /// DeveloperListDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class DeveloperListDialog : Window
+    public partial class DeveloperListDialog : MakerDialog
     {
-        public DeveloperListDialog(Window window)
+        private NewMainWindow mw;
+        public DeveloperListDialog(NewMainWindow mw)
         {
             InitializeComponent();
-            Owner = window;
+            this.mw = mw;
         }
 
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DialogResult = true;
+            mw.RemoveDialog();
         }
     }
 }

@@ -178,6 +178,7 @@
     <sys:String x:Key="Message">Message</sys:String>
     <sys:String x:Key="CreateScript">Create Script</sys:String>
     <!--Device-->
+    <sys:String x:Key="Device">Device</sys:String>
     <sys:String x:Key="DeviceNameColon">Device Name:</sys:String>
     <sys:String x:Key="DeviceTypeColon">Device Type:</sys:String>
     <sys:String x:Key="BackgroundColon">Background:</sys:String>
@@ -499,5 +500,8 @@
     <sys:String x:Key="IDoNotThinkItWorks">I don't think it works.</sys:String>
     <sys:String x:Key="RenameFile">Rename file</sys:String>
     <sys:String x:Key="NoLongerPrompt">No longer prompt</sys:String>
-    
+    <sys:String x:Key="MyProject">My project</sys:String>
+    <sys:String x:Key="SelectProject">Select project</sys:String>
+    <sys:String x:Key="SpaceNewProject">&#160;&#160;NewProject</sys:String>
+    <sys:String x:Key="Control">Control</sys:String>
 </ResourceDictionary>

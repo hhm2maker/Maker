@@ -505,7 +505,7 @@ namespace Maker.Business.Discarded
         }
         private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
         {
-            new DeveloperListDialog(mw).ShowDialog();
+            //new DeveloperListDialog(mw).ShowDialog();
         }
         private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
         {

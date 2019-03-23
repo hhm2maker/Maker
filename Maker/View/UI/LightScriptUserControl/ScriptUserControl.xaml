@@ -447,7 +447,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!--Style="{StaticResource ListBoxStyle1}"-->
-                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" AllowDrop="True" PreviewDrop="lbStep_PreviewDrop"  MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
                         <ListBox.ContextMenu >
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
@@ -470,7 +470,7 @@
                 </StackPanel>
                 <Grid Background="#222326" Height="45" Grid.Row="2" >
                     <StackPanel Orientation="Horizontal" Background="#222326">
-                        <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant"  AllowDrop="True" PreviewDrop="lbStep_PreviewDrop" />
                         <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                         <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->
                         <Image Source="../../Resources/Image/merge_white.png" MouseLeftButtonDown="MergeStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />

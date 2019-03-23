@@ -119,7 +119,7 @@ namespace Maker
         private void InitFile()
         {
             lbLight.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light",".mid" }))
             {
                 ListBoxItem item = new ListBoxItem
                 {
@@ -171,14 +171,21 @@ namespace Maker
             BaseUserControl baseUserControl = null;
             if (!fileName.EndsWith(".lightScript"))
             {
-                for (int i = 0; i < userControls.Count; i++)
+                if (fileName.EndsWith(".mid"))
                 {
-                    if (fileName.EndsWith(userControls[i]._fileExtension))
+                    IntoUserControl(0);
+                }
+                else {
+                    for (int i = 0; i < userControls.Count; i++)
                     {
-                        IntoUserControl(i);
-                        break;
+                        if (fileName.EndsWith(userControls[i]._fileExtension))
+                        {
+                            IntoUserControl(i);
+                            break;
+                        }
                     }
                 }
+                
                 if (cMost.Children.Count == 0)
                     return;
                 //是否是制作灯光的用户控件
@@ -497,7 +504,7 @@ namespace Maker
         }
         private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
         {
-            new DeveloperListDialog(this).ShowDialog();
+            ShowMakerDialog(new DeveloperListDialog(this));
         }
         private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
         {
@@ -1101,6 +1108,8 @@ namespace Maker
 
         private int filePosition = 0;
         private void SetSpFilePosition(int position) {
+            (spFileTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169,169,169));
+            (spFileTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
             ThicknessAnimation animation = new ThicknessAnimation
             {

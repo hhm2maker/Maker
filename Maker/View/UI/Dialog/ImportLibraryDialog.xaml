@@ -20,13 +20,13 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <TextBlock Foreground="#939da0" FontSize="18" VerticalAlignment="Center" Margin="25,0,0,0" Text="{DynamicResource ImportLibraryFiles}" />
-            <Image  DockPanel.Dock="Right" Width="25" Margin="25" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+            <Image  DockPanel.Dock="Right" Width="25" Margin="20" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1" >
             <ListBox Name="lbMain" VerticalAlignment="Top" Height="440" Width="400"  Margin="20,0,20,20"  FontSize="16"  Background="{x:Null}" Foreground="White" />
         <StackPanel>
-            <Button  Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,0,20,0" Content="{DynamicResource Ok}"></Button>
-        </StackPanel>
+                <Button  Click="btnOk_Click" FontSize="14" Width="60" Margin="0,0,20,0" Content="{DynamicResource Ok}" />
+            </StackPanel>
     </StackPanel>
     </Grid>
 </usercontroldialog:MakerDialog>
