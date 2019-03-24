@@ -222,9 +222,12 @@ namespace Maker.View.LightScriptUserControl
             InitFormat();
         }
 
-        public void InitMyContent() {
+        public void InitMyContent()
+        {
             //获取最新的我的内容
-            _bridge.InitMyContent(_bridge.GetMyContent(System.IO.Path.GetFileName(filePath)), MyContentMenuItem_Click);
+            if (_bridge == null)
+                return;
+            _bridge.InitMyContent(_bridge.GetMyContent(Path.GetFileName(filePath)), MyContentMenuItem_Click);
         }
 
         private void InitFormat()
@@ -1661,7 +1664,7 @@ namespace Maker.View.LightScriptUserControl
         public void Test()
         {
             bridge.GetResult();
-            
+
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition - 1) + ".lightScript"))
             {
                 iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_blue.png", UriKind.RelativeOrAbsolute));
@@ -2431,7 +2434,8 @@ namespace Maker.View.LightScriptUserControl
             mw.ShowMakerDialog(hintDialog);
         }
 
-        private void ToDelStep() {
+        private void ToDelStep()
+        {
             List<int> selectIndexList = new List<int>();
             for (int i = 0; i < lbStep.SelectedItems.Count; i++)
             {
@@ -3500,7 +3504,7 @@ namespace Maker.View.LightScriptUserControl
         private void LibraryMenuItem_Click(object sender, RoutedEventArgs e)
         {
             //MenuItem item = (MenuItem)sender;
-           // ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
+            // ImportLibraryDialog dialog = new ImportLibraryDialog(mw, AppDomain.CurrentDomain.BaseDirectory + @"\Library\" + item.Header.ToString() + ".lightScript");
             //if (dialog.ShowDialog() == true)
             //{
             //    if (!importList.Contains(item.Header.ToString() + ".lightScript"))
@@ -3521,7 +3525,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void MyContentMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            DragDrop.DoDragDrop((ListBoxItem)sender, (ListBoxItem)sender, DragDropEffects.Copy); 
+            DragDrop.DoDragDrop((ListBoxItem)sender, (ListBoxItem)sender, DragDropEffects.Copy);
         }
 
         private void Child_SubmenuClosed(object sender, RoutedEventArgs e)
@@ -4329,7 +4333,7 @@ namespace Maker.View.LightScriptUserControl
                 style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
                 mw.AddSetting(style);
             }
-          
+
             //Test();
         }
         //不写入XML,而是直接写入代码
@@ -4890,17 +4894,47 @@ namespace Maker.View.LightScriptUserControl
             if (e.Data.GetData(typeof(ListBoxItem)) is ListBoxItem)
             {
                 ListBoxItem item = e.Data.GetData(typeof(ListBoxItem)) as ListBoxItem;
-                if ((mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript").Equals(filePath))
+                if (cbMyContent.SelectedIndex == 1)
                 {
-                    return;
+                    if ((mw.LastProjectPath + @"\LightScript\" + item.Content.ToString()).Equals(filePath))
+                    {
+                        return;
+                    }
+                    ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() );
+                    mw.AddSetting(dialog);
                 }
-                ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() + ".lightScript");
-                mw.AddSetting(dialog);
+                else if(cbMyContent.SelectedIndex == 0){
+                    String stepName = GetUsableStepName();
+                    String commandLine = "";
+                    if (item.Content.ToString().EndsWith(".light")) {
+                        commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightFile(\"" + item.Content.ToString() + "\");";
+                    }
+                    else if (item.Content.ToString().EndsWith(".mid"))
+                    {
+                        commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromMidiFile(\"" + item.Content.ToString() + "\");";
+                    }
+                    ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.Name = stepName;
+                    scriptModel.Value = commandLine;
+                    scriptModel.Visible = true;
+                    scriptModel.Parent = "";
+                    scriptModel.Contain = new List<string>() { stepName };
+                    scriptModel.Intersection = new List<string>();
+                    scriptModel.Complement = new List<string>();
+                    scriptModelDictionary.Add(stepName, scriptModel);
+                    UpdateStep();
+
+                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+                    Test();
+                }
             }
         }
 
-        public void NewFromImport(String fileName,String stepName) {
-            String commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + stepName + "\");";
+        public void NewFromImport(String fileName, String _stepName)
+        {
+            String stepName = GetUsableStepName();
+            String commandLine = "\tLightGroup " + stepName + "LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + _stepName + "\");";
             ScriptModel scriptModel = new ScriptModel();
             scriptModel.Name = stepName;
             scriptModel.Value = commandLine;
@@ -4917,6 +4951,9 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-      
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            InitMyContent();
+        }
     }
 }

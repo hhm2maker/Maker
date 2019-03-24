@@ -367,7 +367,18 @@
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
-                        <ListBox FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ListBox Grid.Column="0" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}" />
+                            <ComboBox Name="cbMyContent" Grid.Column="1" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" FontSize="14" Width="100" HorizontalContentAlignment="Right" VerticalAlignment="Top" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                <ComboBoxItem Content="{DynamicResource Light}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                <ComboBoxItem  Content="{DynamicResource LightScript}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
+                                <ComboBoxItem Content="{DynamicResource LimitlessLamp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
+                            </ComboBox>
+                        </Grid>
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">

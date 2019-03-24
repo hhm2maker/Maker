@@ -1,5 +1,4 @@
 ﻿using Maker.Model;
-using Maker.View.Control;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -121,30 +120,22 @@ namespace Maker.View.Dialog
         {
             mLaunchpad.Reset();
             points.Clear();
-            XDocument doc = XDocument.Load(filePath);
-            XElement xnroot = doc.Element("Root");
-            int columns = int.Parse(xnroot.Element("Columns").Value);
-            for (int i = 0; i < columns - 1; i++) {
+         
+            Operation.LimitlessLampModel limitlessLampModel = Operation.FileBusiness.CreateInstance().ReadLimitlessLamp(filePath);
+            for (int i = 0; i < limitlessLampModel.Columns - 1; i++)
+            {
                 mLaunchpad.AddColumn();
             }
-            int rows = int.Parse(xnroot.Element("Rows").Value);
-            for (int i = 0; i < rows - 1; i++)
+            for (int i = 0; i < limitlessLampModel.Rows - 1; i++)
             {
                 mLaunchpad.AddRow();
             }
-            String str = xnroot.Element("Data").Value;
-            mLaunchpad.SetData(str);
-
-            foreach (XElement element in xnroot.Element("Points").Elements("Point"))
-            {
-                points.Add(new Point(Double.Parse(element.Attribute("x").Value), Double.Parse(element.Attribute("y").Value)));
-            }
-
+            mLaunchpad.SetData(limitlessLampModel.Data);
+            points = limitlessLampModel.Points;
             lbPoint.Items.Clear();
             foreach (var point in points) {
                 lbPoint.Items.Add(point.X+","+point.Y);
             }
-
             //pageNames.Clear();
             //XElement xnPages = xnroot.Element("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
@@ -161,7 +152,7 @@ namespace Maker.View.Dialog
             XElement xnroot = new XElement("Root");
             doc.Add(xnroot);
 
-            XElement xnData = new XElement("Data")
+              XElement xnData = new XElement("Data")
             {
                 Value = mLaunchpad.GetData()
             };

@@ -658,11 +658,36 @@ namespace Maker.Bridge
         public List<String> GetMyContent(String exceptStr)
         {
             List<String> contents = new List<String>();
-            DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
-            foreach (FileInfo file in folder.GetFiles("*.lightScript"))
+            if (iuc.cbMyContent.SelectedIndex == 0)
             {
-                if (!file.Name.Equals(exceptStr))
-                    contents.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));
+                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\Light");
+                foreach (FileInfo file in folder.GetFiles("*.light"))
+                {
+                    if (!file.Name.Equals(exceptStr))
+                        contents.Add(System.IO.Path.GetFileName(file.FullName));
+                }
+                foreach (FileInfo file in folder.GetFiles("*.mid"))
+                {
+                    if (!file.Name.Equals(exceptStr))
+                        contents.Add(System.IO.Path.GetFileName(file.FullName));
+                }
+            }
+            if (iuc.cbMyContent.SelectedIndex == 1) {
+                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
+                foreach (FileInfo file in folder.GetFiles("*.lightScript"))
+                {
+                    if (!file.Name.Equals(exceptStr))
+                        contents.Add(System.IO.Path.GetFileName(file.FullName));
+                }
+            }
+            if (iuc.cbMyContent.SelectedIndex == 2)
+            {
+                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LimitlessLamp");
+                foreach (FileInfo file in folder.GetFiles("*.LimitlessLamp"))
+                {
+                    if (!file.Name.Equals(exceptStr))
+                        contents.Add(System.IO.Path.GetFileName(file.FullName));
+                }
             }
             return contents;
         }

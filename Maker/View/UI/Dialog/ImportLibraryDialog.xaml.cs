@@ -52,7 +52,6 @@ namespace Maker.View.Dialog
                 }
                 lbMain.Items.Add("Main");
             }
-
             //LightScriptBusiness scriptBusiness = new LightScriptBusiness();
             //String command = scriptBusiness.LoadLightScript(fileName);
             //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(command, out Dictionary<String, List<String>> extendsDictionary, out Dictionary<String, List<String>> intersectionDictionary, out Dictionary<String, List<String>> complementDictionary);

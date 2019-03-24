@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -427,6 +428,27 @@ namespace Operation
             ProjectConfigModel projectConfigModel = new ProjectConfigModel();
             XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
             return ScriptFileBusiness.FileToLight(AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ projectConfigModel.Path + @"\LightScript\"+fileName,stepName);
+        }
+
+        public static LightGroup CreateFromLightFile(string fileName)
+        {
+            ProjectConfigModel projectConfigModel = new ProjectConfigModel();
+            XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
+            return FileBusiness.CreateInstance().ReadLightFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\Light\" + fileName);
+        }
+
+        public static LightGroup CreateFromMidiFile(string fileName)
+        {
+            ProjectConfigModel projectConfigModel = new ProjectConfigModel();
+            XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
+            return FileBusiness.CreateInstance().ReadMidiFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\Light\" + fileName);
+        }
+
+        public static LightGroup CreateFromLimitlessLampUserFile(string fileName)
+        {
+            ProjectConfigModel projectConfigModel = new ProjectConfigModel();
+            XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
+            return FileBusiness.CreateInstance().ReadLimitlessLampFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\Light\" + fileName);
         }
     }
 }
