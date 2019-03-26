@@ -136,6 +136,7 @@ namespace Maker.View.Dialog
             foreach (var point in points) {
                 lbPoint.Items.Add(point.X+","+point.Y);
             }
+            tbInterval.Text = limitlessLampModel.Interval.ToString();
             //pageNames.Clear();
             //XElement xnPages = xnroot.Element("Pages");
             //foreach (XElement pageElement in xnPages.Elements("Page"))
@@ -169,6 +170,17 @@ namespace Maker.View.Dialog
                 Value = mLaunchpad.RowsCount.ToString()
             };
             xnroot.Add(xnRows);
+
+            if (!int.TryParse(tbInterval.Text, out int interval))
+            {
+                return;
+            }
+            XElement xnInterval = new XElement("Interval")
+            {
+               
+                Value = interval.ToString()
+            };
+            xnroot.Add(xnInterval);
 
             XElement xnPoints = new XElement("Points");
             foreach (var point in points)
@@ -278,6 +290,11 @@ namespace Maker.View.Dialog
                 tbEdit.Focus();
                 tbEdit.SelectionStart = tbEdit.Text.Length;
             }
+        }
+
+        public override void OnDismiss()
+        {
+            SaveFile();
         }
     }
 }

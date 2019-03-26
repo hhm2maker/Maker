@@ -816,6 +816,7 @@ namespace Operation
             XElement xnroot = doc.Element("Root");
             limitlessLampModel.Columns = int.Parse(xnroot.Element("Columns").Value);
             limitlessLampModel.Rows = int.Parse(xnroot.Element("Rows").Value);
+            limitlessLampModel.Interval = int.Parse(xnroot.Element("Interval").Value);
             limitlessLampModel.Data = xnroot.Element("Data").Value;
             foreach (XElement element in xnroot.Element("Points").Elements("Point"))
             {
@@ -827,17 +828,29 @@ namespace Operation
         public LightGroup ReadLimitlessLampFile(String filePath)
         {
             LimitlessLampModel limitlessLampModel = ReadLimitlessLamp(filePath);
-            LightGroup ll = new LightGroup();
-            if (int.TryParse(tbInterval.Text, out int interval))
+            List<int> mData = new List<int>();
+            String[] strs = limitlessLampModel.Data.Trim().Split(',');
+            for (int i = 0; i < strs.Length; i++)
             {
-                for (int i = 0; i < points.Count; i++)
+                if (int.Parse(strs[i]) != 0)
                 {
-                    List<Light> mLl = SetDataToPreviewLaunchpadFromXY((int)points[i].X, (int)points[i].Y);
-                    for (int j = 0; j < mLl.Count; j++)
-                        mLl[j].Time = i * interval;
-                    ll.AddRange(mLl);
+                    int color = int.Parse(strs[i]);
+                    mData.Add(color);
+                }
+                else {
+                    mData.Add(0);
                 }
             }
+
+            LightGroup ll = new LightGroup();
+           
+                for (int i = 0; i < limitlessLampModel.Points.Count; i++)
+                {
+                    List<Light> mLl = SetDataToPreviewLaunchpadFromXY(mData, limitlessLampModel.Columns,limitlessLampModel.Rows,(int)limitlessLampModel.Points[i].X, (int)limitlessLampModel.Points[i].Y);
+                    for (int j = 0; j < mLl.Count; j++)
+                        mLl[j].Time = i * limitlessLampModel.Interval;
+                    ll.AddRange(mLl);
+                }
             return ll;
         }
 
@@ -875,5 +888,6 @@ namespace Operation
             }
             return lightList;
         }
+
     }
 }

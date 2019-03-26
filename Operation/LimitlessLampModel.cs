@@ -26,6 +26,12 @@ namespace Operation
             set;
         }
 
+        public int Interval
+        {
+            get;
+            set;
+        } = 10;
+
         public List<Point> Points
         {
             get;

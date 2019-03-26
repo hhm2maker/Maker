@@ -4900,13 +4900,15 @@ namespace Maker.View.LightScriptUserControl
                     {
                         return;
                     }
-                    ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString() );
+                    ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString());
                     mw.AddSetting(dialog);
                 }
-                else if(cbMyContent.SelectedIndex == 0){
+                else if (cbMyContent.SelectedIndex == 0)
+                {
                     String stepName = GetUsableStepName();
                     String commandLine = "";
-                    if (item.Content.ToString().EndsWith(".light")) {
+                    if (item.Content.ToString().EndsWith(".light"))
+                    {
                         commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightFile(\"" + item.Content.ToString() + "\");";
                     }
                     else if (item.Content.ToString().EndsWith(".mid"))
@@ -4928,8 +4930,30 @@ namespace Maker.View.LightScriptUserControl
 
                     Test();
                 }
+                else if (cbMyContent.SelectedIndex == 2)
+                {
+                    String stepName = GetUsableStepName();
+                    String commandLine = "";
+                    commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + item.Content.ToString() + "\");";
+
+                    ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.Name = stepName;
+                    scriptModel.Value = commandLine;
+                    scriptModel.Visible = true;
+                    scriptModel.Parent = "";
+                    scriptModel.Contain = new List<string>() { stepName };
+                    scriptModel.Intersection = new List<string>();
+                    scriptModel.Complement = new List<string>();
+                    scriptModelDictionary.Add(stepName, scriptModel);
+                    UpdateStep();
+
+                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+                    Test();
+                }
             }
-        }
+            
+            }
 
         public void NewFromImport(String fileName, String _stepName)
         {

@@ -444,11 +444,11 @@ namespace Operation
             return FileBusiness.CreateInstance().ReadMidiFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\Light\" + fileName);
         }
 
-        public static LightGroup CreateFromLimitlessLampUserFile(string fileName)
+        public static LightGroup CreateFromLimitlessLampFile(string fileName)
         {
             ProjectConfigModel projectConfigModel = new ProjectConfigModel();
             XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
-            return FileBusiness.CreateInstance().ReadLimitlessLampFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\Light\" + fileName);
+            return FileBusiness.CreateInstance().ReadLimitlessLampFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\LimitlessLamp\" + fileName);
         }
     }
 }
