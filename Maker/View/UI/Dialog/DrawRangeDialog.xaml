@@ -9,7 +9,7 @@
          Loaded="Window_Loaded"
         ShowInTaskbar="False"
         Title="{DynamicResource DrawRange}" 
-        Background="#535353"
+       Background="#363b40"
         Width="500"
         Height="450"
         WindowStartupLocation="CenterScreen"

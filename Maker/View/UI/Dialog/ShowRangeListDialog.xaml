@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.Dialog"
         mc:Ignorable="d"
-        Background="#535353"
+      Background="#363b40"
         Title="{DynamicResource SelectionRange}"       
         WindowStartupLocation="CenterScreen"
         Width="620" Height="430"

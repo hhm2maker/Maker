@@ -118,12 +118,11 @@ namespace Maker.View.Device
         /// </summary>
         private void InitBlock()
         {
-            //左边
             //一共有八排
             for (int j = 0; j < 8; j++)
             {
-                //每排四块
-                for (int i = 0; i < 4; i++)
+                //每排八块
+                for (int i = 0; i < 8; i++)
                 {
                     if (j == 3 && i == 3)
                     {
@@ -135,39 +134,12 @@ namespace Maker.View.Device
                         InitCenterLeftTop();
                         continue;
                     }
-                    Rectangle r;
-                    if (Children.Count != 96)
-                    {
-                        r = new Rectangle();
-                    }
-                    else
-                    {
-                        r = (Rectangle)Children[8 + 4 * j + i];
-                    }
-                    r.Width = _blockWidth;
-                    r.Height = _blockWidth;
-                    SetLeft(r, _bigCrevice + _blockWidth + i * (_blockWidth + _smallCrevice));
-                    SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
-
-                    r.RadiusX = 5;
-                    r.RadiusY = 5;
-                    if (Children.Count != 96)
-                        Children.Add(r);
-                }
-            }
-            //右边
-            //一共有八排
-            for (int j = 0; j < 8; j++)
-            {
-                //每排四块
-                for (int i = 0; i < 4; i++)
-                {
-                    if (j == 3 && i == 0)
+                    if (j == 3 && i == 4)
                     {
                         InitCenterRightBottom();
                         continue;
                     }
-                    if (j == 4 && i == 0)
+                    if (j == 4 && i == 4)
                     {
                         InitCenterRightTop();
                         continue;
@@ -179,14 +151,13 @@ namespace Maker.View.Device
                     }
                     else
                     {
-                        r = (Rectangle)Children[8 + 32 + 4 * j + i];
+                        r = (Rectangle)Children[8 * j + i+8];
                     }
-
                     r.Width = _blockWidth;
                     r.Height = _blockWidth;
-
-                    SetLeft(r, _bigCrevice + _blockWidth + (i + 4) * (_blockWidth + _smallCrevice));
+                    SetLeft(r, _bigCrevice + _blockWidth + i * (_blockWidth + _smallCrevice));
                     SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
+
                     r.RadiusX = 5;
                     r.RadiusY = 5;
                     if (Children.Count != 96)
@@ -204,7 +175,7 @@ namespace Maker.View.Device
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 15];
+                rcp = (RoundedCornersPolygon)Children[35];
             }
 
             PointCollection pc = new PointCollection
@@ -234,7 +205,7 @@ namespace Maker.View.Device
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 16 + 3];
+                rcp = (RoundedCornersPolygon)Children[43];
             }
 
             PointCollection pc = new PointCollection
@@ -264,7 +235,7 @@ namespace Maker.View.Device
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 32 + 12];
+                rcp = (RoundedCornersPolygon)Children[36];
             }
 
             PointCollection pc = new PointCollection
@@ -295,7 +266,7 @@ namespace Maker.View.Device
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 32 + 16];
+                rcp = (RoundedCornersPolygon)Children[44];
             }
 
             PointCollection pc = new PointCollection
