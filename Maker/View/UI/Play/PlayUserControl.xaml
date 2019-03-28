@@ -23,6 +23,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
         </Grid.RowDefinitions>
           
@@ -44,7 +45,12 @@
                     <Button Content="{DynamicResource Export}" FontSize="14"  Foreground="#f0f0f0" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click"/>
                 </ToolBar>
             </DockPanel>
-            <play:TeachingControl Grid.Row="5" x:Name="mTeachingControl" ClipToBounds="True"/>
+            <DockPanel Background="#262829" Grid.Row="5">
+                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+                    <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
+                </ToolBar>
+            </DockPanel>
+            <play:TeachingControl Grid.Row="6" x:Name="mTeachingControl" ClipToBounds="True"/>
         </Grid>
         <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
     </Grid>

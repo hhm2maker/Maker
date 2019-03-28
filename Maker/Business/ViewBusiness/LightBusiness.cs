@@ -455,22 +455,22 @@ namespace Maker.Business
                     dic.Add(time, x);
                     if (mActionBeanList[i].Action == 144)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = mActionBeanList[i].Color;
+                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
                     }
                     else if (mActionBeanList[i].Action == 128)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = -1;//关闭为黑色
+                        dic[time][mActionBeanList[i].Position] = -1;//关闭为黑色
                     }
                 }
                 else
                 {
                     if (mActionBeanList[i].Action == 144)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = mActionBeanList[i].Color;
+                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
                     }
                     else if (mActionBeanList[i].Action == 128)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = -1;//关闭为黑色
+                        dic[time][mActionBeanList[i].Position] = -1;//关闭为黑色
                     }
                 }
             }

@@ -127,7 +127,7 @@ namespace Maker.Model
                 {
                     continue;
                 }
-                mLightList.Add(new Light(0, 144, i + 28, x[i]));
+                mLightList.Add(new Light(0, 144, i, x[i]));
             }
             NowLightLight = mLightList;
 

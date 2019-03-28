@@ -252,7 +252,7 @@ namespace Maker.View.LightUserControl
                     {
                         if (b[j])
                         {
-                            mActionBeanList.Add(new Light(LiTime[i], 128, j + 28, 64));
+                            mActionBeanList.Add(new Light(LiTime[i], 128, j, 64));
                             b[j] = false;
                         }
                     }
@@ -261,9 +261,9 @@ namespace Maker.View.LightUserControl
                         sliderSize.Value = frameModel.style.size;
                         if (b[j])
                         {
-                            mActionBeanList.Add(new Light(LiTime[i], 128, j + 28, 64));
+                            mActionBeanList.Add(new Light(LiTime[i], 128, j, 64));
                         }
-                        mActionBeanList.Add(new Light(LiTime[i], 144, j + 28, Dic[LiTime[i]][j]));
+                        mActionBeanList.Add(new Light(LiTime[i], 144, j, Dic[LiTime[i]][j]));
                         b[j] = true;
                     }
                 }
@@ -295,7 +295,7 @@ namespace Maker.View.LightUserControl
                 {
                     continue;
                 }
-                mLightList.Add(new Light(0,144, i+28, x[i]));
+                mLightList.Add(new Light(0,144, i, x[i]));
             }
             (DataContext as FrameUserControlViewModel).Model.NowLightLight = mLightList;
         }
@@ -416,7 +416,7 @@ namespace Maker.View.LightUserControl
                 int color = Dic[LiTime[NowTimePoint - 1]][i];
                 if (color != 0)
                 {
-                    operationLightGroup.Add(new Operation.Light(0, 144, i + 28, color));
+                    operationLightGroup.Add(new Operation.Light(0, 144, i, color));
                 }
             }
             if (sender == miHorizontalFlipping) {
@@ -445,7 +445,7 @@ namespace Maker.View.LightUserControl
             }
             foreach (var item in operationLightGroup)
             {
-                Dic[LiTime[NowTimePoint - 1]][item.Position - 28] = item.Color;
+                Dic[LiTime[NowTimePoint - 1]][item.Position] = item.Color;
             }
             LoadFrame();
         }
@@ -589,7 +589,7 @@ namespace Maker.View.LightUserControl
             {
                 for (int j = 0; j < ints.Count; j++)
                 {
-                    if (ints[j].Contains(selects[i] + 28))
+                    if (ints[j].Contains(selects[i]))
                     {
                         int oldJ = j;
                         int contraryJ = 0;
@@ -611,12 +611,12 @@ namespace Maker.View.LightUserControl
                         {
                             contraryJ = oldJ + 1;
                         }
-                        if (ints[j][ints[oldJ].IndexOf(selects[i] + 28)] < 0)
+                        if (ints[j][ints[oldJ].IndexOf(selects[i])] < 0)
                             break;
 
-                        Dic[LiTime[NowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28] = Dic[LiTime[NowTimePoint - 1]][selects[i]];
-                        newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i] + 28)] - 28);
-                        if (!selects.Contains(ints[contraryJ].IndexOf(selects[i] + 28)))
+                        Dic[LiTime[NowTimePoint - 1]][ints[j][ints[oldJ].IndexOf(selects[i])]] = Dic[LiTime[NowTimePoint - 1]][selects[i]];
+                        newSelect.Add(ints[j][ints[oldJ].IndexOf(selects[i])] );
+                        if (!selects.Contains(ints[contraryJ].IndexOf(selects[i])))
                         {
                             Dic[LiTime[NowTimePoint - 1]][selects[i]] = 0;
                         }
@@ -1144,10 +1144,10 @@ namespace Maker.View.LightUserControl
                 return;
             }
             else {
-                if (Dic[LiTime[NowTimePoint - 1]][position - 28] == 0)
-                    Dic[LiTime[NowTimePoint - 1]][position - 28] = nowColor;
+                if (Dic[LiTime[NowTimePoint - 1]][position] == 0)
+                    Dic[LiTime[NowTimePoint - 1]][position] = nowColor;
                 else 
-                    Dic[LiTime[NowTimePoint - 1]][position - 28] = 0;
+                    Dic[LiTime[NowTimePoint - 1]][position] = 0;
                 (DataContext as FrameUserControlViewModel).Model.LoadFrame();
             }
         }

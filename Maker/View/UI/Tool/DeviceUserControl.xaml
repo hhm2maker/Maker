@@ -11,7 +11,7 @@
              Margin="10"
              Width="750"
              Height="200"
-        >
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,7 +37,6 @@
                     <ComboBox Name="cbRealDevice" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="CbRealDevice_SelectionChanged"/>
                     <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
                     <ComboBox Name="cbPassageway" Background="#454545" Width="50"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbPassageway_SelectionChanged" />
-                    <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                 </ToolBar>
                 <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Visibility="Collapsed" Foreground="#f0f0f0" IsEnabled="False" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center"/>
                 <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbMustOpenNumber" Height="21" Margin="10,0,0,0" HorizontalAlignment="Left"/>

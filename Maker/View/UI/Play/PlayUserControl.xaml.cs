@@ -231,13 +231,14 @@ namespace Maker.View.UI
 
             }
 
-            public InputPort( PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType)
+            public InputPort( PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType,TextBox tbPosition)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
                 this.keyboardModels = keyboardModels;
                 this.inputType = inputType;
                 this.pc = pc;
+                this.tbPosition = tbPosition;
             }
 
 
@@ -305,9 +306,9 @@ namespace Maker.View.UI
                     //Console.WriteLine(Convert.ToString(l2_dw1, 16));
                     //Console.WriteLine("-------------------------------");
                     uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
-
                     if (dwParam1 > 32767)
                     {
+
                         StaticConstant.mw.Dispatcher.Invoke(
                          new Action(
                           delegate
@@ -315,11 +316,8 @@ namespace Maker.View.UI
                      StaticConstant.mw.SetButton((int)position);
                 }
                 ));
-                  
                         KeyEvent((int)position, 0);
-
-                        tbPosition.Dispatcher.Invoke(new Action(() => { tbPosition.Text = tbPosition.Text + position + " "; }));
-
+                        tbPosition.Dispatcher.Invoke(new Action(() => {tbPosition.Text = tbPosition.Text + position + " "; }));
                         if (pc.tutorialParagraphLightIntList != null)
                         {
                             if (cb.Contains("Pro") && (int)position == 91)

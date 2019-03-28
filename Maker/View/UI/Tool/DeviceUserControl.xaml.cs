@@ -37,21 +37,8 @@ namespace Maker.View.Tool
             InitializeComponent();
             this.mw = mw;
         }
-        
 
         private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            btnPaved.IsEnabled = false;
-            DoubleAnimation daHeight = new DoubleAnimation();
-                daHeight.From = 1;
-                daHeight.To = 0;
-                daHeight.Duration = TimeSpan.FromSeconds(0.2);
-
-            daHeight.Completed += Board_Completed;
-            wMain.BeginAnimation(OpacityProperty, daHeight);
-        }
-
-        private void Board_Completed(object sender, EventArgs e)
         {
             mw.RemoveSetting();
         }
@@ -95,9 +82,8 @@ namespace Maker.View.Tool
             if (cbRealDeviceIn.SelectedIndex != -1)
             {
                 //Console.WriteLine("Hello");
-                mw.playuc.ip = new UI.PlayUserControl.InputPort(mw.playuc, mw.playuc.keyboardModels, mw.playuc.inputType)
+                mw.playuc.ip = new UI.PlayUserControl.InputPort(mw.playuc, mw.playuc.keyboardModels, mw.playuc.inputType, mw.playuc.tbPosition)
                 {
-                    tbPosition = tbPosition,
                     cb = cbRealDeviceIn.SelectedItem.ToString()
                 };
 

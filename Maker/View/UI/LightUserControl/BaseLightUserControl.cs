@@ -22,6 +22,7 @@ namespace Maker.View.LightUserControl
         {
             if (filePath.EndsWith(".light")) {
                 lightList = fileBusiness.ReadLightFile(filePath);
+                LightBusiness.Print(lightList);
             }
             else
             {

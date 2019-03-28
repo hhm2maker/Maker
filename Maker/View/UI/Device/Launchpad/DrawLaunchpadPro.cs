@@ -179,9 +179,9 @@ namespace Maker.View.Device
                     position -= 96;
                 if (LeftOrRight == 0)
                 {
-                    if (!trackingValue.Contains(position + 28))
+                    if (!trackingValue.Contains(position))
                     {
-                        trackingValue.Add(position + 28);
+                        trackingValue.Add(position);
                     }
                     if (Children[position] is RoundedCornersPolygon rcp)
                         rcp.Fill = nowBrush;
@@ -192,9 +192,9 @@ namespace Maker.View.Device
                 }
                 else if (LeftOrRight == 1)
                 {
-                    if (trackingValue.Contains(position + 28))
+                    if (trackingValue.Contains(position))
                     {
-                        trackingValue.Remove(position + 28);
+                        trackingValue.Remove(position);
                     }
                     if (Children[position] is RoundedCornersPolygon rcp)
                         rcp.Fill = closeBrush;
@@ -221,9 +221,9 @@ namespace Maker.View.Device
             int position = Children.IndexOf((UIElement)sender);
             if (position > 95)
                 position -= 96;
-            if (!trackingValue.Contains(position+28))
+            if (!trackingValue.Contains(position))
             {
-                trackingValue.Add(position + 28);
+                trackingValue.Add(position);
             }
             
             if (Children[position] is RoundedCornersPolygon rcp)
@@ -247,9 +247,9 @@ namespace Maker.View.Device
             int position = Children.IndexOf((UIElement)sender);
             if (position > 95)
                 position -= 96;
-            if (trackingValue.Contains(position + 28))
+            if (trackingValue.Contains(position))
             {
-                trackingValue.Remove(position + 28);
+                trackingValue.Remove(position);
             }
             if (Children[position] is RoundedCornersPolygon rcp)
                 rcp.Fill = closeBrush;
