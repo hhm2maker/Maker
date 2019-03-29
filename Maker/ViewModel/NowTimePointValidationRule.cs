@@ -33,7 +33,12 @@ namespace Maker.ViewModel
                         IsCanDraw = false;
                         return new ValidationResult(false, null);//验证失败
                     }
-                    else if (_value == 0 && count>0)
+                    else if (_value == 0 && count > 0)
+                    {
+                        IsCanDraw = false;
+                        return new ValidationResult(false, null);//验证失败
+                    }
+                    else if (_value == 0)
                     {
                         IsCanDraw = false;
                         return new ValidationResult(false, null);//验证失败

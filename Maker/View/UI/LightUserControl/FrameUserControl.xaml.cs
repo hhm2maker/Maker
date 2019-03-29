@@ -104,25 +104,25 @@ namespace Maker.View.LightUserControl
                 if (LeftOrRight == 0)
                 {
                     int i = mLaunchpad.GetNumber(sender as Shape);
-                    if (i < 96)
+                    if (i < 100)
                     {
                         Dic[LiTime[NowTimePoint - 1]][i] = nowColor;
                     }
                     else
                     {
-                        Dic[LiTime[NowTimePoint - 1]][i - 96] = nowColor;
+                        Dic[LiTime[NowTimePoint - 1]][i - 100] = nowColor;
                     }
                 }
                 else if (LeftOrRight == 1)
                 {
                     int i = mLaunchpad.GetNumber(sender as Shape);
-                    if (i < 96)
+                    if (i < 100)
                     {
                         Dic[LiTime[NowTimePoint - 1]][i] = 0;
                     }
                     else
                     {
-                        Dic[LiTime[NowTimePoint - 1]][i - 96] = 0;
+                        Dic[LiTime[NowTimePoint - 1]][i - 100] = 0;
                     }
                 }
             }
@@ -138,30 +138,30 @@ namespace Maker.View.LightUserControl
             if (IsCanDraw())
             {
                 int i = mLaunchpad.GetNumber(sender as Shape);
-                if (i < 96)
+                if (i < 100)
                 {
                     Dic[LiTime[NowTimePoint - 1]][i] = nowColor;
                 }
                 else
                 {
-                    Dic[LiTime[NowTimePoint - 1]][i - 96] = nowColor;
+                    Dic[LiTime[NowTimePoint - 1]][i - 100] = nowColor;
                 }
                 LeftOrRight = 0;
             }
-                (DataContext as FrameUserControlViewModel).Model.LoadFrame();
+            (DataContext as FrameUserControlViewModel).Model.LoadFrame();
         }
         private void ClearColor(object sender, RoutedEventArgs e)
         {
             if (IsCanDraw())
             {
                 int i = mLaunchpad.GetNumber(sender as Shape);
-                if (i < 96)
+                if (i < 100)
                 {
                     Dic[LiTime[NowTimePoint - 1]][i] = 0;
                 }
                 else
                 {
-                    Dic[LiTime[NowTimePoint - 1]][i - 96] = 0;
+                    Dic[LiTime[NowTimePoint - 1]][i - 100] = 0;
                 }
                 LeftOrRight = 1;
             }
@@ -239,14 +239,14 @@ namespace Maker.View.LightUserControl
         public override List<Light> GetData()
         {
             List<Light> mActionBeanList = new List<Light>();
-            Boolean[] b = new Boolean[96];
-            for (int i = 0; i < 96; i++)
+            Boolean[] b = new Boolean[100];
+            for (int i = 0; i < 100; i++)
             {
                 b[i] = false;
             }
             for (int i = 0; i < LiTime.Count; i++)
             {
-                for (int j = 0; j < 96; j++)
+                for (int j = 0; j < 100; j++)
                 {
                     if (Dic[LiTime[i]][j] == 0 || Dic[LiTime[i]][j] == -1)
                     {
@@ -411,7 +411,7 @@ namespace Maker.View.LightUserControl
             if (NowTimePoint == 0)
                 return;
             Operation.LightGroup operationLightGroup = new Operation.LightGroup();
-            for (int i = 0; i < 96; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int color = Dic[LiTime[NowTimePoint - 1]][i];
                 if (color != 0)
@@ -439,7 +439,7 @@ namespace Maker.View.LightUserControl
                 operationLightGroup.AntiClockwise();
             }
 
-            for (int i = 0; i < 96; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Dic[LiTime[NowTimePoint - 1]][i] = 0;
             }
@@ -457,7 +457,7 @@ namespace Maker.View.LightUserControl
             GetNumberDialog c = new GetNumberDialog(mw, "CopyToFrameNumberColon", false, LiTime, true);
             if (c.ShowDialog() == true)
             {
-                int[] x = new int[96];
+                int[] x = new int[100];
                 for (int i = 0; i < Dic[LiTime[NowTimePoint - 1]].Count(); i++)
                 {
                     x[i] = Dic[LiTime[NowTimePoint - 1]][i];
@@ -484,7 +484,7 @@ namespace Maker.View.LightUserControl
 
         public bool IsCanDraw()
         {
-            return mouseType == 1 && nowTimePointValidationRule.IsCanDraw && nowControlType == ControlType.Draw;
+            return mouseType == 1 && nowTimePointValidationRule.IsCanDraw && nowControlType == ControlType.Draw && NowTimePoint != 0;
         }
 
         private ControlType nowControlType = ControlType.Draw;
@@ -692,7 +692,7 @@ namespace Maker.View.LightUserControl
             if (rst == true)
             {
                 String fileName = dlg.FileName;
-                SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 96), fileName);
+                SaveRTBAsPNG(GetBitmapStream(mLaunchpad, 100), fileName);
             }
         }
 

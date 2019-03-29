@@ -39,7 +39,7 @@ namespace Maker.Model
                 {
                     CanLeft = true;
                 }
-                if (nowTimePoint > liTime.Count-1)
+                if (nowTimePoint > liTime.Count - 1)
                 {
                     CanRight = false;
                 }
@@ -113,9 +113,9 @@ namespace Maker.Model
             if (NowTimePoint == 0)
             {
                 CurrentFrame = 0;
+                NowLightLight = new List<Light>();
                 return;
             }
-
             CurrentFrame = LiTime[NowTimePoint - 1];
 
             List<Light> mLightList = new List<Light>();
@@ -242,8 +242,7 @@ namespace Maker.Model
             }
         }
 
-       
-        private Dictionary<int, FramePointModel> points = new Dictionary<int, FramePointModel>();
+      private Dictionary<int, FramePointModel> points = new Dictionary<int, FramePointModel>();
         public Dictionary<int, FramePointModel> Points
         {
             get { return points; }

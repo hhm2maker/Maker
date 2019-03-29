@@ -93,8 +93,8 @@ namespace Maker.ViewModel
                 GetNumberDialog dialog = new GetNumberDialog(StaticConstant.mw, "TheFrameOfTheNewNodeColon", false, model.LiTime, false);
                 if (dialog.ShowDialog() == true)
                 {
-                    int[] x = new int[96];
-                    for (int j = 0; j < 96; j++)
+                    int[] x = new int[100];
+                    for (int j = 0; j < 100; j++)
                     {
                         x[j] = 0;
                     }
@@ -110,8 +110,8 @@ namespace Maker.ViewModel
                 }
                 else
                 {
-                    int[] x = new int[96];
-                    for (int i = 0; i < 96; i++)
+                    int[] x = new int[100];
+                    for (int i = 0; i < 100; i++)
                     {
                         x[i] = 0;
                     }
@@ -144,6 +144,9 @@ namespace Maker.ViewModel
                         }
                     }
                     model.AllTimePoint -= 1;
+
+                    List<int> li = model.LiTime;
+                    model.LiTime = li;
                 }
             }
             else {
@@ -188,8 +191,8 @@ namespace Maker.ViewModel
                 }
                 else
                 {
-                    int[] x = new int[96];
-                    for (int i = 0; i < 96; i++)
+                    int[] x = new int[100];
+                    for (int i = 0; i < 100; i++)
                     {
                         x[i] = 0;
                     }
@@ -233,6 +236,9 @@ namespace Maker.ViewModel
                     model.NowTimePoint = model.LiTime.Count;
                 }
             }
+
+            List<int> li = model.LiTime;
+            model.LiTime = li;
             model.AllTimePoint += 1;
         }
 
@@ -253,8 +259,8 @@ namespace Maker.ViewModel
         private void ClearNowFrame() {
             if (model.NowTimePoint == 0)
                 return;
-            int[] x = new int[96];
-            for (int i = 0; i < 96; i++)
+            int[] x = new int[100];
+            for (int i = 0; i < 100; i++)
             {
                 x[i] = 0;
             }
