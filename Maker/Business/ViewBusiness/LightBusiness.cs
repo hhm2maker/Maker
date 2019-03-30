@@ -30,7 +30,7 @@ namespace Maker.Business
                     linShiLiTime.Add(time);
                 }
             }
-            for (int i = 28; i < 124; i++)
+            for (int i = 0; i < 100; i++)
             {
                 linShiActionBeanListZi.Clear();
                 for (int j = 0; j < mActionBeanList.Count; j++)

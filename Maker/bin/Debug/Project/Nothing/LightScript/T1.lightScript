@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMTEiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMTIsMTIsU3RlcDFDb2xvckdyb3VwLENyZWF0ZS5VUCxDcmVhdGUuQUxMKTs=" visible="true" contain="Step1" intersection="" complement="">
+      <VerticalFlipping />
+      <HorizontalFlipping />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+</Root>

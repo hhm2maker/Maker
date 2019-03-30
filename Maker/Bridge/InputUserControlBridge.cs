@@ -433,30 +433,30 @@ namespace Maker.Bridge
                 {
                     time = mActionBeanList[i].Time;
                     liTime.Add(time);
-                    int[] x = new int[96];
-                    for (int j = 0; j < 96; j++)
+                    int[] x = new int[100];
+                    for (int j = 0; j < 100; j++)
                     {
                         x[j] = 0;
                     }
                     dic.Add(time, x);
                     if (mActionBeanList[i].Action == 144)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = mActionBeanList[i].Color;
+                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
                     }
                     else if (mActionBeanList[i].Action == 128)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = 0;//关闭为黑色
+                        dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
                     }
                 }
                 else
                 {
                     if (mActionBeanList[i].Action == 144)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = mActionBeanList[i].Color;
+                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
                     }
                     else if (mActionBeanList[i].Action == 128)
                     {
-                        dic[time][mActionBeanList[i].Position - 28] = 0;//关闭为黑色
+                        dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
                     }
                 }
             }
@@ -485,7 +485,7 @@ namespace Maker.Bridge
         private void ClearFrame()
         {
             //清空
-            for (int i = 0; i < 96; i++)
+            for (int i = 0; i < 100; i++)
             {
                 if (iuc.mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
                     rcp.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
