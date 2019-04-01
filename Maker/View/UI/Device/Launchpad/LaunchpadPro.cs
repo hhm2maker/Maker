@@ -826,7 +826,7 @@ namespace Maker.View.Device
                     brush = (SolidColorBrush)rectangle.Fill;
                 if (brush.Color.R == 255)
                 {
-                    list.Add(i + 28);
+                    list.Add(i);
                 }
             }
             return list;
@@ -878,11 +878,11 @@ namespace Maker.View.Device
             {
                 if (mListList[i].Action == 128)
                 {
-                    SetButtonBackground(mListList[i].Position - 28, closeBrush);
+                    SetButtonBackground(mListList[i].Position, closeBrush);
                 }
                 else
                 {
-                    SetButtonBackground(mListList[i].Position - 28, StaticConstant.brushList[mListList[i].Color]);
+                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }
