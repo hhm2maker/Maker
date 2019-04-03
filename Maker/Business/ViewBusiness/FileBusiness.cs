@@ -588,6 +588,7 @@ namespace Maker.Business
             ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
+
         public List<Light> LightStringToLightList(String lightString) {
             List<Light> lightList = new List<Light>();
             if (lightString.Length != 0)

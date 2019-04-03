@@ -450,6 +450,18 @@ namespace Operation
                 }
             }
         }
+
+        /// <summary>
+        ///边框数组
+        /// </summary>
+        private List<int> borderArr = new List<int>()
+            {
+               0,1,2,3,4,5,6,7,8,9,
+               10,20,30,40,50,60,70,80,90,
+               91,92,93,94,95,96,97,98,99,
+               89,79,69,59,49,39,29,19,
+             };
+
         /// <summary>
         /// 去除边框灯光
         /// </summary>
@@ -459,11 +471,12 @@ namespace Operation
         {
             for (int i = Count - 1; i >= 0; i--)
             {
-                int position = this[i].Position;
-                if (position >= 28 && position <= 35 || position >= 100 && position <= 123)
+                if (borderArr.Contains(this[i].Position)){
                     Remove(this[i]);
+                }
             }
         }
+
         public static int MULTIPLICATION = 30;
         public static int DIVISION = 31;
         /// <summary>
@@ -556,6 +569,7 @@ namespace Operation
             Clear();
             AddRange(listLight);
         }
+
         /// <summary>
         /// 用指定颜色填充空白区域
         /// </summary>
@@ -602,6 +616,7 @@ namespace Operation
             }
             AddRange(mLl.ToList());
         }
+        
         /// <summary>
         /// 设置颜色(格式化)
         /// </summary>
@@ -1064,21 +1079,14 @@ namespace Operation
                 {
                     return;
                 }
+
                 List<List<int>> lli = new List<List<int>>();
-                lli.Add(new List<int>() { 51, 55, 80, 84 });
-                lli.Add(new List<int>() { 46, 47, 50, 54, 58, 59, 76, 77, 81, 85, 88, 89 });
-                lli.Add(new List<int>() { 41, 42, 43, 45, 49, 53, 57, 61, 62, 63, 72, 73, 74, 78, 82, 86, 90, 92, 93, 94 });
-                lli.Add(new List<int>() { 36, 37, 38, 39, 40, 44, 48, 52, 56, 60, 64, 65, 66, 67, 68, 69, 70, 71, 75, 79, 83, 87, 91, 95, 96, 97, 98, 99 });
-                List<int> _list = new List<int>();
-                for (int i = 28; i <= 35; i++)
-                {
-                    _list.Add(i);
-                }
-                for (int i = 100; i <= 123; i++)
-                {
-                    _list.Add(i);
-                }
-                lli.Add(_list);
+                lli.Add(new List<int>() { 44, 45, 54, 55 });
+                lli.Add(new List<int>() { 33, 34, 35, 36, 43, 46, 53, 56, 63, 64, 65, 66 });
+                lli.Add(new List<int>() { 22,23,24,25,26,27,32,37,42,47,52,57,62,67,72,73,74,75,76,77 });
+                lli.Add(new List<int>() { 11,12,13,14,15,16,17,18,21,28,31,38,41,48,51,58,61,68,71,78,81,82,83,84,85,86,87,88 });
+             
+                lli.Add(borderArr);
                 if (v[0] != 0)
                 {
                     foreach (Light l in lightGroup)
@@ -1138,16 +1146,16 @@ namespace Operation
                     return;
                 }
                 List<List<int>> lli = new List<List<int>>();
-                lli.Add(new List<int>() { 28, 29, 30, 31, 32, 33, 34, 35 });
-                lli.Add(new List<int>() { 108, 64, 65, 66, 67, 96, 97, 98, 99, 100 });
-                lli.Add(new List<int>() { 109, 60, 61, 62, 63, 92, 93, 94, 95, 101 });
-                lli.Add(new List<int>() { 110, 56, 57, 58, 59, 88, 89, 90, 91, 102 });
-                lli.Add(new List<int>() { 111, 52, 53, 54, 55, 84, 85, 86, 87, 103 });
-                lli.Add(new List<int>() { 112, 48, 49, 50, 51, 80, 81, 82, 83, 104 });
-                lli.Add(new List<int>() { 113, 44, 45, 46, 47, 76, 77, 78, 79, 105 });
-                lli.Add(new List<int>() { 114, 40, 41, 42, 43, 72, 73, 74, 75, 106 });
-                lli.Add(new List<int>() { 115, 36, 37, 38, 39, 68, 69, 70, 71, 107 });
-                lli.Add(new List<int>() { 116, 117, 118, 119, 120, 121, 122, 123 });
+                lli.Add(new List<int>() { 90,91,92,93,94,95,96,97,98,99 });
+                lli.Add(new List<int>() { 80,81,82,83,84,85,86,87,88,89 });
+                lli.Add(new List<int>() { 70,71,72,73,74,75,76,77,78,79});
+                lli.Add(new List<int>() { 60,61,62,63,64,65,66,67,68,69 });
+                lli.Add(new List<int>() { 50,51,52,53,54,55,56,57,58,59 });
+                lli.Add(new List<int>() { 40,41,42,43,44,45,46,47,48,49 });
+                lli.Add(new List<int>() { 30,31,32,33,34,35,36,37,38,39 });
+                lli.Add(new List<int>() { 20,21,22,23,24,25,26,27,28,29 });
+                lli.Add(new List<int>() { 10,11,12,13,14,15,16,17,18,19 });
+                lli.Add(new List<int>() { 0,1,2,3,4,5,6,7,8,9 });
                 if (v[0] != 0)
                 {
                     foreach (Light l in lightGroup)
@@ -1257,16 +1265,16 @@ namespace Operation
                     return;
                 }
                 List<List<int>> lli = new List<List<int>>();
-                lli.Add(new List<int>() { 108, 109, 110, 111, 112, 113, 114, 115 });
-                lli.Add(new List<int>() { 28, 64, 60, 56, 52, 48, 44, 40, 36, 116 });
-                lli.Add(new List<int>() { 29, 65, 61, 57, 53, 49, 45, 41, 37, 117 });
-                lli.Add(new List<int>() { 30, 66, 62, 58, 54, 50, 46, 42, 38, 118 });
-                lli.Add(new List<int>() { 31, 67, 63, 59, 55, 51, 47, 43, 39, 119 });
-                lli.Add(new List<int>() { 32, 96, 92, 88, 84, 80, 76, 72, 68, 120 });
-                lli.Add(new List<int>() { 33, 97, 93, 89, 85, 81, 77, 73, 69, 121 });
-                lli.Add(new List<int>() { 34, 98, 94, 90, 86, 82, 78, 74, 70, 122 });
-                lli.Add(new List<int>() { 35, 99, 95, 91, 87, 83, 79, 75, 71, 123 });
-                lli.Add(new List<int>() { 100, 101, 102, 103, 104, 105, 106, 107 });
+                lli.Add(new List<int>() { 90,80,70,60,50,40,30,20,10,0 });
+                lli.Add(new List<int>() { 91,81,71,61,51,41,31,21,11,1 });
+                lli.Add(new List<int>() { 92,82,72,62,52,42,32,22,12,2 });
+                lli.Add(new List<int>() { 93,83,73,63,53,43,33,23,13,3 });
+                lli.Add(new List<int>() { 94,84,74,64,54,44,34,24,14,4});
+                lli.Add(new List<int>() { 95,85,75,65,55,45,35,25,15,5 });
+                lli.Add(new List<int>() { 96,86,76,66,56,46,36,26,16,6 });
+                lli.Add(new List<int>() { 97,87,77,67,57,47,37,27,17,7 });
+                lli.Add(new List<int>() { 98,88,78,68,58,48,38,28,18,8 });
+                lli.Add(new List<int>() { 99,89,79,69,59,49,39,29,19,9 });
                 if (v[0] != 0)
                 {
                     foreach (Light l in lightGroup)
