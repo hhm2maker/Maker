@@ -30,11 +30,15 @@
     </Window.Resources>
     <Grid Name="gMost" DockPanel.Dock="Top">
         <DockPanel>
-            <Grid DockPanel.Dock="Top" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Image  Source="View/Resources/Image/open.png" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="OpenFileControl"/>
-            </Grid>
             <Grid DockPanel.Dock="Top">
-                <Grid  Name="gCenter"/>
+                <DockPanel>
+                    <DockPanel  DockPanel.Dock="Left" Background="#222326" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                        <Image DockPanel.Dock="Top" Margin="15,25,15,25" Source="View/Resources/Image/file.png" Width="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="OpenFileControl"/>
+                        <Image DockPanel.Dock="Top" Width="20"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSetting" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                    </DockPanel>
+                    <Grid  Name="gCenter" DockPanel.Dock="Left"/>
+                </DockPanel>
                 <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -74,7 +78,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Name="gFile" Grid.Column="0" Width="600" Background="#222326" HorizontalAlignment="Left"  >
+            <Grid Name="gFile" Grid.Column="0" Width="600" Background="#222326"  HorizontalAlignment="Left"  >
                 <Grid.Effect>
                     <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                 </Grid.Effect>
@@ -89,11 +93,6 @@
                         <ImageBrush ImageSource="View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <Grid Background="#50000000" >
-                        <Image Width="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,25,0" Height="25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSetting"/>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,75,25,0"  MouseLeftButtonDown="OpenDevice">
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource Device}" Foreground="White" Margin="0,0,15,0" />
-                            <Image Width="25" Height="25" Source="View/Resources/Image/device.png"/>
-                        </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,110,25,0"  MouseLeftButtonDown="Image_MouseLeftButtonDown">
                             <TextBlock VerticalAlignment="Center" Text="查看颜色表和位置表" Foreground="White" Margin="0,0,15,0" />
                             <Image Width="25" Height="25" Source="View/Resources/Image/hint.png"/>
