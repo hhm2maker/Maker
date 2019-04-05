@@ -2,10 +2,12 @@
 using Maker.Business.Currency;
 using Maker.View.Control;
 using Maker.View.Dialog;
+using Maker.View.UI.UserControlDialog;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -420,6 +422,74 @@ namespace Maker.View.Setting
 
         public void AddPlayer(String filePath) {
             lbMain.Items.Add(filePath);
+        }
+
+        private void ChangeLanguage(object sender, RoutedEventArgs e)
+        {
+            if (mw.hintModelDictionary.ContainsKey(0))
+            {
+                if (mw.hintModelDictionary[0].IsHint == false)
+                {
+                    ChangeLanguage();
+                    return;
+                }
+            }
+            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？",
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    ChangeLanguage();
+
+                    foo();
+                    // .net 4.5
+                    async void foo()
+                    {
+                        await Task.Delay(50);
+                        mw.SetSpFilePosition(mw.filePosition);
+                    }
+                    mw.RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    mw.RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    mw.NotHint(0);
+                }
+               );
+            mw.ShowMakerDialog(hintDialog);
+        }
+
+        public void ChangeLanguage()
+        {
+            if (mw.strMyLanguage.Equals("en-US"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "zh-CN";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "zh-CN";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
+            else if (mw.strMyLanguage.Equals("zh-CN"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                XmlNode languageRoot = doc.DocumentElement;
+                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
+                languageMyLanguage.InnerText = "en-US";
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
+                mw.strMyLanguage = "en-US";
+
+                ResourceDictionary dict = new ResourceDictionary();
+                dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
+                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
+            }
         }
     }
 }

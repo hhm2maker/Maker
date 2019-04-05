@@ -29,6 +29,12 @@ namespace Maker.View.Tool
             this.mw = mw;
 
             this.mLightList = mLightList;
+            FileBusiness.CreateInstance().ReplaceControl(this.mLightList, FileBusiness.CreateInstance().midiArr);
+            for (int i = mLightList.Count - 1; i >= 0 ; i--) {
+                if (mLightList[i].Position<36 || mLightList[i].Position >99) {
+                    mLightList.Remove(mLightList[i]);
+                }
+            }
 
             worker.WorkerReportsProgress = true;
             worker.DoWork += new DoWorkEventHandler(worker_DoWork);

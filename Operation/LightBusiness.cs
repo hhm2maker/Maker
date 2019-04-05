@@ -448,8 +448,8 @@ namespace Operation
                 if (mActionBeanList[i].Time != time)
                 {
                     time = mActionBeanList[i].Time;
-                    int[] x = new int[96];
-                    for (int j = 0; j < 96; j++)
+                    int[] x = new int[100];
+                    for (int j = 0; j < 100; j++)
                     {
                         x[j] = 0;
                     }

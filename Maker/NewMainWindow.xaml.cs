@@ -194,6 +194,9 @@ namespace Maker
             }
             else
             {
+                //关闭文件选择器
+                CloseFileControl();
+
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
                 selectedItem = sender as ListBoxItem;
 
@@ -203,6 +206,7 @@ namespace Maker
                 {
                     (baseUserControl as ScriptUserControl)._bIsEdit = false;
                 }
+               
             }
             baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
@@ -643,42 +647,7 @@ namespace Maker
             }
         }
 
-        private void ChangeLanguage(object sender, RoutedEventArgs e)
-        {
-            if (hintModelDictionary.ContainsKey(0))
-            {
-                if (hintModelDictionary[0].IsHint == false)
-                {
-                    ChangeLanguage();
-                    return;
-                }
-            }
-            HintDialog hintDialog = new HintDialog("更改语言", "您是否要更改语言？",
-                delegate (System.Object _o, RoutedEventArgs _e)
-            {
-                ChangeLanguage();
-
-                foo();
-                // .net 4.5
-                async void foo()
-                {
-                    await Task.Delay(50);
-                    SetSpFilePosition(filePosition);
-                }
-                RemoveDialog();
-            },
-                delegate (System.Object _o, RoutedEventArgs _e)
-                {
-                    RemoveDialog();
-                },
-                delegate (System.Object _o, RoutedEventArgs _e)
-                {
-                    NotHint(0);
-                }
-               );
-            ShowMakerDialog(hintDialog);
-        }
-
+      
         public void ShowMakerDialog(MakerDialog makerdialog)
         {
             gMost.Children.Add(new Grid()
@@ -700,37 +669,7 @@ namespace Maker
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
 
-        public void ChangeLanguage()
-        {
-            if (strMyLanguage.Equals("en-US"))
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "zh-CN";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                strMyLanguage = "zh-CN";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"View\Resources\Language\StringResource_zh-CN.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
-            else if (strMyLanguage.Equals("zh-CN"))
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.Load(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                XmlNode languageRoot = doc.DocumentElement;
-                XmlNode languageMyLanguage = languageRoot.SelectSingleNode("MyLanguage");
-                languageMyLanguage.InnerText = "en-US";
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "Config/language.xml");
-                strMyLanguage = "en-US";
-
-                ResourceDictionary dict = new ResourceDictionary();
-                dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
-                System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
-            }
-        }
+     
 
         public ListBoxItem needControlListBoxItem;
         public String needControlFileName;
@@ -1076,15 +1015,17 @@ namespace Maker
       
         private void CloseFileControl(object sender, MouseButtonEventArgs e)
         {
+            CloseFileControl();
+        }
+        private void CloseFileControl() {
             ThicknessAnimation animation = new ThicknessAnimation
             {
-                  To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
+                To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             animation.Completed += Animation_Completed;
             gFile.BeginAnimation(MarginProperty, animation);
         }
-
         private void Animation_Completed(object sender, EventArgs e)
         {
             dpFile.Visibility = Visibility.Collapsed;
@@ -1106,8 +1047,8 @@ namespace Maker
             SetSpFilePosition(((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock));
         }
 
-        private int filePosition = 0;
-        private void SetSpFilePosition(int position) {
+        public int filePosition = 0;
+        public void SetSpFilePosition(int position) {
             (spFileTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169,169,169));
             (spFileTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;

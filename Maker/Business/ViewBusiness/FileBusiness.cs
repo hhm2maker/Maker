@@ -82,7 +82,6 @@ namespace Maker.Business
                     continue;
                 }
             }
-
             return mActionBeanList;
         }
 
@@ -890,7 +889,7 @@ namespace Maker.Business
         /// <summary>
         /// MIDI位置数组
         /// </summary>
-        private List<int> midiArr = new List<int>()
+        public List<int> midiArr = new List<int>()
             {
                 0,116,117,118,119,120,121,122,123,0,
                 115,36,37,38,39,68,69,70,71,107,

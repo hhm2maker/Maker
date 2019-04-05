@@ -268,6 +268,7 @@ namespace Maker.View.LightUserControl
                     }
                 }
             }
+
             return mActionBeanList;
         }
 

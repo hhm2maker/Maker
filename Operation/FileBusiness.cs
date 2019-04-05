@@ -77,6 +77,7 @@ namespace Operation
                     continue;
                 }
             }
+
             return mActionBeanList;
         }
 
@@ -567,6 +568,7 @@ namespace Operation
             int time = 0;
             for (int l = 0; l < mActionBeanList.Count; l++)
             {
+                mActionBeanList[l].Position -= 28;
                 if (mActionBeanList[l].Time == time)
                 {
                     mActionBeanList[l].Time = time;

@@ -121,9 +121,19 @@ VerticalAlignment="Center"
                 </StackPanel>
             </StackPanel>
         </Grid>
-            <DockPanel Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,20">
+            <DockPanel Grid.Row="1"  Margin="0,20,0,20">
+            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="20,0,0,0"  Click="ChangeLanguage" Background="Transparent" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                 <TextBlock FontSize="16" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{DynamicResource NowVersionColon}" />
                 <TextBlock Name="tbNowVersion" FontSize="16" Foreground="White"  VerticalAlignment="Center" Margin="10,0,0,0" Text="0.0.0.0" />
+            </StackPanel>
             </DockPanel>
         <Image DockPanel.Dock="Right" Width="25" Margin="0,25,25,0" MouseLeftButtonDown="Image_MouseLeftButtonDown" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  />
     </Grid>

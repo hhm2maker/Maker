@@ -99,15 +99,8 @@
                             <Image Width="25" Height="25" Source="View/Resources/Image/hint.png"/>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,25,0,0">
-                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"   Click="ChangeLanguage" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/language.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Language}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="0,15,0,0"   Click="ToAboutUserControl" Background="Transparent" >
+                           
+                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"   Click="ToAboutUserControl" Background="Transparent" >
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
                                         <Image Source="View/Resources/Image/about.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
