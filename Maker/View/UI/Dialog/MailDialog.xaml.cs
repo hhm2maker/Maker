@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.View.UI.UserControlDialog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,20 +18,21 @@ namespace Maker.View.Dialog
     /// <summary>
     /// MailDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class MailDialog : Window
+    public partial class MailDialog : MakerDialog
     {
+        private NewMainWindow mw;
+        private int mailType;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="window"></param>
         /// <param name="mailType">类型 0-反馈 1-加入我们</param>
-        public MailDialog(Window window,int mailType)
+        public MailDialog(NewMainWindow mw,int mailType)
         {
             InitializeComponent();
-            Owner = window;
+            this.mw = mw;
             this.mailType = mailType;
         }
-        private int mailType;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (mailType == 0)
@@ -62,7 +64,11 @@ namespace Maker.View.Dialog
             //打开标准的软件客户端 
             //System.Diagnostics.Process.Start( string.Format("mailto:{0}?subject={1}&body={2}&cc={3}&bcc={4}", to, subject, body, cc, bcc));
             System.Diagnostics.Process.Start(string.Format("mailto:{0}?subject={1}&body={2}", to, subject, body));
+        }
 
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            mw.RemoveDialog();
         }
     }
 }

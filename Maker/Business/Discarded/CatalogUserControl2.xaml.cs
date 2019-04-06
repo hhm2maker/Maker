@@ -171,7 +171,7 @@ namespace Maker.Business.Discarded
         }
         private void ToFeedbackDialog(object sender, RoutedEventArgs e)
         {
-            new MailDialog(mw, 0).ShowDialog();
+            //new MailDialog(mw, 0).ShowDialog();
         }
 
         private void ToHelpOverview(object sender, MouseButtonEventArgs e)

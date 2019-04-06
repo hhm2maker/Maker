@@ -53,7 +53,7 @@ namespace Maker.View.Work
 
             item.Header = sp;
             item.SetResourceReference(TabItem.StyleProperty, "TabItemStyle1");
-            item.Content = new WebBrowserUserControl(this);
+            //item.Content = new WebBrowserUserControl(this);
             tcMain.Items.Add(item) ;
             tcMain.SelectedIndex = 0;
 
@@ -106,7 +106,7 @@ namespace Maker.View.Work
 
                 item.Header = sp;
                 item.SetResourceReference(TabItem.StyleProperty, "TabItemStyle1");
-                item.Content = new WebBrowserUserControl(this);
+                //item.Content = new WebBrowserUserControl(this);
                 tcMain.Items.Insert(tcMain.Items.Count - 1, item);
                 tcMain.SelectedIndex = tcMain.Items.Count - 2;
             }

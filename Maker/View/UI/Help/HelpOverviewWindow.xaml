@@ -18,7 +18,6 @@
         <ListBox Grid.Column="0" FontSize="20" Name="lbLeft" Foreground="#F0F0F0" Background="{x:Null}" Width="200" SelectionChanged="ListBox_SelectionChanged">
             <ListBoxItem Content="{DynamicResource ProjectProducer}"/>
             <ListBoxItem Content="{DynamicResource Programmer}"/>
-            <ListBoxItem Content="{DynamicResource JoinUs}" PreviewMouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"/>
         </ListBox>
         <ListBox Grid.Column="1"  FontSize="18" Foreground="#FFFFFF" Background="{x:Null}" Width="350">
             <ListBoxItem  Name="lbiNone" Content="{DynamicResource ChooseWhatYouWantToKnow}"/>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Tutorial content="" />
+  <Pages first="NoLive.lightPage">
+    <Page name="NoLive.lightPage">
+      <Buttons position="41">
+        <Button>
+          <Down lightname="0" goto="" bpm="96" />
+          <Loop lightname="" goto="" bpm="" />
+          <Up lightname="1" goto="" bpm="96" />
+        </Button>
+      </Buttons>
+    </Page>
+  </Pages>
+  <Lights>
+    <Light name="0" value="AMKQKSU=" />
+    <Light name="1" value="AMKAKSU=" />
+  </Lights>
+</Root>

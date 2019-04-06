@@ -182,27 +182,27 @@ namespace Maker.View
                 item.ContextMenu = mw.contextMenu;
                 if (_filePath.EndsWith(".light"))
                 {
-                    mw.tvLight.Items.Add(item);
+                    mw.lbLight.Items.Add(item);
                 }
                 else if (_filePath.EndsWith(".lightScript"))
                 {
-                    mw.tvLightScript.Items.Add(item);
+                    mw.lbLightScript.Items.Add(item);
                 }
                 else if (_filePath.EndsWith(".limitlessLamp"))
                 {
-                    mw.tvLimitlessLamp.Items.Add(item);
+                    mw.lbLimitlessLamp.Items.Add(item);
                 }
                 else if (_filePath.EndsWith(".playExport"))
                 {
-                    mw.tvPlay.Items.Add(item);
+                    mw.lbPlay.Items.Add(item);
                 }
                 else if (_filePath.EndsWith(".lightPage"))
                 {
-                    mw.tvPlay.Items.Add(item);
+                    mw.lbPlay.Items.Add(item);
                 }
                 else if (_filePath.EndsWith(".play"))
                 {
-                    mw.tvPlay.Items.Add(item);
+                    mw.lbPlay.Items.Add(item);
                 }
                 else {
                     return;

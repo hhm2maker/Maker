@@ -9,7 +9,7 @@
         mc:Ignorable="d"
           Background="#363b40"
         Width="540"
-        Height="200"
+        Height="240"
     VerticalAlignment="Top"
        >
     <UserControl.Effect>
@@ -32,5 +32,7 @@
                 <TextBlock FontSize="16" Margin="5,0,5,0" Foreground="#F0F0F0" Text=":"/>
                 <TextBlock FontSize="16" Text="Mr_Launchpadder(Q1459834781)" Foreground="#FF5A5A"/>
             </StackPanel>
-        </StackPanel>
+        <Button  HorizontalAlignment="Right"  Foreground="White" FontSize="14" Margin="0,30,0,0" Width="100" Background="{x:Null}" BorderBrush="White" Content="{DynamicResource JoinUs}" Click="Button_Click" Style="{x:Null}"/>
+
+    </StackPanel>
 </local1:MakerDialog>

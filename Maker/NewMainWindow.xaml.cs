@@ -48,6 +48,9 @@ namespace Maker
 
             InitContextMenu();
             InitFile();
+
+         
+
         }
         public ContextMenu contextMenu;
         private void InitContextMenu()
@@ -118,6 +121,10 @@ namespace Maker
         /// </summary>
         private void InitFile()
         {
+            //显示名字
+            DirectoryInfo directoryInfo = new DirectoryInfo(LastProjectPath);
+            tbProjectPath.Text = directoryInfo.Name;
+
             lbLight.Items.Clear();
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light",".mid" }))
             {
@@ -309,12 +316,13 @@ namespace Maker
         }
         private void ToFeedbackDialog(object sender, RoutedEventArgs e)
         {
-            new MailDialog(this, 0).ShowDialog();
+            ShowMakerDialog(new MailDialog(this,0));
         }
 
         private void ToHelpOverview(object sender, RoutedEventArgs e)
         {
-            new HelpOverviewWindow(this).Show();
+            //new HelpOverviewWindow(this).Show();
+            ShowMakerDialog(new WebBrowserUserControl());
         }
         private void ToHideControl(object sender, int position)
         {
@@ -446,7 +454,6 @@ namespace Maker
             doubleAnimation.Completed += DoubleAnimation_Completed1;
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
             userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-
         }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
@@ -473,6 +480,8 @@ namespace Maker
                     (lbMain.SelectedItem as ListBoxItem).IsSelected = false;
                 }
             }
+
+            suc.InitMyContent();
         }
 
         private void LoadFileList()
@@ -601,12 +610,13 @@ namespace Maker
                 return;
             }
 
-            tbProjectPath.Text = lbProject.SelectedItem.ToString().Trim();
-            suc.HideControl();
-            InitFile();
+            projectConfigModel.Path = lbProject.SelectedItem.ToString().Trim();
 
             popFile.IsOpen = false;
             bridge.SaveFile();
+
+            suc.HideControl();
+            InitFile();
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -644,6 +654,8 @@ namespace Maker
                     }
                     bridge.SaveFile();
                 }
+
+                InitFile();
             }
         }
 
@@ -743,8 +755,6 @@ namespace Maker
                 }
             }
         }
-
-
 
         private void RenameFileName(object sender, RoutedEventArgs e)
         {

@@ -177,7 +177,6 @@ namespace Maker.Bridge
         private void InitProject()
         {
             XmlSerializerBusiness.Load(ref view.projectConfigModel, "Config/project.xml");
-            view.tbProjectPath.Text = view.projectConfigModel.Path;
         }
 
         /// <summary>

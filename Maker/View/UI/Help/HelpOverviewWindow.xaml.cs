@@ -38,9 +38,6 @@ namespace Maker.View.Help
                         AllCollapsed();
                         lbiDeveloperDocumentation.Visibility = Visibility.Visible;
                         break;
-                    case 2:
-                        AllCollapsed();
-                        break;
                     default:
                         break;
                 }
@@ -97,12 +94,6 @@ namespace Maker.View.Help
         private void wbMain_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             wbMain.Visibility = Visibility.Visible;
-        }
-
-        private void ListBoxItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            lbLeft.SelectedIndex = 2;
-            new MailDialog(this, 1).ShowDialog();
         }
     }
 }

@@ -9,6 +9,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using CefSharp.Wpf;
+using Maker.View.UI.UserControlDialog;
 using Maker.View.Work;
 using System;
 using System.Diagnostics;

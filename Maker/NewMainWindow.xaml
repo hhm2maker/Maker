@@ -107,7 +107,7 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="0,15,0,0" Click="ToFeedbackDialog" Background="Transparent" >
+                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}" Margin="0,15,0,0" Click="ToFeedbackDialog" Background="Transparent" >
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
                                         <Image Source="View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
@@ -177,10 +177,10 @@
                         <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
                         <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555">
                         <StackPanel Name="spFile"  Orientation="Horizontal" VerticalAlignment="Stretch">
-                            <ListBox Name="lbLight" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
-                            <ListBox Name="lbLightScript" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
-                            <ListBox Name="lbLimitlessLamp" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
-                            <ListBox Name="lbPlay" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" />
+                            <ListBox Name="lbLight" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
+                            <ListBox Name="lbLightScript" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
+                            <ListBox Name="lbLimitlessLamp" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
+                            <ListBox Name="lbPlay" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" />
                         </StackPanel>
                         </Border>
                     </Grid>

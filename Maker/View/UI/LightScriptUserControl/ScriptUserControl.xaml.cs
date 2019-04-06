@@ -225,7 +225,7 @@ namespace Maker.View.LightScriptUserControl
         public void InitMyContent()
         {
             //获取最新的我的内容
-            if (_bridge == null)
+            if (_bridge == null || filePath.Equals(String.Empty))
                 return;
             _bridge.InitMyContent(_bridge.GetMyContent(Path.GetFileName(filePath)), MyContentMenuItem_Click);
         }
@@ -2885,11 +2885,11 @@ namespace Maker.View.LightScriptUserControl
             {
                 DelStep();
             }
-            if (e.KeyboardDevice.Modifiers == System.Windows.Input.ModifierKeys.Control && e.Key == System.Windows.Input.Key.Z)
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Z)
             {
                 Unmake();
             }
-            if (e.KeyboardDevice.Modifiers == System.Windows.Input.ModifierKeys.Control && e.Key == System.Windows.Input.Key.Y)
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.Y)
             {
                 Redo();
             }

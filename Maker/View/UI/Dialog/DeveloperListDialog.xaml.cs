@@ -31,5 +31,10 @@ namespace Maker.View.Dialog
         {
             mw.RemoveDialog();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new MailDialog(mw, 1));
+        }
     }
 }
