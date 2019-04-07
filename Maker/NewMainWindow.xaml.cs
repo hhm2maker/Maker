@@ -25,6 +25,9 @@ using Maker.Model;
 using Maker.View.Setting;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using System.Diagnostics;
 
 namespace Maker
 {
@@ -284,6 +287,10 @@ namespace Maker
                 userControls[3].SaveFile();
             }
             bridge.Close();
+
+            //将文本框中的值，发送给接收端
+            string strUrl = "Close";
+            SendMessage("https://hhm2maker.gitbook.io/maker/", strUrl);
         }
 
         ///// <summary>
@@ -319,11 +326,7 @@ namespace Maker
             ShowMakerDialog(new MailDialog(this,0));
         }
 
-        private void ToHelpOverview(object sender, RoutedEventArgs e)
-        {
-            //new HelpOverviewWindow(this).Show();
-            ShowMakerDialog(new WebBrowserUserControl());
-        }
+    
         private void ToHideControl(object sender, int position)
         {
             //bool bIsShowControl = true;
@@ -1082,5 +1085,60 @@ namespace Maker
             };
             rFile.BeginAnimation(MarginProperty, animation2);
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct CopyDataStruct
+        {
+            public IntPtr dwData;
+            public int cbData;  // 字符串长度
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData; // 字符串
+        }
+        public const int WM_COPYDATA = 0x004A;
+
+        //通过窗口的标题来查找窗口的句柄
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        //在DLL库中的发送消息函数
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        private static extern int SendMessage(
+            IntPtr hWnd,                   //目标窗体句柄
+            int Msg,                       //WM_COPYDATA
+            int wParam,                //自定义数值
+            ref CopyDataStruct lParam             //传递消息的结构体，
+        );
+
+
+        public static void SendMessage(string windowName, string strMsg)
+        {
+            if (strMsg == null) return;
+            IntPtr hwnd = FindWindow(null, windowName);
+            if (hwnd != IntPtr.Zero)
+            {
+                CopyDataStruct cds;
+                cds.dwData = IntPtr.Zero;
+                cds.lpData = strMsg;
+                //注意：长度为字节数
+                cds.cbData = System.Text.Encoding.Default.GetBytes(strMsg).Length + 1;
+                // 消息来源窗体
+                int fromWindowHandler = 0;
+                SendMessage(hwnd, WM_COPYDATA, fromWindowHandler, ref cds);
+            }
+        }
+      
+
+        private void ToHelpOverview(object sender, RoutedEventArgs e)
+        {
+            //new HelpOverviewWindow(this).Show();
+            //ShowMakerDialog(new WebBrowserUserControl());
+           
+            if (helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(helpConfigModel.ExeFilePath))
+                Process.Start("https://hhm2maker.gitbook.io/maker/");
+            else 
+                Process.Start(helpConfigModel.ExeFilePath);
+        }
+
+
     }
 }

@@ -30,7 +30,6 @@ namespace Maker.View.Help
 
         private void wbMain_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            Console.WriteLine("AAAAAAAAAA");
             //try
             //{
             //    //MyTextBox.Text = MyWebBrowser.Source.ToString();
@@ -59,7 +58,6 @@ namespace Maker.View.Help
             tbUrl.Text = mUri;
             wbMain.Visibility = Visibility.Visible;
             wbMain.Navigate(mUri);//加载Url
-
         }
     }
 }

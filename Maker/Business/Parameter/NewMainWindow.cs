@@ -68,7 +68,7 @@ namespace Maker
         public ProjectConfigModel projectConfigModel = new ProjectConfigModel();
         public HideConfigModel hideConfigModel = new HideConfigModel();
         public VersionConfigModel versionConfigModel = new VersionConfigModel();
-        
+        public HelpConfigModel helpConfigModel = new HelpConfigModel();
         //Light
         public FrameUserControl fuc;
         public TextBoxUserControl tbuc;

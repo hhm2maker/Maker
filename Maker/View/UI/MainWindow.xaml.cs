@@ -947,55 +947,7 @@ namespace Maker.View.Control
         }
 
 
-        #region 定义常量消息值
-        public const int WM_GETTEXT = 0x0D;
-        public const int WM_SETTEXT = 0x0C;
-        public const int WM_SIZEING = 0x0214;
-        public const int WM_COPYDATA = 0x004A;
-        public const int WM_LBUTTONDBLCLK = 0x0203;
-        #endregion
-        #region 定义结构体
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cbData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-        #endregion
-
-        private void MessageWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            HwndSource hWndSource;
-            WindowInteropHelper wih = new WindowInteropHelper(this);
-            hWndSource = HwndSource.FromHwnd(wih.Handle);
-            //添加处理程序 
-            hWndSource.AddHook(MainWindowProc);
-        }
-        private IntPtr MainWindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            switch (msg)
-            {
-                case WM_COPYDATA:
-                    {
-
-                        COPYDATASTRUCT mystr = new COPYDATASTRUCT();
-                        Type mytype = mystr.GetType();
-
-                        COPYDATASTRUCT MyKeyboardHookStruct = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, typeof(COPYDATASTRUCT));
-                        //this.textbox.Text = MyKeyboardHookStruct.lpData;
-                        Console.WriteLine(MyKeyboardHookStruct.lpData);
-
-                        break;
-
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
-            return IntPtr.Zero;
-        }
+      
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //System.Windows.Rect r = new System.Windows.Rect(e.NewSize);

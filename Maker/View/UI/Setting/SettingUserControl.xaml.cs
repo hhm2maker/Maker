@@ -90,6 +90,9 @@ namespace Maker.View.Setting
              //平铺
              tbPavedColumns.Text = mw.pavedConfigModel.Columns.ToString();
              tbPavedMax.Text = mw.pavedConfigModel.Max.ToString();
+            //帮助
+            tbHelpExeFilePath.Text = mw.helpConfigModel.ExeFilePath.ToString();
+
             //播放器
             //播放器 - 类型
             switch (mw.playerType)
@@ -259,7 +262,26 @@ namespace Maker.View.Setting
             //    mw.iuc.bridge.RefreshColor();
             //}
         }
-    
+
+        private void btnLocationHelpExeFilePath_Click(object sender, RoutedEventArgs e)
+        {
+            String ExeFilePath = mw.helpConfigModel.ExeFilePath;
+            String fName;
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            if(File.Exists(ExeFilePath))
+               openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(ExeFilePath);  //注意这里写路径时要用c:\\而不是c:\
+            openFileDialog.Filter = "可执行文件|*.exe";
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                fName = openFileDialog.FileName;
+                mw.helpConfigModel.ExeFilePath = fName;
+                tbColortabPath.Text = fName;
+                XmlSerializerBusiness.Save(mw.helpConfigModel, "Config/help.xml");
+            }
+        }
+
         private void sOpacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (mw == null)

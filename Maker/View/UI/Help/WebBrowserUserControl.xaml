@@ -5,9 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Maker.View.Work"
-    xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-    mc:Ignorable="d" 
+             mc:Ignorable="d" 
              Background="#363b40"
     VerticalAlignment="Top"
     Width="1500"
@@ -16,7 +14,7 @@
     <UserControl.Effect>
         <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
     </UserControl.Effect>
-    <Grid >
+    <Grid Name="grid">
        <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
@@ -29,8 +27,6 @@
             <TextBox  Name="tbUrl" Grid.Column="0" Background="#535353" FontSize="14" Foreground="#F0F0F0" BorderThickness="0,0,1,1"/>
             <TextBlock  Text="Go" HorizontalAlignment="Right" Grid.Column="1" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" TextAlignment="Center" FontSize="14"  Background="#535353" Foreground="#F0F0F0" Width="80" />
         </Grid>
-        <!--<wpf:ChromiumWebBrowser x:Name="Browser"
-                                    Address="www.google.com" />-->
-        <WebBrowser x:Name="wbMain" Grid.Row="1" Grid.ColumnSpan="2" Visibility="Collapsed" LoadCompleted="wbMain_LoadCompleted"/>
+        <WebBrowser x:Name="wbMain" Grid.Row="1" Grid.ColumnSpan="2" LoadCompleted="wbMain_LoadCompleted"/>
     </Grid>
 </local1:MakerDialog>

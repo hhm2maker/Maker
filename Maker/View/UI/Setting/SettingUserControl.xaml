@@ -87,6 +87,21 @@ VerticalAlignment="Center"
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
+                <TextBlock Margin="20,30,0,0" Text="{DynamicResource Help}" Foreground="#939da0"/>
+                <StackPanel Orientation="Vertical" >
+                    <GroupBox  Margin="20,20,20,0" Header="{DynamicResource ExeFilePath}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
+                        <StackPanel  Margin="5">
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Name="tbHelpExeFilePath" VerticalAlignment="Center" FontSize="14" Text="{DynamicResource NoLocation}"/>
+                                <Button  Grid.Column="1" Name="tbLocationHelpExeFilePath" HorizontalAlignment="Right" Margin="0,0,10,0" FontSize="14" Width="60" Height="25"  Click="btnLocationHelpExeFilePath_Click" Content="{DynamicResource Location}" />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="2">
                 <TextBlock Margin="20,0,0,0" Text="{DynamicResource Tool}" Foreground="#939da0"/>

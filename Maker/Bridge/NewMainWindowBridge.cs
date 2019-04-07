@@ -38,6 +38,7 @@ namespace Maker.Bridge
             InitHide();
             InitTest();
             InitVersion();
+            InitHelp();
         }
 
         /// <summary>
@@ -55,6 +56,14 @@ namespace Maker.Bridge
         private void InitVersion()
         {
             XmlSerializerBusiness.Load(ref view.versionConfigModel, "Config/version.xml");
+        }
+
+        /// <summary>
+        /// 初始化帮助
+        /// </summary>
+        private void InitHelp()
+        {
+            XmlSerializerBusiness.Load(ref view.helpConfigModel, "Config/help.xml");
         }
 
         /// <summary>
