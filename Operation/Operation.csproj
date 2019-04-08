@@ -88,6 +88,7 @@
     <Compile Include="Model\OperationModel\ReversalOperationModel.cs" />
     <Compile Include="Model\OperationModel\SetEndTimeOperationModel.cs" />
     <Compile Include="Model\OperationModel\ShapeColorOperationModel.cs" />
+    <Compile Include="Model\OperationModel\ThirdPartyOperationModel.cs" />
     <Compile Include="Model\OperationModel\VerticalFlippingOperationModel.cs" />
     <Compile Include="ProjectConfigModel.cs" />
     <Compile Include="RangeGroup.cs" />

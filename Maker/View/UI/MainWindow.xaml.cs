@@ -53,8 +53,8 @@ namespace Maker.View.Control
             //初始化主窗口
             InitMainWindow();
             //加载第三方扩展
-            thirdPartys = bridge.GetThirdParty();
-            bridge.InitThirdParty(thirdPartys, bridge.ThirdPartysMenuItem_Click);
+            //thirdPartys = bridge.GetThirdParty();
+            //bridge.InitThirdParty(thirdPartys, bridge.ThirdPartysMenuItem_Click);
             //加载历史记录
             historicals = bridge.GetHistorical();
         }

@@ -47,42 +47,42 @@ namespace Maker.ViewBusiness
         /// </summary>
         /// <param name="listbox"></param>
         /// <param name="strings"></param>
-        public static void SetStringsAndClickEventToMenuItem(MenuItem menuItem, List<String> strings, RoutedEventHandler clickEvent,bool isClearOld)
-        {
-            if (isClearOld)
-            {
-                menuItem.Items.Clear();
-            }
-            foreach (String str in strings)
-            {
-                MenuItem mItem = new MenuItem
-                {
-                    Header = str
-                };
-                mItem.Click += clickEvent;
-                menuItem.Items.Add(mItem);
-            }
-        }
+        //public static void SetStringsAndClickEventToMenuItem(MenuItem menuItem, List<String> strings, RoutedEventHandler clickEvent,bool isClearOld)
+        //{
+        //    if (isClearOld)
+        //    {
+        //        menuItem.Items.Clear();
+        //    }
+        //    foreach (String str in strings)
+        //    {
+        //        MenuItem mItem = new MenuItem
+        //        {
+        //            Header = str
+        //        };
+        //        mItem.Click += clickEvent;
+        //        menuItem.Items.Add(mItem);
+        //    }
+        //}
         /// <summary>
         /// 设置字符串数组和点击事件到MenuItem
         /// </summary>
         /// <param name="listbox"></param>
         /// <param name="strings"></param>
-        public static void SetStringsAndClickEventToMenuItem(MenuItem menuItem, List<String> strings, RoutedEventHandler clickEvent, bool isClearOld,int fontSize)
+        public static void SetStringsAndClickEventToTreeView(TreeView treeView, List<String> strings, MouseButtonEventHandler clickEvent, bool isClearOld,int fontSize)
         {
             if (isClearOld)
             {
-                menuItem.Items.Clear();
+                treeView.Items.Clear();
             }
             foreach (String str in strings)
             {
-                MenuItem mItem = new MenuItem
+                TreeViewItem mItem = new TreeViewItem
                 {
                     Header = str,
                     FontSize = fontSize
                 };
-                mItem.Click += clickEvent;
-                menuItem.Items.Add(mItem);
+                mItem.PreviewMouseLeftButtonDown += clickEvent;
+                treeView.Items.Add(mItem);
             }
         }
         /// <summary>

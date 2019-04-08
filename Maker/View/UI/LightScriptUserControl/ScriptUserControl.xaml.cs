@@ -90,8 +90,15 @@ namespace Maker.View.LightScriptUserControl
             //}
             //svMainLeft.Width = 0;
             //svMainBottom.Visibility = Visibility.Visible;
-
+            thirdPartys = GetThirdParty();
+            InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
         }
+
+        /// <summary>
+        /// 第三方插件列表
+        /// </summary>
+        public List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
+
         public String strInputFormatDelimiter;
         public String strInputFormatRange;
 
@@ -4329,11 +4336,15 @@ namespace Maker.View.LightScriptUserControl
                         scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
                     }
                 }
+                if (sender.Parent == miChildThirdParty)
+                {
+                    scriptModel.OperationModels.Add(new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name));
+                }
+
                 StyleWindow style = new StyleWindow(mw);
                 style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
                 mw.AddSetting(style);
             }
-
             //Test();
         }
         //不写入XML,而是直接写入代码
@@ -4978,6 +4989,106 @@ namespace Maker.View.LightScriptUserControl
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             InitMyContent();
+        }
+
+        /// <summary>
+        /// 获取第三方插件列表
+        /// </summary>
+        /// <returns></returns>
+        public List<ThirdPartyModel> GetThirdParty()
+        {
+            List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
+            XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
+            foreach (XElement element in doc.Element("Operations").Elements())
+            {
+                //var name = element.Element("name").Value;
+                thirdPartys.Add(new ThirdPartyModel(element.Attribute("name").Value,
+                    element.Attribute("entext").Value,
+                    element.Attribute("zhtext").Value,
+                    element.Attribute("view").Value,
+                    element.Attribute("dll").Value));
+            }
+            return thirdPartys;
+        }
+        /// <summary>
+        /// 将第三方扩展加载到界面
+        /// </summary>
+        /// <param name="clickEvent"></param>
+        /// <returns></returns>
+        public void InitThirdParty(List<ThirdPartyModel> thirdPartys, MouseButtonEventHandler clickEvent)
+        {
+            if (thirdPartys.Count != 0)
+            {
+                List<String> strs = new List<string>();
+                if (mw.strMyLanguage.Equals("en-US"))
+                {
+                    foreach (var item in thirdPartys)
+                    {
+                        strs.Add(item.entext);
+                    }
+                }
+                else if (mw.strMyLanguage.Equals("zh-CN"))
+                {
+                    foreach (var item in thirdPartys)
+                    {
+                        strs.Add(item.zhtext);
+                    }
+                }
+                GeneralViewBusiness.SetStringsAndClickEventToTreeView(miChildThirdParty, strs, clickEvent, false, 16);
+            }
+        }
+
+        public void ThirdPartysMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
+            //不是输入模式或者没有可操作的步骤
+            //if (window.mode != MainWindowMode.Input || window.iuc.lbStep.SelectedIndex == -1)
+            //    return;
+            //String viewString = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].view;
+            //if (viewString.Equals(String.Empty))
+            //{
+            //    //不需要View
+            //    for (int k = 0; k < window.iuc.lbStep.SelectedItems.Count; k++)
+            //    {
+            //        StackPanel sp = (StackPanel)window.iuc.lbStep.SelectedItems[k];
+            //        //没有可操作的灯光组
+            //        if (!window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)].Contains(window.iuc.GetStepName(sp) + "LightGroup"))
+            //        {
+            //            continue;
+            //        }
+            //        String command = String.Empty;
+            //        command = Environment.NewLine + "\t" + window.iuc.GetStepName(sp) + "LightGroup = Edit." + window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].name + "(" + window.iuc.GetStepName(sp) + "LightGroup);";
+            //        window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)] += command;
+            //    }
+            //    window.iuc.RefreshData();
+            //}
+            //else
+            //{
+            //    ThirdPartyDialog dialog = new ThirdPartyDialog(window, viewString);
+            //    if (window.strMyLanguage.Equals("en-US"))
+            //    {
+            //        dialog.Title = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].entext;
+            //    }
+            //    else if (window.strMyLanguage.Equals("zh-CN"))
+            //    {
+            //        dialog.Title = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].zhtext;
+            //    }
+            //    if (dialog.ShowDialog() == true)
+            //    {
+            //        for (int k = 0; k < window.iuc.lbStep.SelectedItems.Count; k++)
+            //        {
+            //            StackPanel sp = (StackPanel)window.iuc.lbStep.SelectedItems[k];
+            //            //没有可操作的灯光组
+            //            if (!window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)].Contains(window.iuc.GetStepName(sp) + "LightGroup"))
+            //            {
+            //                continue;
+            //            }
+            //            String command = Environment.NewLine + "\t" + window.iuc.GetStepName(sp) + "LightGroup = Edit." + window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].name + "(" + window.iuc.GetStepName(sp) + "LightGroup" + dialog.result + ");";
+            //            window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)] += command;
+            //        }
+            //        window.iuc.RefreshData();
+            //    }
+            //}
         }
     }
 }

@@ -116,6 +116,10 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
                 }
+                else if (baseOperationModel is ThirdPartyOperationModel)
+                {
+                    svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
+                }
             }       
         }
        private List<BaseOperationModel> operationModels;
