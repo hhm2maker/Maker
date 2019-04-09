@@ -5041,54 +5041,7 @@ namespace Maker.View.LightScriptUserControl
         public void ThirdPartysMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
-            //不是输入模式或者没有可操作的步骤
-            //if (window.mode != MainWindowMode.Input || window.iuc.lbStep.SelectedIndex == -1)
-            //    return;
-            //String viewString = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].view;
-            //if (viewString.Equals(String.Empty))
-            //{
-            //    //不需要View
-            //    for (int k = 0; k < window.iuc.lbStep.SelectedItems.Count; k++)
-            //    {
-            //        StackPanel sp = (StackPanel)window.iuc.lbStep.SelectedItems[k];
-            //        //没有可操作的灯光组
-            //        if (!window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)].Contains(window.iuc.GetStepName(sp) + "LightGroup"))
-            //        {
-            //            continue;
-            //        }
-            //        String command = String.Empty;
-            //        command = Environment.NewLine + "\t" + window.iuc.GetStepName(sp) + "LightGroup = Edit." + window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].name + "(" + window.iuc.GetStepName(sp) + "LightGroup);";
-            //        window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)] += command;
-            //    }
-            //    window.iuc.RefreshData();
-            //}
-            //else
-            //{
-            //    ThirdPartyDialog dialog = new ThirdPartyDialog(window, viewString);
-            //    if (window.strMyLanguage.Equals("en-US"))
-            //    {
-            //        dialog.Title = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].entext;
-            //    }
-            //    else if (window.strMyLanguage.Equals("zh-CN"))
-            //    {
-            //        dialog.Title = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].zhtext;
-            //    }
-            //    if (dialog.ShowDialog() == true)
-            //    {
-            //        for (int k = 0; k < window.iuc.lbStep.SelectedItems.Count; k++)
-            //        {
-            //            StackPanel sp = (StackPanel)window.iuc.lbStep.SelectedItems[k];
-            //            //没有可操作的灯光组
-            //            if (!window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)].Contains(window.iuc.GetStepName(sp) + "LightGroup"))
-            //            {
-            //                continue;
-            //            }
-            //            String command = Environment.NewLine + "\t" + window.iuc.GetStepName(sp) + "LightGroup = Edit." + window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].name + "(" + window.iuc.GetStepName(sp) + "LightGroup" + dialog.result + ");";
-            //            window.iuc.lightScriptDictionary[window.iuc.GetStepName(sp)] += command;
-            //        }
-            //        window.iuc.RefreshData();
-            //    }
-            //}
+           
         }
     }
 }

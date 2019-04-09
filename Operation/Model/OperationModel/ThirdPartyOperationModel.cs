@@ -14,9 +14,15 @@ namespace Maker.Business.Model.OperationModel
             set;
         } = new List<String>();
 
+        public String ThirdPartyName
+        {
+            get;
+            set;
+        }
+
         public ThirdPartyOperationModel(String thirdPartyName)
         {
-
+            ThirdPartyName = thirdPartyName;
         }
 
       

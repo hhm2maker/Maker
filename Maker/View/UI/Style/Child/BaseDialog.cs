@@ -25,7 +25,7 @@ namespace Maker.View.Style.Child
         /// 常规设置
         /// </summary>
         public void SetRoutine() {
-            Background = new SolidColorBrush(Color.FromArgb(255, 38, 39, 41));
+            //Background = new SolidColorBrush(Color.FromArgb(255, 38, 39, 41));
         }
         /// <summary>
         /// 设置窗口大小
@@ -42,7 +42,13 @@ namespace Maker.View.Style.Child
         }
        
        
-        private List<UIElement> _UI =new List<UIElement>();
+        protected List<UIElement> _UI =new List<UIElement>();
+        public int UICount {
+            get {
+                return _UI.Count;
+            } 
+        }
+
         /// <summary>
         /// 添加控件到对话框
         /// </summary>
@@ -61,10 +67,22 @@ namespace Maker.View.Style.Child
         public void AddTopHintTextBlock(String textName)
         {
             TextBlock tb = new TextBlock();
-            tb.FontSize = 14;
+            tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255,240,240,240));
             tb.Margin = new Thickness(0, 20, 0, 0);
             tb.SetResourceReference(TextBlock.TextProperty, textName);
+            _UI.Add(tb);
+        }
+        /// <summary>
+        /// 添加头部提示文本
+        /// </summary>
+        public void AddTopHintTextBlockForThirdPartyModel(String textName)
+        {
+            TextBlock tb = new TextBlock();
+            tb.FontSize = 16;
+            tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
+            tb.Margin = new Thickness(0, 20, 0, 0);
+            tb.Text = textName;
             _UI.Add(tb);
         }
         /// <summary>
@@ -86,7 +104,7 @@ namespace Maker.View.Style.Child
         public void AddTextBox()
         {
             TextBox tb = new TextBox();
-            tb.FontSize = 14;
+            tb.FontSize = 16;
             tb.Background = null;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             tb.Margin = new Thickness(0, 10, 0, 0);
@@ -118,7 +136,7 @@ namespace Maker.View.Style.Child
         {
             ComboBox cb = new ComboBox();
             cb.SelectedIndex = 0;
-            cb.FontSize = 14;
+            cb.FontSize = 16;
             cb.Background = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
             cb.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
             cb.Margin = new Thickness(0, 10, 0, 0);

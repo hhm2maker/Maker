@@ -118,7 +118,7 @@ namespace Maker.View.Style
                 }
                 else if (baseOperationModel is ThirdPartyOperationModel)
                 {
-                    svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
+                    svMain.Children.Add(new ThirdPartyOperationChild(baseOperationModel as ThirdPartyOperationModel));
                 }
             }       
         }
@@ -223,6 +223,10 @@ namespace Maker.View.Style
                 else if (item is OneNumberOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, (item as OneNumberOperationModel).Identifier);
+                }
+                else if (item is ThirdPartyOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "ThirdParty");
                 }
             }
             lbCatalog.SelectedIndex = 0;

@@ -33,12 +33,16 @@ namespace Maker.Model
             get;
             set;
         }
-        public ThirdPartyModel(String name,String entext,String zhtext,String view,String dll) {
+        public ThirdPartyModel(String name, String entext, String zhtext, String view, String dll) {
             this.name = name;
             this.entext = entext;
             this.zhtext = zhtext;
             this.view = view;
             this.dll = dll;
+        }
+
+        public ThirdPartyModel() {
+
         }
     }
 }
