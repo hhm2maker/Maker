@@ -4338,7 +4338,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender.Parent == miChildThirdParty)
                 {
-                    scriptModel.OperationModels.Add(new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name));
+                    scriptModel.OperationModels.Add(new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll));
                 }
 
                 StyleWindow style = new StyleWindow(mw);

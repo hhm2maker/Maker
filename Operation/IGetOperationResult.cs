@@ -7,6 +7,6 @@ namespace Operation
 {
     public interface IGetOperationResult
     {
-        List<Light> GetOperationResult(List<Light> lightGroup, String parameter);
+        List<Light> GetOperationResult(List<Light> lightGroup, List<String> parameters);
     }
 }

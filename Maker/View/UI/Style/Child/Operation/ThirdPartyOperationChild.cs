@@ -108,39 +108,18 @@ namespace Maker.View.UI.Style.Child
 
 
         public override bool ToSave() {
+            List<String> parameters = new List<string>();
             for (int i = 0; i < _UI.Count; i++) {
                 if (_UI[i] is TextBox) {
                     if ((_UI[i] as TextBox).Text.Equals(String.Empty)) {
                         (_UI[i] as TextBox).Focus();
                         return false;
                     }
+                    parameters.Add((_UI[i] as TextBox).Text);
                 }
             }
+            thirdPartyOperationModel.Parameters = parameters;
             return true;
-            //if (tbStart.Text.Equals(String.Empty))
-            //{
-            //    tbStart.Focus();
-            //    return false;
-            //}
-            //if (int.TryParse(tbStart.Text, out int iStart))
-            //{
-            //    //interceptTimeOperationModel.Start = iStart;
-            //}
-            //else
-            //{
-            //    tbStart.Focus();
-            //    return false;
-            //}
-            //if (int.TryParse(tbEnd.Text, out int iEnd))
-            //{
-            //    //interceptTimeOperationModel.End = iEnd;
-            //    return true;
-            //}
-            //else
-            //{
-            //    tbEnd.Focus();
-            //    return false;
-            //}
         }
 
        

@@ -20,11 +20,19 @@ namespace Maker.Business.Model.OperationModel
             set;
         }
 
-        public ThirdPartyOperationModel(String thirdPartyName)
+        public String DllFileName
         {
-            ThirdPartyName = thirdPartyName;
+            get;
+            set;
         }
 
-      
+        public ThirdPartyOperationModel(String thirdPartyName,String dllFileName)
+        {
+            ThirdPartyName = thirdPartyName;
+            DllFileName = dllFileName;
+        }
+        public ThirdPartyOperationModel()
+        { }
+
     }
 }

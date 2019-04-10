@@ -341,6 +341,28 @@ namespace Operation
                         }
                         scriptModel.OperationModels.Add(shapeColorOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("ThirdParty"))
+                    {
+                        ThirdPartyOperationModel thirdPartyOperationModel = new ThirdPartyOperationModel();
+                        if (xEdit.Attribute("thirdPartyName") != null && !xEdit.Attribute("thirdPartyName").Value.ToString().Equals(String.Empty))
+                        {
+                            thirdPartyOperationModel.ThirdPartyName = xEdit.Attribute("thirdPartyName").Value;
+                        }
+                        if (xEdit.Attribute("dllFileName") != null && !xEdit.Attribute("dllFileName").Value.ToString().Equals(String.Empty))
+                        {
+                            thirdPartyOperationModel.DllFileName = xEdit.Attribute("dllFileName").Value;
+                        }
+                        List<String> parameters = new List<string>();
+                        foreach (var xParameters in xScript.Elements("Parameter"))
+                        {
+                            if (xParameters.Attribute("value") != null && !xParameters.Attribute("value").Value.ToString().Equals(String.Empty))
+                            {
+                                parameters.Add (xParameters.Attribute("value").Value);
+                            }
+                        }
+                        thirdPartyOperationModel.Parameters = parameters;
+                        scriptModel.OperationModels.Add(thirdPartyOperationModel);
+                    }
                 }
                 scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             }

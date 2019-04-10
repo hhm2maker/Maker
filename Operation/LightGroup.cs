@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -1433,6 +1434,52 @@ namespace Operation
             }
             Clear();
             AddRange(result);
+        }
+
+        /// <summary>
+        /// 第三方
+        /// </summary>
+        /// <param name="dllFileName"></param>
+        /// <param name="parameters"></param>
+        public void ThirdParty(String thirdPartyName, String dllFileName, List<String> parameters)
+        {
+            if (!dllFileName.Equals(String.Empty))
+            {
+                //Type type = ass.GetType("HorizontalFlipping.HorizontalFlipping");//程序集下所有的类
+                //Executable废弃该文件夹
+                Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName + ".dll");
+                Type[] types = ass.GetTypes();
+                Type type = null;
+                foreach (Type t in types)
+                {
+                    if (t.ToString().Contains("." + thirdPartyName))
+                    {
+                        type = t;
+                        break;
+                    }
+                }
+              
+                if (type == null)
+                    return ;
+ 
+                //判断是否继承于IGetOperationResult类
+                Type _type = type.GetInterface("Operation.IGetOperationResult");
+                if (_type == null)
+                    return ;
+                Object o = Activator.CreateInstance(type);
+                MethodInfo mi = o.GetType().GetMethod("GetOperationResult");
+                List<Light> lol = new List<Light>();
+                foreach (Light l in this)
+                {
+                    lol.Add(new Operation.Light(l.Time, l.Action, l.Position, l.Color));
+                }
+
+                lol = (List<Operation.Light>)mi.Invoke(o, new Object[] { lol, parameters });
+
+                Clear();
+                AddRange(lol.ToArray());
+            
+            }
         }
     }
 }

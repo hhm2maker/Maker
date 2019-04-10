@@ -566,6 +566,23 @@ namespace Operation
                             }
                         }
                     }
+                    else if (mItem is ThirdPartyOperationModel)
+                    {
+                        ThirdPartyOperationModel thirdPartyOperationModel = mItem as ThirdPartyOperationModel;
+                        StringBuilder _sb = new StringBuilder();
+                        _sb.Append("new List<String> {");
+                        for (int i = 0; i < thirdPartyOperationModel.Parameters.Count; i++) {
+                            if (i != thirdPartyOperationModel.Parameters.Count - 1)
+                                _sb.Append("\"" + thirdPartyOperationModel.Parameters[i] + "\",");
+                            else {
+                                _sb.Append("\"" + thirdPartyOperationModel.Parameters[i] + "\"}");
+                            }
+                        }
+
+
+                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ThirdParty("+"\""+ thirdPartyOperationModel .ThirdPartyName + "\",\""+thirdPartyOperationModel.DllFileName + "\"," +
+                           _sb .ToString()+ ");");
+                    }
                 }
             }
             return sb.ToString();
