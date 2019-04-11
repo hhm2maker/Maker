@@ -40,14 +40,7 @@ namespace Maker.View.UI.Style.Child
             {
                 if (element.Attribute("type").Value.Equals("textblock"))
                 {
-                    if (StaticConstant.mw.strMyLanguage.Equals("en-US"))
-                    {
-                        AddTopHintTextBlockForThirdPartyModel(element.Attribute("entext").Value);
-                    }
-                    else if (StaticConstant.mw.strMyLanguage.Equals("zh-CN"))
-                    {
-                        AddTopHintTextBlockForThirdPartyModel(element.Attribute("zhtext").Value);
-                    }
+                    AddTopHintTextBlockForThirdPartyModel(element.Attribute("text").Value);
                 }
                 if (element.Attribute("type").Value.Equals("textbox"))
                 {

@@ -11,7 +11,6 @@ using Maker.Model;
 using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.View.Dialog.Automatic;
-using Maker.View.Dialog.Script;
 using Maker.View.Style;
 using Maker.ViewBusiness;
 using System.Collections;
@@ -26,6 +25,7 @@ using System.Xml.Linq;
 using Maker.Business.Model.OperationModel;
 using Operation;
 using Maker.View.UI.UserControlDialog;
+using Maker.Business.Model;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -4094,6 +4094,21 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("end", interceptTimeOperationModel.End.ToString());
                         xScript.Add(xVerticalFlipping);
                     }
+                    else if (mItem is ThirdPartyOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("ThirdParty");
+                        ThirdPartyOperationModel thirdPartyOperationModel = mItem as ThirdPartyOperationModel;
+                        xVerticalFlipping.SetAttributeValue("thirdPartyName", thirdPartyOperationModel.ThirdPartyName);
+                        xVerticalFlipping.SetAttributeValue("dllFileName", thirdPartyOperationModel.DllFileName);
+                        XElement xParameters = new XElement("Parameters");
+                        for (int i = 0; i < thirdPartyOperationModel.Parameters.Count; i++) {
+                            XElement xParameter = new XElement("Parameter");
+                            xParameter.SetAttributeValue("value", thirdPartyOperationModel.Parameters[i]);
+                            xParameters.Add(xParameter);
+                        }
+                        xVerticalFlipping.Add(xParameters);
+                        xScript.Add(xVerticalFlipping);
+                    }
                 }
                 xScripts.Add(xScript);
             }
@@ -5003,8 +5018,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 //var name = element.Element("name").Value;
                 thirdPartys.Add(new ThirdPartyModel(element.Attribute("name").Value,
-                    element.Attribute("entext").Value,
-                    element.Attribute("zhtext").Value,
+                    element.Attribute("text").Value,
                     element.Attribute("view").Value,
                     element.Attribute("dll").Value));
             }
@@ -5020,19 +5034,9 @@ namespace Maker.View.LightScriptUserControl
             if (thirdPartys.Count != 0)
             {
                 List<String> strs = new List<string>();
-                if (mw.strMyLanguage.Equals("en-US"))
+                foreach (var item in thirdPartys)
                 {
-                    foreach (var item in thirdPartys)
-                    {
-                        strs.Add(item.entext);
-                    }
-                }
-                else if (mw.strMyLanguage.Equals("zh-CN"))
-                {
-                    foreach (var item in thirdPartys)
-                    {
-                        strs.Add(item.zhtext);
-                    }
+                    strs.Add(item.text);
                 }
                 GeneralViewBusiness.SetStringsAndClickEventToTreeView(miChildThirdParty, strs, clickEvent, false, 16);
             }
@@ -5042,6 +5046,52 @@ namespace Maker.View.LightScriptUserControl
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
            
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            String SetupFilePath = AppDomain.CurrentDomain.BaseDirectory;
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            if (File.Exists(SetupFilePath))
+                openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(SetupFilePath);  //注意这里写路径时要用c:\\而不是c:\
+            openFileDialog.Filter = "XML文件|*.xml";
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ThirdPartySetupModel thirdPartySetupModel = new ThirdPartySetupModel();
+                XmlSerializerBusiness.Load(ref thirdPartySetupModel, openFileDialog.FileName);
+
+                for (int i = 0; i < thirdPartys.Count; i++) {
+                    if (thirdPartys[i].name.Equals(thirdPartySetupModel.Name) 
+                        || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View" + thirdPartySetupModel.View + ".xml")
+                        || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll" + thirdPartySetupModel.Dll + ".dll")) {
+                        mw.ShowMakerDialog(new ErrorDialog(mw, "SuspectedInstalled"));
+                        return;
+                    }
+                }
+
+                HintDialog hintDialog = new HintDialog("安装编辑插件", thirdPartySetupModel.Text,
+               delegate (System.Object _o, RoutedEventArgs _e)
+               {
+                   //安装编辑插件
+                   mw.RemoveDialog();
+               },
+               delegate (System.Object _o, RoutedEventArgs _e)
+               {
+                   mw.RemoveDialog();
+               },
+               delegate (System.Object _o, RoutedEventArgs _e)
+               {
+                   //NotHint(2);
+               });
+                mw.ShowMakerDialog(hintDialog);
+
+                //fName = openFileDialog.FileName;
+                //mw.helpConfigModel.ExeFilePath = fName;
+                //tbColortabPath.Text = fName;
+                //XmlSerializerBusiness.Save(mw.helpConfigModel, "Config/help.xml");
+            }
         }
     }
 }

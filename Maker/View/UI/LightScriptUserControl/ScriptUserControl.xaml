@@ -361,7 +361,14 @@
                         </TreeView>
                     </TabItem>
                     <TabItem  BorderThickness="0"  Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >
-                        <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildThirdParty" BorderBrush="{x:Null}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TreeView Grid.Column="0" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildThirdParty" BorderBrush="{x:Null}"/>
+                            <Image Grid.Column="1" VerticalAlignment="Top" Margin="25" Source="../../Resources/Image/setup.png" Width="30" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                        </Grid>
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" >
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />

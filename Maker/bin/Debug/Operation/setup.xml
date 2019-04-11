@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Setup> 
+  <Name>ChangeThePosition_ZH</Name> 
+  <Text>¸Ä±äÎ»ÖÃ</Text>  
+  <View>ChangeThePosition_ZH</View> 
+  <Dll>sample</Dll> 
+</Setup>

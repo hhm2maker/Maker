@@ -175,8 +175,8 @@ namespace Maker.View.Device
             if (mouseType == 1)
             {
                 int position = Children.IndexOf((UIElement)sender);
-                if (position > 95)
-                    position -= 96;
+                if (position > 99)
+                    position -= 100;
                 if (LeftOrRight == 0)
                 {
                     if (!trackingValue.Contains(position))
@@ -219,8 +219,8 @@ namespace Maker.View.Device
                 }
             }
             int position = Children.IndexOf((UIElement)sender);
-            if (position > 95)
-                position -= 96;
+            if (position > 99)
+                position -= 100;
             if (!trackingValue.Contains(position))
             {
                 trackingValue.Add(position);
@@ -245,8 +245,8 @@ namespace Maker.View.Device
                 }
             }
             int position = Children.IndexOf((UIElement)sender);
-            if (position > 95)
-                position -= 96;
+            if (position > 99)
+                position -= 100;
             if (trackingValue.Contains(position))
             {
                 trackingValue.Remove(position);

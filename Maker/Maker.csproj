@@ -160,6 +160,7 @@
     <Compile Include="Business\Model\Config\TestConfigModel.cs" />
     <Compile Include="Business\Model\Config\FrameConfigModel.cs" />
     <Compile Include="Business\Model\FramePointModel.cs" />
+    <Compile Include="Business\Model\ThirdPartySetupModel.cs" />
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
@@ -497,6 +498,9 @@
     </Compile>
     <Compile Include="View\UI\UserControlDialog\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\UserControlDialog\ErrorDialog.xaml.cs">
+      <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\UserControlDialog\NewFileDialog.xaml.cs">
       <DependentUpon>NewFileDialog.xaml</DependentUpon>
@@ -989,6 +993,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\UserControlDialog\AboutDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\UserControlDialog\ErrorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1506,6 +1514,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\main_bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\setup.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

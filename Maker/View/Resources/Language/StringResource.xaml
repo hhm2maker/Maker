@@ -505,5 +505,7 @@
     <sys:String x:Key="SpaceNewProject">&#160;&#160;NewProject</sys:String>
     <sys:String x:Key="Control">Control</sys:String>
     <sys:String x:Key="ExeFilePath">Exe file path</sys:String>
+    <sys:String x:Key="Error">Error</sys:String>
+    <sys:String x:Key="SuspectedInstalled">Suspected installed.</sys:String>
     
 </ResourceDictionary>

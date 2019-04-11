@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Operations> 
-  <Operation name="ChangeThePosition" entext="Change the position" zhtext="改变位置" view="ChangeThePosition" dll="sample"/> 
+  <Operation name="ChangeThePosition_EN" text="Change the position" view="ChangeThePosition_EN" dll="sample"/> 
 </Operations>

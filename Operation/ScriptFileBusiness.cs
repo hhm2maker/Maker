@@ -353,9 +353,9 @@ namespace Operation
                             thirdPartyOperationModel.DllFileName = xEdit.Attribute("dllFileName").Value;
                         }
                         List<String> parameters = new List<string>();
-                        foreach (var xParameters in xScript.Elements("Parameter"))
+                        foreach (var xParameters in xEdit.Element(("Parameters")).Elements("Parameter"))
                         {
-                            if (xParameters.Attribute("value") != null && !xParameters.Attribute("value").Value.ToString().Equals(String.Empty))
+                            if (xParameters.Attribute("value").Value != null && !xParameters.Attribute("value").Value.ToString().Equals(String.Empty))
                             {
                                 parameters.Add (xParameters.Attribute("value").Value);
                             }
