@@ -5064,33 +5064,42 @@ namespace Maker.View.LightScriptUserControl
 
                 for (int i = 0; i < thirdPartys.Count; i++) {
                     if (thirdPartys[i].name.Equals(thirdPartySetupModel.Name) 
-                        || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View" + thirdPartySetupModel.View + ".xml")
-                        || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll" + thirdPartySetupModel.Dll + ".dll")) {
+                        ) {
                         mw.ShowMakerDialog(new ErrorDialog(mw, "SuspectedInstalled"));
                         return;
                     }
                 }
 
-                HintDialog hintDialog = new HintDialog("安装编辑插件", thirdPartySetupModel.Text,
+               HintDialog hintDialog = new HintDialog("安装编辑插件", thirdPartySetupModel.Text,
                delegate (System.Object _o, RoutedEventArgs _e)
                {
                    //安装编辑插件
+                   SetupEditPlugIn(thirdPartySetupModel);
                    mw.RemoveDialog();
                },
                delegate (System.Object _o, RoutedEventArgs _e)
                {
                    mw.RemoveDialog();
-               },
-               delegate (System.Object _o, RoutedEventArgs _e)
-               {
-                   //NotHint(2);
-               });
+               }
+              );
                 mw.ShowMakerDialog(hintDialog);
 
                 //fName = openFileDialog.FileName;
                 //mw.helpConfigModel.ExeFilePath = fName;
                 //tbColortabPath.Text = fName;
                 //XmlSerializerBusiness.Save(mw.helpConfigModel, "Config/help.xml");
+            }
+        }
+
+        private void SetupEditPlugIn(ThirdPartySetupModel thirdPartySetupModel) {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View" + thirdPartySetupModel.View + ".xml")
+                         || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll" + thirdPartySetupModel.Dll + ".dll"))
+            {
+                //弹出提示框 - 是否覆盖
+
+            }
+            else {
+                //直接安装
             }
         }
     }

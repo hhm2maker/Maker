@@ -19,5 +19,18 @@ namespace Maker.View.UI.UserControlDialog
             btnCancel.Click += cancelEventHandler;
             btnNotHint.Click += notHintEventHandler;
         }
+
+        public HintDialog(String title, String content, RoutedEventHandler okEventHandler, RoutedEventHandler cancelEventHandler)
+        {
+            InitializeComponent();
+
+            tbTitle.Text = title;
+            tbContent.Text = content;
+
+            btnOk.Click += okEventHandler;
+            btnCancel.Click += cancelEventHandler;
+
+            btnNotHint.Visibility = Visibility.Collapsed;
+        }
     }
 }

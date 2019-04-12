@@ -32,12 +32,12 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="425" MinWidth="425"/>
+                    <ColumnDefinition Width="535" MinWidth="535"/>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TabControl Padding="0" BorderThickness="0" TabStripPlacement="Bottom" Grid.Column="0" Background="#1c1a1c">
-                    <TabItem  BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
+                <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" Background="#1c1a1c">
+                    <TabItem Width="150" BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
                         <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#FF1C1A1C" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
                             <StackPanel  Background="#1c1a1c" Name="spMainLeft" Orientation="Vertical">
                                 <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
@@ -465,7 +465,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!--Style="{StaticResource ListBoxStyle1}"-->
-                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="300">
+                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
                         <ListBox.ContextMenu >
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

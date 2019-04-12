@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Setup> 
-  <Name>ChangeThePosition_ZH</Name> 
+  <Name>ChangeThePosition</Name> 
   <Text>改变位置</Text>  
-  <View>ChangeThePosition_ZH</View> 
-  <Dll>sample</Dll>
+  <View>ChangeThePosition</View> 
+  <Dll>sample</Dll> 
 </Setup>
