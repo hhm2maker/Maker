@@ -1,0 +1,42 @@
+﻿<local:MakerDialog x:Class="Maker.View.UI.UserControlDialog.SetupEditPlugInDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
+             mc:Ignorable="d" 
+             Background="#363b40"
+             Height="300" Width="600"
+             VerticalAlignment="Top"
+             >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+    </UserControl.Effect>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+    <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBlock Text="文件夹下已存在该插件需要的View/DLL文件"  FontSize="18" Foreground="#b8bfc6" Margin="30" Name="tbTitle"/>
+            <TextBlock Text="是否覆盖(请谨慎操作，覆盖/不覆盖都将可能导致某一个插件失效)" FontSize="16" Foreground="#b8bfc6" Margin="30,0,30,30" Name="tbContent"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnReplace" Click="btnReplace_Click" BorderBrush="White" Background="Transparent"  FontSize="18" Foreground="#b8bfc6" Margin="15,15,0,0" HorizontalAlignment="Left">
+                <Button.Content >
+                    <TextBlock Text="{DynamicResource Replace}" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnNoReplacement" Click="btnNoReplacement_Click" BorderBrush="White" Background="Transparent"  FontSize="18" Foreground="#b8bfc6" Margin="15,15,0,0" HorizontalAlignment="Left">
+                <Button.Content >
+                    <TextBlock Text="{DynamicResource NoReplacement}" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnCancel" Click="btnCancel_Click"  BorderBrush="White" Background="Transparent"  FontSize="18" Foreground="#b8bfc6" Margin="15,15,0,15" HorizontalAlignment="Left">
+                <Button.Content >
+                    <TextBlock Text="{DynamicResource Cancel }" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+    </Grid>
+</local:MakerDialog>

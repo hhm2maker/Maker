@@ -149,6 +149,7 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Discarded\DiscardedClass.cs" />
+    <Compile Include="Business\Model\ThirdPartyModelsModel.cs" />
     <Compile Include="Business\Model\Config\IsFirstConfigModel.cs" />
     <Compile Include="Business\Model\Config\ProjectConfigModel.cs" />
     <Compile Include="Business\Model\Config\PavedConfigModel.cs" />
@@ -501,6 +502,12 @@
     </Compile>
     <Compile Include="View\UI\UserControlDialog\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\UserControlDialog\SetupEditPlugInsDialog.xaml.cs">
+      <DependentUpon>SetupEditPlugInsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\UserControlDialog\SetupEditPlugInDialog.xaml.cs">
+      <DependentUpon>SetupEditPlugInDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\UserControlDialog\NewFileDialog.xaml.cs">
       <DependentUpon>NewFileDialog.xaml</DependentUpon>
@@ -997,6 +1004,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\UserControlDialog\ErrorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\UserControlDialog\SetupEditPlugInsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\UserControlDialog\SetupEditPlugInDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

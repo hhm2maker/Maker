@@ -26,6 +26,7 @@ using Maker.Business.Model.OperationModel;
 using Operation;
 using Maker.View.UI.UserControlDialog;
 using Maker.Business.Model;
+using static Maker.Business.Model.ThirdPartySetupsModel;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -97,7 +98,7 @@ namespace Maker.View.LightScriptUserControl
         /// <summary>
         /// 第三方插件列表
         /// </summary>
-        public List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
+        public List<ThirdPartyModelsModel.ThirdPartyModel> thirdPartys = new List<ThirdPartyModelsModel.ThirdPartyModel>();
 
         public String strInputFormatDelimiter;
         public String strInputFormatRange;
@@ -5010,26 +5011,31 @@ namespace Maker.View.LightScriptUserControl
         /// 获取第三方插件列表
         /// </summary>
         /// <returns></returns>
-        public List<ThirdPartyModel> GetThirdParty()
+        public List<ThirdPartyModelsModel.ThirdPartyModel> GetThirdParty()
         {
-            List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
-            XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
-            foreach (XElement element in doc.Element("Operations").Elements())
-            {
-                //var name = element.Element("name").Value;
-                thirdPartys.Add(new ThirdPartyModel(element.Attribute("name").Value,
-                    element.Attribute("text").Value,
-                    element.Attribute("view").Value,
-                    element.Attribute("dll").Value));
-            }
-            return thirdPartys;
+            ThirdPartyModelsModel thirdPartyModelsModel = new ThirdPartyModelsModel();
+            XmlSerializerBusiness.Load(ref thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
+            return thirdPartyModelsModel.ThirdPartyModels;
+
+            //List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
+            //XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
+            //foreach (XElement element in doc.Element("DetailedList").Element("Operations").Elements())
+            //{
+            //    //var name = element.Element("name").Value;
+            //    thirdPartys.Add(new ThirdPartyModel(element.Attribute("name").Value,
+            //        element.Attribute("text").Value,
+            //        element.Attribute("view").Value,
+            //        element.Attribute("dll").Value));
+            //}
+            //return thirdPartys;
+         
         }
         /// <summary>
         /// 将第三方扩展加载到界面
         /// </summary>
         /// <param name="clickEvent"></param>
         /// <returns></returns>
-        public void InitThirdParty(List<ThirdPartyModel> thirdPartys, MouseButtonEventHandler clickEvent)
+        public void InitThirdParty(List<ThirdPartyModelsModel.ThirdPartyModel> thirdPartys, MouseButtonEventHandler clickEvent)
         {
             if (thirdPartys.Count != 0)
             {
@@ -5059,30 +5065,10 @@ namespace Maker.View.LightScriptUserControl
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ThirdPartySetupModel thirdPartySetupModel = new ThirdPartySetupModel();
-                XmlSerializerBusiness.Load(ref thirdPartySetupModel, openFileDialog.FileName);
+                ThirdPartySetupsModel thirdPartySetupsModel = new ThirdPartySetupsModel();
+                XmlSerializerBusiness.Load(ref thirdPartySetupsModel, openFileDialog.FileName);
 
-                for (int i = 0; i < thirdPartys.Count; i++) {
-                    if (thirdPartys[i].name.Equals(thirdPartySetupModel.Name) 
-                        ) {
-                        mw.ShowMakerDialog(new ErrorDialog(mw, "SuspectedInstalled"));
-                        return;
-                    }
-                }
-
-               HintDialog hintDialog = new HintDialog("安装编辑插件", thirdPartySetupModel.Text,
-               delegate (System.Object _o, RoutedEventArgs _e)
-               {
-                   //安装编辑插件
-                   SetupEditPlugIn(thirdPartySetupModel);
-                   mw.RemoveDialog();
-               },
-               delegate (System.Object _o, RoutedEventArgs _e)
-               {
-                   mw.RemoveDialog();
-               }
-              );
-                mw.ShowMakerDialog(hintDialog);
+              mw.ShowMakerDialog(new SetupEditPlugInsDialog(mw, openFileDialog.FileName, thirdPartySetupsModel));
 
                 //fName = openFileDialog.FileName;
                 //mw.helpConfigModel.ExeFilePath = fName;
@@ -5091,16 +5077,14 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void SetupEditPlugIn(ThirdPartySetupModel thirdPartySetupModel) {
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View" + thirdPartySetupModel.View + ".xml")
-                         || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll" + thirdPartySetupModel.Dll + ".dll"))
-            {
-                //弹出提示框 - 是否覆盖
+        public void SetupEditPlugIn(ThirdPartySetupModel thirdPartySetupModel)
+        {
+            thirdPartys.Add(new ThirdPartyModelsModel.ThirdPartyModel(thirdPartySetupModel.Name, thirdPartySetupModel.Text, thirdPartySetupModel.View, thirdPartySetupModel.Dll));
+            InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
 
-            }
-            else {
-                //直接安装
-            }
+            ThirdPartyModelsModel thirdPartyModelsModel = new ThirdPartyModelsModel();
+            thirdPartyModelsModel.ThirdPartyModels = thirdPartys;
+            XmlSerializerBusiness.Save(thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -1447,7 +1448,11 @@ namespace Operation
             {
                 //Type type = ass.GetType("HorizontalFlipping.HorizontalFlipping");//程序集下所有的类
                 //Executable废弃该文件夹
-                Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName + ".dll");
+
+                //这种方式可以释放文件资源
+                //LoadFile 无法释放文件
+                byte[] fileData = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName + ".dll");
+                Assembly ass = Assembly.Load(fileData);
                 Type[] types = ass.GetTypes();
                 Type type = null;
                 foreach (Type t in types)
@@ -1478,7 +1483,6 @@ namespace Operation
 
                 Clear();
                 AddRange(lol.ToArray());
-            
             }
         }
     }

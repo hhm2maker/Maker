@@ -510,4 +510,5 @@
     <sys:String x:Key="ExeFilePath">可执行文件路径</sys:String>
     <sys:String x:Key="Error">错误</sys:String>
     <sys:String x:Key="SuspectedInstalled">疑似已安装。</sys:String>
+    <sys:String x:Key="NoReplacement">不替换</sys:String>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using Maker.Business.Model.OperationModel;
+﻿using Maker.Business.Model;
+using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Maker.View.UI.Style.Child
             //tbStart = Get(1) as TextBox;
             //tbEnd = Get(3) as TextBox;
 
-            ThirdPartyModel thirdPartyModel = new ThirdPartyModel();
+            ThirdPartyModelsModel.ThirdPartyModel thirdPartyModel = new ThirdPartyModelsModel.ThirdPartyModel();
             for (int i = 0; i < StaticConstant.mw.suc.thirdPartys.Count; i++) {
                 if (StaticConstant.mw.suc.thirdPartys[i].name.Equals(thirdPartyOperationModel.ThirdPartyName)) {
                     thirdPartyModel = StaticConstant.mw.suc.thirdPartys[i];

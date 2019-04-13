@@ -51,9 +51,6 @@ namespace Maker
 
             InitContextMenu();
             InitFile();
-
-         
-
         }
         public ContextMenu contextMenu;
         private void InitContextMenu()
@@ -662,17 +659,18 @@ namespace Maker
             }
         }
 
-      
         public void ShowMakerDialog(MakerDialog makerdialog)
         {
-            gMost.Children.Add(new Grid()
-            {
-                Background = new SolidColorBrush(Colors.Transparent),
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-            });
+        
+                gMost.Children.Add(new Grid()
+                {
+                    Background = new SolidColorBrush(Colors.Transparent),
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                });
 
             gMost.Children.Add(makerdialog);
+
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
                 From = new Thickness(0, 0, 0, 0),

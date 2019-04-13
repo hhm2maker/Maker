@@ -5,36 +5,49 @@ using System.Xml.Serialization;
 namespace Maker.Business.Model
 {
     [XmlRoot("Setup")]
-    public class ThirdPartySetupModel
+    public class ThirdPartySetupsModel
     {
-        
-        [XmlElement("Name", IsNullable = false)]
-        public string Name
+
+        [XmlArray("Operations"), XmlArrayItem("Operation")]
+        public List<ThirdPartySetupModel> ThirdPartySetupModels
         {
             get;
             set;
         }
 
-        [XmlElement("Text", IsNullable = false)]
-        public string Text
+        [XmlType("Operation")]
+        public class ThirdPartySetupModel
         {
-            get;
-            set;
+
+            [XmlElement("Name", IsNullable = false)]
+            public string Name
+            {
+                get;
+                set;
+            }
+
+            [XmlElement("Text", IsNullable = false)]
+            public string Text
+            {
+                get;
+                set;
+            }
+
+            [XmlElement("View", IsNullable = false)]
+            public string View
+            {
+                get;
+                set;
+            }
+
+            [XmlElement("Dll", IsNullable = false)]
+            public string Dll
+            {
+                get;
+                set;
+            }
         }
 
-        [XmlElement("View", IsNullable = false)]
-        public string View
-        {
-            get;
-            set;
-        }
-
-        [XmlElement("Dll", IsNullable = false)]
-        public string Dll
-        {
-            get;
-            set;
-        }
     }
 
    
