@@ -295,6 +295,7 @@ namespace Maker.Bridge
                 lights.AddRange(item.Value);
             }
             colorLightList = lights;
+
             //if (iuc.lbStep.SelectedIndex == -1)
             //{
             //    colorLightList = mLightList;
@@ -506,18 +507,7 @@ namespace Maker.Bridge
                 {
                     continue;
                 }
-                if (iuc.mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
-                {
-                    rcp.Fill = NumToBrush(x[i]);
-                }
-                if (iuc.mLaunchpad.GetButton(i) is Ellipse e)
-                {
-                    e.Fill = NumToBrush(x[i]);
-                }
-                if (iuc.mLaunchpad.GetButton(i) is Rectangle r)
-                {
-                    r.Fill = NumToBrush(x[i]);
-                }
+                (iuc.mLaunchpad.GetButton(i) as Shape).Fill = StaticConstant.brushList[x[i]];
             }
 
             if (nowTimePoint == 1)
@@ -535,22 +525,6 @@ namespace Maker.Bridge
             else
             {
                 iuc.btnNextTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toright_blue.png", UriKind.RelativeOrAbsolute));
-            }
-        }
-        /// <summary>
-        /// 数字转笔刷
-        /// </summary>
-        /// <param name="i">颜色数值</param>
-        /// <returns>SolidColorBrush笔刷</returns>
-        private SolidColorBrush NumToBrush(int i)
-        {
-            if (i == 0)
-            {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
-            }
-            else
-            {
-                return StaticConstant.brushList[i - 1];
             }
         }
 

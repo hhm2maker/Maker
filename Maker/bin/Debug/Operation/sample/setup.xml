@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Setup> 
-  <Operations>	
-  <Operation>	
-  <Name>ChangeThePosition</Name> 
-  <Text>改变位置</Text>  
-  <View>ChangeThePosition</View> 
-  <Dll>sample</Dll> 
-  </Operation>	
-  </Operations>	
+  <Operations> 
+    <Operation> 
+      <Name>ChangeThePosition</Name>  
+      <Text>改变位置</Text>  
+      <View>ChangeThePosition</View>  
+      <Dll>sample</Dll> 
+    </Operation> 
+  </Operations> 
 </Setup>

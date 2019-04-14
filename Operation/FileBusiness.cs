@@ -569,7 +569,7 @@ namespace Operation
             for (int l = 0; l < mActionBeanList.Count; l++)
             {
                 mActionBeanList[l].Position -= 28;
-                if (mActionBeanList[l].Time == time)
+                if (mActionBeanList[l].Time == 0)
                 {
                     mActionBeanList[l].Time = time;
                 }

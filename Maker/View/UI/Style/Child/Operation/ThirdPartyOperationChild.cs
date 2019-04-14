@@ -20,14 +20,6 @@ namespace Maker.View.UI.Style.Child
         {
             this.thirdPartyOperationModel = thirdPartyOperationModel;
             //构建对话框
-            //AddTopHintTextBlock("StartColon");
-            //AddTextBox();
-            //AddTopHintTextBlock("EndColon");
-            //AddTextBox();
-            //CreateDialog(200, 200);
-            //tbStart = Get(1) as TextBox;
-            //tbEnd = Get(3) as TextBox;
-
             ThirdPartyModelsModel.ThirdPartyModel thirdPartyModel = new ThirdPartyModelsModel.ThirdPartyModel();
             for (int i = 0; i < StaticConstant.mw.suc.thirdPartys.Count; i++) {
                 if (StaticConstant.mw.suc.thirdPartys[i].name.Equals(thirdPartyOperationModel.ThirdPartyName)) {
@@ -49,6 +41,18 @@ namespace Maker.View.UI.Style.Child
                 }
             }
             CreateDialog(200, 50 * UICount);
+
+            List<String> parameters = thirdPartyOperationModel.Parameters;
+            int position = 0;
+            for (int i = 0; i < _UI.Count; i++)
+            {
+                if (_UI[i] is TextBox)
+                {
+                    (_UI[i] as TextBox).Text = parameters[position];
+                    position++;
+                }
+            }
+            thirdPartyOperationModel.Parameters = parameters;
 
             //String viewString = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].view;
             //if (viewString.Equals(String.Empty))

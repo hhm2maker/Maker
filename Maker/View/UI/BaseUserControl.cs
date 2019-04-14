@@ -209,6 +209,7 @@ namespace Maker.View
                 }
                 item.IsSelected = true;
             }
+            mw.suc.InitMyContent();
         }
         /// <summary>
         /// 创建文件

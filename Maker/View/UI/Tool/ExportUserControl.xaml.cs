@@ -108,7 +108,33 @@ namespace Maker.View.Tool
             //点了保存按钮进入
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(),  mLightList);
                 //bridge.ExportLight(saveFileDialog.FileName.ToString(), mActionBeanList);
+            }
+        }
+
+        private void ExportUnipadLight(String fileName)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            //设置文件类型
+            //if (mw.strMyLanguage.Equals("en-US"))
+            //{
+            //    saveFileDialog.Filter = @"Unipad Light File";
+            //}
+            //else if (mw.strMyLanguage.Equals("zh-CN"))
+            //{
+            //    saveFileDialog.Filter = @"Unipad Light 文件";
+            //}
+            //设置默认文件类型显示顺序
+            saveFileDialog.FilterIndex = 2;
+            //默认保存名
+            saveFileDialog.FileName = fileName;
+            //保存对话框是否记忆上次打开的目录
+            saveFileDialog.RestoreDirectory = true;
+            //点了保存按钮进入
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FileBusiness.CreateInstance().WriteUnipadLightFile(saveFileDialog.FileName.ToString(),int.Parse(tbBpm.Text), mLightList);
             }
         }
 
@@ -135,6 +161,10 @@ namespace Maker.View.Tool
             if (sender == miExportLight)
             {
                 ExportLight(System.IO.Path.GetFileNameWithoutExtension(baseUserControl.filePath));
+            }
+            if (sender == miExportUnipadLight)
+            {
+                ExportUnipadLight(System.IO.Path.GetFileNameWithoutExtension(baseUserControl.filePath));
             }
             if (sender == miExportAdvanced)
             {

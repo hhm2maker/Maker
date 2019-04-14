@@ -37,6 +37,8 @@
                     <Button Content="{DynamicResource MidiFile}" Click="ExportFile" Name="miExportMidi"/>
                     <Button Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ExportFile" Name="miExportLight"/>
                     <Button Content="{DynamicResource Advanced}" Margin="10,0,0,0" Click="ExportFile" Name="miExportAdvanced"/>
+                    <TextBox Width ="100" Text="96" Foreground="White" Name="tbBpm"/>
+                    <Button Content="Unipad light" Margin="10,0,0,0" Click="ExportFile" Name="miExportUnipadLight"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

@@ -419,9 +419,9 @@
                                 </Border>
                                 <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="#1c1e1f">
                                     <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                        <TextBox Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
+                                        <TextBox FontSize="18" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
                                         <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " />
-                                        <TextBlock Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}" />
+                                            <TextBlock FontSize="18"  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}" />
                                     </StackPanel>
                                 </Border>
                                 <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">

@@ -3,8 +3,12 @@
   <Scripts>
     <Script name="Step1" parent="" value="CUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUZyb21MaWdodEZpbGUoIjAubGlnaHQiKTs=" visible="true" contain="Step1" intersection="" complement="">
       <ThirdParty thirdPartyName="ChangeThePosition" dllFileName="sample">
-        <Parameters />
+        <Parameters>
+          <Parameter value="11" />
+          <Parameter value="13" />
+        </Parameters>
       </ThirdParty>
+      <ChangeColor colors="73 74 75 76" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

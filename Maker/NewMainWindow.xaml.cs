@@ -863,7 +863,7 @@ namespace Maker
             }
             else if (sender == iExport)
             {
-                userControl = new ExportUserControl(this, mLightList);
+                userControl = new ExportUserControl(this, mLightList); 
             }
             else if (sender == iPianoRoll)
             {
@@ -1045,6 +1045,7 @@ namespace Maker
         private void OpenFileControl(object sender, MouseButtonEventArgs e)
         {
             dpFile.Visibility = Visibility.Visible;
+
             ThicknessAnimation animation = new ThicknessAnimation
             {
                 To = new Thickness(0, 0, 0, 0),

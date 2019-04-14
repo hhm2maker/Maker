@@ -205,6 +205,8 @@ namespace Maker.Business
             }
             return Action.ToString();
         }
+
+        
         /// <summary>
         /// 写入Midi文件
         /// </summary>
@@ -573,7 +575,7 @@ namespace Maker.Business
             for (int l = 0; l < mActionBeanList.Count; l++)
             {
                 mActionBeanList[l].Position -= 28;
-                if (mActionBeanList[l].Time == time)
+                if (mActionBeanList[l].Time == 0)
                 {
                     mActionBeanList[l].Time = time;
                 }
@@ -635,6 +637,72 @@ namespace Maker.Business
                 f.Close();
             }
         }
+
+        /// <summary>
+        /// 写入Unipad Light灯光文件
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="mActionBeanList">需要写入的灯光数组</param>
+        public void WriteUnipadLightFile(String filePath,int bpm , List<Light> mActionBeanList)
+        {
+            File.Delete(filePath);
+            mActionBeanList = LightBusiness.Sort(mActionBeanList);
+            //还原时间
+            int NowTime = 0;
+            int jianTime = 0;
+            for (int j = 0; j < mActionBeanList.Count; j++)
+            {
+                if (mActionBeanList[j].Time != NowTime)
+                {
+                    NowTime = mActionBeanList[j].Time;
+                    mActionBeanList[j].Time -= jianTime;
+                    jianTime = NowTime;
+                }
+                else
+                {
+                    mActionBeanList[j].Time -= jianTime;
+                }
+            }
+           
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mActionBeanList.Count; i++) {
+                if (mActionBeanList[i].Time != 0) {
+                    //d 1800
+                    //Console.WriteLine(mActionBeanList[i].Time+"---"+(int)(mActionBeanList[i].Time / (bpm * 1.0) * 1000));
+                    sb.Append("d "+ (int)(mActionBeanList[i].Time / (bpm * 1.0)  * 1000) + Environment.NewLine);
+                }
+                if (mActionBeanList[i].Action == 144)
+                {
+                    //o 1 1 a 3
+                    sb.Append("o " + mActionBeanList[i].Position % 10 + " " + mActionBeanList[i].Position / 10 + " a " + mActionBeanList[i].Color + Environment.NewLine);
+                }
+                else {
+                    //f 1 1
+                    sb.Append("f " + mActionBeanList[i].Position % 10 + " " + mActionBeanList[i].Position / 10 + Environment.NewLine);
+                }
+            }
+
+            if (sb.ToString().Equals(String.Empty))
+            {
+                File.Create(filePath).Close();
+            }
+            else
+            {
+                FileStream f = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+                for (int j = 0; j < sb.Length; j++)
+                {
+                    f.WriteByte((byte)sb[j]);
+                }
+                f.Close();
+            }
+        }
+
+        List<String> strsUnipadLightPosition = new List<string>()
+        {
+            ""
+        };
+
+
         /// <summary>
         /// 获得文件夹下所有符合条件的文件名
         /// </summary>
@@ -706,7 +774,7 @@ namespace Maker.Business
         /// 读取范围文件
         /// </summary>
         /// <param name="filePath">颜色文件的路径</param>
-        public Dictionary<string, List<int>>  ReadRangeFile(String filePath)
+        public Dictionary<string, List<int>> ReadRangeFile(String filePath)
         {
             Dictionary<string, List<int>> rangeDictionary = new Dictionary<string, List<int>>();
             FileStream f;
