@@ -511,4 +511,5 @@
     <sys:String x:Key="Error">错误</sys:String>
     <sys:String x:Key="SuspectedInstalled">疑似已安装。</sys:String>
     <sys:String x:Key="NoReplacement">不替换</sys:String>
+    <sys:String x:Key="CustomExport">自定义导出</sys:String>
 </ResourceDictionary>

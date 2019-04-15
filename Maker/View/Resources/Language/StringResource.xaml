@@ -508,4 +508,6 @@
     <sys:String x:Key="Error">Error</sys:String>
     <sys:String x:Key="SuspectedInstalled">Suspected installed.</sys:String>
     <sys:String x:Key="NoReplacement">No replacement</sys:String>
+    <sys:String x:Key="CustomExport">Custom Export</sys:String>
+    
 </ResourceDictionary>

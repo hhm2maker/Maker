@@ -25,20 +25,24 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel  Grid.Row="0"  Orientation="Vertical" Margin="30">
-            <GroupBox Foreground="White" FontSize="18" Header="{DynamicResource Import}"  Name="miImport" >
+            <GroupBox Foreground="White" FontSize="18" Style="{DynamicResource GroupBoxStyle1}" Header="{DynamicResource Import}" >
                 <StackPanel Orientation="Horizontal"  Margin="10">
                     <Button Content="{DynamicResource MidiFile}"  Click="ImportFile" Name="miMidiFile"/>
                     <Button Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ImportFile" Name="miLightFile"/>
                     <!--<MenuItem Header="{DynamicResource ImageFile}"  Click="ImportPictureFile" />-->
                 </StackPanel>
                 </GroupBox>
-            <GroupBox Foreground="White" FontSize="18" Margin="0,20,0,0"  Header="{DynamicResource Export}"  Name="miExport" >
+            <GroupBox Foreground="White" FontSize="18" Margin="0,20,0,0" Style="{DynamicResource GroupBoxStyle1}" Header="{DynamicResource Export}"  >
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Button Content="{DynamicResource MidiFile}" Click="ExportFile" Name="miExportMidi"/>
-                    <Button Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ExportFile" Name="miExportLight"/>
-                    <Button Content="{DynamicResource Advanced}" Margin="10,0,0,0" Click="ExportFile" Name="miExportAdvanced"/>
-                    <TextBox Width ="100" Text="96" Foreground="White" Name="tbBpm"/>
-                    <Button Content="Unipad light" Margin="10,0,0,0" Click="ExportFile" Name="miExportUnipadLight"/>
+                    <Button Width="120" Content="{DynamicResource MidiFile}" Click="ExportFile" Name="miExportMidi"/>
+                    <Button Width="120" Content="{DynamicResource LightFile}" Margin="10,0,0,0" Click="ExportFile" Name="miExportLight"/>
+                    <Button Width="120" Content="{DynamicResource Advanced}" Margin="10,0,0,0" Click="ExportFile" Name="miExportAdvanced"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Foreground="White" Style="{DynamicResource GroupBoxStyle1}" FontSize="18" Margin="0,20,0,0"  Header="{DynamicResource CustomExport}"  Name="miExport" >
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBox VerticalContentAlignment="Center" Width ="120" Text="96" Foreground="White" Name="tbBpm"/>
+                    <Button Width="120" BorderBrush="#ff6058" Content="Unipad light" Margin="10,0,0,0" Click="ExportFile" Name="miExportUnipadLight"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>
