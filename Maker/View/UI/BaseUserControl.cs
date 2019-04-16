@@ -174,6 +174,13 @@ namespace Maker.View
             else
             {
                 CreateFile(_filePath);
+                if (_filePath.EndsWith(".playExport"))
+                {
+                    //mw.lbPlay.Items.Add(item);
+                    this.filePath = _filePath;
+                    SaveFile();
+                    return;
+                }
                 LoadFile(filePath);
                 TreeViewItem item = new TreeViewItem
                 {
@@ -192,10 +199,7 @@ namespace Maker.View
                 {
                     mw.lbLimitlessLamp.Items.Add(item);
                 }
-                else if (_filePath.EndsWith(".playExport"))
-                {
-                    mw.lbPlay.Items.Add(item);
-                }
+                
                 else if (_filePath.EndsWith(".lightPage"))
                 {
                     mw.lbPlay.Items.Add(item);

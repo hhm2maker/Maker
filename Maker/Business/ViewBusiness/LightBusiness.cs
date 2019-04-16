@@ -442,6 +442,7 @@ namespace Maker.Business
             mActionBeanList = Sort(mActionBeanList);
             Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
             int time = -1;
+
             for (int i = 0; i < mActionBeanList.Count; i++)
             {
                 if (mActionBeanList[i].Time != time)

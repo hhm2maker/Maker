@@ -5054,6 +5054,8 @@ namespace Maker.View.LightScriptUserControl
            
         }
 
+        private ThirdPartySetupsModel thirdPartySetupsModel;
+        private String thirdPartySetupFilePath;
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             String SetupFilePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -5065,15 +5067,65 @@ namespace Maker.View.LightScriptUserControl
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                ThirdPartySetupsModel thirdPartySetupsModel = new ThirdPartySetupsModel();
+                thirdPartySetupsModel = new ThirdPartySetupsModel();
                 XmlSerializerBusiness.Load(ref thirdPartySetupsModel, openFileDialog.FileName);
 
-              mw.ShowMakerDialog(new SetupEditPlugInsDialog(mw, openFileDialog.FileName, thirdPartySetupsModel));
+                thirdPartySetupFilePath = openFileDialog.FileName;
 
-                //fName = openFileDialog.FileName;
-                //mw.helpConfigModel.ExeFilePath = fName;
-                //tbColortabPath.Text = fName;
-                //XmlSerializerBusiness.Save(mw.helpConfigModel, "Config/help.xml");
+                List<String> strs = new List<string>();
+                for (int i = 0; i < thirdPartySetupsModel.ThirdPartySetupModels.Count; i++)
+                {
+                    strs.Add(thirdPartySetupsModel.ThirdPartySetupModels[i].Name);
+                }
+                mw.ShowMakerDialog(new ListDialog(mw, strs, lbMain_SelectionChanged, "点击想要安装的插件完成安装"));
+            }
+        }
+
+        private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox lbMain = sender as ListBox;
+            if (lbMain.SelectedIndex == -1)
+                return;
+            for (int i = 0; i < mw.suc.thirdPartys.Count; i++)
+            {
+                if (mw.suc.thirdPartys[i].name.Equals(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Name))
+                {
+                    mw.ShowMakerDialog(new ErrorDialog(mw, "SuspectedInstalled"));
+                    lbMain.SelectedIndex = -1;
+                    return;
+                }
+            }
+
+            HintDialog hintDialog = new HintDialog("安装编辑插件", thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Text,
+            delegate (System.Object _o, RoutedEventArgs _e)
+            {
+                //安装编辑插件
+                SetupEditPlugIn(thirdPartySetupsModel, lbMain);
+                lbMain.SelectedIndex = -1;
+            },
+            delegate (System.Object _o, RoutedEventArgs _e)
+            {
+                mw.RemoveDialog();
+                lbMain.SelectedIndex = -1;
+            }
+           );
+            mw.ShowMakerDialog(hintDialog);
+        }
+
+        private void SetupEditPlugIn(ThirdPartySetupsModel thirdPartySetupModel,ListBox lbMain)
+        {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].View + ".xml")
+                         || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Dll + ".dll"))
+            {
+                //弹出提示框 - 是否覆盖
+                mw.ShowMakerDialog(new SetupEditPlugInDialog(mw, thirdPartySetupFilePath, thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex]));
+                lbMain.SelectedIndex = -1;
+            }
+            else
+            {
+                //直接安装
+                mw.suc.SetupEditPlugIn(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex]);
+                lbMain.SelectedIndex = -1;
             }
         }
 

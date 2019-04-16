@@ -141,10 +141,11 @@ namespace Maker.View
         }
 
         public void SetData(List<Light> mActionBeanList) {
-            for (int i = 0; i < mActionBeanList.Count; i++)
-                mActionBeanList[i].Position -= 28;
+            //for (int i = 0; i < mActionBeanList.Count; i++)
+            //    mActionBeanList[i].Position -= 28;
             playLpd.SetData(mActionBeanList);
         }
+
         public String DeviceName {
             get;
             set;

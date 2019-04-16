@@ -92,7 +92,7 @@ FE:\Sharer\Maker\Maker\View\UI\Setting\PlayerManagementUserControl.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\Tool\ToolWindow.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\AboutDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\ErrorDialog.xaml;;
-FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\SetupEditPlugInsDialog.xaml;;
+FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\ListDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\SetupEditPlugInDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\NewFileDialog.xaml;;
 FE:\Sharer\Maker\Maker\View\UI\UserControlDialog\HintDialog.xaml;;

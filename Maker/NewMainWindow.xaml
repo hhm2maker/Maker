@@ -202,8 +202,8 @@
                                     <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
                                     <Separator />
                                     <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
-                                    <MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
                             </MenuItem>
+                            <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Build}"  FontSize="18" Foreground="#f0f0f0"  Click="MenuItem_Click"/>
                         </Menu>
                     </StackPanel>
                 </Border>

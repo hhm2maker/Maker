@@ -107,13 +107,13 @@ namespace Maker
             String _filePath = baseUserControl.GetFileDirectory() + baseUserControl.filePath;
             Console.WriteLine(_filePath);
 
-            System.Diagnostics.ProcessStartInfo psi;
-            psi = new System.Diagnostics.ProcessStartInfo("Explorer.exe")
+            ProcessStartInfo psi;
+            psi = new ProcessStartInfo("Explorer.exe")
             {
 
                 Arguments = "/e,/select," + _filePath
             };
-            System.Diagnostics.Process.Start(psi);
+            Process.Start(psi);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Maker
                 lbLimitlessLamp.Items.Add(item);
             }
             lbPlay.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".play", ".lightPage", ".playExport" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".play", ".lightPage" }))
             {
                 ListBoxItem item = new ListBoxItem
                 {
@@ -573,10 +573,6 @@ namespace Maker
             else if (sender == miPage)
             {
                 baseUserControl = userControls[5];
-            }
-            else if (sender == miPlayExport)
-            {
-                baseUserControl = userControls[6];
             }
             else
             {
@@ -1138,6 +1134,9 @@ namespace Maker
                 Process.Start(helpConfigModel.ExeFilePath);
         }
 
-
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            IntoUserControl(6);
+        }
     }
 }

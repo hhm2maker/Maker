@@ -503,8 +503,8 @@
     <Compile Include="View\UI\UserControlDialog\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\UserControlDialog\SetupEditPlugInsDialog.xaml.cs">
-      <DependentUpon>SetupEditPlugInsDialog.xaml</DependentUpon>
+    <Compile Include="View\UI\UserControlDialog\ListDialog.xaml.cs">
+      <DependentUpon>ListDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\UserControlDialog\SetupEditPlugInDialog.xaml.cs">
       <DependentUpon>SetupEditPlugInDialog.xaml</DependentUpon>
@@ -1007,7 +1007,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UI\UserControlDialog\SetupEditPlugInsDialog.xaml">
+    <Page Include="View\UI\UserControlDialog\ListDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

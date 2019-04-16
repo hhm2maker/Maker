@@ -277,7 +277,7 @@ namespace Maker.View.Setting
             {
                 fName = openFileDialog.FileName;
                 mw.helpConfigModel.ExeFilePath = fName;
-                tbColortabPath.Text = fName;
+                //tbColortabPath.Text = fName;
                 XmlSerializerBusiness.Save(mw.helpConfigModel, "Config/help.xml");
             }
         }

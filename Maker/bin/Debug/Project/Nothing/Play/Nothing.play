@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Tutorial content="" />
-  <Pages first="nothing.lightPage">
-    <Page name="nothing.lightPage" />
-  </Pages>
+  <Pages first="" />
   <Lights />
 </Root>

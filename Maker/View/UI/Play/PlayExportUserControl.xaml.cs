@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Dialog;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace Maker.View.Play
             _fileType = "Play";
             _fileExtension = ".playExport";
             mainView = gMain;
-            HideControl();
+            //HideControl();
         }
         private String tutorialName = String.Empty;
         private String firstPageName = String.Empty;
@@ -106,13 +107,26 @@ namespace Maker.View.Play
                 lbPages.Items.Add(pageNames[i]);
         }
 
-        
-
         private void GenerateExe(object sender, RoutedEventArgs e)
         {
             GenerateLaunchpadLightProject();
         }
-      
+
+        private void ToLoadFile(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new ListDialog(mw, FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
+        }
+
+        private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListBox lbMain = sender as ListBox;
+            if (lbMain.SelectedIndex == -1)
+                return;
+            filePath = (lbMain.SelectedItem as ListBoxItem).Content.ToString();
+            LoadFile(filePath);
+            mw.RemoveDialog();
+        }
+
         private void GenerateLaunchpadLightProject()
         {
             Dictionary<String, String> mDictionary = new Dictionary<string, string>();
@@ -294,10 +308,11 @@ namespace Maker.View.Play
 
         public override void SaveFile()
         {
+            if (filePath.Equals(String.Empty))
+                return;
             XDocument doc = new XDocument();
             XElement xnroot = new XElement("Root");
             doc.Add(xnroot);
-
             XElement xnTutorial = new XElement("Tutorial")
             {
                 Value = tutorialName
@@ -310,7 +325,6 @@ namespace Maker.View.Play
                 Value = firstPageName
             };
             xnroot.Add(xnFirstPageName);
-
             XElement xnPages = new XElement("Pages");
             foreach (XElement pageElement in xnPages.Elements("Page"))
             {
@@ -325,9 +339,9 @@ namespace Maker.View.Play
                 xnPages.Add(xnPage);
             }
             xnroot.Add(xnPages);
-
             doc.Save(filePath);
         }
+
         protected override void CreateFile(String filePath)
         {
             //获取对象
@@ -356,6 +370,13 @@ namespace Maker.View.Play
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             mw.RemoveChildren();
+        }
+
+        private void ToSaveFile(object sender, RoutedEventArgs e)
+        {
+            //<MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
+            if (filePath.Equals(String.Empty))
+                NewFile(sender, e);
         }
     }
 }

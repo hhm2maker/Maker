@@ -27,6 +27,7 @@ namespace Maker.View.LightUserControl
             {
                 lightList = fileBusiness.ReadMidiFile(filePath);
             }
+
             SetData(lightList);
             if (spHint != null)
             {

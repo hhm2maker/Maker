@@ -154,6 +154,12 @@ namespace Maker.Business
                     mActionBeanList[l].Time = time;
                 }
             }
+
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                mActionBeanList[l].Position -= 28;
+            }
+            CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
         /// <summary>
@@ -974,7 +980,7 @@ namespace Maker.Business
         /// <summary>
         /// 普通位置数组
         /// </summary>
-        private List<int> normalArr = new List<int>()
+        public List<int> normalArr = new List<int>()
             {
                 91,92,93,94,95,96,97,98,
                 11,12,13,14,21,22,23,24,

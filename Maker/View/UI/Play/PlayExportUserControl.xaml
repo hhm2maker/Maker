@@ -34,8 +34,9 @@
                 <Button Name="btnRemoveFilePages" Click="btnRemoveFile_Click"  HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Remove}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="ToLoadFile"  Margin="0,0,10,0" VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Load}" />
                 <Button Click="GenerateExe"  Margin="0,0,10,0" VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Build}" />
-                <Button Click="SaveFile"  VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Save}" />
+                <Button Click="ToSaveFile"  VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Save}" />
             </StackPanel>
              </StackPanel>
         <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />

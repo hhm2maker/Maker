@@ -150,6 +150,12 @@ namespace Operation
                     mActionBeanList[l].Time = time;
                 }
             }
+
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                mActionBeanList[l].Position -= 28;
+            }
+            CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
         /// <summary>
@@ -160,7 +166,6 @@ namespace Operation
         {
             ReplaceControl(lab, midiArr);
             lab = LightBusiness.Sort(lab);
-
             //还原时间
             int NowTime = 0;
             int jianTime = 0;
