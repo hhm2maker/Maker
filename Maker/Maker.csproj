@@ -568,8 +568,11 @@
     <Compile Include="Business\UploadFile\NoFileUtils.cs" />
     <Compile Include="Business\UploadFile\Util.cs" />
     <Compile Include="Business\Utils\ValidCode.cs" />
-    <Compile Include="View\UI\WelcomeUserControl.xaml.cs">
+    <Compile Include="Business\Discarded\WelcomeUserControl.xaml.cs">
       <DependentUpon>WelcomeUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\WelcomeWindow.xaml.cs">
+      <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Work\MediaPlayerWindow.xaml.cs">
       <DependentUpon>MediaPlayerWindow.xaml</DependentUpon>
@@ -1063,7 +1066,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\WelcomeUserControl.xaml">
+    <Page Include="Business\Discarded\WelcomeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

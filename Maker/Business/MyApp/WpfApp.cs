@@ -1,5 +1,6 @@
 ﻿using log4net;
 using Maker.View.Control;
+using Maker.View.UI;
 using Maker.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Maker.MyApp
             ViewModelLocator viewModelLocator = new ViewModelLocator();
             System.Windows.Application.Current.Resources.Add("Locator", viewModelLocator);
 
-            NewMainWindow mw = new NewMainWindow();
+            WelcomeWindow mw = new WelcomeWindow();
             this.mw = mw;
             //设置主窗口
             MainWindow = mw;
@@ -49,7 +50,7 @@ namespace Maker.MyApp
             //查看App/xaml.cs
         }
         public static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public NewMainWindow mw { get; set; }
+        public WelcomeWindow mw { get; set; }
         public WpfApp()
         {
             // 在异常由应用程序引发但未进行处理时发生。主要指的是UI线程。

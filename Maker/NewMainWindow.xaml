@@ -93,9 +93,7 @@
                         <ImageBrush ImageSource="View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <Grid Background="#50000000" >
-
                         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,25,0,0">
-                          
                             <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"   Click="ToAboutUserControl" Background="Transparent" >
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">

@@ -1,0 +1,19 @@
+﻿<Window x:Class="Maker.View.UI.WelcomeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.UI"
+        mc:Ignorable="d"
+        Title="Welcome"   
+        WindowStyle="None"
+         AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        >
+    <Window.Background>
+        <ImageBrush ImageSource="../../View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Grid>
+        <!--<Image Stretch="UniformToFill"  Source="../../View/Resources/Image/main_bg.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+    </Grid>
+</Window>
