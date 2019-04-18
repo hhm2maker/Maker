@@ -425,9 +425,6 @@ namespace Maker.View.Device
             InitBottom();
             InitBlock();
             InitTop();
-            //InitLeft();
-            //InitRight();
-
         }
         /// <summary>
         /// 给指定位置的按钮设置颜色
@@ -494,11 +491,9 @@ namespace Maker.View.Device
         {
             if (!IsMembrane)
             {
-                InitBlackTop();
-                InitBlackBlock();
-                InitBlackRight();
-                InitBlackLeft();
                 InitBlackBottom();
+                InitBlackBlock();
+                InitBlackTop();
                 IsMembrane = true;
             }
         }
@@ -533,7 +528,7 @@ namespace Maker.View.Device
             }
             else
             {
-                for (int i = 100; i < 100 * 2; i++)
+                for (int i = 100; i < Children.Count; i++)
                 {
                     Children[i].Visibility = Visibility.Collapsed;
                 }
@@ -549,19 +544,37 @@ namespace Maker.View.Device
             {
                 if (i == 0 || i == 9)
                 {
-                    Rectangle shape = new Rectangle();
+                    Rectangle shape;
+                    if (Children.Count < 200)
+                    {
+                        shape = new Rectangle();
+                    }
+                    else
+                    {
+                        shape = (Rectangle)Children[190 + i];
+                    }
+                    if (Children.Count < 200)
                         Children.Add(shape);
                     continue;
                 }
-                Ellipse e = new Ellipse
+                Ellipse e;
+                if (Children.Count != 100 + i)
                 {
-                    Width = _circularWidth * 0.9,
-                    Height = _circularWidth * 0.9,
-                    Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0))
-                };
-                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
+                    e = new Ellipse();
+                }
+                else
+                {
+                    e = (Ellipse)Children[190 + i];
+                }
+                e.Width = _circularWidth * 0.9;
+                e.Height = _circularWidth * 0.9;
+                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + (i-1) * (_blockWidth + _smallCrevice));
                 SetTop(e, _bigCrevice * 1.04);
-                Children.Add(e);
+                if (Children.Count < 200)
+                {
+                    Children.Add(e);
+                }
             }
         }
 
@@ -570,60 +583,92 @@ namespace Maker.View.Device
         /// </summary>
         private void InitBlackBlock()
         {
-            //左边
             //一共有八排
             for (int j = 0; j < 8; j++)
             {
-                //每排四块
-                for (int i = 0; i < 4; i++)
+                //每排十块
+                for (int i = 0; i < 10; i++)
                 {
-                    if (j == 3 && i == 3)
+                    if (j == 3 && i == 4)
                     {
                         InitBlackCenterLeftBottom();
                         continue;
                     }
-                    if (j == 4 && i == 3)
+                    if (j == 4 && i == 4)
                     {
                         InitBlackCenterLeftTop();
                         continue;
                     }
-                    Rectangle r = new Rectangle();
-                    r.Width = _blockWidth * 0.9;
-                    r.Height = _blockWidth * 0.9;
-                    r.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                    SetLeft(r, _bigCrevice + _blockWidth * 1.04 + i * (_blockWidth + _smallCrevice));
-                    SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - j * (_blockWidth + _smallCrevice));
-                    r.RadiusX = 5;
-                    r.RadiusY = 5;
-                    Children.Add(r);
-                }
-            }
-            //右边
-            //一共有八排
-            for (int j = 0; j < 8; j++)
-            {
-                //每排四块
-                for (int i = 0; i < 4; i++)
-                {
-                    if (j == 3 && i == 0)
+                    if (j == 3 && i == 5)
                     {
                         InitBlackCenterRightBottom();
                         continue;
                     }
-                    if (j == 4 && i == 0)
+                    if (j == 4 && i == 5)
                     {
                         InitBlackCenterRightTop();
                         continue;
                     }
-                    Rectangle r = new Rectangle();
+
+                    if (i == 0)
+                    {
+                        Ellipse e;
+                        if (Children.Count != 200)
+                        {
+                            e = new Ellipse();
+                        }
+                        else
+                        {
+                            e = (Ellipse)Children[100 + 10 * j + 8 + 2];
+                        }
+                        e.Width = _circularWidth * 0.9;
+                        e.Height = _circularWidth* 0.9;
+                        e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+                        SetLeft(e, _bigCrevice * 1.04);
+                        SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
+                        if (Children.Count != 100)
+                            Children.Add(e);
+                        continue;
+                    }
+                    if (i == 9)
+                    {
+                        Ellipse e;
+                        if (Children.Count != 200)
+                        {
+                            e = new Ellipse();
+                        }
+                        else
+                        {
+                            e = (Ellipse)Children[100 + 10 * j + 8 + 11];
+                        }
+                        e.Width = _circularWidth * 0.9;
+                        e.Height = _circularWidth * 0.9;
+                        e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+                        SetLeft(e, _canvasSize - _bigCrevice * 0.96 - _circularWidth);
+                        SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
+                        if (Children.Count != 100)
+                            Children.Add(e);
+                        continue;
+                    }
+                    Rectangle r;
+                    if (Children.Count != 200)
+                    {
+                        r = new Rectangle();
+                    }
+                    else
+                    {
+                        r = (Rectangle)Children[100 + 10 * j + i + 8 + 2];
+                    }
                     r.Width = _blockWidth * 0.9;
                     r.Height = _blockWidth * 0.9;
                     r.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                    SetLeft(r, _bigCrevice + _blockWidth * 1.04 + (i + 4) * (_blockWidth + _smallCrevice));
-                    SetTop(r, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - j * (_blockWidth + _smallCrevice));
+                    SetLeft(r, _bigCrevice + _blockWidth * 1.04 + (i - 1) * (_blockWidth + _smallCrevice) );
+                    SetTop(r, _canvasSize - _bigCrevice * 0.96 - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
+
                     r.RadiusX = 5;
                     r.RadiusY = 5;
-                    Children.Add(r);
+                    if (Children.Count != 200)
+                        Children.Add(r);
                 }
             }
         }
@@ -641,7 +686,7 @@ namespace Maker.View.Device
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
-            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - 3 * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 3 * (_blockWidth + _smallCrevice));
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
@@ -669,7 +714,7 @@ namespace Maker.View.Device
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
-            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - 4 * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
@@ -691,7 +736,7 @@ namespace Maker.View.Device
             rcp.Points = pc;
 
             Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - 3 * (_blockWidth + _smallCrevice));
+            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 3 * (_blockWidth + _smallCrevice));
 
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
@@ -720,7 +765,7 @@ namespace Maker.View.Device
             rcp.Points = pc;
 
             Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.100 - 4 * (_blockWidth + _smallCrevice));
+            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
 
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
@@ -757,8 +802,8 @@ namespace Maker.View.Device
                 e.Width = _circularWidth * 0.9;
                 e.Height = _circularWidth * 0.9;
                 e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                Canvas.SetLeft(e, _bigCrevice * 1.04);
-                Canvas.SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
+                SetLeft(e, _bigCrevice * 1.04);
+                SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
                 Children.Add(e);
             }
         }
@@ -767,22 +812,41 @@ namespace Maker.View.Device
         /// </summary>
         private void InitBlackBottom()
         {
-
             for (int i = 0; i < 10; i++)
             {
                 if (i == 0 || i == 9)
                 {
-                    Rectangle shape = new Rectangle();
-                    Children.Add(shape);
+                    Rectangle shape;
+                    if (Children.Count < 200)
+                    {
+                        shape = new Rectangle();
+                    }
+                    else
+                    {
+                        shape = (Rectangle)Children[100 + i];
+                    }
+                    if (Children.Count < 200)
+                        Children.Add(shape);
                     continue;
                 }
-                Ellipse e = new Ellipse();
+                Ellipse e;
+                if (Children.Count < 200)
+                {
+                    e = new Ellipse();
+                }
+                else
+                {
+                    e = (Ellipse)Children[100 + i];
+                }
                 e.Width = _circularWidth * 0.9;
                 e.Height = _circularWidth * 0.9;
                 e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
-                SetTop(e, _canvasSize - _bigCrevice - _circularWidth * 0.100);
-                Children.Add(e);
+                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + (i - 1) * (_blockWidth + _smallCrevice));
+                SetTop(e, _canvasSize - _bigCrevice - _circularWidth * 0.95);
+                if (Children.Count < 200)
+                {
+                    Children.Add(e);
+                }
             }
         }
 

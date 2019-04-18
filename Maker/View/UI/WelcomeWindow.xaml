@@ -4,16 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.UI"
+        xmlns:device="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
         Title="Welcome"   
         WindowStyle="None"
          AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
+        Background="#161616"
         >
-    <Window.Background>
-        <ImageBrush ImageSource="../../View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
-    </Window.Background>
+    <!--<Window.Background>
+        <RadialGradientBrush>
+            <GradientStop Color="#FF323232" Offset="1"/>
+            <GradientStop Color="#FF646464"/>
+        </RadialGradientBrush>
+    </Window.Background>-->
+    <!--<Window.Background>
+        <ImageBrush ImageSource="../../View/Resources/Image/welcome_bg.jpg" Stretch="UniformToFill"/>
+    </Window.Background>-->
     <Grid>
-        <!--<Image Stretch="UniformToFill"  Source="../../View/Resources/Image/main_bg.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+        <!--<Image Stretch="Fill"  Source="../../View/Resources/Image/welcome_bg.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="欢迎来到Maker" Foreground="White" FontSize="40" HorizontalAlignment="Center" />
+            <TextBlock Margin="0,20,0,0" Text="欢迎来到Maker" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
+            <StackPanel Margin="0,30,0,0" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button Click="Button_Click" Style="{StaticResource EmptyButtonStyle}">
+                    <Button.Content>
+                        <Border CornerRadius="120" BorderThickness="3" BorderBrush="White" Height="120" Width="120" >
+                            <TextBlock Margin="0,5,0,5"  Text="制作工程" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
+                        </Border>
+                    </Button.Content>
+                </Button>
+                <Button Margin="20,0,0,0" Style="{StaticResource EmptyButtonStyle}">
+                    <Button.Content>
+                        <Border CornerRadius="3" BorderThickness="3" BorderBrush="White" Height="120" Width="120" >
+                            <TextBlock Margin="0,5,0,5" Text="演奏工程" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" FontSize="18"/>
+                        </Border>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <device:LaunchpadPro x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
     </Grid>
 </Window>

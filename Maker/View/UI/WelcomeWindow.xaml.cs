@@ -27,8 +27,19 @@ namespace Maker.View.UI
             Top = 0;
             Height = SystemParameters.WorkArea.Height;//获取屏幕的宽高  使之不遮挡任务栏
             Width = SystemParameters.WorkArea.Width;
+
+            TransformGroup transformGroup = new TransformGroup();
+            RotateTransform rotateTransform = new RotateTransform(45);   //其中180是旋转180度
+            transformGroup.Children.Add(rotateTransform);
+            mLaunchpad.RenderTransform = transformGroup;
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.AddMembrane();
         }
 
-       
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NewMainWindow mw = new NewMainWindow();
+            mw.Show();
+        }
     }
 }
