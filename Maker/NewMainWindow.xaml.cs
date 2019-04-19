@@ -318,11 +318,6 @@ namespace Maker
             //    svMain.ScrollToVerticalOffset(targetPosition.Y);
             //}
         }
-        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
-        {
-            ShowMakerDialog(new MailDialog(this,0));
-        }
-
     
         private void ToHideControl(object sender, int position)
         {
@@ -511,18 +506,8 @@ namespace Maker
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
         }
 
-        private void ToAppreciateWindow(object sender, RoutedEventArgs e)
-        {
-            new AppreciateWindow().Show();
-        }
-        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
-        {
-            ShowMakerDialog(new DeveloperListDialog(this));
-        }
-        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
-        }
+     
+     
         /// <summary>
         /// 添加设置页面
         /// </summary>

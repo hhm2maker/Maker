@@ -22,27 +22,56 @@
         <ImageBrush ImageSource="../../View/Resources/Image/welcome_bg.jpg" Stretch="UniformToFill"/>
     </Window.Background>-->
     <Grid>
-        <!--<Image Stretch="Fill"  Source="../../View/Resources/Image/welcome_bg.jpg" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />-->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
             <TextBlock Text="欢迎来到Maker" Foreground="White" FontSize="40" HorizontalAlignment="Center" />
             <TextBlock Margin="0,20,0,0" Text="欢迎来到Maker" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
-            <StackPanel Margin="0,30,0,0" Orientation="Horizontal" HorizontalAlignment="Center" >
+            <StackPanel Margin="0,100,0,0" Orientation="Horizontal" HorizontalAlignment="Center" >
                 <Button Click="Button_Click" Style="{StaticResource EmptyButtonStyle}">
                     <Button.Content>
-                        <Border CornerRadius="120" BorderThickness="3" BorderBrush="White" Height="120" Width="120" >
+                        <Border CornerRadius="120" BorderThickness="3" BorderBrush="White" Height="120" Width="120" Background="Transparent">
                             <TextBlock Margin="0,5,0,5"  Text="制作工程" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="18"/>
                         </Border>
                     </Button.Content>
                 </Button>
-                <Button Margin="20,0,0,0" Style="{StaticResource EmptyButtonStyle}">
+                <Button Margin="100,0,0,0" Style="{StaticResource EmptyButtonStyle}">
                     <Button.Content>
-                        <Border CornerRadius="3" BorderThickness="3" BorderBrush="White" Height="120" Width="120" >
+                        <Border CornerRadius="3" BorderThickness="3" BorderBrush="White" Height="120" Width="120" Background="Transparent">
                             <TextBlock Margin="0,5,0,5" Text="演奏工程" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" FontSize="18"/>
                         </Border>
                     </Button.Content>
                 </Button>
             </StackPanel>
         </StackPanel>
-        <device:LaunchpadPro x:Name="mLaunchpad" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,100,100,0">
+            <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="JoinQQGroup_Click" Background="Transparent" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../View/Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <TextBlock Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="ToDeveloperListWindow" Background="Transparent" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="../../View/Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <TextBlock Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}" Margin="0,15,0,0" Click="ToFeedbackDialog" Background="Transparent" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <Image Source="../../View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <TextBlock Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <Image Name="iCoffee" Width="100" Height="100" MouseEnter="iCoffee_MouseEnter" MouseLeave="iCoffee_MouseLeave" Source="../../View/Resources/Image/coffee.png" MouseLeftButtonDown="ToAppreciateWindow" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,100"/>
+        <Border x:Name="mBorderLaunchpad" CornerRadius="30" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+            <device:LaunchpadPro x:Name="mLaunchpad" />
+        </Border>
+        <Grid Name="gMost" />
     </Grid>
 </Window>

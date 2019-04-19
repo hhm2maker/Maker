@@ -1354,11 +1354,6 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Resources\Image\appreciate.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="View\Resources\Image\idea.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -1541,6 +1536,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\setup.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\coffee.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

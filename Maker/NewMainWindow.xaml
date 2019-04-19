@@ -102,14 +102,7 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}" Margin="0,15,0,0" Click="ToFeedbackDialog" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/feedback.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
+                          
                             <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="0,15,0,0" Click="ToHelpOverview" Background="Transparent" >
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -124,30 +117,6 @@
                                 <Image Width="25" Height="25" Source="View/Resources/Image/hint.png"/>
                                 <TextBlock VerticalAlignment="Center" Text="查看颜色表和位置表" Foreground="White" Margin="10,0,0,0" />
                             </StackPanel>
-                            <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="JoinQQGroup_Click" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/qq.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="ToDeveloperListWindow" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/developer.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                            <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="ToAppreciateWindow" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/appreciate.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
                         </StackPanel>
                     </Grid>
                 </Grid>

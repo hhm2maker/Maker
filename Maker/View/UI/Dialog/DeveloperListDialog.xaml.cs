@@ -1,4 +1,5 @@
-﻿using Maker.View.UI.UserControlDialog;
+﻿using Maker.View.UI;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class DeveloperListDialog : MakerDialog
     {
-        private NewMainWindow mw;
-        public DeveloperListDialog(NewMainWindow mw)
+        private WelcomeWindow mw;
+        public DeveloperListDialog(WelcomeWindow mw)
         {
             InitializeComponent();
             this.mw = mw;

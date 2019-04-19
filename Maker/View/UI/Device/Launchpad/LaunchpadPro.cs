@@ -101,7 +101,7 @@ namespace Maker.View.Device
                 if (i == 0 || i == 9)
                 {
                     Rectangle shape;
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                     {
                         shape = new Rectangle();
                     }
@@ -109,12 +109,12 @@ namespace Maker.View.Device
                     {
                         shape = (Rectangle)Children[i];
                     }
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                         Children.Add(shape);
                     continue;
                 }
                 Ellipse e;
-                if (Children.Count != 100)
+                if (Children.Count != 100 && Children.Count != 200)
                 {
                     e = new Ellipse();
                 }
@@ -127,7 +127,7 @@ namespace Maker.View.Device
                 e.Height = _circularWidth;
                 SetLeft(e, _blockWidth + _bigCrevice + _smallCrevice + (i - 1) * (_blockWidth + _smallCrevice));
                 SetTop(e, _bigCrevice);
-                if (Children.Count != 100)
+                if (Children.Count != 100 && Children.Count != 200)
                     Children.Add(e);
             }
         }
@@ -142,7 +142,7 @@ namespace Maker.View.Device
                 if (i == 0 || i == 9)
                 {
                     Rectangle shape;
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                     {
                         shape = new Rectangle();
                     }
@@ -150,12 +150,12 @@ namespace Maker.View.Device
                     {
                         shape = (Rectangle)Children[i];
                     }
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                         Children.Add(shape);
                     continue;
                 }
                 Ellipse e;
-                if (Children.Count != 100)
+                if (Children.Count != 100 && Children.Count != 200)
                 {
                     e = new Ellipse();
                 }
@@ -167,7 +167,7 @@ namespace Maker.View.Device
                 e.Height = _circularWidth;
                 SetLeft(e, _blockWidth + _bigCrevice + _smallCrevice + (i - 1) * (_blockWidth + _smallCrevice));
                 SetTop(e, _canvasSize - _bigCrevice - _circularWidth);
-                if (Children.Count != 100)
+                if (Children.Count != 100 && Children.Count != 200)
                     Children.Add(e);
             }
         }
@@ -207,7 +207,7 @@ namespace Maker.View.Device
                     if (i == 0)
                     {
                         Ellipse e;
-                        if (Children.Count != 100)
+                        if (Children.Count != 100 && Children.Count != 200)
                         {
                             e = new Ellipse();
                         }
@@ -219,14 +219,14 @@ namespace Maker.View.Device
                         e.Height = _circularWidth;
                         SetLeft(e, _bigCrevice);
                         SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 100)
+                        if (Children.Count != 100 && Children.Count != 200)
                             Children.Add(e);
                         continue;
                     }
                     if (i == 9)
                     {
                         Ellipse e;
-                        if (Children.Count != 100)
+                        if (Children.Count != 100 && Children.Count != 200)
                         {
                             e = new Ellipse();
                         }
@@ -239,12 +239,12 @@ namespace Maker.View.Device
                         e.Height = _circularWidth;
                         SetLeft(e, _canvasSize - _bigCrevice - _circularWidth);
                         SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 100)
+                        if (Children.Count != 100 && Children.Count != 200)
                             Children.Add(e);
                         continue;
                     }
                     Rectangle r;
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                     {
                         r = new Rectangle();
                     }
@@ -259,7 +259,7 @@ namespace Maker.View.Device
 
                     r.RadiusX = 5;
                     r.RadiusY = 5;
-                    if (Children.Count != 100)
+                    if (Children.Count != 100 && Children.Count != 200)
                         Children.Add(r);
                 }
             }
@@ -268,7 +268,7 @@ namespace Maker.View.Device
         private void InitCenterLeftBottom()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
@@ -292,13 +292,13 @@ namespace Maker.View.Device
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
                 Children.Add(rcp);
         }
         private void InitCenterLeftTop()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
@@ -322,13 +322,13 @@ namespace Maker.View.Device
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
                 Children.Add(rcp);
         }
         private void InitCenterRightBottom()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
@@ -353,13 +353,13 @@ namespace Maker.View.Device
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
                 Children.Add(rcp);
         }
         private void InitCenterRightTop()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
@@ -384,7 +384,7 @@ namespace Maker.View.Device
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
-            if (Children.Count != 100)
+            if (Children.Count != 100 && Children.Count != 200)
                 Children.Add(rcp);
         }
 
@@ -425,6 +425,13 @@ namespace Maker.View.Device
             InitBottom();
             InitBlock();
             InitTop();
+
+            if (IsMembrane)
+            {
+                InitBlackBottom();
+                InitBlackBlock();
+                InitBlackTop();
+            }
         }
         /// <summary>
         /// 给指定位置的按钮设置颜色
@@ -558,7 +565,7 @@ namespace Maker.View.Device
                     continue;
                 }
                 Ellipse e;
-                if (Children.Count != 100 + i)
+                if (Children.Count != 200)
                 {
                     e = new Ellipse();
                 }
@@ -626,7 +633,7 @@ namespace Maker.View.Device
                         e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
                         SetLeft(e, _bigCrevice * 1.04);
                         SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 100)
+                        if (Children.Count != 200)
                             Children.Add(e);
                         continue;
                     }
@@ -646,7 +653,7 @@ namespace Maker.View.Device
                         e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
                         SetLeft(e, _canvasSize - _bigCrevice * 0.96 - _circularWidth);
                         SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 100)
+                        if (Children.Count != 200)
                             Children.Add(e);
                         continue;
                     }
@@ -675,7 +682,15 @@ namespace Maker.View.Device
 
         private void InitBlackCenterLeftBottom()
         {
-            RoundedCornersPolygon rcp = new RoundedCornersPolygon();
+            RoundedCornersPolygon rcp;
+            if ( Children.Count != 200)
+            {
+                rcp = new RoundedCornersPolygon();
+            }
+            else
+            {
+                rcp = (RoundedCornersPolygon)Children[144];
+            }
 
             PointCollection pc = new PointCollection();
             pc.Add(new Point(0, 0));
@@ -691,18 +706,21 @@ namespace Maker.View.Device
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
             rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            Children.Add(rcp);
+
+            if (Children.Count != 200)
+                Children.Add(rcp);
         }
+
         private void InitBlackCenterLeftTop()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 16 + 3];
+                rcp = (RoundedCornersPolygon)Children[154];
             }
 
             PointCollection pc = new PointCollection();
@@ -719,11 +737,20 @@ namespace Maker.View.Device
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
             rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            Children.Add(rcp);
+            if (Children.Count != 200)
+                Children.Add(rcp);
         }
         private void InitBlackCenterRightBottom()
         {
-            RoundedCornersPolygon rcp = new RoundedCornersPolygon();
+            RoundedCornersPolygon rcp;
+            if (Children.Count != 200)
+            {
+                rcp = new RoundedCornersPolygon();
+            }
+            else
+            {
+                rcp = (RoundedCornersPolygon)Children[145];
+            }
 
             PointCollection pc = new PointCollection
             {
@@ -742,18 +769,19 @@ namespace Maker.View.Device
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
             rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            Children.Add(rcp);
+            if (Children.Count != 200)
+                Children.Add(rcp);
         }
         private void InitBlackCenterRightTop()
         {
             RoundedCornersPolygon rcp;
-            if (Children.Count != 100)
+            if (Children.Count != 200)
             {
                 rcp = new RoundedCornersPolygon();
             }
             else
             {
-                rcp = (RoundedCornersPolygon)Children[8 + 32 + 16];
+                rcp = (RoundedCornersPolygon)Children[155];
             }
 
             PointCollection pc = new PointCollection();
@@ -771,7 +799,8 @@ namespace Maker.View.Device
             rcp.UseRoundnessPercentage = false;
             rcp.IsClosed = true;
             rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            Children.Add(rcp);
+            if (Children.Count != 200)
+                Children.Add(rcp);
         }
 
         /// <summary>

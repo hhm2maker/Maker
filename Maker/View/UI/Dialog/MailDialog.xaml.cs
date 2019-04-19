@@ -1,4 +1,5 @@
-﻿using Maker.View.UI.UserControlDialog;
+﻿using Maker.View.UI;
+using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,14 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class MailDialog : MakerDialog
     {
-        private NewMainWindow mw;
+        private WelcomeWindow mw;
         private int mailType;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="window"></param>
         /// <param name="mailType">类型 0-反馈 1-加入我们</param>
-        public MailDialog(NewMainWindow mw,int mailType)
+        public MailDialog(WelcomeWindow mw,int mailType)
         {
             InitializeComponent();
             this.mw = mw;
