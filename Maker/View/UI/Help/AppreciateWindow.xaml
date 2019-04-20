@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.Help"
         mc:Ignorable="d"
-        Title="赞赏" 
+        Title="{DynamicResource Appreciate}" 
         Background="#535353"
         Height="400"
         WindowStartupLocation="CenterScreen"

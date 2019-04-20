@@ -265,11 +265,6 @@ namespace Maker
             gCenter.Children.Add(suc);
         }
 
-        public void ShowAbout()
-        {
-            ShowMakerDialog(new AboutDialog(this));
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             if (cMost.Children.Count > 0)
@@ -801,10 +796,7 @@ namespace Maker
                 hintModelDictionary[id].IsHint = false;
         }
 
-        private void ToAboutUserControl(object sender, RoutedEventArgs e)
-        {
-            ShowAbout();
-        }
+        
 
         private List<Light> mLightList = new List<Light>();
         private DeviceUserControl deviceUserControl;

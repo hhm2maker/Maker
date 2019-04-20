@@ -146,13 +146,11 @@ namespace Maker.Bridge
             XmlSerializerBusiness.Load(ref view.isFirstConfigModel, "Config/isfirst.xml");
             if (view.isFirstConfigModel.Value)
             {
-                view.ShowAbout();
+                //view.ShowAbout();
                 view.isFirstConfigModel.Value = false;
                 XmlSerializerBusiness.Save(view.isFirstConfigModel, "Config/isfirst.xml");
             }
         }
-       
-        
 
         /// <summary>
         /// 初始化播放器类型

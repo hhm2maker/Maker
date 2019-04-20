@@ -43,6 +43,14 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,100,100,0">
+            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="0,15,0,0"  Click="ToAboutUserControl" Background="Transparent" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                        <Image Source="../../View/Resources/Image/about.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        <TextBlock Text="{DynamicResource About}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
             <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Left" Margin="0,15,0,0" Click="JoinQQGroup_Click" Background="Transparent" >
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

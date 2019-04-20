@@ -20,8 +20,8 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class AboutDialog : MakerDialog
     {
-        private NewMainWindow mw;
-        public AboutDialog(NewMainWindow mw)
+        private WelcomeWindow mw;
+        public AboutDialog(WelcomeWindow mw)
         {
             InitializeComponent();
             this.mw = mw;

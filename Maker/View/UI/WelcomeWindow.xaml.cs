@@ -79,6 +79,11 @@ namespace Maker.View.UI
             ShowMakerDialog(new MailDialog(this, 0));
         }
 
+        private void ToAboutUserControl(object sender, RoutedEventArgs e)
+        {
+            ShowMakerDialog(new AboutDialog(this));
+        }
+
         public void ShowMakerDialog(MakerDialog makerdialog)
         {
             gMost.Children.Add(new Grid()
