@@ -8,7 +8,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
-          Background="#1c1a1c"
+        Background="#1c1a1c"
         Loaded="Window_Loaded"
         >
     <!--AllowsTransparency="True"
@@ -132,9 +132,10 @@
                             <TextBlock Padding="10" Text="{DynamicResource Light}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                             <TextBlock Padding="10" Text="{DynamicResource LightScript}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                             <TextBlock Padding="10" Text="{DynamicResource LimitlessLamp}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
-                            <TextBlock Padding="10" Text="{DynamicResource Play}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
+                            <TextBlock Padding="10" Text="{DynamicResource Play_}" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                         </StackPanel>
-                        <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
+                    <Image  Source="View/Resources/Image/refresh.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="25" Margin="0,0,10,0" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
                         <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555">
                         <StackPanel Name="spFile"  Orientation="Horizontal" VerticalAlignment="Stretch">
                             <ListBox Name="lbLight" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
@@ -163,6 +164,7 @@
                                     <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
                             </MenuItem>
                             <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Build}"  FontSize="18" Foreground="#f0f0f0"  Click="MenuItem_Click"/>
+                            <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Play_}"  FontSize="18" Foreground="#f0f0f0"  Click="MenuItem_Click2"/>
                         </Menu>
                     </StackPanel>
                 </Border>

@@ -84,13 +84,19 @@ namespace Maker
             BaseUserControl baseUserControl = null;
             if (!needControlFileName.EndsWith(".lightScript"))
             {
-                for (int i = 0; i < userControls.Count; i++)
+                if (needControlFileName.EndsWith(".mid"))
                 {
+                    baseUserControl = userControls[0];
+                }
+                else { 
+                    for (int i = 0; i < userControls.Count; i++)
+                    {
                     if (needControlFileName.EndsWith(userControls[i]._fileExtension))
                     {
                         baseUserControl = userControls[i];
                         break;
-                    }
+                     }
+                     }
                 }
             }
             else
@@ -159,7 +165,7 @@ namespace Maker
                 lbLimitlessLamp.Items.Add(item);
             }
             lbPlay.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".play", ".lightPage" }))
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".lightPage" }))
             {
                 ListBoxItem item = new ListBoxItem
                 {
@@ -1114,6 +1120,25 @@ namespace Maker
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             IntoUserControl(6);
+        }
+
+        private void MenuItem_Click2(object sender, RoutedEventArgs e)
+        {
+            DirectoryInfo d = new DirectoryInfo(LastProjectPath);
+            if (File.Exists(LastProjectPath + @"\Play\" + d.Name + ".play"))
+            {
+                userControls[7].filePath = LastProjectPath + @"\Play\" + d.Name + ".play";
+                userControls[7].LoadFile(d.Name + ".play");
+                IntoUserControl(7);
+            }
+            else {
+                ShowMakerDialog(new ErrorDialog(this, "BuildTheFileFirst"));
+            }
+        }
+
+        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            InitFile();
         }
     }
 }

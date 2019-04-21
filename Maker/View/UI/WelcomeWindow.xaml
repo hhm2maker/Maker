@@ -24,7 +24,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
             <TextBlock Text="欢迎来到Maker" Foreground="White" FontSize="40" HorizontalAlignment="Center" />
-            <TextBlock Margin="0,20,0,0" Text="欢迎来到Maker" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
+            <TextBlock Margin="0,20,0,0" Text="最适配灯光设备的软件" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
             <StackPanel Margin="0,100,0,0" Orientation="Horizontal" HorizontalAlignment="Center" >
                 <Button Click="Button_Click" Style="{StaticResource EmptyButtonStyle}">
                     <Button.Content>

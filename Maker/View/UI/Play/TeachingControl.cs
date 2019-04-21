@@ -44,9 +44,8 @@ namespace Maker.View.Play
         /// <param name="Size"></param>
         public void SetSize(double Size)
         {
-            _blockWidth = ActualWidth / 96;
+            _blockWidth = Math.Floor(ActualWidth / 96.0);
             InitView();
-            
         }
         /// 方块大小  60 
         /// </summary>
@@ -66,6 +65,20 @@ namespace Maker.View.Play
         private List<Light> teachingList;
         public void InitTeaching(List<Light> teachingList)
         {
+            //格式化时间
+            int time = 0;
+            for (int l = 0; l < teachingList.Count; l++)
+            {
+                if (teachingList[l].Time == 0)
+                {
+                    teachingList[l].Time = time;
+                }
+                else
+                {
+                    time += teachingList[l].Time;
+                    teachingList[l].Time = time;
+                }
+            }
             this.teachingList = teachingList;
             InitTeaching();
         }
@@ -73,7 +86,11 @@ namespace Maker.View.Play
         /// 绘制新的形状
         /// </summary>
         private void DrawNewShape() {
+            if (teachingList == null)
+                return;
+
             teachingList = LightBusiness.SortCouple(teachingList);
+         
             storyboard = new Storyboard();
             storyboard.FillBehavior = FillBehavior.Stop;
 
@@ -122,6 +139,7 @@ namespace Maker.View.Play
                 }
             }
         }
+
         /// <summary>
         /// 初始化底座
         /// </summary>
@@ -158,11 +176,13 @@ namespace Maker.View.Play
                     Children.Add(r);
             }
             //重新绘制辅助轨道
-            //DrawNewShape();
+            DrawNewShape();
         }
         public void StartAnimation()
         {
-            //storyboard.Begin(this);
+            if (storyboard == null)
+                return;
+            storyboard.Begin(this);
         }
     }
 }

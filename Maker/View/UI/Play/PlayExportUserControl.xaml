@@ -35,8 +35,8 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Click="ToLoadFile"  Margin="0,0,10,0" VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Load}" />
-                <Button Click="GenerateExe"  Margin="0,0,10,0" VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Build}" />
-                <Button Click="ToSaveFile"  VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Save}" />
+                <Button Click="ToSaveFile"  Margin="0,0,10,0" VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Save}" />
+                <Button Click="GenerateExe"   VerticalAlignment="Center"   FontSize="14" Width="80" Height="30" Content="{DynamicResource Build}" />
             </StackPanel>
              </StackPanel>
         <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />

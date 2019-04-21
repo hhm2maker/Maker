@@ -33,7 +33,7 @@ namespace Maker.View.UI
             _fileType = "Play";
             mainView = gMain;
 
-            HideControl();
+            //HideControl();
         }
         private int tutorialPosition = 0;
         private void LoadKeyboards(object sender, RoutedEventArgs e)
@@ -865,8 +865,6 @@ namespace Maker.View.UI
                 ip.Close();
             }
         }
-
-     
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {

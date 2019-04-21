@@ -73,7 +73,8 @@ namespace Maker.Bridge
             Business.ViewBusiness.MainWindow.Close.ClearCache();
             SaveFile();
             SaveHint();
-            Environment.Exit(0);
+           
+            //Environment.Exit(0);
         }
 
         /// <summary>

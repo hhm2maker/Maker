@@ -38,9 +38,8 @@ namespace Maker.View.Play
             FileBusiness business = new FileBusiness();
             if (sender == btnSelectFileTutorial )
             {
-                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light" }));
+                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
                 fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Midi", new List<string>() { ".mid" }));
             }
             else {
                 fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
@@ -90,6 +89,7 @@ namespace Maker.View.Play
         }
        
         protected override void LoadFileContent() {
+            lbPages.Items.Clear();
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
             tutorialName = xnroot.Element("Tutorial").Value;
@@ -300,7 +300,7 @@ namespace Maker.View.Play
             }
             else if (filePath.EndsWith(".mid"))
             {
-                mLightList = fileBusiness.ReadMidiFile(mw.LastProjectPath + @"\Midi\" + filePath);
+                mLightList = fileBusiness.ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;
