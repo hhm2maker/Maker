@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View"
              xmlns:play="clr-namespace:Maker.View.Play"
-             mc:Ignorable="d" 
+                       xmlns:device="clr-namespace:Maker.View.Device"
+                       mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
@@ -50,7 +51,8 @@
                     <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                 </ToolBar>
             </DockPanel>
-            <play:TeachingControl Grid.Row="6" x:Name="mTeachingControl" ClipToBounds="True"/>
+            <play:TeachingControl Grid.Row="6" x:Name="mTeachingControl" ClipToBounds="True" Visibility="Collapsed"/>
+            <device:TeachingLaunchpadPro x:Name="mLaunchpad" Grid.Row="6"/>
         </Grid>
         <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
     </Grid>

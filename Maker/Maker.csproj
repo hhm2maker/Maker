@@ -208,6 +208,7 @@
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
       <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Device\Launchpad\TeachingLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\DrawLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\ICanDraw.cs" />
     <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro.cs" />

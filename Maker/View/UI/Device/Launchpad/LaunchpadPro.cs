@@ -62,27 +62,27 @@ namespace Maker.View.Device
         /// <summary>
         /// 容器大小
         /// </summary>
-        private double _canvasSize;
+        protected double _canvasSize;
         /// <summary>
         /// 方块大小  60 
         /// </summary>
-        private double _blockWidth;
+        protected double _blockWidth;
         /// <summary>
         /// 圆钮大小  40 
         /// </summary>
-        private double _circularWidth;
+        protected double _circularWidth;
         /// <summary>
         /// 小缝隙-圆钮之间的距离 10
         /// </summary>
-        private double _smallCrevice;
+        protected double _smallCrevice;
         /// <summary>
         /// 中缝隙-圆钮到方钮的距离 20
         /// </summary>
-        private double _normalCrevice;
+        protected double _normalCrevice;
         /// <summary>
         /// 大缝隙-边缘到圆钮的距离 40
         /// </summary>
-        private double _bigCrevice;
+        protected double _bigCrevice;
         /// <summary>
         /// 初始化Launchpad尺寸
         /// </summary>
@@ -792,8 +792,8 @@ namespace Maker.View.Device
             pc.Add(new Point(0, _blockWidth * 0.9 / 4 * 3));
             rcp.Points = pc;
 
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
+            SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
+            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
 
             rcp.ArcRoundness = _blockWidth / 12;
             rcp.UseRoundnessPercentage = false;
@@ -815,8 +815,8 @@ namespace Maker.View.Device
                 e.Width = _circularWidth * 0.9;
                 e.Height = _circularWidth * 0.9;
                 e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                Canvas.SetLeft(e, _canvasSize - _bigCrevice - _circularWidth * 0.100);
-                Canvas.SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
+                SetLeft(e, _canvasSize - _bigCrevice - _circularWidth * 0.100);
+                SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
                 Children.Add(e);
             }
         }

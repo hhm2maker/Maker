@@ -163,6 +163,7 @@ namespace Maker.View.UI
             }
             List<Light> tutorialLights = business.ReadMidiContent(mTutorialList);
             mTeachingControl.InitTeaching(tutorialLights);
+            mLaunchpad.SetTeachingData(tutorialLights);
 
             XElement _pages = _root.Element("Pages");
             nowPageName = _pages.Attribute("first").Value;
