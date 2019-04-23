@@ -141,6 +141,11 @@ namespace Maker.View.UI
         private static Dictionary<Thread, List<object>> threads = new Dictionary<Thread, List<object>>();
         private static Dictionary<Thread, List<object>> threadsStop = new Dictionary<Thread, List<object>>();
 
+
+        protected virtual void InitTeachingData(List<Light> tutorialLights) {
+           
+        }
+
         /// <summary>
         /// 读取xml文件
         /// </summary>
@@ -161,11 +166,11 @@ namespace Maker.View.UI
             {
                 mTutorialList.Add(strTutorial[i]);
             }
-            List<Light> tutorialLights = business.ReadMidiContent(mTutorialList);
-            mTeachingControl.InitTeaching(tutorialLights);
-            mLaunchpad.SetTeachingData(tutorialLights);
 
-            XElement _pages = _root.Element("Pages");
+            List<Light> tutorialLights = business.ReadMidiContent(mTutorialList);
+            InitTeachingData(tutorialLights);
+
+              XElement _pages = _root.Element("Pages");
             nowPageName = _pages.Attribute("first").Value;
             foreach (XElement pageElement in _pages.Elements("Page"))
             {
@@ -867,10 +872,7 @@ namespace Maker.View.UI
             }
         }
 
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            mTeachingControl.SetSize(mTeachingControl.ActualHeight);
-        }
+  
 
         public void a()
         {

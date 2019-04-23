@@ -261,6 +261,7 @@
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
