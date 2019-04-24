@@ -11,6 +11,8 @@
          AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
         Background="#161616"
+        Width="1920"
+        Height="1080"
         >
     <!--<Window.Background>
         <RadialGradientBrush>
@@ -80,6 +82,7 @@
         <Border x:Name="mBorderLaunchpad" CornerRadius="30" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
             <device:LaunchpadPro x:Name="mLaunchpad" />
         </Border>
+        <TextBox GotFocus="TextBox_GotFocus" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0" Width="300" Background="Transparent" FontSize="18" Foreground="White"/>
         <Grid Name="gMost" />
     </Grid>
 </Window>

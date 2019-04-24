@@ -111,5 +111,16 @@ namespace Maker.View.UI
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
         }
+
+       
+        private void LoadMyBlog()
+        {
+            ShowMakerDialog(new MyBlogDialog(this,""));
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            LoadMyBlog();
+        }
     }
 }
