@@ -14,7 +14,7 @@ namespace Maker.View.UI.UserControlDialog
             InitializeComponent();
 
             this.mw = mw;
-            
+            Width = mw.ActualWidth * 0.6;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
