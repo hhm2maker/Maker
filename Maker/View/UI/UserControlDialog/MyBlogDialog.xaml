@@ -33,7 +33,7 @@
         <StackPanel Orientation="Vertical" Grid.Row="2" Margin="30,0,30,0">
         <DockPanel >
             <TextBlock Text="更新固件" FontSize="16" Foreground="#FFB4B4B4" VerticalAlignment="Center"/>
-            <Border CornerRadius="3" Padding="15,5,15,5" Background="#3790f9" HorizontalAlignment="Right">
+            <Border CornerRadius="3" Padding="15,5,15,5" Background="#3790f9" HorizontalAlignment="Right" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <TextBlock Foreground="White" FontSize="14" Text="安装"/>
             </Border>
         </DockPanel>
