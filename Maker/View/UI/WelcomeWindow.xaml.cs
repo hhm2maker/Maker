@@ -1,4 +1,6 @@
-﻿using Maker.View.Dialog;
+﻿using Maker.Business.Currency;
+using Maker.Business.Model.Config;
+using Maker.View.Dialog;
 using Maker.View.Help;
 using Maker.View.UI.UserControlDialog;
 using System;
@@ -41,6 +43,33 @@ namespace Maker.View.UI
             mLaunchpad.SetSize(Width / 3);
 
             iCoffee.Width = iCoffee.Height = Width / 10;
+
+            InitShortcuts();
+           
+        }
+        public BlogConfigModel blogConfigModel = new BlogConfigModel();
+        public void InitShortcuts()
+        {
+            wpLeft.Width = Width / 4;
+            wpLeft.Height = Height / 4;
+            XmlSerializerBusiness.Load(ref blogConfigModel, "Config/blog.xml");
+            UpdateShortcuts();
+        }
+
+        public void UpdateShortcuts() {
+            wpLeft.Children.Clear();
+            for (int i = 0; i < blogConfigModel.Shortcuts.Count; i++)
+            {
+                TextBlock tb = new TextBlock
+                {
+                    Margin = new Thickness(0, 5, 20, 0),
+                    Text = blogConfigModel.Shortcuts[i].text
+                };
+                tb.MouseLeftButtonDown += TextBlock_MouseLeftButtonDown;
+                tb.FontSize = 18;
+                tb.Foreground = new SolidColorBrush(Colors.White);
+                wpLeft.Children.Add(tb);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -111,16 +140,15 @@ namespace Maker.View.UI
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
         }
-
        
-        private void LoadMyBlog()
-        {
-            ShowMakerDialog(new MyBlogDialog(this,""));
-        }
-
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            LoadMyBlog();
+           
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
         }
     }
 }

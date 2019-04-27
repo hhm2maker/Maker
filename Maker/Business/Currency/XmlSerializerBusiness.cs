@@ -18,6 +18,12 @@ namespace Maker.Business.Currency
                 obj = serializer.Deserialize(stream) as T;
             }
         }
+    
+        public static void Load<T>(ref T obj, Stream filePath) where T : class
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            obj = serializer.Deserialize(filePath) as T;
+        }
 
         public static void Save(Object obj,String filePath)
         {

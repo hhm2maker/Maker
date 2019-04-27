@@ -82,7 +82,11 @@
         <Border x:Name="mBorderLaunchpad" CornerRadius="30" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
             <device:LaunchpadPro x:Name="mLaunchpad" />
         </Border>
-        <TextBox GotFocus="TextBox_GotFocus" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0" Width="300" Background="Transparent" FontSize="18" Foreground="White"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0">
+            <TextBox HorizontalAlignment="Left" Width="300" Background="Transparent" FontSize="18" Foreground="White" CaretBrush="White" />
+            <WrapPanel Margin="0,30,0,0" Name="wpLeft" />
+            <!--<TextBlock Text="Matrix" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"  Width="300" Background="Transparent" FontSize="18" Foreground="White"/>-->
+        </StackPanel>
         <Grid Name="gMost" />
     </Grid>
 </Window>

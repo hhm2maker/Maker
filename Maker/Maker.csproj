@@ -149,6 +149,8 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Discarded\DiscardedClass.cs" />
+    <Compile Include="Business\Model\Config\BlogConfigModel.cs" />
+    <Compile Include="Business\Model\Config\BlogContentModel.cs" />
     <Compile Include="Business\Model\ThirdPartyModelsModel.cs" />
     <Compile Include="Business\Model\Config\IsFirstConfigModel.cs" />
     <Compile Include="Business\Model\Config\ProjectConfigModel.cs" />
