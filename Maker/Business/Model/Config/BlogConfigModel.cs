@@ -23,9 +23,10 @@ namespace Maker.Business.Model.Config
             }
 
 
-            public Shortcut(string text, string url) {
+            public Shortcut(string text, string url, string dll) {
                 this.text = text;
                 this.url = url;
+                this.dll = dll;
             }
 
             [XmlAttribute("text")]
@@ -37,6 +38,13 @@ namespace Maker.Business.Model.Config
 
             [XmlAttribute("url")]
             public string url
+            {
+                get;
+                set;
+            }
+
+            [XmlAttribute("dll")]
+            public string dll
             {
                 get;
                 set;

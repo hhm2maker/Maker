@@ -86,12 +86,19 @@ namespace Maker.View.UI.UserControlDialog
                     Border border = new Border();
                     border.CornerRadius = new CornerRadius(3);
                     border.Padding = new Thickness(15, 5, 15, 5);
-                    border.Background = new SolidColorBrush(Color.FromRgb(55, 144, 249));
+                 
                     border.HorizontalAlignment = HorizontalAlignment.Right;
                     border.PreviewMouseLeftButtonDown += Border_MouseLeftButtonDown;
-
+                  
                     TextBlock textBlock2 = new TextBlock();
-                    textBlock2.Text = blogConfigModel.Buttons[i].text;
+                    if (shortcut.dll.Equals(String.Empty)) {
+                        border.Background = new SolidColorBrush(Colors.Transparent);
+                        textBlock2.Text = "请先创建快捷方式";
+                    }
+                    else {
+                        border.Background = new SolidColorBrush(Color.FromRgb(55, 144, 249));
+                        textBlock2.Text = blogConfigModel.Buttons[i].text;
+                    }
                     textBlock2.FontSize = 14;
                     textBlock2.Foreground = new SolidColorBrush(Colors.White);
                     border.Child = textBlock2;
@@ -102,6 +109,7 @@ namespace Maker.View.UI.UserControlDialog
                 }
             }
 
+            InitData();
             //BlogConfigModel blogConfigModel = new BlogConfigModel();
             //Console.WriteLine("AAAAAAAAA");
             //XmlSerializerBusiness.Load(ref blogConfigModel, @"D:\Test\Matrix\xxx.");
@@ -159,13 +167,7 @@ namespace Maker.View.UI.UserControlDialog
         {
             if (tbShortcut.Text.Equals("添加快捷方式"))
             {
-                tbShortcut.Text = "删除快捷方式";
-                bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
-
-                if (shortcut != null) {
-                    mw.blogConfigModel.Shortcuts.Add(new Shortcut(shortcut.text, shortcut.url));
-                }
-                
+                mw.ShowMakerDialog(new NewShortcutDialog(mw,this, shortcut));            
             }
             else {
                 tbShortcut.Text = "添加快捷方式";
@@ -179,6 +181,30 @@ namespace Maker.View.UI.UserControlDialog
                 }
             }
             mw.UpdateShortcuts();
+        }
+
+        public void InitData() {
+            for (int i = mw.blogConfigModel.Shortcuts.Count - 1; i >= 0; i--)
+            {
+                if (mw.blogConfigModel.Shortcuts[i].url == shortcut.url)
+                {
+                    tbShortcut.Text = "删除快捷方式";
+                    bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
+                    break;
+                }
+            }
+        }
+
+        public void UpdateData()
+        {
+            //InitData();
+            if (shortcut != null)
+            {
+                mw.blogConfigModel.Shortcuts.Add(new Shortcut(shortcut.text, shortcut.url, shortcut.dll));
+                mw.UpdateShortcuts();
+                tbShortcut.Text = "删除快捷方式";
+                bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
+            }
         }
     }
 }

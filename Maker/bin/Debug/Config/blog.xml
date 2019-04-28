@@ -2,20 +2,6 @@
 
 <Blog> 
   <Shortcuts> 
-    <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-   <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-   <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-   <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-   <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
-  <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml"/> 
+    <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml" dll=""/> 
   </Shortcuts> 
 </Blog>

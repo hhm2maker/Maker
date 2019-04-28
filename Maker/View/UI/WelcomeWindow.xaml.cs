@@ -52,7 +52,7 @@ namespace Maker.View.UI
         {
             wpLeft.Width = Width / 4;
             wpLeft.Height = Height / 4;
-            XmlSerializerBusiness.Load(ref blogConfigModel, "Config/blog.xml");
+            XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
             UpdateShortcuts();
         }
 
@@ -141,10 +141,7 @@ namespace Maker.View.UI
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
         }
        
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-           
-        }
+    
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
