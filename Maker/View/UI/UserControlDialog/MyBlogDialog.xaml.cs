@@ -17,7 +17,7 @@ namespace Maker.View.UI.UserControlDialog
     public partial class MyBlogDialog : MakerDialog
     {
         private WelcomeWindow mw;
-        private Shortcut shortcut;
+        private Shortcut shortcut = new Shortcut();
         BlogContentModel blogConfigModel = new BlogContentModel();
         public MyBlogDialog(WelcomeWindow mw, Shortcut shortcut)
         {
@@ -27,22 +27,38 @@ namespace Maker.View.UI.UserControlDialog
             this.shortcut = shortcut;
             Width = mw.ActualWidth * 0.4;
 
+            LoadUrl(shortcut.url);
+        }
+
+        public MyBlogDialog(WelcomeWindow mw, String url)
+        {
+            InitializeComponent();
+
+            this.mw = mw;
+            Width = mw.ActualWidth * 0.4;
+
+            LoadUrl(url);
+        }
+
+        private void LoadUrl(String url ) {
+            shortcut.url = url;
+
             StringBuilder sb = new StringBuilder();
             WebClient wclient = new WebClient();//实例化WebClient类对象 
-            wclient.BaseAddress = shortcut.url;//设置WebClient的基URI 
+            wclient.BaseAddress = url;//设置WebClient的基URI 
             wclient.Encoding = Encoding.UTF8;//指定下载字符串的编码方式 
                                              //为WebClient类对象添加标头 
             wclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             //不加会导致请求被中止: 未能创建 SSL/TLS 安全通道
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             //使用OpenRead方法获取指定网站的数据，并保存到Stream流中 
-            Stream stream = wclient.OpenRead(shortcut.url);
+            Stream stream = wclient.OpenRead(url);
             //使用流Stream声明一个流读取变量sreader 
             StreamReader sreader = new StreamReader(stream);
             string str = string.Empty;//声明一个变量，用来保存一行从WebCliecnt下载的数据 
             while ((str = sreader.ReadLine()) != null)
             {
-                sb.Append(str+Environment.NewLine);
+                sb.Append(str + Environment.NewLine);
             }
             using (MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(sb.ToString())))
             {
@@ -51,7 +67,8 @@ namespace Maker.View.UI.UserControlDialog
                 {
                     tbAuthor.Visibility = Visibility.Collapsed;
                 }
-                else {
+                else
+                {
                     tbAuthor.Text = blogConfigModel.Author;
                 }
                 if (blogConfigModel.Contact.Equals(String.Empty))
@@ -71,31 +88,34 @@ namespace Maker.View.UI.UserControlDialog
                     tbIntroduce.Text = blogConfigModel.Introduce;
                 }
 
-                for (int i = 0; i < blogConfigModel.Buttons.Count; i++) {
+                for (int i = 0; i < blogConfigModel.Buttons.Count; i++)
+                {
                     ListBoxItem listBoxItem = new ListBoxItem();
                     DockPanel dockPanel = new DockPanel();
-                    dockPanel.Margin = new Thickness(0,5,0,5);
+                    dockPanel.Margin = new Thickness(0, 5, 0, 5);
 
                     TextBlock textBlock = new TextBlock();
                     textBlock.Text = blogConfigModel.Buttons[i].hint;
                     textBlock.FontSize = 16;
-                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(180,180,180));
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(180, 180, 180));
                     textBlock.VerticalAlignment = VerticalAlignment.Center;
                     dockPanel.Children.Add(textBlock);
 
                     Border border = new Border();
                     border.CornerRadius = new CornerRadius(3);
                     border.Padding = new Thickness(15, 5, 15, 5);
-                 
+
                     border.HorizontalAlignment = HorizontalAlignment.Right;
                     border.PreviewMouseLeftButtonDown += Border_MouseLeftButtonDown;
-                  
+
                     TextBlock textBlock2 = new TextBlock();
-                    if (shortcut.dll.Equals(String.Empty)) {
+                    if (shortcut == null || shortcut.dll.Equals(String.Empty))
+                    {
                         border.Background = new SolidColorBrush(Colors.Transparent);
                         textBlock2.Text = "请先创建快捷方式";
                     }
-                    else {
+                    else
+                    {
                         border.Background = new SolidColorBrush(Color.FromRgb(55, 144, 249));
                         textBlock2.Text = blogConfigModel.Buttons[i].text;
                     }
@@ -121,6 +141,7 @@ namespace Maker.View.UI.UserControlDialog
             //wclient.DownloadFile(textBox1.Text, DateTime.Now.ToFileTime() + ".txt");
             //MessageBox.Show("保存到文件成功");
         }
+
         private String filePath;
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

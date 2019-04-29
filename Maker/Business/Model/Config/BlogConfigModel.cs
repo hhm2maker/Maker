@@ -34,21 +34,21 @@ namespace Maker.Business.Model.Config
             {
                 get;
                 set;
-            }
+            } = "";
 
             [XmlAttribute("url")]
             public string url
             {
                 get;
                 set;
-            }
+            } = "";
 
             [XmlAttribute("dll")]
             public string dll
             {
                 get;
                 set;
-            }
+            } = "";
         }
     }
 

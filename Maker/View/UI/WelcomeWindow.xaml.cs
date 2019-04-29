@@ -147,5 +147,13 @@ namespace Maker.View.UI
         {
             ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
         }
+
+        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (tbUrl.Text.ToString().Equals(String.Empty))
+                return;
+            ShowMakerDialog(new MyBlogDialog(this, tbUrl.Text.ToString()));
+
+        }
     }
 }

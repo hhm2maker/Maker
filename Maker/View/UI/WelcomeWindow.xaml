@@ -83,7 +83,14 @@
             <device:LaunchpadPro x:Name="mLaunchpad" />
         </Border>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,100,0,0">
-            <TextBox HorizontalAlignment="Left" Width="300" Background="Transparent" FontSize="18" Foreground="White" CaretBrush="White" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Height="50" VerticalAlignment="Top" >
+                <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Height="40"  >
+                    <TextBox BorderBrush="Transparent" Width="300" VerticalContentAlignment="Center" TextAlignment="Left" x:Name="tbUrl"  Background="Transparent"  Foreground="White" FontSize="18" CaretBrush="White" />
+                </Border>
+                <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Height="40" Background="#1c1e1f">
+                    <TextBlock  TextAlignment="Center" Width="130" VerticalAlignment="Center" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="开始" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
+                </Border>
+            </StackPanel>
             <WrapPanel Margin="0,30,0,0" Name="wpLeft" />
             <!--<TextBlock Text="Matrix" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"  Width="300" Background="Transparent" FontSize="18" Foreground="White"/>-->
         </StackPanel>
