@@ -5,6 +5,8 @@ using Maker.View.Help;
 using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,8 +47,22 @@ namespace Maker.View.UI
             iCoffee.Width = iCoffee.Height = Width / 10;
 
             InitShortcuts();
-           
+
+            tbPositionTab.Width = Width * 0.125;
+            tbColorTab.Width = Width * 0.125;
+
+            InitHelp();
         }
+
+        private HelpConfigModel helpConfigModel;
+        /// <summary>
+        /// 初始化帮助
+        /// </summary>
+        private void InitHelp()
+        {
+            XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
+        }
+
         public BlogConfigModel blogConfigModel = new BlogConfigModel();
         public void InitShortcuts()
         {
@@ -153,7 +169,76 @@ namespace Maker.View.UI
             if (tbUrl.Text.ToString().Equals(String.Empty))
                 return;
             ShowMakerDialog(new MyBlogDialog(this, tbUrl.Text.ToString()));
-
         }
+
+        private void ToHelpOverview(object sender, RoutedEventArgs e)
+        {
+            //new HelpOverviewWindow(this).Show();
+            //ShowMakerDialog(new WebBrowserUserControl());
+
+            if (helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(helpConfigModel.ExeFilePath))
+                Process.Start("https://hhm2maker.gitbook.io/maker/");
+            else
+                Process.Start(helpConfigModel.ExeFilePath);
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (spHint.Visibility == Visibility.Collapsed)
+            {
+                spHint.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                spHint.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        bool isBigColorTab = false;
+        bool isBigPositionTab = false;
+        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ElasticEase elasticEase = new ElasticEase();
+            elasticEase.Oscillations = 2;
+            elasticEase.Springiness = 1;
+            elasticEase.EasingMode = EasingMode.EaseOut;
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = elasticEase
+            };
+
+            if (sender == spPositionTab)
+            {
+                if (isBigPositionTab)
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
+                }
+                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigPositionTab = !isBigPositionTab;
+            }
+            else if (sender == spColorTab)
+            {
+                if (isBigColorTab)
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
+                }
+                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigColorTab = !isBigColorTab;
+            }
+        }
+
     }
 }

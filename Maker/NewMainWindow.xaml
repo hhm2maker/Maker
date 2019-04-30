@@ -84,35 +84,11 @@
                 </Grid.Effect>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Grid Name="spBg" Height="400" >
-                    <Grid.Background>
-                        <ImageBrush ImageSource="View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
-                    </Grid.Background>
-                    <Grid Background="#50000000" >
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,25,0,0">
-                          
-                            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}"  Margin="0,15,0,0" Click="ToHelpOverview" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Image Source="View/Resources/Image/help.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                                        <TextBlock Text="{DynamicResource HelpOverview}" Foreground="white" VerticalAlignment="Center"  FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Left" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25,0,0,25">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" MouseLeftButtonDown="Image_MouseLeftButtonDown">
-                                <Image Width="25" Height="25" Source="View/Resources/Image/hint.png"/>
-                                <TextBlock VerticalAlignment="Center" Text="查看颜色表和位置表" Foreground="White" Margin="10,0,0,0" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-                <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555">
+                
+                <Border  Grid.Row="0" BorderThickness="0,5,0,0" BorderBrush="#555555">
                     <Grid Margin="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -122,7 +98,7 @@
                         <TextBlock Margin="20,0,0,0" Grid.Column="1" Name="tbProjectPath" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonUp="tbProjectPath_MouseLeftButtonDown"/>
                     </Grid>
                 </Border>
-                    <Grid  Grid.Row="2" >
+                    <Grid  Grid.Row="1" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -153,7 +129,7 @@
                         <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                     </TreeView>
                 </Border>
-                <Border  Grid.Row="3"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
+                <Border  Grid.Row="2"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
                     <StackPanel Orientation="Horizontal">
                         <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
                             <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource New}"  FontSize="18" Foreground="#f0f0f0"  >
@@ -181,24 +157,7 @@
             </Grid>
             <StackPanel Grid.Column="1" Background="Transparent" MouseLeftButtonDown="CloseFileControl"/>
         </Grid>
-        <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
-                <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
-                <Viewbox Width="300"  Name="tbColorTab">
-                    <Grid  >
-                        <Image Source="View/Resources/Image/colortab.png"/>
-                    </Grid>
-                </Viewbox>
-            </StackPanel>
-            <StackPanel  Name="spPositionTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown" Margin="0,20,0,0"     >
-                <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
-                <Viewbox Width="300"  Name="tbPositionTab">
-                    <Grid  >
-                        <Image Source="View/Resources/Image/positiontab.png"/>
-                    </Grid>
-                </Viewbox>
-            </StackPanel>
-        </StackPanel>
+      
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>

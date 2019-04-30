@@ -4,7 +4,6 @@ using System;
 using System.Windows;
 using Maker.Business;
 using Maker.View.Dialog;
-using Maker.View.Help;
 using Maker.View.LightScriptUserControl;
 using Maker.View.LightUserControl;
 using Maker.View.PageWindow;
@@ -14,19 +13,13 @@ using Maker.ViewBusiness;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Xml;
 using Maker.View;
-using System.Windows.Media.Imaging;
 using Maker.Model;
 using Maker.View.Setting;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-using System.Windows.Interop;
 using System.Diagnostics;
 
 namespace Maker
@@ -911,78 +904,18 @@ namespace Maker
             AddSetting(settingUserControl);
         }
 
-        bool isBigColorTab = false;
-        bool isBigPositionTab = false;
-        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ElasticEase elasticEase = new ElasticEase();
-            elasticEase.Oscillations = 2;
-            elasticEase.Springiness = 1;
-            elasticEase.EasingMode = EasingMode.EaseOut;
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                Duration = TimeSpan.FromSeconds(1),
-                EasingFunction = elasticEase
-            };
-
-            if (sender == spPositionTab)
-            {
-                if (isBigPositionTab)
-                {
-                    doubleAnimation.From = tbPositionTab.ActualWidth;
-                    doubleAnimation.To = ActualWidth / 8;
-                }
-                else
-                {
-                    doubleAnimation.From = tbPositionTab.ActualWidth;
-                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
-                }
-                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
-                isBigPositionTab = !isBigPositionTab;
-            }
-            else if (sender == spColorTab)
-            {
-                if (isBigColorTab)
-                {
-                    doubleAnimation.From = tbColorTab.ActualWidth;
-                    doubleAnimation.To = ActualWidth / 8;
-                }
-                else
-                {
-                    doubleAnimation.From = tbColorTab.ActualWidth;
-                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
-                }
-                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
-                isBigColorTab = !isBigColorTab;
-            }
-        }
-
+       
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tbPositionTab.Width = ActualWidth * 0.125;
-            tbColorTab.Width = ActualWidth * 0.125;
-
             gFile.Width = ActualWidth * 0.25;
 
-            spBg.Height = gFile.Width / 3 * 2;
             lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.Width;
 
-            bProjectPathControl.Margin = new Thickness(0, spBg.Height, 0,0);
             popFile.HorizontalOffset = tbProjectPath.ActualWidth /2;
             SetSpFilePosition(0);
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (spHint.Visibility == Visibility.Collapsed)
-            {
-                spHint.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                spHint.Visibility = Visibility.Collapsed;
-            }
-        }
+       
 
         public void SetButton(int position)
         {
@@ -1106,16 +1039,7 @@ namespace Maker
         }
       
 
-        private void ToHelpOverview(object sender, RoutedEventArgs e)
-        {
-            //new HelpOverviewWindow(this).Show();
-            //ShowMakerDialog(new WebBrowserUserControl());
-           
-            if (helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(helpConfigModel.ExeFilePath))
-                Process.Start("https://hhm2maker.gitbook.io/maker/");
-            else 
-                Process.Start(helpConfigModel.ExeFilePath);
-        }
+  
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
