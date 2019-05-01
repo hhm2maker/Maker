@@ -447,6 +447,36 @@ namespace Maker.View.Device
         }
 
         /// <summary>
+        /// 给所有按钮设置边框颜色
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        public void SetButtonBorderBackground(int thiness,Brush color)
+        {
+         
+            for (int i = 0; i < Children.Count; i++) {
+                Shape shape = Children[i] as Shape;
+                shape.Stroke = color;
+                shape.StrokeThickness = thiness;
+            }
+        }
+
+        /// <summary>
+        /// 给所有按钮设置边框颜色
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        public void SetButtonBackground(Brush color)
+        {
+
+            for (int i = 0; i < Children.Count; i++)
+            {
+                Shape shape = Children[i] as Shape;
+                shape.Fill = color;
+            }
+        }
+
+        /// <summary>
         /// 给指定位置的按钮设置颜色
         /// </summary>
         /// <param name="position"></param>

@@ -8,15 +8,23 @@
              Background="#363b40"
              Width="600"
              VerticalAlignment="Top"
+                
              >
     <UserControl.Effect>
         <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
     </UserControl.Effect>
     <UserControl.Resources>
-        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../../../View/StyleResources/CatalogUserControlDictionary.xaml" />
+                <ResourceDictionary Source="../../../View/StyleResources/AllDictionary.xaml" />
+                <ResourceDictionary Source="../../../View/StyleResources/MainWindowStyle.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        <!--<Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-        </Style>
+        </Style>-->
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -33,10 +41,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="../../../View/Resources/Image/headportrait.png" Width="50"  RenderOptions.BitmapScalingMode="Fant"/>
+                <Image Name="iHead" Grid.Column="0" Source="../../../View/Resources/Image/headportrait.png" Width="50"  RenderOptions.BitmapScalingMode="Fant"/>
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30,0,0,0" VerticalAlignment="Center">
                     <TextBlock Name="tbAuthor"  FontSize="18" Foreground="White" />
-                    <TextBlock Name="tbContact"  FontSize="16" Margin="0,5,0,0" Foreground="#FFC8C8C8" />
+                    <TextBlock Name="tbContact" FontSize="16" Margin="0,5,0,0" Foreground="#FFC8C8C8" />
                 </StackPanel>
                 <Border Name="bShortcut" MouseLeftButtonDown="bShortcut_MouseLeftButtonDown" Grid.Column="2" CornerRadius="3" Padding="15,5,15,5" VerticalAlignment="Center" Background="#FF2DC84C" HorizontalAlignment="Right">
                     <TextBlock Name="tbShortcut" Foreground="White" FontSize="16" Text="添加快捷方式"/>
@@ -44,7 +52,8 @@
             </Grid>
         </StackPanel>
         <TextBlock Name="tbIntroduce" Grid.Row="1" Text="" FontSize="16" Margin="30,15,30,20" Foreground="#FFC8C8C8" />
-        <ListBox Grid.Row="2" Name="lbMain" BorderBrush="Transparent" Background="Transparent"  Margin="30,15,30,0" ItemContainerStyle="{StaticResource ListBoxItemStyle}">
+        <ListBox Style="{DynamicResource ListBoxStyle1}" Grid.Row="2" Name="lbMain" BorderBrush="Transparent" Background="Transparent"  Margin="30,15,30,0" >
+            <!--ItemContainerStyle="{StaticResource ListBoxItemStyle}"-->
             <!--
              <DockPanel Margin="0,10,0,0">
                 <TextBlock Text="xxxxxx版本" FontSize="16" Foreground="#FFB4B4B4" VerticalAlignment="Center"/>

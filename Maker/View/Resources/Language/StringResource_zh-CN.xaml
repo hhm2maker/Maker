@@ -514,5 +514,6 @@
     <sys:String x:Key="CustomExport">自定义导出</sys:String>
     <sys:String x:Key="Load">加载</sys:String>
     <sys:String x:Key="BuildTheFileFirst">请先生成文件。</sys:String>
+    <sys:String x:Key="InvalidPath">非法路径。</sys:String>
 
 </ResourceDictionary>

@@ -1286,6 +1286,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Blog\Blog.csproj">
+      <Project>{f1c26e9d-9f8a-46b6-b1fd-e7242e3be1cd}</Project>
+      <Name>Blog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Operation\Operation.csproj">
       <Project>{e727841a-ba0e-4bf8-8b35-f24e06655312}</Project>
       <Name>Operation</Name>
@@ -1564,6 +1568,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\refresh.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\arrow_down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\arrow_up.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

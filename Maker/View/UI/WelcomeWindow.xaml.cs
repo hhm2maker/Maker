@@ -41,7 +41,10 @@ namespace Maker.View.UI
             transformGroup.Children.Add(rotateTransform);
             mBorderLaunchpad.RenderTransform = transformGroup;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.AddMembrane();
+            mLaunchpad.SetButtonBorderBackground(3,new SolidColorBrush(Colors.White));
+            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
+
+            //mLaunchpad.AddMembrane();
             mLaunchpad.SetSize(Width / 3);
 
             iCoffee.Width = iCoffee.Height = Width / 10;
@@ -62,7 +65,7 @@ namespace Maker.View.UI
         {
             XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
         }
-
+     
         public BlogConfigModel blogConfigModel = new BlogConfigModel();
         public void InitShortcuts()
         {
@@ -71,6 +74,15 @@ namespace Maker.View.UI
             XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
             UpdateShortcuts();
         }
+
+        /// <summary>
+        /// 保存快捷方式
+        /// </summary>
+        public void SaveShortcuts()
+        {
+            XmlSerializerBusiness.Save(blogConfigModel, "Blog/blog.xml");
+        }
+
 
         public void UpdateShortcuts() {
             wpLeft.Children.Clear();

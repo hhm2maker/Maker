@@ -511,6 +511,7 @@
     <sys:String x:Key="CustomExport">Custom Export</sys:String>
     <sys:String x:Key="Load">Load</sys:String>
     <sys:String x:Key="BuildTheFileFirst">Build the file first.</sys:String>
-    
+    <sys:String x:Key="InvalidPath">Invalid path.</sys:String>
 
+    
 </ResourceDictionary>

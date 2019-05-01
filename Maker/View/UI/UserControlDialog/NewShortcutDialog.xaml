@@ -29,8 +29,10 @@
             </DockPanel>
             <DockPanel Margin="0,15,0,0">
                 <TextBlock DockPanel.Dock="Left" Width="120" Text="DLL路径：" FontSize="16" Foreground="#b8bfc6" Margin="30,0,30,0" />
-                <TextBox DockPanel.Dock="Left" Margin="10,0,30,0" Name="tbDll" Background="Transparent" CaretBrush="#b8bfc6" FontSize="16" Foreground="#b8bfc6"  />
+                <TextBlock MouseLeftButtonDown="tbOpen_MouseLeftButtonDown" DockPanel.Dock="Right" Width="50" TextAlignment="Center" Text="打开" Margin="0,0,30,0" Name="tbOpen" Background="Transparent" FontSize="16" Foreground="#b8bfc6"  />
+                <TextBox DockPanel.Dock="Left" Margin="10,0,10,0" Name="tbDll" Background="Transparent" CaretBrush="#b8bfc6" FontSize="16" Foreground="#b8bfc6"  />
             </DockPanel>
+            <TextBlock Text="请选择在Blog\DLL文件下的文件" HorizontalAlignment="Right" FontSize="16" Foreground="#b8bfc6" Margin="30,10,30,0" />
         </StackPanel>
         <DockPanel Grid.Row="1">
             <Button Style="{StaticResource EmptyButtonStyle}" Name="btnOk"  Click="btnOk_Click" Height="35" Width="100" BorderBrush="White" Background="Transparent"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Right" HorizontalAlignment="Right">

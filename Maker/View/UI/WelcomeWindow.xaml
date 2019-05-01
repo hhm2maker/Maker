@@ -26,7 +26,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
             <TextBlock Text="欢迎来到Maker" Foreground="White" FontSize="40" HorizontalAlignment="Center" />
-            <TextBlock Margin="0,20,0,0" Text="最适配灯光设备的软件" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
+            <TextBlock Margin="0,20,0,0" Text="更适配灯光设备的软件" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
             <StackPanel Margin="0,100,0,0" Orientation="Horizontal" HorizontalAlignment="Center" >
                 <Button Click="Button_Click" Style="{StaticResource EmptyButtonStyle}">
                     <Button.Content>
@@ -85,7 +85,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
-            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}" Margin="0,15,0,0" Click="ToHelpOverview" Background="Transparent" >
+            <Button HorizontalAlignment="Left" Style="{StaticResource EmptyButtonStyle}" Margin="0,15,0,0" Background="Transparent" >
                 <Button.Content>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  MouseLeftButtonDown="Image_MouseLeftButtonDown">
                         <Image Source="../../View/Resources/Image/hint.png" Width="25" RenderOptions.BitmapScalingMode="Fant" />

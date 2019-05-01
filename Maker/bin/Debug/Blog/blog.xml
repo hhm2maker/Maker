@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<Blog> 
-  <Shortcuts> 
-    <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml" dll=""/> 
-  </Shortcuts> 
+<Blog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Shortcuts>
+    <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml" dll="matrix uploader\MatrixUploader.dll" />
+  </Shortcuts>
 </Blog>

@@ -20,6 +20,16 @@ namespace Maker.Business.Model.Config
         /// <summary>
         /// 当前版本
         /// </summary>
+        [XmlElement("HeadPortrait", IsNullable = false)]
+        public string HeadPortrait
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 当前版本
+        /// </summary>
         [XmlElement("Contact", IsNullable = false)]
         public string Contact
         {
@@ -65,6 +75,13 @@ namespace Maker.Business.Model.Config
 
             [XmlAttribute("parameter")]
             public string parameter
+            {
+                get;
+                set;
+            }
+
+            [XmlAttribute("details")]
+            public string details
             {
                 get;
                 set;
