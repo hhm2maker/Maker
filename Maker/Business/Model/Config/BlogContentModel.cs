@@ -73,15 +73,22 @@ namespace Maker.Business.Model.Config
                 set;
             }
 
-            [XmlAttribute("parameter")]
-            public string parameter
+            //[XmlAttribute("parameter")]
+            //public string parameter
+            //{
+            //    get;
+            //    set;
+            //}
+
+            [XmlAttribute("details")]
+            public string details
             {
                 get;
                 set;
             }
 
-            [XmlAttribute("details")]
-            public string details
+            [XmlArray("Parameters"), XmlArrayItem("Parameter")]
+            public List<string> Parameters
             {
                 get;
                 set;

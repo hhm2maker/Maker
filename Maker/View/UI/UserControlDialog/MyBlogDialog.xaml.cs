@@ -1,6 +1,7 @@
 ﻿using Maker.Business.Currency;
 using Maker.Business.Model.Config;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -235,8 +236,14 @@ namespace Maker.View.UI.UserControlDialog
             Object o = Activator.CreateInstance(type);
             MethodInfo mi = o.GetType().GetMethod("ToBlog");
 
-            String url = blogConfigModel.Buttons[lbMain.Items.IndexOf(((((sender as Border).Parent as DockPanel).Parent as StackPanel).Parent as ListBoxItem))].parameter;
-            mi.Invoke(o, new Object[] { url });
+            BlogContentModel.Button button = blogConfigModel.Buttons[lbMain.Items.IndexOf(((((sender as Border).Parent as DockPanel).Parent as StackPanel).Parent as ListBoxItem))];
+            List<string> parameters = new List<string>();
+            for (int i = 0;i< button.Parameters.Count; i++)
+            {
+                parameters.Add(button.Parameters[i]);
+            }
+            //String url = .parameter;
+            mi.Invoke(o, new Object[] { parameters });
 
          
 

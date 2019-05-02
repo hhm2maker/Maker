@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Blog
 {
     public interface IToBlog
     {
-        void ToBlog(String parameter);
+        void ToBlog(List<string> parameters);
     }
    
 }
