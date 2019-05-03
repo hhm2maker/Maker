@@ -111,6 +111,7 @@ namespace Maker.View.Device
                     }
                     if (Children.Count != 100 && Children.Count != 200)
                         Children.Add(shape);
+                    shape.Visibility = Visibility.Collapsed;
                     continue;
                 }
                 Ellipse e;
@@ -468,7 +469,6 @@ namespace Maker.View.Device
         /// <param name="color"></param>
         public void SetButtonBackground(Brush color)
         {
-
             for (int i = 0; i < Children.Count; i++)
             {
                 Shape shape = Children[i] as Shape;

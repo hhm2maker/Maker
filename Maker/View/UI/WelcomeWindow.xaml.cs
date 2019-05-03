@@ -45,8 +45,12 @@ namespace Maker.View.UI
             mLaunchpad.SetButtonBorderBackground(3,new SolidColorBrush(Colors.White));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
 
-            //mLaunchpad.AddMembrane();
-            mLaunchpad.SetSize(Width / 3);
+            gMain.Width = Width * 0.8;
+            gMain.Height = Height * 0.8;
+
+            mLaunchpad.SetSize(gMain.Width / 6);
+            tbDevice.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
+            tbHelp.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
 
             iCoffee.Width = iCoffee.Height = Width / 10;
 
@@ -252,6 +256,5 @@ namespace Maker.View.UI
                 isBigColorTab = !isBigColorTab;
             }
         }
-
     }
 }
