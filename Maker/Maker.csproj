@@ -403,8 +403,8 @@
     <Compile Include="View\UI\Dialog\TipDialog.xaml.cs">
       <DependentUpon>TipDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Help\AppreciateWindow.xaml.cs">
-      <DependentUpon>AppreciateWindow.xaml</DependentUpon>
+    <Compile Include="View\UI\UserControlDialog\AppreciateDialog.xaml.cs">
+      <DependentUpon>AppreciateDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
@@ -906,7 +906,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Help\AppreciateWindow.xaml">
+    <Page Include="View\UI\UserControlDialog\AppreciateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1576,6 +1576,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="View\Resources\Image\arrow_up.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\appreciate.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

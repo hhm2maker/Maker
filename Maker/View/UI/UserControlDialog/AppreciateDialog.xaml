@@ -1,0 +1,35 @@
+﻿<local:MakerDialog x:Class="Maker.View.UI.UserControlDialog.AppreciateDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
+             mc:Ignorable="d" 
+             Background="#363b40"
+             VerticalAlignment="Top"
+                   HorizontalAlignment="Center"
+             >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+    </UserControl.Effect>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <TextBlock Text="{DynamicResource Appreciate}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
+            <StackPanel  Margin="30,0,30,30"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Source="..\..\Resources\Image\alipay.png" Width="250" Height="375" />
+                <Image Source="..\..\Resources\Image\wxpay.png" Width="250" Height="375" />
+            </StackPanel>
+        </StackPanel>
+        <DockPanel Grid.Row="1">
+            <Button Style="{StaticResource EmptyButtonStyle}" Name="btnOk"  Click="btnOk_Click" Height="35" Width="100" BorderBrush="White" Background="Transparent"  FontSize="18" Foreground="#b8bfc6" Margin="15" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                <Button.Content >
+                    <TextBlock Text="{DynamicResource Ok}" FontSize="16" Foreground="#b8bfc6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+        </DockPanel>
+    </Grid>
+</local:MakerDialog>

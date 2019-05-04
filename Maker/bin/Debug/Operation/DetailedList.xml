@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DetailedList xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Operations>
-    <Operation name="ChangeThePosition" text="改变位置" view="ChangeThePosition" dll="sample" />
+    <Operation name="ChangeThePosition" text="改变位置" view="ChangeThePosition.xml" dll="sample.dll" />
   </Operations>
 </DetailedList>

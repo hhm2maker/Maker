@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Operation
@@ -16,6 +12,12 @@ namespace Operation
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 obj = serializer.Deserialize(stream) as T;
             }
+        }
+
+        public static void Load<T>(ref T obj, Stream filePath) where T : class
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            obj = serializer.Deserialize(filePath) as T;
         }
 
         public static void Save(Object obj,String filePath)

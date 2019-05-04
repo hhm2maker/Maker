@@ -33,30 +33,10 @@
         <ImageBrush ImageSource="../../View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
     </Window.Background>
     <Grid>
-        <StackPanel Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
             <TextBlock Text="欢迎来到Maker" Foreground="White" FontSize="40" HorizontalAlignment="Center" />
             <TextBlock Margin="0,20,0,0" Text="更适配灯光设备的软件" FontSize="20" HorizontalAlignment="Center" Foreground="#FFC8C8C8" />
-        </StackPanel>
-        <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
-            <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
-                <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
-                <Viewbox Width="300"  Name="tbColorTab">
-                    <Grid  >
-                        <Image Source="../../View/Resources/Image/colortab.png"/>
-                    </Grid>
-                </Viewbox>
-            </StackPanel>
-            <StackPanel  Name="spPositionTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown" Margin="0,20,0,0"     >
-                <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
-                <Viewbox Width="300"  Name="tbPositionTab">
-                    <Grid  >
-                        <Image Source="../../View/Resources/Image/positiontab.png"/>
-                    </Grid>
-                </Viewbox>
-            </StackPanel>
-        </StackPanel>
-        
-        <Image Name="iCoffee" Width="100" Height="100" MouseEnter="iCoffee_MouseEnter" MouseLeave="iCoffee_MouseLeave" Source="../../View/Resources/Image/coffee.png" MouseLeftButtonDown="ToAppreciateWindow" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,100,100"/>
+        </StackPanel>-->
         <Grid Name="gMain" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -87,7 +67,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid  Background="#CC3296FF"  Grid.Row="0" >
-                    <Grid.RowDefinitions >
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -180,11 +160,39 @@
                                     <TextBlock TextWrapping="Wrap" Text="查看颜色表和位置表" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
                                 </Button.ToolTip>
                             </Button>
+                            <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}" Margin="15,15,15,0" Background="Transparent" >
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MouseLeftButtonDown="ToAppreciateWindow">
+                                        <Image Source="../../View/Resources/Image/appreciate.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                    </StackPanel>
+                                </Button.Content>
+                                <Button.ToolTip>
+                                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                                </Button.ToolTip>
+                            </Button>
                         </WrapPanel>
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
+        <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
+                <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
+                <Viewbox Width="300"  Name="tbColorTab">
+                    <Grid  >
+                        <Image Source="../../View/Resources/Image/colortab.png"/>
+                    </Grid>
+                </Viewbox>
+            </StackPanel>
+            <StackPanel  Name="spPositionTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown" Margin="0,20,0,0"     >
+                <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
+                <Viewbox Width="300"  Name="tbPositionTab">
+                    <Grid  >
+                        <Image Source="../../View/Resources/Image/positiontab.png"/>
+                    </Grid>
+                </Viewbox>
+            </StackPanel>
+        </StackPanel>
         <Grid Name="gMost" />
     </Grid>
 </Window>

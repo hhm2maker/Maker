@@ -52,8 +52,6 @@ namespace Maker.View.UI
             tbDevice.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
             tbHelp.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
 
-            iCoffee.Width = iCoffee.Height = Width / 10;
-
             InitShortcuts();
 
             tbPositionTab.Width = Width * 0.125;
@@ -113,18 +111,9 @@ namespace Maker.View.UI
 
         private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
         {
-            new AppreciateWindow().Show();
+            ShowMakerDialog(new AppreciateDialog(this));
         }
 
-        private void iCoffee_MouseEnter(object sender, MouseEventArgs e)
-        {
-            iCoffee.Width = iCoffee.Height = iCoffee.Width * 1.2;
-        }
-
-        private void iCoffee_MouseLeave(object sender, MouseEventArgs e)
-        {
-            iCoffee.Width = iCoffee.Height = iCoffee.Width / 1.2;
-        }
 
         private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Xml.Serialization;
 
 namespace Maker.Business.Model

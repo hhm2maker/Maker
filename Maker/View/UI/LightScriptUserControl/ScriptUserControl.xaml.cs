@@ -5016,19 +5016,6 @@ namespace Maker.View.LightScriptUserControl
             ThirdPartyModelsModel thirdPartyModelsModel = new ThirdPartyModelsModel();
             XmlSerializerBusiness.Load(ref thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
             return thirdPartyModelsModel.ThirdPartyModels;
-
-            //List<ThirdPartyModel> thirdPartys = new List<ThirdPartyModel>();
-            //XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
-            //foreach (XElement element in doc.Element("DetailedList").Element("Operations").Elements())
-            //{
-            //    //var name = element.Element("name").Value;
-            //    thirdPartys.Add(new ThirdPartyModel(element.Attribute("name").Value,
-            //        element.Attribute("text").Value,
-            //        element.Attribute("view").Value,
-            //        element.Attribute("dll").Value));
-            //}
-            //return thirdPartys;
-         
         }
         /// <summary>
         /// 将第三方扩展加载到界面

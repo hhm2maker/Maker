@@ -501,7 +501,7 @@ namespace Maker.Business.Discarded
 
         private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
         {
-            new AppreciateWindow().Show();
+            //new AppreciateWindow().Show();
         }
         private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
         {
