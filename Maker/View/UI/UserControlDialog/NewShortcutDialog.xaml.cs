@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Windows;
 using static Maker.Business.Model.Config.BlogConfigModel;
 
@@ -36,6 +37,11 @@ namespace Maker.View.UI.UserControlDialog
             mw.RemoveDialog();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            mw.RemoveDialog();
+        }
+
         private String fatherPath = AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\";
         private void tbOpen_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -53,5 +59,12 @@ namespace Maker.View.UI.UserControlDialog
                 tbDll.Text = openFileDialog.FileName.Substring(fatherPath.Length) ;
             }
         }
+
+        private void tbGet_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            // 解压文件
+            ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory+ @"Blog\DLL\matrix uploader.zip", AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\");
+        }
+
     }
 }

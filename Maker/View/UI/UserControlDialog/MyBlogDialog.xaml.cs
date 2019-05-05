@@ -245,7 +245,7 @@ namespace Maker.View.UI.UserControlDialog
             //String url = .parameter;
             mi.Invoke(o, new Object[] { parameters });
 
-         
+
 
             //System.Diagnostics.Process.Start(@"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\dfu-util.exe",
             //    "dfu-util -v -d 0203:0100,0203:0003 -t 2048 -a 0 -R -D \" "+ @"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\MatrixFW 0.1.3.3b 4-25-1.mxfw" + "\"");
@@ -262,6 +262,8 @@ namespace Maker.View.UI.UserControlDialog
             //    //如是否要再次确认
             //    //echo Make sure Matrix is pluged in. Press Any Key to continue.
             //}
+
+          
         }
 
      

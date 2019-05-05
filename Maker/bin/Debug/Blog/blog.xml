@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Blog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Shortcuts>
-    <Shortcut text="Matrix" url="https://www.hhm2maker.com/Matrix/Matrix.xml" dll="matrix uploader\MatrixUploader.dll" />
-    <Shortcut text="Maker-Edit" url="https://www.hhm2maker.com/Maker/Edit.xml" dll="Online installation editing method\OnlineInstallationEditingMethod.dll" />
-  </Shortcuts>
+  <Shortcuts />
 </Blog>
