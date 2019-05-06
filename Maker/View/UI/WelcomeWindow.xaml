@@ -77,7 +77,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0"  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#f0f0f0" BorderThickness="2" Height="36"  >
-                            <TextBox BorderBrush="Transparent" VerticalContentAlignment="Center" TextAlignment="Left" x:Name="tbUrl"  Background="Transparent"  Foreground="White" FontSize="16" CaretBrush="White" />
+                            <TextBox BorderBrush="Transparent" BorderThickness="0" VerticalContentAlignment="Center" TextAlignment="Left" x:Name="tbUrl"  Background="Transparent"  Foreground="White" FontSize="16" CaretBrush="White" />
                         </Border>
                         <Border Grid.Column="1" BorderBrush="#f0f0f0" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Height="36" >
                             <TextBlock  TextAlignment="Center" Width="130" VerticalAlignment="Center" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="开始" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>

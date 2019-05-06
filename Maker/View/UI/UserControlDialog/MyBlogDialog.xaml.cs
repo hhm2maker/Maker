@@ -21,7 +21,7 @@ namespace Maker.View.UI.UserControlDialog
     {
         private WelcomeWindow mw;
         private Shortcut shortcut = new Shortcut();
-        BlogContentModel blogConfigModel = new BlogContentModel();
+        private BlogContentModel blogConfigModel = new BlogContentModel();
         public MyBlogDialog(WelcomeWindow mw, Shortcut shortcut)
         {
             InitializeComponent();
@@ -68,7 +68,6 @@ namespace Maker.View.UI.UserControlDialog
             using (MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(sb.ToString())))
             {
                 XmlSerializerBusiness.Load(ref blogConfigModel, ms);
-
                 if (blogConfigModel.Author.Equals(String.Empty))
                 {
                     tbAuthor.Visibility = Visibility.Collapsed;

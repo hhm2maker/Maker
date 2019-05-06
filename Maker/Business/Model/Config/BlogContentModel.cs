@@ -47,6 +47,35 @@ namespace Maker.Business.Model.Config
             set;
         }
 
+        /// <summary>
+        /// 当前版本
+        /// </summary>
+        [XmlElement("Dll", IsNullable = false)]
+        public Dll dll
+        {
+            get;
+            set;
+        }
+
+        [XmlType("Dll")]
+        public class Dll
+        {
+
+            [XmlAttribute("url")]
+            public string url
+            {
+                get;
+                set;
+            }
+
+            [XmlAttribute("name")]
+            public string name
+            {
+                get;
+                set;
+            }
+
+        }
 
         [XmlArray("Buttons"), XmlArrayItem("Button")]
         public List<Button> Buttons
@@ -72,13 +101,6 @@ namespace Maker.Business.Model.Config
                 get;
                 set;
             }
-
-            //[XmlAttribute("parameter")]
-            //public string parameter
-            //{
-            //    get;
-            //    set;
-            //}
 
             [XmlAttribute("details")]
             public string details

@@ -3,6 +3,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Windows;
 using static Maker.Business.Model.Config.BlogConfigModel;
+using System.Net;
+using System.Text;
+using static Maker.Business.Model.Config.BlogContentModel;
 
 namespace Maker.View.UI.UserControlDialog
 {
@@ -14,12 +17,14 @@ namespace Maker.View.UI.UserControlDialog
         private WelcomeWindow mw;
         private MyBlogDialog myBlogDialog;
         private Shortcut shortcut;
-        public NewShortcutDialog(WelcomeWindow mw, MyBlogDialog myBlogDialog,Shortcut shortcut)
+        private Dll dll;
+        public NewShortcutDialog(WelcomeWindow mw, MyBlogDialog myBlogDialog,Dll dll,Shortcut shortcut)
         {
             InitializeComponent();
 
             this.mw = mw;
             this.myBlogDialog = myBlogDialog;
+            this.dll = dll;
             this.shortcut = shortcut;
             tbUrl.Text = shortcut.url;
         }
@@ -62,9 +67,17 @@ namespace Maker.View.UI.UserControlDialog
 
         private void tbGet_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            //WebClient webClient = new WebClient();
+            //webClient.Encoding = Encoding.UTF8;
+            //webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+            //String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + url.Substring(url.LastIndexOf("/") + 1);
+            //webClient.DownloadFileAsync(new Uri(url), filePath);
             // 解压文件
-            ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory+ @"Blog\DLL\matrix uploader.zip", AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\");
+            ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\matrix uploader.zip", AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\");
         }
-
+        private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            
+        }
     }
 }
