@@ -6,6 +6,7 @@ using static Maker.Business.Model.Config.BlogConfigModel;
 using System.Net;
 using System.Text;
 using static Maker.Business.Model.Config.BlogContentModel;
+using Maker.Business.Model.Config;
 
 namespace Maker.View.UI.UserControlDialog
 {
@@ -17,14 +18,14 @@ namespace Maker.View.UI.UserControlDialog
         private WelcomeWindow mw;
         private MyBlogDialog myBlogDialog;
         private Shortcut shortcut;
-        private Dll dll;
-        public NewShortcutDialog(WelcomeWindow mw, MyBlogDialog myBlogDialog,Dll dll,Shortcut shortcut)
+        private BlogContentModel blogContentModel;
+        public NewShortcutDialog(WelcomeWindow mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
         {
             InitializeComponent();
 
             this.mw = mw;
             this.myBlogDialog = myBlogDialog;
-            this.dll = dll;
+            this.blogContentModel = blogContentModel;
             this.shortcut = shortcut;
             tbUrl.Text = shortcut.url;
         }
@@ -65,19 +66,31 @@ namespace Maker.View.UI.UserControlDialog
             }
         }
 
+        private String filePath;
         private void tbGet_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            //WebClient webClient = new WebClient();
-            //webClient.Encoding = Encoding.UTF8;
-            //webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
-            //String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + url.Substring(url.LastIndexOf("/") + 1);
-            //webClient.DownloadFileAsync(new Uri(url), filePath);
-            // 解压文件
-            ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\matrix uploader.zip", AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\");
+            WebClient webClient = new WebClient();
+            webClient.Encoding = Encoding.UTF8;
+            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+            filePath = AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\" + blogContentModel.dll.url.Substring(blogContentModel.dll.url.LastIndexOf("/") + 1);
+            webClient.DownloadFileAsync(new Uri(blogContentModel.dll.url), filePath);
         }
+
         private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            
+            // 解压文件
+            try
+            {
+                ZipFile.ExtractToDirectory(filePath, AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\");
+            }
+            catch (Exception exception) {
+                if (exception.GetType() == typeof(IOException))
+                {
+                   //已有文件
+                }
+            }
+            tbName.Text = blogContentModel.ShortcutName;
+            tbDll.Text = Path.GetFileNameWithoutExtension(filePath) + @"\"+ blogContentModel.dll.name;
         }
     }
 }

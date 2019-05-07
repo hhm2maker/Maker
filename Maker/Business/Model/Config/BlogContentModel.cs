@@ -40,6 +40,17 @@ namespace Maker.Business.Model.Config
         /// <summary>
         /// 当前版本
         /// </summary>
+        [XmlElement("ShortcutName", IsNullable = false)]
+        public string ShortcutName
+        {
+            get;
+            set;
+        }
+
+
+        /// <summary>
+        /// 当前版本
+        /// </summary>
         [XmlElement("Introduce", IsNullable = false)]
         public string Introduce
         {
