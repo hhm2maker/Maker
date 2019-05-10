@@ -33,7 +33,6 @@
                         <MenuItem Header="(1, 1, -1)" Name="mnuView11_1" Click="btnView_Click" />
                         <MenuItem Header="(-1, 1, -1)" Name="mnuView_11_1" Click="btnView_Click" />
                         <MenuItem Header="(-1, 1, 1)" Name="mnuView_111" Click="btnView_Click" />
-
                         <MenuItem Header="(1, -1, 1)" Name="mnuView1_11" Click="btnView_Click" />
                         <MenuItem Header="(1, -1, -1)" Name="mnuView1_1_1" Click="btnView_Click" />
                         <MenuItem Header="(-1, -1, -1)" Name="mnuView_1_1_1" Click="btnView_Click" />
@@ -69,26 +68,7 @@
                                     <DirectionalLight Color="Purple" Direction="9,-15,0" />-->
                                     <DirectionalLight Color="Gray" Direction="-9,-15,0" />
                                     <DirectionalLight Color="Gray" Direction="9,-15,0" />
-                                    <!-- Bottom -->
-                                        <GeometryModel3D>
-                                            <GeometryModel3D.Geometry>
-                                                <MeshGeometry3D Positions="-8.5,-1,-8.5 
-                                                        9,-1,-8.5 
-                                                        9,1,-8.5  
-                                                        -8.5,1,-8.5 
-                                                        -8.5,1,9  
-                                                        -8.5,-1,9 
-                                                        9,-1,9  
-                                                        9,1,9 " 
-
-TriangleIndices="0,2,1 0,3,2 0,4,3 0,5,4 0,1,6 0,6,5 3,4,7 3,7,2 4,5,6 4,6,7 7,6,1 7,1,2">
-                                                </MeshGeometry3D>
-                                            </GeometryModel3D.Geometry>
-                                            <GeometryModel3D.Material>
-                                                <DiffuseMaterial Brush="Black"/>
-                                            </GeometryModel3D.Material>
-                                        </GeometryModel3D>
-
+                                  
                                     </Model3DGroup>
                                 </ModelVisual3D.Content>
                             </ModelVisual3D>

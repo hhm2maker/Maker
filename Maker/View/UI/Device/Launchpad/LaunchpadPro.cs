@@ -1162,11 +1162,7 @@ namespace Maker.View.Device
             {
                 LaunchpadPro pro = obj as LaunchpadPro;
                 List<Light> mListList = e.NewValue as List<Light>;
-                pro.onDataChange(mListList);
-                if (pro.onDataChange != null)
-                {
-                    pro.onDataChange(mListList);
-                }
+                pro.onDataChange?.Invoke(mListList);
                 MyClearAllColorExcept(pro);
                 for (int i = 0; i < mListList.Count; i++)
                 {

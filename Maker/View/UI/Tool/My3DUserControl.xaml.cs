@@ -66,7 +66,50 @@ namespace Maker.View.Tool
             Width = mw.ActualWidth * 0.8;
             Height = mw.ActualHeight * 0.8;
             InitData();
-                for (int j = 7; j >= 0 ; j--)
+
+            //Bottom
+            { 
+            GeometryModel3D geometryModel3D = new GeometryModel3D();
+            geometryModel3D.Material = new DiffuseMaterial()
+            {
+                Brush = StaticConstant.closeBrush
+            };
+            MeshGeometry3D meshGeometry3D = new MeshGeometry3D();
+            geometryModel3D.Geometry = meshGeometry3D;
+
+            Point3DCollection point3DCollection = new Point3DCollection();
+            point3DCollection.Add(new Point3D(-8.5 ,-1,-8.5));
+            point3DCollection.Add(new Point3D(9, -1, -8.5));
+            point3DCollection.Add(new Point3D(9, 1, -8.5));
+            point3DCollection.Add(new Point3D(-8.5, 1, -8.5));
+            point3DCollection.Add(new Point3D(-8.5, 1, 9));
+            point3DCollection.Add(new Point3D(-8.5, -1, 9));
+            point3DCollection.Add(new Point3D(9, -1, 9));
+            point3DCollection.Add(new Point3D(9, 1, 9));
+            meshGeometry3D.Positions = point3DCollection;
+            geometryModel3D.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+            meshGeometry3D.TriangleIndices = int32Collection;
+            model3DGroup.Children.Add(geometryModel3D);
+            }
+            //                                        < GeometryModel3D >
+            //                                            < GeometryModel3D.Geometry >
+            //                                                < MeshGeometry3D Positions = "-8.5,-1,-8.5 
+            //                                                        9,-1,-8.5
+            //                                                        9,1,-8.5
+            //                                                        - 8.5,1,-8.5
+            //                                                         - 8.5,1,9
+            //                                                          - 8.5,-1,9
+            //                                                        9,-1,9
+            //                                                        9,1,9 " 
+            //TriangleIndices = "0,2,1 0,3,2 0,4,3 0,5,4 0,1,6 0,6,5 3,4,7 3,7,2 4,5,6 4,6,7 7,6,1 7,1,2" >
+            //                                                </ MeshGeometry3D >
+            //                                            </ GeometryModel3D.Geometry >
+            //                                            < GeometryModel3D.Material >
+            //                                                < DiffuseMaterial Brush = "Black" />
+            //                                             </ GeometryModel3D.Material >
+            //                                         </ GeometryModel3D > 
+
+            for (int j = 7; j >= 0 ; j--)
                 {
                 for (int i = 0; i < 4; i++)
                 {
@@ -122,10 +165,12 @@ namespace Maker.View.Tool
                 }
             }
 
-             //(model3DGroup.Children[5] as GeometryModel3D).Material = new DiffuseMaterial()
-             //{
-             //    Brush = StaticConstant.brushList[5]
-             //};
+          
+
+            //(model3DGroup.Children[5] as GeometryModel3D).Material = new DiffuseMaterial()
+            //{
+            //    Brush = StaticConstant.brushList[5]
+            //};
         }
 
         // Save the current image.
