@@ -72,7 +72,6 @@
                                     </Model3DGroup>
                                 </ModelVisual3D.Content>
                             </ModelVisual3D>
-
                             <Viewport3D.Camera>
                                 <PerspectiveCamera
                           Position = "1.75, 12.75, 2.75"

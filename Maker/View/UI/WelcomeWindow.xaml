@@ -53,7 +53,7 @@
             </Button>
             </Grid>
             <Grid Grid.Column="1" Background="#CCFFA500" >
-                <Button Grid.Column="1" Style="{StaticResource EmptyButtonStyle}">
+                <Button  Click="Button_Click_1" Grid.Column="1" Style="{StaticResource EmptyButtonStyle}">
                 <Button.Content>
                     <Border CornerRadius="3" BorderThickness="3" BorderBrush="White" Height="120" Width="120" Background="Transparent">
                         <TextBlock Margin="0,5,0,5" Text="演奏工程" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"  Foreground="White" FontSize="18"/>

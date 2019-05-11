@@ -23,15 +23,17 @@ namespace Maker.View.Tool
     {
         private NewMainWindow mw;
         private List<Model.Light> mLightList;
-        public My3DUserControl(NewMainWindow mw,List<Model.Light> mLightList)
+        public My3DUserControl(NewMainWindow mw, List<Model.Light> mLightList)
         {
             InitializeComponent();
             this.mw = mw;
 
             this.mLightList = mLightList;
             FileBusiness.CreateInstance().ReplaceControl(this.mLightList, FileBusiness.CreateInstance().midiArr);
-            for (int i = mLightList.Count - 1; i >= 0 ; i--) {
-                if (mLightList[i].Position<36 || mLightList[i].Position >99) {
+            for (int i = mLightList.Count - 1; i >= 0; i--)
+            {
+                if (mLightList[i].Position < 36 || mLightList[i].Position > 99)
+                {
                     mLightList.Remove(mLightList[i]);
                 }
             }
@@ -42,15 +44,15 @@ namespace Maker.View.Tool
             worker.WorkerSupportsCancellation = true;
             SetData(mLightList);
         }
-        
+
 
         private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             btnPaved.IsEnabled = false;
             DoubleAnimation daHeight = new DoubleAnimation();
-                daHeight.From = 1;
-                daHeight.To = 0;
-                daHeight.Duration = TimeSpan.FromSeconds(0.2);
+            daHeight.From = 1;
+            daHeight.To = 0;
+            daHeight.Duration = TimeSpan.FromSeconds(0.2);
 
             daHeight.Completed += Board_Completed;
             wMain.BeginAnimation(OpacityProperty, daHeight);
@@ -68,49 +70,33 @@ namespace Maker.View.Tool
             InitData();
 
             //Bottom
-            { 
-            GeometryModel3D geometryModel3D = new GeometryModel3D();
-            geometryModel3D.Material = new DiffuseMaterial()
             {
-                Brush = StaticConstant.closeBrush
-            };
-            MeshGeometry3D meshGeometry3D = new MeshGeometry3D();
-            geometryModel3D.Geometry = meshGeometry3D;
-
-            Point3DCollection point3DCollection = new Point3DCollection();
-            point3DCollection.Add(new Point3D(-8.5 ,-1,-8.5));
-            point3DCollection.Add(new Point3D(9, -1, -8.5));
-            point3DCollection.Add(new Point3D(9, 1, -8.5));
-            point3DCollection.Add(new Point3D(-8.5, 1, -8.5));
-            point3DCollection.Add(new Point3D(-8.5, 1, 9));
-            point3DCollection.Add(new Point3D(-8.5, -1, 9));
-            point3DCollection.Add(new Point3D(9, -1, 9));
-            point3DCollection.Add(new Point3D(9, 1, 9));
-            meshGeometry3D.Positions = point3DCollection;
-            geometryModel3D.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
-            meshGeometry3D.TriangleIndices = int32Collection;
-            model3DGroup.Children.Add(geometryModel3D);
-            }
-            //                                        < GeometryModel3D >
-            //                                            < GeometryModel3D.Geometry >
-            //                                                < MeshGeometry3D Positions = "-8.5,-1,-8.5 
-            //                                                        9,-1,-8.5
-            //                                                        9,1,-8.5
-            //                                                        - 8.5,1,-8.5
-            //                                                         - 8.5,1,9
-            //                                                          - 8.5,-1,9
-            //                                                        9,-1,9
-            //                                                        9,1,9 " 
-            //TriangleIndices = "0,2,1 0,3,2 0,4,3 0,5,4 0,1,6 0,6,5 3,4,7 3,7,2 4,5,6 4,6,7 7,6,1 7,1,2" >
-            //                                                </ MeshGeometry3D >
-            //                                            </ GeometryModel3D.Geometry >
-            //                                            < GeometryModel3D.Material >
-            //                                                < DiffuseMaterial Brush = "Black" />
-            //                                             </ GeometryModel3D.Material >
-            //                                         </ GeometryModel3D > 
-
-            for (int j = 7; j >= 0 ; j--)
+                GeometryModel3D geometryModel3D = new GeometryModel3D();
+                geometryModel3D.Material = new DiffuseMaterial()
                 {
+                    Brush = StaticConstant.closeBrush
+                };
+                MeshGeometry3D meshGeometry3D = new MeshGeometry3D();
+                geometryModel3D.Geometry = meshGeometry3D;
+
+                Point3DCollection point3DCollection = new Point3DCollection();
+                point3DCollection.Add(new Point3D(-8.5, -1, -8.5));
+                point3DCollection.Add(new Point3D(9, -1, -8.5));
+                point3DCollection.Add(new Point3D(9, 1, -8.5));
+                point3DCollection.Add(new Point3D(-8.5, 1, -8.5));
+                point3DCollection.Add(new Point3D(-8.5, 1, 9));
+                point3DCollection.Add(new Point3D(-8.5, -1, 9));
+                point3DCollection.Add(new Point3D(9, -1, 9));
+                point3DCollection.Add(new Point3D(9, 1, 9));
+                meshGeometry3D.Positions = point3DCollection;
+                geometryModel3D.Material = new DiffuseMaterial(new SolidColorBrush(Colors.Black));
+                meshGeometry3D.TriangleIndices = int32Collection;
+                model3DGroup.Children.Add(geometryModel3D);
+            }
+
+
+            for (int j = 7; j >= 0; j--)
+            {
                 for (int i = 0; i < 4; i++)
                 {
                     GeometryModel3D geometryModel3D = new GeometryModel3D();
@@ -137,8 +123,8 @@ namespace Maker.View.Tool
                 }
             }
 
-                for (int j = 7; j >= 0; j--)
-                {
+            for (int j = 7; j >= 0; j--)
+            {
                 for (int i = 4; i < 8; i++)
                 {
                     GeometryModel3D geometryModel3D = new GeometryModel3D();
@@ -164,9 +150,6 @@ namespace Maker.View.Tool
                     model3DGroup.Children.Add(geometryModel3D);
                 }
             }
-
-          
-
             //(model3DGroup.Children[5] as GeometryModel3D).Material = new DiffuseMaterial()
             //{
             //    Brush = StaticConstant.brushList[5]
@@ -306,7 +289,7 @@ namespace Maker.View.Tool
                 //ClearAllColorExceptMembrane();
                 return;
             }
-         
+
 
             List<Model.Light> x = timeDictionary[timeList[number]];
             for (int i = 0; i < x.Count; i++)
@@ -328,14 +311,14 @@ namespace Maker.View.Tool
                 else
                 {
                     int position = x[i].Position - 36;
-                 
+
                     if (position >= 0 && position < model3DGroup.Children.Count - 4)
                     {
-                    (model3DGroup.Children[position+4] as GeometryModel3D).Material = new DiffuseMaterial()
-                    {
+                        (model3DGroup.Children[position + 4] as GeometryModel3D).Material = new DiffuseMaterial()
+                        {
 
-                        Brush = StaticConstant.brushList[x[i].Color]
-                    };
+                            Brush = StaticConstant.brushList[x[i].Color]
+                        };
                     }
                 }
             }
@@ -375,7 +358,7 @@ namespace Maker.View.Tool
         /// 设置数据
         /// </summary>
         /// <param name="mActionBeanList"></param>
-        public  void SetData(List<Model.Light> mActionBeanList)
+        public void SetData(List<Model.Light> mActionBeanList)
         {
             //清空数据
             timeList.Clear();
@@ -401,7 +384,7 @@ namespace Maker.View.Tool
         private Dictionary<int, List<Model.Light>> timeDictionary = new Dictionary<int, List<Model.Light>>();
 
         bool isMove = false;
-        Point point = new Point(0,0);
+        Point point = new Point(0, 0);
         private void dockOuter_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             isMove = true;
@@ -428,7 +411,8 @@ namespace Maker.View.Tool
             double yMove = _point.Y - point.Y;
             if (xMove > 0)
             {
-                if (Math.Abs(xMove) > ActualWidth / 180) {
+                if (Math.Abs(xMove) > ActualWidth / 180)
+                {
                     point = _point;
 
                     if (hscroll.Value < 180)
@@ -448,7 +432,8 @@ namespace Maker.View.Tool
                     }
                 }
             }
-            if (yMove > 0) {
+            if (yMove > 0)
+            {
                 if (Math.Abs(yMove) > ActualHeight / 180)
                 {
                     point = _point;
@@ -478,7 +463,8 @@ namespace Maker.View.Tool
             {
                 dWait = dBpm;
             }
-            else {
+            else
+            {
                 dWait = 96;
             }
             Play();

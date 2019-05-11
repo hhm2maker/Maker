@@ -2,6 +2,7 @@
 using Maker.Business.Model.Config;
 using Maker.View.Dialog;
 using Maker.View.Help;
+using Maker.View.UI.Game;
 using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
@@ -244,6 +245,12 @@ namespace Maker.View.UI
                 tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
                 isBigColorTab = !isBigColorTab;
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            GameWindow game = new GameWindow();
+            game.Show();
         }
     }
 }
