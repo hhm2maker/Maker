@@ -9,7 +9,7 @@
         Name="wMain"
         Loaded="wMain_Loaded"
              Margin="10"
-             Background="#282828"
+          Background="Black"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -19,87 +19,56 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="30" >
-            <Menu DockPanel.Dock="Top">
-                    <MenuItem Header="File" Name="mnuSave" Click="mnuSave_Click">Save</MenuItem>
-                    <MenuItem Header="View">
-                        <MenuItem Header="(1, 1, 1)" Name="mnuView111" Click="btnView_Click" />
-                        <MenuItem Header="(1, 1, -1)" Name="mnuView11_1" Click="btnView_Click" />
-                        <MenuItem Header="(-1, 1, -1)" Name="mnuView_11_1" Click="btnView_Click" />
-                        <MenuItem Header="(-1, 1, 1)" Name="mnuView_111" Click="btnView_Click" />
-                        <MenuItem Header="(1, -1, 1)" Name="mnuView1_11" Click="btnView_Click" />
-                        <MenuItem Header="(1, -1, -1)" Name="mnuView1_1_1" Click="btnView_Click" />
-                        <MenuItem Header="(-1, -1, -1)" Name="mnuView_1_1_1" Click="btnView_Click" />
-                        <MenuItem Header="(-1, -1, 1)" Name="mnuView_1_11" Click="btnView_Click" />
-                    </MenuItem>
-                <TextBlock Text="{DynamicResource Play}" MouseLeftButtonDown="Button_Click"/>
-                <TextBlock Text="BPM:" Margin="10,0,0,0"/>
-                <TextBox Width="200" Name="tbBPM" Text="96"/>
-            </Menu>
-                <ScrollBar Name="hscroll" 
-	      DockPanel.Dock="Bottom"
-	      Orientation="Horizontal" 
-	      Minimum="-180" Maximum="180" 
-	      LargeChange="10" SmallChange="1" Value="0" />
-                <ScrollBar Name="vscroll" 
-	      DockPanel.Dock="Right"
-	      Orientation="Vertical"
-	      Minimum="-180" Maximum="180" 
-	      LargeChange="10" SmallChange="1" Value="0" />
-                <!--
-           - The dockOuter control prevents the rendering
-           - from including an implicit margin around dockCube
-          -->
-                <DockPanel Margin="0" Name="dockOuter" Background="Transparent" MouseLeftButtonDown="dockOuter_MouseLeftButtonDown" MouseLeave="dockOuter_MouseLeave"  MouseLeftButtonUp="dockOuter_MouseLeftButtonUp" MouseMove="dockOuter_MouseMove">
-                <DockPanel Name="dockCube" Background="Transparent">
-                        <Viewport3D Margin="0" Name="viewCube">
-                        <ModelVisual3D x:Name="RootGeometryContainer">
-                                <ModelVisual3D.Content>
-                                    <Model3DGroup x:Name="model3DGroup">
-                                        <!-- Lights -->
-                                    <AmbientLight Color="Gray" />
-                                    <DirectionalLight Color="Blue" Direction="-9,5,0" />
-                                    <DirectionalLight Color="Purple" Direction="9,5,0" />
-                                    <!--<DirectionalLight Color="Gray" Direction="-9,-15,0" />
-                                    <DirectionalLight Color="Gray" Direction="9,-15,0" />-->
-                                    </Model3DGroup>
-                                </ModelVisual3D.Content>
-                            </ModelVisual3D>
-                            <Viewport3D.Camera >
-                                <PerspectiveCamera
-                                    x:Name="camera"
-                          Position = "20.75, 5.00, 20.75"
-                          LookDirection = "-10.75,-10.75 , -10.75"
-                          UpDirection = "0, 1, 0"
-                          FieldOfView = "135">
-                                    <PerspectiveCamera.Transform>
-                                        <Transform3DGroup>
-                                            <RotateTransform3D>
-                                                <RotateTransform3D.Rotation>
-                                                    <AxisAngleRotation3D
-	                                          Axis="0 1 0" 
-	                                          Angle="{Binding ElementName=hscroll, Path=Value}" />
-                                                </RotateTransform3D.Rotation>
-                                            </RotateTransform3D>
-                                            <RotateTransform3D>
-                                                <RotateTransform3D.Rotation>
-                                                    <AxisAngleRotation3D
-	                                          Axis="1 0 0" 
-	                                          Angle="{Binding ElementName=vscroll, Path=Value}" />
-                                                </RotateTransform3D.Rotation>
-                                            </RotateTransform3D>
-                                        </Transform3DGroup>
-                                    </PerspectiveCamera.Transform>
-                                </PerspectiveCamera>
-                            </Viewport3D.Camera>
-                        </Viewport3D>
-                    </DockPanel>
-                </DockPanel>
-            </DockPanel>
-    </Grid>
+    <StackPanel Orientation="Vertical">
+        <Border Background="#70ffffff" Width="300" Height="30" BorderThickness="1" BorderBrush="White"  CornerRadius="3">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                          Color="White"
+                          BlurRadius="40"/>
+            </Border.Effect>
+            <Border Name="bMain"  Background="White" CornerRadius="3,0,0,3" Width="0" Height="30" HorizontalAlignment="Left" >
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0"
+                          Color="White"
+                          BlurRadius="10"/>
+                </Border.Effect>
+            </Border>
+        </Border>
+
+        <Grid HorizontalAlignment="Center" Margin="0,30,0,0">
+            <StackPanel x:Name="gdLogo">
+                <Border Name="TextBorder" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent">
+                    <TextBlock Name="RealText" FontSize="20" Foreground="#FFC8C8C8">
+                        LOADING...
+                    </TextBlock>
+                </Border>
+                <!-- Uses a VisualBrush to create a reflection of the animated text. -->
+                <Rectangle Margin="0,-5,0,0" Name="ReflectedText" 
+                            Height="{Binding ElementName=TextBorder, Path=ActualHeight}"
+                            Width="{Binding ElementName=TextBorder, Path=ActualWidth}"
+                            HorizontalAlignment="Left">
+                    <Rectangle.OpacityMask>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Offset="0.0" Color="#44000000" />
+                                <GradientStop Offset="1.0" Color="#00000000" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Rectangle.OpacityMask>
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{Binding ElementName=TextBorder}">
+                            <VisualBrush.RelativeTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                    <TranslateTransform Y="1" />
+                                </TransformGroup>
+                            </VisualBrush.RelativeTransform>
+                        </VisualBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </StackPanel>
+
+        </Grid>
+
+    </StackPanel>
 </Window>

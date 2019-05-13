@@ -267,6 +267,9 @@
     <Compile Include="View\UI\Game\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Game\TestGameWindow.xaml.cs">
+      <DependentUpon>TestGameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
@@ -646,6 +649,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Game\GameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Game\TestGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
