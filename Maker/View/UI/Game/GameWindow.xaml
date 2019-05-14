@@ -19,14 +19,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Name="tbPercentage" FontSize="18" Text="0%" HorizontalAlignment="Right" Margin="0,0,0,5" Foreground="#FFB4B4B4"/>
         <Border Background="#70ffffff" Width="300" Height="30" BorderThickness="1" BorderBrush="White"  CornerRadius="3">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0"
                           Color="White"
                           BlurRadius="40"/>
             </Border.Effect>
-            <Border Name="bMain"  Background="White" CornerRadius="3,0,0,3" Width="0" Height="30" HorizontalAlignment="Left" >
+            <Border Name="bMain" SizeChanged="bMain_SizeChanged" Background="White" CornerRadius="3,0,0,3" Width="0" Height="30" HorizontalAlignment="Left" >
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="0"
                           Color="White"
@@ -34,13 +35,12 @@
                 </Border.Effect>
             </Border>
         </Border>
-
-        <Grid HorizontalAlignment="Center" Margin="0,30,0,0">
+        <Grid HorizontalAlignment="Center" Margin="0,50,0,0">
             <StackPanel x:Name="gdLogo">
                 <Border Name="TextBorder" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent">
-                    <TextBlock Name="RealText" FontSize="20" Foreground="#FFC8C8C8">
-                        LOADING...
-                    </TextBlock>
+                    <TextBlock Name="RealText" FontSize="20" Foreground="#FFC8C8C8" Text="LOADING..." />
+
+
                 </Border>
                 <!-- Uses a VisualBrush to create a reflection of the animated text. -->
                 <Rectangle Margin="0,-5,0,0" Name="ReflectedText" 
@@ -67,8 +67,8 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </StackPanel>
-
         </Grid>
-
+        <TextBlock Name="tbHint" FontSize="18" HorizontalAlignment="Left" Margin="0,50,0,0" Foreground="#FFB4B4B4"/>
+        <Canvas Name="cDevice" Width="300" Visibility="Collapsed" ClipToBounds="True" Margin="0,10,0,0"/>
     </StackPanel>
 </Window>
