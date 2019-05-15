@@ -862,6 +862,7 @@ namespace Maker.View.UI
                 mainPanelBorder.Margin = new Thickness(0);
             }
         }
+
         public void CloseMidiConnect()
         {
             CloseMidiOut();
@@ -871,8 +872,6 @@ namespace Maker.View.UI
                 ip.Close();
             }
         }
-
-  
 
         public void a()
         {

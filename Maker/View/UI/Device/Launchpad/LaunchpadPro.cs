@@ -340,11 +340,11 @@ namespace Maker.View.Device
 
             PointCollection pc = new PointCollection
             {
-                new Point(_blockWidth / 4, 0),
-                new Point(_blockWidth, 0),
-                new Point(_blockWidth, _blockWidth),
-                new Point(0, _blockWidth),
-                new Point(0, _blockWidth / 4)
+                new Point(_blockWidth / 4 , 0),
+                new Point(_blockWidth , 0),
+                new Point(_blockWidth , _blockWidth),
+                new Point(0, _blockWidth ),
+                new Point(0, _blockWidth / 4 )
             };
             rcp.Points = pc;
 
@@ -460,6 +460,19 @@ namespace Maker.View.Device
                 shape.Stroke = color;
                 shape.StrokeThickness = thiness;
             }
+        }
+
+
+        /// <summary>
+        /// 给所有按钮设置边框颜色
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        public void SetButtonBorderBackground(int position, int thiness, Brush color)
+        {
+            Shape shape = Children[position] as Shape;
+            shape.Stroke = color;
+            shape.StrokeThickness = thiness;
         }
 
         /// <summary>
@@ -1005,7 +1018,9 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                    Console.WriteLine(mListList[i].Position+ "---"+mListList[i].Color);
+                    SetButtonBackground(mListList[i].Position, new SolidColorBrush(Colors.Red));
+                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }
