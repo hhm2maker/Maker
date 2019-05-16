@@ -28,7 +28,8 @@ namespace Maker.View.Device
             //其余设置
             InitLaunchpadSize();
             InitBackground();
-            InitRainBowBrush(); 
+            InitRainBowBrush();
+
         }
         public delegate void OnDataChange(List<Light> data);
         public OnDataChange onDataChange;
@@ -219,7 +220,7 @@ namespace Maker.View.Device
                         e.Width = _circularWidth;
                         e.Height = _circularWidth;
                         SetLeft(e, _bigCrevice);
-                        SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
+                        SetTop(e, _canvasSize - (_blockWidth + 2 * _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice)));
                         if (Children.Count != 100 && Children.Count != 200)
                             Children.Add(e);
                         continue;
@@ -239,7 +240,7 @@ namespace Maker.View.Device
                         e.Width = _circularWidth;
                         e.Height = _circularWidth;
                         SetLeft(e, _canvasSize - _bigCrevice - _circularWidth);
-                        SetTop(e, _blockWidth + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
+                        SetTop(e, _canvasSize - (_blockWidth + 2 * _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice)));
                         if (Children.Count != 100 && Children.Count != 200)
                             Children.Add(e);
                         continue;

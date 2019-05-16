@@ -54,5 +54,7 @@ namespace Maker.View.LightUserControl
                 fileBusiness.WriteMidiFile(filePath, GetData());
             }
         }
+
+   
     }
 }

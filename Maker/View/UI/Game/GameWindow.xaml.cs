@@ -35,6 +35,8 @@ namespace Maker.View.UI.Game
             mLaunchpad.SetButtonBorderBackground(2, new SolidColorBrush(Colors.White));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetSize(400);
+
+          
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
