@@ -1019,12 +1019,52 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    Console.WriteLine(mListList[i].Position+ "---"+mListList[i].Color);
                     SetButtonBackground(mListList[i].Position, new SolidColorBrush(Colors.Red));
                     //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }
+
+        /// <summary>
+        /// 设置数据不清除颜色 - 不看时间
+        /// </summary>
+        /// <param name="mListList"></param>
+        public virtual void SetDataNoClear(List<Light> mListList)
+        {
+            for (int i = 0; i < mListList.Count; i++)
+            {
+                if (mListList[i].Action == 128)
+                {
+                    SetButtonBackground(mListList[i].Position, closeBrush);
+                }
+                else
+                {
+                    SetButtonBackground(mListList[i].Position, new SolidColorBrush(Colors.Red));
+                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置数据不清除颜色 - 不看时间
+        /// </summary>
+        /// <param name="mListList"></param>
+        public virtual void SetDataToBorderNoClear(List<Light> mListList)
+        {
+            for (int i = 0; i < mListList.Count; i++)
+            {
+                if (mListList[i].Action == 128)
+                {
+                    SetButtonBorderBackground(mListList[i].Position, 2, closeBrush);
+                }
+                else
+                {
+                    SetButtonBorderBackground(mListList[i].Position, 2, new SolidColorBrush(Colors.Red));
+                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                }
+            }
+        }
+
         /// <summary>
         /// 清除所有颜色
         /// </summary>

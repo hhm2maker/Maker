@@ -279,16 +279,10 @@ namespace Maker.View.UI.Game
                         FileBusiness.CreateInstance().ReplaceControl(lights, FileBusiness.CreateInstance().normalArr);
                         lights = LightBusiness.Sort(lights);
                         Dictionary<int, List<Light>> dictionary = LightBusiness.GetParagraphLightLightList(lights);
-                        foreach (var item in dictionary) {
-                            Thread.Sleep(100);
-                            launchpadPro.Dispatcher.Invoke(
-                        new Action(
-                         delegate
-                         {
-                             launchpadPro.SetData(item.Value);
-                         }
-               ));
-                        }
+
+                        Thread thread = new Thread(ThreadMethod);     //执行的必须是无返回值的方法
+                        thread.Start(dictionary);                       //在此方法内传递参数，类型为object，发送和接收涉及到拆装箱操作
+                        //thread.Start();
                     }
                     else
             {
@@ -303,8 +297,23 @@ namespace Maker.View.UI.Game
             //Console.WriteLine("-------------------------------");
         }
     }
+            public  void ThreadMethod(object parameter) //方法内可以有参数，也可以没有参数
+            {
+                Dictionary<int, List<Light>> dictionary = parameter as Dictionary<int, List<Light>>;
+                foreach (var item in dictionary)
+                {
+                    Thread.Sleep(50);
+                    launchpadPro.Dispatcher.Invoke(
+                new Action(
+                 delegate
+                 {
+                     launchpadPro.SetDataToBorderNoClear(item.Value);
+                 }
+       ));
+                }
+            }
 
-}
+        }
         internal static class NativeMethods
         {
             internal const int MMSYSERR_NOERROR = 0;
