@@ -30,6 +30,20 @@ namespace Maker.View.Device
         private BackgroundWorker worker = new BackgroundWorker();
 
         /// <summary>
+        /// 无参构造函数
+        /// </summary>
+        /// <param name="iplay"></param>
+        public AccuratePlayerLaunchpadPro() : base()
+        {
+            //这里可以自定义笔刷数组
+            brushList = StaticConstant.brushList;
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            worker.ProgressChanged += worker_ProgressChanged;
+            worker.WorkerSupportsCancellation = true;
+        }
+
+        /// <summary>
         /// 带参构造函数
         /// </summary>
         /// <param name="iplay"></param>
@@ -68,12 +82,14 @@ namespace Maker.View.Device
             if (NowTime == 0)
             {
                 //开始播放事件 - 进程中
-                iplay.StartPlayEvent();
+                if(iplay != null)
+                    iplay.StartPlayEvent();
             }
             if (NowTime == MaxTime)
             {
                 //结束播放事件 - 进程中
-                iplay.EndPlayEvent();
+                if (iplay != null)
+                    iplay.EndPlayEvent();
             }
 
             int i = 0;
@@ -85,21 +101,21 @@ namespace Maker.View.Device
                     if (lightList[l].Action == 128)
                     {
                         //停止播放=取消着色
-                        if (GetButton(lightList[l].Position - 36 + 8) is RoundedCornersPolygon rcp)
+                        if (GetButton(lightList[l].Position) is RoundedCornersPolygon rcp)
                             rcp.Fill = closeBrush;
-                        if (GetButton(lightList[l].Position - 36 + 8) is Ellipse e2)
+                        if (GetButton(lightList[l].Position) is Ellipse e2)
                             e2.Fill = closeBrush;
-                        if (GetButton(lightList[l].Position - 36 + 8) is Rectangle r)
+                        if (GetButton(lightList[l].Position) is Rectangle r)
                             r.Fill = closeBrush;
                     }
                     if (lightList[l].Action == 144)
                     {
                         //开始播放=开始着色 
-                        if (GetButton(lightList[l].Position - 36 + 8) is RoundedCornersPolygon rcp)
+                        if (GetButton(lightList[l].Position) is RoundedCornersPolygon rcp)
                             rcp.Fill = brushList[lightList[l].Color];
-                        if (GetButton(lightList[l].Position - 36 + 8) is Ellipse e2)
+                        if (GetButton(lightList[l].Position) is Ellipse e2)
                             e2.Fill = brushList[lightList[l].Color];
-                        if (GetButton(lightList[l].Position - 36 + 8) is Rectangle r)
+                        if (GetButton(lightList[l].Position) is Rectangle r)
                             r.Fill = brushList[lightList[l].Color];
                     }
                 }
@@ -145,7 +161,8 @@ namespace Maker.View.Device
         public override void Play() {
             NowTime = 0;
             //开始播放事件
-            iplay.PlayEvent();
+            if (iplay != null)
+                iplay.PlayEvent();
             worker.RunWorkerAsync();
         }
 
@@ -155,7 +172,8 @@ namespace Maker.View.Device
         public override void Stop() {
             NowTime = 0;
             //停止播放事件
-            iplay.StopEvent();
+            if (iplay != null)
+                iplay.StopEvent();
             worker.CancelAsync();
             //清空
             foreach (var item in Children)
@@ -191,7 +209,8 @@ namespace Maker.View.Device
                 worker.CancelAsync();
             }
             //暂停播放事件
-            iplay.PauseEvent(bIsPause);
+            if (iplay != null)
+                iplay.PauseEvent(bIsPause);
             bIsPause = !bIsPause;
        }
 

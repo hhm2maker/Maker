@@ -21,7 +21,7 @@ namespace Maker.View.UI.Game
     /// </summary>
     public partial class GameWindow : Window
     {
-
+        private AccuratePlayerLaunchpadPro mLaunchpad;
         public GameWindow()
         {
             InitializeComponent();
@@ -31,12 +31,13 @@ namespace Maker.View.UI.Game
             Height = SystemParameters.WorkArea.Height;//获取屏幕的宽高  使之不遮挡任务栏
             Width = SystemParameters.WorkArea.Width;
 
+            mLaunchpad = new AccuratePlayerLaunchpadPro();
+            mBorderLaunchpad.Child = mLaunchpad;
+            mLaunchpad.MembraneBrush = new SolidColorBrush(Colors.Black);
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetButtonBorderBackground(2, new SolidColorBrush(Colors.White));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetSize(400);
-
-          
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -178,7 +179,7 @@ namespace Maker.View.UI.Game
             if (position != -1)
         {
                 //Console.WriteLine("Hello");
-
+                AccuratePlayerLaunchpadPro accuratePlayerLaunchpadPro = new AccuratePlayerLaunchpadPro();
                 ip = new InputPort(mLaunchpad);
                 ip.Open(position);
                 ip.Start();
@@ -187,16 +188,18 @@ namespace Maker.View.UI.Game
             }
         //Console.WriteLine("Bye~");
     }
+        public static int nowPosition = 0;
+        public static int[] truePositions = new int[] { 11, 22, 33, 44, 55, 66, 77, 88, 99 };
 
-    public InputPort ip;
+        public InputPort ip;
     private static NativeMethods.MidiInProc midiInProc;
 
    public class InputPort
     {
     private IntPtr handle;
 
-            LaunchpadPro launchpadPro;
-    public InputPort(LaunchpadPro launchpadPro)
+            AccuratePlayerLaunchpadPro launchpadPro;
+    public InputPort(AccuratePlayerLaunchpadPro launchpadPro)
     {
                 this.launchpadPro = launchpadPro;
         midiInProc = new NativeMethods.MidiInProc(MidiProc);
@@ -244,7 +247,7 @@ namespace Maker.View.UI.Game
     }
 
 
-
+           
     private void MidiProc(IntPtr hMidiIn,
         uint wMsg,
         IntPtr dwInstance,
@@ -270,19 +273,21 @@ namespace Maker.View.UI.Game
             uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
             if (dwParam1 > 32767)
             {
+                        if (position == truePositions[nowPosition]) {
+                          
+
                         //position
                         //List<Light> lights = Cross((int) position);
-                        List<Light> lights = Cross(36);
+                        List<Light> lights = Cross(FileBusiness.CreateInstance().midiArr[(int)position]);
                         for (int i = 0; i < lights.Count; i++) {
                             lights[i].Position -= 28;
                         }
                         FileBusiness.CreateInstance().ReplaceControl(lights, FileBusiness.CreateInstance().normalArr);
-                        lights = LightBusiness.Sort(lights);
-                        Dictionary<int, List<Light>> dictionary = LightBusiness.GetParagraphLightLightList(lights);
 
                         Thread thread = new Thread(ThreadMethod);     //执行的必须是无返回值的方法
-                        thread.Start(dictionary);                       //在此方法内传递参数，类型为object，发送和接收涉及到拆装箱操作
-                        //thread.Start();
+                            thread.Start(lights);                       //在此方法内传递参数，类型为object，发送和接收涉及到拆装箱操作
+                                                                        //thread.Start();
+                        }
                     }
                     else
             {
@@ -299,19 +304,24 @@ namespace Maker.View.UI.Game
     }
             public  void ThreadMethod(object parameter) //方法内可以有参数，也可以没有参数
             {
-                Dictionary<int, List<Light>> dictionary = parameter as Dictionary<int, List<Light>>;
-                foreach (var item in dictionary)
-                {
-                    Thread.Sleep(50);
                     launchpadPro.Dispatcher.Invoke(
                 new Action(
                  delegate
                  {
-                     launchpadPro.SetDataToBorderNoClear(item.Value);
+                     launchpadPro.SetWait(TimeSpan.FromMilliseconds(1000 / 192.0));
+                     launchpadPro.SetData(parameter as List<Light>);
+                     launchpadPro.Play();
                  }
-       ));
+                ));
                 }
-            }
+     //           nowPosition++;
+     //           launchpadPro.Dispatcher.Invoke(
+     //new Action(
+     // delegate
+     // {
+     //     launchpadPro.SetButtonBorderBackground(truePositions[nowPosition], 2, new SolidColorBrush(Colors.Red));
+     // }
+     //));
 
         }
         internal static class NativeMethods

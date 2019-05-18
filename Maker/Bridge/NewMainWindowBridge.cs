@@ -29,6 +29,7 @@ namespace Maker.Bridge
         /// 初始化窗口
         /// </summary>
         public override void Init() {
+            InitStaticConstant();
             InitLanguage();
             InitIsFirst();
             InitPlayerType();

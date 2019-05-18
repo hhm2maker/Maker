@@ -15,7 +15,7 @@ namespace Maker.View.Device
         /// <summary>
         /// 关闭笔刷
         /// </summary>
-        protected SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+        public SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
         /// <summary>
         /// 无参构造函数
         /// </summary>
@@ -29,8 +29,16 @@ namespace Maker.View.Device
             InitLaunchpadSize();
             InitBackground();
             InitRainBowBrush();
-
         }
+
+        /// <summary>
+        /// 贴膜颜色
+        /// </summary>
+        public Brush MembraneBrush {
+            get;
+            set;
+        }
+
         public delegate void OnDataChange(List<Light> data);
         public OnDataChange onDataChange;
         public void SetOnDataChange(OnDataChange onDataChange)
@@ -1019,8 +1027,7 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    SetButtonBackground(mListList[i].Position, new SolidColorBrush(Colors.Red));
-                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }
@@ -1039,8 +1046,7 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    SetButtonBackground(mListList[i].Position, new SolidColorBrush(Colors.Red));
-                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }
@@ -1059,8 +1065,7 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    SetButtonBorderBackground(mListList[i].Position, 2, new SolidColorBrush(Colors.Red));
-                    //SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                 }
             }
         }

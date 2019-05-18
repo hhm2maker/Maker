@@ -1,5 +1,7 @@
-﻿using Maker.Business.Currency;
+﻿using Maker.Business;
+using Maker.Business.Currency;
 using Maker.Business.Model.Config;
+using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.Help;
 using Maker.View.UI.Game;
@@ -53,12 +55,22 @@ namespace Maker.View.UI
             tbDevice.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
             tbHelp.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
 
+            InitStaticConstant();
             InitShortcuts();
 
             tbPositionTab.Width = Width * 0.125;
             tbColorTab.Width = Width * 0.125;
 
             InitHelp();
+        }
+
+        /// <summary>
+        /// 初始化静态常量
+        /// </summary>
+        public void InitStaticConstant()
+        {
+            String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
+            StaticConstant.brushList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
         }
 
         private HelpConfigModel helpConfigModel;

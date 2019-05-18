@@ -71,7 +71,7 @@
         <TextBlock Name="tbHint" FontSize="18" HorizontalAlignment="Left" Margin="0,50,0,0" Foreground="#FFB4B4B4"/>
         <Canvas Name="cDevice" Width="300" Visibility="Collapsed" ClipToBounds="True" Margin="0,10,0,0"/>
         <Border x:Name="mBorderLaunchpad" CornerRadius="30" BorderBrush="White" BorderThickness="2" Opacity="0" Margin="0,10,0,0" Visibility="Collapsed">
-            <device:LaunchpadPro x:Name="mLaunchpad" />
+            <!--<device:LaunchpadPro x:Name="mLaunchpad" />-->
         </Border>
     </StackPanel>
 </Window>

@@ -36,7 +36,6 @@ namespace Maker
             InitializeComponent();
 
             bridge = new NewMainWindowBridge(this);
-            bridge.InitStaticConstant();
 
             bridge.Init();
 
