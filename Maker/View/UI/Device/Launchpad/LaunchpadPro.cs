@@ -34,10 +34,11 @@ namespace Maker.View.Device
         /// <summary>
         /// 贴膜颜色
         /// </summary>
-        public Brush MembraneBrush {
+        public Brush MembraneBrush
+        {
             get;
             set;
-        }
+        } = new SolidColorBrush(Colors.Black);
 
         public delegate void OnDataChange(List<Light> data);
         public OnDataChange onDataChange;
@@ -152,7 +153,7 @@ namespace Maker.View.Device
                 if (i == 0 || i == 9)
                 {
                     Rectangle shape;
-                    if (Children.Count != 100 && Children.Count != 200)
+                    if (Children.Count != 100 )
                     {
                         shape = new Rectangle();
                     }
@@ -160,12 +161,12 @@ namespace Maker.View.Device
                     {
                         shape = (Rectangle)Children[i];
                     }
-                    if (Children.Count != 100 && Children.Count != 200)
+                    if (Children.Count != 100)
                         Children.Add(shape);
                     continue;
                 }
                 Ellipse e;
-                if (Children.Count != 100 && Children.Count != 200)
+                if (Children.Count != 100 )
                 {
                     e = new Ellipse();
                 }
@@ -177,7 +178,7 @@ namespace Maker.View.Device
                 e.Height = _circularWidth;
                 SetLeft(e, _blockWidth + _bigCrevice + _smallCrevice + (i - 1) * (_blockWidth + _smallCrevice));
                 SetTop(e, _canvasSize - _bigCrevice - _circularWidth);
-                if (Children.Count != 100 && Children.Count != 200)
+                if (Children.Count != 100)
                     Children.Add(e);
             }
         }
@@ -398,7 +399,6 @@ namespace Maker.View.Device
                 Children.Add(rcp);
         }
 
-
         /// <summary>
         /// 根据传入的位置值返回Canvas里的按钮
         /// </summary>
@@ -408,6 +408,7 @@ namespace Maker.View.Device
         {
             return (FrameworkElement)Children[position];
         }
+
         /// <summary>
         /// Canvas里的按钮个数
         /// </summary>
@@ -416,6 +417,7 @@ namespace Maker.View.Device
             get { return Children.Count; }
             set { Count = value; }
         }
+
         /// <summary>
         /// 根据传入的容器大小适配大小
         /// </summary>
@@ -432,17 +434,27 @@ namespace Maker.View.Device
             _normalCrevice = canvasSize / 37.5; //750 / 20 = 37.5
             _bigCrevice = canvasSize / 18.75; //750 / 40 = 75
 
+            RefreshView();
+        }
+
+        /// <summary>
+        /// 刷新界面
+        /// </summary>
+        public void RefreshView() {
             InitBottom();
             InitBlock();
             InitTop();
-
             if (IsMembrane)
             {
-                InitBlackBottom();
-                InitBlackBlock();
-                InitBlackTop();
+                foreach (Shape item in Children)
+                {
+                    item.Stroke = item.Fill;
+                    item.Fill = MembraneBrush;
+                }
             }
+          
         }
+
         /// <summary>
         /// 给指定位置的按钮设置颜色
         /// </summary>
@@ -453,7 +465,13 @@ namespace Maker.View.Device
             if (position < 0 || position > Children.Count)
                 return;
             Shape shape = Children[position] as Shape;
-            shape.Fill = color;
+            if (IsMembrane)
+            {
+                shape.Stroke = color;
+            }
+            else {
+                shape.Fill = color;
+            }
         }
 
         /// <summary>
@@ -463,7 +481,6 @@ namespace Maker.View.Device
         /// <param name="color"></param>
         public void SetButtonBorderBackground(int thiness,Brush color)
         {
-         
             for (int i = 0; i < Children.Count; i++) {
                 Shape shape = Children[i] as Shape;
                 shape.Stroke = color;
@@ -498,18 +515,6 @@ namespace Maker.View.Device
             }
         }
 
-        /// <summary>
-        /// 给指定位置的按钮设置颜色
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="color"></param>
-        public static void SetButtonBackground(LaunchpadPro pro, int position, Brush color)
-        {
-            if (position < 0 || position > pro.Children.Count)
-                return;
-            Shape shape = pro.Children[position] as Shape;
-            shape.Fill = color;
-        }
 
         /// <summary>
         /// 设置背景颜色
@@ -550,10 +555,8 @@ namespace Maker.View.Device
         {
             if (!IsMembrane)
             {
-                InitBlackBottom();
-                InitBlackBlock();
-                InitBlackTop();
                 IsMembrane = true;
+                RefreshView();
             }
         }
         /// <summary>
@@ -570,366 +573,9 @@ namespace Maker.View.Device
         /// </summary>
         private void ShowOrHideMembrane(bool isMembrane)
         {
-            if (isMembrane)
-            {
-                if (Children.Count != 100 * 2)
-                {
-                    AddMembrane();
-                    return;
-                }
-                else
-                {
-                    for (int i = 100; i < 100 * 2; i++)
-                    {
-                        Children[i].Visibility = Visibility.Visible;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 100; i < Children.Count; i++)
-                {
-                    Children[i].Visibility = Visibility.Collapsed;
-                }
-            }
+            RefreshView();
         }
 
-        /// <summary>
-        /// 贴膜上圆钮
-        /// </summary>
-        private void InitBlackTop()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (i == 0 || i == 9)
-                {
-                    Rectangle shape;
-                    if (Children.Count < 200)
-                    {
-                        shape = new Rectangle();
-                    }
-                    else
-                    {
-                        shape = (Rectangle)Children[190 + i];
-                    }
-                    if (Children.Count < 200)
-                        Children.Add(shape);
-                    continue;
-                }
-                Ellipse e;
-                if (Children.Count != 200)
-                {
-                    e = new Ellipse();
-                }
-                else
-                {
-                    e = (Ellipse)Children[190 + i];
-                }
-                e.Width = _circularWidth * 0.9;
-                e.Height = _circularWidth * 0.9;
-                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + (i-1) * (_blockWidth + _smallCrevice));
-                SetTop(e, _bigCrevice * 1.04);
-                if (Children.Count < 200)
-                {
-                    Children.Add(e);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 贴膜中间方块
-        /// </summary>
-        private void InitBlackBlock()
-        {
-            //一共有八排
-            for (int j = 0; j < 8; j++)
-            {
-                //每排十块
-                for (int i = 0; i < 10; i++)
-                {
-                    if (j == 3 && i == 4)
-                    {
-                        InitBlackCenterLeftBottom();
-                        continue;
-                    }
-                    if (j == 4 && i == 4)
-                    {
-                        InitBlackCenterLeftTop();
-                        continue;
-                    }
-                    if (j == 3 && i == 5)
-                    {
-                        InitBlackCenterRightBottom();
-                        continue;
-                    }
-                    if (j == 4 && i == 5)
-                    {
-                        InitBlackCenterRightTop();
-                        continue;
-                    }
-
-                    if (i == 0)
-                    {
-                        Ellipse e;
-                        if (Children.Count != 200)
-                        {
-                            e = new Ellipse();
-                        }
-                        else
-                        {
-                            e = (Ellipse)Children[100 + 10 * j + 8 + 2];
-                        }
-                        e.Width = _circularWidth * 0.9;
-                        e.Height = _circularWidth* 0.9;
-                        e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                        SetLeft(e, _bigCrevice * 1.04);
-                        SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 200)
-                            Children.Add(e);
-                        continue;
-                    }
-                    if (i == 9)
-                    {
-                        Ellipse e;
-                        if (Children.Count != 200)
-                        {
-                            e = new Ellipse();
-                        }
-                        else
-                        {
-                            e = (Ellipse)Children[100 + 10 * j + 8 + 11];
-                        }
-                        e.Width = _circularWidth * 0.9;
-                        e.Height = _circularWidth * 0.9;
-                        e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                        SetLeft(e, _canvasSize - _bigCrevice * 0.96 - _circularWidth);
-                        SetTop(e, _blockWidth * 1.04 + _bigCrevice + _smallCrevice + j * (_blockWidth + _smallCrevice));
-                        if (Children.Count != 200)
-                            Children.Add(e);
-                        continue;
-                    }
-                    Rectangle r;
-                    if (Children.Count != 200)
-                    {
-                        r = new Rectangle();
-                    }
-                    else
-                    {
-                        r = (Rectangle)Children[100 + 10 * j + i + 8 + 2];
-                    }
-                    r.Width = _blockWidth * 0.9;
-                    r.Height = _blockWidth * 0.9;
-                    r.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                    SetLeft(r, _bigCrevice + _blockWidth * 1.04 + (i - 1) * (_blockWidth + _smallCrevice) );
-                    SetTop(r, _canvasSize - _bigCrevice * 0.96 - _circularWidth - _normalCrevice - _blockWidth - j * (_blockWidth + _smallCrevice));
-
-                    r.RadiusX = 5;
-                    r.RadiusY = 5;
-                    if (Children.Count != 200)
-                        Children.Add(r);
-                }
-            }
-        }
-
-        private void InitBlackCenterLeftBottom()
-        {
-            RoundedCornersPolygon rcp;
-            if ( Children.Count != 200)
-            {
-                rcp = new RoundedCornersPolygon();
-            }
-            else
-            {
-                rcp = (RoundedCornersPolygon)Children[144];
-            }
-
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth * 0.9 / 4 * 3, 0));
-            pc.Add(new Point(_blockWidth * 0.9, _blockWidth * 0.9 / 4));
-            pc.Add(new Point(_blockWidth * 0.9, _blockWidth * 0.9));
-            pc.Add(new Point(0, _blockWidth * 0.9));
-            rcp.Points = pc;
-
-            SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
-            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 3 * (_blockWidth + _smallCrevice));
-            rcp.ArcRoundness = _blockWidth / 12;
-            rcp.UseRoundnessPercentage = false;
-            rcp.IsClosed = true;
-            rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-
-            if (Children.Count != 200)
-                Children.Add(rcp);
-        }
-
-        private void InitBlackCenterLeftTop()
-        {
-            RoundedCornersPolygon rcp;
-            if (Children.Count != 200)
-            {
-                rcp = new RoundedCornersPolygon();
-            }
-            else
-            {
-                rcp = (RoundedCornersPolygon)Children[154];
-            }
-
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth * 0.9, 0));
-            pc.Add(new Point(_blockWidth * 0.9, _blockWidth * 0.9 / 4 * 3));
-            pc.Add(new Point(_blockWidth * 0.9 / 4 * 3, _blockWidth * 0.9));
-            pc.Add(new Point(0, _blockWidth * 0.9));
-            rcp.Points = pc;
-
-            SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + 3 * (_blockWidth + _smallCrevice));
-            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
-            rcp.ArcRoundness = _blockWidth / 12;
-            rcp.UseRoundnessPercentage = false;
-            rcp.IsClosed = true;
-            rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            if (Children.Count != 200)
-                Children.Add(rcp);
-        }
-        private void InitBlackCenterRightBottom()
-        {
-            RoundedCornersPolygon rcp;
-            if (Children.Count != 200)
-            {
-                rcp = new RoundedCornersPolygon();
-            }
-            else
-            {
-                rcp = (RoundedCornersPolygon)Children[145];
-            }
-
-            PointCollection pc = new PointCollection
-            {
-                new Point(_blockWidth * 0.9 / 4, 0),
-                new Point(_blockWidth * 0.9, 0),
-                new Point(_blockWidth * 0.9, _blockWidth * 0.9),
-                new Point(0, _blockWidth * 0.9),
-                new Point(0, _blockWidth * 0.9 / 4)
-            };
-            rcp.Points = pc;
-
-            Canvas.SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
-            Canvas.SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 3 * (_blockWidth + _smallCrevice));
-
-            rcp.ArcRoundness = _blockWidth / 12;
-            rcp.UseRoundnessPercentage = false;
-            rcp.IsClosed = true;
-            rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            if (Children.Count != 200)
-                Children.Add(rcp);
-        }
-        private void InitBlackCenterRightTop()
-        {
-            RoundedCornersPolygon rcp;
-            if (Children.Count != 200)
-            {
-                rcp = new RoundedCornersPolygon();
-            }
-            else
-            {
-                rcp = (RoundedCornersPolygon)Children[155];
-            }
-
-            PointCollection pc = new PointCollection();
-            pc.Add(new Point(0, 0));
-            pc.Add(new Point(_blockWidth * 0.9, 0));
-            pc.Add(new Point(_blockWidth * 0.9, _blockWidth * 0.9));
-            pc.Add(new Point(_blockWidth * 0.9 / 4, _blockWidth * 0.9));
-            pc.Add(new Point(0, _blockWidth * 0.9 / 4 * 3));
-            rcp.Points = pc;
-
-            SetLeft(rcp, _bigCrevice + _blockWidth * 1.04 + (0 + 4) * (_blockWidth + _smallCrevice));
-            SetTop(rcp, _canvasSize - _bigCrevice - _circularWidth - _normalCrevice - _blockWidth * 0.95 - 4 * (_blockWidth + _smallCrevice));
-
-            rcp.ArcRoundness = _blockWidth / 12;
-            rcp.UseRoundnessPercentage = false;
-            rcp.IsClosed = true;
-            rcp.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            if (Children.Count != 200)
-                Children.Add(rcp);
-        }
-
-        /// <summary>
-        /// 贴膜右圆钮
-        /// </summary>
-        private void InitBlackRight()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Ellipse e = new Ellipse();
-
-                e.Width = _circularWidth * 0.9;
-                e.Height = _circularWidth * 0.9;
-                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                SetLeft(e, _canvasSize - _bigCrevice - _circularWidth * 0.100);
-                SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
-                Children.Add(e);
-            }
-        }
-        /// <summary>
-        /// 贴膜左圆钮
-        /// </summary>
-        private void InitBlackLeft()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Ellipse e = new Ellipse();
-                e.Width = _circularWidth * 0.9;
-                e.Height = _circularWidth * 0.9;
-                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                SetLeft(e, _bigCrevice * 1.04);
-                SetTop(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + i * (_blockWidth + _smallCrevice));
-                Children.Add(e);
-            }
-        }
-        /// <summary>
-        /// 贴膜下圆钮
-        /// </summary>
-        private void InitBlackBottom()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                if (i == 0 || i == 9)
-                {
-                    Rectangle shape;
-                    if (Children.Count < 200)
-                    {
-                        shape = new Rectangle();
-                    }
-                    else
-                    {
-                        shape = (Rectangle)Children[100 + i];
-                    }
-                    if (Children.Count < 200)
-                        Children.Add(shape);
-                    continue;
-                }
-                Ellipse e;
-                if (Children.Count < 200)
-                {
-                    e = new Ellipse();
-                }
-                else
-                {
-                    e = (Ellipse)Children[100 + i];
-                }
-                e.Width = _circularWidth * 0.9;
-                e.Height = _circularWidth * 0.9;
-                e.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-                SetLeft(e, _blockWidth * 1.03 + _bigCrevice + _smallCrevice + (i - 1) * (_blockWidth + _smallCrevice));
-                SetTop(e, _canvasSize - _bigCrevice - _circularWidth * 0.95);
-                if (Children.Count < 200)
-                {
-                    Children.Add(e);
-                }
-            }
-        }
 
         private bool TrackingRecord = false;
         public List<int> trackingValue = new List<int>();
@@ -1229,11 +875,11 @@ namespace Maker.View.Device
                 {
                     if (mListList[i].Action == 128 || mListList[i].Color < 0)
                     {
-                        SetButtonBackground(pro, mListList[i].Position, StaticConstant.closeBrush);
+                        pro.SetButtonBackground(mListList[i].Position, StaticConstant.closeBrush);
                     }
                     else
                     {
-                        SetButtonBackground(pro, mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                        pro.SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
                     }
                 }
             }

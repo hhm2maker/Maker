@@ -125,9 +125,8 @@ namespace Maker.View.LightUserControl
                         Dic[LiTime[NowTimePoint - 1]][i - 100] = 0;
                     }
                 }
+                (DataContext as FrameUserControlViewModel).Model.LoadFrame();
             }
-
-            (DataContext as FrameUserControlViewModel).Model.LoadFrame();
         }
         /// <summary>
         /// 0左键1右键
