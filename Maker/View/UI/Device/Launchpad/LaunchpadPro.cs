@@ -153,7 +153,7 @@ namespace Maker.View.Device
                 if (i == 0 || i == 9)
                 {
                     Rectangle shape;
-                    if (Children.Count != 100 )
+                    if (Children.Count != 100)
                     {
                         shape = new Rectangle();
                     }
@@ -166,7 +166,7 @@ namespace Maker.View.Device
                     continue;
                 }
                 Ellipse e;
-                if (Children.Count != 100 )
+                if (Children.Count != 100)
                 {
                     e = new Ellipse();
                 }
@@ -288,14 +288,29 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[44];
             }
 
-            PointCollection pc = new PointCollection
+            PointCollection pc;
+            if (IsMembrane)
             {
-                new Point(0, 0),
-                new Point(_blockWidth / 4 * 3, 0),
+                pc = new PointCollection
+            {
+                new Point(0 + 1, 0+ 1),
+                new Point(_blockWidth / 4 * 3 -1, 0+ 1),
+                new Point(_blockWidth -1, _blockWidth / 4 -1),
+                new Point(_blockWidth -1, _blockWidth -1),
+                new Point(0+ 1, _blockWidth -1 )
+            };
+            }
+            else
+            {
+                pc = new PointCollection
+            {
+                new Point(0 , 0),
+                new Point(_blockWidth / 4 * 3 , 0),
                 new Point(_blockWidth, _blockWidth / 4),
                 new Point(_blockWidth, _blockWidth),
-                new Point(0, _blockWidth)
+                new Point(0, _blockWidth )
             };
+            }
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
@@ -317,8 +332,21 @@ namespace Maker.View.Device
             {
                 rcp = (RoundedCornersPolygon)Children[54];
             }
-
-            PointCollection pc = new PointCollection
+            PointCollection pc;
+            if (IsMembrane)
+            {
+                pc = new PointCollection
+            {
+                new Point(0+1, 0+1),
+                new Point(_blockWidth-1, 0+1),
+                new Point(_blockWidth-1, _blockWidth / 4 * 3-1),
+                new Point(_blockWidth / 4 * 3-1, _blockWidth-1),
+                new Point(0+1, _blockWidth-1)
+            };
+            }
+            else
+            {
+                pc = new PointCollection
             {
                 new Point(0, 0),
                 new Point(_blockWidth, 0),
@@ -326,6 +354,7 @@ namespace Maker.View.Device
                 new Point(_blockWidth / 4 * 3, _blockWidth),
                 new Point(0, _blockWidth)
             };
+            }
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth + 3 * (_blockWidth + _smallCrevice));
@@ -347,8 +376,21 @@ namespace Maker.View.Device
             {
                 rcp = (RoundedCornersPolygon)Children[45];
             }
-
-            PointCollection pc = new PointCollection
+            PointCollection pc;
+            if (IsMembrane)
+            {
+                pc = new PointCollection
+            {
+                new Point(_blockWidth / 4-1 , 0+1),
+                new Point(_blockWidth-1 , 0+1),
+                new Point(_blockWidth-1 , _blockWidth-1),
+                new Point(0+1, _blockWidth-1 ),
+                new Point(0+1, _blockWidth / 4-1 )
+            };
+            }
+            else
+            {
+                pc = new PointCollection
             {
                 new Point(_blockWidth / 4 , 0),
                 new Point(_blockWidth , 0),
@@ -356,6 +398,7 @@ namespace Maker.View.Device
                 new Point(0, _blockWidth ),
                 new Point(0, _blockWidth / 4 )
             };
+            }
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
@@ -379,14 +422,29 @@ namespace Maker.View.Device
                 rcp = (RoundedCornersPolygon)Children[55];
             }
 
-            PointCollection pc = new PointCollection
+            PointCollection pc;
+            if (IsMembrane)
             {
-                new Point(0, 0),
+                pc = new PointCollection
+            {
+               new Point(0+1, 0+1),
+                new Point(_blockWidth-1, 0+1),
+                new Point(_blockWidth-1, _blockWidth-1),
+                new Point(_blockWidth / 4-1, _blockWidth-1),
+                new Point(0+1, _blockWidth / 4 * 3-1)
+            };
+            }
+            else
+            {
+                pc = new PointCollection
+            {
+               new Point(0, 0),
                 new Point(_blockWidth, 0),
                 new Point(_blockWidth, _blockWidth),
                 new Point(_blockWidth / 4, _blockWidth),
                 new Point(0, _blockWidth / 4 * 3)
             };
+            }
             rcp.Points = pc;
 
             SetLeft(rcp, _bigCrevice + _blockWidth + (0 + 4) * (_blockWidth + _smallCrevice));
@@ -440,20 +498,44 @@ namespace Maker.View.Device
         /// <summary>
         /// 刷新界面
         /// </summary>
-        public void RefreshView() {
+        public void RefreshView()
+        {
             InitBottom();
             InitBlock();
             InitTop();
+            RefreshMembrane();
+
+        }
+
+        /// <summary>
+        /// 刷新贴膜
+        /// </summary>
+        public void RefreshMembrane()
+        {
+            InitCenterLeftBottom();
+            InitCenterRightBottom();
+            InitCenterLeftTop();
+            InitCenterRightTop();
             if (IsMembrane)
             {
                 foreach (Shape item in Children)
                 {
                     item.Stroke = item.Fill;
+                    item.StrokeThickness = 2;
                     item.Fill = MembraneBrush;
                 }
             }
-          
+            else
+            {
+                foreach (Shape item in Children)
+                {
+                    item.Fill = item.Stroke;
+                    item.Stroke = closeBrush;
+                    item.StrokeThickness = 0;
+                }
+            }
         }
+
 
         /// <summary>
         /// 给指定位置的按钮设置颜色
@@ -469,7 +551,8 @@ namespace Maker.View.Device
             {
                 shape.Stroke = color;
             }
-            else {
+            else
+            {
                 shape.Fill = color;
             }
         }
@@ -479,9 +562,10 @@ namespace Maker.View.Device
         /// </summary>
         /// <param name="position"></param>
         /// <param name="color"></param>
-        public void SetButtonBorderBackground(int thiness,Brush color)
+        public void SetButtonBorderBackground(int thiness, Brush color)
         {
-            for (int i = 0; i < Children.Count; i++) {
+            for (int i = 0; i < Children.Count; i++)
+            {
                 Shape shape = Children[i] as Shape;
                 shape.Stroke = color;
                 shape.StrokeThickness = thiness;
@@ -514,7 +598,6 @@ namespace Maker.View.Device
                 shape.Fill = color;
             }
         }
-
 
         /// <summary>
         /// 设置背景颜色
@@ -571,9 +654,9 @@ namespace Maker.View.Device
         /// <summary>
         /// 显示或隐藏贴膜 -- 取反
         /// </summary>
-        private void ShowOrHideMembrane(bool isMembrane)
+        private void ShowOrHideMembrane()
         {
-            RefreshView();
+            RefreshMembrane();
         }
 
 
@@ -742,33 +825,10 @@ namespace Maker.View.Device
             for (int i = 0; i < 100; i++)
             {
                 //停止播放=取消着色
-                if (Children[i] is RoundedCornersPolygon rcp)
-                    rcp.Fill = StaticConstant.closeBrush;
-                if (Children[i] is Ellipse e)
-                    e.Fill = StaticConstant.closeBrush;
-                if (Children[i] is Rectangle r)
-                    r.Fill = StaticConstant.closeBrush; ;
+                SetButtonBackground(i, closeBrush);
             }
         }
 
-        /// <summary>
-        /// 清除所有颜色
-        /// </summary>
-        /// <param name="_event"></param>
-        public static void MyClearAllColorExcept(LaunchpadPro pro)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                //停止播放=取消着色
-                if (pro.Children[i] is RoundedCornersPolygon rcp)
-                    rcp.Fill = StaticConstant.closeBrush;
-                if (pro.Children[i] is Ellipse e)
-                    e.Fill = StaticConstant.closeBrush;
-                if (pro.Children[i] is Rectangle r)
-                    r.Fill = StaticConstant.closeBrush; ;
-            }
-
-        }
 
 
         /// <summary>
@@ -846,10 +906,11 @@ namespace Maker.View.Device
 
         private static void OnIsMembraneChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue != null)
+
+            if (e.NewValue != null && e.OldValue != e.NewValue)
             {
                 LaunchpadPro pro = obj as LaunchpadPro;
-                pro.ShowOrHideMembrane((bool)e.NewValue);
+                pro.ShowOrHideMembrane();
             }
         }
 
@@ -870,7 +931,7 @@ namespace Maker.View.Device
                 LaunchpadPro pro = obj as LaunchpadPro;
                 List<Light> mListList = e.NewValue as List<Light>;
                 pro.onDataChange?.Invoke(mListList);
-                MyClearAllColorExcept(pro);
+                pro.ClearAllColorExcept();
                 for (int i = 0; i < mListList.Count; i++)
                 {
                     if (mListList[i].Action == 128 || mListList[i].Color < 0)

@@ -183,12 +183,7 @@ namespace Maker.View.Device
                     {
                         trackingValue.Add(position);
                     }
-                    if (Children[position] is RoundedCornersPolygon rcp)
-                        rcp.Fill = nowBrush;
-                    if (Children[position] is Ellipse ellipse)
-                        ellipse.Fill = nowBrush;
-                    if (Children[position] is Rectangle rectangle)
-                        rectangle.Fill = nowBrush;
+                    SetButtonBackground(position, nowBrush);
                 }
                 else if (LeftOrRight == 1)
                 {
@@ -196,12 +191,7 @@ namespace Maker.View.Device
                     {
                         trackingValue.Remove(position);
                     }
-                    if (Children[position] is RoundedCornersPolygon rcp)
-                        rcp.Fill = closeBrush;
-                    if (Children[position] is Ellipse ellipse)
-                        ellipse.Fill = closeBrush;
-                    if (Children[position] is Rectangle rectangle)
-                        rectangle.Fill = closeBrush;
+                    SetButtonBackground(position, closeBrush);
                 }
             }
         }
@@ -225,14 +215,9 @@ namespace Maker.View.Device
             {
                 trackingValue.Add(position);
             }
-            
-            if (Children[position] is RoundedCornersPolygon rcp)
-                rcp.Fill = nowBrush;
-            if (Children[position] is Ellipse ellipse)
-                ellipse.Fill = nowBrush;
-            if (Children[position] is Rectangle rectangle)
-                rectangle.Fill = nowBrush;
 
+            SetButtonBackground(position, nowBrush);
+           
             LeftOrRight = 0;
         }
         private void ClearColor(object sender, RoutedEventArgs e)
@@ -251,12 +236,7 @@ namespace Maker.View.Device
             {
                 trackingValue.Remove(position);
             }
-            if (Children[position] is RoundedCornersPolygon rcp)
-                rcp.Fill = closeBrush;
-            if (Children[position] is Ellipse ellipse)
-                ellipse.Fill = closeBrush;
-            if (Children[position] is Rectangle rectangle)
-                rectangle.Fill = closeBrush;
+            SetButtonBackground(position, closeBrush);
             LeftOrRight = 1;
         }
         private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
