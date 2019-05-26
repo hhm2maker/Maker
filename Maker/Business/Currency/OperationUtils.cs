@@ -9,6 +9,16 @@ namespace Maker.Business.Currency
 {
     public class OperationUtils
     {
+        public static Operation.LightGroup MakerLightToOperationLight(List<Light> lights)
+        {
+            Operation.LightGroup myLights = new Operation.LightGroup();
+            foreach (Light light in lights)
+            {
+                myLights.Add(new Operation.Light(light.Time, light.Action, light.Position, light.Color));
+            }
+            return myLights;
+        }
+
         public static List<Light> OperationLightToMakerLight(List<Operation.Light> lights)
         {
             List<Light> myLights = new List<Light>();

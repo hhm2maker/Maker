@@ -208,6 +208,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
       <DependentUpon>CatalogUserControl2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Decorate\Soundbyte.cs" />
     <Compile Include="View\UI\Device\ColorPanel\ColorPanel.cs" />
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
       <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
@@ -589,7 +590,10 @@
     <Compile Include="Business\Discarded\WelcomeUserControl.xaml.cs">
       <DependentUpon>WelcomeUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\WelcomeWindow.xaml.cs">
+    <Compile Include="View\UI\Welcome\WelcomeUserControl.xaml.cs">
+      <DependentUpon>WelcomeUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Welcome\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Work\MediaPlayerWindow.xaml.cs">
@@ -1104,7 +1108,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\WelcomeWindow.xaml">
+    <Page Include="View\UI\Welcome\WelcomeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Welcome\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1597,6 +1605,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\appreciate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\add_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

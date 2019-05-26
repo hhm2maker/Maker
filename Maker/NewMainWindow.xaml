@@ -149,8 +149,8 @@
                         <StackPanel>
                             <TextBlock Text="{DynamicResource SelectProject}" Foreground="#72787d"  Margin="10"/>
                             <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
-                            <TextBlock Text="{DynamicResource Control}" Foreground="#72787d"  Margin="10"/>
-                            <TextBlock Text="{DynamicResource SpaceNewProject}" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                            <TextBlock Text="{DynamicResource Control}" Foreground="#FF73787D"  Margin="10"/>
+                            <TextBlock Text="{DynamicResource SpaceNewProject}" Foreground="#b8bfc6"  Margin="10,0,10,10" />
                         </StackPanel>
                     </Border>
                 </Popup>

@@ -1,0 +1,22 @@
+﻿<usercontroldialog:MakerDialog
+    xmlns:usercontroldialog="clr-namespace:Maker.View.UI.UserControlDialog"
+    x:Class="Maker.View.UI.Welcome.WelcomeUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.Welcome"
+             mc:Ignorable="d" 
+             Background="#363b40"
+             >
+    <WrapPanel Margin="30" Name="wpMain">
+        <Border Background="#73787D" CornerRadius="3" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+            <StackPanel Margin="20" >
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="../../../View/Resources/Image/add_white.png" Width="20" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant"/>
+                    <TextBlock Name="tbAdd" FontSize="18" Margin="10,0,0,0" VerticalAlignment="Center" Text="{DynamicResource NewProject}" Foreground="White"  MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </WrapPanel>
+</usercontroldialog:MakerDialog>

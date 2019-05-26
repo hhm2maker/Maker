@@ -881,7 +881,6 @@ namespace Maker.View.UI
             //int moHdl; // midi out device/port handle
             //NEW CODE
             //IntPtr moHdl = IntPtr.Zero;
-
             IntPtr moHdl = nowOutDeviceIntPtr;
 #if !true
     // SysEx via midiOutLongMsg works

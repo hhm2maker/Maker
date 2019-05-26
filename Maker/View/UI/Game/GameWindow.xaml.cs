@@ -15,6 +15,11 @@ using System.Runtime.InteropServices;
 using Maker.View.Device;
 using Maker.View.Utils;
 using System.Windows.Shapes;
+using System.Management;
+using System.Windows.Interop;
+using System.Text;
+using Maker.Business.Currency;
+using Maker.View.UI.Decorate;
 
 namespace Maker.View.UI.Game
 {
@@ -25,6 +30,13 @@ namespace Maker.View.UI.Game
     {
         private AccuratePlayerLaunchpadPro mLaunchpad;
         private MyIPlay myIPlay;
+
+        /// <summary>
+        /// 进行到第几步
+        /// </summary>
+        private int stepNum = 0;
+        public Soundbyte sb;
+
         public GameWindow()
         {
             InitializeComponent();
@@ -34,17 +46,39 @@ namespace Maker.View.UI.Game
             Height = SystemParameters.WorkArea.Height;//获取屏幕的宽高  使之不遮挡任务栏
             Width = SystemParameters.WorkArea.Width;
 
-
-            myIPlay = new MyIPlay();
+            myIPlay = new MyIPlay(this,tbHint);
             mLaunchpad = new AccuratePlayerLaunchpadPro(myIPlay);
             myIPlay.SetLaunchpad(mLaunchpad);
 
             mBorderLaunchpad.Child = mLaunchpad;
-            mLaunchpad.MembraneBrush = new SolidColorBrush(Colors.Black);
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.SetButtonBorderBackground(2, new SolidColorBrush(Colors.White));
-            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetSize(400);
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.White));
+            mLaunchpad.MembraneBrush = new SolidColorBrush(Colors.Black);
+            mLaunchpad.IsMembrane = true;
+
+            sb = new Soundbyte(this);
+            gMain.Children.Add(sb);
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+            hwndSource?.AddHook(new HwndSourceHook(WndProc));
+        }
+      
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam, ref bool handled)
+        {
+            if (msg == 537)
+            {
+                //设备进行了插拔
+                if (stepNum == 1) {
+                    StartMidiIn();
+                }
+            }
+            return IntPtr.Zero;
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -61,8 +95,9 @@ namespace Maker.View.UI.Game
 
         private void DoubleAnimation_Completed(object sender, EventArgs e)
         {
+            stepNum = 1;
             cDevice.Visibility = Visibility;
-            tbHint.Text = "请选择交互工具";
+            tbHint.Text = "请选择交互工具"+Environment.NewLine+"(请在不打开Live的情况下进行)"+Environment.NewLine +"(请手动从Setup进入Live模式)";
             StartMidiIn();
         }
 
@@ -73,6 +108,7 @@ namespace Maker.View.UI.Game
 
         public unsafe void StartMidiIn()
         {
+            cDevice.Children.Clear();
             //直接使用Thread类，以及其方法 
             //Thread threadA = new Thread();
             //threadA.Start();
@@ -114,12 +150,13 @@ namespace Maker.View.UI.Game
                 grid.Children.Add(tb);
                 grid.BeginAnimation(Canvas.LeftProperty, doubleAnimation);
             }
-
         }
 
         private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            stepNum = 2;
             Check(cDevice.Children.IndexOf(((sender as TextBlock).Parent) as Grid));
+            nowPosition = 0;
             DoubleAnimation doubleAnimation = new DoubleAnimation()
             {
                 To = 200,
@@ -142,7 +179,27 @@ namespace Maker.View.UI.Game
             };
             cDevice.BeginAnimation(HeightProperty, doubleAnimation3);
 
+            //SearchEquipmentOut((sender as TextBlock).Text);
         }
+
+        //private void SearchEquipmentOut(String deviceName)
+        //{
+        //    for (int j = 0; j < MidiDeviceBusiness.midiOutGetNumDevs(); j++)
+        //    {
+        //        MidiDeviceBusiness.MIDIOUTCAPS caps = new MidiDeviceBusiness.MIDIOUTCAPS();
+        //        MidiDeviceBusiness.midiOutGetDevCaps(new UIntPtr((uint)j), ref caps, Convert.ToUInt32(Marshal.SizeOf(typeof(MidiDeviceBusiness.MIDIOUTCAPS))));
+        //        //midiOutOpen(out IntPtr mOut, (uint)j, (IntPtr)0, (IntPtr)0, 0);
+        //        String Pname = caps.szPname;
+        //        if (Pname.Equals(deviceName)) {
+        //            MidiDeviceBusiness.midiOutOpen(out IntPtr nowOutDeviceIntPtr, (uint)j, (IntPtr)0, (IntPtr)0, 0);
+        //            UI.PlayUserControl.nowOutDeviceIntPtr = nowOutDeviceIntPtr;
+        //            a();
+        //            break;
+        //        }
+        //    }
+        //}
+
+       
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
         {
@@ -155,7 +212,7 @@ namespace Maker.View.UI.Game
             };
             mBorderLaunchpad.BeginAnimation(OpacityProperty, doubleAnimation);
 
-            tbHint.Text = "正在校准位置";
+            tbHint.Text = "正在校准位置(0/4)";
             DoubleAnimation doubleAnimation2 = new DoubleAnimation()
             {
                 To = 1,
@@ -182,33 +239,35 @@ namespace Maker.View.UI.Game
             {
                 ip.Stop();
                 ip.Close();
+                ip = null;
             }
-
             if (position != -1)
             {
                 //Console.WriteLine("Hello");
-                ip = new InputPort(mLaunchpad, myIPlay);
+                ip = new InputPort(this,myIPlay);
                 ip.Open(position);
                 ip.Start();
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
-
             }
             //Console.WriteLine("Bye~");
         }
-        public static int nowPosition = 0;
-        public static int[] truePositions = new int[] { 11, 22, 33, 44, 55, 66, 77, 88, 99 };
 
-        public InputPort ip;
-        private static NativeMethods.MidiInProc midiInProc;
+
+        public int nowPosition = 0;
+        public int[] truePositions = new int[] { 11, 22, 33, 44, 55, 66, 77, 88, 99 };
+
+        public InputPort ip = null;
 
         public class InputPort
         {
+            private NativeMethods.MidiInProc midiInProc;
+
             private IntPtr handle;
+            GameWindow gw;
             MyIPlay myIPlay;
-            AccuratePlayerLaunchpadPro launchpadPro;
-            public InputPort(AccuratePlayerLaunchpadPro launchpadPro, MyIPlay myIPlay)
+            public InputPort(GameWindow gw, MyIPlay myIPlay)
             {
-                this.launchpadPro = launchpadPro;
+                this.gw = gw;
                 this.myIPlay = myIPlay;
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
@@ -240,20 +299,17 @@ namespace Maker.View.UI.Game
                     NativeMethods.CALLBACK_FUNCTION) == NativeMethods.MMSYSERR_NOERROR;//flag
             }
 
-
             public bool Start()
             {
                 return NativeMethods.midiInStart(handle)
                     == NativeMethods.MMSYSERR_NOERROR;
             }
 
-
             public bool Stop()
             {
                 return NativeMethods.midiInStop(handle)
                     == NativeMethods.MMSYSERR_NOERROR;
             }
-
 
 
             private void MidiProc(IntPtr hMidiIn,
@@ -264,7 +320,6 @@ namespace Maker.View.UI.Game
             {
                 // Receive messages here
                 //Console.WriteLine("{0} {1} {2}", wMsg, dwParam1, dwParam2);
-
                 if (wMsg == 963)
                 {
                     //dwParam1 = dwParam1 & 0xFFFF;
@@ -281,9 +336,8 @@ namespace Maker.View.UI.Game
                     uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
                     if (dwParam1 > 32767)
                     {
-                        if (position == truePositions[nowPosition] && myIPlay.canPlay)
+                        if (position == gw.truePositions[gw.nowPosition] && myIPlay.canPlay)
                         {
-
                             //position
                             //List<Light> lights = Cross((int) position);
                             List<Light> lights = Cross(FileBusiness.CreateInstance().midiArr[(int)position]);
@@ -291,6 +345,15 @@ namespace Maker.View.UI.Game
                             {
                                 lights[i].Position -= 28;
                             }
+                            
+                            if (gw.nowPosition >= 4) {
+                                Operation.LightGroup lightGroup = OperationUtils.MakerLightToOperationLight(lights);
+                                lightGroup.CopyToTheFollow(new List<int>() { 9,13,17,21,33});
+                                lights = OperationUtils.OperationLightToMakerLight(lightGroup);
+                            }
+
+                            gw.sb.ToUpNum((int)position);
+
                             FileBusiness.CreateInstance().ReplaceControl(lights, FileBusiness.CreateInstance().normalArr);
 
                             Thread thread = new Thread(ThreadMethod);     //执行的必须是无返回值的方法
@@ -313,18 +376,16 @@ namespace Maker.View.UI.Game
             }
             public void ThreadMethod(object parameter) //方法内可以有参数，也可以没有参数
             {
-                launchpadPro.Dispatcher.Invoke(
+                gw.mLaunchpad.Dispatcher.Invoke(
             new Action(
              delegate
              {
-                 launchpadPro.SetWait(TimeSpan.FromMilliseconds(1000 / 192.0));
-                 launchpadPro.SetData(parameter as List<Light>);
-                 launchpadPro.Play();
+                 gw.mLaunchpad.SetWait(TimeSpan.FromMilliseconds(1000 / 192.0));
+                 gw.mLaunchpad.SetData(parameter as List<Light>);
+                 gw.mLaunchpad.Play();
              }
             ));
             }
-
-
         }
         internal static class NativeMethods
         {
@@ -382,7 +443,7 @@ namespace Maker.View.UI.Game
             int iLeft = startPosition;
             int iRight = startPosition;
             int count = 0;
-            int plus = 16;
+            int plus = 12;
             while (bTop || bBottom || bLeft || bRight)
             {
                 if (count == 0)
@@ -510,9 +571,12 @@ namespace Maker.View.UI.Game
             private AccuratePlayerLaunchpadPro mLaunchpad;
 
             public bool canPlay = true;
-
-            public MyIPlay()
+            private TextBlock tbHint;
+            private GameWindow gw;
+            public MyIPlay(GameWindow gw,TextBlock tbHint)
             {
+                this.tbHint = tbHint;
+                this.gw = gw;
             }
 
             public void SetLaunchpad(AccuratePlayerLaunchpadPro mLaunchpad)
@@ -523,12 +587,24 @@ namespace Maker.View.UI.Game
             public void EndPlayEvent()
             {
                 //throw new NotImplementedException();
-                nowPosition++;
+                gw.nowPosition++;
+                if (gw.nowPosition > 0 && gw.nowPosition < 4)
+                {
+                    tbHint.Text = "正在校准位置(" + gw.nowPosition + "/4)";
+                }
+                else if (gw.nowPosition < 8)
+                {
+                    tbHint.Text = "正在校准颜色(" + (gw.nowPosition - 4) + "/4)";
+                }
+                else {
+                    tbHint.Text = "校准完成";
+                    return;
+                }
                 mLaunchpad.Dispatcher.Invoke(
      new Action(
       delegate
       {
-          mLaunchpad.SetButtonBorderBackground(truePositions[nowPosition], 2, new SolidColorBrush(Colors.Red));
+          mLaunchpad.SetButtonBorderBackground(gw.truePositions[gw.nowPosition], 2, new SolidColorBrush(Colors.Red));
       }
      ));
                 canPlay = true;
@@ -553,6 +629,16 @@ namespace Maker.View.UI.Game
             public void StopEvent()
             {
                 //throw new NotImplementedException();
+            }
+        }
+
+        private void wMain_Closed(object sender, EventArgs e)
+        {
+            if (ip != null)
+            {
+                ip.Stop();
+                ip.Close();
+                ip = null;
             }
         }
     }

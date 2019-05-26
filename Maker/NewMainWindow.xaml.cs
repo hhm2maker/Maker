@@ -43,7 +43,15 @@ namespace Maker
 
             InitContextMenu();
             InitFile();
+
+            InitProject();
         }
+
+        private void InitProject()
+        {
+            ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
+        }
+
         public ContextMenu contextMenu;
         private void InitContextMenu()
         {
@@ -593,7 +601,7 @@ namespace Maker
             InitFile();
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void NewProject()
         {
             String _projectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\";
             GetStringDialog3 dialog = new GetStringDialog3(this, _projectPath);
@@ -635,7 +643,6 @@ namespace Maker
 
         public void ShowMakerDialog(MakerDialog makerdialog)
         {
-        
                 gMost.Children.Add(new Grid()
                 {
                     Background = new SolidColorBrush(Colors.Transparent),
@@ -656,7 +663,18 @@ namespace Maker
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
 
-     
+        public void ShowFillMakerDialog(MakerDialog makerdialog)
+        {
+            gMost.Children.Add(new Grid()
+            {
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            });
+
+            gMost.Children.Add(makerdialog);
+        }
+
 
         public ListBoxItem needControlListBoxItem;
         public String needControlFileName;

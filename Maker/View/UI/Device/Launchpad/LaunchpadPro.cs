@@ -504,7 +504,6 @@ namespace Maker.View.Device
             InitBlock();
             InitTop();
             RefreshMembrane();
-
         }
 
         /// <summary>
@@ -516,6 +515,7 @@ namespace Maker.View.Device
             InitCenterRightBottom();
             InitCenterLeftTop();
             InitCenterRightTop();
+
             if (IsMembrane)
             {
                 foreach (Shape item in Children)
@@ -534,6 +534,7 @@ namespace Maker.View.Device
                     item.StrokeThickness = 0;
                 }
             }
+
         }
 
 
@@ -562,22 +563,6 @@ namespace Maker.View.Device
         /// </summary>
         /// <param name="position"></param>
         /// <param name="color"></param>
-        public void SetButtonBorderBackground(int thiness, Brush color)
-        {
-            for (int i = 0; i < Children.Count; i++)
-            {
-                Shape shape = Children[i] as Shape;
-                shape.Stroke = color;
-                shape.StrokeThickness = thiness;
-            }
-        }
-
-
-        /// <summary>
-        /// 给所有按钮设置边框颜色
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="color"></param>
         public void SetButtonBorderBackground(int position, int thiness, Brush color)
         {
             Shape shape = Children[position] as Shape;
@@ -586,19 +571,30 @@ namespace Maker.View.Device
         }
 
         /// <summary>
-        /// 给所有按钮设置边框颜色
+        /// 给所有按钮设置颜色
         /// </summary>
         /// <param name="position"></param>
         /// <param name="color"></param>
         public void SetButtonBackground(Brush color)
         {
-            for (int i = 0; i < Children.Count; i++)
+            if (IsMembrane)
             {
-                Shape shape = Children[i] as Shape;
-                shape.Fill = color;
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    Shape shape = Children[i] as Shape;
+                    shape.Stroke = color;
+                }
+            }
+            else {
+                for (int i = 0; i < Children.Count; i++)
+                {
+                    Shape shape = Children[i] as Shape;
+                    shape.Fill = color;
+                }
             }
         }
 
+      
         /// <summary>
         /// 设置背景颜色
         /// </summary>
@@ -632,14 +628,14 @@ namespace Maker.View.Device
         }
 
         /// <summary>
-        /// 设置贴膜
+        /// 设置贴膜 - 无数据时调用(即初始化时调用)
         /// </summary>
         public void AddMembrane()
         {
             if (!IsMembrane)
             {
                 IsMembrane = true;
-                RefreshView();
+                RefreshMembrane();
             }
         }
         /// <summary>
@@ -828,7 +824,6 @@ namespace Maker.View.Device
                 SetButtonBackground(i, closeBrush);
             }
         }
-
 
 
         /// <summary>

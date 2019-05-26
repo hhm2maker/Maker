@@ -91,7 +91,6 @@ namespace Maker.View.Device
                 if (iplay != null)
                     iplay.EndPlayEvent();
             }
-
             int i = 0;
             for (int l = i; l < lightList.Count; l++)
             {
@@ -101,22 +100,12 @@ namespace Maker.View.Device
                     if (lightList[l].Action == 128)
                     {
                         //停止播放=取消着色
-                        if (GetButton(lightList[l].Position) is RoundedCornersPolygon rcp)
-                            rcp.Fill = closeBrush;
-                        if (GetButton(lightList[l].Position) is Ellipse e2)
-                            e2.Fill = closeBrush;
-                        if (GetButton(lightList[l].Position) is Rectangle r)
-                            r.Fill = closeBrush;
+                        SetButtonBackground(lightList[l].Position,closeBrush);
                     }
                     if (lightList[l].Action == 144)
                     {
                         //开始播放=开始着色 
-                        if (GetButton(lightList[l].Position) is RoundedCornersPolygon rcp)
-                            rcp.Fill = brushList[lightList[l].Color];
-                        if (GetButton(lightList[l].Position) is Ellipse e2)
-                            e2.Fill = brushList[lightList[l].Color];
-                        if (GetButton(lightList[l].Position) is Rectangle r)
-                            r.Fill = brushList[lightList[l].Color];
+                        SetButtonBackground(lightList[l].Position, brushList[lightList[l].Color]);
                     }
                 }
             }
