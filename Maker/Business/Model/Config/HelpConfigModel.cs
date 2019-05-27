@@ -15,7 +15,7 @@ namespace Maker.Business.Model.Config
         {
             get;
             set;
-        } 
+        } = "";
     }
 
    

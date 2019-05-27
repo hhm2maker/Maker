@@ -1,0 +1,24 @@
+﻿<Window
+    x:Class="Maker.View.UI.TestW"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+    Title="Blurred Opacity" Height="623" Width="752"
+    Background="#727A7A7A"
+    AllowsTransparency="True"
+    WindowStyle="None"
+    BorderThickness="1"
+    WindowStartupLocation="CenterScreen"
+    Loaded="Window_Loaded" MouseLeftButtonDown="Window_MouseDown" Topmost="True" BorderBrush="#FF1E9EC5">
+    <Grid>
+        <Rectangle Fill="#FF0143A4" Height="130" VerticalAlignment="Top"/>
+        <Rectangle Fill="White" Margin="0,130,0,0" HorizontalAlignment="Right" Width="375"/>
+        <StackPanel HorizontalAlignment="Left" Margin="0,130,0,0" Width="375" Background="Transparent">
+           
+        </StackPanel>
+        <TextBlock x:Name="textBlock_Copy7" Height="90" TextWrapping="Wrap" Text="Example" FontSize="65" Padding="10,0,0,0" TextOptions.TextFormattingMode="Display" LineHeight="6" Margin="222.5,23,152.5,0" VerticalAlignment="Top" Foreground="White"/>
+        <Path Data="M705,27.333333 L735.66667,10" Fill="White" HorizontalAlignment="Right" Height="24" Margin="0,7,21,0" Stretch="Fill" VerticalAlignment="Top" Width="24" StrokeThickness="3" Stroke="White"/>
+    </Grid>
+    </Window>
+    

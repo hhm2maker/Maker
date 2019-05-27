@@ -292,6 +292,9 @@
     <Compile Include="View\UI\Style\Child\NoOperation\VerticalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\HorizontalFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\NoOperationStyle.cs" />
+    <Compile Include="View\UI\TestW.xaml.cs">
+      <DependentUpon>TestW.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Tool\DataGridUserControl.xaml.cs">
       <DependentUpon>DataGridUserControl.xaml</DependentUpon>
     </Compile>
@@ -659,6 +662,10 @@
     <Page Include="View\UI\Game\TestGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\TestW.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Tool\DataGridUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>

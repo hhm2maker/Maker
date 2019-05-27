@@ -921,7 +921,16 @@ namespace Maker
             AddSetting(settingUserControl);
         }
 
-       
+        private void OpenOtherSetting(object sender, RoutedEventArgs e)
+        {
+            if (settingUserControl == null)
+            {
+                settingUserControl = new SettingUserControl(this);
+            }
+            settingUserControl.SetData();
+            AddSetting(settingUserControl);
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             gFile.Width = ActualWidth * 0.25;

@@ -62,6 +62,8 @@ namespace Maker.View.UI
             tbColorTab.Width = Width * 0.125;
 
             InitHelp();
+
+            new TestW().Show();
         }
 
         /// <summary>

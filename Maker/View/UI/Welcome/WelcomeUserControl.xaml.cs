@@ -56,7 +56,7 @@ namespace Maker.View.UI.Welcome
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            mw.RemoveDialog();
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

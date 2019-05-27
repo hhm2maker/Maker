@@ -10,6 +10,8 @@
         WindowState="Maximized"
         Background="#1c1a1c"
         Loaded="Window_Loaded"
+        AllowsTransparency="True"
+        WindowStyle="None"
         >
     <!--AllowsTransparency="True"
         WindowStyle="None"-->
@@ -35,6 +37,7 @@
                     <DockPanel  DockPanel.Dock="Left" Background="#222326" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <Image DockPanel.Dock="Top" Margin="15,25,15,25" Source="View/Resources/Image/file.png" Width="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="OpenFileControl"/>
                         <Image DockPanel.Dock="Top" Width="20"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                        <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenOtherSetting" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                         <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSetting" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                     </DockPanel>
                     <Grid  Name="gCenter" DockPanel.Dock="Left"/>
