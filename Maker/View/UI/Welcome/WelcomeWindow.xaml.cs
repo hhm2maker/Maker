@@ -63,7 +63,7 @@ namespace Maker.View.UI
 
             InitHelp();
 
-            new TestW().Show();
+            //new TestW().Show();
         }
 
         /// <summary>

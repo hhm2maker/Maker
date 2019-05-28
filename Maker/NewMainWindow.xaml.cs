@@ -44,7 +44,7 @@ namespace Maker
             InitContextMenu();
             InitFile();
 
-            InitProject();
+            //InitProject();
         }
 
         private void InitProject()
@@ -208,7 +208,7 @@ namespace Maker
             else
             {
                 //关闭文件选择器
-                CloseFileControl();
+                //CloseFileControl();
 
                 baseUserControl = gCenter.Children[0] as BaseUserControl;
                 selectedItem = sender as ListBoxItem;
@@ -319,7 +319,6 @@ namespace Maker
             //    svMain.ScrollToVerticalOffset(targetPosition.Y);
             //}
         }
-    
         private void ToHideControl(object sender, int position)
         {
             //bool bIsShowControl = true;
@@ -933,9 +932,7 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            gFile.Width = ActualWidth * 0.25;
-
-            lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.Width;
+            lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.ActualWidth;
 
             popFile.HorizontalOffset = tbProjectPath.ActualWidth /2;
             SetSpFilePosition(0);
@@ -962,34 +959,34 @@ namespace Maker
             AddSetting(deviceUserControl);
         }
       
-        private void CloseFileControl(object sender, MouseButtonEventArgs e)
-        {
-            CloseFileControl();
-        }
-        private void CloseFileControl() {
-            ThicknessAnimation animation = new ThicknessAnimation
-            {
-                To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            animation.Completed += Animation_Completed;
-            gFile.BeginAnimation(MarginProperty, animation);
-        }
-        private void Animation_Completed(object sender, EventArgs e)
-        {
-            dpFile.Visibility = Visibility.Collapsed;
-        }
+        //private void CloseFileControl(object sender, MouseButtonEventArgs e)
+        //{
+        //    CloseFileControl();
+        //}
+        //private void CloseFileControl() {
+        //    ThicknessAnimation animation = new ThicknessAnimation
+        //    {
+        //        To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
+        //        Duration = TimeSpan.FromSeconds(0.5),
+        //    };
+        //    animation.Completed += Animation_Completed;
+        //    gFile.BeginAnimation(MarginProperty, animation);
+        //}
+        //private void Animation_Completed(object sender, EventArgs e)
+        //{
+        //    dpFile.Visibility = Visibility.Collapsed;
+        //}
 
         private void OpenFileControl(object sender, MouseButtonEventArgs e)
         {
-            dpFile.Visibility = Visibility.Visible;
+            //dpFile.Visibility = Visibility.Visible;
 
-            ThicknessAnimation animation = new ThicknessAnimation
-            {
-                To = new Thickness(0, 0, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            gFile.BeginAnimation(MarginProperty, animation);
+            //ThicknessAnimation animation = new ThicknessAnimation
+            //{
+            //    To = new Thickness(0, 0, 0, 0),
+            //    Duration = TimeSpan.FromSeconds(0.5),
+            //};
+            //gFile.BeginAnimation(MarginProperty, animation);
         }
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -1004,24 +1001,25 @@ namespace Maker
             filePosition = position;
             ThicknessAnimation animation = new ThicknessAnimation
             {
-                To = new Thickness(-ActualWidth * 0.25 * position, 0, 0, 0),
+                To = new Thickness(-gFile.ActualWidth * position, 0, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             spFile.BeginAnimation(MarginProperty, animation);
             double _p = 0.0;
             for (int i = 0; i < position; i++)
             {
-                _p += (spFileTitle.Children[i] as TextBlock).ActualWidth;
+                _p += (spFileTitle.Children[i] as TextBlock).ActualWidth + ((spFileTitle.Children[i+1] as TextBlock).ActualWidth - 70)/2;
             }
-            double _p2 = (((spFileTitle.Children[position] as TextBlock).ActualWidth - 70) / 2);
+            double _p2 =  ((gFile.ActualWidth - spFileTitle.ActualWidth ) / 2);
 
             ThicknessAnimation animation2 = new ThicknessAnimation
             {
-                To = new Thickness(_p + _p2 + (ActualWidth * 0.25 - spFileTitle.ActualWidth) / 2, 0, 0, 0),
+                To = new Thickness(_p + _p2 , 0, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             rFile.BeginAnimation(MarginProperty, animation2);
         }
+
 
         [StructLayout(LayoutKind.Sequential)]
         public struct CopyDataStruct
