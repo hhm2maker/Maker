@@ -21,6 +21,7 @@ using Maker.Model;
 using Maker.View.Setting;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Maker
 {
@@ -44,12 +45,19 @@ namespace Maker
             InitContextMenu();
             InitFile();
 
-            //InitProject();
+            InitProject();
+            //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
+
         }
 
         private void InitProject()
         {
-            ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
+            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
+            for (int i = 0; i < strs.Count; i++)
+            {
+                strs[i] = "  " + strs[i];
+            }
+            GeneralViewBusiness.SetStringsToListBox(lbProject, strs, "  " + tbProjectPath.Text);
         }
 
         public ContextMenu contextMenu;
@@ -131,50 +139,14 @@ namespace Maker
             DirectoryInfo directoryInfo = new DirectoryInfo(LastProjectPath);
             tbProjectPath.Text = directoryInfo.Name;
 
-            lbLight.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light",".mid" }))
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Content = str,
-                };
-                item.ContextMenu = contextMenu;
-                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                lbLight.Items.Add(item);
-            }
-            lbLightScript.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Content = str
-                };
-                item.ContextMenu = contextMenu;
-                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                lbLightScript.Items.Add(item);
-            }
-            lbLimitlessLamp.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Content = str
-                };
-                item.ContextMenu = contextMenu;
-                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                lbLimitlessLamp.Items.Add(item);
-            }
-            lbPlay.Items.Clear();
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".lightPage" }))
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Content = str
-                };
-                item.ContextMenu = contextMenu;
-                item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                lbPlay.Items.Add(item);
-            }
+            //RefreshFile();
+        }
+
+        private void ToRefreshFile() {
+            //显示名字
+            InitFile();
+
+            RefreshFile();
         }
 
         private object selectedItem;
@@ -573,16 +545,7 @@ namespace Maker
             (sender as MediaElement).Play();
         }
 
-        private void tbProjectPath_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            popFile.IsOpen = true;
-            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
-            for (int i = 0; i < strs.Count; i++)
-            {
-                strs[i] = "  " + strs[i];
-            }
-            GeneralViewBusiness.SetStringsToListBox(lbProject, strs, "  " + tbProjectPath.Text);
-        }
+       
 
         private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -593,11 +556,10 @@ namespace Maker
 
             projectConfigModel.Path = lbProject.SelectedItem.ToString().Trim();
 
-            popFile.IsOpen = false;
             bridge.SaveFile();
 
             suc.HideControl();
-            InitFile();
+            ToRefreshFile();
         }
 
         public void NewProject()
@@ -932,12 +894,9 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            lbLight.Width = lbLightScript.Width = lbLimitlessLamp.Width = lbPlay.Width = gFile.ActualWidth;
-
-            popFile.HorizontalOffset = tbProjectPath.ActualWidth /2;
+            lbFile.Width = gFile.ActualWidth;
             SetSpFilePosition(0);
         }
-
        
 
         public void SetButton(int position)
@@ -996,28 +955,95 @@ namespace Maker
 
         public int filePosition = 0;
         public void SetSpFilePosition(int position) {
+            (spFileTitle.Children[filePosition] as TextBlock).FontSize = 18;
+            (spFileTitle.Children[position] as TextBlock).FontSize = 20;
+
+
             (spFileTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169,169,169));
             (spFileTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
-            ThicknessAnimation animation = new ThicknessAnimation
-            {
-                To = new Thickness(-gFile.ActualWidth * position, 0, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            spFile.BeginAnimation(MarginProperty, animation);
-            double _p = 0.0;
-            for (int i = 0; i < position; i++)
-            {
-                _p += (spFileTitle.Children[i] as TextBlock).ActualWidth + ((spFileTitle.Children[i+1] as TextBlock).ActualWidth - 70)/2;
-            }
-            double _p2 =  ((gFile.ActualWidth - spFileTitle.ActualWidth ) / 2);
 
-            ThicknessAnimation animation2 = new ThicknessAnimation
+            foo();
+            // .net 4.5
+            async void foo()
             {
-                To = new Thickness(_p + _p2 , 0, 0, 0),
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            rFile.BeginAnimation(MarginProperty, animation2);
+                await Task.Delay(50);
+                RefreshFile();
+
+                double _p = 0.0;
+                for (int i = 0; i < position; i++)
+                {
+                    _p += (spFileTitle.Children[i] as TextBlock).ActualWidth;
+                }
+                _p += ((spFileTitle.Children[position] as TextBlock).ActualWidth - 70) / 2;
+                double _p2 = ((gFile.ActualWidth - spFileTitle.ActualWidth) / 2);
+
+                ThicknessAnimation animation2 = new ThicknessAnimation
+                {
+                    To = new Thickness(_p + _p2, 0, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                rFile.BeginAnimation(MarginProperty, animation2);
+            }
+
+            
+        }
+
+        private void RefreshFile() {
+
+            lbFile.Items.Clear();
+            if (filePosition == 0)
+            {
+                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
+                {
+                    ListBoxItem item = new ListBoxItem
+                    {
+                        Content = str,
+                    };
+                    item.ContextMenu = contextMenu;
+                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
+                    lbFile.Items.Add(item);
+                }
+            }
+            if (filePosition == 1)
+            {
+                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
+                {
+                    ListBoxItem item = new ListBoxItem
+                    {
+                        Content = str
+                    };
+                    item.ContextMenu = contextMenu;
+                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
+                    lbFile.Items.Add(item);
+                }
+            }
+            if (filePosition == 2)
+            {
+                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
+                {
+                    ListBoxItem item = new ListBoxItem
+                    {
+                        Content = str
+                    };
+                    item.ContextMenu = contextMenu;
+                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
+                    lbFile.Items.Add(item);
+                }
+            }
+            if (filePosition == 3)
+            {
+                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".lightPage" }))
+                {
+                    ListBoxItem item = new ListBoxItem
+                    {
+                        Content = str
+                    };
+                    item.ContextMenu = contextMenu;
+                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
+                    lbFile.Items.Add(item);
+                }
+            }
         }
 
 
@@ -1061,9 +1087,6 @@ namespace Maker
                 SendMessage(hwnd, WM_COPYDATA, fromWindowHandler, ref cds);
             }
         }
-      
-
-  
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -1087,6 +1110,11 @@ namespace Maker
         private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
             InitFile();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NewProject();
         }
     }
 }

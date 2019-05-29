@@ -187,30 +187,7 @@ namespace Maker.View
                     Header = filePath,
                 };
                 item.ContextMenu = mw.contextMenu;
-                if (_filePath.EndsWith(".light"))
-                {
-                    mw.lbLight.Items.Add(item);
-                }
-                else if (_filePath.EndsWith(".lightScript"))
-                {
-                    mw.lbLightScript.Items.Add(item);
-                }
-                else if (_filePath.EndsWith(".limitlessLamp"))
-                {
-                    mw.lbLimitlessLamp.Items.Add(item);
-                }
-                
-                else if (_filePath.EndsWith(".lightPage"))
-                {
-                    mw.lbPlay.Items.Add(item);
-                }
-                else if (_filePath.EndsWith(".play"))
-                {
-                    mw.lbPlay.Items.Add(item);
-                }
-                else {
-                    return;
-                }
+                mw.lbFile.Items.Add(item);
                 item.IsSelected = true;
             }
             mw.suc.InitMyContent();

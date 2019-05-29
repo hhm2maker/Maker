@@ -47,7 +47,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer Grid.Column="0">
+                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <Border  Grid.Row="0" BorderThickness="0,5,0,0" BorderBrush="#555555">
                                     <Grid Margin="10">
@@ -56,22 +56,21 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{DynamicResource MyProject}" VerticalAlignment="Center"/>
-                                        <TextBlock Margin="20,0,0,0" Grid.Column="1" Name="tbProjectPath" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" MouseLeftButtonUp="tbProjectPath_MouseLeftButtonDown"/>
+                                        <TextBlock Margin="20,0,0,0" Grid.Column="1" Name="tbProjectPath" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" />
                                     </Grid>
                                 </Border>
-                                <Popup  PlacementTarget="{Binding ElementName=tbProjectPath}" Name="popFile" Placement="Bottom" AllowsTransparency="True" VerticalOffset="10" PopupAnimation="Fade"  StaysOpen="False">
-                                    <Border Name="bProjectPathControl" CornerRadius="5" Background="#363b40" BorderBrush="#b8bfc6" Width="296"  BorderThickness="2" >
-                                        <StackPanel>
-                                            <TextBlock Text="{DynamicResource SelectProject}" Foreground="#72787d"  Margin="10"/>
-                                            <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
-                                            <TextBlock Text="{DynamicResource Control}" Foreground="#FF73787D"  Margin="10"/>
-                                            <TextBlock Text="{DynamicResource SpaceNewProject}" Foreground="#b8bfc6"  Margin="10,0,10,10" />
-                                        </StackPanel>
-                                    </Border>
-                                </Popup>
+                                <Border Name="bProjectPathControl" CornerRadius="5" Background="#363b40" BorderBrush="#b8bfc6" Width="296"  BorderThickness="2" >
+                                    <StackPanel>
+                                        <TextBlock Text="{DynamicResource SelectProject}" Foreground="#72787d"  Margin="10"/>
+                                        <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
+                                        <TextBlock Text="{DynamicResource Control}" Foreground="#FF73787D"  Margin="10"/>
+                                        <TextBlock Text="{DynamicResource SpaceNewProject}" Foreground="#b8bfc6"  Margin="10,0,10,10" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                         </ScrollViewer>
-                            <Grid Name="gFile" Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" ClipToBounds="True" >
+                        <Grid Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" ClipToBounds="True">
+                            <Grid Name="gFile" Margin="30" >
                                 <Grid.Effect>
                                     <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                                 </Grid.Effect>
@@ -94,13 +93,8 @@
                                     </StackPanel>
                                     <Image  Source="View/Resources/Image/refresh.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="25" Margin="0,0,10,0" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Right" VerticalAlignment="Center" />
                                     <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
-                                    <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555">
-                                        <StackPanel Name="spFile"  Orientation="Horizontal" VerticalAlignment="Stretch">
-                                            <ListBox Name="lbLight" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
-                                            <ListBox Name="lbLightScript" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
-                                            <ListBox Name="lbLimitlessLamp" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16" />
-                                            <ListBox Name="lbPlay" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" FontSize="16" Foreground="White" />
-                                        </StackPanel>
+                                    <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555" >
+                                        <ListBox Margin="0,20,0,0" Name="lbFile" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
                                     </Border>
                                 </Grid>
                                 <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">
@@ -127,7 +121,7 @@
                                     </StackPanel>
                                 </Border>
                             </Grid>
-                       
+                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>

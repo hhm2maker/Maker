@@ -35,7 +35,6 @@ namespace Maker.View.Setting
         /// </summary>
         public void SetData()
         {
-
             //格式
             if (mw.suc.strInputFormatDelimiter.Equals("Comma"))
             {
