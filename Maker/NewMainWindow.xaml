@@ -39,7 +39,7 @@
                     <DockPanel Grid.Column="0" DockPanel.Dock="Left" Background="#222326" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                         <Image DockPanel.Dock="Top" Margin="15,25,15,25" Source="View/Resources/Image/file.png" Width="30" HorizontalAlignment="Center" VerticalAlignment="Top" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="OpenFileControl"/>
                         <Image DockPanel.Dock="Top" Width="20"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Top" />
-                        <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenOtherSetting" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                        <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSettingControl" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                         <Image DockPanel.Dock="Bottom" Width="20" Margin="15,25,15,25" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSetting" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                     </DockPanel>
                     <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="gM">
@@ -59,7 +59,7 @@
                                         <TextBlock Margin="20,0,0,0" Grid.Column="1" Name="tbProjectPath" Foreground="Gray" FontSize="18" TextWrapping="Wrap" TextAlignment="Right" MouseEnter="TextBlock_MouseEnter" MouseLeave="TextBlock_MouseLeave" />
                                     </Grid>
                                 </Border>
-                                <Border Name="bProjectPathControl" CornerRadius="5" Background="#363b40" BorderBrush="#b8bfc6" Width="296"  BorderThickness="2" >
+                                <Border Name="bProjectPathControl" BorderThickness="2" >
                                     <StackPanel>
                                         <TextBlock Text="{DynamicResource SelectProject}" Foreground="#72787d"  Margin="10"/>
                                         <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
@@ -70,7 +70,21 @@
                             </StackPanel>
                         </ScrollViewer>
                         <Grid Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" ClipToBounds="True">
-                            <Grid Name="gFile" Margin="30" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="0,50,0,30" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Border CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                    <Image  Source="View/Resources/Image/play.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                                <Border Margin="30,0,0,0" CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent">
+                                    <Image  Source="View/Resources/Image/adjust.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </StackPanel>
+                            <Rectangle Height="1" Grid.Row="1" Fill="#555555" Margin="10,10,10,10" HorizontalAlignment="Stretch"/>
+                            <Grid Name="gFile" Margin="30,0,30,30" Grid.Row="2">
                                 <Grid.Effect>
                                     <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
                                 </Grid.Effect>
@@ -158,9 +172,56 @@
                         <StackPanel Name="spTool" />
                     </Border>
                 </StackPanel>
+                <!--Background="#363b40"-->
+                <WrapPanel Name="spSetting" Margin="0,0,-500,0" Width="500" HorizontalAlignment="Right"  Background="#50000000">
+                    <WrapPanel.Effect>
+                        <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
+                    </WrapPanel.Effect>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,30,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/language.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Language}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,30,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/paved.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Paved}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,15,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/player_white.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Play}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,15,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/input.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Input}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,15,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/color_white.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Color}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,15,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/tool_white.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Tool}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="10" BorderThickness="1" Background="#90000000" Width="230" Margin="15,15,0,0">
+                        <StackPanel Margin="20">
+                            <Image  Source="View/Resources/Image/help.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" />
+                            <TextBlock Margin="0,5,0,0" Text="{DynamicResource Help}" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
             </Grid>
         </DockPanel>
-        
       
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>

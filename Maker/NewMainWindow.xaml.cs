@@ -882,16 +882,6 @@ namespace Maker
             AddSetting(settingUserControl);
         }
 
-        private void OpenOtherSetting(object sender, RoutedEventArgs e)
-        {
-            if (settingUserControl == null)
-            {
-                settingUserControl = new SettingUserControl(this);
-            }
-            settingUserControl.SetData();
-            AddSetting(settingUserControl);
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lbFile.Width = gFile.ActualWidth;
@@ -917,25 +907,23 @@ namespace Maker
             }
             AddSetting(deviceUserControl);
         }
-      
-        //private void CloseFileControl(object sender, MouseButtonEventArgs e)
-        //{
-        //    CloseFileControl();
-        //}
-        //private void CloseFileControl() {
-        //    ThicknessAnimation animation = new ThicknessAnimation
-        //    {
-        //        To = new Thickness(-gFile.ActualWidth, 0, 0, 0),
-        //        Duration = TimeSpan.FromSeconds(0.5),
-        //    };
-        //    animation.Completed += Animation_Completed;
-        //    gFile.BeginAnimation(MarginProperty, animation);
-        //}
-        //private void Animation_Completed(object sender, EventArgs e)
-        //{
-        //    dpFile.Visibility = Visibility.Collapsed;
-        //}
 
+        private void OpenSettingControl(object sender, MouseButtonEventArgs e)
+        {
+            ThicknessAnimation animation = new ThicknessAnimation
+            {
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            if (spSetting.Margin.Right == -500)
+            {
+                animation.To = new Thickness(0, 0, 0, 0);
+            }
+            else {
+                animation.To = new Thickness(0, 0, -500, 0);
+            }
+            spSetting.BeginAnimation(MarginProperty, animation);
+        }
+        
         private void OpenFileControl(object sender, MouseButtonEventArgs e)
         {
             //dpFile.Visibility = Visibility.Visible;

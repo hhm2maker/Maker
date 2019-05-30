@@ -1192,9 +1192,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\add.png" />
-    <Resource Include="View\Resources\Image\alipay.png" />
+    <Resource Include="View\Resources\Image\alipay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\animation.png" />
-    <Resource Include="View\Resources\Image\ask.png" />
+    <Resource Include="View\Resources\Image\ask.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\automatic.png" />
     <Resource Include="View\Resources\Image\back.png" />
     <Resource Include="View\Resources\Image\bg.gif" />
@@ -1291,7 +1295,9 @@
     <Resource Include="View\Resources\Image\time.png" />
     <Resource Include="View\Resources\Image\tochild.png" />
     <Resource Include="View\Resources\Image\toleft.png" />
-    <Resource Include="View\Resources\Image\tool.png" />
+    <Resource Include="View\Resources\Image\tool.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\top.png" />
     <Resource Include="View\Resources\Image\toplay.png" />
     <Resource Include="View\Resources\Image\toright.png" />
@@ -1299,7 +1305,9 @@
     <Resource Include="View\Resources\Image\upload.png" />
     <Resource Include="View\Resources\Image\uploadimage.png" />
     <Resource Include="View\Resources\Image\visible.png" />
-    <Resource Include="View\Resources\Image\wxpay.png" />
+    <Resource Include="View\Resources\Image\wxpay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
@@ -1617,6 +1625,26 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\add_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\adjust.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\input.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\tool_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\color_white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
