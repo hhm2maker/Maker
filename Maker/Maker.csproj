@@ -273,6 +273,9 @@
     </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
+    <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
+      <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
@@ -662,6 +665,10 @@
     <Page Include="View\UI\Game\TestGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Setting\NewSettingUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\TestW.xaml">
       <SubType>Designer</SubType>

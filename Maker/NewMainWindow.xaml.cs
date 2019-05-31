@@ -537,7 +537,6 @@ namespace Maker
             }
             baseUserControl.NewFile(sender, e);
         }
-        public SettingUserControl settingUserControl;
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -872,15 +871,17 @@ namespace Maker
             RemoveChildren();
         }
 
-        private void OpenSetting(object sender, RoutedEventArgs e)
-        {
-            if (settingUserControl == null)
-            {
-                settingUserControl = new SettingUserControl(this);
-            }
-            settingUserControl.SetData();
-            AddSetting(settingUserControl);
-        }
+
+        //public SettingUserControl settingUserControl;
+        //private void OpenSetting(object sender, RoutedEventArgs e)
+        //{
+        //    if (settingUserControl == null)
+        //    {
+        //        settingUserControl = new SettingUserControl(this);
+        //    }
+        //    settingUserControl.SetData();
+        //    AddSetting(settingUserControl);
+        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -910,20 +911,47 @@ namespace Maker
 
         private void OpenSettingControl(object sender, MouseButtonEventArgs e)
         {
+            OpenSettingControl();
+        }
+
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            OpenSettingControl();
+        }
+
+        private bool isOpeningSettingControl = false;
+        private void OpenSettingControl() {
+            if (isOpeningSettingControl)
+                return;
+            isOpeningSettingControl = true;
+            mySettingUserControl.SetData(this);
             ThicknessAnimation animation = new ThicknessAnimation
             {
                 Duration = TimeSpan.FromSeconds(0.5),
             };
-            if (spSetting.Margin.Right == -500)
+            if (mySettingUserControl.Margin.Right == -500)
             {
+                gMySetting.Visibility = Visibility.Visible;
                 animation.To = new Thickness(0, 0, 0, 0);
             }
-            else {
+            else
+            {
+               
                 animation.To = new Thickness(0, 0, -500, 0);
             }
-            spSetting.BeginAnimation(MarginProperty, animation);
+            animation.Completed += Animation_Completed;
+            mySettingUserControl.BeginAnimation(MarginProperty, animation);
         }
-        
+
+        private void Animation_Completed(object sender, EventArgs e)
+        {
+            if (mySettingUserControl.Margin.Right == -500)
+            {
+                gMySetting.Visibility = Visibility.Collapsed;
+            }
+            isOpeningSettingControl = false;
+        }
+
         private void OpenFileControl(object sender, MouseButtonEventArgs e)
         {
             //dpFile.Visibility = Visibility.Visible;
@@ -1104,5 +1132,7 @@ namespace Maker
         {
             NewProject();
         }
+
+       
     }
 }

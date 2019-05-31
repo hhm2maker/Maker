@@ -23,6 +23,7 @@ namespace Maker.View.Setting
     /// </summary>
     public partial class SettingUserControl : System.Windows.Controls.UserControl
     {
+           
         public SettingUserControl(NewMainWindow mw)
         {
             InitializeComponent();
