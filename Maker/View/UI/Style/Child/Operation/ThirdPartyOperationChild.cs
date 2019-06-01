@@ -21,9 +21,9 @@ namespace Maker.View.UI.Style.Child
             this.thirdPartyOperationModel = thirdPartyOperationModel;
             //构建对话框
             ThirdPartyModelsModel.ThirdPartyModel thirdPartyModel = new ThirdPartyModelsModel.ThirdPartyModel();
-            for (int i = 0; i < StaticConstant.mw.suc.thirdPartys.Count; i++) {
-                if (StaticConstant.mw.suc.thirdPartys[i].name.Equals(thirdPartyOperationModel.ThirdPartyName)) {
-                    thirdPartyModel = StaticConstant.mw.suc.thirdPartys[i];
+            for (int i = 0; i < StaticConstant.mw.projectUserControl.suc.thirdPartys.Count; i++) {
+                if (StaticConstant.mw.projectUserControl.suc.thirdPartys[i].name.Equals(thirdPartyOperationModel.ThirdPartyName)) {
+                    thirdPartyModel = StaticConstant.mw.projectUserControl.suc.thirdPartys[i];
                 }
             }
             

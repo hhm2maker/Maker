@@ -37,19 +37,19 @@ namespace Maker.View.Setting
         public void SetData()
         {
             //格式
-            if (mw.suc.strInputFormatDelimiter.Equals("Comma"))
+            if (mw.projectUserControl.suc.strInputFormatDelimiter.Equals("Comma"))
             {
                 rbInputFormatDelimiterComma.IsChecked = true;
             }
-            else if (mw.suc.strInputFormatDelimiter.Equals("Space"))
+            else if (mw.projectUserControl.suc.strInputFormatDelimiter.Equals("Space"))
             {
                 rbInputFormatDelimiterSpace.IsChecked = true;
             }
-            if (mw.suc.strInputFormatRange.Equals("Shortbar"))
+            if (mw.projectUserControl.suc.strInputFormatRange.Equals("Shortbar"))
             {
                 rbInputFormatRangeShortbar.IsChecked = true;
             }
-            else if (mw.suc.strInputFormatRange.Equals("R"))
+            else if (mw.projectUserControl.suc.strInputFormatRange.Equals("R"))
             {
                 rbInputFormatRangeR.IsChecked = true;
             }
@@ -158,11 +158,11 @@ namespace Maker.View.Setting
                 nowDelimiter = ' ';
             }
             //避免进页面做多余的操作
-            if (nowDelimiter.Equals(mw.suc.StrInputFormatDelimiter))
+            if (nowDelimiter.Equals(mw.projectUserControl.suc.StrInputFormatDelimiter))
             {
                 return;
             }
-            mw.suc.StrInputFormatDelimiter = nowDelimiter;
+            mw.projectUserControl.suc.StrInputFormatDelimiter = nowDelimiter;
 
             XmlDocument doc = new XmlDocument();
             doc.Load(AppDomain.CurrentDomain.BaseDirectory + "/Config/input.xml");
@@ -170,7 +170,7 @@ namespace Maker.View.Setting
             //格式
             XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
             XmlNode Delimiter = inputFormat.SelectSingleNode("Delimiter");
-            Delimiter.InnerText = mw.suc.strInputFormatDelimiter;
+            Delimiter.InnerText = mw.projectUserControl.suc.strInputFormatDelimiter;
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/input.xml");
         }
 
@@ -188,11 +188,11 @@ namespace Maker.View.Setting
                 nowRange = 'r';
             }
             //避免进页面做多余的操作
-            if (nowRange.Equals(mw.suc.StrInputFormatRange))
+            if (nowRange.Equals(mw.projectUserControl.suc.StrInputFormatRange))
             {
                 return;
             }
-            mw.suc.StrInputFormatRange = nowRange;
+            mw.projectUserControl.suc.StrInputFormatRange = nowRange;
 
             XmlDocument doc = new XmlDocument();
             doc.Load(AppDomain.CurrentDomain.BaseDirectory + "/Config/input.xml");
@@ -200,7 +200,7 @@ namespace Maker.View.Setting
             //格式
             XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
             XmlNode Range = inputFormat.SelectSingleNode("Range");
-            Range.InnerText = mw.suc.strInputFormatRange;
+            Range.InnerText = mw.projectUserControl.suc.strInputFormatRange;
             doc.Save(AppDomain.CurrentDomain.BaseDirectory + "/Config/input.xml");
         }
         /// <summary>
@@ -416,9 +416,9 @@ namespace Maker.View.Setting
             if (lbMain.SelectedIndex == -1)
                 return;
 
-            mw.pmuc.filePath = lbMain.SelectedItem.ToString();
-            mw.IntoUserControl(8);
-            mw.pmuc.LoadFile(lbMain.SelectedItem.ToString());
+            mw.projectUserControl.pmuc.filePath = lbMain.SelectedItem.ToString();
+            mw.projectUserControl.IntoUserControl(8);
+            mw.projectUserControl.pmuc.LoadFile(lbMain.SelectedItem.ToString());
         }
 
         private void DeletePlayer(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -429,7 +429,7 @@ namespace Maker.View.Setting
             if (lbMain.Items.Count == 1) {
                 return;
             }
-            String filePath = mw.pmuc.GetFileDirectory() + lbMain.SelectedItem.ToString();
+            String filePath = mw.projectUserControl.pmuc.GetFileDirectory() + lbMain.SelectedItem.ToString();
             if (File.Exists(filePath)) {
                 File.Delete(filePath);
             }
@@ -439,7 +439,7 @@ namespace Maker.View.Setting
 
         private void NewPlayer(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            mw.pmuc.NewFile(sender, e);
+            mw.projectUserControl.pmuc.NewFile(sender, e);
         }
 
         public void AddPlayer(String filePath) {
@@ -466,7 +466,7 @@ namespace Maker.View.Setting
                     async void foo()
                     {
                         await Task.Delay(50);
-                        mw.SetSpFilePosition(mw.filePosition);
+                        mw.projectUserControl.SetSpFilePosition(mw.projectUserControl.filePosition);
                     }
                     mw.RemoveDialog();
                 },

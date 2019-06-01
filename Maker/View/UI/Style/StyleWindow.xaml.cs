@@ -370,7 +370,7 @@ namespace Maker.View.Style
             if (!CanSave())
                 return;
             mw.RemoveSetting();
-            mw.suc.Test();
+            mw.projectUserControl.suc.Test();
         }
     }
 }

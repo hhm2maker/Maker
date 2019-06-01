@@ -31,9 +31,9 @@ namespace Maker.View.Dialog
                 return;
             FileInfo fileInfo = new FileInfo(fileName);
             if(lbMain.SelectedItem.ToString().Equals("Main"))
-                mw.suc.NewFromImport(fileInfo.Name,"");
+                mw.projectUserControl.suc.NewFromImport(fileInfo.Name,"");
             else
-                mw.suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
+                mw.projectUserControl.suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
             mw.RemoveSetting();
         }
       

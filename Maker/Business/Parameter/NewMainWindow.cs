@@ -58,8 +58,6 @@ namespace Maker
         /// </summary>
         public Dictionary<int, HintModel> hintModelDictionary = new Dictionary<int, HintModel>();
 
-
-
         //public String strNowVersion;
 
         public IsFirstConfigModel isFirstConfigModel = new IsFirstConfigModel();
@@ -70,26 +68,8 @@ namespace Maker
         public HideConfigModel hideConfigModel = new HideConfigModel();
         public VersionConfigModel versionConfigModel = new VersionConfigModel();
         public HelpConfigModel helpConfigModel = new HelpConfigModel();
-        //Light
-        public FrameUserControl fuc;
-        public TextBoxUserControl tbuc;
-        public PianoRollUserControl pruc;
-        //LightScript
-        public ScriptUserControl suc;
-        public CodeUserControl cuc;
-        //Page
-        public PageMainUserControl puc;
-        //Play
-        public PlayExportUserControl peuc;
-        //Play
-        public View.UI.PlayUserControl playuc;
-        //Idea
-        public IdeaUserControl iuc;
-        //LimitlessLamp
-        public LimitlessLampUserControl lluc;
-        //PlayerManagement
-        public PlayerManagementUserControl pmuc;
+      
 
-        private List<BaseUserControl> userControls = new List<BaseUserControl>();
+     
     }
 }

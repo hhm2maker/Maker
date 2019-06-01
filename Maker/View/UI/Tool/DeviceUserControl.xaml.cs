@@ -74,22 +74,22 @@ namespace Maker.View.Tool
 
         public void Check()
         {
-            if (mw.playuc.ip != null)
+            if (mw.projectUserControl.playuc.ip != null)
             {
-                mw.playuc.ip.Stop();
-                mw.playuc.ip.Close();
+                mw.projectUserControl.playuc.ip.Stop();
+                mw.projectUserControl.playuc.ip.Close();
             }
             if (cbRealDeviceIn.SelectedIndex != -1)
             {
                 //Console.WriteLine("Hello");
-                mw.playuc.ip = new UI.PlayUserControl.InputPort(mw.playuc, mw.playuc.keyboardModels, mw.playuc.inputType, mw.playuc.tbPosition)
+                mw.projectUserControl.playuc.ip = new UI.PlayUserControl.InputPort(mw.projectUserControl.playuc, mw.projectUserControl.playuc.keyboardModels, mw.projectUserControl.playuc.inputType, mw.projectUserControl.playuc.tbPosition)
                 {
                     cb = cbRealDeviceIn.SelectedItem.ToString()
                 };
 
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
-                mw.playuc.ip.Open(cbRealDeviceIn.SelectedIndex);
-                mw.playuc.ip.Start();
+                mw.projectUserControl.playuc.ip.Open(cbRealDeviceIn.SelectedIndex);
+                mw.projectUserControl.playuc.ip.Start();
             }
             //Console.WriteLine("Bye~");
         }
@@ -111,7 +111,7 @@ namespace Maker.View.Tool
                 isSearchChangeSelect = false;
                 return;
             }
-            mw.playuc.CloseMidiOut();
+            mw.projectUserControl.playuc.CloseMidiOut();
             if (cbRealDevice.SelectedIndex == -1)
                 return;
             MidiDeviceBusiness.midiOutOpen(out IntPtr nowOutDeviceIntPtr, (uint)cbRealDevice.SelectedIndex, (IntPtr)0, (IntPtr)0, 0);
@@ -122,7 +122,7 @@ namespace Maker.View.Tool
         private void SearchEquipmentOut()
         {
             isSearchChangeSelect = true;
-            mw.playuc.CloseMidiOut();
+            mw.projectUserControl.playuc.CloseMidiOut();
             cbRealDevice.Items.Clear();
             for (int j = 0; j < MidiDeviceBusiness.midiOutGetNumDevs(); j++)
             {

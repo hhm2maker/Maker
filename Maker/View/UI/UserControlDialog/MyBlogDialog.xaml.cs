@@ -1,5 +1,6 @@
 ﻿using Maker.Business.Currency;
 using Maker.Business.Model.Config;
+using Maker.View.UI.Search;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,28 +20,28 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class MyBlogDialog : MakerDialog
     {
-        private WelcomeWindow mw;
+        private SearchUserControl suc;
         private Shortcut shortcut = new Shortcut();
         private BlogContentModel blogConfigModel = new BlogContentModel();
-        public MyBlogDialog(WelcomeWindow mw, Shortcut shortcut)
+        public MyBlogDialog(SearchUserControl suc, Shortcut shortcut)
         {
             InitializeComponent();
 
-            this.mw = mw;
+            this.suc = suc;
             this.shortcut = shortcut;
-            Width = mw.ActualWidth * 0.4;
+            Width = suc.ActualWidth * 0.4;
 
             LoadUrl(shortcut.url);
 
-            lbMain.MaxHeight = mw.ActualHeight * 0.6;
+            lbMain.MaxHeight = suc.ActualHeight * 0.6;
         }
 
-        public MyBlogDialog(WelcomeWindow mw, String url)
+        public MyBlogDialog(SearchUserControl suc, String url)
         {
             InitializeComponent();
 
-            this.mw = mw;
-            Width = mw.ActualWidth * 0.4;
+            this.suc = suc;
+            Width = suc.ActualWidth * 0.4;
 
             LoadUrl(url);
         }
@@ -266,36 +267,36 @@ namespace Maker.View.UI.UserControlDialog
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            mw.RemoveDialog();
+            suc.mw.RemoveDialog();
         }
 
         private void bShortcut_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (tbShortcut.Text.Equals("添加快捷方式"))
             {
-                mw.ShowMakerDialog(new NewShortcutDialog(mw,this, blogConfigModel, shortcut));            
+                suc.mw.ShowMakerDialog(new NewShortcutDialog(suc,this, blogConfigModel, shortcut));            
             }
             else {
                 tbShortcut.Text = "添加快捷方式";
                 bShortcut.Background = new SolidColorBrush(Color.FromRgb(45,200,76));
-                for (int i = mw.blogConfigModel.Shortcuts.Count - 1; i >= 0; i--)
+                for (int i = suc.blogConfigModel.Shortcuts.Count - 1; i >= 0; i--)
                 {
-                    if (mw.blogConfigModel.Shortcuts[i].url == shortcut.url)
+                    if (suc.blogConfigModel.Shortcuts[i].url == shortcut.url)
                     {
-                        mw.blogConfigModel.Shortcuts.RemoveAt(i);
+                        suc.blogConfigModel.Shortcuts.RemoveAt(i);
                     }
                 }
                 shortcut.dll = "";
                 LoadUrl(shortcut.url);
-                mw.SaveShortcuts();
+                suc.SaveShortcuts();
             }
-            mw.UpdateShortcuts();
+            suc.UpdateShortcuts();
         }
 
         public void InitData() {
-            for (int i = mw.blogConfigModel.Shortcuts.Count - 1; i >= 0; i--)
+            for (int i = suc.blogConfigModel.Shortcuts.Count - 1; i >= 0; i--)
             {
-                if (mw.blogConfigModel.Shortcuts[i].url == shortcut.url)
+                if (suc.blogConfigModel.Shortcuts[i].url == shortcut.url)
                 {
                     tbShortcut.Text = "删除快捷方式";
                     bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
@@ -310,13 +311,13 @@ namespace Maker.View.UI.UserControlDialog
             //InitData();
             if (shortcut != null)
             {
-                mw.blogConfigModel.Shortcuts.Add(new Shortcut(shortcut.text, shortcut.url, shortcut.dll));
-                mw.UpdateShortcuts();
+                suc.blogConfigModel.Shortcuts.Add(new Shortcut(shortcut.text, shortcut.url, shortcut.dll));
+                suc.UpdateShortcuts();
                 tbShortcut.Text = "删除快捷方式";
                 bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
             }
             LoadUrl(shortcut.url);
-            mw.SaveShortcuts();
+            suc.SaveShortcuts();
         }
 
       

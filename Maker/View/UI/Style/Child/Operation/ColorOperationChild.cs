@@ -25,7 +25,7 @@ namespace Maker.View.UI.Style.Child
             for (int i = 0; i < changeColorOperationModel.Colors.Count; i++) {
                 if (i != changeColorOperationModel.Colors.Count - 1)
                 {
-                    sb.Append(changeColorOperationModel.Colors[i] + StaticConstant.mw.suc.StrInputFormatDelimiter.ToString());
+                    sb.Append(changeColorOperationModel.Colors[i] + StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter.ToString());
                 }
                 else {
                     sb.Append(changeColorOperationModel.Colors[i]);
@@ -50,7 +50,7 @@ namespace Maker.View.UI.Style.Child
                 return false;
             }
             List<int> colors = new List<int>();
-            String[] strColors = tbColors.Text.Split(StaticConstant.mw.suc.StrInputFormatDelimiter);
+            String[] strColors = tbColors.Text.Split(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
             foreach(var item in strColors) {
                 if (int.TryParse(item, out int color))
                 {

@@ -56,7 +56,6 @@ namespace Maker.View.UI
             tbHelp.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
 
             InitStaticConstant();
-            InitShortcuts();
 
             tbPositionTab.Width = Width * 0.125;
             tbColorTab.Width = Width * 0.125;
@@ -84,39 +83,8 @@ namespace Maker.View.UI
             XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
         }
      
-        public BlogConfigModel blogConfigModel = new BlogConfigModel();
-        public void InitShortcuts()
-        {
-            wpLeft.Width = Width / 4;
-            wpLeft.Height = Height / 4;
-            XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
-            UpdateShortcuts();
-        }
 
-        /// <summary>
-        /// 保存快捷方式
-        /// </summary>
-        public void SaveShortcuts()
-        {
-            XmlSerializerBusiness.Save(blogConfigModel, "Blog/blog.xml");
-        }
-
-
-        public void UpdateShortcuts() {
-            wpLeft.Children.Clear();
-            for (int i = 0; i < blogConfigModel.Shortcuts.Count; i++)
-            {
-                TextBlock tb = new TextBlock
-                {
-                    Margin = new Thickness(0, 5, 20, 0),
-                    Text = blogConfigModel.Shortcuts[i].text
-                };
-                tb.MouseLeftButtonDown += TextBlock_MouseLeftButtonDown;
-                tb.FontSize = 18;
-                tb.Foreground = new SolidColorBrush(Colors.White);
-                wpLeft.Children.Add(tb);
-            }
-        }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -180,17 +148,7 @@ namespace Maker.View.UI
        
     
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
-        }
-
-        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            if (tbUrl.Text.ToString().Equals(String.Empty))
-                return;
-            ShowMakerDialog(new MyBlogDialog(this, tbUrl.Text.ToString()));
-        }
+       
 
         private void ToHelpOverview(object sender, RoutedEventArgs e)
         {

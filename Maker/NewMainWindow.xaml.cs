@@ -22,6 +22,8 @@ using Maker.View.Setting;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Maker.View.UI.Search;
+using Maker.View.UI.Project;
 
 namespace Maker
 {
@@ -31,7 +33,7 @@ namespace Maker
     public partial class NewMainWindow : Window
     {
         private NewMainWindowBridge bridge;
-
+        public ProjectUserControl projectUserControl;
         public NewMainWindow()
         {
             InitializeComponent();
@@ -40,14 +42,10 @@ namespace Maker
 
             bridge.Init();
 
-            InitUserControl();
-
-            InitContextMenu();
-            InitFile();
+            projectUserControl = new ProjectUserControl(this);
 
             InitProject();
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
-
         }
 
         private void InitProject()
@@ -55,194 +53,11 @@ namespace Maker
             List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
             for (int i = 0; i < strs.Count; i++)
             {
-                strs[i] = "  " + strs[i];
+                strs[i] = strs[i];
             }
-            GeneralViewBusiness.SetStringsToListBox(lbProject, strs, "  " + tbProjectPath.Text);
+            GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
         }
-
-        public ContextMenu contextMenu;
-        private void InitContextMenu()
-        {
-            contextMenu = new ContextMenu();
-            MenuItem renameMenuItem = new MenuItem
-            {
-                Header = Application.Current.Resources["Rename"]
-            };
-            renameMenuItem.Click += RenameFileName;
-            contextMenu.Items.Add(renameMenuItem);
-
-            MenuItem deleteMenuItem = new MenuItem
-            {
-                Header = Application.Current.Resources["Delete"]
-            };
-            deleteMenuItem.Click += btnDelete_Click;
-            contextMenu.Items.Add(deleteMenuItem);
-
-            MenuItem goToFileMenuItem = new MenuItem
-            {
-                Header = Application.Current.Resources["OpenFoldersInTheFileResourceManager"]
-            };
-            goToFileMenuItem.Click += GoToFile;
-            contextMenu.Items.Add(goToFileMenuItem);
-        }
-
-        private void GoToFile(object sender, RoutedEventArgs e)
-        {
-            GetNeedControl(sender);
-            BaseUserControl baseUserControl = null;
-            if (!needControlFileName.EndsWith(".lightScript"))
-            {
-                if (needControlFileName.EndsWith(".mid"))
-                {
-                    baseUserControl = userControls[0];
-                }
-                else { 
-                    for (int i = 0; i < userControls.Count; i++)
-                    {
-                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
-                    {
-                        baseUserControl = userControls[i];
-                        break;
-                     }
-                     }
-                }
-            }
-            else
-            {
-                baseUserControl = userControls[3] as BaseUserControl;
-            }
-
-            if (baseUserControl == null)
-                return;
-            needControlBaseUserControl = baseUserControl;
-
-            baseUserControl.filePath = needControlFileName;
-
-            String _filePath = baseUserControl.GetFileDirectory() + baseUserControl.filePath;
-            Console.WriteLine(_filePath);
-
-            ProcessStartInfo psi;
-            psi = new ProcessStartInfo("Explorer.exe")
-            {
-
-                Arguments = "/e,/select," + _filePath
-            };
-            Process.Start(psi);
-        }
-
-        /// <summary>
-        /// 初始化文件
-        /// </summary>
-        private void InitFile()
-        {
-            //显示名字
-            DirectoryInfo directoryInfo = new DirectoryInfo(LastProjectPath);
-            tbProjectPath.Text = directoryInfo.Name;
-
-            //RefreshFile();
-        }
-
-        private void ToRefreshFile() {
-            //显示名字
-            InitFile();
-
-            RefreshFile();
-        }
-
-        private object selectedItem;
-        private void Item_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            String fileName = (sender as ListBoxItem).Content.ToString();
-            BaseUserControl baseUserControl = null;
-            if (!fileName.EndsWith(".lightScript"))
-            {
-                if (fileName.EndsWith(".mid"))
-                {
-                    IntoUserControl(0);
-                }
-                else {
-                    for (int i = 0; i < userControls.Count; i++)
-                    {
-                        if (fileName.EndsWith(userControls[i]._fileExtension))
-                        {
-                            IntoUserControl(i);
-                            break;
-                        }
-                    }
-                }
-                
-                if (cMost.Children.Count == 0)
-                    return;
-                //是否是制作灯光的用户控件
-                baseUserControl = cMost.Children[0] as BaseUserControl;
-                cMost.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                //关闭文件选择器
-                //CloseFileControl();
-
-                baseUserControl = gCenter.Children[0] as BaseUserControl;
-                selectedItem = sender as ListBoxItem;
-
-                if (baseUserControl.filePath.Equals(LastProjectPath + baseUserControl._fileType + @"\" + fileName))
-                    return;
-                if (baseUserControl is ScriptUserControl)
-                {
-                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
-                }
-               
-            }
-            baseUserControl.filePath = LastProjectPath + baseUserControl._fileType + @"\" + fileName;
-            baseUserControl.LoadFile(fileName);
-            if (baseUserControl is ScriptUserControl)
-            {
-                (baseUserControl as ScriptUserControl).InitMyContent();
-            }
-        }
-
-        /// <summary>
-        /// 初始化用户控件
-        /// </summary>
-        private void InitUserControl()
-        {
-            //FrameUserControl
-            fuc = new FrameUserControl(this);
-            userControls.Add(fuc);
-            //TextBoxUserControl
-            tbuc = new TextBoxUserControl(this);
-            userControls.Add(tbuc);
-            //PianoRollUserControl
-            pruc = new PianoRollUserControl(this);
-            userControls.Add(pruc);
-            //ScriptUserControl
-            suc = new ScriptUserControl(this);
-            userControls.Add(suc);
-            //CodeUserControl
-            cuc = new CodeUserControl(this);
-            userControls.Add(cuc);
-            //PageMainUserControl 
-            puc = new PageMainUserControl(this);
-            userControls.Add(puc);
-            //PlayExportUserControl
-            peuc = new PlayExportUserControl(this);
-            userControls.Add(peuc);
-            //PlayUserControl
-            playuc = new View.UI.PlayUserControl(this);
-            userControls.Add(playuc);
-            //PlayerUserControl
-            pmuc = new PlayerManagementUserControl(this);
-            userControls.Add(pmuc);
-            //LimitlessLampUserControl
-            lluc = new LimitlessLampUserControl(this);
-            userControls.Add(lluc);
-            //IdeaUserControl
-            iuc = new IdeaUserControl(this);
-            userControls.Add(iuc);
-
-            gCenter.Children.Add(suc);
-        }
-
+       
         private void Window_Closed(object sender, EventArgs e)
         {
             if (cMost.Children.Count > 0)
@@ -252,9 +67,9 @@ namespace Maker
                 baseUserControl.SaveFile();
             }
 
-            if (!userControls[3].filePath.Equals(String.Empty))
+            if (!projectUserControl.userControls[3].filePath.Equals(String.Empty))
             {
-                userControls[3].SaveFile();
+                projectUserControl.userControls[3].SaveFile();
             }
             bridge.Close();
 
@@ -385,30 +200,6 @@ namespace Maker
             gMain.Margin = new Thickness(0, 0, 0, 50);
         }
 
-        public void IntoUserControl(int index)
-        {
-            //spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
-            //bToolChild.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
-
-            cMost.Background = new SolidColorBrush(Colors.Transparent);
-            //清除旧界面
-            cMost.Children.Clear();
-            //载入新界面
-            cMost.Visibility = Visibility.Visible;
-            Canvas.SetLeft(userControls[index], gMost.ActualWidth);
-            cMost.Children.Add(userControls[index]);
-
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                From = gMost.ActualWidth,
-                To = gMost.ActualWidth * 0.1,
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            userControls[index].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
-
-            //载入文件
-            //LoadFileList();
-        }
 
         public void RemoveChildren()
         {
@@ -419,8 +210,8 @@ namespace Maker
                 Duration = TimeSpan.FromSeconds(0.5),
             };
             doubleAnimation.Completed += DoubleAnimation_Completed1;
-            userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
-            userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+            projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
+            projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
         }
 
         private void DoubleAnimation_Completed1(object sender, EventArgs e)
@@ -436,24 +227,24 @@ namespace Maker
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
 
-            if (lbMain.SelectedItem is ListBoxItem)
-            {
-                if (selectedItem != null)
-                {
-                    (selectedItem as ListBoxItem).IsSelected = true;
-                }
-                else
-                {
-                    (lbMain.SelectedItem as ListBoxItem).IsSelected = false;
-                }
-            }
+            //if (projectUserControl.lbMain.SelectedItem is ListBoxItem)
+            //{
+            //    if (selectedItem != null)
+            //    {
+            //        (selectedItem as ListBoxItem).IsSelected = true;
+            //    }
+            //    else
+            //    {
+            //        (lbMain.SelectedItem as ListBoxItem).IsSelected = false;
+            //    }
+            //}
 
-            suc.InitMyContent();
+            projectUserControl.suc.InitMyContent();
         }
 
         private void LoadFileList()
         {
-            lbMain.Items.Clear();
+            projectUserControl.lbMain.Items.Clear();
             FileBusiness fileBusiness = new FileBusiness();
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
             List<String> fileNames = fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
@@ -464,7 +255,7 @@ namespace Maker
                     Height = 36,
                     Content = fileNames[i],
                 };
-                lbMain.Items.Add(item);
+                projectUserControl.lbMain.Items.Add(item);
             }
         }
 
@@ -512,31 +303,7 @@ namespace Maker
             HideTool();
         }
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
-        {
-            BaseUserControl baseUserControl;
-            if (sender == miLight)
-            {
-                baseUserControl = userControls[0];
-            }
-            else if (sender == miLightScript)
-            {
-                baseUserControl = userControls[3];
-            }
-            else if (sender == miLimitlessLamp)
-            {
-                baseUserControl = userControls[9];
-            }
-            else if (sender == miPage)
-            {
-                baseUserControl = userControls[5];
-            }
-            else
-            {
-                return;
-            }
-            baseUserControl.NewFile(sender, e);
-        }
+        
 
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -548,7 +315,7 @@ namespace Maker
 
         private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbProject.SelectedIndex == -1 || lbProject.SelectedItem.ToString().Equals("  " + tbProjectPath.Text))
+            if (lbProject.SelectedIndex == -1 || lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
             {
                 return;
             }
@@ -557,8 +324,8 @@ namespace Maker
 
             bridge.SaveFile();
 
-            suc.HideControl();
-            ToRefreshFile();
+            projectUserControl.suc.HideControl();
+            projectUserControl.RefreshFile();
         }
 
         public void NewProject()
@@ -586,8 +353,7 @@ namespace Maker
                     DirectoryInfo directoryInfoLimitlessLamp = new DirectoryInfo(_projectPath + @"\LimitlessLamp");
                     directoryInfoLimitlessLamp.Create();
 
-                    tbProjectPath.Text = dialog.fileName;
-                    projectConfigModel.Path = tbProjectPath.Text;
+                    projectConfigModel.Path = dialog.fileName;
                     if (gMain.Children.Count > 0)
                     {
                         LoadFileList();
@@ -596,8 +362,6 @@ namespace Maker
                     }
                     bridge.SaveFile();
                 }
-
-                InitFile();
             }
         }
 
@@ -636,130 +400,6 @@ namespace Maker
         }
 
 
-        public ListBoxItem needControlListBoxItem;
-        public String needControlFileName;
-        public BaseUserControl needControlBaseUserControl;
-        private void GetNeedControl(object sender)
-        {
-            needControlListBoxItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as ListBoxItem;
-            needControlFileName = needControlListBoxItem.Content.ToString();
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            GetNeedControl(sender);
-            if (hintModelDictionary.ContainsKey(2))
-            {
-                if (hintModelDictionary[2].IsHint == false)
-                {
-                    DeleteFile(sender, e);
-                    return;
-                }
-            }
-            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？",
-                delegate (System.Object _o, RoutedEventArgs _e)
-                {
-                    DeleteFile(_o,_e);
-                    RemoveDialog();
-                },
-                delegate (System.Object _o, RoutedEventArgs _e)
-                {
-                    RemoveDialog();
-                },
-                delegate (System.Object _o, RoutedEventArgs _e)
-                {
-                    NotHint(2);
-                });
-            ShowMakerDialog(hintDialog);
-        }
-
-        public void DeleteFile(object sender, RoutedEventArgs e)
-        {
-            BaseUserControl baseUserControl = null;
-            if (!needControlFileName.EndsWith(".lightScript"))
-            {
-                for (int i = 0; i < userControls.Count; i++)
-                {
-                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
-                    {
-                        baseUserControl = userControls[i];
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                baseUserControl = userControls[3] as BaseUserControl;
-            }
-
-            if (baseUserControl == null)
-                return;
-            baseUserControl.filePath = needControlFileName;
-            baseUserControl.DeleteFile(sender, e);
-
-            if (baseUserControl == userControls[3])
-                baseUserControl.HideControl();
-
-            for (int i = 0; i < lbMain.Items.Count; i++)
-            {
-                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlListBoxItem))
-                {
-                    (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlListBoxItem);
-                }
-            }
-        }
-
-        private void RenameFileName(object sender, RoutedEventArgs e)
-        {
-            GetNeedControl(sender);
-            BaseUserControl baseUserControl = null;
-            if (!needControlFileName.EndsWith(".lightScript"))
-            {
-                for (int i = 0; i < userControls.Count; i++)
-                {
-                    if (needControlFileName.EndsWith(userControls[i]._fileExtension))
-                    {
-                        baseUserControl = userControls[i];
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                baseUserControl = userControls[3] as BaseUserControl;
-            }
-
-            if (baseUserControl == null)
-                return;
-            needControlBaseUserControl = baseUserControl;
-
-            baseUserControl.filePath = needControlFileName;
-
-            String _filePath = baseUserControl.GetFileDirectory();
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
-            ShowMakerDialog(newFileDialog);
-        }
-        public void NewFileResult(String filePath)
-        {
-            RemoveDialog();
-            String _filePath = needControlBaseUserControl.GetFileDirectory();
-
-            _filePath = _filePath + filePath;
-            if (File.Exists(_filePath))
-            {
-                new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
-                return;
-            }
-            else
-            {
-                System.IO.File.Move(LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
-                    , LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
-                needControlListBoxItem.Content = filePath;
-                needControlBaseUserControl.filePath = filePath;
-            }
-        }
-
-
         public void RemoveDialog()
         {
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
@@ -772,23 +412,21 @@ namespace Maker
                 hintModelDictionary[id].IsHint = false;
         }
 
-        
-
         private List<Light> mLightList = new List<Light>();
         private DeviceUserControl deviceUserControl;
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             if (cMost.Children.Count == 0 || (cMost.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
             {
-                if ((userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+                if ((projectUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
                     return;
                 }
-                mLightList = (userControls[3] as BaseMakerLightUserControl).GetData();
+                mLightList = (projectUserControl.userControls[3] as BaseMakerLightUserControl).GetData();
             }
             else
             {
-                if (userControls[userControls.IndexOf((BaseUserControl)cMost.Children[0])].IsMakerLightUserControl())
+                if (projectUserControl.userControls[projectUserControl.userControls.IndexOf((BaseUserControl)cMost.Children[0])].IsMakerLightUserControl())
                 {
                     BaseMakerLightUserControl baseMakerLightUserControl = cMost.Children[0] as BaseMakerLightUserControl;
                     mLightList = baseMakerLightUserControl.GetData();
@@ -885,16 +523,15 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            lbFile.Width = gFile.ActualWidth;
-            SetSpFilePosition(0);
+            
         }
        
 
         public void SetButton(int position)
         {
-            if (userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl)
+            if (projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl)
             {
-                FrameUserControl frameUserControl = userControls[userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
+                FrameUserControl frameUserControl = projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
                 frameUserControl.SetButton(position);
             }
         }
@@ -952,115 +589,7 @@ namespace Maker
             isOpeningSettingControl = false;
         }
 
-        private void OpenFileControl(object sender, MouseButtonEventArgs e)
-        {
-            //dpFile.Visibility = Visibility.Visible;
-
-            //ThicknessAnimation animation = new ThicknessAnimation
-            //{
-            //    To = new Thickness(0, 0, 0, 0),
-            //    Duration = TimeSpan.FromSeconds(0.5),
-            //};
-            //gFile.BeginAnimation(MarginProperty, animation);
-        }
-
-        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            SetSpFilePosition(((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock));
-        }
-
-        public int filePosition = 0;
-        public void SetSpFilePosition(int position) {
-            (spFileTitle.Children[filePosition] as TextBlock).FontSize = 18;
-            (spFileTitle.Children[position] as TextBlock).FontSize = 20;
-
-
-            (spFileTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169,169,169));
-            (spFileTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            filePosition = position;
-
-            foo();
-            // .net 4.5
-            async void foo()
-            {
-                await Task.Delay(50);
-                RefreshFile();
-
-                double _p = 0.0;
-                for (int i = 0; i < position; i++)
-                {
-                    _p += (spFileTitle.Children[i] as TextBlock).ActualWidth;
-                }
-                _p += ((spFileTitle.Children[position] as TextBlock).ActualWidth - 70) / 2;
-                double _p2 = ((gFile.ActualWidth - spFileTitle.ActualWidth) / 2);
-
-                ThicknessAnimation animation2 = new ThicknessAnimation
-                {
-                    To = new Thickness(_p + _p2, 0, 0, 0),
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-                rFile.BeginAnimation(MarginProperty, animation2);
-            }
-
-            
-        }
-
-        private void RefreshFile() {
-
-            lbFile.Items.Clear();
-            if (filePosition == 0)
-            {
-                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
-                {
-                    ListBoxItem item = new ListBoxItem
-                    {
-                        Content = str,
-                    };
-                    item.ContextMenu = contextMenu;
-                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                    lbFile.Items.Add(item);
-                }
-            }
-            if (filePosition == 1)
-            {
-                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
-                {
-                    ListBoxItem item = new ListBoxItem
-                    {
-                        Content = str
-                    };
-                    item.ContextMenu = contextMenu;
-                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                    lbFile.Items.Add(item);
-                }
-            }
-            if (filePosition == 2)
-            {
-                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
-                {
-                    ListBoxItem item = new ListBoxItem
-                    {
-                        Content = str
-                    };
-                    item.ContextMenu = contextMenu;
-                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                    lbFile.Items.Add(item);
-                }
-            }
-            if (filePosition == 3)
-            {
-                foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".lightPage" }))
-                {
-                    ListBoxItem item = new ListBoxItem
-                    {
-                        Content = str
-                    };
-                    item.ContextMenu = contextMenu;
-                    item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                    lbFile.Items.Add(item);
-                }
-            }
-        }
+       
 
 
         [StructLayout(LayoutKind.Sequential)]
@@ -1104,35 +633,18 @@ namespace Maker
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            IntoUserControl(6);
-        }
+     
 
-        private void MenuItem_Click2(object sender, RoutedEventArgs e)
-        {
-            DirectoryInfo d = new DirectoryInfo(LastProjectPath);
-            if (File.Exists(LastProjectPath + @"\Play\" + d.Name + ".play"))
-            {
-                userControls[7].filePath = LastProjectPath + @"\Play\" + d.Name + ".play";
-                userControls[7].LoadFile(d.Name + ".play");
-                IntoUserControl(7);
-            }
-            else {
-                ShowMakerDialog(new ErrorDialog(this, "BuildTheFileFirst"));
-            }
-        }
-
-        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
-        {
-            InitFile();
-        }
+      
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NewProject();
         }
 
-       
+        private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            gRight.Children.Add(new SearchUserControl(this));
+        }
     }
 }

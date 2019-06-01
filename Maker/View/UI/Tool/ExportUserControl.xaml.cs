@@ -145,7 +145,7 @@ namespace Maker.View.Tool
                  baseUserControl = mw.cMost.Children[0] as BaseUserControl;
             }
             else {
-                baseUserControl = mw.suc as BaseUserControl;
+                baseUserControl = mw.projectUserControl.suc as BaseUserControl;
             }
             //(lbMain.SelectedItem as TreeViewItem).Header.ToString()
             //没有AB集合不能保存

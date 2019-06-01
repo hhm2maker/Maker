@@ -30,7 +30,7 @@ namespace Maker.View.UI.UserControlDialog
             File.Copy(fileInfo.Directory + @"\" + thirdPartySetupModel.Dll + ".dll", AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + thirdPartySetupModel.Dll + ".dll", true);
 
             //安装插件
-            mw.suc.SetupEditPlugIn(thirdPartySetupModel);
+            mw.projectUserControl.suc.SetupEditPlugIn(thirdPartySetupModel);
 
             mw.RemoveDialog();
             mw.RemoveDialog();
@@ -39,7 +39,7 @@ namespace Maker.View.UI.UserControlDialog
         private void btnNoReplacement_Click(object sender, RoutedEventArgs e)
         {
             //安装插件
-            mw.suc.SetupEditPlugIn(thirdPartySetupModel);
+            mw.projectUserControl.suc.SetupEditPlugIn(thirdPartySetupModel);
 
             mw.RemoveDialog();
             mw.RemoveDialog();

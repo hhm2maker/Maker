@@ -164,7 +164,7 @@ namespace Maker.View.Play
                 XAttribute xPageName = new XAttribute("name", pageNames[i]);
                 xPage.Add(xPageName);
 
-                mw.puc.ReadPageFile(mw.LastProjectPath + @"\Play\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
+                mw.projectUserControl.puc.ReadPageFile(mw.LastProjectPath + @"\Play\" + pageNames[i], out List<List<PageButtonModel>> pageModes);
                 for (int x = 0; x < pageModes.Count; x++)
                 {
                     if (pageModes[x].Count == 0)

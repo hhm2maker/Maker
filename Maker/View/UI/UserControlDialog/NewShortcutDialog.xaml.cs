@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using static Maker.Business.Model.Config.BlogContentModel;
 using Maker.Business.Model.Config;
+using Maker.View.UI.Search;
 
 namespace Maker.View.UI.UserControlDialog
 {
@@ -15,15 +16,15 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class NewShortcutDialog : MakerDialog
     {
-        private WelcomeWindow mw;
+        private SearchUserControl suc;
         private MyBlogDialog myBlogDialog;
         private Shortcut shortcut;
         private BlogContentModel blogContentModel;
-        public NewShortcutDialog(WelcomeWindow mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
+        public NewShortcutDialog(SearchUserControl mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
         {
             InitializeComponent();
 
-            this.mw = mw;
+            this.suc = mw;
             this.myBlogDialog = myBlogDialog;
             this.blogContentModel = blogContentModel;
             this.shortcut = shortcut;
@@ -40,12 +41,12 @@ namespace Maker.View.UI.UserControlDialog
             shortcut.text = tbName.Text;
             shortcut.dll = tbDll.Text;
             myBlogDialog.UpdateData();
-            mw.RemoveDialog();
+            suc.mw.RemoveDialog();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            mw.RemoveDialog();
+            suc.mw.RemoveDialog();
         }
 
         private String fatherPath = AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\";
@@ -59,7 +60,7 @@ namespace Maker.View.UI.UserControlDialog
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (!openFileDialog.FileName.StartsWith(fatherPath)) {
-                    mw.ShowMakerDialog(new ErrorDialog(mw, "InvalidPath"));
+                    suc.mw.ShowMakerDialog(new ErrorDialog(suc.mw, "InvalidPath"));
                     return;
                 }
                 tbDll.Text = openFileDialog.FileName.Substring(fatherPath.Length) ;

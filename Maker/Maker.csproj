@@ -273,6 +273,12 @@
     </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
+    <Compile Include="View\UI\Project\ProjectUserControl.xaml.cs">
+      <DependentUpon>ProjectUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Search\SearchUserControl.xaml.cs">
+      <DependentUpon>SearchUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
@@ -665,6 +671,14 @@
     <Page Include="View\UI\Game\TestGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Project\ProjectUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Search\SearchUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Setting\NewSettingUserControl.xaml">
       <SubType>Designer</SubType>
@@ -1652,6 +1666,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\color_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\add_dark.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="View\Resources\Image\add_light.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

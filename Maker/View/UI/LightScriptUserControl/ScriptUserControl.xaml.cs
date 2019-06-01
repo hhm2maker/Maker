@@ -5073,9 +5073,9 @@ namespace Maker.View.LightScriptUserControl
             ListBox lbMain = sender as ListBox;
             if (lbMain.SelectedIndex == -1)
                 return;
-            for (int i = 0; i < mw.suc.thirdPartys.Count; i++)
+            for (int i = 0; i < mw.projectUserControl.suc.thirdPartys.Count; i++)
             {
-                if (mw.suc.thirdPartys[i].name.Equals(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Name))
+                if (mw.projectUserControl.suc.thirdPartys[i].name.Equals(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Name))
                 {
                     mw.ShowMakerDialog(new ErrorDialog(mw, "SuspectedInstalled"));
                     lbMain.SelectedIndex = -1;
@@ -5111,7 +5111,7 @@ namespace Maker.View.LightScriptUserControl
             else
             {
                 //直接安装
-                mw.suc.SetupEditPlugIn(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex]);
+                mw.projectUserControl.suc.SetupEditPlugIn(thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex]);
                 lbMain.SelectedIndex = -1;
             }
         }

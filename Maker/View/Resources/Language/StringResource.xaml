@@ -512,6 +512,6 @@
     <sys:String x:Key="Load">Load</sys:String>
     <sys:String x:Key="BuildTheFileFirst">Build the file first.</sys:String>
     <sys:String x:Key="InvalidPath">Invalid path.</sys:String>
+    <sys:String x:Key="Search">Search</sys:String>
 
-    
 </ResourceDictionary>

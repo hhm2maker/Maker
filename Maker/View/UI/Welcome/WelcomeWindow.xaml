@@ -66,8 +66,8 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid  Background="#CC3296FF"  Grid.Row="0" >
-                    <Grid.RowDefinitions>
+                <Grid  Background="#CC3296FF"  Grid.Row="0" Height="300">
+                    <!--<Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -80,11 +80,10 @@
                             <TextBox BorderBrush="Transparent" BorderThickness="0" VerticalContentAlignment="Center" TextAlignment="Left" x:Name="tbUrl"  Background="Transparent"  Foreground="White" FontSize="16" CaretBrush="White" />
                         </Border>
                         <Border Grid.Column="1" BorderBrush="#f0f0f0" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Height="36" >
-                            <TextBlock  TextAlignment="Center" Width="130" VerticalAlignment="Center" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="开始" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
+                            <Image Source="../../../View/Resources/Image/search.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1"/>
                         </Border>
                     </Grid>
-                    <WrapPanel Margin="30,20,30,0" Name="wpLeft" Grid.Row="1"/>
-                    <!--<TextBlock Text="Matrix" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"  Width="300" Background="Transparent" FontSize="18" Foreground="White"/>-->
+                    <WrapPanel Margin="30,20,30,0" Name="wpLeft" Grid.Row="1"/>-->
                 </Grid>
                 <Grid Grid.Row="1"  ClipToBounds="True">
                     <Grid.ColumnDefinitions>

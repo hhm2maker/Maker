@@ -145,8 +145,8 @@ namespace Maker.Model
                     (ListBoxData as ObservableCollection<dynamic>).Add(Texts[i].Value);
                 }
             }
-            if(StaticConstant.mw.playuc.ip != null)
-                StaticConstant.mw.playuc.ip.PlayIntLight(NowData[LiTime[NowTimePoint - 1]]);
+            if(StaticConstant.mw.projectUserControl.playuc.ip != null)
+                StaticConstant.mw.projectUserControl.playuc.ip.PlayIntLight(NowData[LiTime[NowTimePoint - 1]]);
         }
 
         /// <summary>

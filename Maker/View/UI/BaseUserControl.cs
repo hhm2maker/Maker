@@ -186,11 +186,11 @@ namespace Maker.View
                 {
                     Header = filePath,
                 };
-                item.ContextMenu = mw.contextMenu;
-                mw.lbFile.Items.Add(item);
+                item.ContextMenu = mw.projectUserControl.contextMenu;
+                mw.projectUserControl.lbFile.Items.Add(item);
                 item.IsSelected = true;
             }
-            mw.suc.InitMyContent();
+            mw.projectUserControl.suc.InitMyContent();
         }
         /// <summary>
         /// 创建文件
