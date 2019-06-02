@@ -82,21 +82,12 @@ namespace Maker.View.UI
         {
             XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
         }
-     
-
-        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewMainWindow mw = new NewMainWindow();
             mw.Show();
         }
-
-        private void ToAppreciateWindow(object sender, MouseButtonEventArgs e)
-        {
-            ShowMakerDialog(new AppreciateDialog(this));
-        }
-
 
         private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
         {
@@ -145,9 +136,7 @@ namespace Maker.View.UI
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
             gMost.Children.RemoveAt(gMost.Children.Count - 1);
         }
-       
     
-
        
 
         private void ToHelpOverview(object sender, RoutedEventArgs e)

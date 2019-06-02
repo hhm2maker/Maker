@@ -1052,7 +1052,7 @@ namespace Maker.View.LightUserControl
 
         private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.9;
+            Width = mw.ActualWidth ;
             Height = mw.gMost.ActualHeight;
         }
 

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.Project"
              mc:Ignorable="d" 
-             Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded"
+             >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,7 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Name="gRight" Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" >
+    <Grid Name="gRight" HorizontalAlignment="Stretch" >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -60,7 +61,17 @@
                 <Image  Source="../../../View/Resources/Image/refresh.png" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" Width="25" Margin="0,0,10,0" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Right" VerticalAlignment="Center" />
                 <Rectangle Width="70" Name="rFile" Height="3" Grid.Row="1" Fill="White" HorizontalAlignment="Left"/>
                 <Border BorderThickness="0,1,0,0" Grid.Row="2" BorderBrush="#555555" >
-                    <ListBox Margin="0,20,0,0" Name="lbFile" Style="{DynamicResource ListBoxStyle1}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  />
+                    <ListBox Margin="0,20,0,0" Name="lbFile" AlternationCount="2" Style="{DynamicResource ListBoxStyle2}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  >
+                        <!--<ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Style.Triggers>
+                                    <Trigger Property="ListView.AlternationIndex" Value="1">
+                                        <Setter Property="Background" Value="LightBlue"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>-->
+                    </ListBox>
                 </Border>
             </Grid>
             <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">

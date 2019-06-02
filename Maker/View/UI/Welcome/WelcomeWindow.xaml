@@ -159,16 +159,6 @@
                                     <TextBlock TextWrapping="Wrap" Text="查看颜色表和位置表" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
                                 </Button.ToolTip>
                             </Button>
-                            <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}" Margin="15,15,15,0" Background="Transparent" >
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" MouseLeftButtonDown="ToAppreciateWindow">
-                                        <Image Source="../../../View/Resources/Image/appreciate.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
-                                    </StackPanel>
-                                </Button.Content>
-                                <Button.ToolTip>
-                                    <TextBlock TextWrapping="Wrap" Text="{DynamicResource Appreciate}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
-                                </Button.ToolTip>
-                            </Button>
                         </WrapPanel>
                     </Grid>
                 </Grid>

@@ -343,6 +343,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    
     <Style x:Key="EmptyButtonStyle" TargetType="Button">
         <Setter Property="Padding" Value="0"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

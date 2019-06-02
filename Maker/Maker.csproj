@@ -271,6 +271,9 @@
     <Compile Include="View\UI\Game\TestGameWindow.xaml.cs">
       <DependentUpon>TestGameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Help\AppreciateUserControl.xaml.cs">
+      <DependentUpon>AppreciateUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Project\ProjectUserControl.xaml.cs">
@@ -423,9 +426,6 @@
     </Compile>
     <Compile Include="View\UI\Dialog\TipDialog.xaml.cs">
       <DependentUpon>TipDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\UserControlDialog\AppreciateDialog.xaml.cs">
-      <DependentUpon>AppreciateDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Help\HelpOverviewWindow.xaml.cs">
       <DependentUpon>HelpOverviewWindow.xaml</DependentUpon>
@@ -671,6 +671,10 @@
     <Page Include="View\UI\Game\TestGameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Help\AppreciateUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Project\ProjectUserControl.xaml">
       <SubType>Designer</SubType>
@@ -951,10 +955,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\TipDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\UserControlDialog\AppreciateDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

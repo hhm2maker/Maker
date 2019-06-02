@@ -24,6 +24,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Maker.View.UI.Search;
 using Maker.View.UI.Project;
+using Maker.View.UI.Help;
+using System.Windows.Shapes;
 
 namespace Maker
 {
@@ -48,6 +50,7 @@ namespace Maker
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
         }
 
+        private int lastSelectIndex = -1;
         private void InitProject()
         {
             List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
@@ -55,7 +58,36 @@ namespace Maker
             {
                 strs[i] = strs[i];
             }
-            GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
+            //GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
+
+            for(int i = 0;i<strs.Count;i++) {
+                StackPanel sp = new StackPanel();
+                sp.Orientation = Orientation.Horizontal;
+
+                Rectangle rect = new Rectangle();
+                rect.Width = 3;
+                rect.Fill = new SolidColorBrush(Color.FromRgb(54,59,64));
+                sp.Children.Add(rect);
+
+                TextBlock tb = new TextBlock();
+                tb.Margin = new Thickness(10,5,0,5);
+                tb.Text = strs[i];
+                tb.FontSize = 18;
+                tb.Foreground = new SolidColorBrush(Color.FromRgb(184,191,198));
+                sp.Children.Add(tb);
+                lbProject.Items.Add(sp);
+
+                if (strs[i].Equals(projectConfigModel.Path))
+                {
+                    rect.Visibility = Visibility.Visible;
+                    lastSelectIndex = i;
+                    lbProject.SelectedIndex = i;
+                }
+                else
+                {
+                    rect.Visibility = Visibility.Hidden;
+                }
+            }
         }
        
         private void Window_Closed(object sender, EventArgs e)
@@ -315,15 +347,26 @@ namespace Maker
 
         private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbProject.SelectedIndex == -1 || lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
-            {
-                return;
+            if (gRight.Children.Count != 0) {
+                if (lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
+                {
+                    return;
+                }
             }
+            if (lbProject.SelectedIndex == -1)
+                return;
 
-            projectConfigModel.Path = lbProject.SelectedItem.ToString().Trim();
+            if (lastSelectIndex != -1) {
+                ((lbProject.Items[lastSelectIndex] as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Hidden;
+            }
+            ((lbProject.SelectedItem as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Visible;
+            lastSelectIndex = lbProject.SelectedIndex;
+
+            projectConfigModel.Path = ((lbProject.SelectedItem as StackPanel).Children[1] as TextBlock).Text.Trim();
 
             bridge.SaveFile();
 
+            SetRightUserControl(projectUserControl);
             projectUserControl.suc.HideControl();
             projectUserControl.RefreshFile();
         }
@@ -633,10 +676,6 @@ namespace Maker
             }
         }
 
-     
-
-      
-
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NewProject();
@@ -644,7 +683,17 @@ namespace Maker
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            gRight.Children.Add(new SearchUserControl(this));
+            SetRightUserControl(new SearchUserControl(this));
+        }
+
+        private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            SetRightUserControl(new AppreciateUserControl());
+        }
+
+        private void SetRightUserControl(UserControl rightUserControl) {
+            gRight.Children.Clear();
+            gRight.Children.Add(rightUserControl);
         }
     }
 }

@@ -51,20 +51,20 @@
                             </Grid.RowDefinitions>
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                                 <StackPanel >
-                                    <Image MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" HorizontalAlignment="Left" Margin="10" Source="View/Resources/Image/open.png" Width="30"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
-                                    <StackPanel Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <Image HorizontalAlignment="Left" Margin="15" Source="View/Resources/Image/open.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
+                                    <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                                         <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#72787d"  Margin="10"/>
                                     </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
+                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                                         <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#72787d"  Margin="10"/>
                                     </StackPanel>
-                                    <DockPanel>
-                                      <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10,30,10,10"/>
+                                    <DockPanel Margin="0,20,0,0">
+                                      <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10"/>
                                       <Image MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10" Source="View/Resources/Image/add_dark.png" Width="30"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
                                   </DockPanel>
-                                  <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Style="{DynamicResource ListBoxStyle1}"  Background="Transparent" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
+                                  <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Style="{DynamicResource ListBoxStyle1}" Padding="-3,0,0,0" Background="Transparent" BorderThickness="0" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
                                 </StackPanel>
                             </ScrollViewer>
                             <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
@@ -75,7 +75,6 @@
                             </Border>
                         </Grid>
                         <Grid Name="gRight" Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" />
-
                     </Grid>
                 </Grid>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Maker.View.UI.Help.AppreciateUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.Help"
+             mc:Ignorable="d" 
+             VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+             >
+    <UserControl.Effect>
+        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+    </UserControl.Effect>
+    <StackPanel Orientation="Vertical" >
+        <TextBlock Text="{DynamicResource Appreciate}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
+        <Grid Height="375" Width="500" Margin="30,0,30,30" VerticalAlignment="Center" >
+            <Border Name="bMain" CornerRadius="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#ffe588" Offset="0"/>
+                        <GradientStop Color="#ff6ab0" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="{DynamicResource Appreciate}" Margin="20" Foreground="White" Width="150" TextAlignment="Center" FontSize="20"/>
+            </Border>
+            <StackPanel Name="spMain"  Visibility="Collapsed" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Image Source="..\..\Resources\Image\alipay.png" Width="250" Height="375" />
+                <Image Source="..\..\Resources\Image\wxpay.png" Width="250" Height="375" />
+            </StackPanel>
+        </Grid>
+
+    </StackPanel>
+</UserControl>
