@@ -70,9 +70,9 @@ namespace Maker
                 sp.Children.Add(rect);
 
                 TextBlock tb = new TextBlock();
-                tb.Margin = new Thickness(10,5,0,5);
+                tb.Margin = new Thickness(10,10,0,10);
                 tb.Text = strs[i];
-                tb.FontSize = 18;
+                tb.FontSize = 17;
                 tb.Foreground = new SolidColorBrush(Color.FromRgb(184,191,198));
                 sp.Children.Add(tb);
                 lbProject.Items.Add(sp);
@@ -347,21 +347,21 @@ namespace Maker
 
         private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (gRight.Children.Count != 0) {
+            if (gRight.Children.Count != 0 && lbProject.SelectedIndex != -1) {
                 if (lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
                 {
                     return;
                 }
             }
-            if (lbProject.SelectedIndex == -1)
-                return;
-
             if (lastSelectIndex != -1) {
                 ((lbProject.Items[lastSelectIndex] as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Hidden;
             }
-            ((lbProject.SelectedItem as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Visible;
+           
             lastSelectIndex = lbProject.SelectedIndex;
 
+            if (lbProject.SelectedIndex == -1)
+                return;
+            ((lbProject.SelectedItem as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Visible;
             projectConfigModel.Path = ((lbProject.SelectedItem as StackPanel).Children[1] as TextBlock).Text.Trim();
 
             bridge.SaveFile();
@@ -631,10 +631,7 @@ namespace Maker
             }
             isOpeningSettingControl = false;
         }
-
        
-
-
         [StructLayout(LayoutKind.Sequential)]
         public struct CopyDataStruct
         {
@@ -683,15 +680,36 @@ namespace Maker
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
+            spSearch.Children[0].Visibility = Visibility.Visible;
+            spAppreciate.Children[0].Visibility = Visibility.Hidden;
+            spSearch.Background = new SolidColorBrush(Color.FromRgb(34,35, 38));
+            spAppreciate.Background = new SolidColorBrush(Colors.Transparent);
             SetRightUserControl(new SearchUserControl(this));
+
         }
 
         private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
+            spSearch.Children[0].Visibility = Visibility.Hidden;
+            spAppreciate.Children[0].Visibility = Visibility.Visible;
+            spAppreciate.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
+            spSearch.Background = new SolidColorBrush(Colors.Transparent);
             SetRightUserControl(new AppreciateUserControl());
         }
 
         private void SetRightUserControl(UserControl rightUserControl) {
+
+            if (rightUserControl == projectUserControl)
+            {
+                spSearch.Children[0].Visibility = Visibility.Hidden;
+                spAppreciate.Children[0].Visibility = Visibility.Hidden;
+
+                spAppreciate.Background = new SolidColorBrush(Colors.Transparent);
+                spSearch.Background = new SolidColorBrush(Colors.Transparent);
+            }
+            else {
+                lbProject.SelectedIndex = -1;
+            }
             gRight.Children.Clear();
             gRight.Children.Add(rightUserControl);
         }

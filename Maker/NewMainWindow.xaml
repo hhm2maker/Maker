@@ -50,15 +50,17 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                                <StackPanel >
+                                <StackPanel>
                                     <Image HorizontalAlignment="Left" Margin="15" Source="View/Resources/Image/open.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
-                                    <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                                        <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#72787d"  Margin="10"/>
+                                    <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
+                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
                                     </StackPanel>
-                                    <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
-                                        <Image DockPanel.Dock="Right" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                                        <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#72787d"  Margin="10"/>
+                                    <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
+                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
+                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                                        <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
                                     </StackPanel>
                                     <DockPanel Margin="0,20,0,0">
                                       <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10"/>
