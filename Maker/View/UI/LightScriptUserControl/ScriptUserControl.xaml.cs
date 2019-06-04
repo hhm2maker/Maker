@@ -41,10 +41,13 @@ namespace Maker.View.LightScriptUserControl
 
         private ScriptUserControlBridge bridge;
 
-        public ScriptUserControl(NewMainWindow nmw)
+        public ScriptUserControl(NewMainWindow mw)
         {
             InitializeComponent();
-            mw = nmw;
+            this.mw = mw;
+
+            Width = mw.ActualWidth;
+            Height = mw.ActualHeight;
 
             mainView = gMain_;
             HideControl();
@@ -93,7 +96,11 @@ namespace Maker.View.LightScriptUserControl
             //svMainBottom.Visibility = Visibility.Visible;
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
+
+            sw = new StyleWindow(mw);
+            gRight.Children.Add(sw);
         }
+        private StyleWindow sw;
 
         /// <summary>
         /// 第三方插件列表
@@ -215,6 +222,9 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<string, List<int>> rangeDictionary = new Dictionary<string, List<int>>();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            Width = mw.ActualWidth;
+            Height = mw.gMost.ActualHeight;
+
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)));
             LoadRangeFile();
 
@@ -2864,6 +2874,9 @@ namespace Maker.View.LightScriptUserControl
                 _bridge.UpdateForColor(mBlockLightList, true);
                 //TODO:
                 //spStepControl.ToolTip = null;
+
+                //更新右侧Style
+                sw.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             }
         }
         private void AddStepControlToolTip()

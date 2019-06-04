@@ -323,36 +323,37 @@ namespace Maker.View.UI.Project
         {
             String fileName = (sender as ListBoxItem).Content.ToString();
             BaseUserControl baseUserControl = null;
-            if (!fileName.EndsWith(".lightScript"))
+
+            if (fileName.EndsWith(".mid"))
             {
-                if (fileName.EndsWith(".mid"))
+                IntoUserControl(0);
+            }
+            else
+            {
+                for (int i = 0; i < userControls.Count; i++)
                 {
-                    IntoUserControl(0);
-                }
-                else
-                {
-                    for (int i = 0; i < userControls.Count; i++)
+                    if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        if (fileName.EndsWith(userControls[i]._fileExtension))
-                        {
-                            IntoUserControl(i);
-                            break;
-                        }
+                        IntoUserControl(i);
+                        break;
                     }
                 }
+            }
 
-                if (mw.cMost.Children.Count == 0)
-                    return;
-                //是否是制作灯光的用户控件
-                baseUserControl = mw.cMost.Children[0] as BaseUserControl;
-                mw.cMost.Visibility = Visibility.Visible;
+            if (mw.cMost.Children.Count == 0)
+                return;
+            //是否是制作灯光的用户控件
+            baseUserControl = mw.cMost.Children[0] as BaseUserControl;
+            mw.cMost.Visibility = Visibility.Visible;
+            if (!fileName.EndsWith(".lightScript"))
+            {
+             
             }
             else
             {
                 //关闭文件选择器
                 //CloseFileControl();
-
-                baseUserControl = mw.gCenter.Children[0] as BaseUserControl;
+                //baseUserControl = mw.gCenter.Children[0] as BaseUserControl;
                 selectedItem = sender as ListBoxItem;
 
                 if (baseUserControl.filePath.Equals(mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName))
@@ -361,7 +362,6 @@ namespace Maker.View.UI.Project
                 {
                     (baseUserControl as ScriptUserControl)._bIsEdit = false;
                 }
-
             }
             baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);

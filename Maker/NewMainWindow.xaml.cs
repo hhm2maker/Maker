@@ -367,7 +367,7 @@ namespace Maker
             bridge.SaveFile();
 
             SetRightUserControl(projectUserControl);
-            projectUserControl.suc.HideControl();
+            //projectUserControl.suc.HideControl();
             projectUserControl.RefreshFile();
         }
 

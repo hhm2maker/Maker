@@ -13,7 +13,9 @@
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
-            >
+            Background="#1c1a1c"
+    SizeChanged="DockPanel_SizeChanged"
+    >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,6 +36,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="535" MinWidth="535"/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" Background="#1c1a1c">
@@ -401,7 +404,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
-                    <StackPanel Background="#1c1a1c" Margin="0,55,0,0" SizeChanged="DockPanel_SizeChanged" x:Name="dpShow" >
+                    <StackPanel Background="#1c1a1c" Margin="0,55,0,0" x:Name="dpShow" >
                         <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <launchpad:LaunchpadPro x:Name="mLaunchpad" Margin="0,20,0,20" DockPanel.Dock="Top"   HorizontalAlignment="Center"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
@@ -450,6 +453,9 @@
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
                 </StackPanel>
             </ScrollViewer>-->
+                </Grid>
+                <Grid Name="gRight" Grid.Column="3">
+                   
                 </Grid>
             </Grid>
             <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
