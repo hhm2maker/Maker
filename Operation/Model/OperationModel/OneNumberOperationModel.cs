@@ -8,6 +8,13 @@ namespace Maker.Business.Model.OperationModel
 {
     public class OneNumberOperationModel : BaseOperationModel
     {
+        public enum NumberType 
+        {
+            POSITION = 0,
+            COLOR = 1,
+            OTHER = 2,
+        }
+
         public String Identifier
         {
             get;
@@ -26,17 +33,25 @@ namespace Maker.Business.Model.OperationModel
             set;
         }
 
+        public NumberType MyNumberType
+        {
+            get;
+            set;
+        }
+
         public OneNumberOperationModel()
         {
 
         }
 
-        public OneNumberOperationModel(String identifier, int number,String hintKeyword)
+        public OneNumberOperationModel(String identifier, int number,String hintKeyword, NumberType numberType)
         {
             Identifier = identifier;
             Number = number;
             HintKeyword = hintKeyword;
+            MyNumberType = numberType;
         }
+
 
     }
 }

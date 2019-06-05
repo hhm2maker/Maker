@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Maker.View.UI.Style.Child
 {
@@ -18,8 +19,15 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             AddTopHintTextBlock(oneNumberOperationModel.HintKeyword);
             AddTextBox();
-            CreateDialog(200, 100);
+            Slider slider = new Slider();
+            slider.Background = new SolidColorBrush(Colors.Red);
+            slider.Width = 100;
+            slider.Height = 100;
+            AddUIElement(slider);
+            CreateDialog(200, 200);
             tbNumber = Get(1) as TextBox;
+        
+            
 
             tbNumber.Text = oneNumberOperationModel.Number.ToString();
         }

@@ -586,7 +586,7 @@ namespace Operation
 
             int max = LightBusiness.GetMax(this);
             List<Light> mLl = new List<Light>();
-            for (int i = 28; i <= 123; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int nowTime = 0;
                 for (int j = 0; j < Count; j++)

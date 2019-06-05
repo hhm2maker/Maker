@@ -234,6 +234,7 @@ namespace Maker.View.Style
 
         public void SetData(List<BaseOperationModel> operationModels,bool isNew)
         {
+            lbCatalog.Items.Clear();
             SetData(operationModels);
             if (isNew) {
                 //是新增的

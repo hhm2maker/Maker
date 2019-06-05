@@ -232,6 +232,20 @@ namespace Operation
                                 oneNumberOperationModel.Number = iNumber;
                             }
                         }
+                        if (xEdit.Name.ToString().Equals("FillColor")){
+                            oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.COLOR;
+                        }
+                        else if (xEdit.Name.ToString().Equals("SetAllTime")){
+                            oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.OTHER;
+                        }
+                        else if (xEdit.Name.ToString().Equals("MatchTotalTimeLattice"))
+                        {
+                            oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.OTHER;
+                        }
+                        else if (xEdit.Name.ToString().Equals("Animation.Windmill"))
+                        {
+                            oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.OTHER;
+                        }
                         oneNumberOperationModel.HintKeyword = xEdit.Attribute("hintKeyword").Value;
                         scriptModel.OperationModels.Add(oneNumberOperationModel);
                     }

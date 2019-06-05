@@ -4245,7 +4245,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnMatchTime)
                 {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon"));
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon",OneNumberOperationModel.NumberType.OTHER));
                 }
                 if (sender == btnInterceptTime)
                 {
@@ -4257,7 +4257,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnFillColor)
                 {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon"));
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon",OneNumberOperationModel.NumberType.COLOR));
                 }
                 if (sender == btnChangeColorYellow)
                 {
@@ -4318,7 +4318,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetStartTime)
                 {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon"));
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon",OneNumberOperationModel.NumberType.OTHER));
                 }
                 if (sender == btnSetEndTime)
                 {
@@ -4326,7 +4326,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnSetAllTime)
                 {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon"));
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon",OneNumberOperationModel.NumberType.OTHER));
                 }
                 if (sender == btnDisappear)
                 {
@@ -4334,7 +4334,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnWindmill)
                 {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon"));
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon", OneNumberOperationModel.NumberType.OTHER));
                 }
                 if (sender == btnCopyToTheEnd)
                 {
@@ -4370,9 +4370,9 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.OperationModels.Add(new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll));
                 }
 
-                StyleWindow style = new StyleWindow(mw);
-                style.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
-                mw.AddSetting(style);
+                //StyleWindow style = new StyleWindow(mw);
+                sw.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
+                //mw.AddSetting(style);
             }
             //Test();
         }
