@@ -19,15 +19,49 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             AddTopHintTextBlock(oneNumberOperationModel.HintKeyword);
             AddTextBox();
-            Slider slider = new Slider();
-            slider.Background = new SolidColorBrush(Colors.Red);
-            slider.Width = 100;
-            slider.Height = 100;
-            AddUIElement(slider);
-            CreateDialog(200, 200);
-            tbNumber = Get(1) as TextBox;
-        
             
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Horizontal;
+
+            tbNumber = new TextBox();
+            tbNumber.FontSize = 16;
+            tbNumber.Width = 50;
+            tbNumber.Background = null;
+            tbNumber.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            sp.Margin = new Thickness(0, 10, 0, 0);
+
+            if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.COLOR)
+            {
+                Slider slider = new Slider();
+                slider.Width = 150;
+                slider.VerticalAlignment = VerticalAlignment.Center;
+                slider.Minimum = 1;
+                slider.Value = oneNumberOperationModel.Number;
+                slider.Maximum = 255;
+                sp.Children.Add(slider);
+
+            }
+            else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.POSITION)
+            {
+                Slider slider = new Slider();
+                slider.Width = 150;
+                slider.VerticalAlignment = VerticalAlignment.Center;
+                slider.Minimum = 0;
+                slider.Maximum = 99;
+                slider.Value = oneNumberOperationModel.Number;
+
+                sp.Children.Add(slider);
+
+            }
+            else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.OTHER)
+            {
+                tbNumber.Width = 200;
+            }
+
+            sp.Children.Add(tbNumber);
+
+            AddUIElement(sp);
+            CreateDialog(200, 200);
 
             tbNumber.Text = oneNumberOperationModel.Number.ToString();
         }
