@@ -9,12 +9,11 @@ namespace Maker.View.Style.Child
 {
     public class BaseSettingUserControl : UserControl
     {
-        public void CreateDialog(double width, double height)
+        public void CreateDialog()
         {
             AddParentPanel();
             SetRoutine();
             AddUIToDialog();
-            SetSize(width, height);
         }
 
         private void AddParentPanel()

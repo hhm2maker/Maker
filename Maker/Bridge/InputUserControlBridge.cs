@@ -500,6 +500,8 @@ namespace Maker.Bridge
         {
             int[] x = dic[liTime[nowTimePoint - 1]];
 
+            iuc.mLaunchpadData.Clear();
+
             for (int i = 0; i < x.Count(); i++)
             {
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
@@ -508,6 +510,7 @@ namespace Maker.Bridge
                     continue;
                 }
                 (iuc.mLaunchpad.GetButton(i) as Shape).Fill = StaticConstant.brushList[x[i]];
+                iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
             }
 
             if (nowTimePoint == 1)

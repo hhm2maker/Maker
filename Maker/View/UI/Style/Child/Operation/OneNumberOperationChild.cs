@@ -1,4 +1,6 @@
-﻿using Maker.Business.Model.OperationModel;
+﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
+using Maker.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace Maker.View.UI.Style.Child
             this.oneNumberOperationModel = oneNumberOperationModel;
             //构建对话框
             AddTopHintTextBlock(oneNumberOperationModel.HintKeyword);
-            AddTextBox();
+            //AddTextBox();
             
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
@@ -36,10 +38,12 @@ namespace Maker.View.UI.Style.Child
                 slider.Width = 150;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 1;
+                slider.Maximum = 127;
                 slider.Value = oneNumberOperationModel.Number;
-                slider.Maximum = 255;
+                slider.LargeChange = 5;
+                slider.SmallChange = 1;
+                slider.ValueChanged += Slider_ValueChanged;
                 sp.Children.Add(slider);
-
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.POSITION)
             {
@@ -49,7 +53,9 @@ namespace Maker.View.UI.Style.Child
                 slider.Minimum = 0;
                 slider.Maximum = 99;
                 slider.Value = oneNumberOperationModel.Number;
-
+                slider.LargeChange = 5;
+                slider.SmallChange = 1;
+                slider.ValueChanged += Slider_ValueChanged;
                 sp.Children.Add(slider);
 
             }
@@ -61,9 +67,24 @@ namespace Maker.View.UI.Style.Child
             sp.Children.Add(tbNumber);
 
             AddUIElement(sp);
-            CreateDialog(200, 200);
+            CreateDialog();
 
             tbNumber.Text = oneNumberOperationModel.Number.ToString();
+        }
+
+        private  void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Refresh(new Object[] { sender});
+        }
+
+        public override void Refresh(Object[] obj)
+        {
+            StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
+            for (int i = 0; i < mData.Count; i++)
+            {
+                mData[i].Color = (int)(obj[0] as Slider).Value;
+            }
+            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(mData);
         }
 
         public TextBox tbNumber;
@@ -81,5 +102,7 @@ namespace Maker.View.UI.Style.Child
                 return false;
             }
         }
+
+        
     }
 }

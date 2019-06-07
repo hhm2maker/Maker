@@ -20,7 +20,7 @@ namespace Maker.View.UI.Style.Child
             AddTextBox();
             AddTopHintTextBlock("EndColon");
             AddTextBox();
-            CreateDialog(200, 200);
+            CreateDialog();
             tbStart = Get(1) as TextBox;
             tbEnd = Get(3) as TextBox;
 

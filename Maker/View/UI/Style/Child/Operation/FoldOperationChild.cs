@@ -22,7 +22,7 @@ namespace Maker.View.UI.Style.Child
             AddTextBox();
             AddTopHintTextBlock("SpanColon");
             AddTextBox();
-            CreateDialog(200, 300);
+            CreateDialog();
             cbOrientation = Get(1) as ComboBox;
             tbStartPosition = Get(3) as TextBox;
             tbSpan = Get(5) as TextBox;

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Maker.View.UI.Style.Child
 {
@@ -19,7 +20,7 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             AddTopHintTextBlock(changeColorOperationModel.HintString);
             AddTextBox();
-            CreateDialog(200, 200);
+            CreateDialog();
             tbColors = Get(1) as TextBox;
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < changeColorOperationModel.Colors.Count; i++) {

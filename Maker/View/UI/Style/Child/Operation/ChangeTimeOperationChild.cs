@@ -20,7 +20,7 @@ namespace Maker.View.UI.Style.Child
             AddComboBox(new List<string>() { "Extend", "Shorten" }, null);
             AddTopHintTextBlock("PolyploidyColon");
             AddTextBox();
-            CreateDialog(200, 200);
+            CreateDialog();
             cbOperation = Get(1) as ComboBox;
             tbPolyploidy = Get(3) as TextBox;
 

@@ -100,7 +100,7 @@ namespace Maker.View.LightScriptUserControl
             sw = new StyleWindow(mw);
             gRight.Children.Add(sw);
         }
-        private StyleWindow sw;
+        public StyleWindow sw;
 
         /// <summary>
         /// 第三方插件列表
@@ -1700,6 +1700,17 @@ namespace Maker.View.LightScriptUserControl
                 iRedo.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/redo_gray.png", UriKind.RelativeOrAbsolute));
             }
         }
+
+        public void Test(String stepName,int position)
+        {
+            Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
+            foreach (var item in this.scriptModelDictionary) {
+                scriptModelDictionary.Add(item.Key,item.Value);
+            }
+            scriptModelDictionary[stepName].OperationModels.RemoveAt(position);
+            
+            bridge.GetBlockResult(stepName);
+        }
         public void Test(String stepName)
         {
             bridge.GetBlockResult(stepName);
@@ -2701,6 +2712,9 @@ namespace Maker.View.LightScriptUserControl
             TextBlock blockStepName = (TextBlock)panel.Children[1];
             return blockStepName.Text;
         }
+
+        public List<Model.Light> mLaunchpadData = new List<Model.Light>();
+
         public void SetSize(double width, double height)
         {
             Width = width;

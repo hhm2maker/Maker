@@ -20,7 +20,7 @@ namespace Maker.View.UI.Style.Child
             AddComboBox(new List<string>() { "All", "End", "AllAndEnd" }, null);
             AddTopHintTextBlock("ValueColon");
             AddTextBox();
-            CreateDialog(200, 200);
+            CreateDialog();
             cbType = Get(1) as ComboBox;
             tbValue = Get(3) as TextBox;
 

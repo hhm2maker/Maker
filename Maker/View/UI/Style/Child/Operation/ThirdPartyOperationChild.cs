@@ -40,7 +40,8 @@ namespace Maker.View.UI.Style.Child
                     AddTextBox();
                 }
             }
-            CreateDialog(200, 50 * UICount);
+            CreateDialog();
+            ///CreateDialog(200, 50 * UICount);
 
             List<String> parameters = thirdPartyOperationModel.Parameters;
             int position = 0;

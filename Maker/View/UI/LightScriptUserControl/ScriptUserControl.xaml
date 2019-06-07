@@ -36,8 +36,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="535" MinWidth="535"/>
                     <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" Background="#1c1a1c">
                     <TabItem Width="150" BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >

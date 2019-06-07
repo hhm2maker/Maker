@@ -43,6 +43,17 @@ namespace Maker.Bridge
             view.mBlockLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(view.scriptModelDictionary,stepName)); 
         }
 
+        /// <summary>
+        /// 根据模型集合返回指定步骤名完整代码
+        /// </summary>
+        /// <param name="scriptModelDictionary"></param>
+        /// <returns></returns>
+        public void GetBlockResult(String stepName, Dictionary<String, ScriptModel> scriptModelDictionary)
+        {
+            view.mBlockLightList.Clear();
+            view.mBlockLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(scriptModelDictionary, stepName));
+        }
+
         public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce) {
             return ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce);
         }

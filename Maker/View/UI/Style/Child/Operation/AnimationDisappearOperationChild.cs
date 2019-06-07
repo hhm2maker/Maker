@@ -22,7 +22,7 @@ namespace Maker.View.UI.Style.Child
             AddTextBox();
             AddTopHintTextBlock("IntervalColon");
             AddTextBox();
-            CreateDialog(200, 300);
+            CreateDialog();
             cbType = Get(1) as ComboBox;
             tbStartTime = Get(3) as TextBox;
             tbInterval = Get(5) as TextBox;
