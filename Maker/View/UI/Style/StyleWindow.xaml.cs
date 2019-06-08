@@ -122,9 +122,12 @@ namespace Maker.View.Style
                 //}
             }       
         }
-       private List<BaseOperationModel> operationModels;
+       public List<BaseOperationModel> operationModels;
         public void SetData(List<BaseOperationModel> operationModels)
         {
+            lbCatalog.Items.Clear();
+            svMain.Children.Clear();
+
             this.operationModels = operationModels;
 
             foreach (var item in operationModels)

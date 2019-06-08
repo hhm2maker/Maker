@@ -510,7 +510,7 @@ namespace Maker.View.UI.Project
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SetSpFilePosition(0);
+            SetSpFilePosition(1);
         }
 
         private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)

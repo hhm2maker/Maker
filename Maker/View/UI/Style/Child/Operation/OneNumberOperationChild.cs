@@ -1,9 +1,11 @@
 ﻿using Maker.Business;
+using Maker.Business.Currency;
 using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,27 +17,27 @@ namespace Maker.View.UI.Style.Child
     public partial class OneNumberOperationChild : OperationStyle
     {
         private OneNumberOperationModel oneNumberOperationModel;
+        private Slider slider;
         public OneNumberOperationChild(OneNumberOperationModel oneNumberOperationModel)
         {
             this.oneNumberOperationModel = oneNumberOperationModel;
             //构建对话框
             AddTopHintTextBlock(oneNumberOperationModel.HintKeyword);
             //AddTextBox();
-            
-            StackPanel sp = new StackPanel();
-            sp.Orientation = Orientation.Horizontal;
 
-            tbNumber = new TextBox();
-            tbNumber.FontSize = 16;
-            tbNumber.Width = 50;
-            tbNumber.Background = null;
-            tbNumber.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            sp.Margin = new Thickness(0, 10, 0, 0);
+            Grid grid = new Grid();
+            //grid.HorizontalAlignment = HorizontalAlignment.Stretch;
+            ColumnDefinition columnDefinition = new ColumnDefinition();
+            columnDefinition.Width = new GridLength(1, GridUnitType.Star);
+            grid.ColumnDefinitions.Add(columnDefinition);
+            ColumnDefinition columnDefinition2 = new ColumnDefinition();
+            columnDefinition2.Width = GridLength.Auto;
+            grid.ColumnDefinitions.Add(columnDefinition2);
 
             if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.COLOR)
             {
-                Slider slider = new Slider();
-                slider.Width = 150;
+                slider = new Slider();
+               // slider.Width = 150;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 1;
                 slider.Maximum = 127;
@@ -43,12 +45,13 @@ namespace Maker.View.UI.Style.Child
                 slider.LargeChange = 5;
                 slider.SmallChange = 1;
                 slider.ValueChanged += Slider_ValueChanged;
-                sp.Children.Add(slider);
+                slider.Margin = new Thickness(0, 0, 20, 0);
+                grid.Children.Add(slider);
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.POSITION)
             {
-                Slider slider = new Slider();
-                slider.Width = 150;
+                slider = new Slider();
+               // slider.Width = 150;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 0;
                 slider.Maximum = 99;
@@ -56,36 +59,117 @@ namespace Maker.View.UI.Style.Child
                 slider.LargeChange = 5;
                 slider.SmallChange = 1;
                 slider.ValueChanged += Slider_ValueChanged;
-                sp.Children.Add(slider);
-
+                slider.Margin = new Thickness(0, 0, 20, 0);
+                grid.Children.Add(slider);
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.OTHER)
             {
                 tbNumber.Width = 200;
             }
 
-            sp.Children.Add(tbNumber);
-
-            AddUIElement(sp);
-            CreateDialog();
-
+            tbNumber = new TextBox();
+            tbNumber.FontSize = 16;
+            tbNumber.Width = 50;
+            tbNumber.LostFocus += TbNumber_LostFocus;
+            tbNumber.Background = null;
+            tbNumber.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             tbNumber.Text = oneNumberOperationModel.Number.ToString();
+
+            grid.Margin = new Thickness(0, 10, 0, 0);
+            if (slider != null) {
+                Grid.SetColumn(tbNumber, 0);
+            }
+            grid.Children.Add(tbNumber);
+            Grid.SetColumn(tbNumber, 1);
+
+            AddUIElement(grid);
+            CreateDialog();
         }
 
-        private  void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
         {
-            Refresh(new Object[] { sender});
+            if (int.TryParse((sender as TextBox).Text, out int num))
+            {
+                if (num == oneNumberOperationModel.Number)
+                    return;
+                if (slider != null)
+                {
+                    slider.Value = num;
+                }
+                else {
+                    oneNumberOperationModel.Number = num;
+                }
+            }
+            else {
+                tbNumber.Text = oneNumberOperationModel.Number.ToString();
+            }
         }
 
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int number = (int)(sender as Slider).Value;
+            tbNumber.Text = number.ToString();
+            Refresh(new Object[] { number });
+        }
+
+        List<Light> mDa = null;
         public override void Refresh(Object[] obj)
         {
-            StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
-            for (int i = 0; i < mData.Count; i++)
+            //oneNumberOperationModel.Number = (int)(obj[0] as Slider).Value;
+            //StaticConstant.mw.projectUserControl.suc.Test();
+            int color = (int)obj[0];
+            if (color == oneNumberOperationModel.Number)
+                return;
+
+            if (mDa == null)
             {
-                mData[i].Color = (int)(obj[0] as Slider).Value;
+                StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
+
+                List<int> times = LightBusiness.GetTimeList(mData);
+                int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
+                mDa = new List<Light>();
+                for (int i = 0; i < mData.Count; i++)
+                {
+                    if (mData[i].Time == times[position])
+                    {
+                        mDa.Add(new Light(mData[i].Time, mData[i].Action, mData[i].Position, mData[i].Color));
+                    }
+                }
             }
-            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(mData);
+
+            //Operation.LightGroup lg = OperationUtils.MakerLightToOperationLight(mDa);
+            //lg.FillColor((int)(obj[0] as Slider).Value);
+            //StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(OperationUtils.OperationLightToMakerLight(lg));
+            List<int> li = new List<int>();
+            List<Light> ll = new List<Light>();
+          
+
+            //真实数据同步
+            oneNumberOperationModel.Number = color;
+         
+
+            for (int i = 0; i < mDa.Count; i++)
+            {
+                li.Add(mDa[i].Position);
+                ll.Add(new Light(0, 144, mDa[i].Position, mDa[i].Color));
+            }
+            for (int i = 0; i < 100; i++)
+            {
+                if (!li.Contains(i))
+                {
+                    ll.Add(new Light(0, 144, i, color));
+                }
+            }
+            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(ll);
+            //LightBusiness.Print(OperationUtils.OperationLightToMakerLight(lg));
+            //for (int i = 0; i < mDa.Count; i++)
+            //{
+            //    mDa[i].Color = (int)(obj[0] as Slider).Value;
+            //}
+            //LightBusiness.Print(mDa);
         }
+
+
 
         public TextBox tbNumber;
 
@@ -103,6 +187,6 @@ namespace Maker.View.UI.Style.Child
             }
         }
 
-        
+
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Maker.Business.Model.OperationModel
 {
-   public class BaseOperationModel
+    [Serializable]
+    public class BaseOperationModel
     {
     }
 }

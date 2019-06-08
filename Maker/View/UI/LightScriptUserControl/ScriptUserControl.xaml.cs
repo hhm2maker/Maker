@@ -27,6 +27,9 @@ using Operation;
 using Maker.View.UI.UserControlDialog;
 using Maker.Business.Model;
 using static Maker.Business.Model.ThirdPartySetupsModel;
+using System.Linq.Expressions;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -98,6 +101,7 @@ namespace Maker.View.LightScriptUserControl
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
 
             sw = new StyleWindow(mw);
+            Grid.SetRow(sw, 0);
             gRight.Children.Add(sw);
         }
         public StyleWindow sw;
@@ -1703,14 +1707,85 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test(String stepName,int position)
         {
-            Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
-            foreach (var item in this.scriptModelDictionary) {
-                scriptModelDictionary.Add(item.Key,item.Value);
+            Dictionary<String, ScriptModel> _scriptModelDictionary = new Dictionary<string, ScriptModel>();
+            foreach (var item in scriptModelDictionary)
+            {
+                ScriptModel _scriptModel = ObjectCopier.Clone(item.Value);
+                _scriptModelDictionary.Add(item.Key, _scriptModel);
+
+                //ScriptModel ss = TransExpV2<ScriptModel, ScriptModel>.Trans(item.Value);
+                //_scriptModelDictionary.Add(item.Key, ss);
             }
-            scriptModelDictionary[stepName].OperationModels.RemoveAt(position);
-            
-            bridge.GetBlockResult(stepName);
+
+            _scriptModelDictionary[stepName].OperationModels.RemoveAt(position);
+            bridge.GetBlockResult(stepName, _scriptModelDictionary);
         }
+      
+
+        public static class ObjectCopier
+        {
+            /// <summary>
+            /// Perform a deep Copy of the object.
+            /// </summary>
+            /// <typeparam name="T">The type of object being copied.</typeparam>
+            /// <param name="source">The object instance to copy.</param>
+            /// <returns>The copied object.</returns>
+            public static T Clone<T>(T source)
+            {
+                if (!typeof(T).IsSerializable)
+                {
+                    throw new ArgumentException("The type must be serializable.", "source");
+                }
+
+                // Don't serialize a null object, simply return the default for that object
+                if (Object.ReferenceEquals(source, null))
+                {
+                    return default(T);
+                }
+
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new MemoryStream();
+                using (stream)
+                {
+                    formatter.Serialize(stream, source);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    return (T)formatter.Deserialize(stream);
+                }
+            }
+        }
+
+        public static class TransExpV2<TIn, TOut>
+        {
+
+            private static readonly Func<TIn, TOut> cache = GetFunc();
+            private static Func<TIn, TOut> GetFunc()
+            {
+                ParameterExpression parameterExpression = System.Linq.Expressions.Expression.Parameter(typeof(TIn), "p");
+                List<MemberBinding> memberBindingList = new List<MemberBinding>();
+
+                foreach (var item in typeof(TOut).GetProperties())
+                {
+                    if (!item.CanWrite)
+                        continue;
+
+                    MemberExpression property = System.Linq.Expressions.Expression.Property(parameterExpression, typeof(TIn).GetProperty(item.Name));
+                    MemberBinding memberBinding = System.Linq.Expressions.Expression.Bind(item, property);
+                    memberBindingList.Add(memberBinding);
+                }
+
+                MemberInitExpression memberInitExpression = System.Linq.Expressions.Expression.MemberInit(System.Linq.Expressions.Expression.New(typeof(TOut)), memberBindingList.ToArray());
+                Expression<Func<TIn, TOut>> lambda = System.Linq.Expressions.Expression.Lambda<Func<TIn, TOut>>(memberInitExpression, new ParameterExpression[] { parameterExpression });
+
+                return lambda.Compile();
+            }
+
+            public static TOut Trans(TIn tIn)
+            {
+                return cache(tIn);
+            }
+
+        }
+
         public void Test(String stepName)
         {
             bridge.GetBlockResult(stepName);
@@ -2878,14 +2953,15 @@ namespace Maker.View.LightScriptUserControl
         {
             if (lbStep.SelectedIndex == -1)
             {
-                _bridge.UpdateForColor(mLightList, false);
+                //_bridge.UpdateForColor(mLightList, false);
                 AddStepControlToolTip();
+                sw.lbCatalog.Items.Clear();
+                sw.svMain.Children.Clear();
             }
             else
             {
-
-                Test(GetStepName());
-                _bridge.UpdateForColor(mBlockLightList, true);
+                //Test(GetStepName());
+                //_bridge.UpdateForColor(mBlockLightList, true);
                 //TODO:
                 //spStepControl.ToolTip = null;
 
@@ -3935,7 +4011,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     xScript.SetAttributeValue("complement", "");
                 }
-
+         
                 foreach (var mItem in item.Value.OperationModels)
                 {
                     if (mItem is VerticalFlippingOperationModel)
@@ -4386,6 +4462,7 @@ namespace Maker.View.LightScriptUserControl
 
                 //StyleWindow style = new StyleWindow(mw);
                 sw.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
+                Test();
                 //mw.AddSetting(style);
             }
             //Test();
@@ -5151,6 +5228,12 @@ namespace Maker.View.LightScriptUserControl
             ThirdPartyModelsModel thirdPartyModelsModel = new ThirdPartyModelsModel();
             thirdPartyModelsModel.ThirdPartyModels = thirdPartys;
             XmlSerializerBusiness.Save(thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Test();
+            Console.WriteLine(sw.operationModels.Count);
         }
     }
 }

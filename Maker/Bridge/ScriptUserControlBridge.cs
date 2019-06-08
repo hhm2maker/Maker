@@ -50,8 +50,8 @@ namespace Maker.Bridge
         /// <returns></returns>
         public void GetBlockResult(String stepName, Dictionary<String, ScriptModel> scriptModelDictionary)
         {
-            view.mBlockLightList.Clear();
-            view.mBlockLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(scriptModelDictionary, stepName));
+            view.mLaunchpadData.Clear();
+            view.mLaunchpadData = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(scriptModelDictionary, stepName));
         }
 
         public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce) {

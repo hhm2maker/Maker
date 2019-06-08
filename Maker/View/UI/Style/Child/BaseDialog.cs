@@ -7,6 +7,7 @@ using System.Windows.Media;
 
 namespace Maker.View.Style.Child
 {
+    
     public class BaseSettingUserControl : UserControl
     {
         public void CreateDialog()

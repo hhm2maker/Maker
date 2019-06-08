@@ -454,8 +454,15 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Grid Name="gRight" Grid.Column="3">
-                   
+                <Grid Name="gRight" Grid.Column="3"  Background="#262829">
+                    <Grid.Effect>
+                        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+                    </Grid.Effect>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="1" Content="{DynamicResource Refresh}" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Button_Click" />
                 </Grid>
             </Grid>
             <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>

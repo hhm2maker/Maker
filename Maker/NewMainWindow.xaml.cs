@@ -99,10 +99,10 @@ namespace Maker
                 baseUserControl.SaveFile();
             }
 
-            if (!projectUserControl.userControls[3].filePath.Equals(String.Empty))
-            {
-                projectUserControl.userControls[3].SaveFile();
-            }
+            //if (!projectUserControl.userControls[3].filePath.Equals(String.Empty))
+            //{
+            //    projectUserControl.userControls[3].SaveFile();
+            //}
             bridge.Close();
 
             //将文本框中的值，发送给接收端
