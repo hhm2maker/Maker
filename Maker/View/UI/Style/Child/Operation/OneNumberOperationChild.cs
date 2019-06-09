@@ -108,31 +108,31 @@ namespace Maker.View.UI.Style.Child
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int number = (int)(sender as Slider).Value;
+            if (number == oneNumberOperationModel.Number)
+                return;
+            //真实数据同步
+            oneNumberOperationModel.Number = number;
+
             tbNumber.Text = number.ToString();
-            Refresh(new Object[] { number });
+            Refresh();
         }
 
-        List<Light> mDa = null;
-        public override void Refresh(Object[] obj)
+        public override void Refresh()
         {
-            //oneNumberOperationModel.Number = (int)(obj[0] as Slider).Value;
-            //StaticConstant.mw.projectUserControl.suc.Test();
-            int color = (int)obj[0];
-            if (color == oneNumberOperationModel.Number)
-                return;
+            int color = oneNumberOperationModel.Number;
 
-            if (mDa == null)
+            if (MyData == null)
             {
                 StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
 
-                List<int> times = LightBusiness.GetTimeList(mData);
+                List<int> times = LightBusiness.GetTimeList(NowData);
                 int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
-                mDa = new List<Light>();
-                for (int i = 0; i < mData.Count; i++)
+                MyData = new List<Light>();
+                for (int i = 0; i < NowData.Count; i++)
                 {
-                    if (mData[i].Time == times[position])
+                    if (NowData[i].Time == times[position])
                     {
-                        mDa.Add(new Light(mData[i].Time, mData[i].Action, mData[i].Position, mData[i].Color));
+                        MyData.Add(new Light(NowData[i].Time, NowData[i].Action, NowData[i].Position, NowData[i].Color));
                     }
                 }
             }
@@ -142,16 +142,12 @@ namespace Maker.View.UI.Style.Child
             //StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(OperationUtils.OperationLightToMakerLight(lg));
             List<int> li = new List<int>();
             List<Light> ll = new List<Light>();
-          
-
-            //真实数据同步
-            oneNumberOperationModel.Number = color;
          
 
-            for (int i = 0; i < mDa.Count; i++)
+            for (int i = 0; i < MyData.Count; i++)
             {
-                li.Add(mDa[i].Position);
-                ll.Add(new Light(0, 144, mDa[i].Position, mDa[i].Color));
+                li.Add(MyData[i].Position);
+                ll.Add(new Light(0, 144, MyData[i].Position, MyData[i].Color));
             }
             for (int i = 0; i < 100; i++)
             {
@@ -161,12 +157,6 @@ namespace Maker.View.UI.Style.Child
                 }
             }
             StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(ll);
-            //LightBusiness.Print(OperationUtils.OperationLightToMakerLight(lg));
-            //for (int i = 0; i < mDa.Count; i++)
-            //{
-            //    mDa[i].Color = (int)(obj[0] as Slider).Value;
-            //}
-            //LightBusiness.Print(mDa);
         }
 
 

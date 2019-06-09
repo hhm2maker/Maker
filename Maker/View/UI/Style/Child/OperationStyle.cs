@@ -13,13 +13,16 @@ namespace Maker.View.UI.Style.Child
 {
     public class OperationStyle : BaseSettingUserControl
     {
-        protected List<Light> mData {
+        protected List<Light> NowData {
             get {
                 return StaticConstant.mw.projectUserControl.suc.mLaunchpadData;
             }
         }
 
-        public virtual void Refresh(Object[] obj) {
+        protected List<Light> MyData;
+       
+
+        public virtual void Refresh() {
 
         }
 

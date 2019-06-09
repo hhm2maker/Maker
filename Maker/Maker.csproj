@@ -1294,7 +1294,9 @@
     <Resource Include="View\Resources\Image\playing.png" />
     <Resource Include="View\Resources\Image\plus.png" />
     <Resource Include="View\Resources\Image\question.png" />
-    <Resource Include="View\Resources\Image\record.png" />
+    <Resource Include="View\Resources\Image\record.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\remove.png" />
     <Resource Include="View\Resources\Image\right.png" />
     <Resource Include="View\Resources\Image\roundcornersheet.png" />
@@ -1676,6 +1678,9 @@
     <Resource Include="View\Resources\Image\add_light.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\reduce.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

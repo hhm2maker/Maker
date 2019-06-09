@@ -356,5 +356,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-
+    <!--<Style TargetType="ListBoxItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    </Style>-->
 </ResourceDictionary>
