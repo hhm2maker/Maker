@@ -1,4 +1,5 @@
-﻿using Maker.Business.Model.OperationModel;
+﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using System;
 using System.Collections.Generic;
@@ -139,16 +140,16 @@ namespace Maker.View.UI.Style.Child
             int position = lb.Items.IndexOf((slider.Parent as Grid));
 
             int number = (int)slider.Value;
+            if (number == changeColorOperationModel.Colors[position])
+                return;
+            //真实数据同步
+            changeColorOperationModel.Colors[position] = number;
             ((slider.Parent as Grid).Children[1] as TextBox).Text = number.ToString();
             Refresh();
         }
 
         public override void Refresh()
         {
-            int color = (int)obj[0];
-            if (color == oneNumberOperationModel.Number)
-                return;
-
             if (MyData == null)
             {
                 StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
@@ -164,29 +165,85 @@ namespace Maker.View.UI.Style.Child
                     }
                 }
             }
+            List<Light> nowLl = LightBusiness.Copy(MyData); 
 
+            List<int> geshihua = changeColorOperationModel.Colors;
+            List<Light> ll = LightBusiness.Copy(NowData);
 
-            List<int> li = new List<int>();
-            List<Light> ll = new List<Light>();
-
-
-            //真实数据同步
-            oneNumberOperationModel.Number = color;
-
-
-            for (int i = 0; i < MyData.Count; i++)
+            List<char> mColor = new List<char>();
+            for (int j = 0; j < ll.Count; j++)
             {
-                li.Add(MyData[i].Position);
-                ll.Add(new Light(0, 144, MyData[i].Position, MyData[i].Color));
-            }
-            for (int i = 0; i < 100; i++)
-            {
-                if (!li.Contains(i))
+                if (ll[j].Action == 144)
                 {
-                    ll.Add(new Light(0, 144, i, color));
+                    if (!mColor.Contains((char)ll[j].Color))
+                    {
+                        mColor.Add((char)ll[j].Color);
+                    }
                 }
             }
-            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(ll);
+            List<char> OldColorList = new List<char>();
+            List<char> NewColorList = new List<char>();
+            for (int i = 0; i < mColor.Count; i++)
+            {
+                OldColorList.Add(mColor[i]);
+                NewColorList.Add(mColor[i]);
+            }
+            //获取一共有多少种老颜色
+            int OldColorCount = mColor.Count;
+            if (OldColorCount == 0)
+            {
+                return;
+            }
+            int chuCount = OldColorCount / geshihua.Count;
+            int yuCount = OldColorCount % geshihua.Count;
+            List<int> meigeyanseCount = new List<int>();//每个颜色含有的个数
+
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                meigeyanseCount.Add(chuCount);
+            }
+            if (yuCount != 0)
+            {
+                for (int i = 0; i < yuCount; i++)
+                {
+                    meigeyanseCount[i]++;
+                }
+            }
+            List<int> yansefanwei = new List<int>();
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                int AllCount = 0;
+                if (i != 0)
+                {
+                    for (int j = 0; j < i; j++)
+                    {
+                        AllCount += meigeyanseCount[j];
+                    }
+                }
+                yansefanwei.Add(AllCount);
+            }
+            for (int i = 0; i < geshihua.Count; i++)
+            {
+                for (int j = yansefanwei[i]; j < yansefanwei[i] + meigeyanseCount[i]; j++)
+                {
+                    NewColorList[j] = (char)geshihua[i];
+                }
+            }
+            //给原颜色排序
+            OldColorList.Sort();
+
+            for (int k = 0; k < nowLl.Count; k++)
+            {
+                for (int l = 0; l < OldColorList.Count; l++)
+                {
+                    if (nowLl[k].Color == OldColorList[l])
+                    {
+                        nowLl[k].Color = NewColorList[l];
+                        break;
+                    }
+                }
+            }
+            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(nowLl);
         }
 
         private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)

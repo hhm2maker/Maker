@@ -689,23 +689,19 @@ namespace Operation
             }
             //给原颜色排序
             OldColorList.Sort();
-            //for (int i = 0; i < ll.Count; i++)
-            //{
+        
                 for (int k = 0; k < ll.Count; k++)
                 {
                     for (int l = 0; l < OldColorList.Count; l++)
                     {
-                        //if (ll[k].Action == 144 || ll[k].Action == 128)
-                        //{
+                     
                             if (ll[k].Color == OldColorList[l])
                             {
                                 ll[k].Color = NewColorList[l];
                                 break;
                             }
-                        //}
                     }
                 }
-            //}
             AddRange(ll);
         }
         /// <summary>
