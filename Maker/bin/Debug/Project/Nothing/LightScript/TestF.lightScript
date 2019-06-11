@@ -3,7 +3,7 @@
   <Scripts>
     <Script name="Step1" parent="" value="CUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUZyb21NaWRpRmlsZSgiYWFhLm1pZCIpOw==" visible="true" contain="Step1" intersection="" complement="">
       <FillColor number="73" hintKeyword="FillColorColon" />
-      <ChangeColor colors="3 5 17 43 58 70 66 72 58" />
+      <ChangeColor colors="18 21 5 4 52 80 113" />
     </Script>
   </Scripts>
   <Introduce></Introduce>
