@@ -130,29 +130,14 @@ namespace Maker.View.UI.Style.Child
             Refresh();
         }
 
-        public override void Refresh()
+        private List<char> mColor;
+        List<char> OldColorList = new List<char>();
+        List<char> NewColorList = new List<char>();
+
+        protected override void InitData()
         {
-            if (MyData == null)
-            {
-                StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
-
-                List<int> times = LightBusiness.GetTimeList(NowData);
-                int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
-                MyData = new List<Light>();
-                for (int i = 0; i < NowData.Count; i++)
-                {
-                    if (NowData[i].Time == times[position])
-                    {
-                        MyData.Add(new Light(NowData[i].Time, NowData[i].Action, NowData[i].Position, NowData[i].Color));
-                    }
-                }
-            }
-            List<Light> nowLl = LightBusiness.Copy(MyData); 
-
-            List<int> geshihua = changeColorOperationModel.Colors;
             List<Light> ll = LightBusiness.Copy(NowData);
-
-            List<char> mColor = new List<char>();
+            mColor = new List<char>();
             for (int j = 0; j < ll.Count; j++)
             {
                 if (ll[j].Action == 144)
@@ -163,13 +148,21 @@ namespace Maker.View.UI.Style.Child
                     }
                 }
             }
-            List<char> OldColorList = new List<char>();
-            List<char> NewColorList = new List<char>();
             for (int i = 0; i < mColor.Count; i++)
             {
                 OldColorList.Add(mColor[i]);
-                NewColorList.Add(mColor[i]);
+               
             }
+        }
+
+        public override void Refresh()
+        {
+            List<Light> nowLl = LightBusiness.Copy(MyData); 
+
+            List<int> geshihua = changeColorOperationModel.Colors;
+            NewColorList.AddRange(OldColorList.ToArray());
+
+
             //获取一共有多少种老颜色
             int OldColorCount = mColor.Count;
             if (OldColorCount == 0)

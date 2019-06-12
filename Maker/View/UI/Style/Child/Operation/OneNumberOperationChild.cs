@@ -121,22 +121,6 @@ namespace Maker.View.UI.Style.Child
         {
             int color = oneNumberOperationModel.Number;
 
-            if (MyData == null)
-            {
-                StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
-
-                List<int> times = LightBusiness.GetTimeList(NowData);
-                int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
-                MyData = new List<Light>();
-                for (int i = 0; i < NowData.Count; i++)
-                {
-                    if (NowData[i].Time == times[position])
-                    {
-                        MyData.Add(new Light(NowData[i].Time, NowData[i].Action, NowData[i].Position, NowData[i].Color));
-                    }
-                }
-            }
-
             //Operation.LightGroup lg = OperationUtils.MakerLightToOperationLight(mDa);
             //lg.FillColor((int)(obj[0] as Slider).Value);
             //StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(OperationUtils.OperationLightToMakerLight(lg));
