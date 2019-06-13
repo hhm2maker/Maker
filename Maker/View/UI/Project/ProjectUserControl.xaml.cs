@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace Maker.View.UI.Project
 {
@@ -321,7 +322,85 @@ namespace Maker.View.UI.Project
         private object selectedItem;
         private void Item_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            String fileName = (sender as ListBoxItem).Content.ToString();
+            ListBoxItem lbi = sender as ListBoxItem;
+            Point point = lbi.TranslatePoint(new Point(0,0),mw);
+            //Console.WriteLine(point.X+"---"+point.Y);
+            //Console.WriteLine(e.GetPosition(mw).X+"---"+ e.GetPosition(mw).Y);
+
+            mw.cMost.Visibility = Visibility.Visible;
+          
+
+            foo();
+            async void foo()
+            {
+                await Task.Delay(400);
+
+                Rectangle rectangle = new Rectangle();
+                rectangle.Fill = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+                rectangle.Width = lbi.ActualWidth;
+                rectangle.Height = lbi.ActualHeight;
+                Canvas.SetLeft(rectangle, point.X);
+                Canvas.SetTop(rectangle, point.Y);
+                mw.cMost.Children.Add(rectangle);
+
+                Storyboard storyboard = new Storyboard();
+                storyboard.Completed += Storyboard_Completed;
+                DoubleAnimation doubleAnimation = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                };
+                doubleAnimation.To = 0;
+                Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(Canvas.TopProperty));
+
+                //rectangle.BeginAnimation(Canvas.TopProperty, doubleAnimation);
+
+                DoubleAnimation doubleAnimation4 = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                };
+                doubleAnimation4.To = 0;
+                Storyboard.SetTargetProperty(doubleAnimation4, new PropertyPath(Canvas.LeftProperty));
+                //rectangle.BeginAnimation(Canvas.LeftProperty, doubleAnimation4);
+
+                DoubleAnimation doubleAnimation2 = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                };
+                doubleAnimation2.To = mw.ActualWidth;
+                Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath(Canvas.WidthProperty));
+                //rectangle.BeginAnimation(WidthProperty, doubleAnimation2);
+
+                DoubleAnimation doubleAnimation3 = new DoubleAnimation
+                {
+                    Duration = TimeSpan.FromMilliseconds(300),  //动画播放时间
+                };
+                doubleAnimation3.To = mw.ActualHeight;
+                Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath(Canvas.HeightProperty));
+                //rectangle.BeginAnimation(HeightProperty, doubleAnimation3);
+
+                storyboard.Children.Add(doubleAnimation);
+                storyboard.Children.Add(doubleAnimation2);
+                storyboard.Children.Add(doubleAnimation3);
+                storyboard.Children.Add(doubleAnimation4);
+                storyboard.Begin(rectangle);
+            }
+        }
+
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+            foo();
+            async void foo()
+            {
+                await Task.Delay(400);
+                if (lbFile.SelectedItem == null)
+                {
+                    mw.cMost.Children.RemoveAt(mw.cMost.Children.Count - 1);
+                    return;
+                }
+          
+            mw.cMost.Children.RemoveAt(mw.cMost.Children.Count-1);
+
+            String fileName = (lbFile.SelectedItem as ListBoxItem).Content.ToString();
             BaseUserControl baseUserControl = null;
 
             if (fileName.EndsWith(".mid"))
@@ -344,10 +423,10 @@ namespace Maker.View.UI.Project
                 return;
             //是否是制作灯光的用户控件
             baseUserControl = mw.cMost.Children[0] as BaseUserControl;
-            mw.cMost.Visibility = Visibility.Visible;
+
             if (!fileName.EndsWith(".lightScript"))
             {
-             
+
             }
             else
             {
@@ -368,6 +447,7 @@ namespace Maker.View.UI.Project
             if (baseUserControl is ScriptUserControl)
             {
                 (baseUserControl as ScriptUserControl).InitMyContent();
+            }
             }
         }
 
@@ -473,16 +553,16 @@ namespace Maker.View.UI.Project
             mw.cMost.Children.Clear();
             //载入新界面
             mw.cMost.Visibility = Visibility.Visible;
-            Canvas.SetLeft(userControls[index], mw.gMost.ActualWidth);
+            //Canvas.SetLeft(userControls[index], mw.gMost.ActualWidth);
             mw.cMost.Children.Add(userControls[index]);
 
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                From = mw.gMost.ActualWidth,
-                To = 0,
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            userControls[index].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+            //DoubleAnimation doubleAnimation = new DoubleAnimation()
+            //{
+            //    From = mw.gMost.ActualWidth,
+            //    To = 0,
+            //    Duration = TimeSpan.FromSeconds(0.5),
+            //};
+            //userControls[index].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
 
             //载入文件
             //LoadFileList();

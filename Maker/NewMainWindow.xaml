@@ -9,7 +9,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
-        Background="#1c1a1c"
+        Background="#FF28282B"
         Loaded="Window_Loaded"
         >
     <!--AllowsTransparency="True"

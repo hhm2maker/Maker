@@ -92,7 +92,7 @@ namespace Maker
        
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (cMost.Children.Count > 0)
+            if (cMost.Children.Count > 0 && cMost.Children[0] is BaseUserControl)
             {
                 //LoadFileList();
                 BaseUserControl baseUserControl = cMost.Children[0] as BaseUserControl;
