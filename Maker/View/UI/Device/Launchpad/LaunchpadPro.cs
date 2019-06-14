@@ -293,11 +293,11 @@ namespace Maker.View.Device
             {
                 pc = new PointCollection
             {
-                new Point(0 + 1, 0+ 1),
-                new Point(_blockWidth / 4 * 3 -1, 0+ 1),
-                new Point(_blockWidth -1, _blockWidth / 4 -1),
-                new Point(_blockWidth -1, _blockWidth -1),
-                new Point(0+ 1, _blockWidth -1 )
+                new Point(0 + _canvasSize / 600, 0 + _canvasSize / 600),
+                new Point(_blockWidth / 4 * 3 -_canvasSize / 600, 0+_canvasSize / 600),
+                new Point(_blockWidth -_canvasSize / 600, _blockWidth / 4 -_canvasSize / 600),
+                new Point(_blockWidth -_canvasSize / 600, _blockWidth -_canvasSize / 600),
+                new Point(0+ _canvasSize / 600, _blockWidth -_canvasSize / 600 )
             };
             }
             else
@@ -337,10 +337,10 @@ namespace Maker.View.Device
             {
                 pc = new PointCollection
             {
-                new Point(0+1, 0+1),
-                new Point(_blockWidth-1, 0+1),
-                new Point(_blockWidth-1, _blockWidth / 4 * 3-1),
-                new Point(_blockWidth / 4 * 3-1, _blockWidth-1),
+                new Point(0+_canvasSize / 600, 0+_canvasSize / 600),
+                new Point(_blockWidth-_canvasSize / 600, 0+_canvasSize / 600),
+                new Point(_blockWidth-_canvasSize / 600, _blockWidth / 4 * 3-_canvasSize / 600),
+                new Point(_blockWidth / 4 * 3-_canvasSize / 600, _blockWidth-_canvasSize / 600),
                 new Point(0+1, _blockWidth-1)
             };
             }
@@ -381,11 +381,11 @@ namespace Maker.View.Device
             {
                 pc = new PointCollection
             {
-                new Point(_blockWidth / 4-1 , 0+1),
-                new Point(_blockWidth-1 , 0+1),
-                new Point(_blockWidth-1 , _blockWidth-1),
-                new Point(0+1, _blockWidth-1 ),
-                new Point(0+1, _blockWidth / 4-1 )
+                new Point(_blockWidth / 4-_canvasSize / 600 , 0+_canvasSize / 600),
+                new Point(_blockWidth-_canvasSize / 600 , 0+_canvasSize / 600),
+                new Point(_blockWidth-_canvasSize / 600 , _blockWidth-_canvasSize / 600),
+                new Point(0+_canvasSize / 600, _blockWidth-_canvasSize / 600 ),
+                new Point(0+_canvasSize / 600, _blockWidth / 4-_canvasSize / 600)
             };
             }
             else
@@ -428,10 +428,10 @@ namespace Maker.View.Device
                 pc = new PointCollection
             {
                new Point(0+1, 0+1),
-                new Point(_blockWidth-1, 0+1),
-                new Point(_blockWidth-1, _blockWidth-1),
-                new Point(_blockWidth / 4-1, _blockWidth-1),
-                new Point(0+1, _blockWidth / 4 * 3-1)
+                new Point(_blockWidth-_canvasSize / 600, 0+_canvasSize / 600),
+                new Point(_blockWidth-_canvasSize / 600, _blockWidth-_canvasSize / 600),
+                new Point(_blockWidth / 4-_canvasSize / 600, _blockWidth-_canvasSize / 600),
+                new Point(0+_canvasSize / 600, _blockWidth / 4 * 3-_canvasSize / 600)
             };
             }
             else
@@ -521,7 +521,7 @@ namespace Maker.View.Device
                 foreach (Shape item in Children)
                 {
                     item.Stroke = item.Fill;
-                    item.StrokeThickness = 2;
+                    item.StrokeThickness = _canvasSize / 300;
                     item.Fill = MembraneBrush;
                 }
             }
@@ -867,7 +867,7 @@ namespace Maker.View.Device
             for (int i = 0; i < selects.Count; i++)
             {
                 (Children[selects[i]] as Shape).Stroke = rainbowBrush;
-                (Children[selects[i]] as Shape).StrokeThickness = 3;
+                (Children[selects[i]] as Shape).StrokeThickness = _canvasSize / 300; 
             }
         }
 

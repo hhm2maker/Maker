@@ -2,8 +2,8 @@
 <Root>
   <Scripts>
     <Script name="Step1" parent="" value="CUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUZyb21NaWRpRmlsZSgiYWFhLm1pZCIpOw==" visible="true" contain="Step1" intersection="" complement="">
-      <FillColor number="79" hintKeyword="FillColorColon" />
-      <ChangeColor colors="18 21 5 45 88 70 95" />
+      <FillColor number="63" hintKeyword="FillColorColon" />
+      <ChangeColor colors="11 21 5 45 88 70 95" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

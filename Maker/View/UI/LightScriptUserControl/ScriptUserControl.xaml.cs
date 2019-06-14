@@ -80,6 +80,10 @@ namespace Maker.View.LightScriptUserControl
             //初始化控件
             InitView();
 
+            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.AddMembrane();
+            mLaunchpad.IsMembrane = true;
+            
             //放置在底部
             //for (int i = spMainLeft.Children.Count - 1; i >= 0; i--)
             //{

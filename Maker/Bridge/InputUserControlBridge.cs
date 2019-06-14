@@ -486,15 +486,7 @@ namespace Maker.Bridge
         private void ClearFrame()
         {
             //清空
-            for (int i = 0; i < 100; i++)
-            {
-                if (iuc.mLaunchpad.GetButton(i) is RoundedCornersPolygon rcp)
-                    rcp.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
-                if (iuc.mLaunchpad.GetButton(i) is Ellipse e)
-                    e.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
-                if (iuc.mLaunchpad.GetButton(i) is Rectangle r)
-                    r.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5"));
-            }
+            iuc.mLaunchpad.ClearAllColorExcept();
         }
         private void LoadFrame()
         {
@@ -509,7 +501,8 @@ namespace Maker.Bridge
                 {
                     continue;
                 }
-                (iuc.mLaunchpad.GetButton(i) as Shape).Fill = StaticConstant.brushList[x[i]];
+
+                iuc.mLaunchpad.SetButtonBackground(i, StaticConstant.brushList[x[i]]);
                 iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
             }
 
