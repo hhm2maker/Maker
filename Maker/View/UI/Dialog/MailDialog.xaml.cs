@@ -21,14 +21,14 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class MailDialog : MakerDialog
     {
-        private WelcomeWindow mw;
+        private NewMainWindow mw;
         private int mailType;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="window"></param>
         /// <param name="mailType">类型 0-反馈 1-加入我们</param>
-        public MailDialog(WelcomeWindow mw,int mailType)
+        public MailDialog(NewMainWindow mw,int mailType)
         {
             InitializeComponent();
             this.mw = mw;

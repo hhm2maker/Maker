@@ -1,16 +1,20 @@
 ﻿using Maker.Business;
 using Maker.Business.Currency;
+using Maker.Business.Model.Config;
 using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.View.UI.UserControlDialog;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Xml;
 using static Maker.Model.EnumCollection;
 using static Maker.View.Control.MainWindow;
@@ -25,8 +29,23 @@ namespace Maker.View.UI.Setting
         public NewSettingUserControl()
         {
             InitializeComponent();
+
+            tbPositionTab.Width = Width * 0.125;
+            tbColorTab.Width = Width * 0.125;
+
+            InitHelp();
+
         }
         public NewMainWindow mw;
+
+        private HelpConfigModel helpConfigModel;
+        /// <summary>
+        /// 初始化帮助
+        /// </summary>
+        private void InitHelp()
+        {
+            XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
+        }
 
         private void Image_MouseLeftButtonDown_2(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -527,5 +546,97 @@ namespace Maker.View.UI.Setting
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
         }
+
+
+        private void ToHelpOverview(object sender, RoutedEventArgs e)
+        {
+            //new HelpOverviewWindow(this).Show();
+            //ShowMakerDialog(new WebBrowserUserControl());
+
+            if (helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(helpConfigModel.ExeFilePath))
+                Process.Start("https://hhm2maker.gitbook.io/maker/");
+            else
+                Process.Start(helpConfigModel.ExeFilePath);
+        }
+
+        private void Image_MouseLeftButtonDown222(object sender, MouseButtonEventArgs e)
+        {
+            if (spHint.Visibility == Visibility.Collapsed)
+            {
+                spHint.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                spHint.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        bool isBigColorTab = false;
+        bool isBigPositionTab = false;
+        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ElasticEase elasticEase = new ElasticEase();
+            elasticEase.Oscillations = 2;
+            elasticEase.Springiness = 1;
+            elasticEase.EasingMode = EasingMode.EaseOut;
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = elasticEase
+            };
+
+            if (sender == spPositionTab)
+            {
+                if (isBigPositionTab)
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
+                }
+                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigPositionTab = !isBigPositionTab;
+            }
+            else if (sender == spColorTab)
+            {
+                if (isBigColorTab)
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
+                }
+                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigColorTab = !isBigColorTab;
+            }
+        }
+
+
+        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new DeveloperListDialog(mw));
+        }
+
+        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
+        }
+
+        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new MailDialog(mw, 0));
+        }
+
+        private void ToAboutUserControl(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new AboutDialog(mw));
+        }
+
     }
 }

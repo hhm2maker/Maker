@@ -51,16 +51,12 @@ namespace Maker.View.UI
             gMain.Width = Width * 0.8;
             gMain.Height = Height * 0.8;
 
-            mLaunchpad.SetSize(gMain.Width / 6);
+            mLaunchpad.Size = gMain.Width / 6;
             tbDevice.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
             tbHelp.Margin = new Thickness(0, gMain.Height / 8, 0, 0);
 
             InitStaticConstant();
 
-            tbPositionTab.Width = Width * 0.125;
-            tbColorTab.Width = Width * 0.125;
-
-            InitHelp();
 
             //new TestW().Show();
         }
@@ -72,41 +68,6 @@ namespace Maker.View.UI
         {
             String strColortabPath = AppDomain.CurrentDomain.BaseDirectory + @"Color\color.color";
             StaticConstant.brushList = FileBusiness.CreateInstance().ReadColorFile(strColortabPath);
-        }
-
-        private HelpConfigModel helpConfigModel;
-        /// <summary>
-        /// 初始化帮助
-        /// </summary>
-        private void InitHelp()
-        {
-            XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NewMainWindow mw = new NewMainWindow();
-            mw.Show();
-        }
-
-        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
-        {
-            ShowMakerDialog(new DeveloperListDialog(this));
-        }
-
-        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
-        }
-
-        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
-        {
-            ShowMakerDialog(new MailDialog(this, 0));
-        }
-
-        private void ToAboutUserControl(object sender, RoutedEventArgs e)
-        {
-            ShowMakerDialog(new AboutDialog(this));
         }
 
         public void ShowMakerDialog(MakerDialog makerdialog)
@@ -139,78 +100,6 @@ namespace Maker.View.UI
     
        
 
-        private void ToHelpOverview(object sender, RoutedEventArgs e)
-        {
-            //new HelpOverviewWindow(this).Show();
-            //ShowMakerDialog(new WebBrowserUserControl());
-
-            if (helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(helpConfigModel.ExeFilePath))
-                Process.Start("https://hhm2maker.gitbook.io/maker/");
-            else
-                Process.Start(helpConfigModel.ExeFilePath);
-        }
-
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (spHint.Visibility == Visibility.Collapsed)
-            {
-                spHint.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                spHint.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        bool isBigColorTab = false;
-        bool isBigPositionTab = false;
-        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            ElasticEase elasticEase = new ElasticEase();
-            elasticEase.Oscillations = 2;
-            elasticEase.Springiness = 1;
-            elasticEase.EasingMode = EasingMode.EaseOut;
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                Duration = TimeSpan.FromSeconds(1),
-                EasingFunction = elasticEase
-            };
-
-            if (sender == spPositionTab)
-            {
-                if (isBigPositionTab)
-                {
-                    doubleAnimation.From = tbPositionTab.ActualWidth;
-                    doubleAnimation.To = ActualWidth / 8;
-                }
-                else
-                {
-                    doubleAnimation.From = tbPositionTab.ActualWidth;
-                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
-                }
-                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
-                isBigPositionTab = !isBigPositionTab;
-            }
-            else if (sender == spColorTab)
-            {
-                if (isBigColorTab)
-                {
-                    doubleAnimation.From = tbColorTab.ActualWidth;
-                    doubleAnimation.To = ActualWidth / 8;
-                }
-                else
-                {
-                    doubleAnimation.From = tbColorTab.ActualWidth;
-                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
-                }
-                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
-                isBigColorTab = !isBigColorTab;
-            }
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new GameWindow().Show();
-        }
+      
     }
 }

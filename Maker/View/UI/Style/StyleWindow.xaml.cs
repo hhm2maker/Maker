@@ -351,6 +351,7 @@ namespace Maker.View.Style
             int position = lbCatalog.SelectedIndex;
             lbCatalog.Items.RemoveAt(position);
             operationModels.RemoveAt(position);
+            mw.projectUserControl.suc.Test();
             //svMain.Children.RemoveAt(position);
         }
 

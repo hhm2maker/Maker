@@ -34,7 +34,7 @@ namespace Maker.View
 
         private void InitLaunchpad()
         {
-            mLaunchpad.SetSize(600);
+            mLaunchpad.Size = 600;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 19, 40, 61)));
             mLaunchpad.InitBackground(new SolidColorBrush(Color.FromArgb(255, 73, 191, 231)));
             mLaunchpad.SetButtonClickEvent(Button_MouseLeftButtonDown);

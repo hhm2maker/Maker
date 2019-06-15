@@ -23,11 +23,16 @@ namespace Maker.View.UI.Style.Child
         {
             this.changeColorOperationModel = changeColorOperationModel;
             //构建对话框
-            AddTopHintTextBlock(changeColorOperationModel.HintString);
-            AddTextBox();
+            DockPanel dp = new DockPanel();
+            dp.Margin = new Thickness(0, 10, 0, 10);
+            TextBlock tb = new TextBlock();
+            tb.FontSize = 16;
+            tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
+            tb.VerticalAlignment = VerticalAlignment.Center;
+            tb.SetResourceReference(TextBlock.TextProperty, changeColorOperationModel.HintString);
+            dp.Children.Add(tb);
 
             StackPanel sp = new StackPanel();
-            sp.Margin = new Thickness(0, 10, 0, 10);
             sp.Orientation = Orientation.Horizontal;
             sp.HorizontalAlignment = HorizontalAlignment.Right;
             Image ivAdd = new Image
@@ -38,7 +43,7 @@ namespace Maker.View.UI.Style.Child
                 Stretch = Stretch.Fill
             };
             ivAdd.MouseLeftButtonDown += IvAdd_MouseLeftButtonDown;
-         RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.Fant);
+            RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.Fant);
             sp.Children.Add(ivAdd);
             Image ivReduce = new Image
             {
@@ -51,10 +56,12 @@ namespace Maker.View.UI.Style.Child
             RenderOptions.SetBitmapScalingMode(ivReduce, BitmapScalingMode.Fant);
             ivReduce.Margin = new Thickness(10,0,0,0);
             sp.Children.Add(ivReduce);
-           
-            AddUIElement(sp);
+            dp.Children.Add(sp);
+
+            AddUIElement(dp);
 
             lb = new ListBox();
+            lb.Padding = new Thickness(-5,0,-5,0);
             lb.Background = new SolidColorBrush(Colors.Transparent);
             lb.BorderBrush = new SolidColorBrush(Colors.Transparent);
             lb.HorizontalContentAlignment = HorizontalAlignment.Stretch;
@@ -65,22 +72,6 @@ namespace Maker.View.UI.Style.Child
             AddUIElement(lb);
 
             CreateDialog();
-
-            tbColors = Get(1) as TextBox;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < changeColorOperationModel.Colors.Count; i++)
-            {
-                if (i != changeColorOperationModel.Colors.Count - 1)
-                {
-                    sb.Append(changeColorOperationModel.Colors[i] + StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter.ToString());
-                }
-                else
-                {
-                    sb.Append(changeColorOperationModel.Colors[i]);
-                }
-            }
-
-            tbColors.Text = sb.ToString();
         }
 
         private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -267,28 +258,27 @@ namespace Maker.View.UI.Style.Child
             
         }
 
-        public TextBox tbColors;
         public ComboBox cbOperation;
 
         public override bool ToSave() {
-            if (tbColors.Text.Equals(String.Empty))
-            {
-                tbColors.Focus();
-                return false;
-            }
-            List<int> colors = new List<int>();
-            String[] strColors = tbColors.Text.Split(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
-            foreach(var item in strColors) {
-                if (int.TryParse(item, out int color))
-                {
-                    colors.Add(color);
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            changeColorOperationModel.Colors = colors;
+            //if (tbColors.Text.Equals(String.Empty))
+            //{
+            //    tbColors.Focus();
+            //    return false;
+            //}
+            //List<int> colors = new List<int>();
+            //String[] strColors = tbColors.Text.Split(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
+            //foreach(var item in strColors) {
+            //    if (int.TryParse(item, out int color))
+            //    {
+            //        colors.Add(color);
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
+            //changeColorOperationModel.Colors = colors;
             return true;
         }
     }

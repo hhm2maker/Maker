@@ -62,6 +62,11 @@
                                         <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                                         <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
                                     </StackPanel>
+                                    <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
+                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                                        <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
+                                    </StackPanel>
                                     <DockPanel Margin="0,20,0,0">
                                       <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10"/>
                                       <Image MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10" Source="View/Resources/Image/add_dark.png" Width="30"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />

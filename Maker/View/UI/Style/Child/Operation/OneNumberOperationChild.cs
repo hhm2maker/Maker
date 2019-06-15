@@ -1,13 +1,6 @@
-﻿using Maker.Business;
-using Maker.Business.Currency;
-using Maker.Business.Model.OperationModel;
+﻿using Maker.Business.Model.OperationModel;
 using Maker.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -120,7 +113,6 @@ namespace Maker.View.UI.Style.Child
         public override void Refresh()
         {
             int color = oneNumberOperationModel.Number;
-
             //Operation.LightGroup lg = OperationUtils.MakerLightToOperationLight(mDa);
             //lg.FillColor((int)(obj[0] as Slider).Value);
             //StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(OperationUtils.OperationLightToMakerLight(lg));

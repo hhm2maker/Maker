@@ -406,7 +406,10 @@
             </Grid.RowDefinitions>-->
                     <StackPanel Background="#1c1a1c" Margin="0,55,0,0" x:Name="dpShow" >
                         <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                            <launchpad:LaunchpadPro x:Name="mLaunchpad" Margin="0,20,0,20" DockPanel.Dock="Top"   HorizontalAlignment="Center"/>
+                            <Border BorderBrush="#282828" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
+                                <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600"/>
+                            </Border>
+
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"   Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
                                 <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">

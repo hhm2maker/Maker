@@ -1682,5 +1682,10 @@
   <ItemGroup>
     <Resource Include="View\Resources\Image\reduce.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\laboratory.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

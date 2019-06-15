@@ -24,6 +24,8 @@ namespace Maker.View.UI.Style.Child
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
+            Width = 200;
+            Height = 200;
             Content = tbContent;
         }
     }

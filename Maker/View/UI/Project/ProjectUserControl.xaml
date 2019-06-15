@@ -82,7 +82,7 @@
                     <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                 </TreeView>
             </Border>
-            <Border  Grid.Row="2"  VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
+            <Border  Grid.Row="2" Margin="0,30,0,0" VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
                 <StackPanel Orientation="Horizontal">
                     <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
                         <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource New}"  FontSize="18" Foreground="#f0f0f0"  >

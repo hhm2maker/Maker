@@ -164,7 +164,87 @@
                                     </StackPanel>
                                 </GroupBox>
                             </StackPanel>
+                    <WrapPanel  Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,0,0,100">
+                        <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}"  Margin="15,15,0,0"  Click="ToAboutUserControl" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                    <Image Source="../../../View/Resources/Image/about.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock Text="{DynamicResource About}" Background="Transparent" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Center" Margin="15,15,0,0" Click="JoinQQGroup_Click" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../../../View/Resources/Image/qq.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="{DynamicResource JoinTheQGroup}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                        <Button Style="{StaticResource EmptyButtonStyle}" HorizontalAlignment="Center" Margin="15,15,0,0" Click="ToDeveloperListWindow" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../../../View/Resources/Image/developer.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="{DynamicResource DeveloperList}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}" Margin="15,15,0,0" Click="ToFeedbackDialog" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                    <Image Source="../../../View/Resources/Image/feedback.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="{DynamicResource Feedback}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}" Margin="15,15,0,0" Click="ToHelpOverview" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Image Source="../../../View/Resources/Image/help.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="{DynamicResource HelpOverview}" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Style="{StaticResource EmptyButtonStyle}" Margin="15,15,15,0" Background="Transparent" >
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  MouseLeftButtonDown="Image_MouseLeftButtonDown222">
+                                    <Image Source="../../../View/Resources/Image/hint.png" Width="35" RenderOptions.BitmapScalingMode="Fant" />
+                                </StackPanel>
+                            </Button.Content>
+                            <Button.ToolTip>
+                                <TextBlock TextWrapping="Wrap" Text="查看颜色表和位置表" Foreground="white" VerticalAlignment="Center"  FontSize="18" HorizontalAlignment="Left" />
+                            </Button.ToolTip>
+                        </Button>
+                    </WrapPanel>
+                    <StackPanel Name="spHint" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <StackPanel  Name="spColorTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown"     >
+                            <TextBlock Text="{DynamicResource ColorTab}" HorizontalAlignment="Center" />
+                            <Viewbox Width="300"  Name="tbColorTab">
+                                <Grid  >
+                                    <Image Source="../../../View/Resources/Image/colortab.png"/>
+                                </Grid>
+                            </Viewbox>
                         </StackPanel>
+                        <StackPanel  Name="spPositionTab" MouseLeftButtonDown="tbPositionTab_MouseLeftButtonDown" Margin="0,20,0,0"     >
+                            <TextBlock Text="{DynamicResource PositionTab}" HorizontalAlignment="Center" />
+                            <Viewbox Width="300"  Name="tbPositionTab">
+                                <Grid  >
+                                    <Image Source="../../../View/Resources/Image/positiontab.png"/>
+                                </Grid>
+                            </Viewbox>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
             </ScrollViewer>
         </DockPanel>
     </Grid>

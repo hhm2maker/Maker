@@ -137,7 +137,7 @@ namespace Maker.View.Control
             else
             {
                 double min = minWidth < minHeight ? minWidth : minHeight;
-                fuc.mLaunchpad.SetSize(min);
+                fuc.mLaunchpad.Size = min;
             }
             //Console.WriteLine(mainDockPanel.ActualHeight+"---"+ mainDockPanel.ActualWidth);
         }

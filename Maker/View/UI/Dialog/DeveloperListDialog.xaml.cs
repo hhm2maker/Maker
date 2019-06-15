@@ -21,8 +21,8 @@ namespace Maker.View.Dialog
     /// </summary>
     public partial class DeveloperListDialog : MakerDialog
     {
-        private WelcomeWindow mw;
-        public DeveloperListDialog(WelcomeWindow mw)
+        private NewMainWindow mw;
+        public DeveloperListDialog(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;

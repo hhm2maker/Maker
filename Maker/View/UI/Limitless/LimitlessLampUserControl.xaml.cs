@@ -27,7 +27,7 @@ namespace Maker.View.Dialog
 
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
-            previewLaunchpad.SetSize(410);
+            previewLaunchpad.Size = 410;
             previewLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(28,30,31)));
             mLaunchpad.SetParent(this);
 

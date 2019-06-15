@@ -37,7 +37,7 @@ namespace Maker.View.LightUserControl
             mainView = gMain;
             HideControl();
 
-            mLaunchpad.SetSize(600);
+            mLaunchpad.Size = 600;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(System.Windows.Media.Color.FromRgb(46, 48, 51)));
 
             //初始化贴膜

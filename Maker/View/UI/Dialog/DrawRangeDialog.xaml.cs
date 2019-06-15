@@ -29,7 +29,7 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255,54,59,64)));
-            mLaunchpad.SetSize(350);
+            mLaunchpad.Size = 350;
             mLaunchpad.SetCanDraw(true);
         }
 

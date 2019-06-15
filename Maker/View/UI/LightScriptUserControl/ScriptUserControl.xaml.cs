@@ -80,6 +80,7 @@ namespace Maker.View.LightScriptUserControl
             //初始化控件
             InitView();
 
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.AddMembrane();
             mLaunchpad.IsMembrane = true;
@@ -233,7 +234,7 @@ namespace Maker.View.LightScriptUserControl
             Width = mw.ActualWidth;
             Height = mw.gMost.ActualHeight;
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)));
+            //mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)));
             LoadRangeFile();
 
             foreach (var item in lbColor.Items)
@@ -1716,7 +1717,6 @@ namespace Maker.View.LightScriptUserControl
             {
                 ScriptModel _scriptModel = ObjectCopier.Clone(item.Value);
                 _scriptModelDictionary.Add(item.Key, _scriptModel);
-
                 //ScriptModel ss = TransExpV2<ScriptModel, ScriptModel>.Trans(item.Value);
                 //_scriptModelDictionary.Add(item.Key, ss);
             }
@@ -2819,7 +2819,7 @@ namespace Maker.View.LightScriptUserControl
         public void SetLaunchpadSize()
         {
             double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 40 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 40;
-            mLaunchpad.SetSize(minSize);
+            mLaunchpad.Size = minSize;
         }
 
         private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)

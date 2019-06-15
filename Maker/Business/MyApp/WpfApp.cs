@@ -33,7 +33,7 @@ namespace Maker.MyApp
             ViewModelLocator viewModelLocator = new ViewModelLocator();
             System.Windows.Application.Current.Resources.Add("Locator", viewModelLocator);
 
-            WelcomeWindow mw = new WelcomeWindow();
+            NewMainWindow mw = new NewMainWindow();
             this.mw = mw;
             //设置主窗口
             MainWindow = mw;
@@ -50,7 +50,7 @@ namespace Maker.MyApp
             //查看App/xaml.cs
         }
         public static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public WelcomeWindow mw { get; set; }
+        public NewMainWindow mw { get; set; }
         public WpfApp()
         {
             // 在异常由应用程序引发但未进行处理时发生。主要指的是UI线程。

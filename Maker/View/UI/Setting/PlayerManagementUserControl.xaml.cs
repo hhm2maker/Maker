@@ -158,7 +158,7 @@ namespace Maker.View.Tool
         {
             if (Double.TryParse(tbDeviceSize.Text, out Double dSize))
             {
-                mLaunchpad.SetSize(dSize);
+                mLaunchpad.Size = dSize;
             }
         }
 

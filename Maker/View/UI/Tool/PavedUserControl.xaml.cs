@@ -78,7 +78,7 @@ namespace Maker.View.Tool
                 LaunchpadPro pro = new LaunchpadPro();
                 pro.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 83, 83, 83)));
                 pro.SetData(item.Value);
-                pro.SetSize(d);
+                pro.Size = d;
                 wpMain.Children.Add(pro);
             }
         }

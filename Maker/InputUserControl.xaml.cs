@@ -2827,7 +2827,7 @@ namespace Maker
 
         public void SetLaunchpadSize() {
             double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 52 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 52;
-            mLaunchpad.SetSize(minSize);
+            mLaunchpad.Size = minSize;
         }
         private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {

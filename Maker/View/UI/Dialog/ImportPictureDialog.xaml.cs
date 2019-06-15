@@ -42,7 +42,7 @@ namespace Maker.View.Dialog
                 _ColorList.Add(NumToColor(x));
             }
 
-            mLaunchpad.SetSize(750);
+            mLaunchpad.Size = 750;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(System.Windows.Media.Color.FromArgb(0,83,83,83)));
             System.Drawing.Bitmap img = new System.Drawing.Bitmap(_imagePath, true);
             img = KiResizeImage(img,750, 750);

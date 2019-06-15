@@ -516,4 +516,5 @@
     <sys:String x:Key="BuildTheFileFirst">请先生成文件。</sys:String>
     <sys:String x:Key="InvalidPath">非法路径。</sys:String>
     <sys:String x:Key="Search">搜索</sys:String>
+    <sys:String x:Key="Laboratory">实验室</sys:String>
 </ResourceDictionary>

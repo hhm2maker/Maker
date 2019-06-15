@@ -26,6 +26,7 @@ using Maker.View.UI.Search;
 using Maker.View.UI.Project;
 using Maker.View.UI.Help;
 using System.Windows.Shapes;
+using Maker.View.UI.Game;
 
 namespace Maker
 {
@@ -712,6 +713,11 @@ namespace Maker
             }
             gRight.Children.Clear();
             gRight.Children.Add(rightUserControl);
+        }
+
+        private void spLaboratory_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            new GameWindow().Show();
         }
     }
 }

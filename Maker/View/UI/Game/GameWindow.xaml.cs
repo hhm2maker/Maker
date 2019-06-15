@@ -51,7 +51,7 @@ namespace Maker.View.UI.Game
             myIPlay.SetLaunchpad(mLaunchpad);
 
             mBorderLaunchpad.Child = mLaunchpad;
-            mLaunchpad.SetSize(400);
+            mLaunchpad.Size = 400;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.White));
             mLaunchpad.MembraneBrush = new SolidColorBrush(Colors.Black);

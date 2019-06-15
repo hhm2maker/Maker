@@ -39,7 +39,7 @@ namespace Maker.View.Dialog
         private int nowTimePoint = 1;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mLaunchpad.SetSize(600); 
+            mLaunchpad.Size = 600; 
             mLaunchpad.SetLaunchpadBackground(Brushes.White);
 
             if (dtimer == null)

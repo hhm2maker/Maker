@@ -480,7 +480,7 @@ namespace Maker.View.Device
         /// 根据传入的容器大小适配大小
         /// </summary>
         /// <param name="canvasSize">容器大小</param>
-        public void SetSize(double canvasSize)
+        protected void SetSize(double canvasSize)
         {
             Width = canvasSize;
             Height = canvasSize;
@@ -874,8 +874,6 @@ namespace Maker.View.Device
         /// <summary>
         /// 是否已经贴膜
         /// </summary>
-        //public bool toIsMembrane = false;
-
         public bool IsMembrane
         {
             get
@@ -941,5 +939,37 @@ namespace Maker.View.Device
             }
         }
 
+        /// <summary>
+        /// 是否已经贴膜
+        /// </summary>
+        public double Size
+        {
+            get
+            {
+                return (double)GetValue(SizeProperty);
+            }
+            set
+            {
+                SetValue(SizeProperty, value);
+            }
+        }
+        public static double GetSize(DependencyObject obj)
+        {
+            return (double)obj.GetValue(SizeProperty);
+        }
+        public static void SetSize(DependencyObject obj, double value)
+        {
+            obj.SetValue(SizeProperty, value);
+        }
+        public static readonly DependencyProperty SizeProperty =
+            DependencyProperty.RegisterAttached("Size", typeof(double), typeof(LaunchpadPro), new PropertyMetadata(OnSizeChanged));
+        private static void OnSizeChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue != null)
+            {
+                LaunchpadPro pro = obj as LaunchpadPro;
+                pro.SetSize((double)e.NewValue);
+            }
+        }
     }
 }

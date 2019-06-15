@@ -117,7 +117,7 @@ namespace Maker.ViewBusiness
         /// <param name="deviceModel"></param>
         public static void SetLaunchpadStyle(LaunchpadPro mLaunchpad,DeviceModel deviceModel) {
             mLaunchpad.SetLaunchpadBackground(deviceModel.DeviceBackGround);
-            mLaunchpad.SetSize(deviceModel.DeviceSize);
+            mLaunchpad.Size = deviceModel.DeviceSize;
             if (deviceModel.IsMembrane)
             {
                 mLaunchpad.AddMembrane();
