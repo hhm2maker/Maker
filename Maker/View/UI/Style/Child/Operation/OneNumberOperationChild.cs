@@ -27,6 +27,7 @@ namespace Maker.View.UI.Style.Child
             columnDefinition2.Width = GridLength.Auto;
             grid.ColumnDefinitions.Add(columnDefinition2);
 
+            tbNumber = new TextBox();
             if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.COLOR)
             {
                 slider = new Slider();
@@ -60,7 +61,6 @@ namespace Maker.View.UI.Style.Child
                 tbNumber.Width = 200;
             }
 
-            tbNumber = new TextBox();
             tbNumber.FontSize = 16;
             tbNumber.Width = 50;
             tbNumber.LostFocus += TbNumber_LostFocus;
@@ -112,6 +112,7 @@ namespace Maker.View.UI.Style.Child
 
         public override void Refresh()
         {
+            base.Refresh();
             int color = oneNumberOperationModel.Number;
             //Operation.LightGroup lg = OperationUtils.MakerLightToOperationLight(mDa);
             //lg.FillColor((int)(obj[0] as Slider).Value);

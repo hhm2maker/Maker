@@ -32,7 +32,17 @@ namespace Maker.Model
         /// <summary>
         /// 关闭笔刷
         /// </summary>
-        public static SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+        public static SolidColorBrush closeBrush {
+            get {
+                if (brushList == null || brushList.Count == 0)
+                {
+                    return new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+                }
+                else {
+                    return brushList[0];
+                }
+            }
+        } 
         /// <summary>
         /// 主窗体
         /// </summary>

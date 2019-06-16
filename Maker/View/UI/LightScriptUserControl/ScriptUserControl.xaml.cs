@@ -1690,6 +1690,8 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test()
         {
+            spHint.Visibility = Visibility.Collapsed;
+
             bridge.GetResult();
 
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition - 1) + ".lightScript"))
@@ -5234,10 +5236,10 @@ namespace Maker.View.LightScriptUserControl
             XmlSerializerBusiness.Save(thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+     
+        private void iRefresh_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Test();
-            Console.WriteLine(sw.operationModels.Count);
         }
     }
 }

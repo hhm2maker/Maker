@@ -52,11 +52,11 @@
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Name="spMainContentLeft" Margin="10,0,10,0">
-                                    <GroupBox Header="{DynamicResource SelectEditorColon}" Name="spSelectEditor" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
+                                    <GroupBox Header="{DynamicResource SelectEditorColon}" Name="spSelectEditor" Foreground="{StaticResource bigBlockTextColor}" FontSize="18" FontWeight="DemiBold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Time}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Time}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <Grid Width="auto" >
@@ -71,7 +71,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Position}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Position}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbSelectEditorPosition" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -79,7 +79,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Color}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Color}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbSelectEditorColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -93,12 +93,12 @@
                                             </WrapPanel>
                                         </StackPanel>
                                     </GroupBox>
-                                    <GroupBox Header="{DynamicResource FastGenerationrColon}" Name="spFastGenerationr" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
+                                    <GroupBox Header="{DynamicResource FastGenerationrColon}" Name="spFastGenerationr" Foreground="{StaticResource bigBlockTextColor}" FontSize="18" FontWeight="DemiBold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
                                         <StackPanel Orientation="Vertical"  VerticalAlignment="Top" >
                                             <StackPanel Orientation="Vertical">
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Time}" />
+                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Time}" />
                                                     </Border>
                                                     <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <Grid Width="auto" >
@@ -113,7 +113,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Position}" VerticalAlignment="Center"/>
+                                                        <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Position}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="110"  BorderBrush="#a8a9a9"   BorderThickness="0,2,0,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <TextBox Name="tbFastGenerationrRange" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -129,7 +129,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Interval}" />
+                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Interval}" />
                                                     </Border>
                                                     <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <TextBox Name="tbFastGenerationrInterval" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -137,7 +137,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Duration}" />
+                                                        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Duration}" />
                                                     </Border>
                                                     <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <TextBox Name="tbFastGenerationrContinued" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -145,7 +145,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Color}" VerticalAlignment="Center"/>
+                                                        <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Color}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="150"  BorderBrush="#a8a9a9"   BorderThickness="0,2,0,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <TextBox  TextChanged="TextChanged"  Name="tbFastGenerationrColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -158,7 +158,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Type}" VerticalAlignment="Center"/>
+                                                        <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Type}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <ComboBox SelectedIndex="0" Name="cbFastGenerationrType"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
@@ -174,7 +174,7 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                     <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                        <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
+                                                        <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                         <ComboBox SelectionChanged="CbFastGenerationrAction_SelectionChanged"  SelectedIndex="0" Name="cbFastGenerationrAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
@@ -185,19 +185,19 @@
                                                     </Border>
                                                 </StackPanel>
                                             </StackPanel>
-                                            <WrapPanel  Orientation="Horizontal" Margin="0,25,0,10" HorizontalAlignment="Center">
-                                                <Button x:Name="btnFastGenerationrAdd"  Click="ToLightScript" Content="{DynamicResource Add}" />
-                                                <Button  x:Name="btnFastGenerationrSelect" Margin="15,0,0,0" Click="ToLightScript" Content="{DynamicResource Select}" />
-                                                <Button  x:Name="btnFastGenerationrClear" Margin="15,0,0,0" Click="ClearInput"  Content="{DynamicResource Clear}" />
+                                            <WrapPanel  Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Center">
+                                                <Button x:Name="btnFastGenerationrAdd"   Margin="0,15,10,0" Click="ToLightScript" Content="{DynamicResource Add}" />
+                                                <Button  x:Name="btnFastGenerationrSelect"  Margin="0,15,10,0" Click="ToLightScript" Content="{DynamicResource Select}" />
+                                                <Button  x:Name="btnFastGenerationrClear"  Margin="0,15,0,0" Click="ClearInput"  Content="{DynamicResource Clear}" />
                                             </WrapPanel>
                                         </StackPanel>
                                     </GroupBox>
-                                    <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Name="spConditionJudgment" Foreground="{StaticResource bigBlockTextColor}" FontSize="20" FontWeight="Bold"  Margin="0,30,0,30"  Style="{DynamicResource GroupBoxStyle2}" >
+                                    <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Name="spConditionJudgment" Foreground="{StaticResource bigBlockTextColor}" FontSize="18"  FontWeight="DemiBold"  Margin="0,30,0,30" Style="{DynamicResource GroupBoxStyle2}" >
                                         <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" >
                                             <TextBlock  Margin="20,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,18,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Time}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Time}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <Grid Width="auto" >
@@ -212,7 +212,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
+                                                    <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <ComboBox SelectedIndex="0" Name="cbIfAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
@@ -224,7 +224,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Position}" VerticalAlignment="Center"/>
+                                                    <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Position}" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <Border Width="110"  BorderBrush="#a8a9a9"   BorderThickness="0,2,0,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbIfPosition" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -240,7 +240,7 @@
                                               </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" Width="100" Text="{DynamicResource Color}" VerticalAlignment="Center"/>
+                                                    <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Color}" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <Border Width="150"  BorderBrush="#a8a9a9"   BorderThickness="0,2,0,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox  TextChanged="TextChanged"  Name="tbIfColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -254,7 +254,7 @@
                                             <TextBlock  Margin="20,20,0,0" Text="{DynamicResource ThenColon}" FontSize="21" HorizontalAlignment="Left"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,18,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Time}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Time}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbThenTime" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -262,7 +262,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Position}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Position}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbThenPosition" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -270,7 +270,7 @@
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="100" Text="{DynamicResource Color}" />
+                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Color}" />
                                                 </Border>
                                                 <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
                                                     <TextBox Name="tbThenColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
@@ -409,32 +409,7 @@
                             <Border BorderBrush="#282828" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600"/>
                             </Border>
-
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"   Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
-                                <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
-                                    <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="20"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
-                                </Border>
-                                <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Height="40" Background="#1c1e1f">
-                                    <TextBlock  TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="20" ><Run Text="0"/></TextBlock>
-                                </Border>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
-                                <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="8" Height="40"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
-                                    <Image Name="btnLastTimePoint" Source="../../Resources/Image/toleft_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
-                                </Border>
-                                <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="8" Height="40" Background="#1c1e1f">
-                                    <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                        <TextBox FontSize="18" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
-                                        <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " />
-                                            <TextBlock FontSize="18"  Name="tbTimePointCount" Width="60"  Foreground="White"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}" />
-                                    </StackPanel>
-                                </Border>
-                                <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="8" Height="40" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
-                                    <Image Name="btnNextTimePoint" Source="../../Resources/Image/toright_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
-                                </Border>
-                            </StackPanel>
-                            </StackPanel>
+                            
                         </DockPanel>
                         <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
                         <!--<TabControl BorderThickness="0" TabStripPlacement="Bottom"  >
@@ -443,14 +418,49 @@
                         </TabItem>
                     </TabControl>-->
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-                        <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
-                        <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
-                        <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
-                        <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
-                        <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
-                    </StackPanel>
-
+                    <Grid VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
+                            <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
+                            <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#222326">
+                            <StackPanel.Effect>
+                                <DropShadowEffect Color="#222326"  BlurRadius="20" />
+                            </StackPanel.Effect>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="15,0,10,0">
+                                    <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                                        <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
+                                    </Border>
+                                    <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Background="#1c1e1f">
+                                        <TextBlock  TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" ><Run Text="0"/></TextBlock>
+                                    </Border>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="0,0,15,0">
+                                    <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                                        <Image Name="btnLastTimePoint" Source="../../Resources/Image/toleft_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    </Border>
+                                    <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5"  Background="#1c1e1f">
+                                        <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
+                                            <TextBox FontSize="16" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
+                                            <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " VerticalAlignment="Center" />
+                                            <TextBlock FontSize="16"  Name="tbTimePointCount" Width="60"  Foreground="White" VerticalAlignment="Center"  Background="{x:Null}" Text="{Binding Welcome.AllTimePoint}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
+                                        <Image Name="btnNextTimePoint" Source="../../Resources/Image/toright_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                            <Image Margin="0,15,15,15" Name="iRefresh" Source="../../Resources/Image/refresh.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="iRefresh_MouseLeftButtonDown" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
+                                <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
+                            <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
+                            <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
+                        </StackPanel>
+                    </Grid>
+                  
                     <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
@@ -465,7 +475,10 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="1" Content="{DynamicResource Refresh}" HorizontalAlignment="Center" Margin="0,10,0,10" Click="Button_Click" />
+                    <StackPanel Grid.Row="1" Name="spHint" Visibility="Collapsed" Margin="0,15,0,15">
+                        <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                        <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                    </StackPanel>
                 </Grid>
             </Grid>
             <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>

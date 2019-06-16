@@ -148,6 +148,7 @@ namespace Maker.View.UI.Style.Child
 
         public override void Refresh()
         {
+            base.Refresh();
             List<Light> nowLl = LightBusiness.Copy(MyData); 
 
             List<int> geshihua = changeColorOperationModel.Colors;

@@ -28,7 +28,6 @@ namespace Maker.View.UI.Style.Child
                 {
                     //StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
                     StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
-
                 
                     List<int> times = LightBusiness.GetTimeList(NowData);
                     int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
@@ -62,7 +61,7 @@ namespace Maker.View.UI.Style.Child
         protected virtual void InitData() {}
 
         public virtual void Refresh() {
-
+            StaticConstant.mw.projectUserControl.suc.spHint.Visibility = Visibility.Visible;
         }
 
         public virtual bool ToSave()
