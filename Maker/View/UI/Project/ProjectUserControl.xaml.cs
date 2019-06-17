@@ -328,7 +328,6 @@ namespace Maker.View.UI.Project
             //Console.WriteLine(e.GetPosition(mw).X+"---"+ e.GetPosition(mw).Y);
 
             mw.cMost.Visibility = Visibility.Visible;
-          
 
             foo();
             async void foo()
@@ -402,7 +401,6 @@ namespace Maker.View.UI.Project
 
             String fileName = (lbFile.SelectedItem as ListBoxItem).Content.ToString();
             BaseUserControl baseUserControl = null;
-
             if (fileName.EndsWith(".mid"))
             {
                 IntoUserControl(0);
@@ -553,7 +551,7 @@ namespace Maker.View.UI.Project
             mw.cMost.Children.Clear();
             //载入新界面
             mw.cMost.Visibility = Visibility.Visible;
-            //Canvas.SetLeft(userControls[index], mw.gMost.ActualWidth);
+            //Canvas.SetLeft(userControls[index], 0);
             mw.cMost.Children.Add(userControls[index]);
 
             //DoubleAnimation doubleAnimation = new DoubleAnimation()
@@ -573,7 +571,17 @@ namespace Maker.View.UI.Project
             IntoUserControl(6);
         }
 
-        private void MenuItem_Click2(object sender, RoutedEventArgs e)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            SetSpFilePosition(1);
+        }
+
+        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            RefreshFile();
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DirectoryInfo d = new DirectoryInfo(mw.LastProjectPath);
             if (File.Exists(mw.LastProjectPath + @"\Play\" + d.Name + ".play"))
@@ -586,16 +594,6 @@ namespace Maker.View.UI.Project
             {
                 mw.ShowMakerDialog(new ErrorDialog(mw, "BuildTheFileFirst"));
             }
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            SetSpFilePosition(1);
-        }
-
-        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
-        {
-            RefreshFile();
         }
     }
 }

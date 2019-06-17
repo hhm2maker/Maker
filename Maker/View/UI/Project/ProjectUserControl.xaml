@@ -29,7 +29,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="0,50,0,30" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Border CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent">
+            <Border CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Image  Source="../../../View/Resources/Image/play.png" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
             <Border Margin="30,0,0,0" CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent">
@@ -93,7 +93,6 @@
                             <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
                         </MenuItem>
                         <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Build}"  FontSize="18" Foreground="#f0f0f0"  Click="MenuItem_Click"/>
-                        <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Play_}"  FontSize="18" Foreground="#f0f0f0"  Click="MenuItem_Click2"/>
                     </Menu>
                 </StackPanel>
             </Border>

@@ -3,7 +3,7 @@
   <Scripts>
     <Script name="Step1" parent="" value="CUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUZyb21NaWRpRmlsZSgiYWFhLm1pZCIpOw==" visible="true" contain="Step1" intersection="" complement="">
       <ChangeColor colors="36 65 68 83 71 88 49 79 74" />
-      <ChangeTime operator="multiplication" multiple="2" />
+      <ChangeTime operator="multiplication" multiple="3" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

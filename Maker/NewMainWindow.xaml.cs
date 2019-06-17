@@ -236,18 +236,19 @@ namespace Maker
 
         public void RemoveChildren()
         {
-            DoubleAnimation doubleAnimation = new DoubleAnimation()
-            {
-                From = gMost.ActualWidth * 0.1,
-                To = gMost.ActualWidth,
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            doubleAnimation.Completed += DoubleAnimation_Completed1;
+            //DoubleAnimation doubleAnimation = new DoubleAnimation()
+            //{
+            //    From = gMost.ActualWidth * 0.1,
+            //    To = gMost.ActualWidth,
+            //    Duration = TimeSpan.FromSeconds(0.5),
+            //};
+            //doubleAnimation.Completed += DoubleAnimation_Completed1;
             projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].OnDismiss();
-            projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+            //projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)].BeginAnimation(Canvas.LeftProperty, doubleAnimation);
+            DoubleAnimation_Completed1();
         }
 
-        private void DoubleAnimation_Completed1(object sender, EventArgs e)
+        private void DoubleAnimation_Completed1()
         {
             //spBottomTool.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
             //bToolChild.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
@@ -259,7 +260,6 @@ namespace Maker
 
             cMost.Children.RemoveAt(cMost.Children.Count - 1);
             cMost.Visibility = Visibility.Collapsed;
-
             //if (projectUserControl.lbMain.SelectedItem is ListBoxItem)
             //{
             //    if (selectedItem != null)

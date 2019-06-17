@@ -31,11 +31,20 @@ namespace Maker.View.UI.Style.Child
             {
                 cbOperation.SelectedIndex = 1;
             }
+            tbPolyploidy.LostFocus += TbPolyploidy_LostFocus; ;
             tbPolyploidy.Text = changeTimeOperationModel.Multiple.ToString();
 
             cbOperation.SelectionChanged += CbOperation_SelectionChanged;
         }
 
+        private void TbPolyploidy_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (Double.TryParse(tbPolyploidy.Text, out double multiple))
+            {
+                changeTimeOperationModel.Multiple = multiple;
+            }
+        }
+      
         private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbOperation.SelectedIndex == 0) {
