@@ -213,6 +213,7 @@
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
       <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Device\Launchpad\FastPlayerLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\TeachingLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\DrawLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\ICanDraw.cs" />
@@ -276,6 +277,9 @@
     </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
+    <Compile Include="View\UI\Project\FastLaunchpadProUserControl.xaml.cs">
+      <DependentUpon>FastLaunchpadProUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Project\ProjectUserControl.xaml.cs">
       <DependentUpon>ProjectUserControl.xaml</DependentUpon>
     </Compile>
@@ -673,6 +677,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Help\AppreciateUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Project\FastLaunchpadProUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -595,5 +595,10 @@ namespace Maker.View.UI.Project
                 mw.ShowMakerDialog(new ErrorDialog(mw, "BuildTheFileFirst"));
             }
         }
+
+        private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            mw.cMost.Children.Add(new FastLaunchpadProUserControl());
+        }
     }
 }

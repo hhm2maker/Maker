@@ -162,6 +162,85 @@ namespace Maker.Business
             CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
+
+
+        /// <summary>
+        /// 读取Midi文件
+        /// </summary>
+        /// <param name="filePath">Midi文件的路径</param>
+        public List<Light> ReadMidiFileNoFormatTime(String filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                if (filePath.EndsWith(".mid"))
+                {
+                    filePath += "i";
+                    if (!File.Exists(filePath))
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            List<Light> mActionBeanList = new List<Light>();//存放AB的集合
+            List<int> mData = new List<int>();//文件字符集合
+            List<String> mAction = new List<String>();
+            //获取文件里所有的字节
+            using (FileStream f = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                int i = 0;
+                while ((i = f.ReadByte()) != -1)
+                {
+                    mData.Add(i);
+                }
+            }
+            List<int> listMainData = new List<int>();
+            //剔除头部
+            int iFilterHead = 22;
+            while (true)
+            {
+                if (mData[iFilterHead] == 0 && mData[iFilterHead + 1] == 255)
+                {
+                    //Console.WriteLine("一个头信息");
+                    iFilterHead += mData[iFilterHead + 3];
+                    iFilterHead += 3;
+                    iFilterHead++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            //剔除尾部
+            int iFilterFoot = 4;
+            mData.RemoveRange(0, iFilterHead);
+            mData.RemoveRange(mData.Count - iFilterFoot, iFilterFoot);
+            mActionBeanList = ReadMidiContent(mData);
+            //不格式化时间
+            //int time = 0;
+            //for (int l = 0; l < mActionBeanList.Count; l++)
+            //{
+            //    if (mActionBeanList[l].Time == 0)
+            //    {
+            //        mActionBeanList[l].Time = time;
+            //    }
+            //    else
+            //    {
+            //        time += mActionBeanList[l].Time;
+            //        mActionBeanList[l].Time = time;
+            //    }
+            //}
+
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                mActionBeanList[l].Position -= 28;
+            }
+            CreateInstance().ReplaceControl(mActionBeanList, normalArr);
+            return mActionBeanList;
+        }
         /// <summary>
         /// 写入Midi文件内容
         /// </summary>
