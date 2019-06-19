@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Maker.View.UI.Project
@@ -33,6 +34,8 @@ namespace Maker.View.UI.Project
 
             InitContextMenu();
             InitUserControl();
+
+            iPicture.Source = new BitmapImage(new Uri(@"E:\Sharer\Maker\Maker\bin\Debug\Project\新建文件夹\img.png", UriKind.RelativeOrAbsolute));
         }
         public List<BaseUserControl> userControls = new List<BaseUserControl>();
         //Light

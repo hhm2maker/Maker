@@ -28,7 +28,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="0,50,0,30" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical">
+        <Image Name="iPicture" Grid.Row="0"  Width="300" Height="300" Margin="10" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <StackPanel Margin="0,50,0,30" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Border CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Image  Source="../../../View/Resources/Image/play.png" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
@@ -36,8 +38,9 @@
                 <Image  Source="../../../View/Resources/Image/adjust.png" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
             </Border>
         </StackPanel>
-        <Rectangle Height="1" Grid.Row="1" Fill="#555555" Margin="10,10,10,10" HorizontalAlignment="Stretch"/>
-        <Grid Name="gFile" Margin="30,0,30,30" Grid.Row="2">
+        </StackPanel>
+        <Rectangle Height="2" Grid.Row="1" Fill="#555555" Margin="10,10,10,10" HorizontalAlignment="Stretch"/>
+        <Grid Name="gFile" Margin="30,0,30,30" Grid.Row="3">
             <Grid.Effect>
                 <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
             </Grid.Effect>
@@ -74,7 +77,7 @@
                     </ListBox>
                 </Border>
             </Grid>
-            <Border  Grid.Row="1" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">
+            <Border  Grid.Row="2" BorderThickness="0,5,0,0" BorderBrush="#555555" Visibility="Collapsed">
                 <TreeView Name="lbMain" FontSize="18" Background="Transparent" BorderBrush="{x:Null}" Foreground="#9CA3A8" >
                     <TreeViewItem Name="tvLight" Header="Light" Foreground="#a8a9a9" HorizontalAlignment="Stretch" Style="{StaticResource TreeViewItemNormal}"/>
                     <TreeViewItem Name="tvLightScript" Header="LightScript" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
@@ -82,7 +85,7 @@
                     <TreeViewItem Name="tvPlay" Header="Play" Foreground="#a8a9a9" Style="{StaticResource TreeViewItemNormal}"/>
                 </TreeView>
             </Border>
-            <Border  Grid.Row="2" Margin="0,30,0,0" VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
+            <Border  Grid.Row="3" Margin="0,30,0,0" VerticalAlignment="Bottom" Name="dpProjectPath" BorderThickness="0,1,0,0" BorderBrush="#555555">
                 <StackPanel Orientation="Horizontal">
                     <Menu Name="mMain" FontSize="14" Margin="5" Foreground="#f0f0f0"  BorderBrush="#555555" BorderThickness="0,0,0,2">
                         <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource New}"  FontSize="18" Foreground="#f0f0f0"  >
