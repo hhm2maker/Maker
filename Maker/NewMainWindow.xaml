@@ -41,10 +41,10 @@
                        </DockPanel>
                     <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="gM">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" >
+                        <Grid Grid.Column="0"  Visibility="Collapsed">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>

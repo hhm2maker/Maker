@@ -36,6 +36,7 @@ namespace Maker.View.UI.Project
             InitUserControl();
 
             iPicture.Source = new BitmapImage(new Uri(@"E:\Sharer\Maker\Maker\bin\Debug\Project\新建文件夹\img.png", UriKind.RelativeOrAbsolute));
+
         }
         public List<BaseUserControl> userControls = new List<BaseUserControl>();
         //Light
@@ -576,6 +577,8 @@ namespace Maker.View.UI.Project
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            iPicture.Height = ActualHeight / 2;
+
             SetSpFilePosition(1);
         }
 
