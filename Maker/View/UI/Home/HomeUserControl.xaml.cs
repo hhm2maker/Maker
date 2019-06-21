@@ -1,0 +1,83 @@
+﻿using Maker.Business;
+using Maker.Model;
+using Maker.View.UI.Project;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Maker.View.UI.Home
+{
+    /// <summary>
+    /// HomeUserControl.xaml 的交互逻辑
+    /// </summary>
+    public partial class HomeUserControl : UserControl
+    {
+        private NewMainWindow mw;
+        public HomeUserControl(NewMainWindow mw)
+        {
+            InitializeComponent();
+
+            this.mw = mw;
+
+            InitProject();
+        }
+
+        private void InitProject()
+        {
+            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
+            for (int i = 0; i < strs.Count; i++)
+            {
+                strs[i] = strs[i];
+            }
+            //GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
+
+            for (int i = 0; i < strs.Count; i++)
+            {
+                Border border = new Border();
+                border.CornerRadius = new CornerRadius(3);
+                border.BorderThickness = new Thickness(2);
+                border.BorderBrush = new SolidColorBrush(Color.FromRgb(85,85,85));
+                if (i == 0)
+                {
+                    border.Margin = new Thickness(15, 15, 15, 10);
+                }
+                else
+                {
+                    border.Margin = new Thickness(15, 0, 15, 10);
+                }
+                Grid grid = new Grid();
+                border.Child = grid;
+                TextBlock tb = new TextBlock();
+                tb.HorizontalAlignment = HorizontalAlignment.Center;
+                tb.VerticalAlignment = VerticalAlignment.Center;
+                tb.Text = strs[i];
+                tb.FontSize = 17;
+                tb.Margin = new Thickness(15);
+                tb.Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+                grid.Children.Add(tb);
+                spProject.Children.Add(border);
+            }
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            spCenter.Children.Add(new FastLaunchpadProUserControl(this));
+        }
+    }
+}

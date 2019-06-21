@@ -577,8 +577,6 @@ namespace Maker.View.UI.Project
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            iPicture.Height = ActualHeight / 2;
-
             SetSpFilePosition(1);
         }
 
@@ -604,7 +602,7 @@ namespace Maker.View.UI.Project
 
         private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            mw.cMost.Children.Add(new FastLaunchpadProUserControl());
+            mw.cMost.Children.Add(new FastLaunchpadProUserControl(this));
         }
     }
 }

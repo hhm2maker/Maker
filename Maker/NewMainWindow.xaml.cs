@@ -27,6 +27,7 @@ using Maker.View.UI.Project;
 using Maker.View.UI.Help;
 using System.Windows.Shapes;
 using Maker.View.UI.Game;
+using Maker.View.UI.Home;
 
 namespace Maker
 {
@@ -47,49 +48,12 @@ namespace Maker
 
             projectUserControl = new ProjectUserControl(this);
 
-            InitProject();
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
+
+            gRight.Children.Add(new HomeUserControl(this));
         }
 
-        private int lastSelectIndex = -1;
-        private void InitProject()
-        {
-            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
-            for (int i = 0; i < strs.Count; i++)
-            {
-                strs[i] = strs[i];
-            }
-            //GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
-
-            for(int i = 0;i<strs.Count;i++) {
-                StackPanel sp = new StackPanel();
-                sp.Orientation = Orientation.Horizontal;
-
-                Rectangle rect = new Rectangle();
-                rect.Width = 3;
-                rect.Fill = new SolidColorBrush(Color.FromRgb(54,59,64));
-                sp.Children.Add(rect);
-
-                TextBlock tb = new TextBlock();
-                tb.Margin = new Thickness(10,10,0,10);
-                tb.Text = strs[i];
-                tb.FontSize = 17;
-                tb.Foreground = new SolidColorBrush(Color.FromRgb(184,191,198));
-                sp.Children.Add(tb);
-                lbProject.Items.Add(sp);
-
-                if (strs[i].Equals(projectConfigModel.Path))
-                {
-                    rect.Visibility = Visibility.Visible;
-                    lastSelectIndex = i;
-                    lbProject.SelectedIndex = i;
-                }
-                else
-                {
-                    rect.Visibility = Visibility.Hidden;
-                }
-            }
-        }
+        
        
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -346,31 +310,31 @@ namespace Maker
 
        
 
-        private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (gRight.Children.Count != 0 && lbProject.SelectedIndex != -1) {
-                if (lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
-                {
-                    return;
-                }
-            }
-            if (lastSelectIndex != -1) {
-                ((lbProject.Items[lastSelectIndex] as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Hidden;
-            }
+        //private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (gRight.Children.Count != 0 && lbProject.SelectedIndex != -1) {
+        //        if (lbProject.SelectedItem.ToString().Equals(projectConfigModel.Path))
+        //        {
+        //            return;
+        //        }
+        //    }
+        //    if (lastSelectIndex != -1) {
+        //        ((lbProject.Items[lastSelectIndex] as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Hidden;
+        //    }
            
-            lastSelectIndex = lbProject.SelectedIndex;
+        //    lastSelectIndex = lbProject.SelectedIndex;
 
-            if (lbProject.SelectedIndex == -1)
-                return;
-            ((lbProject.SelectedItem as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Visible;
-            projectConfigModel.Path = ((lbProject.SelectedItem as StackPanel).Children[1] as TextBlock).Text.Trim();
+        //    if (lbProject.SelectedIndex == -1)
+        //        return;
+        //    ((lbProject.SelectedItem as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Visible;
+        //    projectConfigModel.Path = ((lbProject.SelectedItem as StackPanel).Children[1] as TextBlock).Text.Trim();
 
-            bridge.SaveFile();
+        //    bridge.SaveFile();
 
-            SetRightUserControl(projectUserControl);
-            //projectUserControl.suc.HideControl();
-            projectUserControl.RefreshFile();
-        }
+        //    SetRightUserControl(projectUserControl);
+        //    //projectUserControl.suc.HideControl();
+        //    projectUserControl.RefreshFile();
+        //}
 
         public void NewProject()
         {
@@ -709,7 +673,7 @@ namespace Maker
                 spSearch.Background = new SolidColorBrush(Colors.Transparent);
             }
             else {
-                lbProject.SelectedIndex = -1;
+                //lbProject.SelectedIndex = -1;
             }
             gRight.Children.Clear();
             gRight.Children.Add(rightUserControl);

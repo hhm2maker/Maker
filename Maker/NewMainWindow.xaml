@@ -44,7 +44,7 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0"  Visibility="Collapsed">
+                        <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="auto"/>
@@ -67,12 +67,7 @@
                                         <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                                         <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
                                     </StackPanel>
-                                    <DockPanel Margin="0,20,0,0">
-                                      <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10"/>
-                                      <Image MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10" Source="View/Resources/Image/add_dark.png" Width="30"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
-                                  </DockPanel>
-                                  <ListBox Grid.Row="0" Name="lbProject" FontSize="16" Style="{DynamicResource ListBoxStyle1}" Padding="-3,0,0,0" Background="Transparent" BorderThickness="0" BorderBrush="#9ca3a8" Foreground="#b8bfc6" SelectionChanged="lbProject_SelectionChanged"/>
-                                </StackPanel>
+                                       </StackPanel>
                             </ScrollViewer>
                             <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
                                 <StackPanel Margin="15" Orientation="Horizontal" >

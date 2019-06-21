@@ -23,10 +23,14 @@ namespace Maker.View.UI.Project
     /// </summary>
     public partial class FastLaunchpadProUserControl : UserControl
     {
-        public FastLaunchpadProUserControl()
+        public FastLaunchpadProUserControl(UserControl uc)
         {
             InitializeComponent();
 
+            mLaunchpad.Size = uc.ActualWidth / 5;
+        }
+
+        public void Play() {
             InitData();
         }
 

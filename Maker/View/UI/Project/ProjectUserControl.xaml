@@ -29,7 +29,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical">
-            <Image Name="iPicture" Grid.Row="0" Stretch="UniformToFill"  Margin="10" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+            <Image Name="iPicture" Grid.Row="0" Stretch="UniformToFill" Width="30" Height="30" Margin="10" RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Stretch" VerticalAlignment="Center" />
         <StackPanel Margin="0,50,0,30" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Border CornerRadius="70" Height="70" Width="70" BorderThickness="1" BorderBrush="White" Background="Transparent" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Image  Source="../../../View/Resources/Image/play.png" Width="35"  RenderOptions.BitmapScalingMode="Fant"  HorizontalAlignment="Center" VerticalAlignment="Center" />
