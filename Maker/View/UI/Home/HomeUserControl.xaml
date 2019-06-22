@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
-             Background="#FF28282B"
              Loaded="UserControl_Loaded"
              >
     <Grid HorizontalAlignment="Center">
@@ -18,20 +17,18 @@
         </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Width="300" Orientation="Vertical">
             <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
-                <TextBlock Text="{DynamicResource Project}" Foreground="White" Margin="10"/>
+                <Grid>
+                    <TextBlock Text="{DynamicResource Project}" Foreground="White" Margin="15" FontSize="18"/>
+                    <Border HorizontalAlignment="Right" CornerRadius="18" Width="80" MouseLeftButtonDown="Image_MouseLeftButtonDown" Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
+                        <TextBlock Text="{DynamicResource New}"  Foreground="#555555" VerticalAlignment="Center" Margin="0,5,0,5" HorizontalAlignment ="Center" FontSize="18"/>
+                    </Border>
+                </Grid>
             </Border>
             <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
-                <StackPanel>
-                <DockPanel >
-                    <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{DynamicResource MyProject}" Foreground="#72787d"  Margin="10"/>
-                    <Image MouseLeftButtonDown="Image_MouseLeftButtonDown" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10" Source="../../../View/Resources/Image/add_dark.png" Width="30"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
-                </DockPanel>
-                    <StackPanel Name="spProject" />
-                </StackPanel>
+                    <StackPanel Name="spProject" Orientation="Vertical"/>
             </Border>
-                
         </StackPanel>
-        <Border Grid.Column="1" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
+        <Border Grid.Column="1"  Name="bCenter" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
             <StackPanel Name="spCenter" Margin="15"/>
         </Border>
         <StackPanel Grid.Column="2" Width="300" Orientation="Vertical">

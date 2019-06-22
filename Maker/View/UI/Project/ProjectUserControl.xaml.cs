@@ -35,8 +35,7 @@ namespace Maker.View.UI.Project
             InitContextMenu();
             InitUserControl();
 
-            iPicture.Source = new BitmapImage(new Uri(@"E:\Sharer\Maker\Maker\bin\Debug\Project\新建文件夹\img.png", UriKind.RelativeOrAbsolute));
-
+       
         }
         public List<BaseUserControl> userControls = new List<BaseUserControl>();
         //Light
@@ -100,68 +99,40 @@ namespace Maker.View.UI.Project
 
         public void btnNew_Click(object sender, RoutedEventArgs e)
         {
-            BaseUserControl baseUserControl;
-            if (sender == miLight)
-            {
-                baseUserControl = userControls[0];
-            }
-            else if (sender == miLightScript)
-            {
-                baseUserControl = userControls[3];
-            }
-            else if (sender == miLimitlessLamp)
-            {
-                baseUserControl = userControls[9];
-            }
-            else if (sender == miPage)
-            {
-                baseUserControl = userControls[5];
-            }
-            else
-            {
-                return;
-            }
-            baseUserControl.NewFile(sender, e);
+            //BaseUserControl baseUserControl;
+            //if (sender == miLight)
+            //{
+            //    baseUserControl = userControls[0];
+            //}
+            //else if (sender == miLightScript)
+            //{
+            //    baseUserControl = userControls[3];
+            //}
+            //else if (sender == miLimitlessLamp)
+            //{
+            //    baseUserControl = userControls[9];
+            //}
+            //else if (sender == miPage)
+            //{
+            //    baseUserControl = userControls[5];
+            //}
+            //else
+            //{
+            //    return;
+            //}
+            //baseUserControl.NewFile(sender, e);
         }
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            SetSpFilePosition(((sender as TextBlock).Parent as StackPanel).Children.IndexOf(sender as TextBlock));
+            SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
         }
 
         public int filePosition = 0;
         public void SetSpFilePosition(int position)
         {
-            (spFileTitle.Children[filePosition] as TextBlock).FontSize = 18;
-            (spFileTitle.Children[position] as TextBlock).FontSize = 20;
-
-
-            (spFileTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
-            (spFileTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
-
-            foo();
-            // .net 4.5
-            async void foo()
-            {
-                await Task.Delay(50);
-                RefreshFile();
-
-                double _p = 0.0;
-                for (int i = 0; i < position; i++)
-                {
-                    _p += (spFileTitle.Children[i] as TextBlock).ActualWidth;
-                }
-                _p += ((spFileTitle.Children[position] as TextBlock).ActualWidth - 70) / 2;
-                double _p2 = ((gFile.ActualWidth - spFileTitle.ActualWidth) / 2);
-
-                ThicknessAnimation animation2 = new ThicknessAnimation
-                {
-                    To = new Thickness(_p + _p2, 0, 0, 0),
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-                rFile.BeginAnimation(MarginProperty, animation2);
-            }
+            RefreshFile();
         }
 
         public void RefreshFile()
@@ -517,13 +488,16 @@ namespace Maker.View.UI.Project
             if (baseUserControl == userControls[3])
                 baseUserControl.HideControl();
 
-            for (int i = 0; i < lbMain.Items.Count; i++)
-            {
-                if ((lbMain.Items[i] as TreeViewItem).Items.Contains(needControlListBoxItem))
-                {
-                    (lbMain.Items[i] as TreeViewItem).Items.Remove(needControlListBoxItem);
-                }
-            }
+            //lbFile.Items.RemoveAt();
+            
+            
+            //for (int i = 0; i < lbFile.Items.Count; i++)
+            //{
+            //    if ((lbFile.Items[i] as ListBoxItem).Items.Contains(needControlListBoxItem))
+            //    {
+            //        (lbFile.Items[i] as ListBoxItem).Items.Remove(needControlListBoxItem);
+            //    }
+            //}
         }
         public void NewFileResult(String filePath)
         {
@@ -570,20 +544,13 @@ namespace Maker.View.UI.Project
             //LoadFileList();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            IntoUserControl(6);
-        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            gFile.Width = mw.ActualWidth / 5;
             SetSpFilePosition(1);
         }
 
-        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
-        {
-            RefreshFile();
-        }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -600,9 +567,9 @@ namespace Maker.View.UI.Project
             }
         }
 
-        private void Border_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        private void Border_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
-            mw.cMost.Children.Add(new FastLaunchpadProUserControl(this));
+            IntoUserControl(6);
         }
     }
 }

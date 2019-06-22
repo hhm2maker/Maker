@@ -56,6 +56,9 @@ namespace Maker.View.UI.Home
                 {
                     border.Margin = new Thickness(15, 0, 15, 10);
                 }
+                if (i == strs.Count - 1) {
+                    border.Margin = new Thickness(15, 0, 15, 15);
+                }
                 Grid grid = new Grid();
                 border.Child = grid;
                 TextBlock tb = new TextBlock();
@@ -72,12 +75,18 @@ namespace Maker.View.UI.Home
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            //iPicture.Source = new BitmapImage(new Uri(@"E:\Sharer\Maker\Maker\bin\Debug\Project\新建文件夹\img.png", UriKind.RelativeOrAbsolute));
         }
 
+        bool isFirst = true;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            spCenter.Children.Add(new FastLaunchpadProUserControl(this));
+            if (isFirst)
+            {
+                spCenter.Children.Add(new FastLaunchpadProUserControl(this));
+                isFirst = false;
+            }
         }
+
     }
 }

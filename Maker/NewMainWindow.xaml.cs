@@ -50,10 +50,67 @@ namespace Maker
 
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
-            gRight.Children.Add(new HomeUserControl(this));
+            contentUserControls.Add(new HomeUserControl(this));
+            contentUserControls.Add(projectUserControl);
+            
+
+            for (int i = 0; i < contentUserControls.Count; i++) {
+                TextBlock tb = new TextBlock();
+                tb.Padding = new Thickness(10);
+                tb.FontSize = 18;
+                if (contentUserControls[i] is HomeUserControl) {
+                    tb.Text = "Home";
+                }
+                if (contentUserControls[i] is ProjectUserControl)
+                {
+                    tb.Text = "Project";
+                }
+                tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
+                spContentTitle.Children.Add(tb);
+            }
+            SetSpFilePosition(1);
         }
 
-        
+        private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SetSpFilePosition((((sender as TextBlock).Parent) as Panel).Children.IndexOf(sender as TextBlock));
+        }
+
+        public int filePosition = 0;
+        public void SetSpFilePosition(int position)
+        {
+            (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
+            (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            filePosition = position;
+
+            foo();
+            // .net 4.5
+            async void foo()
+            {
+                await Task.Delay(50);
+
+                double _p = 0.0;
+                for (int i = 0; i < position; i++)
+                {
+                    _p += (spContentTitle.Children[i] as TextBlock).ActualWidth;
+                }
+                _p += ((spContentTitle.Children[position] as TextBlock).ActualWidth - 50) / 2;
+                double _p2 = ((spContentTitle.ActualWidth - spContentTitle.ActualWidth) / 2);
+
+                double leftMargin = (ActualWidth - (ActualWidth / 5 + 640)) / 2;
+
+                ThicknessAnimation animation2 = new ThicknessAnimation
+                {
+                    To = new Thickness(_p + _p2 + leftMargin - 10, 0, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                rFile.BeginAnimation(MarginProperty, animation2);
+            }
+            gRight.Children.Clear();
+            gRight.Children.Add(contentUserControls[position]);
+        }
+
+        private List<UserControl> contentUserControls = new List<UserControl>();
        
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -239,22 +296,6 @@ namespace Maker
             projectUserControl.suc.InitMyContent();
         }
 
-        private void LoadFileList()
-        {
-            projectUserControl.lbMain.Items.Clear();
-            FileBusiness fileBusiness = new FileBusiness();
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            List<String> fileNames = fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
-            for (int i = 0; i < fileNames.Count; i++)
-            {
-                ListBoxItem item = new ListBoxItem
-                {
-                    Height = 36,
-                    Content = fileNames[i],
-                };
-                projectUserControl.lbMain.Items.Add(item);
-            }
-        }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -364,7 +405,7 @@ namespace Maker
                     projectConfigModel.Path = dialog.fileName;
                     if (gMain.Children.Count > 0)
                     {
-                        LoadFileList();
+                        //LoadFileList();
                         BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
                         baseUserControl.HideControl();
                     }
@@ -531,7 +572,9 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            double leftMargin = (ActualWidth - (ActualWidth / 5 + 640)) / 2;
+            spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
+            spContentTitle.Margin = new Thickness(leftMargin - 10 , 0, leftMargin - 10, 0);
         }
        
 
@@ -645,12 +688,7 @@ namespace Maker
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            spSearch.Children[0].Visibility = Visibility.Visible;
-            spAppreciate.Children[0].Visibility = Visibility.Hidden;
-            spSearch.Background = new SolidColorBrush(Color.FromRgb(34,35, 38));
-            spAppreciate.Background = new SolidColorBrush(Colors.Transparent);
             SetRightUserControl(new SearchUserControl(this));
-
         }
 
         private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)

@@ -9,7 +9,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Maximized"
-        Background="#FF28282B"
+        Background="#222326"
         Loaded="Window_Loaded"
         >
     <!--AllowsTransparency="True"
@@ -29,58 +29,55 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Name="gMost" DockPanel.Dock="Top">
-        <DockPanel>
+    <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Background="#222326" -->
+        <Grid Grid.Row="0" Background="#FF282828">
+            <StackPanel  Margin="10" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBlock FontSize="20" VerticalAlignment="Center" Text="Maker" Foreground="#FFB8BFC6" FontWeight="Bold"/>
+                <Rectangle Height="30" VerticalAlignment="Center" Width="3" Fill="White" Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+            <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                <TextBlock VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
+            </StackPanel>
+            <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
+                <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
+            </StackPanel>
+            <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
+            </StackPanel>
+                <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
+                    <StackPanel Margin="15" Orientation="Horizontal" >
+                        <Image Width="25"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                        <Image Width="25" Margin="15,0,0,0" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSettingControl" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+        <StackPanel Name="spHead" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Image Name="iHead" Grid.Column="0" Source="View/Resources/Image/headportrait.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+            <TextBlock VerticalAlignment="Center" Text="Admin" Foreground="#FFB8BFC6"  Margin="15,0,0,0" FontSize="22"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical">
+            <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
+            <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
+            <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+        <DockPanel Grid.Row="3">
             <Grid DockPanel.Dock="Top">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <DockPanel Grid.Column="0" DockPanel.Dock="Left" Background="#222326" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-                       </DockPanel>
-                    <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="gM">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                                <StackPanel>
-                                    <Image HorizontalAlignment="Left" Margin="15" Source="View/Resources/Image/open.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  VerticalAlignment="Center" />
-                                    <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
-                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
-                                    </StackPanel>
-                                    <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
-                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
-                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                                        <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Appreciate}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
-                                    </StackPanel>
-                                    <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
-                                        <Rectangle Width="3" Fill="#363B40" Visibility="Hidden"/>
-                                        <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                                        <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
-                                    </StackPanel>
-                                       </StackPanel>
-                            </ScrollViewer>
-                            <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
-                                <StackPanel Margin="15" Orientation="Horizontal" >
-                                    <Image Width="25"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-                                    <Image Width="25" Margin="15,0,0,0" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSettingControl" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-                                </StackPanel>
-                            </Border>
-                        </Grid>
-                        <Grid Name="gRight" Grid.Column="1"  Background="#222326"  HorizontalAlignment="Stretch" />
-                    </Grid>
-                </Grid>
+                <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>
-
                 <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
@@ -124,12 +121,11 @@
                 </Grid>
             </Grid>
         </DockPanel>
-      
         <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+        <Canvas VerticalAlignment="Bottom" Visibility="Collapsed" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
             <StackPanel Orientation="Horizontal" Canvas.Top="40" Background="#1c1a1c" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>

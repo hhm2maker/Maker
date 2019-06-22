@@ -27,7 +27,7 @@ namespace Maker.View.UI.Project
         {
             InitializeComponent();
 
-            mLaunchpad.Size = uc.ActualWidth / 5;
+            mLaunchpad.Size = uc.ActualWidth / 5 - 30;
         }
 
         public void Play() {
