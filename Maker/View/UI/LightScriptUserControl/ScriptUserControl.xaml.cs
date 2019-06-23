@@ -80,10 +80,7 @@ namespace Maker.View.LightScriptUserControl
             //初始化控件
             InitView();
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.AddMembrane();
-            mLaunchpad.IsMembrane = true;
+          
             
             //放置在底部
             //for (int i = spMainLeft.Children.Count - 1; i >= 0; i--)
@@ -245,6 +242,11 @@ namespace Maker.View.LightScriptUserControl
             //toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
             //toolTip.SetValue(StyleProperty, null);
             //iNewStep.ToolTip = toolTip;
+
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.AddMembrane();
+            mLaunchpad.IsMembrane = true;
 
             InitFormat();
         }

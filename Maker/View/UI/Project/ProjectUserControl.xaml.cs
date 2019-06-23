@@ -5,6 +5,7 @@ using Maker.View.LightUserControl;
 using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Tool;
+using Maker.View.UI.Edit;
 using Maker.View.UI.UserControlDialog;
 using System;
 using System.Collections.Generic;
@@ -95,6 +96,8 @@ namespace Maker.View.UI.Project
             //IdeaUserControl
             iuc = new IdeaUserControl(mw);
             userControls.Add(iuc);
+
+            SetSpFilePosition(1);
         }
 
         public void btnNew_Click(object sender, RoutedEventArgs e)
@@ -128,9 +131,22 @@ namespace Maker.View.UI.Project
             SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
         }
 
-        public int filePosition = 0;
+        public int filePosition = -1;
         public void SetSpFilePosition(int position)
         {
+            if (filePosition == position)
+                return;
+
+            if (filePosition != -1) {
+                (spLeft.Children[filePosition] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                (spLeft.Children[filePosition] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                ((spLeft.Children[filePosition] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+
+            (spLeft.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184,191,198));
+            (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+            ((spLeft.Children[position] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
             filePosition = position;
             RefreshFile();
         }
@@ -309,54 +325,50 @@ namespace Maker.View.UI.Project
             {
                 await Task.Delay(400);
 
-                Rectangle rectangle = new Rectangle();
-                rectangle.Fill = new SolidColorBrush(Color.FromRgb(28, 26, 28));
-                rectangle.Width = lbi.ActualWidth;
-                rectangle.Height = lbi.ActualHeight;
-                Canvas.SetLeft(rectangle, point.X);
-                Canvas.SetTop(rectangle, point.Y);
-                mw.cMost.Children.Add(rectangle);
+                Storyboard_Completed(sender,e);
+                //Rectangle rectangle = new Rectangle();
+                //rectangle.Fill = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+                //rectangle.Width = lbi.ActualWidth;
+                //rectangle.Height = lbi.ActualHeight;
+                //Canvas.SetLeft(rectangle, point.X);
+                //Canvas.SetTop(rectangle, point.Y);
+                //mw.cMost.Children.Add(rectangle);
 
-                Storyboard storyboard = new Storyboard();
-                storyboard.Completed += Storyboard_Completed;
-                DoubleAnimation doubleAnimation = new DoubleAnimation
-                {
-                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
-                };
-                doubleAnimation.To = 0;
-                Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(Canvas.TopProperty));
+                //Storyboard storyboard = new Storyboard();
+                //storyboard.Completed += Storyboard_Completed;
+                //DoubleAnimation doubleAnimation = new DoubleAnimation
+                //{
+                //    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                //};
+                //doubleAnimation.To = 0;
+                //Storyboard.SetTargetProperty(doubleAnimation, new PropertyPath(Canvas.TopProperty));
 
-                //rectangle.BeginAnimation(Canvas.TopProperty, doubleAnimation);
+                //DoubleAnimation doubleAnimation4 = new DoubleAnimation
+                //{
+                //    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                //};
+                //doubleAnimation4.To = 0;
+                //Storyboard.SetTargetProperty(doubleAnimation4, new PropertyPath(Canvas.LeftProperty));
 
-                DoubleAnimation doubleAnimation4 = new DoubleAnimation
-                {
-                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
-                };
-                doubleAnimation4.To = 0;
-                Storyboard.SetTargetProperty(doubleAnimation4, new PropertyPath(Canvas.LeftProperty));
-                //rectangle.BeginAnimation(Canvas.LeftProperty, doubleAnimation4);
+                //DoubleAnimation doubleAnimation2 = new DoubleAnimation
+                //{
+                //    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
+                //};
+                //doubleAnimation2.To = mw.ActualWidth;
+                //Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath(Canvas.WidthProperty));
 
-                DoubleAnimation doubleAnimation2 = new DoubleAnimation
-                {
-                    Duration = TimeSpan.FromMilliseconds(500),  //动画播放时间
-                };
-                doubleAnimation2.To = mw.ActualWidth;
-                Storyboard.SetTargetProperty(doubleAnimation2, new PropertyPath(Canvas.WidthProperty));
-                //rectangle.BeginAnimation(WidthProperty, doubleAnimation2);
+                //DoubleAnimation doubleAnimation3 = new DoubleAnimation
+                //{
+                //    Duration = TimeSpan.FromMilliseconds(300),  //动画播放时间
+                //};
+                //doubleAnimation3.To = mw.ActualHeight;
+                //Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath(Canvas.HeightProperty));
 
-                DoubleAnimation doubleAnimation3 = new DoubleAnimation
-                {
-                    Duration = TimeSpan.FromMilliseconds(300),  //动画播放时间
-                };
-                doubleAnimation3.To = mw.ActualHeight;
-                Storyboard.SetTargetProperty(doubleAnimation3, new PropertyPath(Canvas.HeightProperty));
-                //rectangle.BeginAnimation(HeightProperty, doubleAnimation3);
-
-                storyboard.Children.Add(doubleAnimation);
-                storyboard.Children.Add(doubleAnimation2);
-                storyboard.Children.Add(doubleAnimation3);
-                storyboard.Children.Add(doubleAnimation4);
-                storyboard.Begin(rectangle);
+                //storyboard.Children.Add(doubleAnimation);
+                //storyboard.Children.Add(doubleAnimation2);
+                //storyboard.Children.Add(doubleAnimation3);
+                //storyboard.Children.Add(doubleAnimation4);
+                //storyboard.Begin(rectangle);
             }
         }
 
@@ -372,7 +384,7 @@ namespace Maker.View.UI.Project
                     return;
                 }
           
-            mw.cMost.Children.RemoveAt(mw.cMost.Children.Count-1);
+            //mw.cMost.Children.RemoveAt(mw.cMost.Children.Count-1);
 
             String fileName = (lbFile.SelectedItem as ListBoxItem).Content.ToString();
             BaseUserControl baseUserControl = null;
@@ -392,10 +404,10 @@ namespace Maker.View.UI.Project
                 }
             }
 
-            if (mw.cMost.Children.Count == 0)
-                return;
+            //if (mw.cMost.Children.Count == 0)
+            //    return;
             //是否是制作灯光的用户控件
-            baseUserControl = mw.cMost.Children[0] as BaseUserControl;
+            baseUserControl = (mw.contentUserControls[2] as EditUserControl).gMain.Children[0] as BaseUserControl;
 
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -521,9 +533,11 @@ namespace Maker.View.UI.Project
 
         public void IntoUserControl(int index)
         {
-            //spBottomTool.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
-            //bToolChild.Background = new SolidColorBrush(Color.FromRgb(28, 26, 28));
+            EditUserControl euc = new EditUserControl();
+            euc.gMain.Children.Add(userControls[index]);
+            mw.AddContentUserControl(euc);
 
+            return;
             mw.cMost.Background = new SolidColorBrush(Colors.Transparent);
             //清除旧界面
             mw.cMost.Children.Clear();
@@ -548,7 +562,7 @@ namespace Maker.View.UI.Project
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             gFile.Width = mw.ActualWidth / 5;
-            SetSpFilePosition(1);
+            
         }
 
 

@@ -45,6 +45,8 @@ namespace Maker.View.UI.Home
             for (int i = 0; i < strs.Count; i++)
             {
                 Border border = new Border();
+                border.Background = new SolidColorBrush(Colors.Transparent);
+                border.MouseLeftButtonDown += Border_MouseLeftButtonDown;
                 border.CornerRadius = new CornerRadius(3);
                 border.BorderThickness = new Thickness(2);
                 border.BorderBrush = new SolidColorBrush(Color.FromRgb(85,85,85));
@@ -71,6 +73,38 @@ namespace Maker.View.UI.Home
                 grid.Children.Add(tb);
                 spProject.Children.Add(border);
             }
+            SetSpFilePosition(strs.IndexOf(mw.projectConfigModel.Path));
+        }
+
+        public int filePosition = -1;
+        public void SetSpFilePosition(int position)
+        {
+            if (filePosition == position)
+                return;
+
+            if (filePosition != -1)
+            {
+                (spProject.Children[filePosition] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                (spProject.Children[filePosition] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                (((spProject.Children[filePosition] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+
+            (spProject.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            (spProject.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+            (((spProject.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
+            filePosition = position;
+            RefreshFile();
+        }
+
+        private void RefreshFile()
+        {
+            //TODO:
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -266,6 +266,9 @@
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
+    <Compile Include="View\UI\Edit\EditUserControl.xaml.cs">
+      <DependentUpon>EditUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Game\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -670,6 +673,10 @@
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Edit\EditUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Game\GameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

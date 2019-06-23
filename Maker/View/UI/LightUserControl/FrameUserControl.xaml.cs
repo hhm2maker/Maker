@@ -959,29 +959,18 @@ namespace Maker.View.LightUserControl
                 frameModel.style.size = sliderSize.Value;
         }
 
-        private void MoveRLeft(int index)
-        {
-            DoubleAnimation doubleAnimation = new DoubleAnimation
-            {
-                From = Canvas.GetTop(rLeft),
-                To = 100 * index,
-                Duration = new Duration(TimeSpan.FromSeconds(0.2))
-            };
-            rLeft.BeginAnimation(Canvas.TopProperty, doubleAnimation);
-
-        }
+       
 
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             int index = spLeft.Children.IndexOf(sender as UIElement);
-            MoveRLeft(index);
-            if (sender != dpPicture) {
+            if (sender != bPicture) {
                 HideImageControl();
             }
 
             for (int i = 0; i < spLeft.Children.Count; i++)
             {
-                TextBlock textBlock = ((Panel)((Panel)spLeft.Children[i]).Children[0]).Children[1] as TextBlock;
+                TextBlock textBlock = ((Panel)((Panel)((Border)spLeft.Children[i]).Child).Children[0]).Children[1] as TextBlock;
                 if (i == index)
                 {
                     textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
@@ -992,13 +981,13 @@ namespace Maker.View.LightUserControl
                 }
             }
 
-            if (sender == dpStyle)
+            if (sender == bStyle)
             {
                 sliderSize.Visibility = Visibility.Visible;
                 nowControlType = ControlType.Style;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
             }
-            if (sender == dpColor)
+            if (sender == bColor)
             {
                 sliderSize.Visibility = Visibility.Collapsed;
 
@@ -1013,14 +1002,14 @@ namespace Maker.View.LightUserControl
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
             }
-            if (sender == dpSelect)
+            if (sender == bSelect)
             {
                 sliderSize.Visibility = Visibility.Collapsed;
                 nowControlType = ControlType.Select;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
             }
-            if (sender == dpPicture)
+            if (sender == bPicture)
             {
                 sliderSize.Visibility = Visibility.Collapsed;
 
@@ -1052,8 +1041,8 @@ namespace Maker.View.LightUserControl
 
         private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth ;
-            Height = mw.gMost.ActualHeight;
+            Width = mw.gRight.ActualWidth;
+            Height = mw.gRight.ActualHeight;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -39,7 +39,7 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal"  Margin="10">
                     <TextBlock Text="网站：" Foreground="White"/>
-                    <TextBlock Text="https://www.hhm2maker.com/" Foreground="White" />
+                    <TextBlock Text="https://www.hhm2maker.com" Foreground="White" />
                 </StackPanel>
                     <StackPanel Orientation="Horizontal"  Margin="10">
                     <TextBlock Text="Email：" Foreground="White"/>

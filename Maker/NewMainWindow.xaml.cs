@@ -28,6 +28,7 @@ using Maker.View.UI.Help;
 using System.Windows.Shapes;
 using Maker.View.UI.Game;
 using Maker.View.UI.Home;
+using Maker.View.UI.Edit;
 
 namespace Maker
 {
@@ -71,6 +72,29 @@ namespace Maker
             SetSpFilePosition(1);
         }
 
+        public void AddContentUserControl(UserControl uc) {
+            TextBlock tb = new TextBlock();
+            tb.Padding = new Thickness(10);
+            tb.FontSize = 18;
+            if (uc is HomeUserControl)
+            {
+                tb.Text = "Home";
+            }
+            if (uc is ProjectUserControl)
+            {
+                tb.Text = "Project";
+            }
+            if (uc is EditUserControl)
+            {
+                tb.Text = "Edit";
+            }
+            tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
+            spContentTitle.Children.Add(tb);
+
+            contentUserControls.Add(uc);
+            SetSpFilePosition(contentUserControls.Count-1);
+        }
+
         private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             SetSpFilePosition((((sender as TextBlock).Parent) as Panel).Children.IndexOf(sender as TextBlock));
@@ -110,7 +134,7 @@ namespace Maker
             gRight.Children.Add(contentUserControls[position]);
         }
 
-        private List<UserControl> contentUserControls = new List<UserControl>();
+        public List<UserControl> contentUserControls = new List<UserControl>();
        
         private void Window_Closed(object sender, EventArgs e)
         {

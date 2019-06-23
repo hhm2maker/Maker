@@ -47,26 +47,18 @@
             </Grid>
             </Border>
             <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
-                <StackPanel>
+                <StackPanel Name="spLeft">
                     <Border Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
-                        <StackPanel>
                         <TextBlock Text="{DynamicResource Light}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
-                        </StackPanel>
                     </Border>
                     <Border Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
-                        <StackPanel>
                             <TextBlock Text="{DynamicResource LightScript}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
-                        </StackPanel>
                     </Border>
                     <Border Background="Transparent" CornerRadius="3"  BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
-                        <StackPanel>
                             <TextBlock Text="{DynamicResource LimitlessLamp}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
-                        </StackPanel>
                     </Border>
                     <Border Background="Transparent" CornerRadius="3"  BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,15" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
-                        <StackPanel>
                             <TextBlock Text="{DynamicResource Play_}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
-                            </StackPanel>
                     </Border>
                 </StackPanel>
             </Border>
@@ -99,11 +91,11 @@
             </Border>-->
         </StackPanel>
         <Border Name="gFile" Grid.Column="1" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
-                <Grid  Margin="30,0,30,30" >
-                    <Grid.Effect>
+                <Grid  Margin="15" >
+                    <!--<Grid.Effect>
                         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
-                    </Grid.Effect>
-                            <ListBox Margin="0,20,0,0" Name="lbFile" AlternationCount="2" Style="{DynamicResource ListBoxStyle2}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  >
+                    </Grid.Effect>-->
+                            <ListBox  Name="lbFile" AlternationCount="2" Style="{DynamicResource ListBoxStyle2}" Background="Transparent" BorderThickness="0" Foreground="White" FontSize="16"  >
                                 <!--<ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Style.Triggers>
@@ -125,7 +117,7 @@
                     <Border Width="125"  CornerRadius="20" Background="#55acee" Margin="0,15,15,15" MouseLeftButtonDown="Border_MouseLeftButtonDown_2">
                         <TextBlock Text="{DynamicResource Build}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
                     </Border>
-                </StackPanel>
+            </StackPanel>
         </Border>
         </StackPanel>
     </Grid>
