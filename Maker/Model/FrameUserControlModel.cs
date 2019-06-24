@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using Maker.Business;
 using Maker.View.LightUserControl;
 using System;
 using System.Collections;
@@ -130,7 +131,6 @@ namespace Maker.Model
                 mLightList.Add(new Light(0, 144, i, x[i]));
             }
             NowLightLight = mLightList;
-
             if (!points.ContainsKey(nowTimePoint))
             {
                 Texts = new List<Text>();

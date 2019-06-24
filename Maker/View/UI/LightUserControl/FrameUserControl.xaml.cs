@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -57,10 +58,7 @@ namespace Maker.View.LightUserControl
             FileStream stream = new FileStream("Config/frame.xml", FileMode.Open);
             frameModel = (FrameConfigModel)serializer.Deserialize(stream);
             stream.Close();
-            Canvas.SetLeft(cMain, frameModel.style.x);
-            Canvas.SetTop(cMain, frameModel.style.y);
 
-            sliderSize.Value = frameModel.style.size;
         }
 
         private FrameConfigModel frameModel;
@@ -216,19 +214,24 @@ namespace Maker.View.LightUserControl
         /// </summary>
         public override void SetData(List<Light> mActionBeanList)
         {
-            ClearFrame();
-            LiTime = LightBusiness.GetTimeList(mActionBeanList);
-            Dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
-            allTimePoint = LiTime.Count;
-
-            if (LiTime.Count == 0)
+            foo();
+            async void foo()
             {
-                NowTimePoint = 0;
+                await Task.Delay(10);
+                ClearFrame();
+                LiTime = LightBusiness.GetTimeList(mActionBeanList);
+                Dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
+                allTimePoint = LiTime.Count;
+                if (LiTime.Count == 0)
+                {
+                    NowTimePoint = 0;
+                }
+                else
+                {
+                    NowTimePoint = 1;
+                }
             }
-            else
-            {
-                NowTimePoint = 1;
-            }
+      
         }
 
         /// <summary>
@@ -257,7 +260,6 @@ namespace Maker.View.LightUserControl
                     }
                     if (Dic[LiTime[i]][j] != 0 && Dic[LiTime[i]][j] != -1)
                     {
-                        sliderSize.Value = frameModel.style.size;
                         if (b[j])
                         {
                             mActionBeanList.Add(new Light(LiTime[i], 128, j, 64));
@@ -276,6 +278,7 @@ namespace Maker.View.LightUserControl
         /// </summary>
         private void ClearFrame()
         {
+          
             mLaunchpad.ClearAllColorExceptMembrane();
         }
 
@@ -283,7 +286,7 @@ namespace Maker.View.LightUserControl
         {
             if (NowTimePoint == 0)
                 return;
-            ClearFrame();
+            //ClearFrame();
 
             List<Light> mLightList = new List<Light>();
 
@@ -371,7 +374,6 @@ namespace Maker.View.LightUserControl
             nowColor = completeColorPanel.NowColor;
 
             cText.NowColorNum = nowColor;
-            popColor.IsOpen = false;
 
             mLaunchpad.SetNowBrush(StaticConstant.brushList[completeColorPanel.NowColor]);
             cColor.Background = StaticConstant.brushList[completeColorPanel.NowColor];
@@ -914,34 +916,8 @@ namespace Maker.View.LightUserControl
             doc.Save(nowTextFilePath);
         }
 
-        private Point movePoint;
-        private bool isMove = false;
-        private void BaseLightUserControl_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            isMove = true;
-            movePoint = e.GetPosition(this);
-        }
 
-        private void BaseLightUserControl_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            isMove = false;
-        }
-
-        private void BaseLightUserControl_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isMove && nowControlType == ControlType.Style) {
-                frameModel.style.x += (int)(e.GetPosition(this).X - movePoint.X);
-                frameModel.style.y += (int)(e.GetPosition(this).Y - movePoint.Y);
-
-                Canvas.SetLeft(cMain, frameModel.style.x);
-                Canvas.SetTop(cMain, frameModel.style.y);
-                movePoint = e.GetPosition(this);
-            }
-        }
-        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
-        {
-            isMove = false;
-        }
+      
         /// <summary>
         /// 移除选择框
         /// </summary>
@@ -953,17 +929,10 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        private void sliderSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (frameModel != null)
-                frameModel.style.size = sliderSize.Value;
-        }
-
-       
-
+        public int filePosition = -1;
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int index = spLeft.Children.IndexOf(sender as UIElement);
+            int position = spLeft.Children.IndexOf(sender as UIElement);
             if (sender != bPicture) {
                 HideImageControl();
             }
@@ -971,7 +940,7 @@ namespace Maker.View.LightUserControl
             for (int i = 0; i < spLeft.Children.Count; i++)
             {
                 TextBlock textBlock = ((Panel)((Panel)((Border)spLeft.Children[i]).Child).Children[0]).Children[1] as TextBlock;
-                if (i == index)
+                if (i == position)
                 {
                     textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
                 }
@@ -983,17 +952,15 @@ namespace Maker.View.LightUserControl
 
             if (sender == bStyle)
             {
-                sliderSize.Visibility = Visibility.Visible;
                 nowControlType = ControlType.Style;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bColor)
             {
-                sliderSize.Visibility = Visibility.Collapsed;
 
                 if (nowControlType == ControlType.Draw)
                 {
-                    popColor.IsOpen = true;
+
                 }
                 else
                 {
@@ -1004,24 +971,38 @@ namespace Maker.View.LightUserControl
             }
             if (sender == bSelect)
             {
-                sliderSize.Visibility = Visibility.Collapsed;
                 nowControlType = ControlType.Select;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bPicture)
             {
-                sliderSize.Visibility = Visibility.Collapsed;
 
                 ShowImageControl();
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
             }
+
+            if (filePosition == position)
+                return;
+
+            if (filePosition != -1)
+            {
+                (spLeft.Children[filePosition] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                (spLeft.Children[filePosition] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                //(((spLeft.Children[filePosition] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+
+            (spLeft.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+            //(((spLeft.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
+            filePosition = position;
         }
 
         private void dpColor_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            popColor.IsOpen = true;
+            
         }
      
         private void ShowImageControl()
@@ -1036,13 +1017,18 @@ namespace Maker.View.LightUserControl
 
         private void iSelect2_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            popSelect.IsOpen = true;
+            popSelect.Visibility = Visibility.Visible;
         }
 
         private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.gRight.ActualWidth;
+            //Width = mw.gRight.ActualWidth;
             Height = mw.gRight.ActualHeight;
+
+            dpCenter.Width = mw.ActualWidth / 5;
+            mLaunchpad.Size = mw.ActualWidth / 5 - 30;
+            cLaunchpad.Width = mLaunchpad.Width;
+            cLaunchpad.Height = mLaunchpad.Height;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -1114,6 +1100,11 @@ namespace Maker.View.LightUserControl
         {
             base.SaveFile();
             XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
+        }
+
+        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         private void  OnLaunchpadDataChange(List<Light> data) {
