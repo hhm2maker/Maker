@@ -396,8 +396,8 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Width="300" Orientation="Vertical">
                 <Border HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
-                    <StackPanel Name="spLeft">
-                        <Border Name="bStyle" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" >
+                    <WrapPanel Name="spLeft">
+                        <Border  Name="bStyle" Width="127" Margin="15,15,0,0" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
                             <DockPanel Width="90"  Height="100">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                                     <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="40" Height="40" />
@@ -405,18 +405,18 @@
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                        <Border Name="bColor" Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0"  MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="dpColor_MouseRightButtonUp" >
+                        <Border Name="bColor" Width="127"  Margin="15,15,0,0"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2"  MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="dpColor_MouseRightButtonUp" >
                             <DockPanel Width="90"  Height="100">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                                     <Canvas  Width="40" Height="40" >
                                         <Canvas Width="38" Height="38"  Background="Red" Canvas.Left="1" Canvas.Top="1" Name="cColor"/>
-                                        <Image Source="../../Resources/Image/color_black.png" Width="40" Height="40" />
+                                        <Image Name="iColor"  Source="../../Resources/Image/color_black.png" Width="40" Height="40" />
                                     </Canvas>
                                     <TextBlock Name="tbColor" Text="{DynamicResource Color}" FontSize="16" Foreground="#ffffff" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                        <Border Name="bSelect" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"   BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0" >
+                        <Border Name="bSelect" Width="127" Margin="15,15,0,15" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"   BorderBrush="#555555" BorderThickness="2"  >
                             <DockPanel Width="90"  Height="100">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                                     <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" />
@@ -424,7 +424,7 @@
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                        <Border Name="bPicture" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp"  BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,15" >
+                        <Border Name="bPicture"  Width="127" Margin="15,15,0,15" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp"  BorderBrush="#555555" BorderThickness="2" >
                             <DockPanel Width="90"  Height="100">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                                     <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
@@ -432,16 +432,17 @@
                                 </StackPanel>
                             </DockPanel>
                         </Border>
-                    </StackPanel>
+                    </WrapPanel>
                 </Border>
-              
 
-                <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" Margin="0,15,0,0" BorderBrush="#555555" BorderThickness="2">
+                <StackPanel Orientation="Vertical" Name="bFullSelect" Visibility="Collapsed">
+                    
+               
+                <Border  HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" Margin="0,15,0,0" BorderBrush="#555555" BorderThickness="2">
                     <TextBlock Text="选择模式" Foreground="White" Margin="10"/>
                 </Border>
                 <Border Name="popSelect"  Width="300"  BorderBrush="#555555" BorderThickness="2,0,2,2">
-                <StackPanel Orientation="Vertical">
-                            <StackPanel >
+                            <StackPanel  Orientation="Vertical">
                                 <Border Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
                                 <TextBlock Text="{DynamicResource Select}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
                                 </Border>
@@ -455,14 +456,8 @@
                                 <TextBlock Text="{DynamicResource Complement}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
                                 </Border>
                             </StackPanel>
-                           
-                        <RadioButton IsChecked="true" GroupName="gnSelect" Grid.Column="0" Name="rbSelect" Content="{DynamicResource Select}" FontSize="16" Foreground="#fff"/>
-                        <RadioButton GroupName="gnSelect" Grid.Column="1" Name="rbAdd"  Content="{DynamicResource Add}" FontSize="16" Foreground="#fff"/>
-                        <RadioButton GroupName="gnSelect" Grid.Column="0" Name="rbIntersection"  Content="{DynamicResource Intersection}" FontSize="16" Foreground="#fff"/>
-                        <RadioButton GroupName="gnSelect" Grid.Column="1"  Name="rbComplement" Content="{DynamicResource Complement}" FontSize="16" Foreground="#fff"/>
-                    </StackPanel>
                 </Border>
-                    <Border Width="300"  CornerRadius="3" Margin="0,15,0,0" BorderBrush="#555555" BorderThickness="2">
+                <Border Width="300"  CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
                     <StackPanel>
                         <WrapPanel  Margin="0,15,0,0" Width="auto" HorizontalAlignment="Center">
                         <Button  Name="btnLeftUp"  Width="180" Click="FourAreaClick" Content="{DynamicResource UpperLeft}"/>
@@ -754,6 +749,10 @@
                     </StackPanel>
                 </StackPanel>
                 </Border>
+                </StackPanel>
+                <Border Width="300" Name="bCompleteColor" Visibility="Collapsed" CornerRadius="3" Margin="0,15,0,0" BorderBrush="#555555" BorderThickness="2">
+                    <view:CompleteColorPanel x:Name="completeColorPanel" Margin="15"/>
+                </Border>
             </StackPanel>
             <StackPanel Orientation="Vertical" Name="dpCenter" Grid.Column="1" Margin="15,0,15,0">
                 <Border Name="bCenter" CornerRadius="3,3,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" BorderBrush="#555555" BorderThickness="2" >
@@ -768,9 +767,7 @@
                         <widget:TextCanvas Data="{Binding Model.Texts}" x:Name="cText" />
                     </Canvas>
                 </Border>
-                    <StackPanel Background="#1c1e1f">
-                        <view:CompleteColorPanel x:Name="completeColorPanel" />
-                    </StackPanel>
+                  
                 <Border CornerRadius="0,0,3,3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2">
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"  Margin="15">
                             <StackPanel Orientation="Horizontal" >

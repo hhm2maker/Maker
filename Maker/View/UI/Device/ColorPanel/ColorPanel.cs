@@ -1,14 +1,9 @@
 ﻿using Maker.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace Maker.View
 {
@@ -22,7 +17,7 @@ namespace Maker.View
             factory.SetValue(UniformGrid.ColumnsProperty, 8);
             ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate(factory);
             ItemsPanel = itemsPanelTemplate;
-            for (int i = 0; i <= 127; i++)
+            for (int i = 0; i < StaticConstant.brushList.Count; i++)
             {
                 Border border = new Border()
                 {
@@ -62,7 +57,7 @@ namespace Maker.View
             factory.SetValue(UniformGrid.ColumnsProperty, 8);
             ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate(factory);
             ItemsPanel = itemsPanelTemplate;
-            for (int i = 0; i <= 127; i++)
+            for (int i = 0; i < StaticConstant.brushList.Count; i++)
             {
                 ListBoxItem item = new ListBoxItem
                 {

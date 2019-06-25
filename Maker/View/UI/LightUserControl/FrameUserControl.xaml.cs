@@ -496,7 +496,14 @@ namespace Maker.View.LightUserControl
             Draw = 1,
             Select = 2,
         }
-
+        private SelectType nowSelectType = SelectType.Select;
+        private enum SelectType
+        {
+            Select = 0,
+            Add = 1,
+            Intersection = 2,
+            Complement =3
+        }
         private void mLaunchpad_MouseEnter(object sender, MouseEventArgs e)
         {
             if (NowTimePoint == 0)
@@ -954,6 +961,8 @@ namespace Maker.View.LightUserControl
             {
                 nowControlType = ControlType.Style;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
+                iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
+                iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bColor)
             {
@@ -967,12 +976,14 @@ namespace Maker.View.LightUserControl
                     nowControlType = ControlType.Draw;
                 }
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_blue.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bSelect)
             {
                 nowControlType = ControlType.Select;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bPicture)
@@ -980,6 +991,7 @@ namespace Maker.View.LightUserControl
 
                 ShowImageControl();
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
+                iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
             }
 
@@ -997,6 +1009,23 @@ namespace Maker.View.LightUserControl
             (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
             //(((spLeft.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
 
+            if (nowControlType == ControlType.Draw)
+            {
+                bCompleteColor.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                bCompleteColor.Visibility = Visibility.Collapsed;
+            }
+
+            if (nowControlType == ControlType.Select)
+            {
+                bFullSelect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                bFullSelect.Visibility = Visibility.Collapsed;
+            }
             filePosition = position;
         }
 
@@ -1048,15 +1077,16 @@ namespace Maker.View.LightUserControl
                 SelectPosition(rightUp);
         }
 
+
         public void SelectPosition(List<int> positions)
         {
-            if (rbSelect.IsChecked == true)
+            if (nowSelectType == SelectType.Select)
             {
                 selects.Clear();
                 selects.AddRange(positions);
                 mLaunchpad.SetSelectPosition(selects);
             }
-            if (rbAdd.IsChecked == true)
+            if (nowSelectType == SelectType.Add)
             {
                 for (int i = 0; i < positions.Count; i++)
                 {
@@ -1068,7 +1098,7 @@ namespace Maker.View.LightUserControl
                 selects.AddRange(positions);
                 mLaunchpad.SetSelectPosition(selects);
             }
-            if (rbIntersection.IsChecked == true)
+            if (nowSelectType == SelectType.Intersection)
             {
                 List<int> nowSelects = new List<int>();
                 nowSelects.AddRange(selects);
@@ -1082,7 +1112,7 @@ namespace Maker.View.LightUserControl
                 }
                 mLaunchpad.SetSelectPosition(selects);
             }
-            if (rbComplement.IsChecked == true)
+            if (nowSelectType == SelectType.Complement)
             {
                 for (int i = 0; i < positions.Count; i++)
                 {
