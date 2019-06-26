@@ -482,7 +482,7 @@
     <sys:String x:Key="Intersection">Intersection</sys:String>
     <sys:String x:Key="Complement">Complement</sys:String>
     <sys:String x:Key="SaveCanvas">Save canvas</sys:String>
-    <sys:String x:Key="SaveLongCanvas">Save long canvas</sys:String>
+    <sys:String x:Key="SaveLongCanvas">Save long</sys:String>
     <sys:String x:Key="NewTextFile">New text file</sys:String>
     <sys:String x:Key="LoadTextFile">Load text file</sys:String>
     <sys:String x:Key="SaveTextFile">Save text file</sys:String>

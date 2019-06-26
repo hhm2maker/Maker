@@ -52,8 +52,6 @@ namespace Maker.View.LightUserControl
             mLaunchpad.SetOnDataChange(OnLaunchpadDataChange);
             completeColorPanel.SetSelectionChangedEvent(lbColor_SelectionChanged);
 
-            InitPosition();
-
             XmlSerializer serializer = new XmlSerializer(typeof(FrameConfigModel));
             FileStream stream = new FileStream("Config/frame.xml", FileMode.Open);
             frameModel = (FrameConfigModel)serializer.Deserialize(stream);
@@ -63,30 +61,10 @@ namespace Maker.View.LightUserControl
 
         private FrameConfigModel frameModel;
 
-        private List<int> leftDown, leftUp, rightDown, rightUp;
-        private void InitPosition()
-        {
-            leftDown = new List<int>();
-            for (int i = 8; i < 24; i++)
-            {
-                leftDown.Add(i);
-            }
-            leftUp = new List<int>();
-            for (int i = 24; i < 40; i++)
-            {
-                leftUp.Add(i);
-            }
-            rightDown = new List<int>();
-            for (int i = 40; i < 56; i++)
-            {
-                rightDown.Add(i);
-            }
-            rightUp = new List<int>();
-            for (int i = 56; i < 72; i++)
-            {
-                rightUp.Add(i);
-            }
-        }
+        private List<int> leftDown = new List<int>() { 11,12,13,14,21,22,23,24,31,32,33,34,41,42,43,44};
+        private List<int> leftUp = new List<int>() { 51, 52,53, 54, 61, 62, 63, 64, 71, 72, 73, 74, 81, 82, 83, 84 };
+        private List<int> rightDown = new List<int>() { 15, 16, 17, 18, 25, 26, 27, 28, 35, 36, 37, 38, 45, 46, 47, 48 };
+        private List<int> rightUp = new List<int>() { 55, 56, 57, 58, 65, 66, 67, 68, 75, 76, 77, 78, 85, 86, 87, 88 };
 
         private void InitLaunchpadEvent()
         {
@@ -386,7 +364,7 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        private void btnRegionCopy_Click(object sender, RoutedEventArgs e)
+        private void btnRegionCopy_Click(object sender, MouseEventArgs e)
         {
             if (NowTimePoint == 0)
                 return;
@@ -397,7 +375,7 @@ namespace Maker.View.LightUserControl
                 LoadFrame();
             }
         }
-        private void btnRegionClear_Click(object sender, RoutedEventArgs e)
+        private void btnRegionClear_Click(object sender, MouseEventArgs e)
         {
             if (NowTimePoint == 0)
                 return;
@@ -689,7 +667,7 @@ namespace Maker.View.LightUserControl
             e.Handled = true;
         }
 
-        private void SaveCanvas(object sender, RoutedEventArgs e)
+        private void SaveCanvas(object sender, MouseEventArgs e)
         {
             if (NowTimePoint == 0)
                 return;
@@ -705,7 +683,7 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        private void SaveLongCanvas(object sender, RoutedEventArgs e)
+        private void SaveLongCanvas(object sender, MouseEventArgs e)
         {
             if (NowTimePoint == 0)
                 return;
@@ -923,7 +901,6 @@ namespace Maker.View.LightUserControl
             doc.Save(nowTextFilePath);
         }
 
-
       
         /// <summary>
         /// 移除选择框
@@ -1008,6 +985,14 @@ namespace Maker.View.LightUserControl
             (spLeft.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
             (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
             //(((spLeft.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+            if (nowControlType == ControlType.Style)
+            {
+                bMyStyle.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                bMyStyle.Visibility = Visibility.Collapsed;
+            }
 
             if (nowControlType == ControlType.Draw)
             {
@@ -1065,7 +1050,7 @@ namespace Maker.View.LightUserControl
             mw.RemoveChildren();
         }
 
-        private void FourAreaClick(object sender, RoutedEventArgs e)
+        private void FourAreaClick(object sender, MouseButtonEventArgs e)
         {
             if (sender == btnLeftDown)
                 SelectPosition(leftDown);
