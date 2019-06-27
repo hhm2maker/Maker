@@ -121,7 +121,7 @@ namespace Maker
                 _p += ((spContentTitle.Children[position] as TextBlock).ActualWidth - 50) / 2;
                 double _p2 = ((spContentTitle.ActualWidth - spContentTitle.ActualWidth) / 2);
 
-                double leftMargin = (ActualWidth - (ActualWidth / 5 + 640)) / 2;
+                double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
 
                 ThicknessAnimation animation2 = new ThicknessAnimation
                 {
@@ -596,7 +596,7 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            double leftMargin = (ActualWidth - (ActualWidth / 5 + 640)) / 2;
+            double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
             spContentTitle.Margin = new Thickness(leftMargin - 10 , 0, leftMargin - 10, 0);
         }

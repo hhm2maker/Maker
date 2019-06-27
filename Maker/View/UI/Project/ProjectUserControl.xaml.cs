@@ -561,8 +561,7 @@ namespace Maker.View.UI.Project
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            gFile.Width = mw.ActualWidth / 5;
-            
+            gFile.Width = mw.ActualWidth / 4;
         }
 
 

@@ -463,7 +463,7 @@
                 </Border>
                 <Border Width="300"  CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
                         <StackPanel>
-                            <WrapPanel >
+                            <WrapPanel>
                                 <Border  Name="btnLeftUp"   Width="129" Margin="15,15,0,0" Background="Transparent" MouseLeftButtonUp="FourAreaClick" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
                                     <TextBlock Text="{DynamicResource UpperLeft}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
                                 </Border>
@@ -769,7 +769,7 @@
                 <Border Width="300" Name="bCompleteColor" Visibility="Collapsed" CornerRadius="3" Margin="0,15,0,0" BorderBrush="#555555" BorderThickness="2">
                     <view:CompleteColorPanel x:Name="completeColorPanel" Margin="15"/>
                 </Border>
-                <StackPanel Orientation="Vertical" Margin="0,15,0,0">
+                <StackPanel Name="spRight" Visibility="Collapsed" Orientation="Vertical" Margin="0,15,0,0">
                 <Border HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
                     <WrapPanel Margin="0,15,0,15">
                             <Border Width="129" Margin="15,0,0,0" Background="Transparent" MouseLeftButtonUp="SaveCanvas" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
@@ -780,17 +780,35 @@
                         </Border>
                     </WrapPanel>
                 </Border>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Name="spRight" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                    <StackPanel VerticalAlignment="Center" Margin="0,50,0,0" >
-                        <Button  Width="180" Click="NewTextFile" Content="{DynamicResource NewTextFile}"/>
-                        <Button  Width="180" Click="LoadTextFile" Content="{DynamicResource LoadTextFile}"/>
-                        <Button  Width="180" Click="SaveTextFile" Content="{DynamicResource SaveTextFile}"/>
-                        <ListBox Name="lbText" Width="180"  ItemsSource="{Binding Model.ListBoxData}"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
-                        <Button  Width="180" Click="NewText" Content="{DynamicResource NewText}"/>
-                        <Button  Width="180" Click="EditText" Content="{DynamicResource EditText}"/>
-                        <Button  Width="180" Click="DeleteText" Content="{DynamicResource DeleteText}"/>
+                    <Border Margin="0,15,0,0" HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
+                        <StackPanel Orientation="Vertical">
+                            <Border Margin="15,15,15,0" Background="Transparent" MouseLeftButtonUp="NewTextFile" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
+                                <TextBlock Text="{DynamicResource NewTextFile}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                        </Border>
+                            <Border Margin="15,10,15,0"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2"  MouseLeftButtonUp="LoadTextFile" >
+                                <TextBlock Text="{DynamicResource LoadTextFile}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                        </Border>
+                            <Border Margin="15,10,15,15"  Background="Transparent" CornerRadius="3" MouseLeftButtonUp="SaveTextFile" BorderBrush="#555555" BorderThickness="2"  >
+                                <TextBlock Text="{DynamicResource SaveTextFile}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                        </Border>
                     </StackPanel>
+                    </Border>
+                    <Border Margin="0,15,0,0" HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
+                        <ListBox Name="lbText" Margin="15" Background="Transparent" ItemsSource="{Binding Model.ListBoxData}"  PreviewKeyDown="LbText_PrevieKeyDown" PreviewKeyUp="LbText_PreviewKeyUp"/>
+                    </Border>
+                    <Border Margin="0,15,0,0" HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
+                        <StackPanel Orientation="Vertical">
+                            <Border Margin="15,15,15,0" Background="Transparent" MouseLeftButtonUp="NewText" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
+                                <TextBlock Text="{DynamicResource NewText}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Margin="15,10,15,0"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2"  MouseLeftButtonUp="EditText" >
+                                <TextBlock Text="{DynamicResource EditText}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                            </Border>
+                            <Border Margin="15,10,15,15"  Background="Transparent" CornerRadius="3" MouseLeftButtonUp="DeleteText" BorderBrush="#555555" BorderThickness="2"  >
+                                <TextBlock Text="{DynamicResource DeleteText}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical" Name="dpCenter" Grid.Column="1" Margin="15,0,15,0">
@@ -802,7 +820,7 @@
                 </Border>
                 <Border  VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2,0,2,0">
                     <Canvas Name="cLaunchpad" Width="600" Height="600" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center"  >
-                    <launchpad:DrawLaunchpadPro Size="600" Data="{Binding Model.NowLightLight}" SelectData="{Binding Model.Selects}" PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" Focusable="True" PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                         <launchpad:DrawLaunchpadPro Data="{Binding Model.NowLightLight}" SelectData="{Binding Model.Selects}" PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" Focusable="True" PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                         <widget:TextCanvas Data="{Binding Model.Texts}" x:Name="cText" />
                     </Canvas>
                 </Border>
@@ -925,8 +943,6 @@
                         <Border Width="125"  CornerRadius="20" Background="#ff6058" Margin="0,15,15,15"  MouseLeftButtonDown="Image_MouseLeftButtonDown">
                             <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
                         </Border>
-                     
-                        
                     </StackPanel>
                 </Border>
             </StackPanel>

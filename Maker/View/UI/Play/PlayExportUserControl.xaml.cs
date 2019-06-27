@@ -32,7 +32,7 @@ namespace Maker.View.Play
         private String tutorialName = String.Empty;
         private String firstPageName = String.Empty;
         private List<String> pageNames = new List<string>();
-        private void btnSelectFile_Click(object sender, RoutedEventArgs e)
+        private void btnSelectFile_Click(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
@@ -67,7 +67,7 @@ namespace Maker.View.Play
                 }
             }
         }
-        private void btnRemoveFile_Click(object sender, RoutedEventArgs e)
+        private void btnRemoveFile_Click(object sender, MouseEventArgs e)
         {
             if (sender == btnRemoveFileTutorial)
             {
@@ -107,12 +107,12 @@ namespace Maker.View.Play
                 lbPages.Items.Add(pageNames[i]);
         }
 
-        private void GenerateExe(object sender, RoutedEventArgs e)
+        private void GenerateExe(object sender, MouseEventArgs e)
         {
             GenerateLaunchpadLightProject();
         }
 
-        private void ToLoadFile(object sender, RoutedEventArgs e)
+        private void ToLoadFile(object sender, MouseEventArgs e)
         {
             mw.ShowMakerDialog(new ListDialog(mw, FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
         }
@@ -363,8 +363,7 @@ namespace Maker.View.Play
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.9;
-            Height = mw.gMost.ActualHeight;
+            bCenter.Width = mw.ActualWidth  / 4 + 330;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -372,7 +371,7 @@ namespace Maker.View.Play
             mw.RemoveChildren();
         }
 
-        private void ToSaveFile(object sender, RoutedEventArgs e)
+        private void ToSaveFile(object sender, MouseEventArgs e)
         {
             //<MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
             if (filePath.Equals(String.Empty))

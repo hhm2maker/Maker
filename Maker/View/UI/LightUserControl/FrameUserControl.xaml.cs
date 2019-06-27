@@ -38,7 +38,6 @@ namespace Maker.View.LightUserControl
             mainView = gMain;
             HideControl();
 
-            mLaunchpad.Size = 600;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(System.Windows.Media.Color.FromRgb(46, 48, 51)));
 
             //初始化贴膜
@@ -473,6 +472,7 @@ namespace Maker.View.LightUserControl
             Style = 0,
             Draw = 1,
             Select = 2,
+            Picture = 3,
         }
         private SelectType nowSelectType = SelectType.Select;
         private enum SelectType
@@ -717,7 +717,7 @@ namespace Maker.View.LightUserControl
                 enc.Save(stm);
             }
         }
-        private void NewTextFile(object sender, RoutedEventArgs e)
+        private void NewTextFile(object sender, MouseEventArgs e)
         {
             String _filePath = GetFileDirectory();
             UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
@@ -739,7 +739,7 @@ namespace Maker.View.LightUserControl
             }
         }
 
-        private void NewText(object sender, RoutedEventArgs e)
+        private void NewText(object sender, MouseEventArgs e)
         {
             GetStringDialog getString = new GetStringDialog(mw, "", "", "");
             if (getString.ShowDialog() == true)
@@ -779,7 +779,7 @@ namespace Maker.View.LightUserControl
                 ((DataContext as FrameUserControlViewModel).Model.ListBoxData as ObservableCollection<dynamic>).Add(getString.mString);
             }
         }
-        private void EditText(object sender, RoutedEventArgs e)
+        private void EditText(object sender, MouseEventArgs e)
         {
             if (!points.ContainsKey(NowTimePoint))
                 return;
@@ -794,7 +794,7 @@ namespace Maker.View.LightUserControl
                 ((DataContext as FrameUserControlViewModel).Model.ListBoxData as ObservableCollection<dynamic>)[lbText.SelectedIndex] = getString.mString;
             }
         }
-        private void DeleteText(object sender, RoutedEventArgs e)
+        private void DeleteText(object sender, MouseEventArgs e)
         {
             if (cText.Children.Count > 1)
             {
@@ -862,7 +862,7 @@ namespace Maker.View.LightUserControl
         }
 
       
-        private void LoadTextFile(object sender, RoutedEventArgs e)
+        private void LoadTextFile(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
             FileBusiness business = new FileBusiness();
@@ -877,7 +877,7 @@ namespace Maker.View.LightUserControl
         }
 
         private String nowTextFilePath = "";
-        private void SaveTextFile(object sender, RoutedEventArgs e)
+        private void SaveTextFile(object sender, MouseEventArgs e)
         {
             if (nowTextFilePath.Equals(String.Empty))
             {
@@ -917,20 +917,17 @@ namespace Maker.View.LightUserControl
         private void Canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             int position = spLeft.Children.IndexOf(sender as UIElement);
-            if (sender != bPicture) {
-                HideImageControl();
-            }
 
             for (int i = 0; i < spLeft.Children.Count; i++)
             {
                 TextBlock textBlock = ((Panel)((Panel)((Border)spLeft.Children[i]).Child).Children[0]).Children[1] as TextBlock;
                 if (i == position)
                 {
-                    textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 255, 255));
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                 }
                 else
                 {
-                    textBlock.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(168, 169, 169));
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
                 }
             }
 
@@ -940,21 +937,15 @@ namespace Maker.View.LightUserControl
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_blue.png", UriKind.RelativeOrAbsolute));
                 iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bColor)
             {
-
-                if (nowControlType == ControlType.Draw)
-                {
-
-                }
-                else
-                {
-                    nowControlType = ControlType.Draw;
-                }
+                nowControlType = ControlType.Draw;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_blue.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bSelect)
             {
@@ -962,14 +953,15 @@ namespace Maker.View.LightUserControl
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_blue.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
             }
             if (sender == bPicture)
             {
-
-                ShowImageControl();
+                nowControlType = ControlType.Picture;
                 iStyle.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/style_gray.png", UriKind.RelativeOrAbsolute));
                 iColor.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/color_black.png", UriKind.RelativeOrAbsolute));
                 iSelect.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/select_gray.png", UriKind.RelativeOrAbsolute));
+                iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_blue.png", UriKind.RelativeOrAbsolute));
             }
 
             if (filePosition == position)
@@ -1011,22 +1003,21 @@ namespace Maker.View.LightUserControl
             {
                 bFullSelect.Visibility = Visibility.Collapsed;
             }
+
+            if (nowControlType == ControlType.Picture)
+            {
+                spRight.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                spRight.Visibility = Visibility.Collapsed;
+            }
             filePosition = position;
         }
 
         private void dpColor_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             
-        }
-     
-        private void ShowImageControl()
-        {
-            spRight.Visibility = Visibility.Visible;
-            iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_blue.png", UriKind.RelativeOrAbsolute));
-        }
-        private void HideImageControl() {
-            spRight.Visibility = Visibility.Collapsed;
-            iPicture2.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/picture_gray.png", UriKind.RelativeOrAbsolute));
         }
 
         private void iSelect2_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -1039,10 +1030,12 @@ namespace Maker.View.LightUserControl
             //Width = mw.gRight.ActualWidth;
             Height = mw.gRight.ActualHeight;
 
-            dpCenter.Width = mw.ActualWidth / 5;
-            mLaunchpad.Size = mw.ActualWidth / 5 - 30;
+            dpCenter.Width = mw.ActualWidth / 4;
+            mLaunchpad.Size = mw.ActualWidth / 4 - 30;
             cLaunchpad.Width = mLaunchpad.Width;
             cLaunchpad.Height = mLaunchpad.Height;
+
+            Canvas_MouseLeftButtonUp(bStyle,null);
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
