@@ -70,7 +70,12 @@
             <TextBlock VerticalAlignment="Center" Text="Admin" Foreground="#FFB8BFC6"  Margin="15,0,0,0" FontSize="22"/>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical">
+            <Grid>
             <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" >
+                    <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18" />
+                </Border>
+            </Grid>
             <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
             <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
         </StackPanel>

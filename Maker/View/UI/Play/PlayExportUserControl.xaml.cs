@@ -366,11 +366,6 @@ namespace Maker.View.Play
             bCenter.Width = mw.ActualWidth  / 4 + 330;
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            mw.RemoveChildren();
-        }
-
         private void ToSaveFile(object sender, MouseEventArgs e)
         {
             //<MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />

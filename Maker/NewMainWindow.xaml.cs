@@ -598,7 +598,8 @@ namespace Maker
         {
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
-            spContentTitle.Margin = new Thickness(leftMargin - 10 , 0, leftMargin - 10, 0);
+            spContentTitle.Margin = new Thickness(leftMargin - 10 , 0, leftMargin, 0);
+            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 10);
         }
        
 

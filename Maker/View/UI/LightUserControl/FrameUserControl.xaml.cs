@@ -1038,11 +1038,6 @@ namespace Maker.View.LightUserControl
             Canvas_MouseLeftButtonUp(bStyle,null);
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            mw.RemoveChildren();
-        }
-
         private void FourAreaClick(object sender, MouseButtonEventArgs e)
         {
             if (sender == btnLeftDown)

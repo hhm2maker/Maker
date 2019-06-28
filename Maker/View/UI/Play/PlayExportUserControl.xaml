@@ -53,7 +53,7 @@
                         <Grid >
                             <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" Margin="15" >
                                 <TextBlock Foreground="White" FontSize="16" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Text="{DynamicResource Page}" />
-                                <ListBox FontSize="16" Name="lbPages" Background="{x:Null}" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White"  Width="200" Height="200" SelectionMode="Multiple"/>
+                                <ListBox FontSize="16" Name="lbPages" Background="{x:Null}" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White"  Width="200" SelectionMode="Multiple"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Border Name="btnSelectFilePages" Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="btnSelectFile_Click" >
@@ -69,12 +69,7 @@
             </Grid>
         </Border>
         <StackPanel Grid.Column="1" Width="300" Orientation="Vertical">
-            <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
-                <Border   CornerRadius="20" Background="#ff6058" Margin="15"  MouseLeftButtonDown="Image_MouseLeftButtonDown">
-                        <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                    </Border>
-            </Border>
-            <Border Width="300" Margin="0,15,0,0" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
+            <Border Width="300" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
                     <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Border Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="ToLoadFile">
                             <TextBlock Text="{DynamicResource Load}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>

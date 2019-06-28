@@ -13,9 +13,9 @@
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
-            Background="#1c1a1c"
     SizeChanged="DockPanel_SizeChanged"
     >
+    <!--Background="#1c1a1c"-->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
