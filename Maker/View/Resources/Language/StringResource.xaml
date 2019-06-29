@@ -515,5 +515,5 @@
     <sys:String x:Key="Search">Search</sys:String>
     <sys:String x:Key="Laboratory">Laboratory</sys:String>
     <sys:String x:Key="Membrane">Membrane</sys:String>
-    
+    <sys:String x:Key="Home">Home</sys:String>
 </ResourceDictionary>

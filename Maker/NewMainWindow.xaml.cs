@@ -29,6 +29,7 @@ using System.Windows.Shapes;
 using Maker.View.UI.Game;
 using Maker.View.UI.Home;
 using Maker.View.UI.Edit;
+using Maker.View.UI.Base;
 
 namespace Maker
 {
@@ -59,35 +60,20 @@ namespace Maker
                 TextBlock tb = new TextBlock();
                 tb.Padding = new Thickness(10);
                 tb.FontSize = 18;
-                if (contentUserControls[i] is HomeUserControl) {
-                    tb.Text = "Home";
-                }
-                if (contentUserControls[i] is ProjectUserControl)
-                {
-                    tb.Text = "Project";
-                }
+                tb.Text = (String)Application.Current.Resources[contentUserControls[i].Title];
                 tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
                 spContentTitle.Children.Add(tb);
             }
             SetSpFilePosition(1);
         }
 
-        public void AddContentUserControl(UserControl uc) {
+        public void AddContentUserControl(BaseChildUserControl uc) {
             TextBlock tb = new TextBlock();
             tb.Padding = new Thickness(10);
             tb.FontSize = 18;
-            if (uc is HomeUserControl)
-            {
-                tb.Text = "Home";
-            }
-            if (uc is ProjectUserControl)
-            {
-                tb.Text = "Project";
-            }
-            if (uc is EditUserControl)
-            {
-                tb.Text = "Edit";
-            }
+            tb.Text = (String)Application.Current.Resources[uc.Title];
+         
+
             tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
             spContentTitle.Children.Add(tb);
 
@@ -134,7 +120,7 @@ namespace Maker
             gRight.Children.Add(contentUserControls[position]);
         }
 
-        public List<UserControl> contentUserControls = new List<UserControl>();
+        public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();
        
         private void Window_Closed(object sender, EventArgs e)
         {

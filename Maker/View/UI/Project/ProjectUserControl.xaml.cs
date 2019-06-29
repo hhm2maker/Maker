@@ -5,6 +5,7 @@ using Maker.View.LightUserControl;
 using Maker.View.PageWindow;
 using Maker.View.Play;
 using Maker.View.Tool;
+using Maker.View.UI.Base;
 using Maker.View.UI.Edit;
 using Maker.View.UI.UserControlDialog;
 using System;
@@ -25,7 +26,7 @@ namespace Maker.View.UI.Project
     /// <summary>
     /// ProjectUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class ProjectUserControl : UserControl
+    public partial class ProjectUserControl : BaseChildUserControl
     {
         private NewMainWindow mw;
         public ProjectUserControl(NewMainWindow mw)
@@ -33,10 +34,10 @@ namespace Maker.View.UI.Project
             InitializeComponent();
             this.mw = mw;
 
+            Title = "Project";
+
             InitContextMenu();
             InitUserControl();
-
-       
         }
         public List<BaseUserControl> userControls = new List<BaseUserControl>();
         //Light
@@ -100,30 +101,30 @@ namespace Maker.View.UI.Project
             SetSpFilePosition(1);
         }
 
-        public void btnNew_Click(object sender, RoutedEventArgs e)
+        public void btnNew_Click(object sender, MouseEventArgs e)
         {
-            //BaseUserControl baseUserControl;
-            //if (sender == miLight)
-            //{
-            //    baseUserControl = userControls[0];
-            //}
-            //else if (sender == miLightScript)
-            //{
-            //    baseUserControl = userControls[3];
-            //}
-            //else if (sender == miLimitlessLamp)
-            //{
-            //    baseUserControl = userControls[9];
-            //}
-            //else if (sender == miPage)
-            //{
-            //    baseUserControl = userControls[5];
-            //}
-            //else
-            //{
-            //    return;
-            //}
-            //baseUserControl.NewFile(sender, e);
+            BaseUserControl baseUserControl;
+            if (sender == miLight)
+            {
+                baseUserControl = userControls[0];
+            }
+            else if (sender == miLightScript)
+            {
+                baseUserControl = userControls[3];
+            }
+            else if (sender == miLimitlessLamp)
+            {
+                baseUserControl = userControls[9];
+            }
+            else if (sender == miPage)
+            {
+                baseUserControl = userControls[5];
+            }
+            else
+            {
+                return;
+            }
+            baseUserControl.NewFile(sender, e);
         }
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -583,6 +584,12 @@ namespace Maker.View.UI.Project
         private void Border_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
             IntoUserControl(6);
+        }
+
+        private void bNew_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            popNew.IsOpen = false;
+            popNew.IsOpen = true;
         }
     }
 }

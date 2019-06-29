@@ -518,4 +518,5 @@
     <sys:String x:Key="Search">搜索</sys:String>
     <sys:String x:Key="Laboratory">实验室</sys:String>
     <sys:String x:Key="Membrane">贴膜</sys:String>
+    <sys:String x:Key="Home">主页</sys:String>
 </ResourceDictionary>

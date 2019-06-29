@@ -30,7 +30,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -39,10 +39,11 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" Background="#1c1a1c">
+                <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" >
                     <TabItem Width="150" BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
-                        <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Background="#FF1C1A1C" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
-                            <StackPanel  Background="#1c1a1c" Name="spMainLeft" Orientation="Vertical">
+                        <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
+                            <!--Background="#1c1a1c"-->
+                            <StackPanel   Name="spMainLeft" Orientation="Vertical">
                                 <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
                                     <TextBlock Width="100" Text="{DynamicResource ModelColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="22" FontWeight="Bold" />
                                     <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
@@ -404,17 +405,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
-                    <StackPanel Background="#1c1a1c" Margin="0,55,0,0" x:Name="dpShow" >
+                    <!--Background="#1c1a1c"-->
+                    <StackPanel  Margin="0,55,0,0" x:Name="dpShow" >
                         <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                            <Border BorderBrush="#282828" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
+                            <Border BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600"/>
                             </Border>
-                            
                         </DockPanel>
                         <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
                         <!--<TabControl BorderThickness="0" TabStripPlacement="Bottom"  >
                             <TabItem Header="Launchpad" Foreground="#ffffff" >
-                            
                         </TabItem>
                     </TabControl>-->
                     </StackPanel>
@@ -467,10 +467,9 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Grid Name="gRight" Grid.Column="3"  Background="#262829">
-                    <Grid.Effect>
-                        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-                    </Grid.Effect>
+                <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2" Grid.Column="3" >
+                    <!--Background="#262829"-->
+                    <Grid Name="gRight" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
@@ -480,8 +479,9 @@
                         <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
+                </Border>
             </Grid>
-            <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
             <Grid   Grid.Row="3" HorizontalAlignment="Stretch" Background="#4d4d4d">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

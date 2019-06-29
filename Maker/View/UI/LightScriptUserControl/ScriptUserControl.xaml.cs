@@ -49,8 +49,8 @@ namespace Maker.View.LightScriptUserControl
             InitializeComponent();
             this.mw = mw;
 
-            Width = mw.ActualWidth;
-            Height = mw.ActualHeight;
+            //Width = mw.ActualWidth;
+            //Height = mw.ActualHeight;
 
             mainView = gMain_;
             HideControl();
@@ -228,8 +228,8 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<string, List<int>> rangeDictionary = new Dictionary<string, List<int>>();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth;
-            Height = mw.gMost.ActualHeight;
+            //Width = mw.ActualWidth;
+            //Height = mw.gMost.ActualHeight;
 
             //mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)));
             LoadRangeFile();

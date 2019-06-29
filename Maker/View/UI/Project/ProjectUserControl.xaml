@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="Maker.View.UI.Project.ProjectUserControl"
+﻿<base:BaseChildUserControl
+    xmlns:base="clr-namespace:Maker.View.UI.Base"
+    x:Class="Maker.View.UI.Project.ProjectUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -32,18 +34,27 @@
             <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
                 <Grid>
                     <TextBlock Text="{DynamicResource File}" Foreground="White" Margin="15" FontSize="18"/>
-                    <Border HorizontalAlignment="Right" CornerRadius="18" Width="80"  Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
+                    <Border Name="bNew" MouseLeftButtonUp="bNew_MouseLeftButtonDown" HorizontalAlignment="Right" CornerRadius="18" Width="80"  Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
                         <TextBlock Text="{DynamicResource New}"  Foreground="#555555" VerticalAlignment="Center" Margin="0,5,0,5" HorizontalAlignment ="Center" FontSize="18"/>
-                        <!--<Menu Name="mMain" HorizontalAlignment="Center" >
-                            <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource New}"  FontSize="18" Foreground="#555555"  >
-                                <MenuItem Click="btnNew_Click" Name="miLight" Header="{DynamicResource Light}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <MenuItem Click="btnNew_Click" Name="miLightScript" Header="{DynamicResource LightScript}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <MenuItem Click="btnNew_Click" Name="miLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  FontSize="16" Foreground="#f0f0f0"  />
-                                <Separator />
-                                <MenuItem Click="btnNew_Click" Name="miPage"  Header="{DynamicResource Page}"  FontSize="16" Foreground="#f0f0f0"  />
-                            </MenuItem>
-                        </Menu>-->
                     </Border>
+                    <Popup  PlacementTarget="{Binding ElementName=bNew}" Name="popNew" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" HorizontalOffset="-120">
+                        <Border  Background="#222326" Width="200" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="btnNew_Click">
+                            <StackPanel Orientation="Vertical" >
+                                <Border Name="miLight"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="btnNew_Click">
+                                    <TextBlock Text="{DynamicResource Light}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border Name="miLightScript" Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0" MouseLeftButtonDown="btnNew_Click">
+                                    <TextBlock Text="{DynamicResource LightScript}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border Name="miLimitlessLamp" Background="Transparent" CornerRadius="3"  BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,0" MouseLeftButtonDown="btnNew_Click">
+                                    <TextBlock Text="{DynamicResource LimitlessLamp}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border  Name="miPage" Background="Transparent" CornerRadius="3"  BorderBrush="#555555" BorderThickness="2" Margin="15,10,15,15" MouseLeftButtonDown="btnNew_Click">
+                                    <TextBlock Text="{DynamicResource Page}" Foreground="#B8BFC6" Margin="15" FontSize="17" HorizontalAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
             </Grid>
             </Border>
             <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
@@ -122,4 +133,4 @@
         </StackPanel>
     </Grid>
     
-</UserControl>
+</base:BaseChildUserControl>

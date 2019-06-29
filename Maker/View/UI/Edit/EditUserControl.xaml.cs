@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.View.UI.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,13 @@ namespace Maker.View.UI.Edit
     /// <summary>
     /// EditUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class EditUserControl : UserControl
+    public partial class EditUserControl : BaseChildUserControl
     {
         public EditUserControl()
         {
             InitializeComponent();
+
+            Title = "Edit";
         }
     }
 }

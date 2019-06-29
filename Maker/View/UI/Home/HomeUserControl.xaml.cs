@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Model;
+using Maker.View.UI.Base;
 using Maker.View.UI.Project;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,15 @@ namespace Maker.View.UI.Home
     /// <summary>
     /// HomeUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class HomeUserControl : UserControl
+    public partial class HomeUserControl : BaseChildUserControl
     {
         private NewMainWindow mw;
         public HomeUserControl(NewMainWindow mw)
         {
             InitializeComponent();
-
             this.mw = mw;
+
+            Title = "Home";
 
             InitProject();
         }

@@ -208,6 +208,7 @@
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
       <DependentUpon>CatalogUserControl2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Base\BaseChildUserControl.cs" />
     <Compile Include="View\UI\Decorate\Soundbyte.cs" />
     <Compile Include="View\UI\Device\ColorPanel\ColorPanel.cs" />
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
