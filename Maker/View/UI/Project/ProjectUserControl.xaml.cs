@@ -132,6 +132,7 @@ namespace Maker.View.UI.Project
             SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
         }
 
+
         public int filePosition = -1;
         public void SetSpFilePosition(int position)
         {

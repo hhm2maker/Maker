@@ -2,16 +2,20 @@
 using Maker.Business.Currency;
 using Maker.View.Control;
 using Maker.View.Dialog;
+using Maker.View.UI.Base;
 using Maker.View.UI.UserControlDialog;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Xml;
 using static Maker.Model.EnumCollection;
 using static Maker.View.Control.MainWindow;
@@ -21,13 +25,20 @@ namespace Maker.View.Setting
     /// <summary>
     /// SettingWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingUserControl : System.Windows.Controls.UserControl
+    public partial class SettingUserControl : BaseChildUserControl
     {
-           
         public SettingUserControl(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
+
+            Title = "Setting";
+
+            for (int i = 0; i < spCenter.Children.Count; i++) {
+                spCenter.Children[i].Visibility = Visibility.Collapsed;
+            }
+
+            SetData();
         }
         public NewMainWindow mw;
         
@@ -306,9 +317,11 @@ namespace Maker.View.Setting
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.8 ;
+            //Width = mw.ActualWidth * 0.8 ;
             //Height = mw.ActualHeight * 0.8;
-          
+            bCenter.Width = mw.ActualWidth / 4 + 330;
+
+            SetSpFilePosition(0);
         }
 
         private void btnEditColortabPath_Click(object sender, RoutedEventArgs e)
@@ -318,9 +331,36 @@ namespace Maker.View.Setting
             //tbColortabPath.Text = mw.strColortabPath;
         }
 
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            mw.RemoveSetting();
+            SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
+        }
+
+        public int filePosition = -1;
+        public void SetSpFilePosition(int position)
+        {
+            if (filePosition == position)
+                return;
+
+            if (filePosition != -1)
+            {
+                (spLeft.Children[filePosition] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                (spLeft.Children[filePosition] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                ((spLeft.Children[filePosition] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+
+            (spLeft.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+            ((spLeft.Children[position] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
+            if (filePosition != -1)
+            {
+                spCenter.Children[filePosition].Visibility = Visibility.Collapsed;
+            }
+            spCenter.Children[position].Visibility = Visibility.Visible;
+
+            filePosition = position;
+
         }
 
         private void tbPaved_LostFocus(object sender, RoutedEventArgs e)
@@ -512,6 +552,96 @@ namespace Maker.View.Setting
                 dict.Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative);
                 System.Windows.Application.Current.Resources.MergedDictionaries[1] = dict;
             }
+        }
+
+        private void ToHelpOverview(object sender, RoutedEventArgs e)
+        {
+            //new HelpOverviewWindow(this).Show();
+            //ShowMakerDialog(new WebBrowserUserControl());
+
+            if (mw.helpConfigModel.ExeFilePath.Equals(String.Empty) || !File.Exists(mw.helpConfigModel.ExeFilePath))
+                Process.Start("https://hhm2maker.gitbook.io/maker/");
+            else
+                Process.Start(mw.helpConfigModel.ExeFilePath);
+        }
+
+        private void Image_MouseLeftButtonDown222(object sender, MouseButtonEventArgs e)
+        {
+            if (spHint.Visibility == Visibility.Collapsed)
+            {
+                spHint.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                spHint.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        bool isBigColorTab = false;
+        bool isBigPositionTab = false;
+        private void tbPositionTab_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ElasticEase elasticEase = new ElasticEase();
+            elasticEase.Oscillations = 2;
+            elasticEase.Springiness = 1;
+            elasticEase.EasingMode = EasingMode.EaseOut;
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                Duration = TimeSpan.FromSeconds(1),
+                EasingFunction = elasticEase
+            };
+
+            if (sender == spPositionTab)
+            {
+                if (isBigPositionTab)
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbPositionTab.ActualWidth;
+                    doubleAnimation.To = tbPositionTab.ActualWidth * 2;
+                }
+                tbPositionTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigPositionTab = !isBigPositionTab;
+            }
+            else if (sender == spColorTab)
+            {
+                if (isBigColorTab)
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = ActualWidth / 8;
+                }
+                else
+                {
+                    doubleAnimation.From = tbColorTab.ActualWidth;
+                    doubleAnimation.To = tbColorTab.ActualWidth * 2;
+                }
+                tbColorTab.BeginAnimation(WidthProperty, doubleAnimation);
+                isBigColorTab = !isBigColorTab;
+            }
+        }
+
+
+        private void ToDeveloperListWindow(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new DeveloperListDialog(mw));
+        }
+
+        private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
+        }
+
+        private void ToFeedbackDialog(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new MailDialog(mw, 0));
+        }
+
+        private void ToAboutUserControl(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new AboutDialog(mw));
         }
     }
 }

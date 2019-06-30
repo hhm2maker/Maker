@@ -610,7 +610,8 @@ namespace Maker
 
         private void OpenSettingControl(object sender, MouseButtonEventArgs e)
         {
-            OpenSettingControl();
+            AddContentUserControl(new SettingUserControl(this));
+            //OpenSettingControl();
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -708,7 +709,7 @@ namespace Maker
             spAppreciate.Children[0].Visibility = Visibility.Visible;
             spAppreciate.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
             spSearch.Background = new SolidColorBrush(Colors.Transparent);
-            SetRightUserControl(new AppreciateUserControl());
+            AddContentUserControl(new AppreciateUserControl());
         }
 
         private void SetRightUserControl(UserControl rightUserControl) {

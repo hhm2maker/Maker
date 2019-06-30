@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.View.UI.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,13 @@ namespace Maker.View.UI.Help
     /// <summary>
     /// AppreciateUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AppreciateUserControl : UserControl
+    public partial class AppreciateUserControl : BaseChildUserControl
     {
         public AppreciateUserControl()
         {
             InitializeComponent();
+
+            Title = "Appreciate";
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
