@@ -21,10 +21,12 @@ namespace Maker.View.UI.Help
     /// </summary>
     public partial class AppreciateUserControl : BaseChildUserControl
     {
-        public AppreciateUserControl()
+        private NewMainWindow mw;
+        public AppreciateUserControl(NewMainWindow mw)
         {
             InitializeComponent();
 
+            this.mw = mw;
             Title = "Appreciate";
         }
 
@@ -32,6 +34,11 @@ namespace Maker.View.UI.Help
         {
             bMain.Visibility = Visibility.Collapsed;
             spMain.Visibility = Visibility.Visible;
+        }
+
+        private void BaseChildUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            Width = mw.ActualWidth / 4 + 630;
         }
     }
 }

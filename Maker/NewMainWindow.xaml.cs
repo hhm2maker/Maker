@@ -700,34 +700,14 @@ namespace Maker
 
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            SetRightUserControl(new SearchUserControl(this));
+            //SetRightUserControl(new SearchUserControl(this));
         }
 
         private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
-            spSearch.Children[0].Visibility = Visibility.Hidden;
-            spAppreciate.Children[0].Visibility = Visibility.Visible;
-            spAppreciate.Background = new SolidColorBrush(Color.FromRgb(34, 35, 38));
-            spSearch.Background = new SolidColorBrush(Colors.Transparent);
-            AddContentUserControl(new AppreciateUserControl());
+            AddContentUserControl(new AppreciateUserControl(this));
         }
 
-        private void SetRightUserControl(UserControl rightUserControl) {
-
-            if (rightUserControl == projectUserControl)
-            {
-                spSearch.Children[0].Visibility = Visibility.Hidden;
-                spAppreciate.Children[0].Visibility = Visibility.Hidden;
-
-                spAppreciate.Background = new SolidColorBrush(Colors.Transparent);
-                spSearch.Background = new SolidColorBrush(Colors.Transparent);
-            }
-            else {
-                //lbProject.SelectedIndex = -1;
-            }
-            gRight.Children.Clear();
-            gRight.Children.Add(rightUserControl);
-        }
 
         private void spLaboratory_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

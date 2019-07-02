@@ -7,15 +7,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.Help"
              mc:Ignorable="d" 
-             VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
+    Loaded="BaseChildUserControl_Loaded"
              >
-    <UserControl.Effect>
-        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
-    </UserControl.Effect>
     <StackPanel Orientation="Vertical" >
-        <TextBlock Text="{DynamicResource Appreciate}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
-        <Grid Height="375" Width="500" Margin="30,0,30,30" VerticalAlignment="Center" >
+        <Grid Height="375" Width="500" VerticalAlignment="Center" >
             <Border Name="bMain" CornerRadius="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Border.Background>
                     <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
