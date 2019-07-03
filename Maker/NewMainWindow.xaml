@@ -29,7 +29,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+    <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -37,7 +37,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Background="#222326" -->
-        <Grid Grid.Row="0" Background="#FF282828">
+        <Grid Grid.Row="0" Background="#FF282828" Name="gTop" Focusable="True">
             <StackPanel  Margin="10" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBlock FontSize="20" VerticalAlignment="Center" Text="Maker" Foreground="#FFB8BFC6" FontWeight="Bold"/>
                 <Rectangle Height="30" VerticalAlignment="Center" Width="3" Fill="White" Margin="10,0,0,0"/>
@@ -45,8 +45,11 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
             <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                <TextBlock VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
-            </StackPanel>
+                    <Grid Name="gSearch" Visibility="Collapsed">
+                        <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
+                        <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="10" FontSize="17" BorderThickness="0" />
+                    </Grid>
+                </StackPanel>
             <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
             </StackPanel>
@@ -66,10 +69,10 @@
             <Image Name="iHead" Grid.Column="0" Source="View/Resources/Image/headportrait.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
             <TextBlock VerticalAlignment="Center" Text="Admin" Foreground="#FFB8BFC6"  Margin="15,0,0,0" FontSize="22"/>
         </StackPanel>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical">
-            <Grid>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical" Name="spCenter" Focusable="True">
+            <Grid VerticalAlignment="Center">
             <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
-                <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" >
+                <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
                     <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18" />
                 </Border>
             </Grid>

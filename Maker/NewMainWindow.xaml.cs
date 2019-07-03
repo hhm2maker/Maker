@@ -442,7 +442,6 @@ namespace Maker
                 //To = new Thickness(0, (ActualHeight - makerdialog.Height) / 2, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.3)
             };
-
             makerdialog.BeginAnimation(MarginProperty, marginAnimation);
         }
 
@@ -584,8 +583,10 @@ namespace Maker
         {
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
-            spContentTitle.Margin = new Thickness(leftMargin - 10 , 0, leftMargin, 0);
-            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 10);
+            spContentTitle.Margin = new Thickness(leftMargin - 10 , 15, leftMargin, 15);
+            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 0);
+
+            spHead.Visibility = Visibility.Collapsed;
         }
        
 
@@ -698,9 +699,47 @@ namespace Maker
             NewProject();
         }
 
+        double dSpSearchActualWidth = 0.0;
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
+            gSearch.Visibility = Visibility.Visible;
+
+            if (dSpSearchActualWidth == 0)
+            {
+                dSpSearchActualWidth = spSearch.ActualWidth;
+                spSearch.Width = spSearch.ActualWidth;
+            }
+           
+            if (spSearch.Width == dSpSearchActualWidth) {
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = dSpSearchActualWidth,
+                    To = 300,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                spSearch.BeginAnimation(WidthProperty, animation);
+                tbSearch.Focus();
+            }
+            e.Handled = true;
             //SetRightUserControl(new SearchUserControl(this));
+        }
+
+        private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //这里出一个POPUP显示历史搜索
+            String str = (sender as TextBox).Text;
+            if (str.Length > 0)
+            {
+                tbSearchHint.Visibility = Visibility.Collapsed;
+            }
+            else {
+                tbSearchHint.Visibility = Visibility.Visible;
+            }
         }
 
         private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
@@ -708,10 +747,26 @@ namespace Maker
             AddContentUserControl(new AppreciateUserControl(this));
         }
 
-
         private void spLaboratory_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             new GameWindow().Show();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+         
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = 300,
+                To = dSpSearchActualWidth,
+                Duration = TimeSpan.FromSeconds(0.5),
+            };
+            animation.Completed += Animation_Completed1;
+            spSearch.BeginAnimation(WidthProperty, animation);
+        }
+
+        private void Animation_Completed1(object sender, EventArgs e)
+        {
         }
     }
 }
