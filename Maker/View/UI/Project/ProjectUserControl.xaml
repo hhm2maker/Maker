@@ -37,7 +37,7 @@
                     <Border Name="bNew" MouseLeftButtonUp="bNew_MouseLeftButtonDown" HorizontalAlignment="Right" CornerRadius="18" Width="80"  Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
                         <TextBlock Text="{DynamicResource New}"  Foreground="#555555" VerticalAlignment="Center" Margin="0,5,0,5" HorizontalAlignment ="Center" FontSize="18"/>
                     </Border>
-                    <Popup  PlacementTarget="{Binding ElementName=bNew}" Name="popNew" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" HorizontalOffset="-120">
+                    <Popup  PlacementTarget="{Binding ElementName=bNew}" Name="popNew" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" HorizontalOffset="-120" VerticalOffset="10">
                         <Border  Background="#222326" Width="200" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="btnNew_Click">
                             <StackPanel Orientation="Vertical" >
                                 <Border Name="miLight"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="15,15,15,0" MouseLeftButtonDown="btnNew_Click">

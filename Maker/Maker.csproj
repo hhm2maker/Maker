@@ -279,6 +279,9 @@
     <Compile Include="View\UI\Help\AppreciateUserControl.xaml.cs">
       <DependentUpon>AppreciateUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Home\LocalUserControl.xaml.cs">
+      <DependentUpon>LocalUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Home\HomeUserControl.xaml.cs">
       <DependentUpon>HomeUserControl.xaml</DependentUpon>
     </Compile>
@@ -690,6 +693,10 @@
     <Page Include="View\UI\Help\AppreciateUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Home\LocalUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Home\HomeUserControl.xaml">
       <SubType>Designer</SubType>

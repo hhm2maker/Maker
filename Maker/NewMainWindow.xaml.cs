@@ -52,7 +52,7 @@ namespace Maker
 
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
-            contentUserControls.Add(new HomeUserControl(this));
+            contentUserControls.Add(new LocalUserControl(this));
             contentUserControls.Add(projectUserControl);
             
 
@@ -754,19 +754,17 @@ namespace Maker
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-         
-            DoubleAnimation animation = new DoubleAnimation
+            Keyboard.ClearFocus();
+            if (spSearch.Width == 300)
             {
-                From = 300,
-                To = dSpSearchActualWidth,
-                Duration = TimeSpan.FromSeconds(0.5),
-            };
-            animation.Completed += Animation_Completed1;
-            spSearch.BeginAnimation(WidthProperty, animation);
-        }
-
-        private void Animation_Completed1(object sender, EventArgs e)
-        {
+                DoubleAnimation animation = new DoubleAnimation
+                {
+                    From = 300,
+                    To = dSpSearchActualWidth,
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                spSearch.BeginAnimation(WidthProperty, animation);
+            }
         }
     }
 }

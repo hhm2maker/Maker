@@ -44,7 +44,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
             <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
-                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="15,5,5,5" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                     <Grid Name="gSearch" Visibility="Collapsed">
                         <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
                         <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="10" FontSize="17" BorderThickness="0" />
