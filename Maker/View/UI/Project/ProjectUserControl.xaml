@@ -30,7 +30,7 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Width="300" Orientation="Vertical">
+        <StackPanel Grid.Column="0" Width="300" Orientation="Vertical" Name="spMyLeft">
             <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
                 <Grid>
                     <TextBlock Text="{DynamicResource File}" Foreground="White" Margin="15" FontSize="18"/>

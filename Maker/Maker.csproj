@@ -1382,6 +1382,10 @@
       <Project>{f1c26e9d-9f8a-46b6-b1fd-e7242e3be1cd}</Project>
       <Name>Blog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MakerUI\MakerUI.csproj">
+      <Project>{a2aeccb9-8ee4-421f-a2d0-af3e2b20bf25}</Project>
+      <Name>MakerUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Operation\Operation.csproj">
       <Project>{e727841a-ba0e-4bf8-8b35-f24e06655312}</Project>
       <Name>Operation</Name>
