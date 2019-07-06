@@ -506,7 +506,7 @@ namespace Maker.View.Setting
                     async void foo()
                     {
                         await Task.Delay(50);
-                        mw.projectUserControl.SetSpFilePosition(mw.projectUserControl.filePosition);
+                        //mw.projectUserControl.SetSpFilePosition(mw.projectUserControl.filePosition);
                     }
                     mw.RemoveDialog();
                 },

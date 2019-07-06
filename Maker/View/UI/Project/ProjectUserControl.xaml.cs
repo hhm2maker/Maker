@@ -98,7 +98,14 @@ namespace Maker.View.UI.Project
             iuc = new IdeaUserControl(mw);
             userControls.Add(iuc);
 
-            SetSpFilePosition(1);
+            titleListUserControl.InitData(
+                new List<string>() { (String)Application.Current.Resources["Light"],
+                (String)Application.Current.Resources["LightScript"],
+                (String)Application.Current.Resources["LimitlessLamp"],
+                (String)Application.Current.Resources["Play_"],}
+            , RefreshFile, 1, bNew_MouseLeftButtonDown);
+
+            popNew.PlacementTarget = titleListUserControl.bRight;
         }
 
         public void btnNew_Click(object sender, MouseEventArgs e)
@@ -127,36 +134,10 @@ namespace Maker.View.UI.Project
             baseUserControl.NewFile(sender, e);
         }
 
-        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            SetSpFilePosition(((sender as Border).Parent as StackPanel).Children.IndexOf(sender as Border));
-        }
-
-
-        public int filePosition = -1;
-        public void SetSpFilePosition(int position)
-        {
-            if (filePosition == position)
-                return;
-
-            if (filePosition != -1) {
-                (spLeft.Children[filePosition] as Border).Background = new SolidColorBrush(Colors.Transparent);
-                (spLeft.Children[filePosition] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                ((spLeft.Children[filePosition] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
-            }
-
-            (spLeft.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184,191,198));
-            (spLeft.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
-            ((spLeft.Children[position] as Border).Child as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-
-            filePosition = position;
-            RefreshFile();
-        }
-
-        public void RefreshFile()
+        public void RefreshFile(int position)
         {
             lbFile.Items.Clear();
-            if (filePosition == 0)
+            if (position == 0)
             {
                 foreach (String str in FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
                 {
@@ -169,7 +150,7 @@ namespace Maker.View.UI.Project
                     lbFile.Items.Add(item);
                 }
             }
-            if (filePosition == 1)
+            if (position == 1)
             {
                 foreach (String str in FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
                 {
@@ -182,7 +163,7 @@ namespace Maker.View.UI.Project
                     lbFile.Items.Add(item);
                 }
             }
-            if (filePosition == 2)
+            if (position == 2)
             {
                 foreach (String str in FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
                 {
@@ -195,7 +176,7 @@ namespace Maker.View.UI.Project
                     lbFile.Items.Add(item);
                 }
             }
-            if (filePosition == 3)
+            if (position == 3)
             {
                 foreach (String str in FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".lightPage" }))
                 {
@@ -535,7 +516,7 @@ namespace Maker.View.UI.Project
 
         public void IntoUserControl(int index)
         {
-            EditUserControl euc = new EditUserControl();
+            EditUserControl euc = new EditUserControl(mw);
             euc.gMain.Children.Add(userControls[index]);
             mw.AddContentUserControl(euc);
 

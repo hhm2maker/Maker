@@ -3940,6 +3940,8 @@ namespace Maker.View.LightScriptUserControl
             //SaveFile();
 
             Test();
+
+            mw.SetSpFilePosition(mw.filePosition);
         }
 
         private void UpdateStep()

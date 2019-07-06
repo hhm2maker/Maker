@@ -55,9 +55,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListUserControl.xaml.cs">
+      <DependentUpon>ListUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TitleListUserControl.xaml.cs">
       <DependentUpon>TitleListUserControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="ListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

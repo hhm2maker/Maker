@@ -21,10 +21,12 @@ namespace Maker.View.UI.Edit
     /// </summary>
     public partial class EditUserControl : BaseChildUserControl
     {
-        public EditUserControl()
+        public NewMainWindow mw;
+        public EditUserControl(NewMainWindow mw)
         {
             InitializeComponent();
 
+            this.mw = mw;
             Title = "Edit";
         }
     }

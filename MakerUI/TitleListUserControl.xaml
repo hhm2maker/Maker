@@ -5,8 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MakerUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+          >
+    <StackPanel Grid.Column="0" Width="300" Orientation="Vertical" Name="spLeft">
+        <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
+            <Grid>
+                <TextBlock Text="{DynamicResource File}" Foreground="White" Margin="15" FontSize="18"/>
+                <Border Name="bNew" HorizontalAlignment="Right" CornerRadius="18" Width="80"  Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
+                    <TextBlock Text="{DynamicResource New}"  Foreground="#555555" VerticalAlignment="Center" Margin="0,5,0,5" HorizontalAlignment ="Center" FontSize="18"/>
+                </Border>
+            </Grid>
+        </Border>
+        <local:ListUserControl x:Name="luc" Position="Bottom"/>
+        <!--<Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2" Margin="0,15,0,0">
+                <TextBlock Text="{DynamicResource File}" Foreground="White" Margin="15" FontSize="18"/>
+            </Border>
+            <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
+                <StackPanel>
+                    <Border HorizontalAlignment="Stretch" CornerRadius="3" Background="#555555" Margin="15,15,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource Light}" Foreground="White" Margin="15" FontSize="18"/>
+                        </StackPanel>
+                    </Border>
+                    <Border HorizontalAlignment="Stretch" CornerRadius="3" Background="#555555" Margin="15,15,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource LightScript}" Foreground="White" Margin="15" FontSize="18"/>
+                        </StackPanel>
+                    </Border>
+                    <Border HorizontalAlignment="Stretch" CornerRadius="3" Background="#555555" Margin="15,15,15,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource LimitlessLamp}" Foreground="White" Margin="15" FontSize="18"/>
+                        </StackPanel>
+                    </Border>
+                    <Border HorizontalAlignment="Stretch" CornerRadius="3" Background="#555555" Margin="15,15,15,15" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource Play_}" Foreground="White" Margin="15" FontSize="18"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>-->
+    </StackPanel>
 </UserControl>
