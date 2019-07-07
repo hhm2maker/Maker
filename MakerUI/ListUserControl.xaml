@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MakerUI"
              mc:Ignorable="d" 
          >
-    <Border Name="bMain" Width="300" HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
+    <Border Name="bMain" HorizontalAlignment="Stretch" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
         <StackPanel Name="spLeft" />
     </Border>
 </UserControl>

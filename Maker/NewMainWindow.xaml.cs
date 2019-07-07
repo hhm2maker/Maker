@@ -30,6 +30,8 @@ using Maker.View.UI.Game;
 using Maker.View.UI.Home;
 using Maker.View.UI.Edit;
 using Maker.View.UI.Base;
+using Maker.Business.Model.Config;
+using Maker.Business.Currency;
 
 namespace Maker
 {
@@ -721,7 +723,6 @@ namespace Maker
                 tbSearch.Focus();
             }
             e.Handled = true;
-            //SetRightUserControl(new SearchUserControl(this));
         }
 
         private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
@@ -765,6 +766,41 @@ namespace Maker
                 };
                 spSearch.BeginAnimation(WidthProperty, animation);
             }
+        }
+
+        private void spFollow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //AddContentUserControl(new SearchUserControl(this));
+            InitShortcuts();
+        }
+
+        public BlogConfigModel blogConfigModel = new BlogConfigModel();
+        public void InitShortcuts()
+        {
+            Width = Width / 4;
+            Height = Height / 4;
+            XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
+            UpdateShortcuts();
+        }
+
+        public void UpdateShortcuts()
+        {
+            List<String> strs = new List<string>();
+            for (int i = 0; i < blogConfigModel.Shortcuts.Count; i++)
+            {
+                strs.Add(blogConfigModel.Shortcuts[i].text);
+            }
+            listUserControl.InitData(strs,GoHome,-1);
+
+            popFollow.HorizontalOffset = -(300 - spFollow.ActualWidth) / 2;
+
+            popFollow.IsOpen = false;
+            popFollow.IsOpen = true;
+
+        }
+
+        public void GoHome(int position) {
+
         }
     }
 }

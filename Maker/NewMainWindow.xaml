@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker"
         xmlns:setting="clr-namespace:Maker.View.UI.Setting"
+        xmlns:makerui="clr-namespace:MakerUI;assembly=MakerUI"
         mc:Ignorable="d"
         Closed="Window_Closed"
         Title="Maker" 
@@ -43,19 +44,22 @@
                 <Rectangle Height="30" VerticalAlignment="Center" Width="3" Fill="White" Margin="10,0,0,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-            <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+            <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,15,0">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
                     <Grid Name="gSearch" Visibility="Collapsed">
                         <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="10" FontSize="17"/>
                         <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="10" FontSize="17" BorderThickness="0" />
                     </Grid>
                 </StackPanel>
-            <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2">
-                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+            <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
             </StackPanel>
-            <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2" Margin="15,0,15,0">
+                    <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/appreciate.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
+                </StackPanel>
+                <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
                 <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="25"  RenderOptions.BitmapScalingMode="Fant"  />
-                <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10"   FontSize="17"/>
+                <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10,0,15,0"   FontSize="17"/>
             </StackPanel>
                 <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
                     <StackPanel Margin="15" Orientation="Horizontal" >
@@ -64,6 +68,9 @@
                     </StackPanel>
                 </Border>
             </StackPanel>
+            <Popup  Name="popFollow" PlacementTarget="{Binding ElementName=spFollow}" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" >
+                <makerui:ListUserControl x:Name="listUserControl" Background="#222326" Width="300"/>
+            </Popup>
         </Grid>
         <StackPanel Name="spHead" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
             <Image Name="iHead" Grid.Column="0" Source="View/Resources/Image/headportrait.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>

@@ -29,7 +29,7 @@ namespace Maker.View.UI.Search
             InitializeComponent();
             this.mw = mw;
 
-            InitShortcuts();
+            //InitShortcuts();
         }
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -41,44 +41,20 @@ namespace Maker.View.UI.Search
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            mw.ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
+            //mw.ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
         }
-
-       
 
         public BlogConfigModel blogConfigModel = new BlogConfigModel();
-        public void InitShortcuts()
-        {
-            wpLeft.Width = Width / 4;
-            wpLeft.Height = Height / 4;
-            XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
-            UpdateShortcuts();
-        }
 
         /// <summary>
         /// 保存快捷方式
         /// </summary>
         public void SaveShortcuts()
         {
-            XmlSerializerBusiness.Save(blogConfigModel, "Blog/blog.xml");
+            //XmlSerializerBusiness.Save(blogConfigModel, "Blog/blog.xml");
         }
 
 
-        public void UpdateShortcuts()
-        {
-            wpLeft.Children.Clear();
-            for (int i = 0; i < blogConfigModel.Shortcuts.Count; i++)
-            {
-                TextBlock tb = new TextBlock
-                {
-                    Margin = new Thickness(0, 5, 20, 0),
-                    Text = blogConfigModel.Shortcuts[i].text
-                };
-                tb.MouseLeftButtonDown += TextBlock_MouseLeftButtonDown;
-                tb.FontSize = 18;
-                tb.Foreground = new SolidColorBrush(Colors.White);
-                wpLeft.Children.Add(tb);
-            }
-        }
+      
     }
 }

@@ -248,7 +248,6 @@ namespace Maker.View.UI.UserControlDialog
             //System.Diagnostics.Process.Start(@"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\dfu-util.exe",
             //    "dfu-util -v -d 0203:0100,0203:0003 -t 2048 -a 0 -R -D \" "+ @"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\MatrixFW 0.1.3.3b 4-25-1.mxfw" + "\"");
 
-
             //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             //openFileDialog1.Filter = "Mxfw file(*.mxfw)|*.mxfw";
             //openFileDialog1.RestoreDirectory = true;
@@ -290,7 +289,7 @@ namespace Maker.View.UI.UserControlDialog
                 LoadUrl(shortcut.url);
                 suc.SaveShortcuts();
             }
-            suc.UpdateShortcuts();
+            //suc.UpdateShortcuts();
         }
 
         public void InitData() {
@@ -312,7 +311,7 @@ namespace Maker.View.UI.UserControlDialog
             if (shortcut != null)
             {
                 suc.blogConfigModel.Shortcuts.Add(new Shortcut(shortcut.text, shortcut.url, shortcut.dll));
-                suc.UpdateShortcuts();
+                //suc.UpdateShortcuts();
                 tbShortcut.Text = "删除快捷方式";
                 bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
             }

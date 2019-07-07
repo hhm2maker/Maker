@@ -29,8 +29,15 @@ namespace MakerUI
 
         private PositionChange onPositionChange;
         public void InitData(List<String> strs , PositionChange onPositionChange) {
+            InitData(strs, onPositionChange,0);
+        }
+
+        public void InitData(List<String> strs, PositionChange onPositionChange,int firstPosition)
+        {
+            filePosition = -1;
             this.onPositionChange = onPositionChange;
 
+            spLeft.Children.Clear();
             for (int i = 0; i < strs.Count; i++)
             {
                 Border border = new Border();
@@ -48,6 +55,9 @@ namespace MakerUI
                 {
                     border.Margin = new Thickness(15, 10, 15, 15);
                 }
+                if (strs.Count == 1) {
+                    border.Margin = new Thickness(15);
+                }
                 Grid grid = new Grid();
                 border.Child = grid;
                 TextBlock tb = new TextBlock();
@@ -60,12 +70,6 @@ namespace MakerUI
                 grid.Children.Add(tb);
                 spLeft.Children.Add(border);
             }
-            SetSpFilePosition(0);
-        }
-
-        public void InitData(List<String> strs, PositionChange onPositionChange,int firstPosition)
-        {
-            InitData(strs, onPositionChange);
             SetSpFilePosition(firstPosition);
         }
 
@@ -77,6 +81,9 @@ namespace MakerUI
         public int filePosition = -1;
         public void SetSpFilePosition(int position)
         {
+            if (position == -1)
+                return;
+
             if (filePosition == position)
                 return;
 

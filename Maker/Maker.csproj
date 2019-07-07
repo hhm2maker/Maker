@@ -1284,7 +1284,9 @@
     <Resource Include="View\Resources\Image\fire_black.png" />
     <Resource Include="View\Resources\Image\fire_white.png" />
     <Resource Include="View\Resources\Image\float.png" />
-    <Resource Include="View\Resources\Image\forward.png" />
+    <Resource Include="View\Resources\Image\forward.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\frame.png" />
     <Resource Include="View\Resources\Image\headportrait.png" />
     <Resource Include="View\Resources\Image\icon.ico" />
@@ -1723,6 +1725,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\color_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\follow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
