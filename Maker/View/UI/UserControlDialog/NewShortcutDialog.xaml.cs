@@ -16,15 +16,15 @@ namespace Maker.View.UI.UserControlDialog
     /// </summary>
     public partial class NewShortcutDialog : MakerDialog
     {
-        private SearchUserControl suc;
+        private NewMainWindow mw;
         private MyBlogDialog myBlogDialog;
         private Shortcut shortcut;
         private BlogContentModel blogContentModel;
-        public NewShortcutDialog(SearchUserControl mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
+        public NewShortcutDialog(NewMainWindow mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
         {
             InitializeComponent();
 
-            this.suc = mw;
+            this.mw = mw;
             this.myBlogDialog = myBlogDialog;
             this.blogContentModel = blogContentModel;
             this.shortcut = shortcut;
@@ -41,12 +41,12 @@ namespace Maker.View.UI.UserControlDialog
             shortcut.text = tbName.Text;
             shortcut.dll = tbDll.Text;
             myBlogDialog.UpdateData();
-            suc.mw.RemoveDialog();
+            mw.RemoveDialog();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            suc.mw.RemoveDialog();
+            mw.RemoveDialog();
         }
 
         private String fatherPath = AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\";
@@ -60,7 +60,7 @@ namespace Maker.View.UI.UserControlDialog
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (!openFileDialog.FileName.StartsWith(fatherPath)) {
-                    suc.mw.ShowMakerDialog(new ErrorDialog(suc.mw, "InvalidPath"));
+                    mw.ShowMakerDialog(new ErrorDialog(mw, "InvalidPath"));
                     return;
                 }
                 tbDll.Text = openFileDialog.FileName.Substring(fatherPath.Length) ;

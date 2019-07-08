@@ -1,5 +1,6 @@
 ﻿using Maker.Business.Currency;
 using Maker.Business.Model.Config;
+using Maker.View.UI.Base;
 using Maker.View.UI.Search;
 using System;
 using System.Collections.Generic;
@@ -18,14 +19,16 @@ namespace Maker.View.UI.UserControlDialog
     /// <summary>
     /// ChangeLanguage.xaml 的交互逻辑
     /// </summary>
-    public partial class MyBlogDialog : MakerDialog
+    public partial class MyBlogDialog : BaseChildUserControl
     {
-        private SearchUserControl suc;
+        private NewMainWindow suc;
         private Shortcut shortcut = new Shortcut();
         private BlogContentModel blogConfigModel = new BlogContentModel();
-        public MyBlogDialog(SearchUserControl suc, Shortcut shortcut)
+        public MyBlogDialog(NewMainWindow suc, Shortcut shortcut)
         {
             InitializeComponent();
+
+            Title = "ThirdPartyPages";
 
             this.suc = suc;
             this.shortcut = shortcut;
@@ -36,7 +39,7 @@ namespace Maker.View.UI.UserControlDialog
             lbMain.MaxHeight = suc.ActualHeight * 0.6;
         }
 
-        public MyBlogDialog(SearchUserControl suc, String url)
+        public MyBlogDialog(NewMainWindow suc, String url)
         {
             InitializeComponent();
 
@@ -261,19 +264,12 @@ namespace Maker.View.UI.UserControlDialog
             //}
           
         }
-
      
-
-        private void btnOk_Click(object sender, RoutedEventArgs e)
-        {
-            suc.mw.RemoveDialog();
-        }
-
         private void bShortcut_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (tbShortcut.Text.Equals("添加快捷方式"))
             {
-                suc.mw.ShowMakerDialog(new NewShortcutDialog(suc,this, blogConfigModel, shortcut));            
+                suc.ShowMakerDialog(new NewShortcutDialog(suc,this, blogConfigModel, shortcut));            
             }
             else {
                 tbShortcut.Text = "添加快捷方式";
@@ -287,7 +283,7 @@ namespace Maker.View.UI.UserControlDialog
                 }
                 shortcut.dll = "";
                 LoadUrl(shortcut.url);
-                suc.SaveShortcuts();
+                //suc.SaveShortcuts();
             }
             //suc.UpdateShortcuts();
         }
@@ -316,7 +312,7 @@ namespace Maker.View.UI.UserControlDialog
                 bShortcut.Background = new SolidColorBrush(Color.FromRgb(255, 70, 0));
             }
             LoadUrl(shortcut.url);
-            suc.SaveShortcuts();
+            //suc.SaveShortcuts();
         }
 
       

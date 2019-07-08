@@ -36,12 +36,12 @@ namespace Maker.View.UI.Search
         {
             if (tbUrl.Text.ToString().Equals(String.Empty))
                 return;
-            mw.ShowMakerDialog(new MyBlogDialog(this, tbUrl.Text.ToString()));
+            //mw.ShowMakerDialog(new MyBlogDialog(this, tbUrl.Text.ToString()));
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //mw.ShowMakerDialog(new MyBlogDialog(this, blogConfigModel.Shortcuts[wpLeft.Children.IndexOf(sender as TextBlock)]));
+         
         }
 
         public BlogConfigModel blogConfigModel = new BlogConfigModel();

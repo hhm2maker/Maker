@@ -800,7 +800,7 @@ namespace Maker
         }
 
         public void GoHome(int position) {
-
+            AddContentUserControl(new MyBlogDialog(this, blogConfigModel.Shortcuts[position]));
         }
     }
 }
