@@ -15,40 +15,37 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Width="300" Orientation="Vertical" Name="spLeft">
-            <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
-                <Grid>
-                    <TextBlock Text="{DynamicResource Project}" Foreground="White" Margin="15" FontSize="18"/>
-                    <Border HorizontalAlignment="Right" CornerRadius="18" Width="80" MouseLeftButtonDown="Image_MouseLeftButtonDown" Background="White" VerticalAlignment="Center" Margin="0,0,15,0">
-                        <TextBlock Text="{DynamicResource New}"  Foreground="#555555" VerticalAlignment="Center" Margin="0,5,0,5" HorizontalAlignment ="Center" FontSize="18"/>
-                    </Border>
-                </Grid>
-            </Border>
-            <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
-                    <StackPanel Name="spProject" Orientation="Vertical"/>
-            </Border>
-        </StackPanel>
-        <Border Grid.Column="1"  Name="bCenter" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
+        <Border Grid.Column="0"  Name="bCenter" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
             <StackPanel Name="spCenter" Margin="15"/>
         </Border>
-        <StackPanel Grid.Column="2" Width="300" Orientation="Vertical">
+        <StackPanel Grid.Column="1" Width="300" Orientation="Vertical">
             <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2">
-                <TextBlock Text="联系方式" Foreground="White" Margin="10"/>
+                <!--<TextBlock Text="联系方式" Foreground="White" Margin="10"/>-->
+                <Image Name="iHead" HorizontalAlignment="Left" Source="../../../View/Resources/Image/headportrait.png" Width="50" Margin="10" RenderOptions.BitmapScalingMode="Fant"/>
             </Border>
             <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal"  Margin="10">
                     <TextBlock Text="网站：" Foreground="White"/>
-                    <TextBlock Text="https://www.hhm2maker.com" Foreground="White" />
+                        <TextBlock Name="tbAuthor" Text="https://www.hhm2maker.com" Foreground="#FFC8C8C8" />
                 </StackPanel>
                     <StackPanel Orientation="Horizontal"  Margin="10">
                     <TextBlock Text="Email：" Foreground="White"/>
-                    <TextBlock Text="hhm2maker@qq.com" Foreground="White" />
+                        <TextBlock Name="tbContact"  Text="hhm2maker@qq.com" Foreground="#FFC8C8C8" />
                 </StackPanel>
                 </StackPanel>
             </Border>
+            <StackPanel Width="300" Grid.Column="2" Orientation="Vertical" Margin="0,15,0,0">
+                <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
+                    <Border Name="bShortcut"  CornerRadius="20" Background="#FF2DC84C" Margin="15" MouseLeftButtonDown="bShortcut_MouseLeftButtonDown">
+                        <TextBlock Name="tbShortcut" Text="添加快捷方式" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
+                    </Border>
+                </Border>
+            </StackPanel>
+            <TextBlock Name="tbIntroduce" FontSize="16" Margin="30,15,30,20" Foreground="#FFC8C8C8" />
+            <ListBox Style="{DynamicResource ListBoxStyle1}" Name="lbMain" BorderBrush="Transparent" Background="Transparent"  Margin="30,15,30,30" />
+
         </StackPanel>
     </Grid>
 </base:BaseChildUserControl>

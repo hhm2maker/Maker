@@ -7,10 +7,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
              mc:Ignorable="d" 
-             Background="#363b40"
-             Width="600"
-             VerticalAlignment="Top"
-                
              >
     <UserControl.Resources>
             <ResourceDictionary>
@@ -31,27 +27,10 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-    <StackPanel Orientation="Vertical" Grid.Row="0">
-            <Grid Margin="30,30,35,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Image Name="iHead" Grid.Column="0" Source="../../../View/Resources/Image/headportrait.png" Width="50"  RenderOptions.BitmapScalingMode="Fant"/>
-                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="30,0,0,0" VerticalAlignment="Center">
-                    <TextBlock Name="tbAuthor"  FontSize="18" Foreground="White" />
-                    <TextBlock Name="tbContact" FontSize="16" Margin="0,5,0,0" Foreground="#FFC8C8C8" />
-                </StackPanel>
-                <Border Name="bShortcut" MouseLeftButtonDown="bShortcut_MouseLeftButtonDown" Grid.Column="2" CornerRadius="3" Padding="15,5,15,5" VerticalAlignment="Center" Background="#FF2DC84C" HorizontalAlignment="Right">
-                    <TextBlock Name="tbShortcut" Foreground="White" FontSize="16" Text="添加快捷方式"/>
-                </Border>
-            </Grid>
-        </StackPanel>
-        <TextBlock Name="tbIntroduce" Grid.Row="1" Text="" FontSize="16" Margin="30,15,30,20" Foreground="#FFC8C8C8" />
-        <ListBox Style="{DynamicResource ListBoxStyle1}" Grid.Row="2" Name="lbMain" BorderBrush="Transparent" Background="Transparent"  Margin="30,15,30,30" >
-            <!--ItemContainerStyle="{StaticResource ListBoxItemStyle}"-->
-            <!--
+
+
+        <!--ItemContainerStyle="{StaticResource ListBoxItemStyle}"-->
+        <!--
              <DockPanel Margin="0,10,0,0">
                 <TextBlock Text="xxxxxx版本" FontSize="16" Foreground="#FFB4B4B4" VerticalAlignment="Center"/>
                 <Border CornerRadius="3" Padding="15,5,15,5" Background="#3790f9" HorizontalAlignment="Right">
@@ -64,6 +43,6 @@
                     <TextBlock Foreground="White" FontSize="14" Text="安装"/>
                 </Border>
             </DockPanel>-->
-        </ListBox>
+
     </Grid>
 </local1:BaseChildUserControl>

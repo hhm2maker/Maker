@@ -8,6 +8,7 @@ using System.Text;
 using static Maker.Business.Model.Config.BlogContentModel;
 using Maker.Business.Model.Config;
 using Maker.View.UI.Search;
+using Maker.View.UI.Home;
 
 namespace Maker.View.UI.UserControlDialog
 {
@@ -17,10 +18,10 @@ namespace Maker.View.UI.UserControlDialog
     public partial class NewShortcutDialog : MakerDialog
     {
         private NewMainWindow mw;
-        private MyBlogDialog myBlogDialog;
+        private HomeUserControl myBlogDialog;
         private Shortcut shortcut;
         private BlogContentModel blogContentModel;
-        public NewShortcutDialog(NewMainWindow mw, MyBlogDialog myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
+        public NewShortcutDialog(NewMainWindow mw, HomeUserControl myBlogDialog, BlogContentModel blogContentModel,Shortcut shortcut)
         {
             InitializeComponent();
 
