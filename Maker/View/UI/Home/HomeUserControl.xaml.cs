@@ -58,7 +58,8 @@ namespace Maker.View.UI.Home
         {
             if (isFirst)
             {
-                spCenter.Children.Add(new FastLaunchpadProUserControl(this));
+                spCenter.Width = mw.ActualWidth / 4 ;
+                //spCenter.Children.Add(new FastLaunchpadProUserControl(this, spCenter.Width ));
                 isFirst = false;
             }
         }
