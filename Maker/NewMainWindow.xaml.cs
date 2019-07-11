@@ -74,7 +74,6 @@ namespace Maker
             tb.Padding = new Thickness(10);
             tb.FontSize = 18;
             tb.Text = (String)Application.Current.Resources[uc.Title];
-         
 
             tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
             spContentTitle.Children.Add(tb);
@@ -801,6 +800,8 @@ namespace Maker
 
         public void GoHome(int position) {
             AddContentUserControl(new HomeUserControl(this, blogConfigModel.Shortcuts[position]));
+
+            popFollow.IsOpen = false;
         }
     }
 }

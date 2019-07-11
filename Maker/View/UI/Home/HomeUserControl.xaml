@@ -52,8 +52,17 @@
             
         </StackPanel>
         <Border Grid.Column="1"  Name="bCenter" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
-            <StackPanel Name="spCenter" Margin="15">
+            <!--<StackPanel Name="spCenter" >
                 <ListBox Style="{DynamicResource ListBoxStyle1}" Name="lbMain" BorderBrush="Transparent" Background="Transparent" />
+            </StackPanel>-->
+            <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical" Name="spCenter" Focusable="True" Margin="15">
+                <Grid VerticalAlignment="Center">
+                    <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                </Grid>
+                <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
+                <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
+           
+                <StackPanel Name="spContent" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,15,0,0" />
             </StackPanel>
         </Border>
         <StackPanel Grid.Column="2" Width="300" Orientation="Vertical">

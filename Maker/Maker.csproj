@@ -542,7 +542,7 @@
     <Compile Include="View\UI\UserControlDialog\NewShortcutDialog.xaml.cs">
       <DependentUpon>NewShortcutDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\UserControlDialog\MyBlogDialog.xaml.cs">
+    <Compile Include="View\UI\Home\MyBlogDialog.xaml.cs">
       <DependentUpon>MyBlogDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\UserControlDialog\ErrorDialog.xaml.cs">
@@ -1098,7 +1098,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UI\UserControlDialog\MyBlogDialog.xaml">
+    <Page Include="View\UI\Home\MyBlogDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -15,6 +15,9 @@ using System.Net;
 using System.Reflection;
 using static Maker.Business.Model.Config.BlogConfigModel;
 using Maker.View.UI.UserControlDialog;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 namespace Maker.View.UI.Home
 {
@@ -25,7 +28,7 @@ namespace Maker.View.UI.Home
     {
         private NewMainWindow mw;
         private Shortcut shortcut = new Shortcut();
-        private BlogContentModel blogConfigModel = new BlogContentModel();
+        private BlogContentModel blogContentModel = new BlogContentModel();
         public HomeUserControl(NewMainWindow mw, Shortcut shortcut)
         {
             InitializeComponent();
@@ -51,8 +54,6 @@ namespace Maker.View.UI.Home
             LoadUrl(url);
         }
 
-       
-
         bool isFirst = true;
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -64,6 +65,60 @@ namespace Maker.View.UI.Home
             }
         }
 
+        public void AddContentUserControl(BaseChildUserControl uc)
+        {
+            TextBlock tb = new TextBlock();
+            tb.Padding = new Thickness(10);
+            tb.FontSize = 16;
+            tb.Text = (String)Application.Current.Resources[uc.Title];
+
+            tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
+            spContentTitle.Children.Add(tb);
+
+            contentUserControls.Add(uc);
+            SetSpFilePosition(contentUserControls.Count - 1);
+        }
+
+        private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SetSpFilePosition((((sender as TextBlock).Parent) as Panel).Children.IndexOf(sender as TextBlock));
+        }
+
+        public int filePosition = 0;
+        public void SetSpFilePosition(int position)
+        {
+            (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
+            (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            filePosition = position;
+
+            foo();
+            // .net 4.5
+            async void foo()
+            {
+                await Task.Delay(50);
+
+                double _p = 0.0;
+                for (int i = 0; i < position; i++)
+                {
+                    _p += (spContentTitle.Children[i] as TextBlock).ActualWidth;
+                }
+                _p += ((spContentTitle.Children[position] as TextBlock).ActualWidth - 50) / 2;
+                double _p2 = ((spContentTitle.ActualWidth - spContentTitle.ActualWidth) / 2);
+
+                double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
+
+                ThicknessAnimation animation2 = new ThicknessAnimation
+                {
+                    To = new Thickness(_p + _p2 + leftMargin - 10, 0, 0, 0),
+                    Duration = TimeSpan.FromSeconds(0.5),
+                };
+                rFile.BeginAnimation(MarginProperty, animation2);
+            }
+            spContent.Children.Clear();
+            spContent.Children.Add(contentUserControls[position]);
+        }
+
+        public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();
 
         private void LoadUrl(String url)
         {
@@ -88,102 +143,41 @@ namespace Maker.View.UI.Home
             }
             using (MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(sb.ToString())))
             {
-                XmlSerializerBusiness.Load(ref blogConfigModel, ms);
-                if (blogConfigModel.Author.Equals(String.Empty))
+                XmlSerializerBusiness.Load(ref blogContentModel, ms);
+                if (blogContentModel.Author.Equals(String.Empty))
                 {
                     tbAuthor.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    tbAuthor.Text = blogConfigModel.Author;
+                    tbAuthor.Text = blogContentModel.Author;
                 }
-                if (blogConfigModel.Contact.Equals(String.Empty))
+                if (blogContentModel.Contact.Equals(String.Empty))
                 {
                     tbContact.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    tbContact.Text = blogConfigModel.Contact;
+                    tbContact.Text = blogContentModel.Contact;
                 }
-                if (blogConfigModel.Introduce.Equals(String.Empty))
+                if (blogContentModel.Introduce.Equals(String.Empty))
                 {
                     tbIntroduce.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    tbIntroduce.Text = blogConfigModel.Introduce;
+                    tbIntroduce.Text = blogContentModel.Introduce;
                 }
 
-                string userHeadPic = blogConfigModel.HeadPortrait;
+                string userHeadPic = blogContentModel.HeadPortrait;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(userHeadPic);
                 WebResponse response = request.GetResponse();
                 System.Drawing.Image img = System.Drawing.Image.FromStream(response.GetResponseStream());
                 System.Drawing.Bitmap bitMap = new System.Drawing.Bitmap(img);
                 iHead.Source = GetBitmapSource(bitMap);
 
-                lbMain.Items.Clear();
-                for (int i = 0; i < blogConfigModel.Buttons.Count; i++)
-                {
-                    ListBoxItem listBoxItem = new ListBoxItem();
+                AddContentUserControl(new MyBlogDialog(mw, shortcut,blogContentModel));
 
-                    StackPanel sp = new StackPanel();
-                    sp.Margin = new Thickness(10, 5, 10, 5);
-                    sp.Orientation = Orientation.Vertical;
-
-                    DockPanel dockPanel = new DockPanel();
-                    dockPanel.Margin = new Thickness(0, 5, 0, 5);
-
-                    TextBlock textBlock = new TextBlock();
-                    textBlock.Text = blogConfigModel.Buttons[i].hint;
-                    textBlock.FontSize = 16;
-                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(180, 180, 180));
-                    textBlock.VerticalAlignment = VerticalAlignment.Center;
-                    dockPanel.Children.Add(textBlock);
-
-                    Image image = new Image();
-                    image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_down.png", UriKind.RelativeOrAbsolute));
-                    image.PreviewMouseLeftButtonDown += Image_MouseLeftButtonDown;
-                    image.Width = 20;
-                    image.VerticalAlignment = VerticalAlignment.Center;
-                    image.HorizontalAlignment = HorizontalAlignment.Right;
-                    dockPanel.Children.Add(image);
-                    DockPanel.SetDock(image, Dock.Right);
-
-                    Border border = new Border();
-                    border.CornerRadius = new CornerRadius(3);
-                    border.Margin = new Thickness(0, 0, 30, 0);
-                    border.Padding = new Thickness(15, 5, 15, 5);
-                    border.HorizontalAlignment = HorizontalAlignment.Right;
-                    border.PreviewMouseLeftButtonDown += Border_MouseLeftButtonDown;
-                    TextBlock textBlock2 = new TextBlock();
-                    if (shortcut == null || shortcut.dll.Equals(String.Empty))
-                    {
-                        border.Background = new SolidColorBrush(Colors.Transparent);
-                        textBlock2.Text = "请先创建快捷方式";
-                    }
-                    else
-                    {
-                        border.Background = new SolidColorBrush(Color.FromRgb(55, 144, 249));
-                        textBlock2.Text = blogConfigModel.Buttons[i].text;
-                    }
-                    textBlock2.FontSize = 14;
-                    textBlock2.Foreground = new SolidColorBrush(Colors.White);
-                    border.Child = textBlock2;
-                    dockPanel.Children.Add(border);
-                    DockPanel.SetDock(border, Dock.Right);
-                    sp.Children.Add(dockPanel);
-
-                    TextBlock textBlock3 = new TextBlock();
-                    textBlock3.Visibility = Visibility.Collapsed;
-                    textBlock3.Text = blogConfigModel.Buttons[i].details.Replace(@"\r\n", Environment.NewLine);
-                    textBlock3.FontSize = 14;
-                    textBlock3.Foreground = new SolidColorBrush(Color.FromRgb(220, 220, 220));
-                    textBlock3.Margin = new Thickness(0, 0, 0, 20);
-                    sp.Children.Add(textBlock3);
-
-                    listBoxItem.Content = sp;
-                    lbMain.Items.Add(listBoxItem);
-                }
             }
 
             InitData();
@@ -219,75 +213,15 @@ namespace Maker.View.UI.Home
         }
 
 
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Image image = sender as Image;
+    
 
-            if (((image.Parent as DockPanel).Parent as StackPanel).Children[1].Visibility == Visibility.Collapsed)
-            {
-                ((image.Parent as DockPanel).Parent as StackPanel).Children[1].Visibility = Visibility.Visible;
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_up.png", UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                ((image.Parent as DockPanel).Parent as StackPanel).Children[1].Visibility = Visibility.Collapsed;
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_down.png", UriKind.RelativeOrAbsolute));
-            }
-        }
-
-        private String fatherPath = AppDomain.CurrentDomain.BaseDirectory + @"Blog\DLL\";
-        private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (shortcut.dll.Equals(String.Empty))
-                return;
-            if (!File.Exists(fatherPath + shortcut.dll))
-            {
-                return;
-            }
-
-            byte[] fileData = File.ReadAllBytes(fatherPath + shortcut.dll);
-            Assembly ass = Assembly.Load(fileData);
-            Type[] types = ass.GetTypes();
-            Type type = types[0];
-
-            //判断是否继承于IToBlog类
-            Type _type = type.GetInterface("Blog.IToBlog");
-            if (_type == null)
-                return;
-            Object o = Activator.CreateInstance(type);
-            MethodInfo mi = o.GetType().GetMethod("ToBlog");
-
-            BlogContentModel.Button button = blogConfigModel.Buttons[lbMain.Items.IndexOf(((((sender as Border).Parent as DockPanel).Parent as StackPanel).Parent as ListBoxItem))];
-            List<string> parameters = new List<string>();
-            for (int i = 0; i < button.Parameters.Count; i++)
-            {
-                parameters.Add(button.Parameters[i]);
-            }
-            //String url = .parameter;
-            mi.Invoke(o, new Object[] { parameters });
-
-            //System.Diagnostics.Process.Start(@"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\dfu-util.exe",
-            //    "dfu-util -v -d 0203:0100,0203:0003 -t 2048 -a 0 -R -D \" "+ @"E:\Sharer\Maker\Maker\bin\Debug\matrix uploader\MatrixFW 0.1.3.3b 4-25-1.mxfw" + "\"");
-
-            //System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            //openFileDialog1.Filter = "Mxfw file(*.mxfw)|*.mxfw";
-            //openFileDialog1.RestoreDirectory = true;
-            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    System.Diagnostics.Process.Start(@"E:\Sharer\Maker\Maker\bin\Debug\matrixuploader\Matrix Firmware Uploader.bat",
-            //"\"" + openFileDialog1.FileName + "\"");
-            //    //细节优化。
-            //    //如是否要再次确认
-            //    //echo Make sure Matrix is pluged in. Press Any Key to continue.
-            //}
-
-        }
+      
 
         private void bShortcut_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (tbShortcut.Text.Equals("添加快捷方式"))
             {
-                mw.ShowMakerDialog(new NewShortcutDialog(mw, this, blogConfigModel, shortcut));
+                mw.ShowMakerDialog(new NewShortcutDialog(mw, this, blogContentModel, shortcut));
             }
             else
             {
