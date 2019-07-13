@@ -22,7 +22,6 @@ namespace Maker.Business.Model.Config
 
             }
 
-
             public Shortcut(string text, string url, string dll) {
                 this.text = text;
                 this.url = url;

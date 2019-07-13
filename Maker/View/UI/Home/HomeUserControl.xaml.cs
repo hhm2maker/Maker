@@ -18,6 +18,7 @@ using Maker.View.UI.UserControlDialog;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
+using Maker.Business.Utils;
 
 namespace Maker.View.UI.Home
 {
@@ -60,7 +61,7 @@ namespace Maker.View.UI.Home
             if (isFirst)
             {
                 spCenter.Width = mw.ActualWidth / 4 ;
-                //spCenter.Children.Add(new FastLaunchpadProUserControl(this, spCenter.Width ));
+                //spCenter.Children.Add(new FastLaunchpadProUserControl(this, spCenter.Width));
                 isFirst = false;
             }
         }
@@ -105,7 +106,7 @@ namespace Maker.View.UI.Home
                 _p += ((spContentTitle.Children[position] as TextBlock).ActualWidth - 50) / 2;
                 double _p2 = ((spContentTitle.ActualWidth - spContentTitle.ActualWidth) / 2);
 
-                double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
+                double leftMargin = (ActualWidth - (ActualWidth / 4)) / 2;
 
                 ThicknessAnimation animation2 = new ThicknessAnimation
                 {
@@ -124,60 +125,60 @@ namespace Maker.View.UI.Home
         {
             shortcut.url = url;
 
-            StringBuilder sb = new StringBuilder();
-            WebClient wclient = new WebClient();//实例化WebClient类对象 
-            wclient.BaseAddress = url;//设置WebClient的基URI 
-            wclient.Encoding = Encoding.UTF8;//指定下载字符串的编码方式 
-                                             //为WebClient类对象添加标头 
-            wclient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-            //不加会导致请求被中止: 未能创建 SSL/TLS 安全通道
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            //使用OpenRead方法获取指定网站的数据，并保存到Stream流中 
-            Stream stream = wclient.OpenRead(url);
-            //使用流Stream声明一个流读取变量sreader 
-            StreamReader sreader = new StreamReader(stream);
-            string str = string.Empty;//声明一个变量，用来保存一行从WebCliecnt下载的数据 
-            while ((str = sreader.ReadLine()) != null)
+            WebClientUtil.WebToModel(url,ref blogContentModel);
+
+            if (blogContentModel.Author.Equals(String.Empty))
             {
-                sb.Append(str + Environment.NewLine);
+                tbAuthor.Visibility = Visibility.Collapsed;
             }
-            using (MemoryStream ms = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(sb.ToString())))
+            else
             {
-                XmlSerializerBusiness.Load(ref blogContentModel, ms);
-                if (blogContentModel.Author.Equals(String.Empty))
-                {
-                    tbAuthor.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    tbAuthor.Text = blogContentModel.Author;
-                }
-                if (blogContentModel.Contact.Equals(String.Empty))
-                {
-                    tbContact.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    tbContact.Text = blogContentModel.Contact;
-                }
-                if (blogContentModel.Introduce.Equals(String.Empty))
-                {
-                    tbIntroduce.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    tbIntroduce.Text = blogContentModel.Introduce;
-                }
+                tbAuthor.Text = blogContentModel.Author;
+            }
 
-                string userHeadPic = blogContentModel.HeadPortrait;
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(userHeadPic);
-                WebResponse response = request.GetResponse();
-                System.Drawing.Image img = System.Drawing.Image.FromStream(response.GetResponseStream());
-                System.Drawing.Bitmap bitMap = new System.Drawing.Bitmap(img);
-                iHead.Source = GetBitmapSource(bitMap);
+            for (int i = 0; i < blogContentModel.Contacts.Count; i++)
+            {
+                TextBlock tb = new TextBlock();
+                if (i != 0) {
+                    tb.Margin = new Thickness(0,10, 0, 0);
+                }
+                if (Application.Current.Resources[blogContentModel.Contacts[i].type] != null) {
+                    tb.Text = (String)Application.Current.Resources[blogContentModel.Contacts[i].type];
+                }
+                else {
+                    tb.Text = blogContentModel.Contacts[i].type;
+                }
+                tb.Foreground = new SolidColorBrush(Colors.White);
+                spContacts.Children.Add(tb);
 
-                AddContentUserControl(new MyBlogDialog(mw, shortcut,blogContentModel));
+                TextBlock tb2 = new TextBlock();
+                tb2.Text = blogContentModel.Contacts[i].content;
+                tb2.Foreground = new SolidColorBrush(Color.FromRgb(200,200,200));
+                tb2.Margin = new Thickness(0, 5, 0, 0);
+                spContacts.Children.Add(tb2);
+            }
 
+            if (blogContentModel.Introduce.Equals(String.Empty))
+            {
+                tbIntroduce.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                tbIntroduce.Text = blogContentModel.Introduce;
+            }
+
+            string userHeadPic = blogContentModel.HeadPortrait;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(userHeadPic);
+            WebResponse response = request.GetResponse();
+            System.Drawing.Image img = System.Drawing.Image.FromStream(response.GetResponseStream());
+            System.Drawing.Bitmap bitMap = new System.Drawing.Bitmap(img);
+            iHead.Source = GetBitmapSource(bitMap);
+
+            for (int i = 0; i < blogContentModel.Pages.Count; i++) {
+                if (blogContentModel.Pages[i].type.Equals("ThirdPartyPage")) {
+                    if(blogContentModel.Pages[i].url.StartsWith("/"))
+                    AddContentUserControl(new MyBlogDialog(mw, shortcut, blogContentModel.BaseUrl+ blogContentModel.Pages[i].url));
+                }
             }
 
             InitData();
@@ -211,11 +212,6 @@ namespace Maker.View.UI.Home
             return bf;
             //return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
         }
-
-
-    
-
-      
 
         private void bShortcut_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

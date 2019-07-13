@@ -38,18 +38,8 @@
                 <TextBlock Text="联系方式" Foreground="White" Margin="10"/>
             </Border>
             <Border HorizontalAlignment="Stretch" CornerRadius="0,0,3,3" BorderBrush="#555555" BorderThickness="2,0,2,2">
-                <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Vertical"  Margin="10">
-                        <TextBlock Text="网站：" Foreground="White"/>
-                        <TextBlock Text="https://www.hhm2maker.com" Foreground="#C8C8C8" Margin="0,5,0,0"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical"  Margin="10,0,10,10">
-                        <TextBlock Text="Email：" Foreground="White"/>
-                        <TextBlock Name="tbContact"  Text="hhm2maker@qq.com" Foreground="#C8C8C8" Margin="0,5,0,0"/>
-                    </StackPanel>
-                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="10" Name="spContacts" />
             </Border>
-            
         </StackPanel>
         <Border Grid.Column="1"  Name="bCenter" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="15,0,15,0">
             <!--<StackPanel Name="spCenter" >

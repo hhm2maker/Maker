@@ -1,5 +1,6 @@
 ﻿using Maker.Business.Currency;
 using Maker.Business.Model.Config;
+using Maker.Business.Utils;
 using Maker.View.UI.Base;
 using Maker.View.UI.Search;
 using System;
@@ -22,31 +23,24 @@ namespace Maker.View.UI.UserControlDialog
     public partial class MyBlogDialog : BaseChildUserControl
     {
         private Shortcut shortcut;
-        private BlogContentModel blogContentModel;
-        public MyBlogDialog(NewMainWindow mw, Shortcut shortcut, BlogContentModel blogContentModel)
+        private BlogPageModel blogPageModel ;
+
+        public MyBlogDialog(NewMainWindow suc, Shortcut shortcut, String url)
         {
             InitializeComponent();
 
-            Title = "ThirdPartyPages";
+            Title = "ThirdPartyPage";
 
             this.shortcut = shortcut;
-            this.blogContentModel = blogContentModel;
 
+            WebClientUtil.WebToModel(url, ref blogPageModel);
             InitData();
-        }
-
-        public MyBlogDialog(NewMainWindow suc, String url)
-        {
-            InitializeComponent();
-
-
-            Title = "ThirdPartyPages";
         }
 
 
         public void InitData() {
             lbMain.Items.Clear();
-            for (int i = 0; i < blogContentModel.Buttons.Count; i++)
+            for (int i = 0; i < blogPageModel.Buttons.Count; i++)
             {
                 ListBoxItem listBoxItem = new ListBoxItem();
 
@@ -58,7 +52,7 @@ namespace Maker.View.UI.UserControlDialog
                 dockPanel.Margin = new Thickness(0, 5, 0, 5);
 
                 TextBlock textBlock = new TextBlock();
-                textBlock.Text = blogContentModel.Buttons[i].hint;
+                textBlock.Text = blogPageModel.Buttons[i].hint;
                 textBlock.FontSize = 16;
                 textBlock.Foreground = new SolidColorBrush(Color.FromRgb(180, 180, 180));
                 textBlock.VerticalAlignment = VerticalAlignment.Center;
@@ -88,7 +82,7 @@ namespace Maker.View.UI.UserControlDialog
                 else
                 {
                     border.Background = new SolidColorBrush(Color.FromRgb(55, 144, 249));
-                    textBlock2.Text = blogContentModel.Buttons[i].text;
+                    textBlock2.Text = blogPageModel.Buttons[i].text;
                 }
                 textBlock2.FontSize = 14;
                 textBlock2.Foreground = new SolidColorBrush(Colors.White);
@@ -99,7 +93,7 @@ namespace Maker.View.UI.UserControlDialog
 
                 TextBlock textBlock3 = new TextBlock();
                 textBlock3.Visibility = Visibility.Collapsed;
-                textBlock3.Text = blogContentModel.Buttons[i].details.Replace(@"\r\n", Environment.NewLine);
+                textBlock3.Text = blogPageModel.Buttons[i].details.Replace(@"\r\n", Environment.NewLine);
                 textBlock3.FontSize = 14;
                 textBlock3.Foreground = new SolidColorBrush(Color.FromRgb(220, 220, 220));
                 textBlock3.Margin = new Thickness(0, 0, 0, 20);
@@ -148,7 +142,7 @@ namespace Maker.View.UI.UserControlDialog
             Object o = Activator.CreateInstance(type);
             MethodInfo mi = o.GetType().GetMethod("ToBlog");
 
-            BlogContentModel.Button button = blogContentModel.Buttons[lbMain.Items.IndexOf(((((sender as Border).Parent as DockPanel).Parent as StackPanel).Parent as ListBoxItem))];
+            BlogPageModel.Button button = blogPageModel.Buttons[lbMain.Items.IndexOf(((((sender as Border).Parent as DockPanel).Parent as StackPanel).Parent as ListBoxItem))];
             List<string> parameters = new List<string>();
             for (int i = 0; i < button.Parameters.Count; i++)
             {

@@ -517,6 +517,8 @@
     <sys:String x:Key="Membrane">Membrane</sys:String>
     <sys:String x:Key="Home">Home</sys:String>
     <sys:String x:Key="Local">Local</sys:String>
-    <sys:String x:Key="ThirdPartyPages">Third party pages</sys:String>
-    
+    <sys:String x:Key="ThirdPartyPage">Third party page</sys:String>
+    <sys:String x:Key="News">News</sys:String>
+    <sys:String x:Key="Website">Website</sys:String>
+    <sys:String x:Key="Email">Email</sys:String>
 </ResourceDictionary>
