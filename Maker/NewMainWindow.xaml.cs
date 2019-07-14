@@ -46,6 +46,8 @@ namespace Maker
         {
             InitializeComponent();
 
+            Operation.Test.Hello();
+
             bridge = new NewMainWindowBridge(this);
 
             bridge.Init();

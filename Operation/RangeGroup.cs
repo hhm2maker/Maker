@@ -24,24 +24,24 @@ namespace Operation
                     {
                         for (int k = One; k <= Two; k++)
                         {
-                            this.Add(k);
+                            Add(k);
                         }
                     }
                     else if (One > Two)
                     {
                         for (int k = One; k >= Two; k--)
                         {
-                            this.Add(k);
+                            Add(k);
                         }
                     }
                     else
                     {
-                        this.Add(One);
+                        Add(One);
                     }
                 }
                 else
                 {
-                    this.Add(int.Parse(strSplit[i]));
+                    Add(int.Parse(strSplit[i]));
                 }
             }
         }

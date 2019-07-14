@@ -32,6 +32,7 @@ namespace Operation
             sb.Append("using System;"+Environment.NewLine);
             sb.Append("using System.Collections.Generic;" + Environment.NewLine);
             sb.Append("using Operation;" + Environment.NewLine);
+            sb.Append("using Maker.Business.Model.OperationModel;" + Environment.NewLine);
             sb.Append("public class Test{" + Environment.NewLine);
             sb.Append("public Dictionary<string,List<Light>> Hello(){" + Environment.NewLine);
             sb.Append("Dictionary<string,List<Light>> mainLightGroup = new Dictionary<string,List<Light>>();");
@@ -316,7 +317,6 @@ namespace Operation
 
         public static String OperationModelsToCode(ScriptModel scriptModel,ref List<String> myContain)
         {
-          
                 //输入
                 XmlDocument doc = new XmlDocument();
                 doc.Load("Config/input.xml");
@@ -358,10 +358,47 @@ namespace Operation
             //规则是Step前面加My,即MyStep1，MyStep2...
             //List<String> myContain = new List<string>();
             StringBuilder sb = new StringBuilder();
-            if (scriptModel.Value.Contains(scriptModel.Name + "LightGroup"))
-            {
+            //if (scriptModel.Value.Contains(scriptModel.Name + "LightGroup"))
+            //{
                 foreach (var mItem in scriptModel.OperationModels)
                 {
+                    if (mItem is CreateFromQuickOperationModel)
+                    {
+                    CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
+                    StringBuilder positionBuild = new StringBuilder();
+                    positionBuild.Append("new List<int>(");
+                    for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++) {
+                        if (i != createFromQuickOperationModel.RangeList.Count - 1)
+                        {
+                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + ",");
+                        }
+                        else {
+                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + ")");
+                        }
+                    }
+                    StringBuilder colorBuild = new StringBuilder();
+                    colorBuild.Append("new List<int>(");
+                    for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++)
+                    {
+                        if (i != createFromQuickOperationModel.RangeList.Count - 1)
+                        {
+                            colorBuild.Append(createFromQuickOperationModel.ColorList[i] + ",");
+                        }
+                        else
+                        {
+                            colorBuild.Append(createFromQuickOperationModel.ColorList[i] + ")");
+                        }
+                    }
+                    sb.Append(Environment.NewLine + "\tCreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel("
+                        + createFromQuickOperationModel.Time+","
+                        + positionBuild .ToString()+"," 
+                        + createFromQuickOperationModel.Interval+ "," 
+                        + createFromQuickOperationModel.Continued + ","
+                        + colorBuild.ToString() +","
+                        + createFromQuickOperationModel.Type + ","
+                        + createFromQuickOperationModel.Action + ");");
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);");
+                    }
                     if (mItem is VerticalFlippingOperationModel)
                     {
                         sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.VerticalFlipping();");
@@ -584,7 +621,7 @@ namespace Operation
                            _sb .ToString()+ ");");
                     }
                 }
-            }
+            //}
             return sb.ToString();
         }
     }

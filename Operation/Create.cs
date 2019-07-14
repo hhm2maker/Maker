@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,302 +19,304 @@ namespace Operation
         public static int ALL = 10;
         public static int OPEN = 11;
         public static int CLOSE = 12;
-        public static LightGroup CreateLightGroup( int _time , List<int> rangeList, int _interval, int _continued,  List<int> colorList, int _type, int _action)
+
+        
+        public static LightGroup CreateLightGroup(CreateFromQuickOperationModel createFromQuickOperationModel)
         {
             LightGroup _lightGroup = new LightGroup();
                 //时间
                 List<int> _position = new List<int>();
-                _position.AddRange(rangeList.ToArray());
-            if (_type == UP)
+                _position.AddRange(createFromQuickOperationModel.RangeList.ToArray());
+            if (createFromQuickOperationModel.Type == UP)
             {
-                if (_action == ALL)
+                if (createFromQuickOperationModel.Action == ALL)
                 {
                     //开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                     //结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == OPEN)
+                else if (createFromQuickOperationModel.Action == OPEN)
                 {
                     //只开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == CLOSE)
+                else if (createFromQuickOperationModel.Action == CLOSE)
                 {
                     //只结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
             }
-            else if (_type == DOWN)
+            else if (createFromQuickOperationModel.Type == DOWN)
             {
                 _position.Reverse();
-                if (_action == ALL)
+                if (createFromQuickOperationModel.Action == ALL)
                 {
                     //开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                     //结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == OPEN)
+                else if (createFromQuickOperationModel.Action == OPEN)
                 {
                     //只开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == CLOSE)
+                else if (createFromQuickOperationModel.Action == CLOSE)
                 {
                     //只结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
             }
-            else if (_type == UPDOWN)
+            else if (createFromQuickOperationModel.Type == UPDOWN)
             {
                 List<int> _relList = new List<int>();
                 _relList.AddRange(_position.ToArray().Reverse());
                 _position.AddRange(_relList.ToArray());
-                if (_action == ALL)
+                if (createFromQuickOperationModel.Action == ALL)
                 {
                     //开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                     //结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == OPEN)
+                else if (createFromQuickOperationModel.Action == OPEN)
                 {
                     //只开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == CLOSE)
+                else if (createFromQuickOperationModel.Action == CLOSE)
                 {
                     //只结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
             }
-            else if (_type == DOWNUP)
+            else if (createFromQuickOperationModel.Type == DOWNUP)
             {
                 _position.Reverse();
                 List<int> _relList = new List<int>();
                 _relList.AddRange(_position.ToArray().Reverse());
                 _position.AddRange(_relList.ToArray());
-                if (_action == ALL)
+                if (createFromQuickOperationModel.Action == ALL)
                 {
                     //开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                     //结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _continued + _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == OPEN)
+                else if (createFromQuickOperationModel.Action == OPEN)
                 {
                     //只开始
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 144,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
                     }
                 }
-                else if (_action == CLOSE)
+                else if (createFromQuickOperationModel.Action == CLOSE)
                 {
                     //只结束
-                    for (int j = 0; j < colorList.Count; j++)
+                    for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                     {
                         for (int i = 0; i < _position.Count; i++)
                         {
                             Light light = new Light
                             {
-                                Time = _time + i * _interval + j * _continued,//时间
+                                Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                                 Action = 128,//动作
                                 Position = _position[i],//位置
-                                Color = colorList[j]//位置
+                                Color = createFromQuickOperationModel.ColorList[j]//位置
                             };
                             _lightGroup.Add(light);
                         }
@@ -321,34 +324,34 @@ namespace Operation
                 }
             }
             //以下三种只支持Action等于All
-            else if (_type == UPANDDOWN || _type == DOWNANDUP)
+            else if (createFromQuickOperationModel.Type == UPANDDOWN || createFromQuickOperationModel.Type == DOWNANDUP)
             {
                 //开始
-                for (int j = 0; j < colorList.Count; j++)
+                for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
                         Light light = new Light
                         {
-                            Time = _time + i * _interval + j * _continued,//时间
+                            Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                             Action = 144,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light);
                     }
                 }
                 //结束
-                for (int j = 0; j < colorList.Count; j++)
+                for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
                         Light light = new Light
                         {
-                            Time = _continued + _time + i * _interval + j * _continued,//时间
+                            Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                             Action = 128,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light);
                     }
@@ -357,59 +360,59 @@ namespace Operation
                 _position.Reverse();
 
                 //开始
-                for (int j = 0; j < colorList.Count; j++)
+                for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
                         Light light = new Light
                         {
-                            Time = _time + i * _interval + j * _continued,//时间
+                            Time = createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                             Action = 144,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light);
                     }
                 }
                 //结束
-                for (int j = 0; j < colorList.Count; j++)
+                for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
                         Light light = new Light
                         {
-                            Time = _continued + _time + i * _interval + j * _continued,//时间
+                            Time = createFromQuickOperationModel.Continued + createFromQuickOperationModel.Time + i * createFromQuickOperationModel.Interval + j * createFromQuickOperationModel.Continued,//时间
                             Action = 128,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light);
                     }
                 }
             }
-            else if (_type == FREEZEFRAME)
+            else if (createFromQuickOperationModel.Type == FREEZEFRAME)
             {
-                int mTime = _time;
-                for (int j = 0; j < colorList.Count; j++)
+                int mTime = createFromQuickOperationModel.Time;
+                for (int j = 0; j < createFromQuickOperationModel.ColorList.Count; j++)
                 {
                     for (int i = 0; i < _position.Count; i++)
                     {
                         //开始
                         Light light = new Light
                         {
-                            Time = mTime + i * _interval,//时间
+                            Time = mTime + i * createFromQuickOperationModel.Interval,//时间
                             Action = 144,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light);
                         //结束
                         Light light2 = new Light
                         {
-                            Time = mTime + _position.Count * _interval,//时间
+                            Time = mTime + _position.Count * createFromQuickOperationModel.Interval,//时间
                             Action = 128,//动作
                             Position = _position[i],//位置
-                            Color = colorList[j]//位置
+                            Color = createFromQuickOperationModel.ColorList[j]//位置
                         };
                         _lightGroup.Add(light2);
                     }

@@ -484,6 +484,8 @@ namespace Maker.View.LightScriptUserControl
                 return;
             }
             String commandLine = String.Empty;
+            List<int> positions = null;
+            List<int> colors = null;
             //如果是快速生成 - 添加
             if (sender == btnFastGenerationrAdd || sender == btnFastGenerationrSelect)
             {
@@ -522,7 +524,8 @@ namespace Maker.View.LightScriptUserControl
                 }
                 else
                 {
-                    if (IsTrueContent(tbFastGenerationrRange.Text, splitNotation, rangeNotation))
+                    positions = GetTrueContent(tbFastGenerationrRange.Text, splitNotation, rangeNotation);
+                    if (positions != null)
                     {
                         fastGenerationrRangeBuilder.Append(tbFastGenerationrRange.Text);
                     }
@@ -550,7 +553,8 @@ namespace Maker.View.LightScriptUserControl
                 }
                 else
                 {
-                    if (IsTrueContent(tbFastGenerationrColor.Text, splitNotation, rangeNotation))
+                    colors = GetTrueContent(tbFastGenerationrColor.Text, splitNotation, rangeNotation);
+                    if (colors != null)
                     {
                         fastGenerationrColorBuilder.Append(tbFastGenerationrColor.Text);
                     }
@@ -586,6 +590,7 @@ namespace Maker.View.LightScriptUserControl
                     tbFastGenerationrContinued.Focus();
                     return;
                 }
+              
                 commandLine =
                     "PositionGroup " + stepName + "PositionGroup = new PositionGroup(\""
                     + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
@@ -600,57 +605,69 @@ namespace Maker.View.LightScriptUserControl
                 //Type
                 if (cbFastGenerationrType.SelectedIndex == -1)
                     return;
+                int type = 0;
                 if (cbFastGenerationrType.SelectedIndex == 0)
                 {
-                    commandLine += ",Create.UP";
+                    type = Create.UP;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 1)
                 {
-                    commandLine += ",Create.DOWN";
+                    type = Create.DOWN;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 2)
                 {
-                    commandLine += ",Create.UPDOWN";
+                    type = Create.UPDOWN;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 3)
                 {
-                    commandLine += ",Create.DOWNUP";
+                    type = Create.DOWNUP;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 4)
                 {
-                    commandLine += ",Create.UPANDDOWN";
+                    type = Create.UPANDDOWN;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 5)
                 {
-                    commandLine += ",Create.DOWNANDUP";
+                    type = Create.DOWNANDUP;
                 }
                 else if (cbFastGenerationrType.SelectedIndex == 6)
                 {
-                    commandLine += ",Create.FREEZEFRAME";
+                    type = Create.FREEZEFRAME;
                 }
                 //Action
                 if (cbFastGenerationrAction.SelectedIndex == -1)
                     return;
+                int action = 0;
                 if (cbFastGenerationrAction.SelectedIndex == 0)
                 {
-                    commandLine += ",Create.ALL);";
+                    action = Create.ALL;
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 1)
                 {
-                    commandLine += ",Create.OPEN);";
+                    action = Create.OPEN;
                 }
                 else if (cbFastGenerationrAction.SelectedIndex == 2)
                 {
-                    commandLine += ",Create.CLOSE);";
+                    action = Create.CLOSE;
                 }
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = stepName;
-                scriptModel.Value = commandLine;
+                scriptModel.Value = "";
                 scriptModel.Visible = true;
                 scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModel.Intersection = new List<string>();
                 scriptModel.Complement = new List<string>();
+
+                scriptModel.OperationModels.Add(
+                    new CreateFromQuickOperationModel((int)result,
+                    positions, 
+                    int.Parse(tbFastGenerationrInterval.Text),
+                    int.Parse(tbFastGenerationrContinued.Text),
+                    colors,
+                    type,
+                    action));
+
                 scriptModelDictionary.Add(stepName, scriptModel);
                 UpdateStep();
 
@@ -978,7 +995,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     else
                     {
-                        if (IsTrueContent(tbIfPosition.Text, splitNotation, rangeNotation))
+                        if (GetTrueContent(tbIfPosition.Text, splitNotation, rangeNotation) != null)
                         {
                             ifPositionBuilder.Append(tbIfPosition.Text);
                         }
@@ -1013,7 +1030,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     else
                     {
-                        if (IsTrueContent(tbIfColor.Text, splitNotation, rangeNotation))
+                        if (GetTrueContent(tbIfColor.Text, splitNotation, rangeNotation) != null)
                         {
                             ifColorBuilder.Append(tbIfColor.Text);
                         }
@@ -1222,6 +1239,7 @@ namespace Maker.View.LightScriptUserControl
                 return;
             }
         }
+
         /// <summary>
         /// 内容是否正确
         /// </summary>
@@ -1229,11 +1247,11 @@ namespace Maker.View.LightScriptUserControl
         /// <param name="split"></param>
         /// <param name="range"></param>
         /// <returns></returns>
-        public bool IsTrueContent(String content, char split, char range)
+        public List<int> GetTrueContent(String content, char split, char range)
         {
             try
             {
-                List<int> mList = new List<int>();
+                List<int> nums = new List<int>();
                 string[] strSplit = content.Split(split);
                 for (int i = 0; i < strSplit.Length; i++)
                 {
@@ -1248,31 +1266,31 @@ namespace Maker.View.LightScriptUserControl
                         {
                             for (int k = One; k <= Two; k++)
                             {
-                                mList.Add(k);
+                                nums.Add(k);
                             }
                         }
                         else if (One > Two)
                         {
                             for (int k = One; k >= Two; k--)
                             {
-                                mList.Add(k);
+                                nums.Add(k);
                             }
                         }
                         else
                         {
-                            mList.Add(One);
+                            nums.Add(One);
                         }
                     }
                     else
                     {
-                        mList.Add(int.Parse(strSplit[i]));
+                        nums.Add(int.Parse(strSplit[i]));
                     }
                 }
-                return true;
+                return nums;
             }
             catch
             {
-                return false;
+                return null;
             }
         }
 
@@ -1685,7 +1703,7 @@ namespace Maker.View.LightScriptUserControl
             }
             builder.Append(Environment.NewLine + "}");
 
-            Console.WriteLine(builder.ToString());
+            //Console.WriteLine(builder.ToString());
             return builder.ToString();
             //Console.WriteLine(Environment.NewLine +builder.ToString()+Environment.NewLine); 
         }
@@ -1724,7 +1742,6 @@ namespace Maker.View.LightScriptUserControl
                 //ScriptModel ss = TransExpV2<ScriptModel, ScriptModel>.Trans(item.Value);
                 //_scriptModelDictionary.Add(item.Key, ss);
             }
-
             _scriptModelDictionary[stepName].OperationModels.RemoveAt(position);
             bridge.GetBlockResult(stepName, _scriptModelDictionary);
         }
