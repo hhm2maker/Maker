@@ -46,7 +46,7 @@ namespace Maker
         {
             InitializeComponent();
 
-            Operation.Test.Hello();
+            //Operation.Test.Hello();
 
             bridge = new NewMainWindowBridge(this);
 

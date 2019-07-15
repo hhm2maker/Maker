@@ -481,6 +481,7 @@ namespace Maker.Bridge
                 iuc.tbTimePointCount.Text = liTime.Count.ToString();
                 LoadFrame();
             }
+         
 
         }
         private void ClearFrame()
@@ -503,6 +504,7 @@ namespace Maker.Bridge
                 }
                 iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
             }
+            iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
 
             if (nowTimePoint == 1)
             {
@@ -514,7 +516,6 @@ namespace Maker.Bridge
             if (nowTimePoint == liTime.Count)
             {
                 iuc.btnNextTimePoint.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/toright_gray.png", UriKind.RelativeOrAbsolute));
-
             }
             else
             {

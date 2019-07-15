@@ -366,18 +366,18 @@ namespace Operation
                     {
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
-                    positionBuild.Append("new List<int>(");
+                    positionBuild.Append("new List<int>(){");
                     for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++) {
                         if (i != createFromQuickOperationModel.RangeList.Count - 1)
                         {
                             positionBuild.Append(createFromQuickOperationModel.RangeList[i] + ",");
                         }
                         else {
-                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + ")");
+                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + "}");
                         }
                     }
                     StringBuilder colorBuild = new StringBuilder();
-                    colorBuild.Append("new List<int>(");
+                    colorBuild.Append("new List<int>(){");
                     for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++)
                     {
                         if (i != createFromQuickOperationModel.RangeList.Count - 1)
@@ -386,7 +386,7 @@ namespace Operation
                         }
                         else
                         {
-                            colorBuild.Append(createFromQuickOperationModel.ColorList[i] + ")");
+                            colorBuild.Append(createFromQuickOperationModel.ColorList[i] + "}");
                         }
                     }
                     sb.Append(Environment.NewLine + "\tCreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel("

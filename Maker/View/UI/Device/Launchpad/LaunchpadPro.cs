@@ -15,7 +15,9 @@ namespace Maker.View.Device
         /// <summary>
         /// 关闭笔刷
         /// </summary>
-        public SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+        public SolidColorBrush closeBrush = StaticConstant.closeBrush;
+        //public SolidColorBrush closeBrush = new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+
         /// <summary>
         /// 无参构造函数
         /// </summary>
@@ -482,6 +484,9 @@ namespace Maker.View.Device
         /// <param name="canvasSize">容器大小</param>
         protected void SetSize(double canvasSize)
         {
+            if (canvasSize <= 0) {
+                canvasSize = 300;
+            }
             Width = canvasSize;
             Height = canvasSize;
             //容器大小 

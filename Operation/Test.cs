@@ -10,7 +10,6 @@ namespace Operation
     using System.Collections.Generic;
     using Operation;
     using Maker.Business.Model.OperationModel;
-
     public class Test
     {
         public static Dictionary<string, List<Light>> Hello()
@@ -19,12 +18,13 @@ namespace Operation
         }
         public static LightGroup Step1()
         {
-            CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel(0, new List<int>(36),12,12,new List<int>(5),0,10);
+            CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel(0, new List<int>() { 11 }, 12, 12, new List<int>() { 5 }, 0, 10);
             LightGroup Step1LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);
-            Console.WriteLine(Step1LightGroup.Count+"----------------");
+            LightBusiness.Print(Step1LightGroup);
             return Step1LightGroup;
         }
     }
+}
     //   using System;
     //using System.Collections.Generic;
     //using Operation;
@@ -38,4 +38,4 @@ namespace Operation
     //	Step1LightGroup.AccelerationOrDeceleration(MyStep1ColorGroup);
     //	ColorGroup MyStep2ColorGroup = new ColorGroup("5 5 5 5 5",' ','-');
     //	Step1LightGroup.ShapeColor(LightGroup.SQUARE, MyStep2ColorGroup); return Step1LightGroup;}}
-}
+

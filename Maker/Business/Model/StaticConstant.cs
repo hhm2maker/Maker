@@ -34,14 +34,15 @@ namespace Maker.Model
         /// </summary>
         public static SolidColorBrush closeBrush {
             get {
-                return new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
-                //if (brushList == null || brushList.Count == 0)
-                //{
-                //    return new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
-                //}
-                //else {
-                //    return brushList[0];
-                //}
+                //return new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+                if (brushList == null || brushList.Count == 0)
+                {
+                    return new SolidColorBrush(Color.FromArgb(255, 244, 244, 245));
+                }
+                else
+                {
+                    return brushList[0];
+                }
             }
         } 
         /// <summary>

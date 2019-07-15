@@ -65,6 +65,7 @@ namespace Maker.Business.Model.OperationModel
             ColorList = colorList;
             Type = type;
             Action = action;
+      
         }
     }
 }
