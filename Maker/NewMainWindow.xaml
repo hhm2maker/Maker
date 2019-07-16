@@ -32,13 +32,12 @@
     </Window.Resources>
     <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Background="#222326" -->
-        <Grid Grid.Row="0" Background="#FF282828" Name="gTop" Focusable="True">
+        <Grid Grid.Row="0" Background="#FF282828" Name="gTop" Focusable="True" >
             <StackPanel  Margin="10" HorizontalAlignment="Left" Orientation="Horizontal">
                 <TextBlock FontSize="20" VerticalAlignment="Center" Text="Maker" Foreground="#FFB8BFC6" FontWeight="Bold"/>
                 <Rectangle Height="30" VerticalAlignment="Center" Width="3" Fill="White" Margin="10,0,0,0"/>
@@ -63,8 +62,8 @@
             </StackPanel>
                 <Border Grid.Row="2" BorderBrush="#555555" BorderThickness="0,1,0,0">
                     <StackPanel Margin="15" Orientation="Horizontal" >
-                        <Image Width="25"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
-                        <Image Width="25" Margin="15,0,0,0" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSettingControl" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                        <Image Width="25"  Source="View/Resources/Image/device.png" MouseLeftButtonDown="OpenDevice" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center"  />
+                        <Image Width="25" Margin="15,0,0,0" Source="View/Resources/Image/setting.png" MouseLeftButtonDown="OpenSettingControl" ToolTip="{DynamicResource Device}" HorizontalAlignment="Center"  />
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -72,11 +71,7 @@
                 <makerui:ListUserControl x:Name="listUserControl" Background="#222326" Width="300"/>
             </Popup>
         </Grid>
-        <StackPanel Name="spHead" Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal">
-            <Image Name="iHead" Grid.Column="0" Source="View/Resources/Image/headportrait.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
-            <TextBlock VerticalAlignment="Center" Text="Admin" Foreground="#FFB8BFC6"  Margin="15,0,0,0" FontSize="22"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" Orientation="Vertical" Name="spCenter" Focusable="True">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True">
             <Grid VerticalAlignment="Center">
             <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
                 <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -86,7 +81,7 @@
             <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
             <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
         </StackPanel>
-        <DockPanel Grid.Row="3">
+        <DockPanel Grid.Row="2">
             <Grid DockPanel.Dock="Top">
                 <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>
@@ -148,7 +143,7 @@
             </StackPanel>
         </Canvas>
         <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
-        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Name="bToolChild" Background="#272727" Margin="0,0,0,45" >
+        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Name="bToolChild" Background="#272727" >
             <Border.Effect>
                 <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
             </Border.Effect>

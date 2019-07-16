@@ -10,5 +10,6 @@ namespace Maker.View.UI.Base
     public class BaseChildUserControl:UserControl
     {
         public String Title;
+        public bool IsShowWindowTitle = true;
     }
 }

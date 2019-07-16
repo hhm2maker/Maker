@@ -92,6 +92,31 @@ namespace Maker
         public int filePosition = 0;
         public void SetSpFilePosition(int position)
         {
+            if (filePosition == position)
+                return;
+
+            if (contentUserControls[filePosition].IsShowWindowTitle == false && contentUserControls[position].IsShowWindowTitle) {
+                //最上面一栏展开
+                DoubleAnimation doubleAnimation = new DoubleAnimation
+                {
+                    From = 0,
+                    To = 56,
+                    Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+                };
+                gTop.BeginAnimation(HeightProperty, doubleAnimation);
+            }
+            if (contentUserControls[filePosition].IsShowWindowTitle && contentUserControls[position].IsShowWindowTitle == false)
+            {
+                //最上面一栏关闭
+                DoubleAnimation doubleAnimation = new DoubleAnimation
+                {
+                    From = 56,
+                    To = 0,
+                    Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+                };
+                gTop.BeginAnimation(HeightProperty, doubleAnimation);
+            }
+
             (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
             (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
@@ -585,11 +610,11 @@ namespace Maker
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
-            spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
+            //spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
             spContentTitle.Margin = new Thickness(leftMargin - 10 , 15, leftMargin, 15);
             bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 0);
 
-            spHead.Visibility = Visibility.Collapsed;
+            //spHead.Visibility = Visibility.Collapsed;
         }
        
 

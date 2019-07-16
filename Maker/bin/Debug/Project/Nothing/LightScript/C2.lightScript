@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <Scripts>
-    <Script name="Step1" parent="" value="" visible="true" contain="Step1" intersection="" complement="" />
-  </Scripts>
+  <Scripts />
   <Introduce></Introduce>
 </Root>

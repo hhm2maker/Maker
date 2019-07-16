@@ -28,6 +28,7 @@ namespace Maker.View.UI.Edit
 
             this.mw = mw;
             Title = "Edit";
+            IsShowWindowTitle = false;
         }
     }
 }
