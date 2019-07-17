@@ -92,7 +92,30 @@ namespace Operation
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
                 foreach (var xEdit in xScript.Elements()) {
-                    if (xEdit.Name.ToString().Equals("VerticalFlipping"))
+                    if (xEdit.Name.ToString().Equals("CreateFromQuick"))
+                    {
+                        CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel();
+                        createFromQuickOperationModel.Time = int.Parse(xEdit.Attribute("time").Value);
+                        List<int> positions = new List<int>();
+                        for (int i = 0; i < xEdit.Attribute("position").Value.Length; i++)
+                        {
+                            positions.Add(xEdit.Attribute("position").Value[i] - 33);
+                        }
+                        createFromQuickOperationModel.RangeList = positions;
+                        createFromQuickOperationModel.Interval = int.Parse(xEdit.Attribute("interval").Value);
+                        createFromQuickOperationModel.Continued = int.Parse(xEdit.Attribute("continued").Value);
+                        List<int> colors = new List<int>();
+                        for (int i = 0; i < xEdit.Attribute("color").Value.Length; i++)
+                        {
+                            colors.Add(xEdit.Attribute("color").Value[i] - 33);
+                        }
+                        createFromQuickOperationModel.ColorList = colors;
+                        createFromQuickOperationModel.Type = int.Parse(xEdit.Attribute("type").Value);
+                        createFromQuickOperationModel.Action = int.Parse(xEdit.Attribute("action").Value);
+
+                        scriptModel.OperationModels.Add(createFromQuickOperationModel);
+                    }
+                    else if (xEdit.Name.ToString().Equals("VerticalFlipping"))
                     {
                         scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
                     }

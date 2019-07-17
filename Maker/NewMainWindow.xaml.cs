@@ -32,6 +32,7 @@ using Maker.View.UI.Edit;
 using Maker.View.UI.Base;
 using Maker.Business.Model.Config;
 using Maker.Business.Currency;
+using System.Xml.Linq;
 
 namespace Maker
 {
@@ -47,6 +48,12 @@ namespace Maker
             InitializeComponent();
 
             //Operation.Test.Hello();
+
+            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
+            XElement xRoot2 = new XElement("a");
+            xRoot2.SetAttributeValue("visible", "”");
+            document.Add(xRoot2);
+            xRoot2.Save(@"E:\Sharer\Maker\Maker\bin\Debug\Project\Nothing\LightScript\1.xml");
 
             bridge = new NewMainWindowBridge(this);
 
@@ -731,7 +738,7 @@ namespace Maker
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             gSearch.Visibility = Visibility.Visible;
-
+            gMost.MouseLeftButtonDown += Window_MouseLeftButtonDown;
             if (dSpSearchActualWidth == 0)
             {
                 dSpSearchActualWidth = spSearch.ActualWidth;
@@ -751,6 +758,7 @@ namespace Maker
             e.Handled = true;
         }
 
+    
         private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
         {
             
@@ -791,6 +799,7 @@ namespace Maker
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
                 spSearch.BeginAnimation(WidthProperty, animation);
+                gMost.MouseLeftButtonDown -= Window_MouseLeftButtonDown;
             }
         }
 

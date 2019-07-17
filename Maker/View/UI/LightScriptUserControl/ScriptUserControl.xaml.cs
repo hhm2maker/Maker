@@ -4041,7 +4041,29 @@ namespace Maker.View.LightScriptUserControl
          
                 foreach (var mItem in item.Value.OperationModels)
                 {
-                    if (mItem is VerticalFlippingOperationModel)
+                     if (mItem is CreateFromQuickOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("CreateFromQuick");
+                        CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
+                        xVerticalFlipping.SetAttributeValue("time", createFromQuickOperationModel.Time);
+                        StringBuilder sbPositions = new StringBuilder();
+                        for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++) {
+                            sbPositions.Append((char)(createFromQuickOperationModel.RangeList[i]+33));
+                        }
+                        xVerticalFlipping.SetAttributeValue("position", sbPositions.ToString());
+                        xVerticalFlipping.SetAttributeValue("interval", createFromQuickOperationModel.Interval);
+                        xVerticalFlipping.SetAttributeValue("continued", createFromQuickOperationModel.Continued);
+                        StringBuilder sbColors = new StringBuilder();
+                        for (int i = 0; i < createFromQuickOperationModel.ColorList.Count; i++)
+                        {
+                            sbColors.Append((char)(createFromQuickOperationModel.ColorList[i] + 33));
+                        }
+                        xVerticalFlipping.SetAttributeValue("color", sbColors.ToString());
+                        xVerticalFlipping.SetAttributeValue("type", createFromQuickOperationModel.Type);
+                        xVerticalFlipping.SetAttributeValue("action", createFromQuickOperationModel.Action);
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if(mItem is VerticalFlippingOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("VerticalFlipping");
                         xScript.Add(xVerticalFlipping);

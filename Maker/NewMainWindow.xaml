@@ -30,7 +30,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MouseLeftButtonDown="Window_MouseLeftButtonDown" Background="Transparent">
+    <Grid Name="gMost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto"/>

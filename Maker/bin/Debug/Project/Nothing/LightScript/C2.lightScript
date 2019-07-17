@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
-  <Scripts />
+  <Scripts>
+    <Script name="Step1" parent="" value="" visible="true" contain="Step1" intersection="" complement="">
+      <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
+    </Script>
+  </Scripts>
   <Introduce></Introduce>
 </Root>
