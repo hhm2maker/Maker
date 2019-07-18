@@ -30,6 +30,7 @@ using static Maker.Business.Model.ThirdPartySetupsModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -79,9 +80,6 @@ namespace Maker.View.LightScriptUserControl
 
             //初始化控件
             InitView();
-
-          
-            
             //放置在底部
             //for (int i = spMainLeft.Children.Count - 1; i >= 0; i--)
             //{
@@ -101,6 +99,11 @@ namespace Maker.View.LightScriptUserControl
             //svMainBottom.Visibility = Visibility.Visible;
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
+
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.AddMembrane();
+            mLaunchpad.IsMembrane = true;
 
             sw = new StyleWindow(mw);
             Grid.SetRow(sw, 0);
@@ -243,10 +246,7 @@ namespace Maker.View.LightScriptUserControl
             //toolTip.SetValue(StyleProperty, null);
             //iNewStep.ToolTip = toolTip;
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.AddMembrane();
-            mLaunchpad.IsMembrane = true;
+        
 
             InitFormat();
         }
@@ -1825,7 +1825,6 @@ namespace Maker.View.LightScriptUserControl
             return ll;
         }
 
-        public List<Model.Light> mLightList = new List<Model.Light>();
         public Dictionary<string, List<Model.Light>> mLightDictionary;
         public List<Model.Light> mBlockLightList = new List<Model.Light>();
 
@@ -3958,7 +3957,8 @@ namespace Maker.View.LightScriptUserControl
 
             Test();
 
-            mw.SetSpFilePosition(mw.filePosition);
+            //mw.SetSpFilePosition(mw.filePosition);
+            _bridge.LoadFrame();
         }
 
         private void UpdateStep()

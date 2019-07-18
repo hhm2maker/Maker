@@ -23,7 +23,6 @@ namespace Maker.Bridge
         }
       
         public void GetResult() {
-            view.mLightList.Clear();
             //view.mLightList = Results.Test(view.scriptModelDictionary);
             view.UpdateData(Business.Currency.OperationUtils.OperationLightDictionaryToMakerLightDictionary(Results.Test(view.scriptModelDictionary)));
             if (!view._bIsEdit) {

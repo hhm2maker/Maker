@@ -284,6 +284,8 @@ namespace Maker.Bridge
           private Dictionary<string, List<Light>> mLightList ;
         public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
+            if (mLightList == null)
+                return;
             iuc.mLightDictionary = mLightList;
             this.mLightList = mLightList;
             List<Light> colorLightList = new List<Light>();
@@ -481,15 +483,13 @@ namespace Maker.Bridge
                 iuc.tbTimePointCount.Text = liTime.Count.ToString();
                 LoadFrame();
             }
-         
-
         }
         private void ClearFrame()
         {
             //清空
             iuc.mLaunchpad.ClearAllColorExcept();
         }
-        private void LoadFrame()
+        public void LoadFrame()
         {
             int[] x = dic[liTime[nowTimePoint - 1]];
 

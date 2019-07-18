@@ -49,12 +49,6 @@ namespace Maker
 
             //Operation.Test.Hello();
 
-            XDocument document = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
-            XElement xRoot2 = new XElement("a");
-            xRoot2.SetAttributeValue("visible", "”");
-            document.Add(xRoot2);
-            xRoot2.Save(@"E:\Sharer\Maker\Maker\bin\Debug\Project\Nothing\LightScript\1.xml");
-
             bridge = new NewMainWindowBridge(this);
 
             bridge.Init();

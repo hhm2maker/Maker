@@ -1,4 +1,5 @@
-﻿using Maker.Model;
+﻿using Maker.Business;
+using Maker.Model;
 using Maker.View.Utils;
 using System;
 using System.Collections.Generic;
@@ -749,6 +750,7 @@ namespace Maker.View.Device
         public virtual void SetData(List<Light> mListList)
         {
             ClearAllColorExcept();
+
             for (int i = 0; i < mListList.Count; i++)
             {
                 if (mListList[i].Action == 128)
