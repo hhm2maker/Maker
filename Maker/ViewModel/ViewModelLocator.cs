@@ -44,6 +44,7 @@ namespace Maker.ViewModel
             ////}
 
             SimpleIoc.Default.Register<FrameUserControlViewModel>();
+            SimpleIoc.Default.Register<ScriptUserControlViewModel>();
         }
 
         public FrameUserControlViewModel Main
@@ -51,6 +52,14 @@ namespace Maker.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<FrameUserControlViewModel>();
+            }
+        }
+
+        public ScriptUserControlViewModel Script
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ScriptUserControlViewModel>();
             }
         }
 

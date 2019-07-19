@@ -18,13 +18,13 @@ namespace Maker.ViewModel
 {
     public class FrameUserControlViewModel : ViewModelBase
     {
-            /// <summary>
-            /// 构造函数
-            /// </summary>
-            public FrameUserControlViewModel()
-            {
-                Model = new FrameUserControlModel() { };
-            }
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public FrameUserControlViewModel()
+        {
+            Model = new FrameUserControlModel() { };
+        }
 
 
         private FrameUserControlModel model;

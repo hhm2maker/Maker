@@ -196,12 +196,14 @@
     <Compile Include="Business\Model\ExeModel.cs" />
     <Compile Include="Business\Model\HistoricalModel.cs" />
     <Compile Include="Business\Model\PageButtonModel.cs" />
+    <Compile Include="Model\ScriptUserControlModel.cs" />
     <Compile Include="Model\FrameUserControlModel.cs" />
     <Compile Include="NewMainWindow.xaml.cs">
       <DependentUpon>NewMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Utils\StringUtil.cs" />
     <Compile Include="ViewModel\BindingProxy.cs" />
+    <Compile Include="ViewModel\ScriptUserControlViewModel.cs" />
     <Compile Include="ViewModel\FrameUserControlViewModel.cs" />
     <Compile Include="ViewModel\NowTimePointValidationRule.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

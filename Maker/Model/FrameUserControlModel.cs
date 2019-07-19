@@ -162,7 +162,6 @@ namespace Maker.Model
                 RaisePropertyChanged(() => AllTimePoint);
             }
         }
-
        
 
         /// <summary>

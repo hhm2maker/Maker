@@ -406,7 +406,7 @@ namespace Maker.Bridge
             }
         }
         private List<int> liTime = new List<int>();
-        private Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
+        private Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
         private List<String> ColorList = new List<string>();
         private int nowTimePoint = 1;
 
@@ -426,43 +426,45 @@ namespace Maker.Bridge
         public void SetDataToLaunchpad(List<Light> mActionBeanList)
         {
             //切割
-            mActionBeanList = LightBusiness.Split(mActionBeanList);
             liTime.Clear();
-            dic.Clear();
-            int time = -1;
-            for (int i = 0; i < mActionBeanList.Count; i++)
-            {
-                if (mActionBeanList[i].Time != time)
-                {
-                    time = mActionBeanList[i].Time;
-                    liTime.Add(time);
-                    int[] x = new int[100];
-                    for (int j = 0; j < 100; j++)
-                    {
-                        x[j] = 0;
-                    }
-                    dic.Add(time, x);
-                    if (mActionBeanList[i].Action == 144)
-                    {
-                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
-                    }
-                    else if (mActionBeanList[i].Action == 128)
-                    {
-                        dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
-                    }
-                }
-                else
-                {
-                    if (mActionBeanList[i].Action == 144)
-                    {
-                        dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
-                    }
-                    else if (mActionBeanList[i].Action == 128)
-                    {
-                        dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
-                    }
-                }
-            }
+            dic = LightBusiness.GetParagraphLightLightList(mActionBeanList);
+            liTime = dic.Keys.ToList();
+
+            //dic.Clear();
+            //int time = -1;
+            //for (int i = 0; i < mActionBeanList.Count; i++)
+            //{
+            //    if (mActionBeanList[i].Time != time)
+            //    {
+            //        time = mActionBeanList[i].Time;
+            //        liTime.Add(time);
+            //        int[] x = new int[100];
+            //        for (int j = 0; j < 100; j++)
+            //        {
+            //            x[j] = 0;
+            //        }
+            //        dic.Add(time, x);
+            //        if (mActionBeanList[i].Action == 144)
+            //        {
+            //            dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
+            //        }
+            //        else if (mActionBeanList[i].Action == 128)
+            //        {
+            //            dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (mActionBeanList[i].Action == 144)
+            //        {
+            //            dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
+            //        }
+            //        else if (mActionBeanList[i].Action == 128)
+            //        {
+            //            dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
+            //        }
+            //    }
+            //}
             if (liTime.Count == 0)
             {
                 iuc.tbTimeNow.Text = "0";
@@ -491,19 +493,17 @@ namespace Maker.Bridge
         }
         public void LoadFrame()
         {
-            int[] x = dic[liTime[nowTimePoint - 1]];
-
-            iuc.mLaunchpadData.Clear();
-            for (int i = 0; i < x.Count(); i++)
-            {
-                //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
-                if (x[i] == 0)
-                {
-                    iuc.mLaunchpad.SetButtonBackground(i, StaticConstant.closeBrush);
-                    continue;
-                }
-                iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
-            }
+            iuc.mLaunchpadData = dic[liTime[nowTimePoint - 1]];
+            //for (int i = 0; i < x.Count(); i++)
+            //{
+            //    //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
+            //    if (x[i] == 0)
+            //    {
+            //        iuc.mLaunchpad.SetButtonBackground(i, StaticConstant.closeBrush);
+            //        continue;
+            //    }
+            //    iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
+            //}
             iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
 
             if (nowTimePoint == 1)

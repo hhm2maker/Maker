@@ -14,6 +14,8 @@
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
     SizeChanged="DockPanel_SizeChanged"
+       xmlns:viewmodel="clr-namespace:Maker.ViewModel"
+       DataContext="{Binding Source={StaticResource Locator},Path=Script}"
     >
     <!--Background="#1c1a1c"-->
     <UserControl.Resources>
@@ -409,7 +411,7 @@
                     <StackPanel  Margin="0,55,0,0" x:Name="dpShow" >
                         <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <Border BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
-                                <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600"/>
+                                <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />
                             </Border>
                         </DockPanel>
                         <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
