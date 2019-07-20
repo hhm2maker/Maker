@@ -122,6 +122,9 @@ namespace Maker
             (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
 
+            gRight.Children.Clear();
+            gRight.Children.Add(contentUserControls[position]);
+
             foo();
             // .net 4.5
             async void foo()
@@ -145,8 +148,7 @@ namespace Maker
                 };
                 rFile.BeginAnimation(MarginProperty, animation2);
             }
-            gRight.Children.Clear();
-            gRight.Children.Add(contentUserControls[position]);
+          
         }
 
         public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();

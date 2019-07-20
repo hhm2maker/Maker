@@ -397,7 +397,6 @@ namespace Maker.Bridge
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             {
                 //清空
-                ClearFrame();
                 SetDataToLaunchpad(lights);
             }
             else if (iuc.mShow == ScriptUserControl.ShowMode.DataGrid)
@@ -486,11 +485,8 @@ namespace Maker.Bridge
                 LoadFrame();
             }
         }
-        private void ClearFrame()
-        {
-            //清空
-            iuc.mLaunchpad.ClearAllColorExcept();
-        }
+      
+
         public void LoadFrame()
         {
             iuc.mLaunchpadData = dic[liTime[nowTimePoint - 1]];
@@ -543,9 +539,9 @@ namespace Maker.Bridge
         }
         public void tbTimePointCountLeft_TextChanged()
         {
+            return;
             try
             {
-                ClearFrame();
                 int position = Convert.ToInt32(iuc.tbTimePointCountLeft.Text);
                 if (liTime.Count == 0)
                 {

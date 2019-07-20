@@ -3956,9 +3956,7 @@ namespace Maker.View.LightScriptUserControl
             //SaveFile();
 
             Test();
-
             //mw.SetSpFilePosition(mw.filePosition);
-            _bridge.LoadFrame();
         }
 
         private void UpdateStep()

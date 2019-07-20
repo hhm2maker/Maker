@@ -509,13 +509,13 @@ namespace Maker.View.Device
             InitBottom();
             InitBlock();
             InitTop();
-            RefreshMembrane();
+            //RefreshMembrane();
         }
 
         /// <summary>
         /// 刷新贴膜
         /// </summary>
-        public void RefreshMembrane()
+        public void ChangeMembrane()
         {
             InitCenterLeftBottom();
             InitCenterRightBottom();
@@ -535,12 +535,42 @@ namespace Maker.View.Device
             {
                 foreach (Shape item in Children)
                 {
+                 
                     item.Fill = item.Stroke;
-                    item.Stroke = closeBrush;
                     item.StrokeThickness = 0;
+                    item.Stroke = closeBrush;
                 }
             }
+        }
 
+        /// <summary>
+        /// 刷新贴膜
+        /// </summary>
+        public void RefreshMembrane()
+        {
+            InitCenterLeftBottom();
+            InitCenterRightBottom();
+            InitCenterLeftTop();
+            InitCenterRightTop();
+
+            //if (IsMembrane)
+            //{
+            //    foreach (Shape item in Children)
+            //    {
+            //        item.Stroke = item.Fill;
+            //        item.StrokeThickness = _canvasSize / 300;
+            //        item.Fill = MembraneBrush;
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (Shape item in Children)
+            //    {
+            //        item.Fill = item.Stroke;
+            //        item.Stroke = closeBrush;
+            //        item.StrokeThickness = 0;
+            //    }
+            //}
         }
 
 
@@ -641,7 +671,7 @@ namespace Maker.View.Device
             if (!IsMembrane)
             {
                 IsMembrane = true;
-                RefreshMembrane();
+                ChangeMembrane();
             }
         }
         /// <summary>
@@ -658,7 +688,7 @@ namespace Maker.View.Device
         /// </summary>
         private void ShowOrHideMembrane()
         {
-            RefreshMembrane();
+            ChangeMembrane();
         }
 
 

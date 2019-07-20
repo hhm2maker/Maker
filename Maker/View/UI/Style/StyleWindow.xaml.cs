@@ -147,7 +147,11 @@ namespace Maker.View.Style
                 mItem.Content = box;
                 //mItem.MouseLeftButtonDown += Box_Click;
                 lbCatalog.Items.Add(mItem);
-                if (item is VerticalFlippingOperationModel)
+                if (item is CreateFromQuickOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
+                }
+                else if (item is VerticalFlippingOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "VerticalFlipping");
                 }
@@ -237,7 +241,11 @@ namespace Maker.View.Style
             for(int i = 0;i<operationModels.Count;i++ )
             {
             BaseOperationModel baseOperationModel = operationModels[i];
-            if (baseOperationModel is VerticalFlippingOperationModel)
+            if (baseOperationModel is CreateFromQuickOperationModel)
+            {
+                svMain.Children.Add(new CreateFromQuickOperationChild(baseOperationModel as CreateFromQuickOperationModel));
+            }
+            else if (baseOperationModel is VerticalFlippingOperationModel)
             {
                 svMain.Children.Add(new VerticalFlippingOperationChild());
             }

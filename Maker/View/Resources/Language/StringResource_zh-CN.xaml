@@ -524,4 +524,5 @@
     <sys:String x:Key="News">动态</sys:String>
     <sys:String x:Key="Website">网站</sys:String>
     <sys:String x:Key="Email">邮箱</sys:String>
+    <sys:String x:Key="FastGeneration">快速生成</sys:String>
 </ResourceDictionary>

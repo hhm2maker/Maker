@@ -306,6 +306,7 @@
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\CreateFromQuickOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ThirdPartyOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\InterceptTimeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ColorOperationChild.cs" />

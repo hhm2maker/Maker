@@ -521,4 +521,6 @@
     <sys:String x:Key="News">News</sys:String>
     <sys:String x:Key="Website">Website</sys:String>
     <sys:String x:Key="Email">Email</sys:String>
+    <sys:String x:Key="FastGeneration">Quick Generation</sys:String>
+    
 </ResourceDictionary>

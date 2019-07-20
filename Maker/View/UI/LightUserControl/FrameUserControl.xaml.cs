@@ -191,10 +191,6 @@ namespace Maker.View.LightUserControl
         /// </summary>
         public override void SetData(List<Light> mActionBeanList)
         {
-            foo();
-            async void foo()
-            {
-                await Task.Delay(10);
                 ClearFrame();
                 LiTime = LightBusiness.GetTimeList(mActionBeanList);
                 Dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
@@ -207,8 +203,6 @@ namespace Maker.View.LightUserControl
                 {
                     NowTimePoint = 1;
                 }
-            }
-      
         }
 
         /// <summary>
