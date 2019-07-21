@@ -6,27 +6,21 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
+using Maker.View.Style.Child;
 
 namespace Maker.View.UI.Style.Child
 {
-    public class NoOperationStyle : UserControl
+    public class NoOperationStyle : BaseDialog
     {
-        protected virtual string ContentStr {
+       
+        protected override bool OnlyTitle
+        {
             get;
             set;
-        }
-        public NoOperationStyle() {
-            TextBlock tbContent = new TextBlock
-            {
-                FontSize = 16,
-                Text = FindResource(ContentStr) as String,
-                Foreground = new SolidColorBrush(Colors.White),
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            Width = 200;
-            Height = 200;
-            Content = tbContent;
+        } = true;
+
+        public NoOperationStyle():base() {
+            CreateDialog();
         }
     }
 }

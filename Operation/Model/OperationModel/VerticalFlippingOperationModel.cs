@@ -8,5 +8,6 @@ namespace Maker.Business.Model.OperationModel
 {
     public class VerticalFlippingOperationModel : BaseOperationModel
     {
+    
     }
 }

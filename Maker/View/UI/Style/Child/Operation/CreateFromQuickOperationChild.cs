@@ -16,9 +16,9 @@ namespace Maker.View.UI.Style.Child
     [Serializable]
     public partial class CreateFromQuickOperationChild : OperationStyle
     {
+        protected override string Title { get; set; } = "FastGeneration";
         private CreateFromQuickOperationModel reateFromQuickOperationModel;
 
-        private ListBox lb;
         public CreateFromQuickOperationChild(CreateFromQuickOperationModel reateFromQuickOperationModel)
         {
             this.reateFromQuickOperationModel = reateFromQuickOperationModel;
@@ -26,12 +26,6 @@ namespace Maker.View.UI.Style.Child
             StackPanel dp = new StackPanel();
             dp.Orientation = Orientation.Vertical;
             dp.Margin = new Thickness(0, 10, 0, 10);
-            TextBlock tb = new TextBlock();
-            tb.FontSize = 16;
-            tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            tb.VerticalAlignment = VerticalAlignment.Center;
-            tb.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
-            dp.Children.Add(tb);
 
             Button btnChange = new Button();
             btnChange.SetResourceReference(ContentProperty, "Change");

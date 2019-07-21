@@ -8,10 +8,6 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class VerticalFlippingOperationChild : NoOperationStyle
     {
-        protected override string ContentStr { get; set; } = "VerticalFlipping";
-        public VerticalFlippingOperationChild()
-        {
-
-        }
+        protected override string Title { get; set; } = "VerticalFlipping";
     }
 }

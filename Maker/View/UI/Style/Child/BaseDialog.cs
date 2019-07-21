@@ -8,18 +8,86 @@ using System.Windows.Media;
 namespace Maker.View.Style.Child
 {
     
-    public class BaseSettingUserControl : UserControl
+    public class BaseDialog : UserControl
     {
+        protected virtual string Title
+        {
+            get;
+            set;
+        } = "";
+        protected virtual bool OnlyTitle
+        {
+            get;
+            set;
+        } = false;
+
         public void CreateDialog()
         {
             AddParentPanel();
             SetRoutine();
             AddUIToDialog();
         }
-
+        private StackPanel spContacts;
         private void AddParentPanel()
         {
-            AddChild(new DockPanel());
+            if (OnlyTitle)
+            {
+                StackPanel sp = new StackPanel();
+                sp.Margin = new Thickness(20, 0, 20, 0);
+                Border borderTop = new Border();
+                borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
+                borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
+                borderTop.CornerRadius = new CornerRadius(3);
+                //borderTop.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                //borderTop.BorderThickness = new Thickness(2);
+                borderTop.Margin = new Thickness(0, 15, 0, 0);
+
+                TextBlock tbTitle = new TextBlock();
+                tbTitle.Foreground = new SolidColorBrush(Colors.White);
+                tbTitle.Margin = new Thickness(10);
+                tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
+                borderTop.Child = tbTitle;
+
+                sp.Children.Add(borderTop);
+                AddChild(sp);
+            }
+            else
+            {
+
+                StackPanel sp = new StackPanel();
+                sp.Margin = new Thickness(20, 0, 20, 0);
+                Border borderTop = new Border();
+                borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
+                borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
+                borderTop.CornerRadius = new CornerRadius(3, 3, 0, 0);
+                //borderTop.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                //borderTop.BorderThickness = new Thickness(2);
+                borderTop.Margin = new Thickness(0, 15, 0, 0);
+
+                TextBlock tbTitle = new TextBlock();
+                tbTitle.Foreground = new SolidColorBrush(Colors.White);
+                tbTitle.Margin = new Thickness(10);
+                tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
+                borderTop.Child = tbTitle;
+
+                sp.Children.Add(borderTop);
+
+                Border borderBottom = new Border();
+                borderBottom.Background = new SolidColorBrush(Color.FromRgb(51, 51, 51));
+                borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
+                borderBottom.CornerRadius = new CornerRadius(0, 0, 3, 3);
+                //borderBottom.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                //borderBottom.BorderThickness = new Thickness(2, 0, 2, 2);
+
+                spContacts = new StackPanel();
+                spContacts.Orientation = Orientation.Vertical;
+                spContacts.Margin = new Thickness(10);
+                borderBottom.Child = spContacts;
+
+                sp.Children.Add(borderBottom);
+                AddChild(sp);
+            }
+            
         }
         /// <summary>
         /// 常规设置
@@ -33,11 +101,9 @@ namespace Maker.View.Style.Child
         /// <param name="width"></param>
         /// <param name="height"></param>
         public void SetSize(double width,double height) {
-            DockPanel dp = (DockPanel)Content;
-            StackPanel sp = (StackPanel)dp.Children[0];
-            sp.Width = width;
-            sp.Height = height;
-            Width = width + 140;
+            //spContacts.Width = width;
+            spContacts.Height = height;
+            //Width = width + 140;
             Height = height + 60;
         }
        
@@ -53,13 +119,9 @@ namespace Maker.View.Style.Child
         /// 添加控件到对话框
         /// </summary>
         private void AddUIToDialog() {
-            DockPanel dp = (DockPanel)Content;
-            StackPanel spMain = new StackPanel();
-            spMain.Margin = new Thickness(20, 0, 20, 20);
             foreach (FrameworkElement ui in _UI) {
-                spMain.Children.Add(ui);
+                spContacts.Children.Add(ui);
             }
-            dp.Children.Add(spMain);
         }
         /// <summary>
         /// 添加头部提示文本
@@ -156,9 +218,7 @@ namespace Maker.View.Style.Child
         /// <param name="position"></param>
         /// <returns></returns>
         public UIElement Get(int position) {
-            DockPanel dp = (DockPanel)Content;
-            StackPanel sp = (StackPanel)dp.Children[0];
-            return sp.Children[position];
+            return spContacts.Children[position];
         }
 
     }

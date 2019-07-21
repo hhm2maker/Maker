@@ -8,7 +8,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class ReversalOperationChild : NoOperationStyle
     {
-        protected override string ContentStr { get; set; } = "Reversal";
+        protected override string Title { get; set; } = "Reversal";
         public ReversalOperationChild()
         {
 

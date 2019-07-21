@@ -15,6 +15,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class ThirdPartyOperationChild : OperationStyle
     {
+        protected override string Title { get; set; } = "ThirdParty";
         private ThirdPartyOperationModel thirdPartyOperationModel;
         public ThirdPartyOperationChild(ThirdPartyOperationModel thirdPartyOperationModel)
         {
@@ -27,7 +28,7 @@ namespace Maker.View.UI.Style.Child
                 }
             }
             
-            String _viewFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\Operation\View\" + thirdPartyModel.view + ".xml";
+            String _viewFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\Operation\View\" + thirdPartyModel.view;//+ ".xml"
             XDocument doc = XDocument.Load(_viewFilePath);
             foreach (XElement element in doc.Element("Views").Elements())
             {
@@ -43,17 +44,19 @@ namespace Maker.View.UI.Style.Child
             CreateDialog();
             ///CreateDialog(200, 50 * UICount);
 
-            List<String> parameters = thirdPartyOperationModel.Parameters;
-            int position = 0;
-            for (int i = 0; i < _UI.Count; i++)
-            {
-                if (_UI[i] is TextBox)
-                {
-                    (_UI[i] as TextBox).Text = parameters[position];
-                    position++;
-                }
-            }
-            thirdPartyOperationModel.Parameters = parameters;
+            //List<String> parameters = thirdPartyOperationModel.Parameters;
+
+            //int position = 0;
+            //for (int i = 0; i < _UI.Count; i++)
+            //{
+            //    if (_UI[i] is TextBox)
+            //    {
+            //        Console.WriteLine(parameters[position]);
+            //        (_UI[i] as TextBox).Text = parameters[position];
+            //        position++;
+            //    }
+            //}
+            //thirdPartyOperationModel.Parameters = parameters;
 
             //String viewString = window.thirdPartys[window.iuc.miChildThirdParty.Items.IndexOf(sender)].view;
             //if (viewString.Equals(String.Empty))

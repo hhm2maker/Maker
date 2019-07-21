@@ -4331,10 +4331,10 @@ namespace Maker.View.LightScriptUserControl
                 }
                 ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
                 //没有可操作的灯光组
-                if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
-                {
-                    return;
-                }
+                //if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
+                //{
+                //    return;
+                //}
                 String command = String.Empty;
                 if (sender == btnHorizontalFlipping)
                 {
