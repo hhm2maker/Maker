@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Maker.View.Style.Child
 {
@@ -38,15 +39,25 @@ namespace Maker.View.Style.Child
                 borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderTop.CornerRadius = new CornerRadius(3);
-                //borderTop.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                //borderTop.BorderThickness = new Thickness(2);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
+
+                DockPanel dp = new DockPanel();
 
                 TextBlock tbTitle = new TextBlock();
                 tbTitle.Foreground = new SolidColorBrush(Colors.White);
                 tbTitle.Margin = new Thickness(10);
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
-                borderTop.Child = tbTitle;
+                dp.Children.Add(tbTitle);
+
+                Image image = new Image();
+                image.Width = 20;
+                image.Margin = new Thickness(0,0,10,0);
+                image.VerticalAlignment = VerticalAlignment.Center;
+                image.HorizontalAlignment = HorizontalAlignment.Right;
+                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute));
+                dp.Children.Add(image);
+
+                borderTop.Child = dp;
 
                 sp.Children.Add(borderTop);
                 AddChild(sp);
@@ -60,15 +71,25 @@ namespace Maker.View.Style.Child
                 borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderTop.CornerRadius = new CornerRadius(3, 3, 0, 0);
-                //borderTop.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                //borderTop.BorderThickness = new Thickness(2);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
+
+                DockPanel dp = new DockPanel();
 
                 TextBlock tbTitle = new TextBlock();
                 tbTitle.Foreground = new SolidColorBrush(Colors.White);
                 tbTitle.Margin = new Thickness(10);
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
-                borderTop.Child = tbTitle;
+                dp.Children.Add(tbTitle);
+
+                Image image = new Image();
+                image.Width = 20;
+                image.Margin = new Thickness(0, 0, 10, 0);
+                image.VerticalAlignment = VerticalAlignment.Center;
+                image.HorizontalAlignment = HorizontalAlignment.Right;
+                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute));
+                dp.Children.Add(image);
+
+                borderTop.Child = dp;
 
                 sp.Children.Add(borderTop);
 
@@ -76,8 +97,6 @@ namespace Maker.View.Style.Child
                 borderBottom.Background = new SolidColorBrush(Color.FromRgb(51, 51, 51));
                 borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderBottom.CornerRadius = new CornerRadius(0, 0, 3, 3);
-                //borderBottom.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                //borderBottom.BorderThickness = new Thickness(2, 0, 2, 2);
 
                 spContacts = new StackPanel();
                 spContacts.Orientation = Orientation.Vertical;

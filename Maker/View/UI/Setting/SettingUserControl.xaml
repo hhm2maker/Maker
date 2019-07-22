@@ -180,7 +180,7 @@
                         <GroupBox Header="{DynamicResource Opacity}" Foreground="#F0F0F0" Style="{DynamicResource GroupBoxStyle1}">
                             <StackPanel  Margin="5">
                                 <DockPanel >
-                                    <Slider HorizontalAlignment="Stretch" Name="sOpacity" FontSize="14" IsSnapToTickEnabled="True" LargeChange="5" SmallChange="1" Foreground="White" Maximum="100" Minimum="10" ValueChanged="sOpacity_ValueChanged"   Height="18" />
+                                    <Slider HorizontalAlignment="Stretch" Name="sOpacity" FontSize="14" IsSnapToTickEnabled="True" LargeChange="5" SmallChange="1" Foreground="White" Maximum="100" Minimum="10" ValueChanged="sOpacity_ValueChanged"   Height="18"  />
                                 </DockPanel>
                             </StackPanel>
                         </GroupBox>
