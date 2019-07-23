@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using Maker.View.Style.Child;
 using Maker.View.UI.Style.Child;
 using Maker.View.UI.UserControlDialog;
@@ -16,8 +17,8 @@ namespace Maker.View.Style
     /// </summary>
     public partial class StyleWindow : MakerDialog
     {
-        private NewMainWindow mw;
-        public StyleWindow(NewMainWindow mw)
+        public ScriptUserControl mw;
+        public StyleWindow(ScriptUserControl mw)
         {
             InitializeComponent();
             this.mw = mw;
@@ -333,6 +334,7 @@ namespace Maker.View.Style
             {
                 svMain.Children.Add(new ThirdPartyOperationChild(baseOperationModel as ThirdPartyOperationModel));
             }
+                (svMain.Children[i] as BaseDialog).sw = this;
         }
     }
 
@@ -349,18 +351,6 @@ namespace Maker.View.Style
         private void Box_Click(object sender, MouseButtonEventArgs e)
         {
             lbCatalog.SelectedItem = sender;
-        }
-
-
-        private void BtnRemoveFx_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (lbCatalog.SelectedIndex == -1)
-                return;
-            int position = lbCatalog.SelectedIndex;
-            lbCatalog.Items.RemoveAt(position);
-            operationModels.RemoveAt(position);
-            mw.projectUserControl.suc.Test();
-            //svMain.Children.RemoveAt(position);
         }
 
         private void ImgUp_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -475,8 +465,8 @@ namespace Maker.View.Style
         {
             if (!CanSave())
                 return;
-            mw.RemoveSetting();
-            mw.projectUserControl.suc.Test();
+            //mw.RemoveSetting();
+            //mw.projectUserControl.suc.Test();
         }
     }
 }

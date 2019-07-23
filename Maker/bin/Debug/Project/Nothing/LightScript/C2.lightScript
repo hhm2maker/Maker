@@ -3,7 +3,6 @@
   <Scripts>
     <Script name="Step1" parent="" value="" visible="true" contain="Step1" intersection="" complement="">
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
-      <VerticalFlipping />
       <ChangeColor colors="73 74 75 76" />
     </Script>
   </Scripts>

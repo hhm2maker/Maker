@@ -105,7 +105,7 @@ namespace Maker.View.LightScriptUserControl
             mLaunchpad.AddMembrane();
             mLaunchpad.IsMembrane = true;
 
-            sw = new StyleWindow(mw);
+            sw = new StyleWindow(this);
             Grid.SetRow(sw, 0);
             gRight.Children.Add(sw);
         }
@@ -2937,7 +2937,7 @@ namespace Maker.View.LightScriptUserControl
         {
             if (lbStep.SelectedIndex == -1 || scriptModelDictionary[GetStepName()].OperationModels.Count == 0)
                 return;
-            StyleWindow style = new StyleWindow(mw);
+            StyleWindow style = new StyleWindow(this);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             mw.AddSetting(style);
         }

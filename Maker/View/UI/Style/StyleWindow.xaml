@@ -35,9 +35,6 @@
                 <Border BorderThickness="1" Width="25" Height="25" BorderBrush="#F0F0F0"    >
                     <Image Source="pack://application:,,,/View/Resources/Image/down.png" Width="20" Height="20" Name="imgDown"  MouseLeftButtonDown="ImgDown_MouseLeftButtonDown"  RenderOptions.BitmapScalingMode="HighQuality"/>
                 </Border>
-                    <Border BorderThickness="1" Width="25" Height="25" BorderBrush="#F0F0F0"  >
-                        <Image Source="pack://application:,,,/View/Resources/Image/remove.png" Width="20" Height="20" Name="btnRemoveFx" MouseLeftButtonDown="BtnRemoveFx_MouseLeftButtonDown" RenderOptions.BitmapScalingMode="HighQuality"/>
-                </Border>
             </StackPanel>
         </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">

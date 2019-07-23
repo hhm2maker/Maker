@@ -11,6 +11,7 @@ namespace Maker.View.Style.Child
     
     public class BaseDialog : UserControl
     {
+        public StyleWindow sw;
         protected virtual string Title
         {
             get;
@@ -31,6 +32,7 @@ namespace Maker.View.Style.Child
         private StackPanel spContacts;
         private void AddParentPanel()
         {
+            DockPanel dp;
             if (OnlyTitle)
             {
                 StackPanel sp = new StackPanel();
@@ -41,7 +43,7 @@ namespace Maker.View.Style.Child
                 borderTop.CornerRadius = new CornerRadius(3);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
 
-                DockPanel dp = new DockPanel();
+                dp = new DockPanel();
 
                 TextBlock tbTitle = new TextBlock();
                 tbTitle.Foreground = new SolidColorBrush(Colors.White);
@@ -49,13 +51,7 @@ namespace Maker.View.Style.Child
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
                 dp.Children.Add(tbTitle);
 
-                Image image = new Image();
-                image.Width = 20;
-                image.Margin = new Thickness(0,0,10,0);
-                image.VerticalAlignment = VerticalAlignment.Center;
-                image.HorizontalAlignment = HorizontalAlignment.Right;
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute));
-                dp.Children.Add(image);
+             
 
                 borderTop.Child = dp;
 
@@ -73,21 +69,13 @@ namespace Maker.View.Style.Child
                 borderTop.CornerRadius = new CornerRadius(3, 3, 0, 0);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
 
-                DockPanel dp = new DockPanel();
+                dp = new DockPanel();
 
                 TextBlock tbTitle = new TextBlock();
                 tbTitle.Foreground = new SolidColorBrush(Colors.White);
                 tbTitle.Margin = new Thickness(10);
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
                 dp.Children.Add(tbTitle);
-
-                Image image = new Image();
-                image.Width = 20;
-                image.Margin = new Thickness(0, 0, 10, 0);
-                image.VerticalAlignment = VerticalAlignment.Center;
-                image.HorizontalAlignment = HorizontalAlignment.Right;
-                image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute));
-                dp.Children.Add(image);
 
                 borderTop.Child = dp;
 
@@ -106,8 +94,46 @@ namespace Maker.View.Style.Child
                 sp.Children.Add(borderBottom);
                 AddChild(sp);
             }
-            
+            StackPanel spRight = new StackPanel();
+            spRight.HorizontalAlignment = HorizontalAlignment.Right;
+            spRight.Orientation = Orientation.Horizontal;
+            Image image = new Image
+            {
+                Width = 20,
+                Margin = new Thickness(0, 0, 10, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_up.png", UriKind.RelativeOrAbsolute))
+            };
+            Image image2 = new Image
+            {
+                Width = 20,
+                Margin = new Thickness(0, 0, 15, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_down.png", UriKind.RelativeOrAbsolute))
+            };
+            Image image3 = new Image
+            {
+                Width = 20,
+                Margin = new Thickness(0, 0, 10, 0),
+                VerticalAlignment = VerticalAlignment.Center,
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute))
+            };
+            image3.MouseLeftButtonDown += Image3_MouseLeftButtonDown;
+            spRight.Children.Add(image);
+            spRight.Children.Add(image2);
+            spRight.Children.Add(image3);
+            dp.Children.Add(spRight);
         }
+
+        private void Image3_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int position = (Parent as StackPanel).Children.IndexOf(this);
+            sw.lbCatalog.Items.RemoveAt(position);
+            sw.operationModels.RemoveAt(position);
+            sw.svMain.Children.RemoveAt(position);
+            sw.mw.Test();
+        }
+
         /// <summary>
         /// 常规设置
         /// </summary>
