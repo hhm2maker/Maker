@@ -461,12 +461,6 @@ namespace Maker.View.Style
             }
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (!CanSave())
-                return;
-            //mw.RemoveSetting();
-            //mw.projectUserControl.suc.Test();
-        }
+     
     }
 }

@@ -104,6 +104,7 @@ namespace Maker.View.Style.Child
                 VerticalAlignment = VerticalAlignment.Center,
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_up.png", UriKind.RelativeOrAbsolute))
             };
+            image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
             Image image2 = new Image
             {
                 Width = 20,
@@ -111,6 +112,7 @@ namespace Maker.View.Style.Child
                 VerticalAlignment = VerticalAlignment.Center,
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_down.png", UriKind.RelativeOrAbsolute))
             };
+            image2.MouseLeftButtonDown += Image2_MouseLeftButtonDown;
             Image image3 = new Image
             {
                 Width = 20,
@@ -123,6 +125,89 @@ namespace Maker.View.Style.Child
             spRight.Children.Add(image2);
             spRight.Children.Add(image3);
             dp.Children.Add(spRight);
+        }
+
+     
+            private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int position = (Parent as StackPanel).Children.IndexOf(this);
+
+            List<ListBoxItem> checkboxs = new List<ListBoxItem>();
+            foreach (ListBoxItem o in sw.lbCatalog.Items)
+            {
+                checkboxs.Add(o);
+            }
+
+            sw.lbCatalog.Items.Clear();
+
+            ListBoxItem box = checkboxs[position - 1];
+            checkboxs[position - 1] = checkboxs[position];
+            checkboxs[position] = box;
+
+            foreach (ListBoxItem c in checkboxs)
+            {
+                sw.lbCatalog.Items.Add(c);
+            }
+
+            List<BaseDialog> basechilds = new List<BaseDialog>();
+            foreach (Object o in sw.svMain.Children)
+            {
+                basechilds.Add((BaseDialog)o);
+            }
+
+            sw.svMain.Children.Clear();
+
+            BaseDialog child = basechilds[position - 1];
+            basechilds[position - 1] = basechilds[position];
+            basechilds[position] = child;
+
+            foreach (BaseDialog b in basechilds)
+            {
+                sw.svMain.Children.Add(b);
+            }
+            sw.lbCatalog.SelectedIndex = position - 1;
+            sw.mw.Test();
+        }
+
+        private void Image2_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int position = (Parent as StackPanel).Children.IndexOf(this);
+
+            List<ListBoxItem> checkboxs = new List<ListBoxItem>();
+            foreach (ListBoxItem o in sw.lbCatalog.Items)
+            {
+                checkboxs.Add(o);
+            }
+
+            sw.lbCatalog.Items.Clear();
+
+            ListBoxItem box = checkboxs[position + 1];
+            checkboxs[position + 1] = checkboxs[position];
+            checkboxs[position] = box;
+
+            foreach (ListBoxItem c in checkboxs)
+            {
+                sw.lbCatalog.Items.Add(c);
+            }
+
+            List<BaseDialog> basechilds = new List<BaseDialog>();
+            foreach (BaseDialog o in sw.svMain.Children)
+            {
+                basechilds.Add(o);
+            }
+
+            sw.svMain.Children.Clear();
+
+            BaseDialog child = basechilds[position + 1];
+            basechilds[position + 1] = basechilds[position];
+            basechilds[position] = child;
+
+            foreach (BaseDialog b in basechilds)
+            {
+                sw.svMain.Children.Add(b);
+            }
+            sw.lbCatalog.SelectedIndex = position + 1;
+            sw.mw.Test();
         }
 
         private void Image3_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
