@@ -17,7 +17,8 @@ namespace Maker.View.UI.Style.Child
     public partial class ColorOperationChild : OperationStyle
     {
         private ColorOperationModel changeColorOperationModel;
-
+        
+        protected override string Title { get; set; } = "ChangeColor";
         private ListBox lb;
         public ColorOperationChild(ColorOperationModel changeColorOperationModel)
         {
@@ -31,7 +32,7 @@ namespace Maker.View.UI.Style.Child
             tb.VerticalAlignment = VerticalAlignment.Center;
             tb.SetResourceReference(TextBlock.TextProperty, changeColorOperationModel.HintString);
             dp.Children.Add(tb);
-
+         
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
             sp.HorizontalAlignment = HorizontalAlignment.Right;
@@ -42,6 +43,7 @@ namespace Maker.View.UI.Style.Child
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_white.png", UriKind.RelativeOrAbsolute)),
                 Stretch = Stretch.Fill
             };
+            RenderOptions.SetBitmapScalingMode(ivAdd,BitmapScalingMode.HighQuality); 
             ivAdd.MouseLeftButtonDown += IvAdd_MouseLeftButtonDown;
             RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.Fant);
             sp.Children.Add(ivAdd);
@@ -52,6 +54,7 @@ namespace Maker.View.UI.Style.Child
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute)),
                 Stretch = Stretch.Fill
             };
+            RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.HighQuality);
             ivReduce.MouseLeftButtonDown += IvReduce_MouseLeftButtonDown;
             RenderOptions.SetBitmapScalingMode(ivReduce, BitmapScalingMode.Fant);
             ivReduce.Margin = new Thickness(10,0,0,0);

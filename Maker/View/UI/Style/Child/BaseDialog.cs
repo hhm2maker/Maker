@@ -1,4 +1,5 @@
-﻿using Maker.ViewBusiness;
+﻿using Maker.Business.Model.OperationModel;
+using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -50,8 +51,6 @@ namespace Maker.View.Style.Child
                 tbTitle.Margin = new Thickness(10);
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
                 dp.Children.Add(tbTitle);
-
-             
 
                 borderTop.Child = dp;
 
@@ -124,47 +123,42 @@ namespace Maker.View.Style.Child
             spRight.Children.Add(image);
             spRight.Children.Add(image2);
             spRight.Children.Add(image3);
+            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(image2, BitmapScalingMode.HighQuality);
+            RenderOptions.SetBitmapScalingMode(image3, BitmapScalingMode.HighQuality);
+
             dp.Children.Add(spRight);
         }
 
      
-            private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
-
-            List<ListBoxItem> checkboxs = new List<ListBoxItem>();
-            foreach (ListBoxItem o in sw.lbCatalog.Items)
+            if (position == 0)
             {
-                checkboxs.Add(o);
+                return;
             }
+            ListBoxItem box = sw.lbCatalog.Items[position - 1] as ListBoxItem;
+            ListBoxItem box2 = sw.lbCatalog.Items[position] as ListBoxItem;
+            sw.lbCatalog.Items.RemoveAt(position - 1);
+            sw.lbCatalog.Items.RemoveAt(position - 1);
+            sw.lbCatalog.Items.Insert(position - 1, box2) ;
+            sw.lbCatalog.Items.Insert(position, box);
 
-            sw.lbCatalog.Items.Clear();
+            BaseDialog bd = sw.svMain.Children[position - 1] as BaseDialog;
+            BaseDialog bd2 = sw.svMain.Children[position] as BaseDialog;
+            sw.svMain.Children.RemoveAt(position - 1);
+            sw.svMain.Children.RemoveAt(position - 1);
+            sw.svMain.Children.Insert(position - 1, bd2);
+            sw.svMain.Children.Insert(position, bd);
 
-            ListBoxItem box = checkboxs[position - 1];
-            checkboxs[position - 1] = checkboxs[position];
-            checkboxs[position] = box;
+            BaseOperationModel bom = sw.operationModels[position - 1] as BaseOperationModel;
+            BaseOperationModel bom2 = sw.operationModels[position ] as BaseOperationModel;
+            sw.operationModels.RemoveAt(position - 1);
+            sw.operationModels.RemoveAt(position - 1);
+            sw.operationModels.Insert(position - 1, bom2);
+            sw.operationModels.Insert(position, bom);
 
-            foreach (ListBoxItem c in checkboxs)
-            {
-                sw.lbCatalog.Items.Add(c);
-            }
-
-            List<BaseDialog> basechilds = new List<BaseDialog>();
-            foreach (Object o in sw.svMain.Children)
-            {
-                basechilds.Add((BaseDialog)o);
-            }
-
-            sw.svMain.Children.Clear();
-
-            BaseDialog child = basechilds[position - 1];
-            basechilds[position - 1] = basechilds[position];
-            basechilds[position] = child;
-
-            foreach (BaseDialog b in basechilds)
-            {
-                sw.svMain.Children.Add(b);
-            }
             sw.lbCatalog.SelectedIndex = position - 1;
             sw.mw.Test();
         }
@@ -172,40 +166,31 @@ namespace Maker.View.Style.Child
         private void Image2_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
-
-            List<ListBoxItem> checkboxs = new List<ListBoxItem>();
-            foreach (ListBoxItem o in sw.lbCatalog.Items)
+            if (position == sw.lbCatalog.Items.Count - 1)
             {
-                checkboxs.Add(o);
+                return;
             }
+            ListBoxItem box = sw.lbCatalog.Items[position] as ListBoxItem;
+            ListBoxItem box2 = sw.lbCatalog.Items[position+1] as ListBoxItem;
+            sw.lbCatalog.Items.RemoveAt(position);
+            sw.lbCatalog.Items.RemoveAt(position);
+            sw.lbCatalog.Items.Insert(position, box2);
+            sw.lbCatalog.Items.Insert(position+1, box);
 
-            sw.lbCatalog.Items.Clear();
+            BaseDialog bd = sw.svMain.Children[position] as BaseDialog;
+            BaseDialog bd2 = sw.svMain.Children[position+1] as BaseDialog;
+            sw.svMain.Children.RemoveAt(position);
+            sw.svMain.Children.RemoveAt(position);
+            sw.svMain.Children.Insert(position, bd2);
+            sw.svMain.Children.Insert(position+1, bd);
 
-            ListBoxItem box = checkboxs[position + 1];
-            checkboxs[position + 1] = checkboxs[position];
-            checkboxs[position] = box;
+            BaseOperationModel bom = sw.operationModels[position] as BaseOperationModel;
+            BaseOperationModel bom2 = sw.operationModels[position+1] as BaseOperationModel;
+            sw.operationModels.RemoveAt(position);
+            sw.operationModels.RemoveAt(position);
+            sw.operationModels.Insert(position, bom2);
+            sw.operationModels.Insert(position+1, bom);
 
-            foreach (ListBoxItem c in checkboxs)
-            {
-                sw.lbCatalog.Items.Add(c);
-            }
-
-            List<BaseDialog> basechilds = new List<BaseDialog>();
-            foreach (BaseDialog o in sw.svMain.Children)
-            {
-                basechilds.Add(o);
-            }
-
-            sw.svMain.Children.Clear();
-
-            BaseDialog child = basechilds[position + 1];
-            basechilds[position + 1] = basechilds[position];
-            basechilds[position] = child;
-
-            foreach (BaseDialog b in basechilds)
-            {
-                sw.svMain.Children.Add(b);
-            }
             sw.lbCatalog.SelectedIndex = position + 1;
             sw.mw.Test();
         }
