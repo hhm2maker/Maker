@@ -148,7 +148,11 @@ namespace Maker.View.Style
                 mItem.Content = box;
                 //mItem.MouseLeftButtonDown += Box_Click;
                 lbCatalog.Items.Add(mItem);
-                if (item is CreateFromQuickOperationModel)
+                if (item is CreateFromStepOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
+                }
+                else if (item is CreateFromQuickOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
                 }
@@ -242,7 +246,11 @@ namespace Maker.View.Style
             for(int i = 0;i<operationModels.Count;i++ )
             {
             BaseOperationModel baseOperationModel = operationModels[i];
-            if (baseOperationModel is CreateFromQuickOperationModel)
+            if (baseOperationModel is CreateFromStepOperationModel)
+            {
+                    svMain.Children.Add(new VerticalFlippingOperationChild());
+                }
+            else if (baseOperationModel is CreateFromQuickOperationModel)
             {
                 svMain.Children.Add(new CreateFromQuickOperationChild(baseOperationModel as CreateFromQuickOperationModel));
             }
@@ -334,7 +342,7 @@ namespace Maker.View.Style
             {
                 svMain.Children.Add(new ThirdPartyOperationChild(baseOperationModel as ThirdPartyOperationModel));
             }
-                (svMain.Children[i] as BaseDialog).sw = this;
+            (svMain.Children[i] as BaseDialog).sw = this;
         }
     }
 

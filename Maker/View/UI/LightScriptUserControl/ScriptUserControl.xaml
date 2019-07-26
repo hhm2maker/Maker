@@ -88,7 +88,6 @@
                                                     <TextBox Name="tbSelectEditorColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
                                                 </Border>
                                             </StackPanel>
-                                          
                                             <WrapPanel  Orientation="Horizontal" Margin="0,25,0,10" HorizontalAlignment="Center">
                                                 <Button x:Name="btnSelectEditorReplace"  Margin="0,0,10,0" Content="{DynamicResource Replace}" />
                                                 <Button x:Name="btnSelectEditorAdd"  Margin="0,0,10,0" Content="{DynamicResource Add}"/>

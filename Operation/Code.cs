@@ -317,15 +317,15 @@ namespace Operation
 
         public static String OperationModelsToCode(ScriptModel scriptModel,ref List<String> myContain)
         {
-                //输入
-                XmlDocument doc = new XmlDocument();
-                doc.Load("Config/input.xml");
-                XmlNode inputRoot = doc.DocumentElement;
-                //格式
-                XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
-                XmlNode Delimiter = inputFormat.SelectSingleNode("Delimiter");
-                String strInputFormatDelimiter = Delimiter.InnerText;
-                XmlNode Range = inputFormat.SelectSingleNode("Range");
+            //输入
+            XmlDocument doc = new XmlDocument();
+            doc.Load("Config/input.xml");
+            XmlNode inputRoot = doc.DocumentElement;
+            //格式
+            XmlNode inputFormat = inputRoot.SelectSingleNode("Format");
+            XmlNode Delimiter = inputFormat.SelectSingleNode("Delimiter");
+            String strInputFormatDelimiter = Delimiter.InnerText;
+            XmlNode Range = inputFormat.SelectSingleNode("Range");
             String strInputFormatRange = Range.InnerText;
             char StrInputFormatDelimiter;
             if (strInputFormatDelimiter.Equals("Comma"))
@@ -362,7 +362,11 @@ namespace Operation
             //{
                 foreach (var mItem in scriptModel.OperationModels)
                 {
-                    if (mItem is CreateFromQuickOperationModel)
+                if (mItem is CreateFromStepOperationModel)
+                {
+                    sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();" + Environment.NewLine);
+                }
+                   else if (mItem is CreateFromQuickOperationModel)
                     {
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
@@ -399,7 +403,7 @@ namespace Operation
                         + createFromQuickOperationModel.Action + ");");
                         sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);");
                     }
-                    if (mItem is VerticalFlippingOperationModel)
+                    else if (mItem is VerticalFlippingOperationModel)
                     {
                         sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.VerticalFlipping();");
                     }

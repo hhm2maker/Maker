@@ -92,7 +92,12 @@ namespace Operation
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
                 foreach (var xEdit in xScript.Elements()) {
-                    if (xEdit.Name.ToString().Equals("CreateFromQuick"))
+                    if (xEdit.Name.ToString().Equals("CreateFromStep"))
+                    {
+                        CreateFromStepOperationModel createFromStepOperationModel = new CreateFromStepOperationModel();
+                        createFromStepOperationModel.StepName = xEdit.Attribute("stepName").Value;
+                    }
+                    else  if (xEdit.Name.ToString().Equals("CreateFromQuick"))
                     {
                         CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel();
                         createFromQuickOperationModel.Time = int.Parse(xEdit.Attribute("time").Value);

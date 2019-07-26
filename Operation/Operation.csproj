@@ -68,6 +68,7 @@
     <Compile Include="FileBusiness.cs" />
     <Compile Include="LimitlessLampModel.cs" />
     <Compile Include="Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
+    <Compile Include="Model\OperationModel\CreateFromStepOperationModel.cs" />
     <Compile Include="Model\OperationModel\CreateFromQuickOperationModel.cs" />
     <Compile Include="Model\OperationModel\CreateOperationModel.cs" />
     <Compile Include="Model\OperationModel\AnimationDisappearOperationModel.cs" />

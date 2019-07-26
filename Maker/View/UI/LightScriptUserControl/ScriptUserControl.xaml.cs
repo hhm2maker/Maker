@@ -807,10 +807,11 @@ namespace Maker.View.LightScriptUserControl
                     return;
                 }
                 ScriptModel scriptModel = new ScriptModel();
+                scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromStepOperationModel(GetStepName()) };
                 scriptModel.Name = stepName;
                 scriptModel.Value = "";
                 scriptModel.Visible = true;
-                scriptModel.Parent = GetStepName();
+                scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
@@ -4039,7 +4040,14 @@ namespace Maker.View.LightScriptUserControl
          
                 foreach (var mItem in item.Value.OperationModels)
                 {
-                     if (mItem is CreateFromQuickOperationModel)
+                    if (mItem is CreateFromStepOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("CreateFromStep");
+                        CreateFromStepOperationModel createFromQuickOperationModel = mItem as CreateFromStepOperationModel;
+                        xVerticalFlipping.SetAttributeValue("stepName", createFromQuickOperationModel.StepName);
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is CreateFromQuickOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("CreateFromQuick");
                         CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
