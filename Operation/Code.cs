@@ -362,9 +362,28 @@ namespace Operation
             //{
                 foreach (var mItem in scriptModel.OperationModels)
                 {
-                if (mItem is CreateFromStepOperationModel)
+                if (mItem is SetAttributeOperationModel)
                 {
-                    sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();" + Environment.NewLine);
+                    SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
+                    for (int i = 0; i < setAttributeOperationModel.AttributeOperationModels.Count; i++)
+                    {
+                        if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME)
+                        {
+                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.TIME,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                        }
+                        else if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION)
+                        {
+                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                        }
+                        else if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR)
+                        {
+                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                        }
+                    }
+                }
+                else if (mItem is CreateFromStepOperationModel)
+                {
+                    sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();");
                 }
                    else if (mItem is CreateFromQuickOperationModel)
                     {

@@ -6,25 +6,26 @@ using System.Threading.Tasks;
 
 namespace Operation
 {
-    using System;
-    using System.Collections.Generic;
-    using Operation;
-    using Maker.Business.Model.OperationModel;
-    public class Test
-    {
-        public static Dictionary<string, List<Light>> Hello()
-        {
-            Dictionary<string, List<Light>> mainLightGroup = new Dictionary<string, List<Light>>(); LightGroup Step1LightGroup = Step1(); mainLightGroup.Add("Step1", Step1LightGroup); return mainLightGroup;
-        }
-        public static LightGroup Step1()
-        {
-            CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel(0, new List<int>() { 11 }, 12, 12, new List<int>() { 5 }, 0, 10);
-            LightGroup Step1LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);
-            Console.WriteLine(Step1LightGroup.Count);
-            return Step1LightGroup;
-        }
-    }
-
+    //using System;
+    //using System.Collections.Generic;
+    //using Operation;
+    //using Maker.Business.Model.OperationModel;
+    //public class Test
+    //{
+    //    public Dictionary<string, List<Light>> Hello()
+    //    {
+    //        Dictionary<string, List<Light>> mainLightGroup = new Dictionary<string, List<Light>>(); LightGroup Step1LightGroup = Step1(); mainLightGroup.Add("Step1", Step1LightGroup); LightGroup Step2LightGroup = Step2(); mainLightGroup.Add("Step2", Step2LightGroup); return mainLightGroup;
+    //    }
+    //    public LightGroup Step1()
+    //    {
+    //        CreateFromQuickOperationModel createFromQuickOperationModel = new CreateFromQuickOperationModel(0, new List<int>() { 11 }, 12, 12, new List<int>() { 5 }, 0, 10);
+    //        LightGroup Step1LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);
+    //        ColorGroup MyStep1ColorGroup = new ColorGroup("73 74 75 76", ' ', '-');
+    //        Step1LightGroup.SetColor(MyStep1ColorGroup);
+    //        Step1LightGroup.VerticalFlipping(); return Step1LightGroup;
+    //    }
+    //    public LightGroup Step2() { return Step2LightGroup; }
+    //}
 }
 //   using System;
 //using System.Collections.Generic;

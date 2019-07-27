@@ -814,6 +814,11 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
+                SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
+                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
+                scriptModel.OperationModels.Add(setAttributeOperationModel);
+
+             
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
                 {
                     try
@@ -834,14 +839,16 @@ namespace Maker.View.LightScriptUserControl
                             System.Data.DataTable eval = new System.Data.DataTable();
                             result = eval.Compute(expression, "").ToString();
                         }
-                        if (scriptModel.Value.Equals(String.Empty))
-                        {
-                            scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        }
-                        else
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        }
+
+                        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, result));
+                        //if (scriptModel.Value.Equals(String.Empty))
+                        //{
+                        //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        //}
+                        //else
+                        //{
+                        //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        //}
                     }
                     catch
                     {
@@ -871,15 +878,15 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
-                    if (scriptModel.Value.Equals(String.Empty))
-                    {
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                    }
-                    else
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-
-                    }
+                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, tbSelectEditorPosition.Text.Trim()));
+                    //if (scriptModel.Value.Equals(String.Empty))
+                    //{
+                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    //}
+                    //else
+                    //{
+                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    //}
                 }
                 if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
                 {
@@ -902,14 +909,15 @@ namespace Maker.View.LightScriptUserControl
                             return;
                         }
                     }
-                    if (scriptModel.Value.Equals(String.Empty))
-                    {
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    }
-                    else
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    }
+                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tbSelectEditorColor.Text.Trim()));
+                    //if (scriptModel.Value.Equals(String.Empty))
+                    //{
+                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    //}
+                    //else
+                    //{
+                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    //}
                 }
 
                 UpdateStep();
@@ -4040,13 +4048,26 @@ namespace Maker.View.LightScriptUserControl
          
                 foreach (var mItem in item.Value.OperationModels)
                 {
-                    if (mItem is CreateFromStepOperationModel)
+                    if (mItem is SetAttributeOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("SetAttribute");
+                        SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
+                        for (int i = 0; i < setAttributeOperationModel.AttributeOperationModels.Count; i++) {
+                            XElement xItem = new XElement("AttributeOperationModel");
+                            xItem.SetAttributeValue("attributeType", setAttributeOperationModel.AttributeOperationModels[i].attributeType);
+                            xItem.SetAttributeValue("value", setAttributeOperationModel.AttributeOperationModels[i].Value);
+                            xVerticalFlipping.Add(xItem);
+                        }
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is CreateFromStepOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("CreateFromStep");
                         CreateFromStepOperationModel createFromQuickOperationModel = mItem as CreateFromStepOperationModel;
                         xVerticalFlipping.SetAttributeValue("stepName", createFromQuickOperationModel.StepName);
                         xScript.Add(xVerticalFlipping);
                     }
+                
                     else if (mItem is CreateFromQuickOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("CreateFromQuick");

@@ -148,7 +148,12 @@ namespace Maker.View.Style
                 mItem.Content = box;
                 //mItem.MouseLeftButtonDown += Box_Click;
                 lbCatalog.Items.Add(mItem);
-                if (item is CreateFromStepOperationModel)
+
+                if (item is SetAttributeOperationModel)
+                {
+                    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
+                }
+                else if (item is CreateFromStepOperationModel)
                 {
                     box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
                 }
@@ -246,10 +251,14 @@ namespace Maker.View.Style
             for(int i = 0;i<operationModels.Count;i++ )
             {
             BaseOperationModel baseOperationModel = operationModels[i];
-            if (baseOperationModel is CreateFromStepOperationModel)
+            if (baseOperationModel is SetAttributeOperationModel)
             {
-                    svMain.Children.Add(new VerticalFlippingOperationChild());
-                }
+                svMain.Children.Add(new VerticalFlippingOperationChild());
+            }
+            else if (baseOperationModel is CreateFromStepOperationModel)
+            {
+                svMain.Children.Add(new CreateFromStepOperationChild(baseOperationModel as CreateFromStepOperationModel));
+            }
             else if (baseOperationModel is CreateFromQuickOperationModel)
             {
                 svMain.Children.Add(new CreateFromQuickOperationChild(baseOperationModel as CreateFromQuickOperationModel));

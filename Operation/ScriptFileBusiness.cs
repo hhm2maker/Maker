@@ -92,10 +92,33 @@ namespace Operation
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
                 foreach (var xEdit in xScript.Elements()) {
-                    if (xEdit.Name.ToString().Equals("CreateFromStep"))
+                    if (xEdit.Name.ToString().Equals("SetAttribute"))
+                    {
+                        SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
+                        setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
+                        foreach (var xItem in xEdit.Elements())
+                        {
+                            if (xItem.Attribute("attributeType").Value.Equals("TIME"))
+                            {
+                                setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, xItem.Attribute("value").Value));
+                            }
+                            else if (xItem.Attribute("attributeType").Value.Equals("POSITION"))
+                            {
+                                setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, xItem.Attribute("value").Value));
+                            }
+                            else if (xItem.Attribute("attributeType").Value.Equals("COLOR"))
+                            {
+                                setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, xItem.Attribute("value").Value));
+                            }
+                        }
+                        scriptModel.OperationModels.Add(setAttributeOperationModel);
+                    }
+                    else if (xEdit.Name.ToString().Equals("CreateFromStep"))
                     {
                         CreateFromStepOperationModel createFromStepOperationModel = new CreateFromStepOperationModel();
                         createFromStepOperationModel.StepName = xEdit.Attribute("stepName").Value;
+
+                        scriptModel.OperationModels.Add(createFromStepOperationModel);
                     }
                     else  if (xEdit.Name.ToString().Equals("CreateFromQuick"))
                     {
