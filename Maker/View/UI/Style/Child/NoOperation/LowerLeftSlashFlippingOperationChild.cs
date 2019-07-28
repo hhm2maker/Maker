@@ -8,7 +8,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class LowerLeftSlashFlippingOperationChild : NoOperationStyle
     {
-        protected override string Title { get; set; } = "LowerLeftSlashFlipping";
+        public override string Title { get; set; } = "LowerLeftSlashFlipping";
         public LowerLeftSlashFlippingOperationChild()
         {
 

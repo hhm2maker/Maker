@@ -12,7 +12,7 @@ using Maker.Business;
 
 namespace Maker.View.UI.Style.Child
 {
-    public class OperationStyle : BaseDialog
+    public class OperationStyle : BaseStyle
     {
         protected List<Light> NowData {
             get {

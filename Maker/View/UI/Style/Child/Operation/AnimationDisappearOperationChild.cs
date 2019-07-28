@@ -16,14 +16,14 @@ namespace Maker.View.UI.Style.Child
         {
             this.animationDisappearOperationModel =  animationDisappearOperationModel;
             //构建对话框
-            AddTopHintTextBlock("TypeColon");
-            AddComboBox(new List<string>() { "Serpentine"}, null);
+            cbType = GetComboBox(new List<string>() { "Serpentine" }, null);
+            AddTitleAndControl("TypeColon", cbType);
+            
             AddTopHintTextBlock("StartTimeColon");
             AddTextBox();
             AddTopHintTextBlock("IntervalColon");
             AddTextBox();
             CreateDialog();
-            cbType = Get(1) as ComboBox;
             tbStartTime = Get(3) as TextBox;
             tbInterval = Get(5) as TextBox;
 

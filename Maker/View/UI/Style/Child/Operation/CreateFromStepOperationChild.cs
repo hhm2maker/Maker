@@ -11,14 +11,14 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class CreateFromStepOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "CreateFromTheStep";
         private CreateFromStepOperationModel createFromStepOperationModel;
         public CreateFromStepOperationChild(CreateFromStepOperationModel createFromStepOperationModel)
         {
             this.createFromStepOperationModel =  createFromStepOperationModel;
             //构建对话框
-            AddTopHintTextBlock("ParentColon");
-            AddTopHintTextBlockForThirdPartyModel(createFromStepOperationModel.StepName.ToString());
-          
+            AddTitleAndControl("ParentColon", GetTexeBlock(createFromStepOperationModel.StepName.ToString()));
+
             CreateDialog();
         }
 

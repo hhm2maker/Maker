@@ -8,7 +8,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class HorizontalFlippingOperationChild : NoOperationStyle
     {
-        protected override string Title { get; set; } = "HorizontalFlipping";
+        public override string Title { get; set; } = "HorizontalFlipping";
         public HorizontalFlippingOperationChild()
         {
 

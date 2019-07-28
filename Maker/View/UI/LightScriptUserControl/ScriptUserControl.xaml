@@ -48,7 +48,7 @@
                             <StackPanel   Name="spMainLeft" Orientation="Vertical">
                                 <StackPanel Margin="15,15,0,0" Orientation="Horizontal">
                                     <TextBlock Width="100" Text="{DynamicResource ModelColon}" Foreground="{StaticResource bigBlockTextColor}" FontSize="22" FontWeight="Bold" />
-                                    <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                    <ComboBox  SelectedIndex="0" x:Name="cbMode"  SelectionChanged="CbMode_SelectionChanged" Margin="0,0,80,0" FontSize="16" Height="28"   Width="240" VerticalAlignment="Top" Foreground="{StaticResource blockTextColor}" Background="#454545"   >
                                         <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
                                         <ComboBoxItem  Content="{DynamicResource Create}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
                                         <ComboBoxItem Content="{DynamicResource Edit}" Style="{DynamicResource ComboBoxItemStyle1}"/>
@@ -163,7 +163,7 @@
                                                         <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Type}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                        <ComboBox SelectedIndex="0" Name="cbFastGenerationrType"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                        <ComboBox SelectedIndex="0" Name="cbFastGenerationrType"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"   >
                                                             <ComboBoxItem Content="{DynamicResource Up}" Style="{DynamicResource ComboBoxItemStyle1}" />
                                                             <ComboBoxItem  Content="{DynamicResource Down}" Style="{DynamicResource ComboBoxItemStyle1}"/>
                                                             <ComboBoxItem Content="{DynamicResource UpDown}" Style="{DynamicResource ComboBoxItemStyle1}"/>
@@ -179,7 +179,7 @@
                                                         <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                        <ComboBox SelectionChanged="CbFastGenerationrAction_SelectionChanged"  SelectedIndex="0" Name="cbFastGenerationrAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                        <ComboBox SelectionChanged="CbFastGenerationrAction_SelectionChanged"  SelectedIndex="0" Name="cbFastGenerationrAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"   >
                                                             <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
                                                             <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
                                                             <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
@@ -217,7 +217,7 @@
                                                     <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Action}" VerticalAlignment="Center"/>
                                                 </Border>
                                                 <Border Width="205"  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                    <ComboBox SelectedIndex="0" Name="cbIfAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                                                    <ComboBox SelectedIndex="0" Name="cbIfAction"  FontSize="14" VerticalAlignment="Center"   HorizontalAlignment="Stretch" Foreground="{StaticResource boxTextColor}" Background="#454545" >
                                                         <ComboBoxItem Content="{DynamicResource All}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
                                                         <ComboBoxItem  Content="{DynamicResource Open}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
                                                         <ComboBoxItem Content="{DynamicResource Close}" Style="{DynamicResource ComboBoxItemStyle1}"/>
@@ -385,7 +385,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <ListBox Grid.Column="0" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}" />
-                            <ComboBox Name="cbMyContent" Grid.Column="1" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" FontSize="14" Width="100" HorizontalContentAlignment="Right" VerticalAlignment="Top" Foreground="{StaticResource boxTextColor}" Background="#454545"  Style="{DynamicResource ComboBoxStyle1}" >
+                            <ComboBox Name="cbMyContent" Grid.Column="1" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" FontSize="14" Width="100" HorizontalContentAlignment="Right" VerticalAlignment="Top" Foreground="{StaticResource boxTextColor}" Background="#454545"  >
                                 <ComboBoxItem Content="{DynamicResource Light}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
                                 <ComboBoxItem  Content="{DynamicResource LightScript}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
                                 <ComboBoxItem Content="{DynamicResource LimitlessLamp}" Style="{DynamicResource ComboBoxItemStyle1}"/>

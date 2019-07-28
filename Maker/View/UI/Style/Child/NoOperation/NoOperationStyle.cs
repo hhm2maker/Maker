@@ -10,7 +10,7 @@ using Maker.View.Style.Child;
 
 namespace Maker.View.UI.Style.Child
 {
-    public class NoOperationStyle : BaseDialog
+    public class NoOperationStyle : BaseStyle
     {
        
         protected override bool OnlyTitle

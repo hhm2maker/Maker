@@ -11,18 +11,19 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class ChangeTimeOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "ChangeTime";
         private ChangeTimeOperationModel changeTimeOperationModel;
         public ChangeTimeOperationChild(ChangeTimeOperationModel changeTimeOperationModel)
         {
             this.changeTimeOperationModel =  changeTimeOperationModel;
             //构建对话框
-            AddTopHintTextBlock("OperationColon");
-            AddComboBox(new List<string>() { "Extend", "Shorten" }, null);
-            AddTopHintTextBlock("PolyploidyColon");
-            AddTextBox();
+            cbOperation = GetComboBox(new List<string>() { "Extend", "Shorten" }, null);
+            AddTitleAndControl("OperationColon", cbOperation);
+
+            tbPolyploidy = GetTexeBox(changeTimeOperationModel.Multiple.ToString());
+            AddTitleAndControl("PolyploidyColon", tbPolyploidy);
+
             CreateDialog();
-            cbOperation = Get(1) as ComboBox;
-            tbPolyploidy = Get(3) as TextBox;
 
             if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION) {
                 cbOperation.SelectedIndex = 0;
@@ -31,9 +32,7 @@ namespace Maker.View.UI.Style.Child
             {
                 cbOperation.SelectedIndex = 1;
             }
-            tbPolyploidy.LostFocus += TbPolyploidy_LostFocus; ;
-            tbPolyploidy.Text = changeTimeOperationModel.Multiple.ToString();
-
+            tbPolyploidy.LostFocus += TbPolyploidy_LostFocus;
             cbOperation.SelectionChanged += CbOperation_SelectionChanged;
         }
 

@@ -522,5 +522,6 @@
     <sys:String x:Key="Website">Website</sys:String>
     <sys:String x:Key="Email">Email</sys:String>
     <sys:String x:Key="FastGeneration">Quick Generation</sys:String>
+    <sys:String x:Key="CreateFromTheStep">Create from the step</sys:String>
     
 </ResourceDictionary>

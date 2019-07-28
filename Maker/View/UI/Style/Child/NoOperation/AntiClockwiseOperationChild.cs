@@ -8,7 +8,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class AntiClockwiseOperationChild : NoOperationStyle
     {
-        protected override string Title { get; set; } = "AntiClockwiseRotation";
+        public override string Title { get; set; } = "AntiClockwiseRotation";
         public AntiClockwiseOperationChild()
         {
 

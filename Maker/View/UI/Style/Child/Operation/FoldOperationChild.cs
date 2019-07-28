@@ -16,14 +16,15 @@ namespace Maker.View.UI.Style.Child
         {
             this.foldOperationModel = foldOperationModel;
             //构建对话框
-            AddTopHintTextBlock("OrientationColon");
-            AddComboBox(new List<string>() { "Vertical", "Horizontal" }, null);
+            cbOrientation = GetComboBox(new List<string>() { "Vertical", "Horizontal" }, null);
+            AddTitleAndControl("OrientationColon", cbOrientation);
+
             AddTopHintTextBlock("StartPositionColon");
             AddTextBox();
             AddTopHintTextBlock("SpanColon");
             AddTextBox();
             CreateDialog();
-            cbOrientation = Get(1) as ComboBox;
+          
             tbStartPosition = Get(3) as TextBox;
             tbSpan = Get(5) as TextBox;
 

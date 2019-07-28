@@ -16,7 +16,7 @@ namespace Maker.View.UI.Style.Child
     [Serializable]
     public partial class CreateFromQuickOperationChild : OperationStyle
     {
-        protected override string Title { get; set; } = "FastGeneration";
+        public override string Title { get; set; } = "FastGeneration";
         private CreateFromQuickOperationModel reateFromQuickOperationModel;
 
         public CreateFromQuickOperationChild(CreateFromQuickOperationModel reateFromQuickOperationModel)

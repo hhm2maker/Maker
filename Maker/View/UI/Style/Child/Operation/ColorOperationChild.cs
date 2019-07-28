@@ -17,8 +17,8 @@ namespace Maker.View.UI.Style.Child
     public partial class ColorOperationChild : OperationStyle
     {
         private ColorOperationModel changeColorOperationModel;
-        
-        protected override string Title { get; set; } = "ChangeColor";
+
+        public override string Title { get; set; } = "ChangeColor";
         private ListBox lb;
         public ColorOperationChild(ColorOperationModel changeColorOperationModel)
         {

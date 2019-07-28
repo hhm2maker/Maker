@@ -8,7 +8,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class RemoveBorderOperationChild : NoOperationStyle
     {
-        protected override string Title { get; set; } = "RemoveTheBorder";
+        public override string Title { get; set; } = "RemoveTheBorder";
         public RemoveBorderOperationChild()
         {
 

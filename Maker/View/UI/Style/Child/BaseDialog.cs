@@ -10,10 +10,10 @@ using System.Windows.Media.Imaging;
 namespace Maker.View.Style.Child
 {
     
-    public class BaseDialog : UserControl
+    public class BaseStyle : UserControl
     {
         public StyleWindow sw;
-        protected virtual string Title
+        public virtual string Title
         {
             get;
             set;
@@ -145,8 +145,8 @@ namespace Maker.View.Style.Child
             sw.lbCatalog.Items.Insert(position - 1, box2) ;
             sw.lbCatalog.Items.Insert(position, box);
 
-            BaseDialog bd = sw.svMain.Children[position - 1] as BaseDialog;
-            BaseDialog bd2 = sw.svMain.Children[position] as BaseDialog;
+            BaseStyle bd = sw.svMain.Children[position - 1] as BaseStyle;
+            BaseStyle bd2 = sw.svMain.Children[position] as BaseStyle;
             sw.svMain.Children.RemoveAt(position - 1);
             sw.svMain.Children.RemoveAt(position - 1);
             sw.svMain.Children.Insert(position - 1, bd2);
@@ -177,8 +177,8 @@ namespace Maker.View.Style.Child
             sw.lbCatalog.Items.Insert(position, box2);
             sw.lbCatalog.Items.Insert(position+1, box);
 
-            BaseDialog bd = sw.svMain.Children[position] as BaseDialog;
-            BaseDialog bd2 = sw.svMain.Children[position+1] as BaseDialog;
+            BaseStyle bd = sw.svMain.Children[position] as BaseStyle;
+            BaseStyle bd2 = sw.svMain.Children[position+1] as BaseStyle;
             sw.svMain.Children.RemoveAt(position);
             sw.svMain.Children.RemoveAt(position);
             sw.svMain.Children.Insert(position, bd2);
@@ -238,6 +238,7 @@ namespace Maker.View.Style.Child
                 spContacts.Children.Add(ui);
             }
         }
+
         /// <summary>
         /// 添加头部提示文本
         /// </summary>
@@ -246,10 +247,45 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255,240,240,240));
-            tb.Margin = new Thickness(0, 20, 0, 0);
+            if (_UI.Count != 0) {
+                tb.Margin = new Thickness(0, 20, 0, 0);
+            }
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             _UI.Add(tb);
         }
+
+        /// <summary>
+        /// 添加组合框
+        /// </summary>
+        /// <param name="textName"></param>
+        /// <param name="isIndependent"></param>
+        public ComboBox GetComboBox(List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
+        {
+            ComboBox cb = new ComboBox();
+            cb.SelectedIndex = 0;
+            cb.FontSize = 16;
+            cb.BorderThickness = new Thickness(2);
+            cb.Foreground = new SolidColorBrush(Colors.White);
+            cb.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+            cb.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+            cb.Padding = new Thickness(10,5,10,5);
+            cb.Margin = new Thickness(16, 0, 0, 0);
+            if (selectionChangedEvent != null)
+            {
+                cb.SelectionChanged += selectionChangedEvent;
+            }
+            foreach (String child in childTextName)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.SetResourceReference(StyleProperty, "ComboBoxItemStyle1");
+                item.Foreground = new SolidColorBrush(Colors.White);
+                item.FontSize = 16;
+                item.SetResourceReference(ContentProperty, child);
+                cb.Items.Add(item);
+            }
+            return cb;
+        }
+
         /// <summary>
         /// 添加头部提示文本
         /// </summary>
@@ -258,10 +294,108 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            tb.Margin = new Thickness(0, 20, 0, 0);
+            if (_UI.Count != 0)
+            {
+                tb.Margin = new Thickness(0, 20, 0, 0);
+            }
             tb.Text = textName;
             _UI.Add(tb);
         }
+
+        /// <summary>
+        /// 添加标题和值
+        /// </summary>
+        public Border GetTexeBlock(String textContent)
+        {
+            Border border = new Border();
+            border.Margin = new Thickness(5, 0, 0, 0);
+            border.BorderThickness = new Thickness(2);
+            border.HorizontalAlignment = HorizontalAlignment.Stretch;
+            border.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+            border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+
+            TextBlock tbContent = new TextBlock();
+            tbContent.Margin = new Thickness(2);
+            tbContent.FontSize = 16;
+            tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            tbContent.Text = textContent;
+            border.Child = tbContent;
+
+            return border;
+        }
+
+        /// <summary>
+        /// 添加标题和值
+        /// </summary>
+        public TextBox GetTexeBox(String textContent)
+        {
+            TextBox tbContent = new TextBox();
+            tbContent.BorderThickness = new Thickness(2);
+            tbContent.HorizontalAlignment = HorizontalAlignment.Stretch;
+            tbContent.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+            tbContent.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+            tbContent.Margin = new Thickness(5, 0, 0, 0);
+            tbContent.Padding = new Thickness(5,2,5,2);
+            tbContent.FontSize = 16;
+            tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            tbContent.Text = textContent;
+
+            return tbContent;
+        }
+
+        public void AddTitleAndControl(String textTitle, FrameworkElement frameworkElement) {
+            DockPanel dp = new DockPanel();
+            if (_UI.Count != 0)
+            {
+                dp.Margin = new Thickness(0, 20, 0, 0);
+            }
+            else {
+                dp.Margin = new Thickness(0, 10, 0, 0);
+            }
+
+            dp.Children.Add(GetTitle(textTitle));
+            dp.Children.Add(frameworkElement);
+
+            _UI.Add(dp);
+        }
+
+   
+
+        /// <summary>
+        /// 添加组合框
+        /// </summary>
+        /// <param name="textName"></param>
+        /// <param name="isIndependent"></param>
+        public void AddTitleAndComboBox(String titleName,List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
+        {
+            ComboBox cb = new ComboBox();
+            cb.SelectedIndex = 0;
+            cb.FontSize = 16;
+            cb.Background = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
+            cb.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            cb.Margin = new Thickness(0, 10, 0, 0);
+            if (selectionChangedEvent != null)
+            {
+                cb.SelectionChanged += selectionChangedEvent;
+            }
+            foreach (String child in childTextName)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.SetResourceReference(ContentProperty, child);
+                cb.Items.Add(item);
+            }
+            _UI.Add(cb);
+        }
+
+        private TextBlock GetTitle(String textTitle) {
+            TextBlock tbTitle = new TextBlock();
+            tbTitle.VerticalAlignment = VerticalAlignment.Center;
+            tbTitle.FontSize = 16;
+            tbTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
+            tbTitle.SetResourceReference(TextBlock.TextProperty, textTitle);
+            return tbTitle;
+        }
+
         /// <summary>
         /// 添加红色提示文本
         /// </summary>
@@ -270,7 +404,10 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 14;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 90, 90));
-            tb.Margin = new Thickness(0, 20, 0, 0);
+            if (_UI.Count != 0)
+            {
+                tb.Margin = new Thickness(0, 20, 0, 0);
+            }
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             tb.TextWrapping = TextWrapping.Wrap;
             _UI.Add(tb);
@@ -287,6 +424,7 @@ namespace Maker.View.Style.Child
             tb.Margin = new Thickness(0, 10, 0, 0);
             _UI.Add(tb);
         }
+
         /// <summary>
         /// 添加独立/附属复选框
         /// </summary>
@@ -304,29 +442,7 @@ namespace Maker.View.Style.Child
         {
             _UI.Add(uie);
         }
-        /// <summary>
-        /// 添加组合框
-        /// </summary>
-        /// <param name="textName"></param>
-        /// <param name="isIndependent"></param>
-        public void AddComboBox(List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
-        {
-            ComboBox cb = new ComboBox();
-            cb.SelectedIndex = 0;
-            cb.FontSize = 16;
-            cb.Background = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            cb.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            cb.Margin = new Thickness(0, 10, 0, 0);
-            if (selectionChangedEvent != null) {
-                cb.SelectionChanged += selectionChangedEvent;
-            }
-            foreach (String child in childTextName) {
-                ComboBoxItem item = new ComboBoxItem();
-                item.SetResourceReference(ContentProperty, child);
-                cb.Items.Add(item);
-            }
-            _UI.Add(cb);
-        }
+   
         /// <summary>
         /// 得到指定位置的控件
         /// </summary>

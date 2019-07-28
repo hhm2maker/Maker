@@ -16,12 +16,12 @@ namespace Maker.View.UI.Style.Child
         {
             this.setEndTimeOperationModel =  setEndTimeOperationModel;
             //构建对话框
-            AddTopHintTextBlock("TypeColon");
-            AddComboBox(new List<string>() { "All", "End", "AllAndEnd" }, null);
+            cbType = GetComboBox(new List<string>() { "All", "End", "AllAndEnd" }, null);
+            AddTitleAndControl("TypeColon", cbType);
+
             AddTopHintTextBlock("ValueColon");
             AddTextBox();
             CreateDialog();
-            cbType = Get(1) as ComboBox;
             tbValue = Get(3) as TextBox;
 
             if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)

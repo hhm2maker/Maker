@@ -15,7 +15,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class ThirdPartyOperationChild : OperationStyle
     {
-        protected override string Title { get; set; } = "ThirdParty";
+        public override string Title { get; set; } = "ThirdParty";
         private ThirdPartyOperationModel thirdPartyOperationModel;
         public ThirdPartyOperationChild(ThirdPartyOperationModel thirdPartyOperationModel)
         {

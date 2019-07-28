@@ -5,6 +5,7 @@
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
       <ChangeColor colors="73 74 75 76" />
       <VerticalFlipping />
+      <ChangeTime operator="multiplication" multiple="2" />
     </Script>
     <Script name="Step2" parent="" value="" visible="true" contain="Step2" intersection="" complement="">
       <CreateFromStep stepName="Step1" />
