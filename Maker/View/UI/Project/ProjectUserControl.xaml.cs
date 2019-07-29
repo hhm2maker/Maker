@@ -306,7 +306,7 @@ namespace Maker.View.UI.Project
             foo();
             async void foo()
             {
-                //await Task.Delay(400);
+                await Task.Delay(100);
 
                 Storyboard_Completed(sender,e);
                 //Rectangle rectangle = new Rectangle();

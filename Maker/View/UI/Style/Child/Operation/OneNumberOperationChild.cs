@@ -14,22 +14,18 @@ namespace Maker.View.UI.Style.Child
         public OneNumberOperationChild(OneNumberOperationModel oneNumberOperationModel)
         {
             this.oneNumberOperationModel = oneNumberOperationModel;
+            Title = oneNumberOperationModel.Identifier;
             //构建对话框
-            AddTopHintTextBlock(oneNumberOperationModel.HintKeyword);
+         
             //AddTextBox();
 
-            Grid grid = new Grid();
-            //grid.HorizontalAlignment = HorizontalAlignment.Stretch;
-            ColumnDefinition columnDefinition = new ColumnDefinition();
-            columnDefinition.Width = new GridLength(1, GridUnitType.Star);
-            grid.ColumnDefinitions.Add(columnDefinition);
-            ColumnDefinition columnDefinition2 = new ColumnDefinition();
-            columnDefinition2.Width = GridLength.Auto;
-            grid.ColumnDefinitions.Add(columnDefinition2);
+            DockPanel grid = new DockPanel();
 
-            tbNumber = new TextBox();
+            tbNumber = GetTexeBox(oneNumberOperationModel.Number.ToString());
+
             if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.COLOR)
             {
+                tbNumber.Width = 200;
                 slider = new Slider();
                // slider.Width = 150;
                 slider.VerticalAlignment = VerticalAlignment.Center;
@@ -44,8 +40,9 @@ namespace Maker.View.UI.Style.Child
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.POSITION)
             {
+                tbNumber.Width = 200;
                 slider = new Slider();
-               // slider.Width = 150;
+                //slider.Width = 150;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 0;
                 slider.Maximum = 99;
@@ -58,24 +55,16 @@ namespace Maker.View.UI.Style.Child
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.OTHER)
             {
-                tbNumber.Width = 200;
+               
             }
-
-            tbNumber.FontSize = 16;
-            tbNumber.Width = 50;
+          
             tbNumber.LostFocus += TbNumber_LostFocus;
-            tbNumber.Background = null;
-            tbNumber.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            tbNumber.Text = oneNumberOperationModel.Number.ToString();
 
-            grid.Margin = new Thickness(0, 10, 0, 0);
-            if (slider != null) {
-                Grid.SetColumn(tbNumber, 0);
-            }
+            //grid.Margin = new Thickness(0, 10, 0, 0);
             grid.Children.Add(tbNumber);
-            Grid.SetColumn(tbNumber, 1);
 
-            AddUIElement(grid);
+            //AddUIElement(grid);
+            AddTitleAndControl(oneNumberOperationModel.HintKeyword, new List<FrameworkElement>() { grid });
             CreateDialog();
         }
 

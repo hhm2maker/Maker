@@ -539,7 +539,6 @@ namespace Maker.Bridge
         }
         public void tbTimePointCountLeft_TextChanged()
         {
-            return;
             try
             {
                 int position = Convert.ToInt32(iuc.tbTimePointCountLeft.Text);

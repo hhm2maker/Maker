@@ -343,23 +343,31 @@ namespace Maker.View.Style.Child
             return tbContent;
         }
 
-        public void AddTitleAndControl(String textTitle, FrameworkElement frameworkElement) {
+        public void AddTitleAndControl(String textTitle, FrameworkElement frameworkElement)
+        {
+            AddTitleAndControl(textTitle,new List<FrameworkElement>() { frameworkElement });
+        }
+
+        public void AddTitleAndControl(String textTitle, List<FrameworkElement> frameworkElements)
+        {
             DockPanel dp = new DockPanel();
             if (_UI.Count != 0)
             {
                 dp.Margin = new Thickness(0, 20, 0, 0);
             }
-            else {
+            else
+            {
                 dp.Margin = new Thickness(0, 10, 0, 0);
             }
 
             dp.Children.Add(GetTitle(textTitle));
-            dp.Children.Add(frameworkElement);
+            foreach (var item in frameworkElements)
+            {
+                dp.Children.Add(item);
+            }
 
             _UI.Add(dp);
         }
-
-   
 
         /// <summary>
         /// 添加组合框

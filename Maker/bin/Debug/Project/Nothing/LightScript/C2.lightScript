@@ -6,6 +6,7 @@
       <ChangeColor colors="73 74 75 76" />
       <VerticalFlipping />
       <ChangeTime operator="multiplication" multiple="2" />
+      <SetStartTime number="0" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step2" parent="" value="" visible="true" contain="Step2" intersection="" complement="">
       <CreateFromStep stepName="Step1" />

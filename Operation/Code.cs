@@ -514,7 +514,7 @@ namespace Operation
                         else
                         {
                             sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
-                        }
+                    }
                     }
                     else if (mItem is ChangeColorOperationModel
                         || mItem is CopyToTheEndOperationModel

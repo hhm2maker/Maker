@@ -268,6 +268,7 @@ namespace Operation
                     }
                     else if (xEdit.Name.ToString().Equals("FillColor") 
                         || xEdit.Name.ToString().Equals("SetAllTime")
+                        || xEdit.Name.ToString().Equals("SetStartTime")
                         || xEdit.Name.ToString().Equals("MatchTotalTimeLattice")
                         || xEdit.Name.ToString().Equals("Animation.Windmill"))
                     {
@@ -283,7 +284,11 @@ namespace Operation
                                 oneNumberOperationModel.Number = iNumber;
                             }
                         }
-                        if (xEdit.Name.ToString().Equals("FillColor")){
+                        if (xEdit.Name.ToString().Equals("SetStartTime")){
+                            oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.OTHER;
+                        }
+                        else if(xEdit.Name.ToString().Equals("FillColor"))
+                        {
                             oneNumberOperationModel.MyNumberType = OneNumberOperationModel.NumberType.COLOR;
                         }
                         else if (xEdit.Name.ToString().Equals("SetAllTime")){

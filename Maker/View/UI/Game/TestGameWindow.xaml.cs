@@ -21,8 +21,7 @@ namespace Maker.View.UI.Game
     /// </summary>
     public partial class TestGameWindow : Window
     {
-     
-        private List<Model.Light> mLightList;
+        //private List<Model.Light> mLightList;
         public TestGameWindow()
         {
             InitializeComponent();
