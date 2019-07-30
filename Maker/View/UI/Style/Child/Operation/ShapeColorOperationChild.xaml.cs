@@ -16,14 +16,21 @@ namespace Maker.View.UI.Style.Child
     /// </summary>
     public partial class ShapeColorOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "ShapeColor";
         private ShapeColorOperationModel shapeColorOperationModel;
         public ShapeColorOperationChild(ShapeColorOperationModel shapeColorOperationModel)
         {
             InitializeComponent();
+                
             this.shapeColorOperationModel = shapeColorOperationModel;
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromArgb(255, 54, 59, 64)));
-            mLaunchpad.Size = 350;
+            osContent.Content = null;
+            AddUIElement(spContent);
+
+            CreateDialog();
+
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(43, 43, 43)));
+            mLaunchpad.Size = 300;
 
             tbNumberOne.Text = shapeColorOperationModel.Colors[0]+"";
             tbNumberTwo.Text = shapeColorOperationModel.Colors[1] + "";

@@ -11,6 +11,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class FoldOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "Fold";
         private FoldOperationModel foldOperationModel;
         public FoldOperationChild(FoldOperationModel foldOperationModel)
         {
@@ -19,14 +20,12 @@ namespace Maker.View.UI.Style.Child
             cbOrientation = GetComboBox(new List<string>() { "Vertical", "Horizontal" }, null);
             AddTitleAndControl("OrientationColon", cbOrientation);
 
-            AddTopHintTextBlock("StartPositionColon");
-            AddTextBox();
-            AddTopHintTextBlock("SpanColon");
-            AddTextBox();
+            tbStartPosition = GetTexeBox(foldOperationModel.StartPosition.ToString());
+            AddTitleAndControl("StartPositionColon", tbStartPosition);
+            tbSpan = GetTexeBox(foldOperationModel.Span.ToString());
+            AddTitleAndControl("SpanColon", tbSpan);
+
             CreateDialog();
-          
-            tbStartPosition = Get(3) as TextBox;
-            tbSpan = Get(5) as TextBox;
 
             if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL) {
                 cbOrientation.SelectedIndex = 0;
@@ -35,8 +34,6 @@ namespace Maker.View.UI.Style.Child
             {
                 cbOrientation.SelectedIndex = 1;
             }
-            tbStartPosition.Text = foldOperationModel.StartPosition.ToString();
-            tbSpan.Text = foldOperationModel.Span.ToString();
 
             cbOrientation.SelectionChanged += CbOperation_SelectionChanged;
         }

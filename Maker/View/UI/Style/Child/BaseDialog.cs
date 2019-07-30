@@ -59,7 +59,6 @@ namespace Maker.View.Style.Child
             }
             else
             {
-
                 StackPanel sp = new StackPanel();
                 sp.Margin = new Thickness(20, 0, 20, 0);
                 Border borderTop = new Border();

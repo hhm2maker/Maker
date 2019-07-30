@@ -11,21 +11,18 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class InterceptTimeOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "InterceptTime";
         private InterceptTimeOperationModel interceptTimeOperationModel;
         public InterceptTimeOperationChild(InterceptTimeOperationModel interceptTimeOperationModel)
         {
             this.interceptTimeOperationModel = interceptTimeOperationModel;
             //构建对话框
-            AddTopHintTextBlock("StartColon");
-            AddTextBox();
-            AddTopHintTextBlock("EndColon");
-            AddTextBox();
+            tbStart = GetTexeBox(interceptTimeOperationModel.Start.ToString());
+            AddTitleAndControl("StartColon", tbStart);
+            tbEnd = GetTexeBox(interceptTimeOperationModel.End.ToString());
+            AddTitleAndControl("EndColon", tbEnd);
+          
             CreateDialog();
-            tbStart = Get(1) as TextBox;
-            tbEnd = Get(3) as TextBox;
-
-            tbStart.Text = interceptTimeOperationModel.Start.ToString();
-            tbEnd.Text = interceptTimeOperationModel.End.ToString();
         }
 
         public TextBox tbStart,tbEnd;

@@ -11,6 +11,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class SetEndTimeOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "EndTime";
         private SetEndTimeOperationModel setEndTimeOperationModel;
         public SetEndTimeOperationChild(SetEndTimeOperationModel setEndTimeOperationModel)
         {
@@ -18,11 +19,10 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             cbType = GetComboBox(new List<string>() { "All", "End", "AllAndEnd" }, null);
             AddTitleAndControl("TypeColon", cbType);
+            tbValue = GetTexeBox(setEndTimeOperationModel.Value.ToString());
+            AddTitleAndControl("ValueColon", tbValue);
 
-            AddTopHintTextBlock("ValueColon");
-            AddTextBox();
             CreateDialog();
-            tbValue = Get(3) as TextBox;
 
             if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)
             {
