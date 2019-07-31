@@ -523,5 +523,10 @@
     <sys:String x:Key="Email">Email</sys:String>
     <sys:String x:Key="FastGeneration">Quick Generation</sys:String>
     <sys:String x:Key="CreateFromTheStep">Create from the step</sys:String>
-    
+    <sys:String x:Key="Middle">Middle</sys:String>
+    <sys:String x:Key="Outside">Outside</sys:String>
+    <sys:String x:Key="Top">Top</sys:String>
+    <sys:String x:Key="Bottom">Bottom</sys:String>
+    <sys:String x:Key="Left">Left</sys:String>
+    <sys:String x:Key="Right">Right</sys:String>
 </ResourceDictionary>

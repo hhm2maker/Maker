@@ -241,12 +241,13 @@ namespace Maker.View.LightScriptUserControl
             {
                 (item as ListBoxItem).MouseLeftButtonUp += InputUserControl_MouseLeftButtonUp;
             }
+         
             //ToolTip toolTip = new System.Windows.Controls.ToolTip();
             //toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
             //toolTip.SetValue(StyleProperty, null);
             //iNewStep.ToolTip = toolTip;
 
-        
+
 
             InitFormat();
         }

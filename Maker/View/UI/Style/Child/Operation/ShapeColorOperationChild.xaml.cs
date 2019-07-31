@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace Maker.View.UI.Style.Child
@@ -24,6 +25,10 @@ namespace Maker.View.UI.Style.Child
                 
             this.shapeColorOperationModel = shapeColorOperationModel;
 
+            ComboBox cb = GetComboBox(new List<string>() { "Square", "Vertical", "Horizontal" }, null);
+            cb.IsEnabled = false;
+            AddTitleAndControl("TypeColon",cb);
+
             osContent.Content = null;
             AddUIElement(spContent);
 
@@ -38,11 +43,13 @@ namespace Maker.View.UI.Style.Child
             tbNumberFour.Text = shapeColorOperationModel.Colors[3] + "";
             tbNumberFive.Text = shapeColorOperationModel.Colors[4] + "";
 
+            tbHelpOne.Text = shapeColorOperationModel.TopString;
+            tbHelpTwo.Text = shapeColorOperationModel.BottomString;
+
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE)
             {
-                tbTitle.Text = "方形";
-                tbHelpOne.Text = "中间";
-                tbHelpTwo.Text = "外面";
+                cb.SelectedIndex = 0;
+          
                 tbNumberSix.Visibility = Visibility.Collapsed;
                 tbNumberSeven.Visibility = Visibility.Collapsed;
                 tbNumberEight.Visibility = Visibility.Collapsed;
@@ -51,7 +58,8 @@ namespace Maker.View.UI.Style.Child
             }
             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
             {
-                tbTitle.Text = "垂直径向";
+                cb.SelectedIndex = 1;
+
                 tbHelpOne.Text = "上";
                 tbHelpTwo.Text = "下";
                 tbNumberSix.Text = shapeColorOperationModel.Colors[5] + "";
@@ -62,7 +70,7 @@ namespace Maker.View.UI.Style.Child
             }
             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
             {
-                tbTitle.Text = "水平径向";
+                cb.SelectedIndex = 2;
                 tbHelpOne.Text = "左";
                 tbHelpTwo.Text = "右";
                 tbNumberSix.Text = shapeColorOperationModel.Colors[5] + "";

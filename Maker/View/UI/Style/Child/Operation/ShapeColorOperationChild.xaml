@@ -10,31 +10,27 @@
         mc:Ignorable="d"
     x:Name="osContent"
        >
-    <Grid Name="spContent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <device:LaunchpadPro Grid.Column="0" x:Name="mLaunchpad"/>
-        <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBlock Name="tbTitle" Foreground="White" FontSize="20"  Background="{x:Null}" HorizontalAlignment="Center" />
-            <TextBlock Name="tbHelpOne" Foreground="White" FontSize="20"  Background="{x:Null}" HorizontalAlignment="Center" >中间</TextBlock>
-            <TextBox Name="tbNumberOne" Foreground="White" FontSize="20"  Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberTwo" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberThree" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}">0</TextBox>
-            <TextBox Name="tbNumberFour" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberFive" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberSix" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberSeven" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberEight" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberNine" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBox Name="tbNumberTen" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
-            <TextBlock Name="tbHelpTwo" Foreground="White" FontSize="20"   Background="{x:Null}" HorizontalAlignment="Center" >外面</TextBlock>
-            <StackPanel VerticalAlignment="Center">
-                <Button  Click="Preview" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0"  Content="{DynamicResource Preview}"></Button>
-                <Button  Click="PasteRangeListContent" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource PasteValue}" ></Button>
+    <StackPanel Name="spContent" Orientation="Vertical">
+        <DockPanel >
+            <device:LaunchpadPro x:Name="mLaunchpad"/>
+            <StackPanel VerticalAlignment="Center" Name="dpContent">
+                <TextBlock Name="tbHelpOne" Foreground="White" FontSize="20"  Background="{x:Null}" HorizontalAlignment="Center" >中间</TextBlock>
+                <TextBox Name="tbNumberOne" Foreground="White" FontSize="20"  Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberTwo" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberThree" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}">0</TextBox>
+                <TextBox Name="tbNumberFour" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberFive" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberSix" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberSeven" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberEight" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberNine" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBox Name="tbNumberTen" Foreground="White" FontSize="20" Width="100" TextAlignment="Right" Background="{x:Null}" >0</TextBox>
+                <TextBlock Name="tbHelpTwo" Foreground="White" FontSize="20"   Background="{x:Null}" HorizontalAlignment="Center" >外面</TextBlock>
             </StackPanel>
+        </DockPanel>
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button  Click="Preview" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0"  Content="{DynamicResource Preview}"></Button>
+            <Button  Click="PasteRangeListContent" Foreground="White" FontSize="14" Width="80" Background="{x:Null}" BorderBrush="White" Margin="0,10,20,0" Content="{DynamicResource PasteValue}" ></Button>
         </StackPanel>
-    </Grid>
-
+    </StackPanel>
 </child:OperationStyle>

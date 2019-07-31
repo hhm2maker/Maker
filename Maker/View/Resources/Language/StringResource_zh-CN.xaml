@@ -526,4 +526,10 @@
     <sys:String x:Key="Email">邮箱</sys:String>
     <sys:String x:Key="FastGeneration">快速生成</sys:String>
     <sys:String x:Key="CreateFromTheStep">从步骤中创建</sys:String>
+    <sys:String x:Key="Middle">中间</sys:String>
+    <sys:String x:Key="Outside">外面</sys:String>
+    <sys:String x:Key="Top">上</sys:String>
+    <sys:String x:Key="Bottom">下</sys:String>
+    <sys:String x:Key="Left">左</sys:String>
+    <sys:String x:Key="Right">右</sys:String>
 </ResourceDictionary>
