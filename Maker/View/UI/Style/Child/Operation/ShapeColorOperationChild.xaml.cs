@@ -19,6 +19,8 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "ShapeColor";
         private ShapeColorOperationModel shapeColorOperationModel;
+
+        private List<TextBox> textBoxs = new List<TextBox>();
         public ShapeColorOperationChild(ShapeColorOperationModel shapeColorOperationModel)
         {
             InitializeComponent();
@@ -37,48 +39,45 @@ namespace Maker.View.UI.Style.Child
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(43, 43, 43)));
             mLaunchpad.Size = 300;
 
-            tbNumberOne.Text = shapeColorOperationModel.Colors[0]+"";
-            tbNumberTwo.Text = shapeColorOperationModel.Colors[1] + "";
-            tbNumberThree.Text = shapeColorOperationModel.Colors[2] + "";
-            tbNumberFour.Text = shapeColorOperationModel.Colors[3] + "";
-            tbNumberFive.Text = shapeColorOperationModel.Colors[4] + "";
-
-            tbHelpOne.Text = shapeColorOperationModel.TopString;
-            tbHelpTwo.Text = shapeColorOperationModel.BottomString;
+            textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[0] + ""));
+            textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[1] + ""));
+            textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[2] + ""));
+            textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[3] + ""));
+            textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[4] + ""));
 
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE)
             {
                 cb.SelectedIndex = 0;
-          
-                tbNumberSix.Visibility = Visibility.Collapsed;
-                tbNumberSeven.Visibility = Visibility.Collapsed;
-                tbNumberEight.Visibility = Visibility.Collapsed;
-                tbNumberNine.Visibility = Visibility.Collapsed;
-                tbNumberTen.Visibility = Visibility.Collapsed;
             }
             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
             {
                 cb.SelectedIndex = 1;
 
-                tbHelpOne.Text = "上";
-                tbHelpTwo.Text = "下";
-                tbNumberSix.Text = shapeColorOperationModel.Colors[5] + "";
-                tbNumberSeven.Text = shapeColorOperationModel.Colors[6] + "";
-                tbNumberEight.Text = shapeColorOperationModel.Colors[7] + "";
-                tbNumberNine.Text = shapeColorOperationModel.Colors[8] + "";
-                tbNumberTen.Text = shapeColorOperationModel.Colors[9] + "";
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[5] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[6] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[7] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[8] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[9] + ""));
             }
             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
             {
                 cb.SelectedIndex = 2;
-                tbHelpOne.Text = "左";
-                tbHelpTwo.Text = "右";
-                tbNumberSix.Text = shapeColorOperationModel.Colors[5] + "";
-                tbNumberSeven.Text = shapeColorOperationModel.Colors[6] + "";
-                tbNumberEight.Text = shapeColorOperationModel.Colors[7] + "";
-                tbNumberNine.Text = shapeColorOperationModel.Colors[8] + "";
-                tbNumberTen.Text = shapeColorOperationModel.Colors[9] + "";
+
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[5] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[6] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[7] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[8] + ""));
+                textBoxs.Add(GetTexeBox(shapeColorOperationModel.Colors[9] + ""));
             }
+            GetTexeBlock(shapeColorOperationModel.TopString);
+
+            dpContent.Children.Add(GetTexeBlock(shapeColorOperationModel.TopString));
+            
+            foreach(var item in textBoxs) {
+                dpContent.Children.Add(item);
+            }
+
+            dpContent.Children.Add(GetTexeBlock(shapeColorOperationModel.BottomString));
         }
    
         /// <summary>
@@ -100,56 +99,32 @@ namespace Maker.View.UI.Style.Child
         
         public override bool ToSave()
         {
-            if (!int.TryParse(tbNumberOne.Text, out int numberOne))
+            if (!int.TryParse(textBoxs[0].Text, out int numberOne))
             {
-                tbNumberOne.Select(0, tbNumberOne.Text.Length);
+                textBoxs[0].Select(0, textBoxs[0].Text.Length);
                 return false;
             }
-            if (!int.TryParse(tbNumberTwo.Text, out int numberTwo))
+            if (!int.TryParse(textBoxs[1].Text, out int numberTwo))
             {
-                tbNumberTwo.Select(0, tbNumberTwo.Text.Length);
+                textBoxs[1].Select(0, textBoxs[1].Text.Length);
                 return false;
             }
-            if (!int.TryParse(tbNumberThree.Text, out int numberThree))
+            if (!int.TryParse(textBoxs[2].Text, out int numberThree))
             {
-                tbNumberThree.Select(0, tbNumberThree.Text.Length);
+                textBoxs[2].Select(0, textBoxs[2].Text.Length);
                 return false;
             }
-            if (!int.TryParse(tbNumberFour.Text, out int numberFour))
+            if (!int.TryParse(textBoxs[3].Text, out int numberFour))
             {
-                tbNumberFour.Select(0, tbNumberFour.Text.Length);
+                textBoxs[3].Select(0, textBoxs[3].Text.Length);
                 return false;
             }
-            if (!int.TryParse(tbNumberFive.Text, out int numberFive))
+            if (!int.TryParse(textBoxs[4].Text, out int numberFive))
             {
-                tbNumberFour.Select(0, tbNumberFour.Text.Length);
+                textBoxs[4].Select(0, textBoxs[4].Text.Length);
                 return false;
             }
-            if (!int.TryParse(tbNumberSix.Text, out int numberSix))
-            {
-                tbNumberSix.Select(0, tbNumberSix.Text.Length);
-                return false;
-            }
-            if (!int.TryParse(tbNumberSeven.Text, out int numberSeven))
-            {
-                tbNumberSeven.Select(0, tbNumberSeven.Text.Length);
-                return false;
-            }
-            if (!int.TryParse(tbNumberEight.Text, out int numberEight))
-            {
-                tbNumberEight.Select(0, tbNumberEight.Text.Length);
-                return false;
-            }
-            if (!int.TryParse(tbNumberNine.Text, out int numberNine))
-            {
-                tbNumberNine.Select(0, tbNumberNine.Text.Length);
-                return false;
-            }
-            if (!int.TryParse(tbNumberTen.Text, out int numberTen))
-            {
-                tbNumberTen.Select(0, tbNumberTen.Text.Length);
-                return false;
-            }
+          
             shapeColorOperationModel.Colors.Clear();
             shapeColorOperationModel.Colors.Add(numberOne);
             shapeColorOperationModel.Colors.Add(numberTwo);
@@ -158,6 +133,33 @@ namespace Maker.View.UI.Style.Child
             shapeColorOperationModel.Colors.Add(numberFive);
           
             if (shapeColorOperationModel.MyShapeType != ShapeColorOperationModel.ShapeType.SQUARE) {
+
+                if (!int.TryParse(textBoxs[5].Text, out int numberSix))
+                {
+                    textBoxs[5].Select(0, textBoxs[5].Text.Length);
+                    return false;
+                }
+                if (!int.TryParse(textBoxs[6].Text, out int numberSeven))
+                {
+                    textBoxs[6].Select(0, textBoxs[6].Text.Length);
+                    return false;
+                }
+                if (!int.TryParse(textBoxs[7].Text, out int numberEight))
+                {
+                    textBoxs[7].Select(0, textBoxs[7].Text.Length);
+                    return false;
+                }
+                if (!int.TryParse(textBoxs[8].Text, out int numberNine))
+                {
+                    textBoxs[8].Select(0, textBoxs[8].Text.Length);
+                    return false;
+                }
+                if (!int.TryParse(textBoxs[9].Text, out int numberTen))
+                {
+                    textBoxs[9].Select(0, textBoxs[9].Text.Length);
+                    return false;
+                }
+
                 shapeColorOperationModel.Colors.Add(numberSix);
                 shapeColorOperationModel.Colors.Add(numberSeven);
                 shapeColorOperationModel.Colors.Add(numberEight);
@@ -169,55 +171,30 @@ namespace Maker.View.UI.Style.Child
      
         private void Preview(object sender, RoutedEventArgs e)
         {
-            if (!int.TryParse(tbNumberOne.Text, out int numberOne))
+            if (!int.TryParse(textBoxs[0].Text, out int numberOne))
             {
-                tbNumberOne.Select(0, tbNumberOne.Text.Length);
-                return;
+                textBoxs[0].Select(0, textBoxs[0].Text.Length);
+                return ;
             }
-            if (!int.TryParse(tbNumberTwo.Text, out int numberTwo))
+            if (!int.TryParse(textBoxs[1].Text, out int numberTwo))
             {
-                tbNumberTwo.Select(0, tbNumberTwo.Text.Length);
-                return;
+                textBoxs[1].Select(0, textBoxs[1].Text.Length);
+                return ;
             }
-            if (!int.TryParse(tbNumberThree.Text, out int numberThree))
+            if (!int.TryParse(textBoxs[2].Text, out int numberThree))
             {
-                tbNumberThree.Select(0, tbNumberThree.Text.Length);
-                return;
+                textBoxs[2].Select(0, textBoxs[2].Text.Length);
+                return ;
             }
-            if (!int.TryParse(tbNumberFour.Text, out int numberFour))
+            if (!int.TryParse(textBoxs[3].Text, out int numberFour))
             {
-                tbNumberFour.Select(0, tbNumberFour.Text.Length);
-                return;
+                textBoxs[3].Select(0, textBoxs[3].Text.Length);
+                return ;
             }
-            if (!int.TryParse(tbNumberFive.Text, out int numberFive))
+            if (!int.TryParse(textBoxs[4].Text, out int numberFive))
             {
-                tbNumberFour.Select(0, tbNumberFour.Text.Length);
-                return;
-            }
-            if (!int.TryParse(tbNumberSix.Text, out int numberSix))
-            {
-                tbNumberSix.Select(0, tbNumberSix.Text.Length);
-                return;
-            }
-            if (!int.TryParse(tbNumberSeven.Text, out int numberSeven))
-            {
-                tbNumberSeven.Select(0, tbNumberSeven.Text.Length);
-                return;
-            }
-            if (!int.TryParse(tbNumberEight.Text, out int numberEight))
-            {
-                tbNumberEight.Select(0, tbNumberEight.Text.Length);
-                return;
-            }
-            if (!int.TryParse(tbNumberNine.Text, out int numberNine))
-            {
-                tbNumberNine.Select(0, tbNumberNine.Text.Length);
-                return;
-            }
-            if (!int.TryParse(tbNumberTen.Text, out int numberTen))
-            {
-                tbNumberTen.Select(0, tbNumberTen.Text.Length);
-                return;
+                textBoxs[4].Select(0, textBoxs[4].Text.Length);
+                return ;
             }
             //方形
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE ) {
@@ -272,6 +249,32 @@ namespace Maker.View.UI.Style.Child
             //垂直径向
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
             {
+                if (!int.TryParse(textBoxs[5].Text, out int numberSix))
+                {
+                    textBoxs[5].Select(0, textBoxs[5].Text.Length);
+                    return ;
+                }
+                if (!int.TryParse(textBoxs[6].Text, out int numberSeven))
+                {
+                    textBoxs[6].Select(0, textBoxs[6].Text.Length);
+                    return ;
+                }
+                if (!int.TryParse(textBoxs[7].Text, out int numberEight))
+                {
+                    textBoxs[7].Select(0, textBoxs[7].Text.Length);
+                    return ;
+                }
+                if (!int.TryParse(textBoxs[8].Text, out int numberNine))
+                {
+                    textBoxs[8].Select(0, textBoxs[8].Text.Length);
+                    return ;
+                }
+                if (!int.TryParse(textBoxs[9].Text, out int numberTen))
+                {
+                    textBoxs[9].Select(0, textBoxs[9].Text.Length);
+                    return ;
+                }
+
                 List<List<int>> lli = new List<List<int>>();
                 lli.Add(new List<int>() { 28, 29, 30, 31, 32, 33, 34, 35 });
                 lli.Add(new List<int>() { 108, 64, 65, 66, 67, 96, 97, 98, 99, 100 });
@@ -357,6 +360,32 @@ namespace Maker.View.UI.Style.Child
             //水平径向
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL)
             {
+                if (!int.TryParse(textBoxs[5].Text, out int numberSix))
+                {
+                    textBoxs[5].Select(0, textBoxs[5].Text.Length);
+                    return;
+                }
+                if (!int.TryParse(textBoxs[6].Text, out int numberSeven))
+                {
+                    textBoxs[6].Select(0, textBoxs[6].Text.Length);
+                    return;
+                }
+                if (!int.TryParse(textBoxs[7].Text, out int numberEight))
+                {
+                    textBoxs[7].Select(0, textBoxs[7].Text.Length);
+                    return;
+                }
+                if (!int.TryParse(textBoxs[8].Text, out int numberNine))
+                {
+                    textBoxs[8].Select(0, textBoxs[8].Text.Length);
+                    return;
+                }
+                if (!int.TryParse(textBoxs[9].Text, out int numberTen))
+                {
+                    textBoxs[9].Select(0, textBoxs[9].Text.Length);
+                    return;
+                }
+
                 List<List<int>> lli = new List<List<int>>();
                 lli.Add(new List<int>() { 108, 109, 110, 111, 112, 113, 114, 115 });
                 lli.Add(new List<int>() { 28, 64, 60, 56, 52, 48, 44, 40, 36, 116 });
@@ -453,43 +482,43 @@ namespace Maker.View.UI.Style.Child
                     String str = (String)iData.GetData(DataFormats.Text);
                     String[] strs = str.Split(' ');
                     if (strs.Length > 0) {
-                        tbNumberOne.Text = strs[0];
+                        textBoxs[0].Text = strs[0];
                     }
                     if (strs.Length > 1)
                     {
-                        tbNumberTwo.Text = strs[1];
+                        textBoxs[1].Text = strs[1];
                     }
                     if (strs.Length > 2)
                     {
-                        tbNumberThree.Text = strs[2];
+                        textBoxs[2].Text = strs[2];
                     }
                     if (strs.Length > 3)
                     {
-                        tbNumberFour.Text = strs[3];
+                        textBoxs[3].Text = strs[3];
                     }
                     if (strs.Length > 4)
                     {
-                        tbNumberFive.Text = strs[4];
+                        textBoxs[4].Text = strs[4];
                     }
                     if (strs.Length > 5)
                     {
-                        tbNumberSix.Text = strs[5];
+                        textBoxs[5].Text = strs[5];
                     }
                     if (strs.Length > 6)
                     {
-                        tbNumberSeven.Text = strs[6];
+                        textBoxs[6].Text = strs[6];
                     }
                     if (strs.Length > 7)
                     {
-                        tbNumberEight.Text = strs[7];
+                        textBoxs[7].Text = strs[7];
                     }
                     if (strs.Length > 8)
                     {
-                        tbNumberNine.Text = strs[8];
+                        textBoxs[8].Text = strs[8];
                     }
                     if (strs.Length > 9)
                     {
-                        tbNumberTen.Text = strs[9];
+                        textBoxs[8].Text = strs[9];
                     }
                 }
             }

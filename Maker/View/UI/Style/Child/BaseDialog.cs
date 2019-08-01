@@ -234,6 +234,9 @@ namespace Maker.View.Style.Child
         /// </summary>
         private void AddUIToDialog() {
             foreach (FrameworkElement ui in _UI) {
+                if (_UI.IndexOf(ui) != 0) {
+                    ui.Margin = new Thickness(0, 20, 0, 0);
+                }
                 spContacts.Children.Add(ui);
             }
         }
@@ -246,9 +249,7 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255,240,240,240));
-            if (_UI.Count != 0) {
-                tb.Margin = new Thickness(0, 20, 0, 0);
-            }
+         
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             _UI.Add(tb);
         }
@@ -293,10 +294,7 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            if (_UI.Count != 0)
-            {
-                tb.Margin = new Thickness(0, 20, 0, 0);
-            }
+       
             tb.Text = textName;
             _UI.Add(tb);
         }
@@ -350,14 +348,6 @@ namespace Maker.View.Style.Child
         public void AddTitleAndControl(String textTitle, List<FrameworkElement> frameworkElements)
         {
             DockPanel dp = new DockPanel();
-            if (_UI.Count != 0)
-            {
-                dp.Margin = new Thickness(0, 20, 0, 0);
-            }
-            else
-            {
-                dp.Margin = new Thickness(0, 10, 0, 0);
-            }
 
             dp.Children.Add(GetTitle(textTitle));
             foreach (var item in frameworkElements)
@@ -411,10 +401,7 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 14;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 90, 90));
-            if (_UI.Count != 0)
-            {
-                tb.Margin = new Thickness(0, 20, 0, 0);
-            }
+          
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             tb.TextWrapping = TextWrapping.Wrap;
             _UI.Add(tb);
