@@ -305,6 +305,7 @@
     </Compile>
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\SetAttributeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\CreateFromStepOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
@@ -432,9 +433,6 @@
     </Compile>
     <Compile Include="View\UI\Dialog\Script\Main_NewColorGroupDialog.xaml.cs">
       <DependentUpon>Main_NewColorGroupDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.xaml.cs">
-      <DependentUpon>ShapeColorOperationChild.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\ShowLightListDialog.xaml.cs">
       <DependentUpon>ShowLightListDialog.xaml</DependentUpon>
@@ -980,10 +978,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\Script\Main_NewColorGroupDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -252,6 +253,71 @@ namespace Maker.View.Style.Child
          
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             _UI.Add(tb);
+        }
+
+        public Button GetButton(String textName, MouseButtonEventHandler mouseButtonEventHandler)
+        {
+            Button btn = new Button();
+            btn.BorderThickness = new Thickness(2);
+            btn.HorizontalAlignment = HorizontalAlignment.Stretch;
+            btn.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+            btn.BorderBrush = new SolidColorBrush(Color.FromRgb(43, 43, 43)); 
+            btn.Margin = new Thickness(5, 0, 0, 0);
+            btn.Padding = new Thickness(5, 2, 5, 2);
+            btn.FontSize = 16;
+            btn.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            btn.SetResourceReference(ContentProperty, textName);
+            if (mouseButtonEventHandler != null) {
+                btn.PreviewMouseLeftButtonDown += mouseButtonEventHandler;
+            }
+
+            return btn;
+        }
+
+        public StackPanel GetVerticalStackPanel(List<FrameworkElement> frameworkElements)
+        {
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Vertical;
+            foreach (var item in frameworkElements) {
+                sp.Children.Add(item);
+            }
+            return sp;
+        }
+
+        public StackPanel GetHorizontalStackPanel(List<FrameworkElement> frameworkElements)
+        {
+            StackPanel sp = new StackPanel();
+            sp.HorizontalAlignment = HorizontalAlignment.Center;
+            sp.Orientation = Orientation.Horizontal;
+            foreach (var item in frameworkElements)
+            {
+                sp.Children.Add(item);
+            }
+            return sp;
+        }
+
+        public DockPanel GetDockPanel(params FrameworkElement[] frameworkElements)
+        {
+            DockPanel dp = new DockPanel();
+            foreach (var item in frameworkElements)
+            {
+                if (dp.Children.Count != 0)
+                {
+                    item.Margin = new Thickness(20,0,0,0);
+                }
+                dp.Children.Add(item);
+            }
+            return dp;
+        }
+
+        public DockPanel GetDockPanel(List<FrameworkElement> frameworkElements)
+        {
+            DockPanel dp = new DockPanel();
+            foreach (var item in frameworkElements)
+            {
+                dp.Children.Add(item);
+            }
+            return dp;
         }
 
         /// <summary>

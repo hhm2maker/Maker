@@ -18,7 +18,7 @@
                         </ControlTemplate>
                     </ListBox.Template>
                 </ListBox>
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
                 <StackPanel  Name="svMain" />
             </ScrollViewer>
         </Grid>
