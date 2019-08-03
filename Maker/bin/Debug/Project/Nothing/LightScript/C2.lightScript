@@ -12,7 +12,11 @@
       <MatchTotalTimeLattice number="12" hintKeyword="TotalTimeLatticeColon" />
       <InterceptTime start="0" end="12" />
       <Fold orientation="vertical" startPosition="0" span="0" />
-      <ShapeColor shapeType="square" colors="5 5 5 5 5 5" />
+      <ShapeColor shapeType="radialVertical" colors="5 5 5 5 5 5 5 5 5 5" />
+      <FillColor number="5" hintKeyword="FillColorColon" />
+      <CopyToTheEnd colors="5" />
+      <CopyToTheFollow colors="5" />
+      <AccelerationOrDeceleration colors="100" />
     </Script>
     <Script name="Step2" parent="" value="" visible="true" contain="Step2" intersection="" complement="">
       <CreateFromStep stepName="Step1" />

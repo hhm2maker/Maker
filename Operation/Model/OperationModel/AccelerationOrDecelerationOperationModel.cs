@@ -10,12 +10,12 @@ namespace Maker.Business.Model.OperationModel
     {
         public AccelerationOrDecelerationOperationModel():base()
         {
-            HintString = "PleaseEnterTheDurationColon";
+            HintString = "AccelerationOrDeceleration";
         }
 
         public AccelerationOrDecelerationOperationModel(List<int> colors) : base(colors)
         {
-            HintString = "PleaseEnterTheDurationColon";
+            HintString = "AccelerationOrDeceleration";
         }
     }
 }

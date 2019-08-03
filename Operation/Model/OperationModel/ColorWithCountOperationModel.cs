@@ -10,12 +10,12 @@ namespace Maker.Business.Model.OperationModel
     {
         public ColorWithCountOperationModel():base()
         {
-            HintString = "WithCountColon";
+            HintString = "ColorWithCount";
         }
 
         public ColorWithCountOperationModel(List<int> colors) : base(colors)
         {
-            HintString = "WithCountColon";
+            HintString = "ColorWithCount";
         }
     }
 }

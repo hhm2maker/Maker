@@ -10,12 +10,12 @@ namespace Maker.Business.Model.OperationModel
     {
         public CopyToTheEndOperationModel():base()
         {
-            HintString = "PleaseEnterANewColorGroupColon";
+            HintString = "ColorSuperposition";
         }
 
         public CopyToTheEndOperationModel(List<int> colors) : base(colors)
         {
-            HintString = "PleaseEnterANewColorGroupColon";
+            HintString = "ColorSuperposition";
         }
     }
 }

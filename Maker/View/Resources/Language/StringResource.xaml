@@ -289,7 +289,7 @@
     <sys:String x:Key="DiscardedDocuments">Discarded documents</sys:String>
     <sys:String x:Key="Disappear">Disappear</sys:String>
     <sys:String x:Key="Serpentine">Serpentine</sys:String>
-    <sys:String x:Key="CustomFormattedColorColon">Custom formatted color:</sys:String>
+    <sys:String x:Key="CustomFormattedColor">Custom formatted color</sys:String>
     <sys:String x:Key="Reset">Reset</sys:String>
     <sys:String x:Key="Reverse">Reverse</sys:String>
     <sys:String x:Key="Fold">Fold</sys:String>

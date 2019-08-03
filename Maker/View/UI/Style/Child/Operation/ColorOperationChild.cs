@@ -18,20 +18,15 @@ namespace Maker.View.UI.Style.Child
     {
         private ColorOperationModel changeColorOperationModel;
 
-        public override string Title { get; set; } = "ChangeColor";
         private ListBox lb;
         public ColorOperationChild(ColorOperationModel changeColorOperationModel)
         {
             this.changeColorOperationModel = changeColorOperationModel;
+
+            Title = changeColorOperationModel.HintString;
             //构建对话框
             DockPanel dp = new DockPanel();
-            dp.Margin = new Thickness(0, 10, 0, 10);
-            TextBlock tb = new TextBlock();
-            tb.FontSize = 16;
-            tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            tb.VerticalAlignment = VerticalAlignment.Center;
-            tb.SetResourceReference(TextBlock.TextProperty, changeColorOperationModel.HintString);
-            dp.Children.Add(tb);
+            dp.Margin = new Thickness(0, 10, 0, 0);
          
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Horizontal;
@@ -75,6 +70,8 @@ namespace Maker.View.UI.Style.Child
             AddUIElement(lb);
 
             CreateDialog();
+            AddTitleImage(new List<Image>() {  }, null);
+
         }
 
         private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

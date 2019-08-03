@@ -10,12 +10,12 @@ namespace Maker.Business.Model.OperationModel
     {
         public CopyToTheFollowOperationModel():base()
         {
-            HintString = "PleaseEnterANewColorGroupColon";
+            HintString = "ColorSuperpositionFollow";
         }
 
         public CopyToTheFollowOperationModel(List<int> colors) : base(colors)
         {
-            HintString = "PleaseEnterANewColorGroupColon";
+            HintString = "ColorSuperpositionFollow";
         }
     }
 }

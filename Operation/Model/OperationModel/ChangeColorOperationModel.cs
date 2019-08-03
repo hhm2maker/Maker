@@ -11,12 +11,12 @@ namespace Maker.Business.Model.OperationModel
     {
         public ChangeColorOperationModel():base()
         {
-            HintString = "CustomFormattedColorColon";
+            HintString = "CustomFormattedColor";
         }
 
         public ChangeColorOperationModel(List<int> colors) : base(colors)
         {
-            HintString = "CustomFormattedColorColon";
+            HintString = "CustomFormattedColor";
         }
     }
 }

@@ -581,7 +581,7 @@ namespace Maker.View.Device
         /// <param name="color"></param>
         public void SetButtonBackground(int position, Brush color)
         {
-            if (position < 0 || position > Children.Count)
+            if (position < 0 || position >= Children.Count)
                 return;
             Shape shape = Children[position] as Shape;
             if (IsMembrane)

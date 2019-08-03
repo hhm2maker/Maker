@@ -31,7 +31,21 @@ namespace Maker.View.Style.Child
             SetRoutine();
             AddUIToDialog();
         }
+
         private StackPanel spContacts;
+
+        private StackPanel GetTitle()
+        {
+            return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
+            //if (OnlyTitle)
+            //{
+            //    return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
+            //}
+            //else {
+            //    return 
+            //}
+        }
+
         private void AddParentPanel()
         {
             DockPanel dp;
@@ -130,8 +144,16 @@ namespace Maker.View.Style.Child
             dp.Children.Add(spRight);
         }
 
+        protected void AddTitleImage(List<Image> images,List<MouseButtonEventHandler> es)
+        {
+            StackPanel sp = GetTitle();
+            for (int i = images.Count -1 ; i >=0; i--) {
+                sp.Children.Insert(0, images[i]);
+                images[i].MouseLeftButtonDown += es[i];
+            }
+        }
      
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
             if (position == 0)
@@ -255,7 +277,7 @@ namespace Maker.View.Style.Child
             _UI.Add(tb);
         }
 
-        public Button GetButton(String textName, MouseButtonEventHandler mouseButtonEventHandler)
+        public Button GetButton(String textName, RoutedEventHandler routedEventHandler)
         {
             Button btn = new Button();
             btn.BorderThickness = new Thickness(2);
@@ -267,8 +289,9 @@ namespace Maker.View.Style.Child
             btn.FontSize = 16;
             btn.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             btn.SetResourceReference(ContentProperty, textName);
-            if (mouseButtonEventHandler != null) {
-                btn.PreviewMouseLeftButtonDown += mouseButtonEventHandler;
+            if (routedEventHandler != null)
+            {
+                btn.Click += routedEventHandler;
             }
 
             return btn;

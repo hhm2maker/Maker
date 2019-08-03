@@ -293,7 +293,7 @@
     <sys:String x:Key="DiscardedDocuments">废弃文档</sys:String>
     <sys:String x:Key="Disappear">消失</sys:String>
     <sys:String x:Key="Serpentine">蛇形</sys:String>
-    <sys:String x:Key="CustomFormattedColorColon">自定义格式化颜色：</sys:String>
+    <sys:String x:Key="CustomFormattedColor">自定义格式化颜色</sys:String>
     <sys:String x:Key="Reset">复位</sys:String>
     <sys:String x:Key="Reverse">反向</sys:String>
     <sys:String x:Key="Fold">对折</sys:String>

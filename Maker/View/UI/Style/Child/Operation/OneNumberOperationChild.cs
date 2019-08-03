@@ -25,9 +25,9 @@ namespace Maker.View.UI.Style.Child
 
             if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.COLOR)
             {
-                tbNumber.Width = 200;
+                //tbNumber.Width = 200;
                 slider = new Slider();
-               // slider.Width = 150;
+                slider.Width = 200;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 1;
                 slider.Maximum = 127;
@@ -40,9 +40,9 @@ namespace Maker.View.UI.Style.Child
             }
             else if (oneNumberOperationModel.MyNumberType == OneNumberOperationModel.NumberType.POSITION)
             {
-                tbNumber.Width = 200;
+                //tbNumber.Width = 200;
                 slider = new Slider();
-                //slider.Width = 150;
+                slider.Width = 200;
                 slider.VerticalAlignment = VerticalAlignment.Center;
                 slider.Minimum = 0;
                 slider.Maximum = 99;
