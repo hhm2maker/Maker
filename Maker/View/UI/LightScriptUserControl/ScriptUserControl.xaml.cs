@@ -30,7 +30,6 @@ using static Maker.Business.Model.ThirdPartySetupsModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -4055,10 +4054,33 @@ namespace Maker.View.LightScriptUserControl
                         SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
                         for (int i = 0; i < setAttributeOperationModel.AttributeOperationModels.Count; i++) {
                             XElement xItem = new XElement("AttributeOperationModel");
-                            xItem.SetAttributeValue("attributeType", setAttributeOperationModel.AttributeOperationModels[i].attributeType);
+                            xItem.SetAttributeValue("attributeType",setAttributeOperationModel.AttributeOperationModels[i].attributeType);
                             xItem.SetAttributeValue("value", setAttributeOperationModel.AttributeOperationModels[i].Value);
                             xVerticalFlipping.Add(xItem);
                         }
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is CreateFromAutomaticOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("CreateFromAutomatic");
+                        CreateFromAutomaticOperationModel createFromAutomaticOperationModel = mItem as CreateFromAutomaticOperationModel;
+                        xVerticalFlipping.SetAttributeValue("automaticType", (int)createFromAutomaticOperationModel.MyAutomaticType);
+                        if (createFromAutomaticOperationModel.MyAutomaticType == CreateFromAutomaticOperationModel.AutomaticType.RhombusDiffusion
+                            || createFromAutomaticOperationModel.MyAutomaticType == CreateFromAutomaticOperationModel.AutomaticType.Cross) {
+                            xVerticalFlipping.SetAttributeValue("position", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BaseOneNumberAutomatic).Position);
+                        }
+                        if (createFromAutomaticOperationModel.MyAutomaticType == CreateFromAutomaticOperationModel.AutomaticType.RandomFountain)
+                        {
+                            xVerticalFlipping.SetAttributeValue("max", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max);
+                            xVerticalFlipping.SetAttributeValue("min", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min);
+                        }
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if (mItem is CreateFromFileOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("CreateFromFile");
+                        CreateFromFileOperationModel createFromFileOperationModel = mItem as CreateFromFileOperationModel;
+                        xVerticalFlipping.SetAttributeValue("fileName", createFromFileOperationModel.FileName);
                         xScript.Add(xVerticalFlipping);
                     }
                     else if (mItem is CreateFromStepOperationModel)
@@ -4068,7 +4090,6 @@ namespace Maker.View.LightScriptUserControl
                         xVerticalFlipping.SetAttributeValue("stepName", createFromQuickOperationModel.StepName);
                         xScript.Add(xVerticalFlipping);
                     }
-                
                     else if (mItem is CreateFromQuickOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("CreateFromQuick");
@@ -4534,7 +4555,14 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender.Parent == miChildThirdParty)
                 {
-                    scriptModel.OperationModels.Add(new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll));
+                    ThirdPartyOperationModel thirdPartyOperationModel = new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll);
+                    
+                    XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + thirdPartys[miChildThirdParty.Items.IndexOf(sender)].view);
+                    foreach (XElement element in doc.Element("Views").Elements())
+                    {
+                        thirdPartyOperationModel.Parameters.Add(element.Attribute("default").Value);
+                    }
+                    scriptModel.OperationModels.Add(thirdPartyOperationModel);
                 }
 
                 //StyleWindow style = new StyleWindow(mw);
@@ -5114,18 +5142,10 @@ namespace Maker.View.LightScriptUserControl
                 else if (cbMyContent.SelectedIndex == 0)
                 {
                     String stepName = GetUsableStepName();
-                    String commandLine = "";
-                    if (item.Content.ToString().EndsWith(".light"))
-                    {
-                        commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLightFile(\"" + item.Content.ToString() + "\");";
-                    }
-                    else if (item.Content.ToString().EndsWith(".mid"))
-                    {
-                        commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromMidiFile(\"" + item.Content.ToString() + "\");";
-                    }
                     ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(item.Content.ToString()) };
                     scriptModel.Name = stepName;
-                    scriptModel.Value = commandLine;
+                    scriptModel.Value = "";
                     scriptModel.Visible = true;
                     scriptModel.Parent = "";
                     scriptModel.Contain = new List<string>() { stepName };
@@ -5159,6 +5179,31 @@ namespace Maker.View.LightScriptUserControl
 
                     Test();
                 }
+            }
+            else {
+                if (e.Data.GetData(typeof(TreeViewItem)) is TreeViewItem) {
+                    if (e.Data.GetData(typeof(TreeViewItem)) == miRhombusDiffusion)
+                    {
+                        String stepName = GetUsableStepName();
+                        ScriptModel scriptModel = new ScriptModel();
+                        scriptModel.Name = stepName;
+                        scriptModel.Value = "";
+                        scriptModel.Visible = true;
+                        scriptModel.Parent = "";
+                        scriptModel.Contain = new List<string>() { stepName };
+                        scriptModel.Intersection = new List<string>();
+                        scriptModel.Complement = new List<string>();
+                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11)));
+
+                        scriptModelDictionary.Add(stepName, scriptModel);
+                        UpdateStep();
+
+                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+                        Test();
+                    }
+                }
+              
             }
             
             }

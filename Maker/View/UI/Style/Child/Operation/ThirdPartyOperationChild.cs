@@ -27,19 +27,13 @@ namespace Maker.View.UI.Style.Child
                     thirdPartyModel = StaticConstant.mw.projectUserControl.suc.thirdPartys[i];
                 }
             }
+            AddTitleAndControl("NameColon",GetTexeBlock(thirdPartyModel.text));
             
             String _viewFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\Operation\View\" + thirdPartyModel.view;//+ ".xml"
             XDocument doc = XDocument.Load(_viewFilePath);
             foreach (XElement element in doc.Element("Views").Elements())
             {
-                if (element.Attribute("type").Value.Equals("textblock"))
-                {
-                    AddTopHintTextBlockForThirdPartyModel(element.Attribute("text").Value);
-                }
-                if (element.Attribute("type").Value.Equals("textbox"))
-                {
-                    AddTextBox();
-                }
+                AddTitleAndControl(element.Attribute("hint").Value, false,GetTexeBox(element.Attribute("default").Value));
             }
             CreateDialog();
             ///CreateDialog(200, 50 * UICount);

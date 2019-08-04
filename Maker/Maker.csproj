@@ -305,6 +305,7 @@
     </Compile>
     <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Operation\CreateFromFileOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\SetAttributeOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\CreateFromStepOperationChild.cs" />

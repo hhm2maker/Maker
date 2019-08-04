@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.Dialog;
 using Maker.View.LightScriptUserControl;
 using Maker.View.Style.Child;
 using Maker.View.UI.Style.Child;
@@ -237,6 +238,14 @@ namespace Maker.View.Style
                 {
                     svMain.Children.Add(new SetAttributeOperationChild(item as SetAttributeOperationModel));
                 }
+                else if (item is CreateFromAutomaticOperationModel)
+                {
+                    svMain.Children.Add(new HorizontalFlippingOperationChild());
+                }
+                else if (item is CreateFromFileOperationModel)
+                {
+                    svMain.Children.Add(new CreateFromFileOperationChild(item as CreateFromFileOperationModel));
+                }
                 else if (item is CreateFromStepOperationModel)
                 {
                     svMain.Children.Add(new CreateFromStepOperationChild(item as CreateFromStepOperationModel));
@@ -334,6 +343,7 @@ namespace Maker.View.Style
                     svMain.Children.Add(new ThirdPartyOperationChild(item as ThirdPartyOperationModel));
                 }
                 (svMain.Children[svMain.Children.Count -1] as BaseStyle).sw = this;
+
                 ListBoxItem mItem = new ListBoxItem()
                 {
                     BorderThickness = new Thickness(1),
@@ -351,6 +361,9 @@ namespace Maker.View.Style
                 lbCatalog.Items.Add(mItem);
 
                 box.SetResourceReference(TextBlock.TextProperty, (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Title);
+            }
+            if (svMain.Children.Count != 0){
+                (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Margin = new Thickness(0,0,0,20);
             }
     }
 

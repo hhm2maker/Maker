@@ -25,39 +25,7 @@ namespace Maker.View.UI.Style.Child
 
             Title = changeColorOperationModel.HintString;
             //构建对话框
-            DockPanel dp = new DockPanel();
-            dp.Margin = new Thickness(0, 10, 0, 0);
          
-            StackPanel sp = new StackPanel();
-            sp.Orientation = Orientation.Horizontal;
-            sp.HorizontalAlignment = HorizontalAlignment.Right;
-            Image ivAdd = new Image
-            {
-                Width = 20,
-                Height = 20,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/add_white.png", UriKind.RelativeOrAbsolute)),
-                Stretch = Stretch.Fill
-            };
-            RenderOptions.SetBitmapScalingMode(ivAdd,BitmapScalingMode.HighQuality); 
-            ivAdd.MouseLeftButtonDown += IvAdd_MouseLeftButtonDown;
-            RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.Fant);
-            sp.Children.Add(ivAdd);
-            Image ivReduce = new Image
-            {
-                Width = 20,
-                Height = 20,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute)),
-                Stretch = Stretch.Fill
-            };
-            RenderOptions.SetBitmapScalingMode(ivAdd, BitmapScalingMode.HighQuality);
-            ivReduce.MouseLeftButtonDown += IvReduce_MouseLeftButtonDown;
-            RenderOptions.SetBitmapScalingMode(ivReduce, BitmapScalingMode.Fant);
-            ivReduce.Margin = new Thickness(10,0,0,0);
-            sp.Children.Add(ivReduce);
-            dp.Children.Add(sp);
-
-            AddUIElement(dp);
-
             lb = new ListBox();
             lb.Padding = new Thickness(-5,0,-5,0);
             lb.Background = new SolidColorBrush(Colors.Transparent);
@@ -70,8 +38,7 @@ namespace Maker.View.UI.Style.Child
             AddUIElement(lb);
 
             CreateDialog();
-            AddTitleImage(new List<Image>() {  }, null);
-
+            AddTitleImage(new List<String>() { "add_white.png", "reduce.png" }, new List<System.Windows.Input.MouseButtonEventHandler>() { IvAdd_MouseLeftButtonDown , IvReduce_MouseLeftButtonDown });
         }
 
         private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

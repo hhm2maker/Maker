@@ -1447,7 +1447,9 @@ namespace Operation
 
                 //这种方式可以释放文件资源
                 //LoadFile 无法释放文件
-                byte[] fileData = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName + ".dll");
+                //byte[] fileData = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName + ".dll");
+                byte[] fileData = File.ReadAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + dllFileName);
+
                 Assembly ass = Assembly.Load(fileData);
                 Type[] types = ass.GetTypes();
                 Type type = null;

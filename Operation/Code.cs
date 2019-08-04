@@ -385,7 +385,19 @@ namespace Operation
                 {
                     sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();");
                 }
-                   else if (mItem is CreateFromQuickOperationModel)
+                else if (mItem is CreateFromFileOperationModel)
+                {
+                    CreateFromFileOperationModel createFromFileOperationModel = mItem as CreateFromFileOperationModel;
+                    if (createFromFileOperationModel.FileName.EndsWith(".light"))
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateFromLightFile(\"" + createFromFileOperationModel.FileName + "\");");
+                    }
+                    else if (createFromFileOperationModel.FileName.EndsWith(".mid"))
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateFromMidiFile(\"" + createFromFileOperationModel.FileName + "\");");
+                    }
+                }
+                else if (mItem is CreateFromQuickOperationModel)
                     {
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
@@ -466,7 +478,15 @@ namespace Operation
                             sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() + ");");
                         }
                     }
-                    else if (mItem is FoldOperationModel)
+                else if (mItem is CreateFromAutomaticOperationModel)
+                {
+                    CreateFromAutomaticOperationModel createFromAutomaticOperationModel = mItem as CreateFromAutomaticOperationModel;
+                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position + ");");
+                    }
+                }
+                else if (mItem is FoldOperationModel)
                     {
                         FoldOperationModel foldOperationModel = mItem as FoldOperationModel;
                         if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL)
@@ -514,7 +534,7 @@ namespace Operation
                         else
                         {
                             sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
-                    }
+                        }
                     }
                     else if (mItem is ChangeColorOperationModel
                         || mItem is CopyToTheEndOperationModel
@@ -638,7 +658,6 @@ namespace Operation
                                 _sb.Append("\"" + thirdPartyOperationModel.Parameters[i] + "\"}");
                             }
                         }
-
 
                         sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ThirdParty("+"\""+ thirdPartyOperationModel .ThirdPartyName + "\",\""+thirdPartyOperationModel.DllFileName + "\"," +
                            _sb .ToString()+ ");");

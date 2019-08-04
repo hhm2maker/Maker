@@ -17,12 +17,25 @@
       <CopyToTheEnd colors="5" />
       <CopyToTheFollow colors="5" />
       <AccelerationOrDeceleration colors="100" />
+      <RemoveBorder />
+      <AnimationDisappear startTime="0" interval="12" />
+      <Animation.Windmill number="12" hintKeyword="IntervalColon" />
+      <ThirdParty thirdPartyName="ChangeThePosition" dllFileName="sample.dll">
+        <Parameters>
+          <Parameter value="11" />
+          <Parameter value="11" />
+        </Parameters>
+      </ThirdParty>
     </Script>
     <Script name="Step2" parent="" value="" visible="true" contain="Step2" intersection="" complement="">
       <CreateFromStep stepName="Step1" />
-      <SetAttribute>
-        <AttributeOperationModel attributeType="POSITION" value="+10" />
-      </SetAttribute>
+      <SetAttribute />
+    </Script>
+    <Script name="Step3" parent="" value="" visible="true" contain="Step3" intersection="" complement="">
+      <CreateFromFile fileName="0.light" />
+    </Script>
+    <Script name="Step4" parent="" value="" visible="true" contain="Step4" intersection="" complement="">
+      <CreateFromAutomatic automaticType="0" position="11" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

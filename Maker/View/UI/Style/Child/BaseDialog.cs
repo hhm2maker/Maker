@@ -36,7 +36,8 @@ namespace Maker.View.Style.Child
 
         private StackPanel GetTitle()
         {
-            return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
+            return ((Content as StackPanel).Children[0] as Border).Child as StackPanel;
+            
             //if (OnlyTitle)
             //{
             //    return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
@@ -82,7 +83,12 @@ namespace Maker.View.Style.Child
                 borderTop.CornerRadius = new CornerRadius(3, 3, 0, 0);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
 
+                StackPanel spTitle = new StackPanel();
+                spTitle.Orientation = Orientation.Vertical;
+
                 dp = new DockPanel();
+
+                spTitle.Children.Add(dp);
 
                 TextBlock tbTitle = new TextBlock();
                 tbTitle.Foreground = new SolidColorBrush(Colors.White);
@@ -90,7 +96,7 @@ namespace Maker.View.Style.Child
                 tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
                 dp.Children.Add(tbTitle);
 
-                borderTop.Child = dp;
+                borderTop.Child = spTitle;
 
                 sp.Children.Add(borderTop);
 
@@ -108,8 +114,11 @@ namespace Maker.View.Style.Child
                 AddChild(sp);
             }
             StackPanel spRight = new StackPanel();
-            spRight.HorizontalAlignment = HorizontalAlignment.Right;
-            spRight.Orientation = Orientation.Horizontal;
+
+            StackPanel spTopImage = new StackPanel();
+
+            spTopImage.HorizontalAlignment = HorizontalAlignment.Right;
+            spTopImage.Orientation = Orientation.Horizontal;
             Image image = new Image
             {
                 Width = 20,
@@ -134,23 +143,49 @@ namespace Maker.View.Style.Child
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute))
             };
             image3.MouseLeftButtonDown += Image3_MouseLeftButtonDown;
-            spRight.Children.Add(image);
-            spRight.Children.Add(image2);
-            spRight.Children.Add(image3);
+            spTopImage.Children.Add(image);
+            spTopImage.Children.Add(image2);
+            spTopImage.Children.Add(image3);
             RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
             RenderOptions.SetBitmapScalingMode(image2, BitmapScalingMode.HighQuality);
             RenderOptions.SetBitmapScalingMode(image3, BitmapScalingMode.HighQuality);
-
+            spRight.VerticalAlignment = VerticalAlignment.Center;
+            spRight.Children.Add(spTopImage);
             dp.Children.Add(spRight);
         }
 
-        protected void AddTitleImage(List<Image> images,List<MouseButtonEventHandler> es)
+        protected void AddTitleImage(List<String> imageUris,List<MouseButtonEventHandler> es)
         {
-            StackPanel sp = GetTitle();
-            for (int i = images.Count -1 ; i >=0; i--) {
-                sp.Children.Insert(0, images[i]);
-                images[i].MouseLeftButtonDown += es[i];
+            if (imageUris.Count != es.Count)
+            {
+                return;
             }
+            StackPanel sp = GetTitle();
+            StackPanel spBottomImage = new StackPanel();
+            spBottomImage.Margin = new Thickness(0,0,35,10);
+            spBottomImage.HorizontalAlignment = HorizontalAlignment.Right;
+
+            spBottomImage.Orientation = Orientation.Horizontal;
+            for (int i = imageUris.Count -1 ; i >=0; i--) {
+                Image iv = new Image
+                {
+                    Width = 20,
+                    Height = 20,
+                    Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/"+ imageUris[i], UriKind.RelativeOrAbsolute)),
+                    Stretch = Stretch.Fill
+                };
+                if (i == imageUris.Count - 1)
+                {
+                    iv.Margin = new Thickness(0, 0, 10, 0);
+                }
+                else {
+                    iv.Margin = new Thickness(0, 0, 10, 0);
+                }
+                RenderOptions.SetBitmapScalingMode(iv, BitmapScalingMode.Fant);
+                spBottomImage.Children.Insert(0, iv);
+                iv.MouseLeftButtonDown += es[i];
+            }
+            sp.Children.Add(spBottomImage);
         }
      
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -401,7 +436,7 @@ namespace Maker.View.Style.Child
             border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             TextBlock tbContent = new TextBlock();
-            tbContent.Margin = new Thickness(2);
+            tbContent.Margin = new Thickness(5,2,5,2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             tbContent.Text = textContent;
@@ -409,6 +444,7 @@ namespace Maker.View.Style.Child
 
             return border;
         }
+
 
         /// <summary>
         /// 添加标题和值
@@ -434,17 +470,27 @@ namespace Maker.View.Style.Child
             AddTitleAndControl(textTitle,new List<FrameworkElement>() { frameworkElement });
         }
 
-        public void AddTitleAndControl(String textTitle, List<FrameworkElement> frameworkElements)
+        public void AddTitleAndControl(String textTitle, bool isResourceReference, FrameworkElement frameworkElement)
+        {
+            AddTitleAndControl(textTitle, isResourceReference,new List<FrameworkElement>() { frameworkElement });
+        }
+
+        public void AddTitleAndControl(String textTitle,bool isResourceReference, List<FrameworkElement> frameworkElements)
         {
             DockPanel dp = new DockPanel();
 
-            dp.Children.Add(GetTitle(textTitle));
+            dp.Children.Add(GetTitle(textTitle, isResourceReference));
             foreach (var item in frameworkElements)
             {
                 dp.Children.Add(item);
             }
 
             _UI.Add(dp);
+        }
+
+        public void AddTitleAndControl(String textTitle, List<FrameworkElement> frameworkElements)
+        {
+            AddTitleAndControl(textTitle, true, frameworkElements);
         }
 
         /// <summary>
@@ -474,11 +520,23 @@ namespace Maker.View.Style.Child
         }
 
         private TextBlock GetTitle(String textTitle) {
+            return GetTitle(textTitle,true);
+        }
+
+        private TextBlock GetTitle(String textTitle, bool isResourceReference)
+        {
             TextBlock tbTitle = new TextBlock();
             tbTitle.VerticalAlignment = VerticalAlignment.Center;
             tbTitle.FontSize = 16;
             tbTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-            tbTitle.SetResourceReference(TextBlock.TextProperty, textTitle);
+            if (isResourceReference)
+            {
+                tbTitle.SetResourceReference(TextBlock.TextProperty, textTitle);
+            }
+            else
+            {
+                tbTitle.Text = textTitle;
+            }
             return tbTitle;
         }
 

@@ -11,6 +11,7 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class AnimationDisappearOperationChild : OperationStyle
     {
+        public override string Title { get; set; } = "Disappear";
         private AnimationDisappearOperationModel animationDisappearOperationModel;
         public AnimationDisappearOperationChild(AnimationDisappearOperationModel animationDisappearOperationModel)
         {
@@ -18,17 +19,13 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             cbType = GetComboBox(new List<string>() { "Serpentine" }, null);
             AddTitleAndControl("TypeColon", cbType);
-            
-            AddTopHintTextBlock("StartTimeColon");
-            AddTextBox();
-            AddTopHintTextBlock("IntervalColon");
-            AddTextBox();
-            CreateDialog();
-            tbStartTime = Get(3) as TextBox;
-            tbInterval = Get(5) as TextBox;
 
-            tbStartTime.Text = animationDisappearOperationModel.StartTime.ToString();
-            tbInterval.Text = animationDisappearOperationModel.Interval.ToString();
+            tbStartTime = GetTexeBox(animationDisappearOperationModel.StartTime.ToString());
+            AddTitleAndControl("StartTimeColon", tbStartTime);
+            tbInterval = GetTexeBox(animationDisappearOperationModel.Interval.ToString());
+            AddTitleAndControl("IntervalColon", tbInterval);
+        
+            CreateDialog();
         }
       
 

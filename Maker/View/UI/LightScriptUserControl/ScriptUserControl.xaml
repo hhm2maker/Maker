@@ -38,8 +38,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="575" MinWidth="575"/>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
                 <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" >
                     <TabItem Width="150" BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
@@ -394,9 +394,9 @@
                     </TabItem>
                     <TabItem BorderThickness="0"  Header="{DynamicResource Generate}" Foreground="#ffffff"  FontSize="18" >
                         <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
-                            <TreeViewItem Header="{DynamicResource RhombusDiffusion}" Name="miRhombusDiffusion" PreviewMouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
-                            <TreeViewItem Header="{DynamicResource CrossDiffusion}" Name="miCross" PreviewMouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
-                            <TreeViewItem Header="{DynamicResource Random}" Name="miRandomFountain" PreviewMouseLeftButtonDown="Automatic"  Foreground="#ffffff"/>
+                            <TreeViewItem Header="{DynamicResource RhombusDiffusion}" Name="miRhombusDiffusion" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <TreeViewItem Header="{DynamicResource CrossDiffusion}" Name="miCross" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <TreeViewItem Header="{DynamicResource Random}" Name="miRandomFountain" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         </TreeView>
                     </TabItem>
                 </TabControl>

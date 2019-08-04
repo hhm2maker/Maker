@@ -532,4 +532,6 @@
     <sys:String x:Key="Bottom">下</sys:String>
     <sys:String x:Key="Left">左</sys:String>
     <sys:String x:Key="Right">右</sys:String>
+    <sys:String x:Key="NameColon">名称：</sys:String>
+    <sys:String x:Key="CreateFromTheFile">从文件中创建</sys:String>
 </ResourceDictionary>

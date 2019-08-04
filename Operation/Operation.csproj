@@ -69,10 +69,12 @@
     <Compile Include="FileBusiness.cs" />
     <Compile Include="LimitlessLampModel.cs" />
     <Compile Include="Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
+    <Compile Include="Model\OperationModel\Create\CreateFromFileOperationModel.cs" />
+    <Compile Include="Model\OperationModel\Create\CreateFromAutomaticOperationModel.cs" />
     <Compile Include="Model\OperationModel\SetAttributeOperationModel.cs" />
-    <Compile Include="Model\OperationModel\CreateFromStepOperationModel.cs" />
-    <Compile Include="Model\OperationModel\CreateFromQuickOperationModel.cs" />
-    <Compile Include="Model\OperationModel\CreateOperationModel.cs" />
+    <Compile Include="Model\OperationModel\Create\CreateFromStepOperationModel.cs" />
+    <Compile Include="Model\OperationModel\Create\CreateFromQuickOperationModel.cs" />
+    <Compile Include="Model\OperationModel\Create\CreateOperationModel.cs" />
     <Compile Include="Model\OperationModel\AnimationDisappearOperationModel.cs" />
     <Compile Include="Model\OperationModel\AntiClockwiseOperationModel.cs" />
     <Compile Include="Model\OperationModel\BaseOperationModel.cs" />

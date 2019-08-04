@@ -31,8 +31,15 @@ namespace Maker.Business.Model.OperationModel
             ThirdPartyName = thirdPartyName;
             DllFileName = dllFileName;
         }
+
+        public ThirdPartyOperationModel(List<string> parameters, string thirdPartyName, string dllFileName)
+        {
+            Parameters = parameters;
+            ThirdPartyName = thirdPartyName;
+            DllFileName = dllFileName;
+        }
+
         public ThirdPartyOperationModel()
         { }
-
     }
 }

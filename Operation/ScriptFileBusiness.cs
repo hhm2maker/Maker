@@ -113,6 +113,30 @@ namespace Operation
                         }
                         scriptModel.OperationModels.Add(setAttributeOperationModel);
                     }
+                    else if (xEdit.Name.ToString().Equals("CreateFromAutomatic"))
+                    {
+                        CreateFromAutomaticOperationModel createFromAutomaticOperationModel = new CreateFromAutomaticOperationModel();
+                        if (int.Parse(xEdit.Attribute("automaticType").Value) == 0) {
+                            createFromAutomaticOperationModel.MyBaseAutomatic = new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+                        }
+                        else if (int.Parse(xEdit.Attribute("automaticType").Value) == 1)
+                        {
+                            createFromAutomaticOperationModel.MyBaseAutomatic = new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+                        }
+                        else if (int.Parse(xEdit.Attribute("automaticType").Value) == 2)
+                        {
+                            createFromAutomaticOperationModel.MyBaseAutomatic = new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(int.Parse(xEdit.Attribute("min").Value), int.Parse(xEdit.Attribute("max").Value));
+                        }
+
+                        scriptModel.OperationModels.Add(createFromAutomaticOperationModel);
+                    }
+                    else if (xEdit.Name.ToString().Equals("CreateFromFile"))
+                    {
+                        CreateFromFileOperationModel createFromFileOperationModel = new CreateFromFileOperationModel();
+                        createFromFileOperationModel.FileName = xEdit.Attribute("fileName").Value;
+
+                        scriptModel.OperationModels.Add(createFromFileOperationModel);
+                    }
                     else if (xEdit.Name.ToString().Equals("CreateFromStep"))
                     {
                         CreateFromStepOperationModel createFromStepOperationModel = new CreateFromStepOperationModel();
