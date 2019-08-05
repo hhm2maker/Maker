@@ -5182,26 +5182,36 @@ namespace Maker.View.LightScriptUserControl
             }
             else {
                 if (e.Data.GetData(typeof(TreeViewItem)) is TreeViewItem) {
-                    if (e.Data.GetData(typeof(TreeViewItem)) == miRhombusDiffusion)
+                    TreeViewItem item = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
+                    String stepName = GetUsableStepName();
+                    ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.Name = stepName;
+                    scriptModel.Value = "";
+                    scriptModel.Visible = true;
+                    scriptModel.Parent = "";
+                    scriptModel.Contain = new List<string>() { stepName };
+                    scriptModel.Intersection = new List<string>();
+                    scriptModel.Complement = new List<string>();
+
+                    if (item == miRhombusDiffusion)
                     {
-                        String stepName = GetUsableStepName();
-                        ScriptModel scriptModel = new ScriptModel();
-                        scriptModel.Name = stepName;
-                        scriptModel.Value = "";
-                        scriptModel.Visible = true;
-                        scriptModel.Parent = "";
-                        scriptModel.Contain = new List<string>() { stepName };
-                        scriptModel.Intersection = new List<string>();
-                        scriptModel.Complement = new List<string>();
                         scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11)));
-
-                        scriptModelDictionary.Add(stepName, scriptModel);
-                        UpdateStep();
-
-                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
-
-                        Test();
                     }
+                    else if (item == miCross)
+                    {
+                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11)));
+                    }
+                    else if (item == miRandomFountain)
+                    {
+                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0,7)));
+                    }
+                    scriptModelDictionary.Add(stepName, scriptModel);
+                    UpdateStep();
+
+                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+                    Test();
+               
                 }
               
             }

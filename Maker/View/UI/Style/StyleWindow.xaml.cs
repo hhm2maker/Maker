@@ -240,7 +240,7 @@ namespace Maker.View.Style
                 }
                 else if (item is CreateFromAutomaticOperationModel)
                 {
-                    svMain.Children.Add(new HorizontalFlippingOperationChild());
+                    svMain.Children.Add(new CreateFromAutomaticOperationChild(item as CreateFromAutomaticOperationModel));
                 }
                 else if (item is CreateFromFileOperationModel)
                 {

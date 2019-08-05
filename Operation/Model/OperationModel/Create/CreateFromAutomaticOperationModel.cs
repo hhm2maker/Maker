@@ -20,11 +20,28 @@ namespace Maker.Business.Model.OperationModel
             get;
             set;
         }
-
+        private BaseAutomatic myBaseAutomatic;
         public BaseAutomatic MyBaseAutomatic
         {
-            get;
-            set;
+            get
+            {
+                return myBaseAutomatic;
+            }
+            set {
+                myBaseAutomatic = value;
+                if (value is RhombusDiffusionAutomaticOperationModel)
+                {
+                    MyAutomaticType = AutomaticType.RhombusDiffusion;
+                }
+                if (value is CrossAutomaticOperationModel)
+                {
+                    MyAutomaticType = AutomaticType.Cross;
+                }
+                if (value is RandomFountainAutomaticOperationModel)
+                {
+                    MyAutomaticType = AutomaticType.RandomFountain;
+                }
+            }
         }
 
 
@@ -36,18 +53,6 @@ namespace Maker.Business.Model.OperationModel
         public CreateFromAutomaticOperationModel( BaseAutomatic baseAutomatic)
         {
             MyBaseAutomatic = baseAutomatic;
-
-            if (baseAutomatic is RhombusDiffusionAutomaticOperationModel) {
-                MyAutomaticType = AutomaticType.RhombusDiffusion;
-            }
-            if (baseAutomatic is CrossAutomaticOperationModel)
-            {
-                MyAutomaticType = AutomaticType.Cross;
-            }
-            if (baseAutomatic is RandomFountainAutomaticOperationModel)
-            {
-                MyAutomaticType = AutomaticType.RandomFountain;
-            }
         }
 
         public class BaseAutomatic {

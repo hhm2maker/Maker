@@ -501,6 +501,7 @@ namespace Operation
                 }
                 now++;
             }
+            //LightBusiness.Print(mLl);
             RemoveIncorrectlyData(mLl);
             return mLl;
         }
@@ -628,7 +629,7 @@ namespace Operation
 
         private static LightGroup Cross(int startPosition)
         {
-            if (startPosition < 28 || startPosition > 123)
+            if (startPosition >= 100)
                 return null;
             LightGroup mLl = new LightGroup();
             bool bTop = true;
@@ -653,21 +654,13 @@ namespace Operation
                 if (bTop)
                 {
                     //最上面
-                    if (iTop >= 64 && iTop <= 67)
-                    {
-                        iTop -= 36;
-                    }
-                    else if (iTop >= 96 && iTop <= 99)
-                    {
-                        iTop -= 64;
-                    }
-                    else if (iTop >= 28 && iTop <= 35)
+                    if (iTop > 89)
                     {
                         bTop = false;
                     }
                     else
                     {
-                        iTop += 4;
+                        iTop += 10;
                     }
                     if (bTop)
                     {
@@ -678,21 +671,13 @@ namespace Operation
                 if (bBottom)
                 {
                     //最下面
-                    if (iBottom >= 36 && iBottom <= 39)
-                    {
-                        iBottom += 80;
-                    }
-                    else if (iBottom >= 68 && iBottom <= 71)
-                    {
-                        iBottom += 52;
-                    }
-                    else if (iBottom >= 116 && iBottom <= 123)
+                    if (iBottom <10)
                     {
                         bBottom = false;
                     }
                     else
                     {
-                        iBottom -= 4;
+                        iBottom -= 10;
                     }
                     if (bBottom)
                     {
@@ -703,19 +688,7 @@ namespace Operation
                 if (bLeft)
                 {
                     //最左面
-                    if (iLeft >= 36 && iLeft <= 67 && iLeft % 4 == 0)
-                    {
-                        iLeft = 124 - (iLeft / 4);
-                    }
-                    else if (iLeft >= 68 && iLeft <= 99 && iLeft % 4 == 0)
-                    {
-                        iLeft -= 29;
-                    }
-                    else if (iLeft >= 100 && iLeft <= 107)
-                    {
-                        iLeft = (iLeft - 100) * 5 + 1;
-                    }
-                    else if (iLeft >= 108 && iLeft <= 115 || iLeft == 116 || iLeft == 28)
+                    if (iLeft % 10 ==0)
                     {
                         bLeft = false;
                     }
@@ -732,19 +705,7 @@ namespace Operation
                 if (bRight)
                 {
                     //最右面
-                    if (iRight >= 68 && iRight <= 99 && (iRight - 3) % 4 == 0)
-                    {
-                        iRight = 124 - ((iRight - 3) / 4);
-                    }
-                    else if (iRight >= 36 && iRight <= 67 && (iRight - 3) % 4 == 0)
-                    {
-                        iRight += 29;
-                    }
-                    else if (iRight >= 108 && iRight <= 115)
-                    {
-                        iRight = 64 - (iRight - 108) * 4;
-                    }
-                    else if (iRight >= 100 && iRight <= 107 || iRight == 123 || iRight == 35)
+                   if (iRight % 10 == 9)
                     {
                         bRight = false;
                     }

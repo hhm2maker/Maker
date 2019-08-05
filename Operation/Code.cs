@@ -485,6 +485,15 @@ namespace Operation
                     {
                         sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position + ");");
                     }
+                    else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.CROSS," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position + ");");
+                    }
+                    else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
+                            ","+ (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min +");");
+                    }
                 }
                 else if (mItem is FoldOperationModel)
                     {

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" parent="" value="" visible="true" contain="Step1" intersection="" complement="">
+    <Script name="Step1" parent="" value="" visible="false" contain="Step1" intersection="" complement="">
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
       <ChangeColor colors="73 74 75 76" />
       <VerticalFlipping />
@@ -27,15 +27,21 @@
         </Parameters>
       </ThirdParty>
     </Script>
-    <Script name="Step2" parent="" value="" visible="true" contain="Step2" intersection="" complement="">
+    <Script name="Step2" parent="" value="" visible="false" contain="Step2" intersection="" complement="">
       <CreateFromStep stepName="Step1" />
       <SetAttribute />
     </Script>
-    <Script name="Step3" parent="" value="" visible="true" contain="Step3" intersection="" complement="">
+    <Script name="Step3" parent="" value="" visible="false" contain="Step3" intersection="" complement="">
       <CreateFromFile fileName="0.light" />
     </Script>
-    <Script name="Step4" parent="" value="" visible="true" contain="Step4" intersection="" complement="">
+    <Script name="Step4" parent="" value="" visible="false" contain="Step4" intersection="" complement="">
       <CreateFromAutomatic automaticType="0" position="11" />
+    </Script>
+    <Script name="Step5" parent="" value="" visible="false" contain="Step5" intersection="" complement="">
+      <CreateFromAutomatic automaticType="1" position="11" />
+    </Script>
+    <Script name="Step6" parent="" value="" visible="false" contain="Step6" intersection="" complement="">
+      <CreateFromAutomatic automaticType="2" max="7" min="0" />
     </Script>
   </Scripts>
   <Introduce></Introduce>
