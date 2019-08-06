@@ -284,8 +284,10 @@ namespace Maker.Bridge
           private Dictionary<string, List<Light>> mLightList ;
         public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
-            if (mLightList == null)
-                return;
+            if (mLightList == null) {
+                mLightList = new Dictionary<string, List<Light>>();
+            }
+              
             iuc.mLightDictionary = mLightList;
             this.mLightList = mLightList;
             List<Light> colorLightList = new List<Light>();
@@ -470,6 +472,9 @@ namespace Maker.Bridge
                 nowTimePoint = 0;
                 iuc.tbTimePointCountLeft.Text = "0";
                 iuc.tbTimePointCount.Text = "0";
+
+                iuc.mLaunchpadData = new List<Light>();
+                iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
             }
             else
             {
@@ -490,6 +495,7 @@ namespace Maker.Bridge
         public void LoadFrame()
         {
             iuc.mLaunchpadData = dic[liTime[nowTimePoint - 1]];
+            iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
             //for (int i = 0; i < x.Count(); i++)
             //{
             //    //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
@@ -500,7 +506,6 @@ namespace Maker.Bridge
             //    }
             //    iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
             //}
-            iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
 
             if (nowTimePoint == 1)
             {

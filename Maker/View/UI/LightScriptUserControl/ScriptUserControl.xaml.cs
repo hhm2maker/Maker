@@ -240,7 +240,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 (item as ListBoxItem).MouseLeftButtonUp += InputUserControl_MouseLeftButtonUp;
             }
-         
+
             //ToolTip toolTip = new System.Windows.Controls.ToolTip();
             //toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
             //toolTip.SetValue(StyleProperty, null);
@@ -345,21 +345,22 @@ namespace Maker.View.LightScriptUserControl
                         break;
                     }
                 }
-                //if (!isCollection)
-                //{
-                //    TextBlock blockStepName = (TextBlock)sp.Children[1];
-                //    if (visibleDictionary[blockStepName.Text])
-                //    {
-                //        Image visibleImage = (Image)panel.Children[0];
-                //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/visible.png", UriKind.RelativeOrAbsolute));
-                //    }
-                //    else
-                //    {
-                //        Image visibleImage = (Image)panel.Children[0];
-                //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
-                //    }
-                //}
             }
+
+            //if (!isCollection)
+            //{
+            //    TextBlock blockStepName = (TextBlock)sp.Children[1];
+            //    if (visibleDictionary[blockStepName.Text])
+            //    {
+            //        Image visibleImage = (Image)panel.Children[0];
+            //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/visible.png", UriKind.RelativeOrAbsolute));
+            //    }
+            //    else
+            //    {
+            //        Image visibleImage = (Image)panel.Children[0];
+            //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
+            //    }
+            //}
         }
         /// <summary>
         /// 更新补集集合关系
@@ -367,22 +368,17 @@ namespace Maker.View.LightScriptUserControl
         public void UpdateComplement()
         {
             List<String> ls = GetStepNameCollection();
-            for (int i = 0; i < ls.Count; i++)
-            {
+            for (int i = 0; i < ls.Count; i++) { 
                 StackPanel sp = (StackPanel)lbStep.Items[i];
                 DockPanel panel = (DockPanel)sp.Children[0];
-                foreach (var scriptModel in scriptModelDictionary)
+
+                if (scriptModelDictionary[ls[i]].OperationModels.Find(model => model is CreateFromStepOperationModel) != null)
                 {
                     //如果是子集
-                    if (scriptModel.Value.Complement.Contains(ls[i]))
-                    {
-                        //panel.Margin = new Thickness(30,0,0,0);
-                        Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
-                        break;
-                    }
+                    Image visibleImage = (Image)panel.Children[0];
+                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
                 }
-            }
+            } 
         }
         /// <summary>
         /// 更新步骤可见或不可见
@@ -427,26 +423,50 @@ namespace Maker.View.LightScriptUserControl
                     Image visibleImage = (Image)panel.Children[0];
                     visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
                 }
-            }
-            //根据父类可见不可见，来改变子类可见不可见
-            for (int i = 0; i < lbStep.Items.Count; i++)
-            {
-                StackPanel sp = (StackPanel)lbStep.Items[i];
-                TextBlock blockStepName = (TextBlock)sp.Children[1];
-                TextBlock blockParentName = (TextBlock)sp.Children[3];
 
-                if (!blockParentName.Text.Equals(String.Empty))
-                {
-                    //如果父类不可见
-                    if (!scriptModelDictionary[blockParentName.Text].Visible)
+                CreateFromStepOperationModel createFromStepOperationModel = (CreateFromStepOperationModel)scriptModelDictionary[ls[i]].OperationModels.Find(model => model is CreateFromStepOperationModel);
+                    if (createFromStepOperationModel != null)
                     {
+                    //如果是子集
+                        scriptModelDictionary[ls[i]].Visible = scriptModelDictionary[createFromStepOperationModel.StepName].Visible;
                         DockPanel panel = (DockPanel)sp.Children[0];
                         Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
-                        scriptModelDictionary[blockStepName.Text].Visible = false;
+                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
                     }
+
+                    //foreach (var scriptModel in scriptModelDictionary)
+                    //{
+                    //    //如果是子集
+                    //    if (scriptModel.Value.Intersection.Contains(ls[i]))
+                    //    {
+                    //        //panel.Margin = new Thickness(30,0,0,0);
+                    //        Image visibleImage = (Image)panel.Children[0];
+                    //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
+                    //        break;
+                    //    }
+                    //}
                 }
-            }
+            //根据父类可见不可见，来改变子类可见不可见
+            //for (int i = 0; i < lbStep.Items.Count; i++)
+            //{
+            //    StackPanel sp = (StackPanel)lbStep.Items[i];
+            //    TextBlock blockStepName = (TextBlock)sp.Children[1];
+            //    TextBlock blockParentName = (TextBlock)sp.Children[3];
+
+            //    if (!blockParentName.Text.Equals(String.Empty))
+            //    {
+            //        //如果父类不可见
+            //        if (!scriptModelDictionary[blockParentName.Text].Visible)
+            //        {
+            //            DockPanel panel = (DockPanel)sp.Children[0];
+            //            Image visibleImage = (Image)panel.Children[0];
+            //            visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/novisible.png", UriKind.RelativeOrAbsolute));
+            //            scriptModelDictionary[blockStepName.Text].Visible = false;
+            //        }
+            //    }
+            //}
+         
+        
         }
         /// <summary>
         /// 更新锁定
@@ -2310,14 +2330,15 @@ namespace Maker.View.LightScriptUserControl
         /// <returns></returns>
         public List<String> GetStepNameCollection()
         {
-            List<String> lsGetName = new List<string>();
-            for (int i = 0; i < lbStep.Items.Count; i++)
-            {
-                StackPanel sp = (StackPanel)lbStep.Items[i];
-                TextBlock blockStepName = (TextBlock)sp.Children[1];
-                lsGetName.Add(blockStepName.Text);
-            }
-            return lsGetName;
+            return scriptModelDictionary.Keys.ToList();
+            //List<String> lsGetName = new List<string>();
+            //for (int i = 0; i < lbStep.Items.Count; i++)
+            //{
+            //    StackPanel sp = (StackPanel)lbStep.Items[i];
+            //    TextBlock blockStepName = (TextBlock)sp.Children[1];
+            //    lsGetName.Add(blockStepName.Text);
+            //}
+            //return lsGetName;
         }
         /// <summary>
         /// 获取步骤名
