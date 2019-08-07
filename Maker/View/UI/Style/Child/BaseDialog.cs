@@ -428,6 +428,14 @@ namespace Maker.View.Style.Child
         /// </summary>
         public Border GetTexeBlock(String textContent)
         {
+            return GetTexeBlock(textContent,false);
+        }
+
+        /// <summary>
+        /// 添加标题和值
+        /// </summary>
+        public Border GetTexeBlock(String textContent,bool isResourceReference)
+        {
             Border border = new Border();
             border.Margin = new Thickness(5, 0, 0, 0);
             border.BorderThickness = new Thickness(2);
@@ -436,10 +444,18 @@ namespace Maker.View.Style.Child
             border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             TextBlock tbContent = new TextBlock();
-            tbContent.Margin = new Thickness(5,2,5,2);
+            tbContent.Margin = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            tbContent.Text = textContent;
+            if (isResourceReference)
+            {
+                tbContent.SetResourceReference(TextBlock.TextProperty, textContent);
+            }
+            else
+            {
+                tbContent.Text = textContent;
+            }
+            
             border.Child = tbContent;
 
             return border;

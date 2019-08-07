@@ -33,6 +33,9 @@
         <AttributeOperationModel attributeType="POSITION" value="+10" />
       </SetAttribute>
     </Script>
+    <Script name="Step3" parent="" value="" visible="true" contain="Step3" intersection="" complement="">
+      <CreateFromAutomatic automaticType="0" position="11" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
 </Root>

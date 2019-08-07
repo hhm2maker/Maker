@@ -19,17 +19,17 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("RhombusDiffusion"));
+                AddTitleAndControl("TypeColon", GetTexeBlock("RhombusDiffusion", true));
                 AddTitleAndControl("PositionColon", GetTexeBlock((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position.ToString()));
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("Cross"));
+                AddTitleAndControl("TypeColon", GetTexeBlock("Cross", true));
                 AddTitleAndControl("PositionColon", GetTexeBlock((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position.ToString()));
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("Random"));
+                AddTitleAndControl("TypeColon", GetTexeBlock("RandomFountain",true));
                 AddTitleAndControl("MinColon", GetTexeBlock((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min.ToString()));
                 AddTitleAndControl("MaxColon", GetTexeBlock((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max.ToString()));
             }
