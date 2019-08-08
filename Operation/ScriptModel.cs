@@ -26,11 +26,11 @@ namespace Maker.Model
             get;
             set;
         }
-        public String Parent
-        {
-            get;
-            set;
-        }
+        //public String Parent
+        //{
+        //    get;
+        //    set;
+        //}
         public bool Visible
         {
             get;

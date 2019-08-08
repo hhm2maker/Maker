@@ -55,14 +55,14 @@ namespace Operation
                     Name = xScript.Attribute("name").Value,
                     Value = Base2String(xScript.Attribute("value").Value)
                 };
-                if (xScript.Attribute("parent") == null)
-                {
-                    scriptModel.Parent = "";
-                }
-                else
-                {
-                    scriptModel.Parent = xScript.Attribute("parent").Value;
-                }
+                //if (xScript.Attribute("parent") == null)
+                //{
+                //    scriptModel.Parent = "";
+                //}
+                //else
+                //{
+                //    scriptModel.Parent = xScript.Attribute("parent").Value;
+                //}
                 if (xScript.Attribute("intersection") != null && !xScript.Attribute("intersection").Value.ToString().Trim().Equals(String.Empty))
                 {
                     scriptModel.Intersection = xScript.Attribute("intersection").Value.Trim().Split(' ').ToList();

@@ -674,7 +674,6 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Name = stepName;
                 scriptModel.Value = "";
                 scriptModel.Visible = true;
-                scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModel.Intersection = new List<string>();
                 scriptModel.Complement = new List<string>();
@@ -831,7 +830,6 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Name = stepName;
                 scriptModel.Value = "";
                 scriptModel.Visible = true;
-                scriptModel.Parent = "";
                 scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
                 SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
@@ -2220,7 +2218,7 @@ namespace Maker.View.LightScriptUserControl
             if (parentName.Equals(String.Empty))
                 return;
             //不能隔代解除
-            if (!scriptModelDictionary[parentName].Parent.Equals(String.Empty))
+            if (!scriptModelDictionary[parentName].OperationModels[0].Equals(String.Empty))
             {
                 System.Windows.Forms.MessageBox.Show("选中项的父类有自己的父类,不能隔代解除，请先解除父类的父类!");
                 return;
@@ -2296,7 +2294,6 @@ namespace Maker.View.LightScriptUserControl
             String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
             //newChildrenCommand = newChildrenCommand.Replace(scriptModelDictionary[childName].Parent+"();", oldName + "LightGroup;");
             //newChildrenCommand = newChildrenCommand.Replace("Parent", _dictionary.Keys.First() + "LightGroup");
-            scriptModelDictionary[childName].Parent = "";
             scriptModelDictionary[childName].Value = newChildrenCommand;
             StackPanel sp = (StackPanel)lbStep.SelectedItem;
             TextBlock block = (TextBlock)sp.Children[3];
@@ -2456,7 +2453,6 @@ namespace Maker.View.LightScriptUserControl
             scriptModel.Name = stepName;
             scriptModel.Value = "LightGroup " + stepName + "LightGroup = new LightGroup();";
             scriptModel.Visible = true;
-            scriptModel.Parent = "";
             scriptModel.Contain = new List<string>() { stepName };
             scriptModelDictionary.Add(stepName, scriptModel);
             UpdateStep();
@@ -2493,7 +2489,6 @@ namespace Maker.View.LightScriptUserControl
 
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = stepName;
-                scriptModel.Parent = scriptModelDictionary[oldName].Parent;
                 scriptModel.Visible = scriptModelDictionary[oldName].Visible;
 
                 String newScript = scriptModelDictionary[oldName].Value;
@@ -2618,7 +2613,7 @@ namespace Maker.View.LightScriptUserControl
                 String parentName = GetParentName(panel);
                 foreach (var item in scriptModelDictionary)
                 {
-                    if (item.Value.Parent.Equals(stepName))
+                    if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
                     {
                         System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
                         return;
@@ -2727,15 +2722,36 @@ namespace Maker.View.LightScriptUserControl
                     System.Windows.Forms.MessageBox.Show("请先取消与父类的关系");
                     return;
                 }
-                foreach (var model in scriptModelDictionary)
+
+                ScriptModel scriptModel = scriptModelDictionary.Values.ToList().Find(delegate (ScriptModel model)
                 {
-                    if (model.Value.Parent.Equals(GetStepName(sp)))
-                    {
-                        lbStep.SelectedItem = lbStep.Items[i];
-                        System.Windows.Forms.MessageBox.Show("该步骤有子类，不允许合并!");
-                        return;
-                    }
+                    return (model.OperationModels.ToList().FindAll(delegate (BaseOperationModel item)
+                      {
+                          if (item is CreateFromStepOperationModel)
+                          {
+                              return (item as CreateFromStepOperationModel).StepName.Equals(GetStepName(sp));
+                          }
+                          else {
+                              return false;
+                          }
+                      }).Count) != 0;
+                });
+
+                if (scriptModel != null) {
+                    lbStep.SelectedItem = lbStep.Items[i];
+                    System.Windows.Forms.MessageBox.Show("该步骤有子类，不允许合并!");
+                    return;
                 }
+
+                //foreach (var model in scriptModelDictionary)
+                //{
+                //    if (model.Value.Parent.Equals(GetStepName(sp)))
+                //    {
+                //        lbStep.SelectedItem = lbStep.Items[i];
+                //        System.Windows.Forms.MessageBox.Show("该步骤有子类，不允许合并!");
+                //        return;
+                //    }
+                //}
 
                 if (finalDictionary.ContainsKey(GetStepName(sp)))
                 {
@@ -3992,9 +4008,18 @@ namespace Maker.View.LightScriptUserControl
         private void UpdateStep()
         {
             lbStep.Items.Clear();
-            foreach (var model in scriptModelDictionary)
+            foreach (var item in scriptModelDictionary)
             {
-                AddStep(model.Value.Name, model.Value.Parent);
+                CreateFromStepOperationModel createFromStepOperationModel = (CreateFromStepOperationModel)item.Value.OperationModels.Find(model => model is CreateFromStepOperationModel);
+
+                if (createFromStepOperationModel != null)
+                {
+                    AddStep(item.Value.Name, createFromStepOperationModel.StepName);
+                }
+                else {
+                    AddStep(item.Value.Name, "");
+                }
+         
             }
             UpdateVisible();
         }
@@ -4028,7 +4053,6 @@ namespace Maker.View.LightScriptUserControl
             {
                 XElement xScript = new XElement("Script");
                 xScript.SetAttributeValue("name", item.Key);
-                xScript.SetAttributeValue("parent", item.Value.Parent);
                 xScript.SetAttributeValue("value", fileBusiness.String2Base(item.Value.Value));
                 xScript.SetAttributeValue("visible", item.Value.Visible);
                 StringBuilder builder = new StringBuilder();
@@ -5168,7 +5192,6 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
                     scriptModel.Visible = true;
-                    scriptModel.Parent = "";
                     scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();
                     scriptModel.Complement = new List<string>();
@@ -5189,7 +5212,6 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Name = stepName;
                     scriptModel.Value = commandLine;
                     scriptModel.Visible = true;
-                    scriptModel.Parent = "";
                     scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();
                     scriptModel.Complement = new List<string>();
@@ -5209,7 +5231,6 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
                     scriptModel.Visible = true;
-                    scriptModel.Parent = "";
                     scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();
                     scriptModel.Complement = new List<string>();
@@ -5247,7 +5268,6 @@ namespace Maker.View.LightScriptUserControl
             scriptModel.Name = stepName;
             scriptModel.Value = commandLine;
             scriptModel.Visible = true;
-            scriptModel.Parent = "";
             scriptModel.Contain = new List<string>() { stepName };
             scriptModel.Intersection = new List<string>();
             scriptModel.Complement = new List<string>();

@@ -83,10 +83,10 @@ namespace Operation
                 if (scriptModel.Value.Visible)
                 {
                     sb.Append("public LightGroup " + scriptModel.Key + "(){");
-                    if (!scriptModel.Value.Parent.Equals(String.Empty))
-                    {
-                        sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
-                    }
+                    //if (!scriptModel.Value.Parent.Equals(String.Empty))
+                    //{
+                    //    sb.Append("\tLightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Value.Parent + "();" + Environment.NewLine);
+                    //}
                     sb.Append(scriptModel.Value.Value);
                     List<string> myContain = new List<string>();
                     sb.Append(OperationModelsToCode(scriptModel.Value, ref myContain));
