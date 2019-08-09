@@ -11,7 +11,7 @@ namespace Maker.Model
     public class ScriptModel
     {
         public ScriptModel() {
-            Contain = new List<string>();
+            //Contain = new List<string>();
             Intersection = new List<string>();
             Complement = new List<string>();
             OperationModels = new List<BaseOperationModel>();
@@ -36,11 +36,11 @@ namespace Maker.Model
             get;
             set;
         }
-        public List<String> Contain
-        {
-            get;
-            set;
-        }
+        //public List<String> Contain
+        //{
+        //    get;
+        //    set;
+        //}
         public List<String> Intersection
         {
             get;

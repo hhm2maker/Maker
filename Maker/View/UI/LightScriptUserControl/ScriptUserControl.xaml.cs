@@ -674,7 +674,7 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Name = stepName;
                 scriptModel.Value = "";
                 scriptModel.Visible = true;
-                scriptModel.Contain = new List<string>() { stepName };
+                //scriptModel.Contain = new List<string>() { stepName };
                 scriptModel.Intersection = new List<string>();
                 scriptModel.Complement = new List<string>();
 
@@ -830,7 +830,7 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Name = stepName;
                 scriptModel.Value = "";
                 scriptModel.Visible = true;
-                scriptModel.Contain = new List<string>() { stepName };
+                //scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
                 SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
                 setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
@@ -989,15 +989,15 @@ namespace Maker.View.LightScriptUserControl
                     control = "Remove";
 
                 int x = 1;
-                while (x <= 100000)
-                {
-                    if (!scriptModel.Contain.Contains("Step" + x))
-                    {
-                        //不存在重复
-                        break;
-                    }
-                    x++;
-                }
+                //while (x <= 100000)
+                //{
+                //    if (!scriptModel.Contain.Contains("Step" + x))
+                //    {
+                //        //不存在重复
+                //        break;
+                //    }
+                //    x++;
+                //}
                 if (x > 100000)
                 {
                     new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
@@ -1035,7 +1035,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     ifPrerequisite += Environment.NewLine + "\tPositionGroup " + "step" + x.ToString() + "PositionGroup = new PositionGroup(\""
                         + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                    scriptModel.Contain.Add("Step" + x);
+                    //scriptModel.Contain.Add("Step" + x);
                 }
                 if (!tbIfColor.Text.Equals(String.Empty))
                 {
@@ -1070,10 +1070,10 @@ namespace Maker.View.LightScriptUserControl
                     }
                     ifPrerequisite += Environment.NewLine + "\tColorGroup " + "step" + x.ToString() + "ColorGroup = new ColorGroup(\""
                    + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                    if (!scriptModel.Contain.Contains("Step" + x))
-                    {
-                        scriptModel.Contain.Add("Step" + x);
-                    }
+                    //if (!scriptModel.Contain.Contains("Step" + x))
+                    //{
+                    //    scriptModel.Contain.Add("Step" + x);
+                    //}
                 }
                 for (int j = 0; j < 4; j++)
                 {
@@ -2021,11 +2021,11 @@ namespace Maker.View.LightScriptUserControl
             {
                 return;
             }
-            List<String> contain = scriptModelDictionary[GetStepName()].Contain;
-            scriptModelDictionary[GetStepName()].Value += Code.OperationModelsToCode(scriptModelDictionary[GetStepName()], ref contain);
-            scriptModelDictionary[GetStepName()].OperationModels.Clear();
+            //List<String> contain = scriptModelDictionary[GetStepName()].Contain;
+            //scriptModelDictionary[GetStepName()].Value += Code.OperationModelsToCode(scriptModelDictionary[GetStepName()], ref contain);
+            //scriptModelDictionary[GetStepName()].OperationModels.Clear();
             //TODO: 测试时需要测试，生成时可以去掉
-            Test();
+            //Test();
         }
 
         private void RenameStepName(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -2212,94 +2212,89 @@ namespace Maker.View.LightScriptUserControl
 
         private void CancelParent(object sender, RoutedEventArgs e)
         {
-            //没有父类不需要解除
-            String parentName = GetParentName().Trim();
-            String childName = GetStepName();
-            if (parentName.Equals(String.Empty))
-                return;
-            //不能隔代解除
-            if (!scriptModelDictionary[parentName].OperationModels[0].Equals(String.Empty))
-            {
-                System.Windows.Forms.MessageBox.Show("选中项的父类有自己的父类,不能隔代解除，请先解除父类的父类!");
-                return;
-            }
-            //对比包含字段
-            //父类字段不能与子类字段重复，否则替换
-            Dictionary<String, String> _dictionary = new Dictionary<String, String>();//老字段，新字段
-            List<String> newKey = new List<string>();
-            foreach (String str in scriptModelDictionary[parentName].Contain)
-            {
-                //!newKey.Contains(str) 如果没有这个条件，就会 如果同有Step3这个元素，Step3-Step4,Step4-Step4 
-                if (!scriptModelDictionary[childName].Contain.Contains(str) && !newKey.Contains(str))
-                {
-                    //该字段不存在重复
-                    _dictionary.Add(str, str);
-                    newKey.Add(str);
-                }
-                else
-                {
-                    int x = 1;
-                    while (x <= 100000)
-                    {
-                        if (!scriptModelDictionary[childName].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
-                        {
-                            //不存在重复
-                            _dictionary.Add(str, "Step" + x);
-                            newKey.Add("Step" + x);
-                            break;
-                        }
-                        x++;
-                    }
-                    if (x > 100000)
-                    {
-                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                        return;
-                    }
-                }
-            }
-            String oldName = _dictionary.Keys.First();
-
-            //给_dictionary 根据Step排序
-            ArrayList list = new ArrayList(_dictionary.Keys.ToArray());
-            IComparer fileNameComparer = new FilesNameComparerClass();
-            list.Sort(fileNameComparer);
-            Dictionary<String, String> mDictionary = new Dictionary<String, String>();
-            //一定要在这里添加，如果在下面 遍历_dictionary时添加，会导致顺序颠倒，缺少行数
-            for (int i = 0; i < list.Count; i++)
-            {
-                if (!scriptModelDictionary[childName].Contain.Contains(list[i].ToString()))
-                    scriptModelDictionary[childName].Contain.Add(list[i].ToString());
-            }
-            for (int i = list.Count - 1; i >= 0; i--)
-            {
-                mDictionary.Add(list[i].ToString(), _dictionary[list[i].ToString()]);
-            }
-            _dictionary = mDictionary;
-
-            //foreach (var item222 in _dictionary)
+            ////没有父类不需要解除
+            //String parentName = GetParentName().Trim();
+            //String childName = GetStepName();
+            //if (parentName.Equals(String.Empty))
+            //    return;
+            ////不能隔代解除
+            //if (!scriptModelDictionary[parentName].OperationModels[0].Equals(String.Empty))
             //{
-            //    Console.WriteLine(item222.Key + "---" + item222.Value);
+            //    System.Windows.Forms.MessageBox.Show("选中项的父类有自己的父类,不能隔代解除，请先解除父类的父类!");
+            //    return;
             //}
-            String parentCommand = scriptModelDictionary[parentName].Value;
-            foreach (var item in _dictionary)
-            {
-                parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
-                parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
-                parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
-                parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
-            }
-            String oldChildrenCommand = scriptModelDictionary[childName].Value;
-            String myCommand = Environment.NewLine + "\tLightGroup " + childName + "LightGroup = " + parentName + "LightGroup;" + Environment.NewLine;
-            String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
-            //newChildrenCommand = newChildrenCommand.Replace(scriptModelDictionary[childName].Parent+"();", oldName + "LightGroup;");
-            //newChildrenCommand = newChildrenCommand.Replace("Parent", _dictionary.Keys.First() + "LightGroup");
-            scriptModelDictionary[childName].Value = newChildrenCommand;
-            StackPanel sp = (StackPanel)lbStep.SelectedItem;
-            TextBlock block = (TextBlock)sp.Children[3];
-            block.Text = String.Empty;
+            ////对比包含字段
+            ////父类字段不能与子类字段重复，否则替换
+            //Dictionary<String, String> _dictionary = new Dictionary<String, String>();//老字段，新字段
+            //List<String> newKey = new List<string>();
+            //foreach (String str in scriptModelDictionary[parentName].Contain)
+            //{
+            //    //!newKey.Contains(str) 如果没有这个条件，就会 如果同有Step3这个元素，Step3-Step4,Step4-Step4 
+            //    if (!scriptModelDictionary[childName].Contain.Contains(str) && !newKey.Contains(str))
+            //    {
+            //        //该字段不存在重复
+            //        _dictionary.Add(str, str);
+            //        newKey.Add(str);
+            //    }
+            //    else
+            //    {
+            //        int x = 1;
+            //        while (x <= 100000)
+            //        {
+            //            if (!scriptModelDictionary[childName].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
+            //            {
+            //                //不存在重复
+            //                _dictionary.Add(str, "Step" + x);
+            //                newKey.Add("Step" + x);
+            //                break;
+            //            }
+            //            x++;
+            //        }
+            //        if (x > 100000)
+            //        {
+            //            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //            return;
+            //        }
+            //    }
+            //}
+            //String oldName = _dictionary.Keys.First();
 
-            Test();
+            ////给_dictionary 根据Step排序
+            //ArrayList list = new ArrayList(_dictionary.Keys.ToArray());
+            //IComparer fileNameComparer = new FilesNameComparerClass();
+            //list.Sort(fileNameComparer);
+            //Dictionary<String, String> mDictionary = new Dictionary<String, String>();
+            ////一定要在这里添加，如果在下面 遍历_dictionary时添加，会导致顺序颠倒，缺少行数
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    if (!scriptModelDictionary[childName].Contain.Contains(list[i].ToString()))
+            //        scriptModelDictionary[childName].Contain.Add(list[i].ToString());
+            //}
+            //for (int i = list.Count - 1; i >= 0; i--)
+            //{
+            //    mDictionary.Add(list[i].ToString(), _dictionary[list[i].ToString()]);
+            //}
+            //_dictionary = mDictionary;
+
+            //String parentCommand = scriptModelDictionary[parentName].Value;
+            //foreach (var item in _dictionary)
+            //{
+            //    parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
+            //    parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
+            //}
+            //String oldChildrenCommand = scriptModelDictionary[childName].Value;
+            //String myCommand = Environment.NewLine + "\tLightGroup " + childName + "LightGroup = " + parentName + "LightGroup;" + Environment.NewLine;
+            //String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
+          
+            //scriptModelDictionary[childName].Value = newChildrenCommand;
+            //StackPanel sp = (StackPanel)lbStep.SelectedItem;
+            //TextBlock block = (TextBlock)sp.Children[3];
+            //block.Text = String.Empty;
+
+            //Test();
         }
 
 
@@ -2453,7 +2448,6 @@ namespace Maker.View.LightScriptUserControl
             scriptModel.Name = stepName;
             scriptModel.Value = "LightGroup " + stepName + "LightGroup = new LightGroup();";
             scriptModel.Visible = true;
-            scriptModel.Contain = new List<string>() { stepName };
             scriptModelDictionary.Add(stepName, scriptModel);
             UpdateStep();
             Test();
@@ -2463,90 +2457,90 @@ namespace Maker.View.LightScriptUserControl
 
         private void CopyStep(object sender, RoutedEventArgs e)
         {
-            while (lbStep.SelectedItems.Count > 0)
-            {
-                String stepName = String.Empty;
-                //从1开始计算
-                int i = 1;
-                while (i <= 100000)//最多100000步
-                {
-                    if (!ContainsStepName("Step" + i))
-                    {
-                        stepName = "Step" + i;
-                        break;
-                    }
-                    i++;
-                }
-                if (stepName.Equals(String.Empty))
-                {
-                    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                    return;
-                }
+            //while (lbStep.SelectedItems.Count > 0)
+            //{
+            //    String stepName = String.Empty;
+            //    //从1开始计算
+            //    int i = 1;
+            //    while (i <= 100000)//最多100000步
+            //    {
+            //        if (!ContainsStepName("Step" + i))
+            //        {
+            //            stepName = "Step" + i;
+            //            break;
+            //        }
+            //        i++;
+            //    }
+            //    if (stepName.Equals(String.Empty))
+            //    {
+            //        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //        return;
+            //    }
 
-                StackPanel sp = (StackPanel)lbStep.SelectedItems[0];
-                String oldName = GetStepName(sp);
-                String oldParent = GetParentName(sp);
+            //    StackPanel sp = (StackPanel)lbStep.SelectedItems[0];
+            //    String oldName = GetStepName(sp);
+            //    String oldParent = GetParentName(sp);
 
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.Name = stepName;
-                scriptModel.Visible = scriptModelDictionary[oldName].Visible;
+            //    ScriptModel scriptModel = new ScriptModel();
+            //    scriptModel.Name = stepName;
+            //    scriptModel.Visible = scriptModelDictionary[oldName].Visible;
 
-                String newScript = scriptModelDictionary[oldName].Value;
-                //新的包含
-                List<String> ls = new List<string>();
-                //是否包含
-                if (scriptModelDictionary[oldName].Contain.Contains(stepName))
-                {
-                    //如果包含
-                    //将原包含字段的字段替换
-                    int x = 1;
-                    while (x <= 100000)
-                    {
-                        if (!scriptModelDictionary[oldName].Contain.Contains("Step" + x))
-                        {
-                            //不存在重复
-                            break;
-                        }
-                        x++;
-                    }
-                    if (x > 100000)
-                    {
-                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                        return;
-                    }
-                    newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
-                    newScript = newScript.Replace(stepName + "LightGroup", "Step" + x + "LightGroup");
-                    newScript = newScript.Replace(stepName + "RangeGroup", "Step" + x + "RangeGroup");
-                    newScript = newScript.Replace(stepName + "ColorGroup", "Step" + x + "ColorGroup");
-                    newScript = newScript.Replace(stepName + "PositionGroup", "Step" + x + "PositionGroup");
-                }
-                //新名字和其他字段不冲突
-                newScript = newScript.Replace(oldName + "Light", stepName + "Light");
-                newScript = newScript.Replace(oldName + "LightGroup", stepName + "LightGroup");
-                newScript = newScript.Replace(oldName + "RangeGroup", stepName + "RangeGroup");
-                newScript = newScript.Replace(oldName + "ColorGroup", stepName + "ColorGroup");
-                newScript = newScript.Replace(oldName + "PositionGroup", stepName + "PositionGroup");
+            //    String newScript = scriptModelDictionary[oldName].Value;
+            //    //新的包含
+            //    List<String> ls = new List<string>();
+            //    //是否包含
+            //    if (scriptModelDictionary[oldName].Contain.Contains(stepName))
+            //    {
+            //        //如果包含
+            //        //将原包含字段的字段替换
+            //        int x = 1;
+            //        while (x <= 100000)
+            //        {
+            //            if (!scriptModelDictionary[oldName].Contain.Contains("Step" + x))
+            //            {
+            //                //不存在重复
+            //                break;
+            //            }
+            //            x++;
+            //        }
+            //        if (x > 100000)
+            //        {
+            //            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //            return;
+            //        }
+            //        newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
+            //        newScript = newScript.Replace(stepName + "LightGroup", "Step" + x + "LightGroup");
+            //        newScript = newScript.Replace(stepName + "RangeGroup", "Step" + x + "RangeGroup");
+            //        newScript = newScript.Replace(stepName + "ColorGroup", "Step" + x + "ColorGroup");
+            //        newScript = newScript.Replace(stepName + "PositionGroup", "Step" + x + "PositionGroup");
+            //    }
+            //    //新名字和其他字段不冲突
+            //    newScript = newScript.Replace(oldName + "Light", stepName + "Light");
+            //    newScript = newScript.Replace(oldName + "LightGroup", stepName + "LightGroup");
+            //    newScript = newScript.Replace(oldName + "RangeGroup", stepName + "RangeGroup");
+            //    newScript = newScript.Replace(oldName + "ColorGroup", stepName + "ColorGroup");
+            //    newScript = newScript.Replace(oldName + "PositionGroup", stepName + "PositionGroup");
 
-                ls.Add(stepName);
-                foreach (String s in scriptModelDictionary[oldName].Contain)
-                {
-                    ls.Add(s);
-                }
-                if (ls.Contains(oldName))
-                {
-                    ls.Remove(oldName);
-                }
-                scriptModel.Contain = ls;
-                scriptModel.Value = newScript;
-                //决定样式还是复制吧。
-                if (finalDictionary.ContainsKey(oldName))
-                {
-                    finalDictionary.Add(stepName, finalDictionary[oldName]);
-                }
-                //最后界面里更改以及刷新继承
-                scriptModelDictionary.Add(stepName, scriptModel);
-                lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
-            }
+            //    ls.Add(stepName);
+            //    foreach (String s in scriptModelDictionary[oldName].Contain)
+            //    {
+            //        ls.Add(s);
+            //    }
+            //    if (ls.Contains(oldName))
+            //    {
+            //        ls.Remove(oldName);
+            //    }
+            //    scriptModel.Contain = ls;
+            //    scriptModel.Value = newScript;
+            //    //决定样式还是复制吧。
+            //    if (finalDictionary.ContainsKey(oldName))
+            //    {
+            //        finalDictionary.Add(stepName, finalDictionary[oldName]);
+            //    }
+            //    //最后界面里更改以及刷新继承
+            //    scriptModelDictionary.Add(stepName, scriptModel);
+            //    lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
+            //}
             UpdateStep();
             UpdateVisible();
             Test();
@@ -2780,74 +2774,72 @@ namespace Maker.View.LightScriptUserControl
                 }
                 lbStep.SelectedItems.Add(lbStep.Items[i]);
             }
-            while (lbStep.SelectedItems.Count > 1)
-            {
-                //Console.WriteLine("--------");
-                //第1个被选中的融入第0个被选中的 后面融入前面
-                //对比包含字段
-                //被包含类字段不能与包含类字段重复，否则替换 
-                List<String> newKey = new List<string>();
-                Dictionary<String, String> _dictionary = new Dictionary<String, String>();//老字段，新字段
-                StackPanel oldPanel = (StackPanel)lbStep.SelectedItems[1];
-                StackPanel newPanel = (StackPanel)lbStep.SelectedItems[0];
+            //while (lbStep.SelectedItems.Count > 1)
+            //{
+            //    //Console.WriteLine("--------");
+            //    //第1个被选中的融入第0个被选中的 后面融入前面
+            //    //对比包含字段
+            //    //被包含类字段不能与包含类字段重复，否则替换 
+            //    List<String> newKey = new List<string>();
+            //    Dictionary<String, String> _dictionary = new Dictionary<String, String>();//老字段，新字段
+            //    StackPanel oldPanel = (StackPanel)lbStep.SelectedItems[1];
+            //    StackPanel newPanel = (StackPanel)lbStep.SelectedItems[0];
 
-                foreach (String str in scriptModelDictionary[GetStepName(oldPanel)].Contain)
-                {
-                    if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains(str))
-                    {
-                        //该字段不存在重复
-                        _dictionary.Add(str, str);
-                        newKey.Add(str);
-                    }
-                    else
-                    {
-                        int x = 1;
-                        while (x <= 100000)
-                        {
-                            if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
-                            {
-                                //不存在重复
-                                _dictionary.Add(str, "Step" + x);
-                                newKey.Add("Step" + x);
-                                break;
-                            }
-                            x++;
-                        }
-                        if (x > 100000)
-                        {
-                            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                            return;
-                        }
-                    }
-                }
-                String parentCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
-                foreach (var item in _dictionary)
-                {
-                    parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
-                    parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                    parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
-                    parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
-                    parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
-                    scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
-                }
-                String oldChildrenCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
-                String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.AddRange(" + _dictionary.Values.First() + "LightGroup);";
+            //    foreach (String str in scriptModelDictionary[GetStepName(oldPanel)].Contain)
+            //    {
+            //        if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains(str))
+            //        {
+            //            //该字段不存在重复
+            //            _dictionary.Add(str, str);
+            //            newKey.Add(str);
+            //        }
+            //        else
+            //        {
+            //            int x = 1;
+            //            while (x <= 100000)
+            //            {
+            //                if (!scriptModelDictionary[GetStepName(newPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
+            //                {
+            //                    //不存在重复
+            //                    _dictionary.Add(str, "Step" + x);
+            //                    newKey.Add("Step" + x);
+            //                    break;
+            //                }
+            //                x++;
+            //            }
+            //            if (x > 100000)
+            //            {
+            //                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //                return;
+            //            }
+            //        }
+            //    }
+            //    String parentCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
+            //    foreach (var item in _dictionary)
+            //    {
+            //        parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
+            //        parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
+            //        parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+            //        parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+            //        parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
+            //        scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
+            //    }
+            //    String oldChildrenCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
+            //    String newChildrenCommand = parentCommand + Environment.NewLine + oldChildrenCommand;
+            //    newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.AddRange(" + _dictionary.Values.First() + "LightGroup);";
 
-                scriptModelDictionary[GetStepName(newPanel)].Value = newChildrenCommand;
-                scriptModelDictionary.Remove(GetStepName(oldPanel));
+            //    scriptModelDictionary[GetStepName(newPanel)].Value = newChildrenCommand;
+            //    scriptModelDictionary.Remove(GetStepName(oldPanel));
 
-                Dictionary<String, ScriptModel> _lightScriptDictionary = new Dictionary<String, ScriptModel>();
-                foreach (var item in scriptModelDictionary)
-                {
-                    _lightScriptDictionary.Add(item.Key, item.Value);
-                }
-                scriptModelDictionary = _lightScriptDictionary;
+            //    Dictionary<String, ScriptModel> _lightScriptDictionary = new Dictionary<String, ScriptModel>();
+            //    foreach (var item in scriptModelDictionary)
+            //    {
+            //        _lightScriptDictionary.Add(item.Key, item.Value);
+            //    }
+            //    scriptModelDictionary = _lightScriptDictionary;
 
-                //visibleDictionary.Remove(GetStepName(oldPanel));
-                //containDictionary.Remove(GetStepName(oldPanel));
-                lbStep.Items.Remove(lbStep.SelectedItems[1]);
-            }
+            //    lbStep.Items.Remove(lbStep.SelectedItems[1]);
+            //}
             Test();
         }
         private String GetVisibleImageStepName(Object sender)
@@ -3355,112 +3347,112 @@ namespace Maker.View.LightScriptUserControl
             StackPanel oldPanel = (StackPanel)lbStep.Items[pPosition];
             StackPanel newPanel = (StackPanel)lbStep.Items[cPosition];
 
-            foreach (String str in scriptModelDictionary[GetStepName(newPanel)].Contain)
-            {
-                if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains(str))
-                {
-                    //该字段不存在重复
-                    _dictionary.Add(str, str);
-                    newKey.Add(str);
-                }
-                else
-                {
-                    int x = 1;
-                    while (x <= 100000)
-                    {
-                        if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
-                        {
-                            //不存在重复
-                            _dictionary.Add(str, "Step" + x);
-                            newKey.Add("Step" + x);
-                            break;
-                        }
-                        x++;
-                    }
-                    if (x > 100000)
-                    {
-                        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                        return;
-                    }
-                }
-            }
-            String parentCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
-            foreach (var item in _dictionary)
-            {
-                parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
-                parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
-                parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
-                parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
-                parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
-                scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
-            }
-            String oldChildrenCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
-            String newChildrenCommand = oldChildrenCommand + Environment.NewLine + parentCommand;
-            //newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
-            if (type == CollectionType.Intersection)
-            {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + _dictionary.Values.First() + "LightGroup);";
-            }
-            else if (type == CollectionType.Complement)
-            {
-                newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT ," + _dictionary.Values.First() + "LightGroup);";
-            }
-            scriptModelDictionary[GetStepName(oldPanel)].Value = newChildrenCommand;
-            scriptModelDictionary.Remove(GetStepName(newPanel));
-
-            Dictionary<string, ScriptModel> _lightScriptDictionary = new Dictionary<string, ScriptModel>();
-            foreach (var item in scriptModelDictionary)
-            {
-                _lightScriptDictionary.Add(item.Key, item.Value);
-            }
-            scriptModelDictionary = _lightScriptDictionary;
-
-            //visibleDictionary.Remove(GetStepName(oldPanel));
-            //containDictionary.Remove(GetStepName(oldPanel));
-            lbStep.Items.Remove(lbStep.Items[cPosition]);
-
-            String _parentName = String.Empty;
-            foreach (var item in scriptModelDictionary)
-            {
-                if (item.Value.Intersection.Contains(childName))
-                {
-                    item.Value.Intersection.Remove(childName);
-                    _parentName = item.Key;
-                    break;
-                }
-            }
-            //if (!_parentName.Equals(String.Empty))
+            //foreach (String str in scriptModelDictionary[GetStepName(newPanel)].Contain)
             //{
-            //    if (intersectionDictionary[_parentName].Count == 0)
+            //    if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains(str))
             //    {
-            //        intersectionDictionary.Remove(_parentName);
+            //        //该字段不存在重复
+            //        _dictionary.Add(str, str);
+            //        newKey.Add(str);
+            //    }
+            //    else
+            //    {
+            //        int x = 1;
+            //        while (x <= 100000)
+            //        {
+            //            if (!scriptModelDictionary[GetStepName(oldPanel)].Contain.Contains("Step" + x) && !newKey.Contains("Step" + x))
+            //            {
+            //                //不存在重复
+            //                _dictionary.Add(str, "Step" + x);
+            //                newKey.Add("Step" + x);
+            //                break;
+            //            }
+            //            x++;
+            //        }
+            //        if (x > 100000)
+            //        {
+            //            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //            return;
+            //        }
             //    }
             //}
-            //if (intersectionDictionary.ContainsKey(childName))
+            //String parentCommand = scriptModelDictionary[GetStepName(newPanel)].Value;
+            //foreach (var item in _dictionary)
             //{
-            //    intersectionDictionary.Remove(childName);
+            //    parentCommand = parentCommand.Replace(item.Key + "Light", item.Value + "Light");
+            //    parentCommand = parentCommand.Replace(item.Key + "LightGroup", item.Value + "LightGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "RangeGroup", item.Value + "RangeGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "ColorGroup", item.Value + "ColorGroup");
+            //    parentCommand = parentCommand.Replace(item.Key + "PositionGroup", item.Value + "PositionGroup");
+            //    scriptModelDictionary[GetStepName(newPanel)].Contain.Add(item.Value);
             //}
-            foreach (var item in scriptModelDictionary)
-            {
-                if (item.Value.Complement.Contains(childName))
-                {
-                    item.Value.Complement.Remove(childName);
-                    _parentName = item.Key;
-                    break;
-                }
-            }
-            //if (!_parentName.Equals(String.Empty))
+            //String oldChildrenCommand = scriptModelDictionary[GetStepName(oldPanel)].Value;
+            //String newChildrenCommand = oldChildrenCommand + Environment.NewLine + parentCommand;
+            ////newChildrenCommand += Environment.NewLine + "\t" + GetStepName(newPanel) + "LightGroup.Add(" + _dictionary.Values.First() + "LightGroup);";
+            //if (type == CollectionType.Intersection)
             //{
-            //    if (complementDictionary[_parentName].Count == 0)
+            //    newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.INTERSECTION," + _dictionary.Values.First() + "LightGroup);";
+            //}
+            //else if (type == CollectionType.Complement)
+            //{
+            //    newChildrenCommand += Environment.NewLine + "\t" + GetStepName(oldPanel) + "LightGroup.CollectionOperation(LightGroup.COMPLEMENT ," + _dictionary.Values.First() + "LightGroup);";
+            //}
+            //scriptModelDictionary[GetStepName(oldPanel)].Value = newChildrenCommand;
+            //scriptModelDictionary.Remove(GetStepName(newPanel));
+
+            //Dictionary<string, ScriptModel> _lightScriptDictionary = new Dictionary<string, ScriptModel>();
+            //foreach (var item in scriptModelDictionary)
+            //{
+            //    _lightScriptDictionary.Add(item.Key, item.Value);
+            //}
+            //scriptModelDictionary = _lightScriptDictionary;
+
+            ////visibleDictionary.Remove(GetStepName(oldPanel));
+            ////containDictionary.Remove(GetStepName(oldPanel));
+            //lbStep.Items.Remove(lbStep.Items[cPosition]);
+
+            //String _parentName = String.Empty;
+            //foreach (var item in scriptModelDictionary)
+            //{
+            //    if (item.Value.Intersection.Contains(childName))
             //    {
-            //        complementDictionary.Remove(_parentName);
+            //        item.Value.Intersection.Remove(childName);
+            //        _parentName = item.Key;
+            //        break;
             //    }
             //}
-            //if (complementDictionary.ContainsKey(childName))
+            ////if (!_parentName.Equals(String.Empty))
+            ////{
+            ////    if (intersectionDictionary[_parentName].Count == 0)
+            ////    {
+            ////        intersectionDictionary.Remove(_parentName);
+            ////    }
+            ////}
+            ////if (intersectionDictionary.ContainsKey(childName))
+            ////{
+            ////    intersectionDictionary.Remove(childName);
+            ////}
+            //foreach (var item in scriptModelDictionary)
             //{
-            //    complementDictionary.Remove(childName);
+            //    if (item.Value.Complement.Contains(childName))
+            //    {
+            //        item.Value.Complement.Remove(childName);
+            //        _parentName = item.Key;
+            //        break;
+            //    }
             //}
-            Test();
+            ////if (!_parentName.Equals(String.Empty))
+            ////{
+            ////    if (complementDictionary[_parentName].Count == 0)
+            ////    {
+            ////        complementDictionary.Remove(_parentName);
+            ////    }
+            ////}
+            ////if (complementDictionary.ContainsKey(childName))
+            ////{
+            ////    complementDictionary.Remove(childName);
+            ////}
+            //Test();
         }
 
         private void TextChanged(object sender, TextChangedEventArgs e)
@@ -3481,10 +3473,214 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void EditToScript(object sender, RoutedEventArgs e)
+        private void EditToScript2(object sender, RoutedEventArgs e)
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
             //DragDrop.DoDragDrop((TreeViewItem)sender, ((UIElement)sender).GetValue(NameProperty).ToString(), DragDropEffects.Copy);
+        }
+
+        private void EditToScript(object sender, RoutedEventArgs e)
+        {
+            if (lbStep.SelectedItems.Count == 0)
+                return;
+            for (int i = 0; i < lbStep.SelectedItems.Count; i++)
+            {
+                String name = GetStepName(lbStep.SelectedItems[i] as StackPanel);
+                if (lockedDictionary.ContainsKey(name))
+                {
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                    return;
+                }
+                ScriptModel scriptModel = scriptModelDictionary[name];
+                //没有可操作的灯光组
+                //if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
+                //{
+                //    return;
+                //}
+                String command = String.Empty;
+                if (sender == btnHorizontalFlipping)
+                {
+                    scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
+                }
+                if (sender == btnVerticalFlipping)
+                {
+                    scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
+                }
+                if (sender == btnLowerLeftSlashFlipping)
+                {
+                    scriptModel.OperationModels.Add(new LowerLeftSlashFlippingOperationModel());
+                }
+                if (sender == btnLowerRightSlashFlipping)
+                {
+                    scriptModel.OperationModels.Add(new LowerRightSlashFlippingOperationModel());
+                }
+                if (sender == btnFold)
+                {
+                    scriptModel.OperationModels.Add(new FoldOperationModel(FoldOperationModel.Orientation.VERTICAL, 0, 0));
+                }
+                if (sender == btnClockwise)
+                {
+                    scriptModel.OperationModels.Add(new ClockwiseOperationModel());
+                }
+                if (sender == btnAntiClockwise)
+                {
+                    scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
+                }
+                if (sender == btnReversal)
+                {
+                    scriptModel.OperationModels.Add(new ReversalOperationModel());
+                }
+                if (sender == btnExtendTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 2));
+                }
+                if (sender == btnShortenTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.DIVISION, 2));
+                }
+                if (sender == btnDiyTime)
+                {
+                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
+                }
+                if (sender == btnMatchTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon", OneNumberOperationModel.NumberType.OTHER));
+                }
+                if (sender == btnInterceptTime)
+                {
+                    scriptModel.OperationModels.Add(new InterceptTimeOperationModel(0, 12));
+                }
+                if (sender == btnRemoveBorder)
+                {
+                    scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
+                }
+                if (sender == btnFillColor)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon", OneNumberOperationModel.NumberType.COLOR));
+                }
+                if (sender == btnChangeColorYellow)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 73, 74, 75, 76 }));
+                }
+                if (sender == btnChangeColorBlue)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 33, 37, 41, 45 }));
+                }
+                if (sender == btnChangeColorPink)
+                {
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 4, 94, 53, 57 }));
+                }
+                if (sender == btnChangeColorDiy)
+                {
+                    List<Model.Light> mLightList = mLightDictionary[name];
+                    List<int> mColor = new List<int>();
+                    for (int j = 0; j < mLightList.Count; j++)
+                    {
+                        if (mLightList[j].Action == 144)
+                        {
+                            if (!mColor.Contains(mLightList[j].Color))
+                            {
+                                mColor.Add(mLightList[j].Color);
+                            }
+                        }
+                    }
+                    mColor.Sort();
+                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+                }
+                if (sender == btnColorChange)
+                {
+                    ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, mLightDictionary[name]);
+                    if (colorDialog.ShowDialog() == true)
+                    {
+                        List<int> mColor = new List<int>();
+                        for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
+                        {
+                            if (int.TryParse(colorDialog.lbColor.Items[x].ToString(), out int color))
+                            {
+                                mColor.Add(color);
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                        scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                if (sender == btnColorWithCount)
+                {
+                    scriptModel.OperationModels.Add(new ColorWithCountOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnSetStartTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon", OneNumberOperationModel.NumberType.OTHER));
+                }
+                if (sender == btnSetEndTime)
+                {
+                    scriptModel.OperationModels.Add(new SetEndTimeOperationModel(SetEndTimeOperationModel.Type.ALL, "12"));
+                }
+                if (sender == btnSetAllTime)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon", OneNumberOperationModel.NumberType.OTHER));
+                }
+                if (sender == btnDisappear)
+                {
+                    scriptModel.OperationModels.Add(new AnimationDisappearOperationModel(0, 12));
+                }
+                if (sender == btnWindmill)
+                {
+                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon", OneNumberOperationModel.NumberType.OTHER));
+                }
+                if (sender == btnCopyToTheEnd)
+                {
+                    scriptModel.OperationModels.Add(new CopyToTheEndOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnCopyToTheFollow)
+                {
+                    scriptModel.OperationModels.Add(new CopyToTheFollowOperationModel(new List<int>() { 5 }));
+                }
+                if (sender == btnAccelerationOrDeceleration)
+                {
+                    scriptModel.OperationModels.Add(new AccelerationOrDecelerationOperationModel(new List<int>() { 100 }));
+                }
+                if (sender == miSquare
+                    || sender == miRadialVertical
+                    || sender == miRadialHorizontal)
+                {
+                    if (sender == miSquare)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.SQUARE, new List<int>() { 5, 5, 5, 5, 5, 5 }));
+                    }
+                    if (sender == miRadialVertical)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALVERTICAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    }
+                    if (sender == miRadialHorizontal)
+                    {
+                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
+                    }
+                }
+                //if (sender.Parent == miChildThirdParty)
+                //{
+                //    ThirdPartyOperationModel thirdPartyOperationModel = new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll);
+
+                //    XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + thirdPartys[miChildThirdParty.Items.IndexOf(sender)].view);
+                //    foreach (XElement element in doc.Element("Views").Elements())
+                //    {
+                //        thirdPartyOperationModel.Parameters.Add(element.Attribute("default").Value);
+                //    }
+                //    scriptModel.OperationModels.Add(thirdPartyOperationModel);
+                //}
+
+                //StyleWindow style = new StyleWindow(mw);
+                sw.SetData(scriptModelDictionary[name].OperationModels, true);
+                //mw.AddSetting(style);
+            }
+            Test();
         }
 
         private void Automatic(object sender, RoutedEventArgs e)
@@ -4056,10 +4252,10 @@ namespace Maker.View.LightScriptUserControl
                 xScript.SetAttributeValue("value", fileBusiness.String2Base(item.Value.Value));
                 xScript.SetAttributeValue("visible", item.Value.Visible);
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < item.Value.Contain.Count; i++)
-                {
-                    builder.Append(item.Value.Contain[i] + " ");
-                }
+                //for (int i = 0; i < item.Value.Contain.Count; i++)
+                //{
+                //    builder.Append(item.Value.Contain[i] + " ");
+                //}
                 xScript.SetAttributeValue("contain", builder.ToString().Trim());
 
                 StringBuilder builder2 = new StringBuilder();
@@ -4420,200 +4616,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     sp = (StackPanel)element;
                 }
-                if (lockedDictionary.ContainsKey(GetStepName(sp)))
-                {
-                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                    return;
-                }
-                ScriptModel scriptModel = scriptModelDictionary[GetStepName(sp)];
-                //没有可操作的灯光组
-                //if (!scriptModel.Value.Contains(GetStepName(sp) + "LightGroup"))
-                //{
-                //    return;
-                //}
-                String command = String.Empty;
-                if (sender == btnHorizontalFlipping)
-                {
-                    scriptModel.OperationModels.Add(new HorizontalFlippingOperationModel());
-                }
-                if (sender == btnVerticalFlipping)
-                {
-                    scriptModel.OperationModels.Add(new VerticalFlippingOperationModel());
-                }
-                if (sender == btnLowerLeftSlashFlipping)
-                {
-                    scriptModel.OperationModels.Add(new LowerLeftSlashFlippingOperationModel());
-                }
-                if (sender == btnLowerRightSlashFlipping)
-                {
-                    scriptModel.OperationModels.Add(new LowerRightSlashFlippingOperationModel());
-                }
-                if (sender == btnFold)
-                {
-                    scriptModel.OperationModels.Add(new FoldOperationModel(FoldOperationModel.Orientation.VERTICAL, 0, 0));
-                }
-                if (sender == btnClockwise)
-                {
-                    scriptModel.OperationModels.Add(new ClockwiseOperationModel());
-                }
-                if (sender == btnAntiClockwise)
-                {
-                    scriptModel.OperationModels.Add(new AntiClockwiseOperationModel());
-                }
-                if (sender == btnReversal)
-                {
-                    scriptModel.OperationModels.Add(new ReversalOperationModel());
-                }
-                if (sender == btnExtendTime)
-                {
-                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 2));
-                }
-                if (sender == btnShortenTime)
-                {
-                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.DIVISION, 2));
-                }
-                if (sender == btnDiyTime)
-                {
-                    scriptModel.OperationModels.Add(new ChangeTimeOperationModel(ChangeTimeOperationModel.Operation.MULTIPLICATION, 1));
-                }
-                if (sender == btnMatchTime)
-                {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("MatchTotalTimeLattice", 12, "TotalTimeLatticeColon",OneNumberOperationModel.NumberType.OTHER));
-                }
-                if (sender == btnInterceptTime)
-                {
-                    scriptModel.OperationModels.Add(new InterceptTimeOperationModel(0, 12));
-                }
-                if (sender == btnRemoveBorder)
-                {
-                    scriptModel.OperationModels.Add(new RemoveBorderOperationModel());
-                }
-                if (sender == btnFillColor)
-                {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("FillColor", 5, "FillColorColon",OneNumberOperationModel.NumberType.COLOR));
-                }
-                if (sender == btnChangeColorYellow)
-                {
-                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 73, 74, 75, 76 }));
-                }
-                if (sender == btnChangeColorBlue)
-                {
-                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 33, 37, 41, 45 }));
-                }
-                if (sender == btnChangeColorPink)
-                {
-                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(new List<int>() { 4, 94, 53, 57 }));
-                }
-                if (sender == btnChangeColorDiy)
-                {
-                    List<Model.Light> mLightList = mLightDictionary[GetStepName(sp)];
-                    List<int> mColor = new List<int>();
-                    for (int j = 0; j < mLightList.Count; j++)
-                    {
-                        if (mLightList[j].Action == 144)
-                        {
-                            if (!mColor.Contains(mLightList[j].Color))
-                            {
-                                mColor.Add(mLightList[j].Color);
-                            }
-                        }
-                    }
-                    mColor.Sort();
-                    scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
-                }
-                if (sender == btnColorChange)
-                {
-                    ListChangeColorDialog colorDialog = new ListChangeColorDialog(mw, mLightDictionary[GetStepName(sp)]);
-                    if (colorDialog.ShowDialog() == true)
-                    {
-                        List<int> mColor = new List<int>();
-                        for (int x = 0; x < colorDialog.lbColor.Items.Count; x++)
-                        {
-                            if (int.TryParse(colorDialog.lbColor.Items[x].ToString(), out int color))
-                            {
-                                mColor.Add(color);
-                            }
-                            else
-                            {
-                                return;
-                            }
-                        }
-                        scriptModel.OperationModels.Add(new ChangeColorOperationModel(mColor));
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                if (sender == btnColorWithCount)
-                {
-                    scriptModel.OperationModels.Add(new ColorWithCountOperationModel(new List<int>() { 5 }));
-                }
-                if (sender == btnSetStartTime)
-                {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetStartTime", 0, "PleaseEnterTheStartTimeColon",OneNumberOperationModel.NumberType.OTHER));
-                }
-                if (sender == btnSetEndTime)
-                {
-                    scriptModel.OperationModels.Add(new SetEndTimeOperationModel(SetEndTimeOperationModel.Type.ALL, "12"));
-                }
-                if (sender == btnSetAllTime)
-                {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("SetAllTime", 12, "PleaseEnterTheConstantTimeColon",OneNumberOperationModel.NumberType.OTHER));
-                }
-                if (sender == btnDisappear)
-                {
-                    scriptModel.OperationModels.Add(new AnimationDisappearOperationModel(0, 12));
-                }
-                if (sender == btnWindmill)
-                {
-                    scriptModel.OperationModels.Add(new OneNumberOperationModel("Animation.Windmill", 12, "IntervalColon", OneNumberOperationModel.NumberType.OTHER));
-                }
-                if (sender == btnCopyToTheEnd)
-                {
-                    scriptModel.OperationModels.Add(new CopyToTheEndOperationModel(new List<int>() { 5 }));
-                }
-                if (sender == btnCopyToTheFollow)
-                {
-                    scriptModel.OperationModels.Add(new CopyToTheFollowOperationModel(new List<int>() { 5 }));
-                }
-                if (sender == btnAccelerationOrDeceleration)
-                {
-                    scriptModel.OperationModels.Add(new AccelerationOrDecelerationOperationModel(new List<int>() { 100 }));
-                }
-                if (sender == miSquare
-                    || sender == miRadialVertical
-                    || sender == miRadialHorizontal)
-                {
-                    if (sender == miSquare)
-                    {
-                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.SQUARE, new List<int>() { 5, 5, 5, 5, 5, 5 }));
-                    }
-                    if (sender == miRadialVertical)
-                    {
-                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALVERTICAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
-                    }
-                    if (sender == miRadialHorizontal)
-                    {
-                        scriptModel.OperationModels.Add(new ShapeColorOperationModel(ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL, new List<int>() { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }));
-                    }
-                }
-                if (sender.Parent == miChildThirdParty)
-                {
-                    ThirdPartyOperationModel thirdPartyOperationModel = new ThirdPartyOperationModel(thirdPartys[miChildThirdParty.Items.IndexOf(sender)].name, thirdPartys[miChildThirdParty.Items.IndexOf(sender)].dll);
-                    
-                    XDocument doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + thirdPartys[miChildThirdParty.Items.IndexOf(sender)].view);
-                    foreach (XElement element in doc.Element("Views").Elements())
-                    {
-                        thirdPartyOperationModel.Parameters.Add(element.Attribute("default").Value);
-                    }
-                    scriptModel.OperationModels.Add(thirdPartyOperationModel);
-                }
-
-                //StyleWindow style = new StyleWindow(mw);
-                sw.SetData(scriptModelDictionary[GetStepName(sp)].OperationModels, true);
-                Test();
-                //mw.AddSetting(style);
+             
             }
             //Test();
         }
@@ -5192,7 +5195,7 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
                     scriptModel.Visible = true;
-                    scriptModel.Contain = new List<string>() { stepName };
+                    //scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();
                     scriptModel.Complement = new List<string>();
                     scriptModelDictionary.Add(stepName, scriptModel);
@@ -5212,7 +5215,7 @@ namespace Maker.View.LightScriptUserControl
                     scriptModel.Name = stepName;
                     scriptModel.Value = commandLine;
                     scriptModel.Visible = true;
-                    scriptModel.Contain = new List<string>() { stepName };
+                    //scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();
                     scriptModel.Complement = new List<string>();
                     scriptModelDictionary.Add(stepName, scriptModel);
@@ -5223,41 +5226,7 @@ namespace Maker.View.LightScriptUserControl
                     Test();
                 }
             }
-            else {
-                if (e.Data.GetData(typeof(TreeViewItem)) is TreeViewItem) {
-                    TreeViewItem item = e.Data.GetData(typeof(TreeViewItem)) as TreeViewItem;
-                    String stepName = GetUsableStepName();
-                    ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.Name = stepName;
-                    scriptModel.Value = "";
-                    scriptModel.Visible = true;
-                    scriptModel.Contain = new List<string>() { stepName };
-                    scriptModel.Intersection = new List<string>();
-                    scriptModel.Complement = new List<string>();
-
-                    if (item == miRhombusDiffusion)
-                    {
-                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11)));
-                    }
-                    else if (item == miCross)
-                    {
-                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11)));
-                    }
-                    else if (item == miRandomFountain)
-                    {
-                        scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0,7)));
-                    }
-                    scriptModelDictionary.Add(stepName, scriptModel);
-                    UpdateStep();
-
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-
-                    Test();
-               
-                }
-              
-            }
-            
+          
             }
 
         public void NewFromImport(String fileName, String _stepName)
@@ -5268,7 +5237,7 @@ namespace Maker.View.LightScriptUserControl
             scriptModel.Name = stepName;
             scriptModel.Value = commandLine;
             scriptModel.Visible = true;
-            scriptModel.Contain = new List<string>() { stepName };
+            //scriptModel.Contain = new List<string>() { stepName };
             scriptModel.Intersection = new List<string>();
             scriptModel.Complement = new List<string>();
             scriptModelDictionary.Add(stepName, scriptModel);
@@ -5407,6 +5376,37 @@ namespace Maker.View.LightScriptUserControl
         private void iRefresh_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Test();
+        }
+
+        private void Generate_Click(object sender, RoutedEventArgs e)
+        {
+                String stepName = GetUsableStepName();
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.Name = stepName;
+                scriptModel.Value = "";
+                scriptModel.Visible = true;
+                scriptModel.Intersection = new List<string>();
+                scriptModel.Complement = new List<string>();
+
+                if (sender == miRhombusDiffusion)
+                {
+                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11)));
+                }
+                else if (sender == miCross)
+                {
+                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11)));
+                }
+                else if (sender == miRandomFountain)
+                {
+                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0, 7)));
+                }
+                scriptModelDictionary.Add(stepName, scriptModel);
+                UpdateStep();
+
+                lbStep.SelectedIndex = lbStep.Items.Count - 1;
+
+                Test();
+
         }
     }
 }

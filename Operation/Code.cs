@@ -304,8 +304,8 @@ namespace Operation
                     //        }
                     //    }
                     //}
-
-                    sb.Append("return " + scriptModel.Key + "LightGroup;}");
+                    sb.Append("return Step1LightGroup;}");
+                    //sb.Append("return " + scriptModel.Key + "LightGroup;}");
                 }
             }
             sb.Append("}");
@@ -314,6 +314,21 @@ namespace Operation
             return sb.ToString();
         }
 
+        private static String GetUsableStepName(ref List<String> strs)
+        {
+            //从1开始计算
+            int i = 1;
+            while (i <= 100000)//最多100000步
+            {
+                if (!strs.Contains("Step" + i))
+                {
+                    strs.Add("Step" + i);
+                    return "Step" + i;
+                }
+                i++;
+            }
+            return null;
+        }
 
         public static String OperationModelsToCode(ScriptModel scriptModel,ref List<String> myContain)
         {
@@ -360,8 +375,13 @@ namespace Operation
             StringBuilder sb = new StringBuilder();
             //if (scriptModel.Value.Contains(scriptModel.Name + "LightGroup"))
             //{
+            List<String> contains = new List<string>();
                 foreach (var mItem in scriptModel.OperationModels)
                 {
+                    String name = contains.Count == 0 
+                                  ? "" 
+                                  : contains[contains.Count - 1];
+
                 if (mItem is SetAttributeOperationModel)
                 {
                     SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
@@ -369,36 +389,39 @@ namespace Operation
                     {
                         if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME)
                         {
-                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.TIME,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                            sb.Append(Environment.NewLine + name + "LightGroup.SetAttribute(LightGroup.TIME,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
                         }
                         else if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION)
                         {
-                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                            sb.Append(Environment.NewLine + name + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
                         }
                         else if (setAttributeOperationModel.AttributeOperationModels[i].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR)
                         {
-                            sb.Append(Environment.NewLine + scriptModel.Name + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
+                            sb.Append(Environment.NewLine + name + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + setAttributeOperationModel.AttributeOperationModels[i].Value + "\");");
                         }
                     }
                 }
                 else if (mItem is CreateFromStepOperationModel)
                 {
-                    sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();");
+                    String _name = GetUsableStepName(ref contains);
+                    sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = " + (mItem as CreateFromStepOperationModel).StepName + "();");
                 }
                 else if (mItem is CreateFromFileOperationModel)
                 {
+                    String _name = GetUsableStepName(ref contains);
                     CreateFromFileOperationModel createFromFileOperationModel = mItem as CreateFromFileOperationModel;
                     if (createFromFileOperationModel.FileName.EndsWith(".light"))
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateFromLightFile(\"" + createFromFileOperationModel.FileName + "\");");
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromLightFile(\"" + createFromFileOperationModel.FileName + "\");");
                     }
                     else if (createFromFileOperationModel.FileName.EndsWith(".mid"))
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateFromMidiFile(\"" + createFromFileOperationModel.FileName + "\");");
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromMidiFile(\"" + createFromFileOperationModel.FileName + "\");");
                     }
                 }
                 else if (mItem is CreateFromQuickOperationModel)
                     {
+                  
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
                     positionBuild.Append("new List<int>(){");
@@ -432,66 +455,70 @@ namespace Operation
                         + colorBuild.ToString() +","
                         + createFromQuickOperationModel.Type + ","
                         + createFromQuickOperationModel.Action + ");");
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);");
+
+                        String _name = GetUsableStepName(ref contains);
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateLightGroup(createFromQuickOperationModel);");
                     }
                     else if (mItem is VerticalFlippingOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.VerticalFlipping();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.VerticalFlipping();");
                     }
                     else if (mItem is HorizontalFlippingOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.HorizontalFlipping();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.HorizontalFlipping();");
                     }
                     else if (mItem is LowerLeftSlashFlippingOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.LowerLeftSlashFlipping();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.LowerLeftSlashFlipping();");
                     }
                     else if (mItem is LowerRightSlashFlippingOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.LowerRightSlashFlipping();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.LowerRightSlashFlipping();");
                     }
                     else if (mItem is ClockwiseOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.Clockwise();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.Clockwise();");
                     }
                     else if (mItem is AntiClockwiseOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.AntiClockwise();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.AntiClockwise();");
                     }
                     else if (mItem is RemoveBorderOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.RemoveBorder();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.RemoveBorder();");
                     }
                     else if (mItem is ReversalOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.Reversal();");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.Reversal();");
                     }
                     else if (mItem is ChangeTimeOperationModel)
                     {
                         ChangeTimeOperationModel changeTimeOperationModel = mItem as ChangeTimeOperationModel;
                         if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + changeTimeOperationModel.Multiple.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ChangeTime(LightGroup.MULTIPLICATION," + changeTimeOperationModel.Multiple.ToString() + ");");
                         }
                         else if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.DIVISION)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ChangeTime(LightGroup.DIVISION," + changeTimeOperationModel.Multiple.ToString() + ");");
                         }
                     }
                 else if (mItem is CreateFromAutomaticOperationModel)
                 {
+                    String _name = GetUsableStepName(ref contains);
                     CreateFromAutomaticOperationModel createFromAutomaticOperationModel = mItem as CreateFromAutomaticOperationModel;
                     if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position + ");");
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position + ");");
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.CROSS," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position + ");");
+                     
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.CROSS," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position + ");");
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + scriptModel.Name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
                             ","+ (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min +");");
                     }
                 }
@@ -500,11 +527,11 @@ namespace Operation
                         FoldOperationModel foldOperationModel = mItem as FoldOperationModel;
                         if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.Fold(LightGroup.VERTICAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.Fold(LightGroup.VERTICAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
                         }
                         else if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.HORIZONTAL)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.Fold(LightGroup.HORIZONTAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.Fold(LightGroup.HORIZONTAL," + foldOperationModel.StartPosition.ToString() + "," + foldOperationModel.Span.ToString() + ");");
                         }
                     }
                     else if (mItem is SetEndTimeOperationModel)
@@ -512,37 +539,37 @@ namespace Operation
                         SetEndTimeOperationModel setEndTimeOperationModel = mItem as SetEndTimeOperationModel;
                         if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.SetEndTime(LightGroup.ALL,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.SetEndTime(LightGroup.ALL,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
                         }
                         else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.END)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.SetEndTime(LightGroup.END,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.SetEndTime(LightGroup.END,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
                         }
                         else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALLANDEND)
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.SetEndTime(LightGroup.ALLANDEND,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup.SetEndTime(LightGroup.ALLANDEND,\"" + setEndTimeOperationModel.Value.ToString() + "\");");
                         }
                     }
                     else if (mItem is InterceptTimeOperationModel)
                     {
                         InterceptTimeOperationModel interceptTimeOperationModel = mItem as InterceptTimeOperationModel;
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + "," + interceptTimeOperationModel.End.ToString() + ");");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.InterceptTime(" + interceptTimeOperationModel.Start.ToString() + "," + interceptTimeOperationModel.End.ToString() + ");");
                     }
                     else if (mItem is AnimationDisappearOperationModel)
                     {
                         AnimationDisappearOperationModel animationDisappearOperationModel = mItem as AnimationDisappearOperationModel;
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup = Animation.Serpentine(" + scriptModel.Name + "LightGroup," + animationDisappearOperationModel.StartTime.ToString() + ", " + animationDisappearOperationModel.Interval.ToString() + ");");
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup = Animation.Serpentine(" + scriptModel.Name + "LightGroup," + animationDisappearOperationModel.StartTime.ToString() + ", " + animationDisappearOperationModel.Interval.ToString() + ");");
                     }
                     else if (mItem is OneNumberOperationModel)
                     {
                         OneNumberOperationModel oneNumberOperationModel = mItem as OneNumberOperationModel;
                         if (oneNumberOperationModel.Identifier.Equals("Animation.Windmill"))
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup = Animation.Windmill(" + scriptModel.Name + "LightGroup," + oneNumberOperationModel.Number.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup = Animation.Windmill(" + scriptModel.Name + "LightGroup," + oneNumberOperationModel.Number.ToString() + ");");
                         }
                         else
                         {
-                            sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
+                            sb.Append(Environment.NewLine + "\t" + name + "LightGroup." + oneNumberOperationModel.Identifier + "(" + oneNumberOperationModel.Number.ToString() + ");");
                         }
                     }
                     else if (mItem is ChangeColorOperationModel
@@ -590,15 +617,15 @@ namespace Operation
                                 }
                             }
                             if (mItem is ChangeColorOperationModel)
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.SetColor(" + rangeGroupName + ");");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.SetColor(" + rangeGroupName + ");");
                             else if (mItem is CopyToTheEndOperationModel)
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.CopyToTheEnd(" + rangeGroupName + ");");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.CopyToTheEnd(" + rangeGroupName + ");");
                             else if (mItem is CopyToTheFollowOperationModel)
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.CopyToTheFollow(" + rangeGroupName + ");");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.CopyToTheFollow(" + rangeGroupName + ");");
                             else if (mItem is AccelerationOrDecelerationOperationModel)
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + ");");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.AccelerationOrDeceleration(" + rangeGroupName + ");");
                             else if (mItem is ColorWithCountOperationModel)
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ColorWithCount(" + rangeGroupName + ");");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ColorWithCount(" + rangeGroupName + ");");
                         }
                     }
                     else if (mItem is ShapeColorOperationModel)
@@ -643,15 +670,15 @@ namespace Operation
                             }
                             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE)
                             {
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ShapeColor(LightGroup.SQUARE, " + rangeGroupName + "); ");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ShapeColor(LightGroup.SQUARE, " + rangeGroupName + "); ");
                             }
                             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALVERTICAL)
                             {
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL, " + rangeGroupName + "); ");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ShapeColor(LightGroup.RADIALVERTICAL, " + rangeGroupName + "); ");
                             }
                             else if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL)
                             {
-                                sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL, " + rangeGroupName + "); ");
+                                sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ShapeColor(LightGroup.RADIALHORIZONTAL, " + rangeGroupName + "); ");
                             }
                         }
                     }
@@ -668,7 +695,7 @@ namespace Operation
                             }
                         }
 
-                        sb.Append(Environment.NewLine + "\t" + scriptModel.Name + "LightGroup.ThirdParty("+"\""+ thirdPartyOperationModel .ThirdPartyName + "\",\""+thirdPartyOperationModel.DllFileName + "\"," +
+                        sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ThirdParty("+"\""+ thirdPartyOperationModel .ThirdPartyName + "\",\""+thirdPartyOperationModel.DllFileName + "\"," +
                            _sb .ToString()+ ");");
                     }
                 }

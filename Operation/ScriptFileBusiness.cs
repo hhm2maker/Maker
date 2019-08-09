@@ -88,7 +88,7 @@ namespace Operation
                 {
                     scriptModel.Visible = false;
                 }
-                scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
+                //scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
                 foreach (var xEdit in xScript.Elements()) {
