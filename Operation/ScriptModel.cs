@@ -25,7 +25,7 @@ namespace Maker.Model
         {
             get;
             set;
-        }
+        } = "";
         //public String Parent
         //{
         //    get;

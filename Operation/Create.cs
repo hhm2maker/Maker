@@ -26,7 +26,7 @@ namespace Operation
             LightGroup _lightGroup = new LightGroup();
                 //时间
                 List<int> _position = new List<int>();
-                _position.AddRange(createFromQuickOperationModel.RangeList.ToArray());
+                _position.AddRange(createFromQuickOperationModel.PositionList.ToArray());
             if (createFromQuickOperationModel.Type == UP)
             {
                 if (createFromQuickOperationModel.Action == ALL)

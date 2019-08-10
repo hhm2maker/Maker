@@ -457,19 +457,19 @@ namespace Maker
 
         public void ShowMakerDialog(MakerDialog makerdialog)
         {
-                gMost.Children.Add(new Grid()
-                {
-                    Background = new SolidColorBrush(Colors.Transparent),
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    VerticalAlignment = VerticalAlignment.Stretch,
-                });
+            gMost.Children.Add(new Grid()
+            {
+                Background = new SolidColorBrush(Colors.Transparent),
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            });
 
             gMost.Children.Add(makerdialog);
 
             ThicknessAnimation marginAnimation = new ThicknessAnimation
             {
                 From = new Thickness(0, 0, 0, 0),
-                To = new Thickness(0, 30, 0, 0),
+                To = new Thickness(0, 75, 0, 0),
                 //To = new Thickness(0, (ActualHeight - makerdialog.Height) / 2, 0, 0),
                 Duration = TimeSpan.FromSeconds(0.3)
             };

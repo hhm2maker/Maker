@@ -187,8 +187,20 @@ namespace Maker.View.Style.Child
             }
             sp.Children.Add(spBottomImage);
         }
-     
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+
+        protected Image GetImage(String imageUris,int size)
+        {
+            return new Image
+            {
+                Width = size,
+                Height = size,
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
+                Stretch = Stretch.Fill
+            };
+             
+        }
+
+            private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
             if (position == 0)
@@ -444,6 +456,7 @@ namespace Maker.View.Style.Child
             border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             TextBlock tbContent = new TextBlock();
+            tbContent.HorizontalAlignment = HorizontalAlignment.Center;
             tbContent.Margin = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
@@ -498,6 +511,7 @@ namespace Maker.View.Style.Child
             dp.Children.Add(GetTitle(textTitle, isResourceReference));
             foreach (var item in frameworkElements)
             {
+                item.Margin = new Thickness(0,0,5,0);
                 dp.Children.Add(item);
             }
 
@@ -542,6 +556,7 @@ namespace Maker.View.Style.Child
         private TextBlock GetTitle(String textTitle, bool isResourceReference)
         {
             TextBlock tbTitle = new TextBlock();
+            tbTitle.Margin = new Thickness(0,0,5,0);
             tbTitle.VerticalAlignment = VerticalAlignment.Center;
             tbTitle.FontSize = 16;
             tbTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));

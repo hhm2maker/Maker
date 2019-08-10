@@ -2457,90 +2457,91 @@ namespace Maker.View.LightScriptUserControl
 
         private void CopyStep(object sender, RoutedEventArgs e)
         {
-            //while (lbStep.SelectedItems.Count > 0)
-            //{
-            //    String stepName = String.Empty;
-            //    //从1开始计算
-            //    int i = 1;
-            //    while (i <= 100000)//最多100000步
-            //    {
-            //        if (!ContainsStepName("Step" + i))
-            //        {
-            //            stepName = "Step" + i;
-            //            break;
-            //        }
-            //        i++;
-            //    }
-            //    if (stepName.Equals(String.Empty))
-            //    {
-            //        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-            //        return;
-            //    }
+            while (lbStep.SelectedItems.Count > 0)
+            {
+                String stepName = String.Empty;
+                //从1开始计算
+                int i = 1;
+                while (i <= 100000)//最多100000步
+                {
+                    if (!ContainsStepName("Step" + i))
+                    {
+                        stepName = "Step" + i;
+                        break;
+                    }
+                    i++;
+                }
+                if (stepName.Equals(String.Empty))
+                {
+                    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+                    return;
+                }
 
-            //    StackPanel sp = (StackPanel)lbStep.SelectedItems[0];
-            //    String oldName = GetStepName(sp);
-            //    String oldParent = GetParentName(sp);
+                StackPanel sp = (StackPanel)lbStep.SelectedItems[0];
+                String oldName = GetStepName(sp);
+                String oldParent = GetParentName(sp);
 
-            //    ScriptModel scriptModel = new ScriptModel();
-            //    scriptModel.Name = stepName;
-            //    scriptModel.Visible = scriptModelDictionary[oldName].Visible;
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.Name = stepName;
+                scriptModel.Visible = scriptModelDictionary[oldName].Visible;
+                scriptModel.OperationModels.AddRange(scriptModelDictionary[oldName].OperationModels.ToArray());
 
-            //    String newScript = scriptModelDictionary[oldName].Value;
-            //    //新的包含
-            //    List<String> ls = new List<string>();
-            //    //是否包含
-            //    if (scriptModelDictionary[oldName].Contain.Contains(stepName))
-            //    {
-            //        //如果包含
-            //        //将原包含字段的字段替换
-            //        int x = 1;
-            //        while (x <= 100000)
-            //        {
-            //            if (!scriptModelDictionary[oldName].Contain.Contains("Step" + x))
-            //            {
-            //                //不存在重复
-            //                break;
-            //            }
-            //            x++;
-            //        }
-            //        if (x > 100000)
-            //        {
-            //            new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-            //            return;
-            //        }
-            //        newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
-            //        newScript = newScript.Replace(stepName + "LightGroup", "Step" + x + "LightGroup");
-            //        newScript = newScript.Replace(stepName + "RangeGroup", "Step" + x + "RangeGroup");
-            //        newScript = newScript.Replace(stepName + "ColorGroup", "Step" + x + "ColorGroup");
-            //        newScript = newScript.Replace(stepName + "PositionGroup", "Step" + x + "PositionGroup");
-            //    }
-            //    //新名字和其他字段不冲突
-            //    newScript = newScript.Replace(oldName + "Light", stepName + "Light");
-            //    newScript = newScript.Replace(oldName + "LightGroup", stepName + "LightGroup");
-            //    newScript = newScript.Replace(oldName + "RangeGroup", stepName + "RangeGroup");
-            //    newScript = newScript.Replace(oldName + "ColorGroup", stepName + "ColorGroup");
-            //    newScript = newScript.Replace(oldName + "PositionGroup", stepName + "PositionGroup");
+                //String newScript = scriptModelDictionary[oldName].Value;
+                ////新的包含
+                //List<String> ls = new List<string>();
+                ////是否包含
+                //if (scriptModelDictionary[oldName].Contain.Contains(stepName))
+                //{
+                //    //如果包含
+                //    //将原包含字段的字段替换
+                //    int x = 1;
+                //    while (x <= 100000)
+                //    {
+                //        if (!scriptModelDictionary[oldName].Contain.Contains("Step" + x))
+                //        {
+                //            //不存在重复
+                //            break;
+                //        }
+                //        x++;
+                //    }
+                //    if (x > 100000)
+                //    {
+                //        new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+                //        return;
+                //    }
+                //    newScript = newScript.Replace(stepName + "Light", "Step" + x + "Light");
+                //    newScript = newScript.Replace(stepName + "LightGroup", "Step" + x + "LightGroup");
+                //    newScript = newScript.Replace(stepName + "RangeGroup", "Step" + x + "RangeGroup");
+                //    newScript = newScript.Replace(stepName + "ColorGroup", "Step" + x + "ColorGroup");
+                //    newScript = newScript.Replace(stepName + "PositionGroup", "Step" + x + "PositionGroup");
+                //}
+                ////新名字和其他字段不冲突
+                //newScript = newScript.Replace(oldName + "Light", stepName + "Light");
+                //newScript = newScript.Replace(oldName + "LightGroup", stepName + "LightGroup");
+                //newScript = newScript.Replace(oldName + "RangeGroup", stepName + "RangeGroup");
+                //newScript = newScript.Replace(oldName + "ColorGroup", stepName + "ColorGroup");
+                //newScript = newScript.Replace(oldName + "PositionGroup", stepName + "PositionGroup");
 
-            //    ls.Add(stepName);
-            //    foreach (String s in scriptModelDictionary[oldName].Contain)
-            //    {
-            //        ls.Add(s);
-            //    }
-            //    if (ls.Contains(oldName))
-            //    {
-            //        ls.Remove(oldName);
-            //    }
-            //    scriptModel.Contain = ls;
-            //    scriptModel.Value = newScript;
-            //    //决定样式还是复制吧。
-            //    if (finalDictionary.ContainsKey(oldName))
-            //    {
-            //        finalDictionary.Add(stepName, finalDictionary[oldName]);
-            //    }
-            //    //最后界面里更改以及刷新继承
-            //    scriptModelDictionary.Add(stepName, scriptModel);
-            //    lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
-            //}
+                //ls.Add(stepName);
+                //foreach (String s in scriptModelDictionary[oldName].Contain)
+                //{
+                //    ls.Add(s);
+                //}
+                //if (ls.Contains(oldName))
+                //{
+                //    ls.Remove(oldName);
+                //}
+                //scriptModel.Contain = ls;
+                //scriptModel.Value = newScript;
+                //决定样式还是复制吧。
+                if (finalDictionary.ContainsKey(oldName))
+                {
+                    finalDictionary.Add(stepName, finalDictionary[oldName]);
+                }
+                //最后界面里更改以及刷新继承
+                scriptModelDictionary.Add(stepName, scriptModel);
+                lbStep.SelectedItems.Remove(lbStep.SelectedItems[0]);
+            }
             UpdateStep();
             UpdateVisible();
             Test();
@@ -2609,8 +2610,10 @@ namespace Maker.View.LightScriptUserControl
                 {
                     if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
                     {
-                        System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
-                        return;
+                        if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName)) {
+                            System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
+                            return;
+                        }
                     }
                 }
                 if (scriptModelDictionary[stepName].Intersection != null && scriptModelDictionary[stepName].Intersection.Count > 0)
@@ -4337,8 +4340,8 @@ namespace Maker.View.LightScriptUserControl
                         CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                         xVerticalFlipping.SetAttributeValue("time", createFromQuickOperationModel.Time);
                         StringBuilder sbPositions = new StringBuilder();
-                        for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++) {
-                            sbPositions.Append((char)(createFromQuickOperationModel.RangeList[i]+33));
+                        for (int i = 0; i < createFromQuickOperationModel.PositionList.Count; i++) {
+                            sbPositions.Append((char)(createFromQuickOperationModel.PositionList[i]+33));
                         }
                         xVerticalFlipping.SetAttributeValue("position", sbPositions.ToString());
                         xVerticalFlipping.SetAttributeValue("interval", createFromQuickOperationModel.Interval);
@@ -5268,7 +5271,7 @@ namespace Maker.View.LightScriptUserControl
         /// </summary>
         /// <param name="clickEvent"></param>
         /// <returns></returns>
-        public void InitThirdParty(List<ThirdPartyModelsModel.ThirdPartyModel> thirdPartys, MouseButtonEventHandler clickEvent)
+        public void InitThirdParty(List<ThirdPartyModelsModel.ThirdPartyModel> thirdPartys, RoutedEventHandler clickEvent)
         {
             if (thirdPartys.Count != 0)
             {
@@ -5277,8 +5280,13 @@ namespace Maker.View.LightScriptUserControl
                 {
                     strs.Add(item.text);
                 }
-                GeneralViewBusiness.SetStringsAndClickEventToTreeView(miChildThirdParty, strs, clickEvent, false, 16);
+                GeneralViewBusiness.SetStringsAndClickEventToMenuItemView(miThirdParty, strs, clickEvent, true, 16);
             }
+            miThirdParty.Items.Add(new Separator());
+            MenuItem menuItem = new MenuItem();
+            menuItem.SetResourceReference(MenuItem.HeaderProperty, "Setup");
+            menuItem.Click += AddThirdParty;
+            miThirdParty.Items.Add(menuItem);
         }
 
         public void ThirdPartysMenuItem_Click(object sender, RoutedEventArgs e)
@@ -5287,33 +5295,7 @@ namespace Maker.View.LightScriptUserControl
            
         }
 
-        private ThirdPartySetupsModel thirdPartySetupsModel;
-        private String thirdPartySetupFilePath;
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            String SetupFilePath = AppDomain.CurrentDomain.BaseDirectory;
-            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            if (File.Exists(SetupFilePath))
-                openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(SetupFilePath);  //注意这里写路径时要用c:\\而不是c:\
-            openFileDialog.Filter = "XML文件|*.xml";
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.FilterIndex = 1;
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                thirdPartySetupsModel = new ThirdPartySetupsModel();
-                XmlSerializerBusiness.Load(ref thirdPartySetupsModel, openFileDialog.FileName);
-
-                thirdPartySetupFilePath = openFileDialog.FileName;
-
-                List<String> strs = new List<string>();
-                for (int i = 0; i < thirdPartySetupsModel.ThirdPartySetupModels.Count; i++)
-                {
-                    strs.Add(thirdPartySetupsModel.ThirdPartySetupModels[i].Name);
-                }
-                mw.ShowMakerDialog(new ListDialog(mw, strs, lbMain_SelectionChanged, "点击想要安装的插件完成安装"));
-            }
-        }
-
+     
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox lbMain = sender as ListBox;
@@ -5407,6 +5389,58 @@ namespace Maker.View.LightScriptUserControl
 
                 Test();
 
+        }
+
+        private ThirdPartySetupsModel thirdPartySetupsModel;
+        private String thirdPartySetupFilePath;
+        private void AddThirdParty(object sender, RoutedEventArgs e)
+        {
+            String SetupFilePath = AppDomain.CurrentDomain.BaseDirectory;
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            if (File.Exists(SetupFilePath))
+                openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(SetupFilePath);  //注意这里写路径时要用c:\\而不是c:\
+            openFileDialog.Filter = "XML文件|*.xml";
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                thirdPartySetupsModel = new ThirdPartySetupsModel();
+                XmlSerializerBusiness.Load(ref thirdPartySetupsModel, openFileDialog.FileName);
+
+                thirdPartySetupFilePath = openFileDialog.FileName;
+
+                List<String> strs = new List<string>();
+                for (int i = 0; i < thirdPartySetupsModel.ThirdPartySetupModels.Count; i++)
+                {
+                    strs.Add(thirdPartySetupsModel.ThirdPartySetupModels[i].Name);
+                }
+                mw.ShowMakerDialog(new ListDialog(mw, strs, lbMain_SelectionChanged, "点击想要安装的插件完成安装"));
+            }
+        }
+
+        private int leftPosition = 0;
+        private void BtnLeft_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = (sender as Button);
+            int position = 2 - (btn.Parent as Panel).Children.IndexOf(btn);
+
+            if (leftPosition == position) {
+                bLeft.Visibility = Visibility.Collapsed;
+                leftPosition = -1;
+                return;
+            }
+            bLeft.Visibility = Visibility.Visible;
+            leftPosition = position;
+
+            for (int i = 0; i < spLeft.Children.Count - 1; i++) {
+                if (i == position)
+                {
+                    spLeft.Children[i].Visibility = Visibility.Visible;
+                }
+                else {
+                    spLeft.Children[i].Visibility = Visibility.Collapsed;
+                }
+            }
         }
     }
 }

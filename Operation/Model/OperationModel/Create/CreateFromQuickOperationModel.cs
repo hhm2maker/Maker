@@ -15,7 +15,7 @@ namespace Maker.Business.Model.OperationModel
             set;
         }
 
-        public List<int> RangeList
+        public List<int> PositionList
         {
             get;
             set;
@@ -59,7 +59,7 @@ namespace Maker.Business.Model.OperationModel
         public CreateFromQuickOperationModel(int time, List<int> rangeList, int interval, int continued, List<int> colorList, int type, int action)
         {
             Time = time;
-            RangeList = rangeList;
+            PositionList = rangeList;
             Interval = interval;
             Continued = continued;
             ColorList = colorList;

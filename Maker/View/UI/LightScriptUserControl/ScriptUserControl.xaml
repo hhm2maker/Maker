@@ -102,6 +102,7 @@
                     <MenuItem Header="{DynamicResource Disappear}" Name="btnDisappear" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource Animation.Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                 </MenuItem>
+                <MenuItem Name="miThirdParty" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" />
                 <MenuItem Header="{DynamicResource Generate}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Name="miRhombusDiffusion" Header="{DynamicResource RhombusDiffusion}"  Click="Generate_Click" />
                     <MenuItem Name="miCross" Header="{DynamicResource CrossDiffusion}"  Click="Generate_Click"/>
@@ -110,13 +111,21 @@
             </Menu>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="575" MinWidth="575"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
-                <TabControl Padding="0" BorderThickness="2,0,0,0" BorderBrush="#282828" TabStripPlacement="Left" Grid.Column="0" >
-                    <TabItem Width="150" BorderThickness="0" Header="{DynamicResource Basics}" Foreground="#ffffff"  FontSize="18" >
+                <DockPanel VerticalAlignment="Top" Grid.Row="0">
+                    <DockPanel.LayoutTransform >
+                        <RotateTransform Angle="270"/>
+                    </DockPanel.LayoutTransform>
+                    <Button Style="{DynamicResource Button1}" Content="{DynamicResource Library}" Click="BtnLeft_Click" Foreground="White" FontSize="20" Width="150" />
+                    <Button Style="{DynamicResource Button1}" Content="{DynamicResource Mycontent}" Click="BtnLeft_Click" Foreground="White" FontSize="20"  Width="150" />
+                    <Button Style="{DynamicResource Button1}" Content="{DynamicResource Basics}" Click="BtnLeft_Click" Foreground="White"  FontSize="20"  Width="150"/>
+                </DockPanel>
+                <Border Padding="0" Name="bLeft" BorderThickness="2,0,0,0" BorderBrush="#282828" Grid.Column="1" >
+                    <StackPanel Name="spLeft" Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <ScrollViewer Name="svMainLeft" HorizontalAlignment="Left" Width="420"  Template="{DynamicResource ScrollViewerControlTemplate1}"  Grid.Column="1">
                             <!--Background="#1c1a1c"-->
                             <StackPanel   Name="spMainLeft" Orientation="Vertical">
@@ -313,7 +322,7 @@
                                                         <TextBlock Name="btnIfPositionRange" MouseLeftButtonDown="ShowRangeList" TextAlignment="Center" Text="..." FontSize="18" Width="40" FontWeight="Bold" Height="25" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Border>
-                                              </StackPanel>
+                                            </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
                                                 <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
                                                     <TextBlock TextAlignment="Center" Width="80" Text="{DynamicResource Color}" VerticalAlignment="Center"/>
@@ -362,24 +371,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>
-                    </TabItem>
-                
-                 
-                    <TabItem  BorderThickness="0"  Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TreeView Grid.Column="0" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildThirdParty" BorderBrush="{x:Null}"/>
-                            <Image Grid.Column="1" VerticalAlignment="Top" Margin="25" Source="../../Resources/Image/setup.png" Width="30" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                        </Grid>
-                    </TabItem>
-                    <TabItem BorderThickness="0"  Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" >
-                        <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
-                    </TabItem>
-                    <TabItem BorderThickness="0"  Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" >
-                        <Grid>
+                        <Grid Visibility="Collapsed" Width="420">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
@@ -391,9 +383,9 @@
                                 <ComboBoxItem Content="{DynamicResource LimitlessLamp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
                             </ComboBox>
                         </Grid>
-                    </TabItem>
-                </TabControl>
-                <GridSplitter Grid.Row="1" VerticalAlignment="Stretch" Width="3" Background="#282828"/>
+                        <TreeView Visibility="Collapsed" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
+                    </StackPanel>
+                </Border>
                 <Grid  x:Name="gMain"  Grid.Column="2">
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

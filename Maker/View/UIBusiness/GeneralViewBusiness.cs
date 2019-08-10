@@ -86,6 +86,28 @@ namespace Maker.ViewBusiness
             }
         }
         /// <summary>
+        /// 设置字符串数组和点击事件到MenuItem
+        /// </summary>
+        /// <param name="listbox"></param>
+        /// <param name="strings"></param>
+        public static void SetStringsAndClickEventToMenuItemView(MenuItem menuItem, List<String> strings, RoutedEventHandler clickEvent, bool isClearOld, int fontSize)
+        {
+            if (isClearOld)
+            {
+                menuItem.Items.Clear();
+            }
+            foreach (String str in strings)
+            {
+                MenuItem mItem = new MenuItem
+                {
+                    Header = str,
+                    FontSize = fontSize
+                };
+                mItem.Click += clickEvent;
+                menuItem.Items.Add(mItem);
+            }
+        }
+        /// <summary>
         /// 设置窗口全屏 
         /// </summary>
         /// <param name="window"></param>

@@ -425,20 +425,20 @@ namespace Operation
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
                     positionBuild.Append("new List<int>(){");
-                    for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++) {
-                        if (i != createFromQuickOperationModel.RangeList.Count - 1)
+                    for (int i = 0; i < createFromQuickOperationModel.PositionList.Count; i++) {
+                        if (i != createFromQuickOperationModel.PositionList.Count - 1)
                         {
-                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + ",");
+                            positionBuild.Append(createFromQuickOperationModel.PositionList[i] + ",");
                         }
                         else {
-                            positionBuild.Append(createFromQuickOperationModel.RangeList[i] + "}");
+                            positionBuild.Append(createFromQuickOperationModel.PositionList[i] + "}");
                         }
                     }
                     StringBuilder colorBuild = new StringBuilder();
                     colorBuild.Append("new List<int>(){");
-                    for (int i = 0; i < createFromQuickOperationModel.RangeList.Count; i++)
+                    for (int i = 0; i < createFromQuickOperationModel.PositionList.Count; i++)
                     {
-                        if (i != createFromQuickOperationModel.RangeList.Count - 1)
+                        if (i != createFromQuickOperationModel.PositionList.Count - 1)
                         {
                             colorBuild.Append(createFromQuickOperationModel.ColorList[i] + ",");
                         }

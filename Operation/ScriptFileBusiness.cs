@@ -153,7 +153,7 @@ namespace Operation
                         {
                             positions.Add(xEdit.Attribute("position").Value[i] - 33);
                         }
-                        createFromQuickOperationModel.RangeList = positions;
+                        createFromQuickOperationModel.PositionList = positions;
                         createFromQuickOperationModel.Interval = int.Parse(xEdit.Attribute("interval").Value);
                         createFromQuickOperationModel.Continued = int.Parse(xEdit.Attribute("continued").Value);
                         List<int> colors = new List<int>();

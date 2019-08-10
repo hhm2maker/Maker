@@ -534,4 +534,5 @@
     <sys:String x:Key="Right">右</sys:String>
     <sys:String x:Key="NameColon">名称：</sys:String>
     <sys:String x:Key="CreateFromTheFile">从文件中创建</sys:String>
+    <sys:String x:Key="Setup">安装</sys:String>
 </ResourceDictionary>

@@ -531,4 +531,5 @@
     <sys:String x:Key="Right">Right</sys:String>
     <sys:String x:Key="NameColon">Name:</sys:String>
     <sys:String x:Key="CreateFromTheFile">Create from the file</sys:String>
+    <sys:String x:Key="Setup">Setup</sys:String>
 </ResourceDictionary>
