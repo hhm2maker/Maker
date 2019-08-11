@@ -88,14 +88,16 @@
     <sys:String x:Key="MoveToLibrary">Move to library</sys:String>
     <sys:String x:Key="OpenFoldersInTheFileResourceManager">Open folders in the file resource manager</sys:String>
     <!--InputUserControl-->
-    <sys:String x:Key="SelectEditorColon">Select Editor:</sys:String>
+    <sys:String x:Key="SelectEditor_Replace">Select Editor - Replace</sys:String>
+    <sys:String x:Key="SelectEditor_Add">Select Editor - Add</sys:String>
     <sys:String x:Key="TimeColon">Time:</sys:String>
     <sys:String x:Key="PositionColon">Position:</sys:String>
     <sys:String x:Key="ColorColon">Color:</sys:String>
     <sys:String x:Key="Replace">Replace</sys:String>
     <sys:String x:Key="Add">Add</sys:String>
     <sys:String x:Key="Clear">Clear</sys:String>
-    <sys:String x:Key="FastGenerationrColon">Quick Generation:</sys:String>
+    <sys:String x:Key="FastGeneration">Fast Generation</sys:String>
+    <sys:String x:Key="FastGenerationAndSelection">Fast Generation and Selection</sys:String>
     <sys:String x:Key="RangeColon">Range:</sys:String>
     <sys:String x:Key="IntervalColon">Interval:</sys:String>
     <sys:String x:Key="Interval">Interval</sys:String>
@@ -521,7 +523,6 @@
     <sys:String x:Key="News">News</sys:String>
     <sys:String x:Key="Website">Website</sys:String>
     <sys:String x:Key="Email">Email</sys:String>
-    <sys:String x:Key="FastGeneration">Quick Generation</sys:String>
     <sys:String x:Key="CreateFromTheStep">Create from the step</sys:String>
     <sys:String x:Key="Middle">Middle</sys:String>
     <sys:String x:Key="Outside">Outside</sys:String>

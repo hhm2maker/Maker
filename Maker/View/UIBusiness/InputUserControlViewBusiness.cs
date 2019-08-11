@@ -30,14 +30,6 @@ namespace Maker.ViewBusiness
                 iuc.tbThenPosition.Clear();
                 iuc.tbThenColor.Clear();
             }
-            else if (sender == iuc.btnFastGenerationrClear)
-            {
-                iuc.tbFastGenerationrTime.Clear();
-                iuc.tbFastGenerationrRange.Clear();
-                iuc.tbFastGenerationrInterval.Clear();
-                iuc.tbFastGenerationrContinued.Clear();
-                iuc.tbFastGenerationrColor.Clear();
-            }
             else if (sender == iuc.btnSelectEditorClear)
             {
                 iuc.tbSelectEditorTime.Clear();

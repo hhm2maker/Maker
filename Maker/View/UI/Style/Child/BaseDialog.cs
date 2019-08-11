@@ -37,7 +37,6 @@ namespace Maker.View.Style.Child
         private StackPanel GetTitle()
         {
             return ((Content as StackPanel).Children[0] as Border).Child as StackPanel;
-            
             //if (OnlyTitle)
             //{
             //    return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
@@ -188,7 +187,22 @@ namespace Maker.View.Style.Child
             sp.Children.Add(spBottomImage);
         }
 
-        protected Image GetImage(String imageUris,int size)
+        protected Image GetImage(String imageUris,int size, MouseButtonEventHandler e)
+        {
+            Image image = new Image
+            {
+                Width = size,
+                Height = size,
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
+                Stretch = Stretch.Fill
+            };
+            image.MouseLeftButtonDown += e;
+            return image;
+             
+        }
+
+
+        protected Image GetImage(String imageUris, int size)
         {
             return new Image
             {
@@ -197,10 +211,10 @@ namespace Maker.View.Style.Child
                 Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
                 Stretch = Stretch.Fill
             };
-             
+
         }
 
-            private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
             if (position == 0)
@@ -311,6 +325,16 @@ namespace Maker.View.Style.Child
             }
         }
 
+        public void AddUIToDialog(FrameworkElement ui,int position)
+        {
+            _UI.Add(ui);
+            if (_UI.IndexOf(ui) != 0)
+            {
+                ui.Margin = new Thickness(0, 10, 0, 0);
+            }
+            spContacts.Children.Insert(position,ui);
+        }
+
         /// <summary>
         /// 添加头部提示文本
         /// </summary>
@@ -340,7 +364,6 @@ namespace Maker.View.Style.Child
             {
                 btn.Click += routedEventHandler;
             }
-
             return btn;
         }
 
@@ -405,7 +428,7 @@ namespace Maker.View.Style.Child
             cb.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
             cb.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
             cb.Padding = new Thickness(10,5,10,5);
-            cb.Margin = new Thickness(16, 0, 0, 0);
+            //cb.Margin = new Thickness(16, 0, 0, 0);
             if (selectionChangedEvent != null)
             {
                 cb.SelectionChanged += selectionChangedEvent;
@@ -456,7 +479,7 @@ namespace Maker.View.Style.Child
             border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             TextBlock tbContent = new TextBlock();
-            tbContent.HorizontalAlignment = HorizontalAlignment.Center;
+            //tbContent.HorizontalAlignment = HorizontalAlignment.Center;
             tbContent.Margin = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));

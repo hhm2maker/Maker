@@ -252,7 +252,7 @@ namespace Maker.View.Style
                 }
                 else if (item is CreateFromQuickOperationModel)
                 {
-                    svMain.Children.Add(new CreateFromQuickOperationChild(item as CreateFromQuickOperationModel));
+                    svMain.Children.Add(new CreateFromQuickOperationChild(item as CreateFromQuickOperationModel,mw));
                 }
                 else if (item is VerticalFlippingOperationModel)
                 {

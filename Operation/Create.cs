@@ -19,7 +19,6 @@ namespace Operation
         public static int ALL = 10;
         public static int OPEN = 11;
         public static int CLOSE = 12;
-
         
         public static LightGroup CreateLightGroup(CreateFromQuickOperationModel createFromQuickOperationModel)
         {

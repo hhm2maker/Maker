@@ -88,14 +88,16 @@
     <sys:String x:Key="MoveToLibrary">移动到库</sys:String>
     <sys:String x:Key="OpenFoldersInTheFileResourceManager">在文件资源管理器中打开文件夹</sys:String>
     <!--输入用户控件-->
-    <sys:String x:Key="SelectEditorColon">选中编辑：</sys:String>
+    <sys:String x:Key="SelectEditor_Replace">选中编辑 - 替换</sys:String>
+    <sys:String x:Key="SelectEditor_Add">选中编辑 - 添加</sys:String>
     <sys:String x:Key="TimeColon">时间：</sys:String>
     <sys:String x:Key="PositionColon">位置：</sys:String>
     <sys:String x:Key="ColorColon">颜色：</sys:String>
     <sys:String x:Key="Replace">替换</sys:String>
     <sys:String x:Key="Add">添加</sys:String>
     <sys:String x:Key="Clear">清空</sys:String>
-    <sys:String x:Key="FastGenerationrColon">快速生成：</sys:String>
+    <sys:String x:Key="FastGeneration">快速生成</sys:String>
+    <sys:String x:Key="FastGenerationAndSelection">快速生成并选中</sys:String>
     <sys:String x:Key="RangeColon">范围：</sys:String>
     <sys:String x:Key="IntervalColon">间隔：</sys:String>
     <sys:String x:Key="Interval">间隔</sys:String>
@@ -218,8 +220,8 @@
     <sys:String x:Key="SelectionRange">选择范围</sys:String>
     <sys:String x:Key="CopyValue">复制值</sys:String>
     <sys:String x:Key="WhetherTheNumberIsDisplayed">是否显示数值</sys:String>
-    <sys:String x:Key="LightNameColon">灯光名:</sys:String>
-    <sys:String x:Key="OperationColon">操作:</sys:String>
+    <sys:String x:Key="LightNameColon">灯光名：</sys:String>
+    <sys:String x:Key="OperationColon">操作：</sys:String>
     <sys:String x:Key="Extend">延长</sys:String>
     <sys:String x:Key="Shorten">缩短</sys:String>
     <sys:String x:Key="PolyploidyColon">倍数：</sys:String>
@@ -498,8 +500,8 @@
     <sys:String x:Key="ItCanOnlyBeGeneratedByPlayingAnExport">只能通过演奏导出来生成</sys:String>
     <sys:String x:Key="Introduce">介绍</sys:String>
     <sys:String x:Key="Basics">基础</sys:String>
-    <sys:String x:Key="StartColon">开始:</sys:String>
-    <sys:String x:Key="EndColon" >结束:</sys:String>
+    <sys:String x:Key="StartColon">开始：</sys:String>
+    <sys:String x:Key="EndColon" >结束：</sys:String>
     <sys:String x:Key="IDoNotThinkItWorks">我认为它不起作用。</sys:String>
     <sys:String x:Key="RenameFile">重命名文件</sys:String>
     <sys:String x:Key="NoLongerPrompt">不再提示</sys:String>
@@ -524,7 +526,6 @@
     <sys:String x:Key="News">动态</sys:String>
     <sys:String x:Key="Website">网站</sys:String>
     <sys:String x:Key="Email">邮箱</sys:String>
-    <sys:String x:Key="FastGeneration">快速生成</sys:String>
     <sys:String x:Key="CreateFromTheStep">从步骤中创建</sys:String>
     <sys:String x:Key="Middle">中间</sys:String>
     <sys:String x:Key="Outside">外面</sys:String>

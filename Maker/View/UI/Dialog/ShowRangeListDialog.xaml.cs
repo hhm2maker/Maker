@@ -35,7 +35,7 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Left = 0;
+            //Left = 0;
             if (iuc.mw.hideConfigModel.RangeListNumber)
             {
                 cbShowNumber.IsChecked = true;

@@ -65,8 +65,8 @@ namespace Maker.View.LightScriptUserControl
             binding.CanExecute += Binding_CanExecute;
 
             //按钮
-            btnSelectEditorReplace.CommandBindings.Add(binding);
-            btnSelectEditorAdd.CommandBindings.Add(binding);
+            //btnSelectEditorReplace.CommandBindings.Add(binding);
+            //btnSelectEditorAdd.CommandBindings.Add(binding);
             tbIfThenReplace.CommandBindings.Add(binding);
             tbIfThenRemove.CommandBindings.Add(binding);
 
@@ -503,446 +503,7 @@ namespace Maker.View.LightScriptUserControl
                 new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
                 return;
             }
-            String commandLine = String.Empty;
-            List<int> positions = null;
-            List<int> colors = null;
-            //如果是快速生成 - 添加
-            if (sender == btnFastGenerationrAdd || sender == btnFastGenerationrSelect)
-            {
-                char splitNotation = ',';
-                if (strInputFormatDelimiter.Equals("Comma"))
-                {
-                    splitNotation = ',';
-                }
-                else if (strInputFormatDelimiter.Equals("Space"))
-                {
-                    splitNotation = ' ';
-                }
-                char rangeNotation = '-';
-                if (strInputFormatRange.Equals("Shortbar"))
-                {
-                    rangeNotation = '-';
-                }
-                else if (strInputFormatRange.Equals("R"))
-                {
-                    rangeNotation = 'r';
-                }
-                StringBuilder fastGenerationrRangeBuilder = new StringBuilder();
-                if (rangeDictionary.ContainsKey(tbFastGenerationrRange.Text))
-                {
-                    for (int i = 0; i < rangeDictionary[tbFastGenerationrRange.Text].Count; i++)
-                    {
-                        if (i != rangeDictionary[tbFastGenerationrRange.Text].Count - 1)
-                        {
-                            fastGenerationrRangeBuilder.Append(rangeDictionary[tbFastGenerationrRange.Text][i] + splitNotation.ToString());
-                        }
-                        else
-                        {
-                            fastGenerationrRangeBuilder.Append(rangeDictionary[tbFastGenerationrRange.Text][i]);
-                        }
-                    }
-                }
-                else
-                {
-                    positions = GetTrueContent(tbFastGenerationrRange.Text, splitNotation, rangeNotation);
-                    if (positions != null)
-                    {
-                        fastGenerationrRangeBuilder.Append(tbFastGenerationrRange.Text);
-                    }
-                    else
-                    {
-                        tbFastGenerationrRange.Select(0, tbFastGenerationrRange.Text.Length);
-                        tbFastGenerationrRange.Focus();
-                        return;
-                    }
-                }
-                StringBuilder fastGenerationrColorBuilder = new StringBuilder();
-                if (rangeDictionary.ContainsKey(tbFastGenerationrColor.Text))
-                {
-                    for (int i = 0; i < rangeDictionary[tbFastGenerationrColor.Text].Count; i++)
-                    {
-                        if (i != rangeDictionary[tbFastGenerationrColor.Text].Count - 1)
-                        {
-                            fastGenerationrColorBuilder.Append(rangeDictionary[tbFastGenerationrColor.Text][i] + splitNotation.ToString());
-                        }
-                        else
-                        {
-                            fastGenerationrColorBuilder.Append(rangeDictionary[tbFastGenerationrColor.Text][i]);
-                        }
-                    }
-                }
-                else
-                {
-                    colors = GetTrueContent(tbFastGenerationrColor.Text, splitNotation, rangeNotation);
-                    if (colors != null)
-                    {
-                        fastGenerationrColorBuilder.Append(tbFastGenerationrColor.Text);
-                    }
-                    else
-                    {
-                        tbFastGenerationrColor.Select(0, tbFastGenerationrColor.Text.Length);
-                        tbFastGenerationrColor.Focus();
-                        return;
-                    }
-                }
-                object result = null;
-                try
-                {
-                    string expression = tbFastGenerationrTime.Text;
-                    System.Data.DataTable eval = new System.Data.DataTable();
-                    result = eval.Compute(expression, "");
-                }
-                catch
-                {
-                    tbFastGenerationrTime.Select(0, tbFastGenerationrTime.Text.Length);
-                    tbFastGenerationrTime.Focus();
-                    return;
-                }
-                if (!System.Text.RegularExpressions.Regex.IsMatch(tbFastGenerationrInterval.Text, "^\\d+$"))
-                {
-                    tbFastGenerationrInterval.Select(0, tbFastGenerationrInterval.Text.Length);
-                    tbFastGenerationrInterval.Focus();
-                    return;
-                }
-                if (!System.Text.RegularExpressions.Regex.IsMatch(tbFastGenerationrContinued.Text, "^\\d+$"))
-                {
-                    tbFastGenerationrContinued.Select(0, tbFastGenerationrContinued.Text.Length);
-                    tbFastGenerationrContinued.Focus();
-                    return;
-                }
-              
-                commandLine =
-                    "PositionGroup " + stepName + "PositionGroup = new PositionGroup(\""
-                    + fastGenerationrRangeBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
-                    + "\tColorGroup " + stepName + "ColorGroup = new ColorGroup(\""
-                    + fastGenerationrColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');" + Environment.NewLine
-                    + "\tLightGroup " + stepName + "LightGroup = Create.CreateLightGroup("
-                    + result + ","
-                      + stepName + "PositionGroup,"
-                        + tbFastGenerationrInterval.Text + ","
-                          + tbFastGenerationrContinued.Text + ","
-                               + stepName + "ColorGroup";
-                //Type
-                if (cbFastGenerationrType.SelectedIndex == -1)
-                    return;
-                int type = 0;
-                if (cbFastGenerationrType.SelectedIndex == 0)
-                {
-                    type = Create.UP;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 1)
-                {
-                    type = Create.DOWN;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 2)
-                {
-                    type = Create.UPDOWN;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 3)
-                {
-                    type = Create.DOWNUP;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 4)
-                {
-                    type = Create.UPANDDOWN;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 5)
-                {
-                    type = Create.DOWNANDUP;
-                }
-                else if (cbFastGenerationrType.SelectedIndex == 6)
-                {
-                    type = Create.FREEZEFRAME;
-                }
-                //Action
-                if (cbFastGenerationrAction.SelectedIndex == -1)
-                    return;
-                int action = 0;
-                if (cbFastGenerationrAction.SelectedIndex == 0)
-                {
-                    action = Create.ALL;
-                }
-                else if (cbFastGenerationrAction.SelectedIndex == 1)
-                {
-                    action = Create.OPEN;
-                }
-                else if (cbFastGenerationrAction.SelectedIndex == 2)
-                {
-                    action = Create.CLOSE;
-                }
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.Name = stepName;
-                scriptModel.Value = "";
-                scriptModel.Visible = true;
-                //scriptModel.Contain = new List<string>() { stepName };
-                scriptModel.Intersection = new List<string>();
-                scriptModel.Complement = new List<string>();
-
-                scriptModel.OperationModels.Add(
-                    new CreateFromQuickOperationModel((int)result,
-                    positions, 
-                    int.Parse(tbFastGenerationrInterval.Text),
-                    int.Parse(tbFastGenerationrContinued.Text),
-                    colors,
-                    type,
-                    action));
-
-                scriptModelDictionary.Add(stepName, scriptModel);
-                UpdateStep();
-
-                if (sender == btnFastGenerationrAdd)
-                {
-                    //如果选中，就在列表选中最后一个
-                    if (sender == btnFastGenerationrSelect)
-                    {
-                        lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                    }
-                }
-
-                Test();
-                return;
-            }
-            if (sender == btnSelectEditorReplace)
-            {
-                //修改属性
-                if (lbStep.SelectedIndex == -1)
-                {
-                    return;
-                }
-                if (lockedDictionary.ContainsKey(GetStepName()))
-                {
-                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                    return;
-                }
-
-                ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
-
-                if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
-                {
-
-                    try
-                    {
-                        String result;
-                        if (tbSelectEditorTime.Text.Trim()[0] == '+' || tbSelectEditorTime.Text.Trim()[0] == '-')
-                        {
-                            //计算数学表达式
-                            string expression = tbSelectEditorTime.Text.Substring(1);
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                            result = tbSelectEditorTime.Text.Trim()[0] + result;
-                        }
-                        else
-                        {
-                            //计算数学表达式
-                            string expression = tbSelectEditorTime.Text;
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                        }
-                        if (scriptModel.Value.Equals(String.Empty))
-                        {
-                            scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        }
-                        else
-                        {
-                            scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        }
-                    }
-                    catch
-                    {
-                        tbSelectEditorTime.Select(0, tbSelectEditorTime.Text.Length);
-                        tbSelectEditorTime.Focus();
-                        return;
-                    }
-                }
-                if (!tbSelectEditorPosition.Text.Trim().Equals(String.Empty))
-                {
-                    String strNumber = tbSelectEditorPosition.Text.Trim();
-                    if (strNumber[0] == '+' || strNumber[0] == '-')
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                        {
-                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-                            tbSelectEditorPosition.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                        {
-                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-                            tbSelectEditorPosition.Focus();
-                            return;
-                        }
-                    }
-                    if (scriptModel.Value.Equals(String.Empty))
-                    {
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                    }
-                    else
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                    }
-                }
-                if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
-                {
-                    String strNumber = tbSelectEditorColor.Text.Trim();
-                    if (strNumber[0] == '+' || strNumber[0] == '-')
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                        {
-                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-                            tbSelectEditorColor.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                        {
-                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-                            tbSelectEditorColor.Focus();
-                            return;
-                        }
-                    }
-                    if (scriptModel.Value.Equals(String.Empty))
-                    {
-                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    }
-                    else
-                    {
-                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    }
-                }
-                UpdateStep();
-                Test();
-                return;
-            }
-            if (sender == btnSelectEditorAdd)
-            {
-                //复制并修改
-                if (lbStep.SelectedIndex == -1)
-                {
-                    return;
-                }
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromStepOperationModel(GetStepName()) };
-                scriptModel.Name = stepName;
-                scriptModel.Value = "";
-                scriptModel.Visible = true;
-                //scriptModel.Contain = new List<string>() { stepName };
-                scriptModelDictionary.Add(stepName, scriptModel);
-                SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
-                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
-                scriptModel.OperationModels.Add(setAttributeOperationModel);
-
-             
-                if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
-                {
-                    try
-                    {
-                        String result;
-                        if (tbSelectEditorTime.Text.Trim()[0] == '+' || tbSelectEditorTime.Text.Trim()[0] == '-')
-                        {
-                            //计算数学表达式
-                            string expression = tbSelectEditorTime.Text.Substring(1);
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                            result = tbSelectEditorTime.Text.Trim()[0] + result;
-                        }
-                        else
-                        {
-                            //计算数学表达式
-                            string expression = tbSelectEditorTime.Text;
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                        }
-
-                        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, result));
-                        //if (scriptModel.Value.Equals(String.Empty))
-                        //{
-                        //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        //}
-                        //else
-                        //{
-                        //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
-                        //}
-                    }
-                    catch
-                    {
-                        tbSelectEditorTime.Select(0, tbSelectEditorTime.Text.Length);
-                        tbSelectEditorTime.Focus();
-                        return;
-                    }
-                }
-                if (!tbSelectEditorPosition.Text.Trim().Equals(String.Empty))
-                {
-                    String strNumber = tbSelectEditorPosition.Text.Trim();
-                    if (strNumber[0] == '+' || strNumber[0] == '-')
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                        {
-                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-                            tbSelectEditorPosition.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                        {
-                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-                            tbSelectEditorPosition.Focus();
-                            return;
-                        }
-                    }
-                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, tbSelectEditorPosition.Text.Trim()));
-                    //if (scriptModel.Value.Equals(String.Empty))
-                    //{
-                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                    //}
-                    //else
-                    //{
-                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
-                    //}
-                }
-                if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
-                {
-                    String strNumber = tbSelectEditorColor.Text.Trim();
-                    if (strNumber[0] == '+' || strNumber[0] == '-')
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                        {
-                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-                            tbSelectEditorColor.Focus();
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                        {
-                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-                            tbSelectEditorColor.Focus();
-                            return;
-                        }
-                    }
-                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tbSelectEditorColor.Text.Trim()));
-                    //if (scriptModel.Value.Equals(String.Empty))
-                    //{
-                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    //}
-                    //else
-                    //{
-                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    //}
-                }
-
-                UpdateStep();
-                lbStep.SelectedIndex = lbStep.Items.Count - 1;
-                Test();
-                return;
-            }
+         
             if (sender == tbIfThenReplace || sender == tbIfThenRemove)
             {
                 if (lbStep.SelectedIndex == -1)
@@ -2916,16 +2477,6 @@ namespace Maker.View.LightScriptUserControl
             ShowRangeListDialog dialog = new ShowRangeListDialog(this);
             if (dialog.ShowDialog() == true)
             {
-                if (sender == btnFastGenerationrRange)
-                {
-                    String[] str = rangeDictionary.Keys.ToArray();
-                    tbFastGenerationrRange.Text = str[dialog.lbMain.SelectedIndex];
-                }
-                if (sender == btnFastGenerationrColor)
-                {
-                    String[] str = rangeDictionary.Keys.ToArray();
-                    tbFastGenerationrColor.Text = str[dialog.lbMain.SelectedIndex];
-                }
                 if (sender == btnIfPositionRange)
                 {
                     String[] str = rangeDictionary.Keys.ToArray();
@@ -3002,10 +2553,6 @@ namespace Maker.View.LightScriptUserControl
                 foreach (int i in dialog.Content)
                 {
                     builder.Append(i + " ");
-                }
-                if (sender == btnFastGenerationrDraw)
-                {
-                    tbFastGenerationrRange.Text = builder.ToString().Trim();
                 }
                 if (sender == btnIfPositionDraw)
                 {
@@ -3836,15 +3383,6 @@ namespace Maker.View.LightScriptUserControl
             new MessageDialog(mw, GetCompleteScript(), 0).ShowDialog();
         }
 
-        private void CbFastGenerationrAction_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbFastGenerationrType.SelectedIndex > 3)
-            {
-                cbFastGenerationrAction.SelectedIndex = 0;
-            }
-
-        }
-
         private void CbMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (spSelectEditor == null)
@@ -3853,17 +3391,14 @@ namespace Maker.View.LightScriptUserControl
             {
                 case 0:
                     spSelectEditor.Visibility = Visibility.Visible;
-                    spFastGenerationr.Visibility = Visibility.Visible;
                     spConditionJudgment.Visibility = Visibility.Visible;
                     break;
                 case 1:
                     spSelectEditor.Visibility = Visibility.Collapsed;
-                    spFastGenerationr.Visibility = Visibility.Visible;
                     spConditionJudgment.Visibility = Visibility.Collapsed;
                     break;
                 case 2:
                     spSelectEditor.Visibility = Visibility.Visible;
-                    spFastGenerationr.Visibility = Visibility.Collapsed;
                     spConditionJudgment.Visibility = Visibility.Visible;
                     break;
             }
@@ -4204,7 +3739,7 @@ namespace Maker.View.LightScriptUserControl
             //mw.SetSpFilePosition(mw.filePosition);
         }
 
-        private void UpdateStep()
+        public void UpdateStep()
         {
             lbStep.Items.Clear();
             foreach (var item in scriptModelDictionary)
@@ -5440,6 +4975,262 @@ namespace Maker.View.LightScriptUserControl
                 else {
                     spLeft.Children[i].Visibility = Visibility.Collapsed;
                 }
+            }
+        }
+
+        private void FastGeneration_Click(object sender, RoutedEventArgs e)
+        {
+            ScriptModel scriptModel = new ScriptModel();
+            scriptModel.Name = GetUsableStepName();
+            scriptModel.Value = "";
+            scriptModel.Visible = true;
+            scriptModel.Intersection = new List<string>();
+            scriptModel.Complement = new List<string>();
+
+            scriptModel.OperationModels.Add(
+                new CreateFromQuickOperationModel(0,
+                new List<int> { 11},
+                12,
+                12,
+               new List<int> { 5 },
+                 Create.UP,
+                  Create.ALL));
+
+            scriptModelDictionary.Add(scriptModel.Name, scriptModel);
+            UpdateStep();
+          
+            //如果选中，就在列表选中最后一个
+            if (sender == btnFastGenerationAndSelection)
+            {
+                lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            }
+
+            Test();
+        }
+
+        private void SelectEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbStep.SelectedIndex == -1)
+            {
+                return;
+            }
+            String stepName = GetUsableStepName();
+            if (sender == btnSelectEditorReplace)
+            {
+                //修改属性
+                if (lockedDictionary.ContainsKey(GetStepName()))
+                {
+                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                    return;
+                }
+
+                ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
+
+                if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
+                {
+                    try
+                    {
+                        String result;
+                        if (tbSelectEditorTime.Text.Trim()[0] == '+' || tbSelectEditorTime.Text.Trim()[0] == '-')
+                        {
+                            //计算数学表达式
+                            string expression = tbSelectEditorTime.Text.Substring(1);
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                            result = tbSelectEditorTime.Text.Trim()[0] + result;
+                        }
+                        else
+                        {
+                            //计算数学表达式
+                            string expression = tbSelectEditorTime.Text;
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                        }
+                        if (scriptModel.Value.Equals(String.Empty))
+                        {
+                            scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
+                        else
+                        {
+                            scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + result + "\");";
+                        }
+                    }
+                    catch
+                    {
+                        tbSelectEditorTime.Select(0, tbSelectEditorTime.Text.Length);
+                        tbSelectEditorTime.Focus();
+                        return;
+                    }
+                }
+                if (!tbSelectEditorPosition.Text.Trim().Equals(String.Empty))
+                {
+                    String strNumber = tbSelectEditorPosition.Text.Trim();
+                    if (strNumber[0] == '+' || strNumber[0] == '-')
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                        {
+                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                            tbSelectEditorPosition.Focus();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                        {
+                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                            tbSelectEditorPosition.Focus();
+                            return;
+                        }
+                    }
+                    if (scriptModel.Value.Equals(String.Empty))
+                    {
+                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    }
+                    else
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.POSITION,\"" + tbSelectEditorPosition.Text.Trim() + "\");";
+                    }
+                }
+                if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
+                {
+                    String strNumber = tbSelectEditorColor.Text.Trim();
+                    if (strNumber[0] == '+' || strNumber[0] == '-')
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                        {
+                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
+                            tbSelectEditorColor.Focus();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                        {
+                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
+                            tbSelectEditorColor.Focus();
+                            return;
+                        }
+                    }
+                    if (scriptModel.Value.Equals(String.Empty))
+                    {
+                        scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.TIME,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    }
+                    else
+                    {
+                        scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    }
+                }
+                UpdateStep();
+                Test();
+                return;
+            }
+            if (sender == btnSelectEditorAdd)
+            {
+                //复制并修改
+              
+                ScriptModel scriptModel = new ScriptModel();
+                scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromStepOperationModel(GetStepName()) };
+                scriptModel.Name = stepName;
+                scriptModel.Value = "";
+                scriptModel.Visible = true;
+                //scriptModel.Contain = new List<string>() { stepName };
+                scriptModelDictionary.Add(stepName, scriptModel);
+                SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
+                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
+                scriptModel.OperationModels.Add(setAttributeOperationModel);
+
+
+                if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
+                {
+                    try
+                    {
+                        String result;
+                        if (tbSelectEditorTime.Text.Trim()[0] == '+' || tbSelectEditorTime.Text.Trim()[0] == '-')
+                        {
+                            //计算数学表达式
+                            string expression = tbSelectEditorTime.Text.Substring(1);
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                            result = tbSelectEditorTime.Text.Trim()[0] + result;
+                        }
+                        else
+                        {
+                            //计算数学表达式
+                            string expression = tbSelectEditorTime.Text;
+                            System.Data.DataTable eval = new System.Data.DataTable();
+                            result = eval.Compute(expression, "").ToString();
+                        }
+
+                        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, result));
+                    }
+                    catch
+                    {
+                        tbSelectEditorTime.Select(0, tbSelectEditorTime.Text.Length);
+                        tbSelectEditorTime.Focus();
+                        return;
+                    }
+                }
+                if (!tbSelectEditorPosition.Text.Trim().Equals(String.Empty))
+                {
+                    String strNumber = tbSelectEditorPosition.Text.Trim();
+                    if (strNumber[0] == '+' || strNumber[0] == '-')
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                        {
+                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                            tbSelectEditorPosition.Focus();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                        {
+                            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
+                            tbSelectEditorPosition.Focus();
+                            return;
+                        }
+                    }
+                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, tbSelectEditorPosition.Text.Trim()));
+                }
+                if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
+                {
+                    String strNumber = tbSelectEditorColor.Text.Trim();
+                    if (strNumber[0] == '+' || strNumber[0] == '-')
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                        {
+                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
+                            tbSelectEditorColor.Focus();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                        {
+                            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
+                            tbSelectEditorColor.Focus();
+                            return;
+                        }
+                    }
+                    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tbSelectEditorColor.Text.Trim()));
+                    //if (scriptModel.Value.Equals(String.Empty))
+                    //{
+                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    //}
+                    //else
+                    //{
+                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
+                    //}
+                }
+
+                UpdateStep();
+                lbStep.SelectedIndex = lbStep.Items.Count - 1;
+                Test();
+                return;
             }
         }
     }
