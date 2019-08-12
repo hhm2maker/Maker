@@ -325,9 +325,18 @@ namespace Maker.View.Style.Child
             }
         }
 
+        /// <summary>
+        /// 删除控件到对话框
+        /// </summary>
+        protected void RemoveUIToDialog(int position)
+        {
+            spContacts.Children.RemoveAt(position);
+            _UI.RemoveAt(position);
+        }
+
         public void AddUIToDialog(FrameworkElement ui,int position)
         {
-            _UI.Add(ui);
+            _UI.Insert(position,ui);
             if (_UI.IndexOf(ui) != 0)
             {
                 ui.Margin = new Thickness(0, 10, 0, 0);

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Maker.ViewBusiness
 {
@@ -86,5 +87,15 @@ namespace Maker.ViewBusiness
                 grid.Children.Add(border);
             }
         }
+
+        /// <summary>
+        /// 设置图片内容
+        /// </summary>
+        /// <param name="image">图片控件</param>
+        /// <param name="imageFileName">图片文件名称</param>
+        public static void SetImageSourceToImage(Image image ,String imageFileName) {
+            image.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/"+ imageFileName, UriKind.RelativeOrAbsolute));
+        }
+
     }
 }

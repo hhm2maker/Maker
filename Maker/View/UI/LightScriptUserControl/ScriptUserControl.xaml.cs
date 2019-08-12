@@ -5141,7 +5141,6 @@ namespace Maker.View.LightScriptUserControl
                 setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
                 scriptModel.OperationModels.Add(setAttributeOperationModel);
 
-
                 if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
                 {
                     try
@@ -5217,14 +5216,6 @@ namespace Maker.View.LightScriptUserControl
                         }
                     }
                     setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tbSelectEditorColor.Text.Trim()));
-                    //if (scriptModel.Value.Equals(String.Empty))
-                    //{
-                    //    scriptModel.Value += "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    //}
-                    //else
-                    //{
-                    //    scriptModel.Value += Environment.NewLine + "\t" + stepName + "LightGroup.SetAttribute(LightGroup.COLOR,\"" + tbSelectEditorColor.Text.Trim() + "\");";
-                    //}
                 }
 
                 UpdateStep();
