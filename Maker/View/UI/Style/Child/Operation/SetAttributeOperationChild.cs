@@ -22,8 +22,11 @@ namespace Maker.View.UI.Style.Child
             foreach (var item in setAttributeOperationModel.AttributeOperationModels)
             {
                 ComboBox cb = GetComboBox(new List<string>{ "Time", "Position", "Color" }, null);
+                TextBox tb = GetTexeBox(item.Value);
+                tb.Width = 300;
                 if (item.attributeType.Equals(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME))
                 {
+                    //时间支持表达式
                     cb.SelectedIndex = 0;
                 }
                 else if (item.attributeType.Equals(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION))
@@ -34,9 +37,7 @@ namespace Maker.View.UI.Style.Child
                 {
                     cb.SelectedIndex = 2;
                 }
-                TextBox tb = GetTexeBox(item.Value);
-                tb.Width = 300;
-                AddUIElement(GetDockPanel(new List<FrameworkElement> { cb, tb,GetImage("check_gray.png", 27, IvCheck_MouseLeftButtonDown) }));
+                AddUIElement(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }));
             }
 
             AddUIElement(GetButton("Change", IvChange_Click));
@@ -48,82 +49,102 @@ namespace Maker.View.UI.Style.Child
 
         private void IvChange_Click(object sender, RoutedEventArgs e)
         {
-            //if (!tbSelectEditorTime.Text.Trim().Equals(String.Empty))
-            //{
-            //    try
-            //    {
-            //        String result;
-            //        if (tbSelectEditorTime.Text.Trim()[0] == '+' || tbSelectEditorTime.Text.Trim()[0] == '-')
-            //        {
-            //            //计算数学表达式
-            //            string expression = tbSelectEditorTime.Text.Substring(1);
-            //            System.Data.DataTable eval = new System.Data.DataTable();
-            //            result = eval.Compute(expression, "").ToString();
-            //            result = tbSelectEditorTime.Text.Trim()[0] + result;
-            //        }
-            //        else
-            //        {
-            //            //计算数学表达式
-            //            string expression = tbSelectEditorTime.Text;
-            //            System.Data.DataTable eval = new System.Data.DataTable();
-            //            result = eval.Compute(expression, "").ToString();
-            //        }
-
-            //        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, result));
-            //    }
-            //    catch
-            //    {
-            //        tbSelectEditorTime.Select(0, tbSelectEditorTime.Text.Length);
-            //        tbSelectEditorTime.Focus();
-            //        return;
-            //    }
-            //}
-            //if (!tbSelectEditorPosition.Text.Trim().Equals(String.Empty))
-            //{
-            //    String strNumber = tbSelectEditorPosition.Text.Trim();
-            //    if (strNumber[0] == '+' || strNumber[0] == '-')
-            //    {
-            //        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-            //        {
-            //            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-            //            tbSelectEditorPosition.Focus();
-            //            return;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-            //        {
-            //            tbSelectEditorPosition.Select(0, tbSelectEditorPosition.Text.Length);
-            //            tbSelectEditorPosition.Focus();
-            //            return;
-            //        }
-            //    }
-            //    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, tbSelectEditorPosition.Text.Trim()));
-            //}
-            //if (!tbSelectEditorColor.Text.Trim().Equals(String.Empty))
-            //{
-            //    String strNumber = tbSelectEditorColor.Text.Trim();
-            //    if (strNumber[0] == '+' || strNumber[0] == '-')
-            //    {
-            //        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-            //        {
-            //            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-            //            tbSelectEditorColor.Focus();
-            //            return;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-            //        {
-            //            tbSelectEditorColor.Select(0, tbSelectEditorColor.Text.Length);
-            //            tbSelectEditorColor.Focus();
-            //            return;
-            //        }
-            //    }
-            //    setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tbSelectEditorColor.Text.Trim()));
-            //}
+            SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
+            for (int i = 0; i < _UI.Count - 1 ; i++) {
+                DockPanel dp = _UI[i] as DockPanel;
+                int type = (dp.Children[0] as ComboBox).SelectedIndex;
+                TextBox tb = dp.Children[1] as TextBox;
+                if (type == 0)
+                {
+                    //时间
+                    if (!tb.Text.Trim().Equals(String.Empty))
+                    {
+                        try
+                        {
+                            String result;
+                            if (tb.Text.Trim()[0] == '+' || tb.Text.Trim()[0] == '-')
+                            {
+                                //计算数学表达式
+                                string expression = tb.Text.Substring(1);
+                                System.Data.DataTable eval = new System.Data.DataTable();
+                                result = eval.Compute(expression, "").ToString();
+                                result = tb.Text.Trim()[0] + result;
+                            }
+                            else
+                            {
+                                //计算数学表达式
+                                string expression = tb.Text;
+                                System.Data.DataTable eval = new System.Data.DataTable();
+                                result = eval.Compute(expression, "").ToString();
+                            }
+                            setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, result));
+                        }
+                        catch
+                        {
+                            tb.Select(0, tb.Text.Length);
+                            tb.Focus();
+                            return;
+                        }
+                    }
+                }
+                else if (type == 1)
+                {
+                    //位置
+                    if (!tb.Text.Trim().Equals(String.Empty))
+                    {
+                        String strNumber = tb.Text.Trim();
+                        if (strNumber[0] == '+' || strNumber[0] == '-')
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                            {
+                                tb.Select(0, tb.Text.Length);
+                                tb.Focus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                            {
+                                tb.Select(0, tb.Text.Length);
+                                tb.Focus();
+                                return;
+                            }
+                        }
+                        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, tb.Text.Trim()));
+                    }
+                }
+                else if (type == 2)
+                {
+                    //颜色
+                    if (!tb.Text.Trim().Equals(String.Empty))
+                    {
+                        String strNumber = tb.Text.Trim();
+                        if (strNumber[0] == '+' || strNumber[0] == '-')
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                            {
+                                tb.Select(0, tb.Text.Length);
+                                tb.Focus();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                            {
+                                tb.Select(0, tb.Text.Length);
+                                tb.Focus();
+                                return;
+                            }
+                        }
+                        setAttributeOperationModel.AttributeOperationModels.Add(new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.COLOR, tb.Text.Trim()));
+                    }
+                }
+            }
+            this.setAttributeOperationModel.AttributeOperationModels.Clear();
+            this.setAttributeOperationModel.AttributeOperationModels.AddRange(setAttributeOperationModel.AttributeOperationModels.ToArray());
+            sw.mw.Test();
         }
 
         List<int> checkedPositions = new List<int>();
@@ -148,13 +169,14 @@ namespace Maker.View.UI.Style.Child
             ComboBox cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, null);
             TextBox tb = GetTexeBox("+0");
             tb.Width = 300;
-            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 27, IvCheck_MouseLeftButtonDown) } ),UICount - 1);
+            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) } ),UICount - 1);
         }
 
         private void IvReduce_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if(checkedPositions.Count == 0)
                 return;
+            checkedPositions.Sort();
             for (int i = checkedPositions.Count - 1; i >= 0; i--) {
                 RemoveUIToDialog(checkedPositions[i]);
             }

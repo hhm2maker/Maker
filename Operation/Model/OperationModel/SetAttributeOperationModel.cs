@@ -30,7 +30,7 @@ namespace Maker.Business.Model.OperationModel
             }
         }
 
-        public List<AttributeOperationModel> AttributeOperationModels;
+        public List<AttributeOperationModel> AttributeOperationModels = new List<AttributeOperationModel>();
 
         public SetAttributeOperationModel()
         {

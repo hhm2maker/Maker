@@ -41,6 +41,9 @@
                     <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource SelectEditor_Replace}" Name="btnSelectEditorReplace"  Click="SelectEditor_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource SelectEditor_Add}" Name="btnSelectEditorAdd"  Click="SelectEditor_Click" Foreground="#ffffff"/>
+                    <MenuItem Header="{DynamicResource ConditionJudgment_Replace}" Name="btnConditionJudgmentReplace"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
+                    <MenuItem Header="{DynamicResource ConditionJudgment_Remove}" Name="btnConditionJudgmentRemove"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
+                    
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Time}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource Reversal}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -144,47 +147,7 @@
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel Name="spMainContentLeft" Margin="10,0,10,0">
-                                    <GroupBox Header="{DynamicResource SelectEditor_Replace}" Name="spSelectEditor" Foreground="{StaticResource bigBlockTextColor}" FontSize="18" FontWeight="DemiBold"  Margin="0,30,0,0"  Style="{DynamicResource GroupBoxStyle2}" >
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
-                                                <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Time}" />
-                                                </Border>
-                                                <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                    <Grid Width="auto" >
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="auto"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBox Grid.Column="0"  Name="tbSelectEditorTime" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
-                                                        <Image Grid.Column="1" Width="27" Margin="10,0,0,0" Source="../../Resources/Image/calc.png"/>
-                                                    </Grid>
-                                                </Border>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
-                                                <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Position}" />
-                                                </Border>
-                                                <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                    <TextBox Name="tbSelectEditorPosition" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
-                                                </Border>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
-                                                <Border  Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" Height="40"  >
-                                                    <TextBlock TextAlignment="Center" VerticalAlignment="Center" Width="80" Text="{DynamicResource Color}" />
-                                                </Border>
-                                                <Border Width="205" BorderBrush="#a8a9a9" CornerRadius="0,5,5,0"  BorderThickness="0,2,2,2" Padding="8,5,8,5" Height="40" Background="#1c1e1f">
-                                                    <TextBox Name="tbSelectEditorColor" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#222326" BorderThickness="0"  />
-                                                </Border>
-                                            </StackPanel>
-                                            <WrapPanel  Orientation="Horizontal" Margin="0,25,0,10" HorizontalAlignment="Center">
-                                                <Button x:Name="btnSelectEditorReplace2"  Margin="0,0,10,0" Content="{DynamicResource Replace}" />
-                                                <Button x:Name="btnSelectEditorAdd2"  Margin="0,0,10,0" Content="{DynamicResource Add}"/>
-                                                <Button x:Name="btnSelectEditorClear"  Margin="0,0,0,0" Click="ClearInput" Content="{DynamicResource Clear}" />
-                                            </WrapPanel>
-                                        </StackPanel>
-                                    </GroupBox>
-                                    <GroupBox Header="{DynamicResource ConditionJudgmentColon}" Name="spConditionJudgment" Foreground="{StaticResource bigBlockTextColor}" FontSize="18"  FontWeight="DemiBold"  Margin="0,30,0,30" Style="{DynamicResource GroupBoxStyle2}" >
+                                    <GroupBox Header="{DynamicResource ConditionJudgment_Replace}" Name="spConditionJudgment" Foreground="{StaticResource bigBlockTextColor}" FontSize="18"  FontWeight="DemiBold"  Margin="0,30,0,30" Style="{DynamicResource GroupBoxStyle2}" >
                                         <StackPanel Orientation="Vertical"   VerticalAlignment="Top" Margin="0,10,0,0" >
                                             <TextBlock  Margin="20,10,0,0" Text="{DynamicResource IfColon}" FontSize="21" HorizontalAlignment="Left"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,18,0,0" HorizontalAlignment="Center">
