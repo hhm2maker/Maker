@@ -234,7 +234,11 @@ namespace Maker.View.Style
                 //}
                 lbCatalog.SelectedIndex = 0;
 
-                if (item is SetAttributeOperationModel)
+                if (item is ConditionJudgmentOperationModel)
+                {
+                    svMain.Children.Add(new ConditionJudgmentOperationChild(item as ConditionJudgmentOperationModel,mw));
+                }
+                else if (item is SetAttributeOperationModel)
                 {
                     svMain.Children.Add(new SetAttributeOperationChild(item as SetAttributeOperationModel));
                 }

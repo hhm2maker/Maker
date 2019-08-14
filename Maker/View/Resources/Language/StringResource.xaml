@@ -104,6 +104,7 @@
     <sys:String x:Key="DurationColon">Duration:</sys:String>
     <sys:String x:Key="Duration">Duration</sys:String>
     <sys:String x:Key="Select">Select</sys:String>
+    <sys:String x:Key="ConditionJudgment">Condition Judgment</sys:String>
     <sys:String x:Key="ConditionJudgment_Replace">Condition Judgment - Replace</sys:String>
     <sys:String x:Key="ConditionJudgment_Remove">Condition Judgment - Remove</sys:String>
     <sys:String x:Key="IfColon">If:</sys:String>

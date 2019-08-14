@@ -4729,19 +4729,28 @@ namespace Maker.View.LightScriptUserControl
                 return;
             }
 
+             if (lbStep.SelectedIndex == -1)
+             {
+                 return;
+             }
+             ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
+             if (lockedDictionary.ContainsKey(GetStepName()))
+             {
+                 new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                 return;
+             }
             if (sender == btnConditionJudgmentReplace || sender == btnConditionJudgmentReplace)
             {
-                if (lbStep.SelectedIndex == -1)
-                {
-                    return;
-                }
-                ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
-                if (lockedDictionary.ContainsKey(GetStepName()))
-                {
-                    new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
-                    return;
-                }
-                char splitNotation = ',';
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, "", 0, new List<int>() , new List<int>(), "", "", ""));
+            }
+            else {
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, "", 0, new List<int>(), new List<int>(), "", "", ""));
+            }
+            sw.SetData(scriptModelDictionary[scriptModel.Name].OperationModels, true);
+            return;
+
+
+            char splitNotation = ',';
                 if (strInputFormatDelimiter.Equals("Comma"))
                 {
                     splitNotation = ',';
@@ -5050,7 +5059,6 @@ namespace Maker.View.LightScriptUserControl
                 scriptModel.Value += temporary + ifPrerequisite + thenPrerequisite;
                 Test();
                 return;
-            }
         }
     }
 }

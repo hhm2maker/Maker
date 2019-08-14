@@ -104,6 +104,7 @@
     <sys:String x:Key="DurationColon">持续：</sys:String>
     <sys:String x:Key="Duration">持续</sys:String>
     <sys:String x:Key="Select">选中</sys:String>
+    <sys:String x:Key="ConditionJudgment">条件判断</sys:String>
     <sys:String x:Key="ConditionJudgment_Replace">条件判断 - 替换</sys:String>
     <sys:String x:Key="ConditionJudgment_Remove">条件判断 - 移除</sys:String>
     <sys:String x:Key="IfColon">如果：</sys:String>
