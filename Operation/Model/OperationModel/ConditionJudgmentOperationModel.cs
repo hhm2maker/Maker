@@ -19,7 +19,7 @@ namespace Maker.Business.Model.OperationModel
             set;
         }
 
-        public int IfTime
+        public int? IfTime
         {
             get;
             set;
@@ -67,7 +67,7 @@ namespace Maker.Business.Model.OperationModel
 
         }
 
-        public ConditionJudgmentOperationModel(Operation myOperator, int ifTime, int ifAction, List<int> ifPosition, List<int> ifColor, string thenTime, string thenPosition, string thenColor)
+        public ConditionJudgmentOperationModel(Operation myOperator, int? ifTime, int ifAction, List<int> ifPosition, List<int> ifColor, string thenTime, string thenPosition, string thenColor)
         {
             MyOperator = myOperator;
             IfTime = ifTime;

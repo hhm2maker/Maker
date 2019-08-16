@@ -4741,10 +4741,10 @@ namespace Maker.View.LightScriptUserControl
              }
             if (sender == btnConditionJudgmentReplace || sender == btnConditionJudgmentReplace)
             {
-                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, "", 0, new List<int>() , new List<int>(), "", "", ""));
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, null, 0, new List<int>() , new List<int>(), "", "", ""));
             }
             else {
-                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, "", 0, new List<int>(), new List<int>(), "", "", ""));
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, null, 0, new List<int>(), new List<int>(), "", "", ""));
             }
             sw.SetData(scriptModelDictionary[scriptModel.Name].OperationModels, true);
             return;
