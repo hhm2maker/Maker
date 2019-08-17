@@ -4722,12 +4722,12 @@ namespace Maker.View.LightScriptUserControl
 
         private void ConditionJudgment_Click(object sender, RoutedEventArgs e)
         {
-            String stepName = GetUsableStepName();
-            if (stepName == null)
-            {
-                new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                return;
-            }
+            //String stepName = GetUsableStepName();
+            //if (stepName == null)
+            //{
+            //    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
+            //    return;
+            //}
 
              if (lbStep.SelectedIndex == -1)
              {
@@ -4736,15 +4736,15 @@ namespace Maker.View.LightScriptUserControl
              ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
              if (lockedDictionary.ContainsKey(GetStepName()))
              {
-                 new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                 new MessageDialog(mw, "TheStepIsLocked" ).ShowDialog();
                  return;
              }
             if (sender == btnConditionJudgmentReplace || sender == btnConditionJudgmentReplace)
             {
-                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, null, 0, new List<int>() , new List<int>(), "", "", ""));
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, -1, 0, new List<int>() , new List<int>(), "", "", ""));
             }
             else {
-                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, null, 0, new List<int>(), new List<int>(), "", "", ""));
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, -1, 0, new List<int>(), new List<int>(), "", "", ""));
             }
             sw.SetData(scriptModelDictionary[scriptModel.Name].OperationModels, true);
             return;

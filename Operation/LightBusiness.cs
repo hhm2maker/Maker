@@ -334,7 +334,7 @@ namespace Operation
         {
             List<Light> _lightList = Copy(mActionBeanList);
             for (int i = _lightList.Count - 1; i >= 0; i--) {
-                if (_lightList[i].Position < 28 || _lightList[i].Position > 123 || _lightList[i].Color < 1 || _lightList[i].Color > 128)
+                if (_lightList[i].Position < 0 || _lightList[i].Position > 100 || _lightList[i].Color < 1 || _lightList[i].Color > 128)
                 {
                     _lightList.RemoveAt(i);
                 }
@@ -516,5 +516,6 @@ namespace Operation
             }
             return lightGroup;
         }
+
     }
 }

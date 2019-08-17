@@ -382,7 +382,48 @@ namespace Operation
                                   ? "" 
                                   : contains[contains.Count - 1];
 
-                if (mItem is SetAttributeOperationModel)
+                if (mItem is ConditionJudgmentOperationModel)
+                {
+                    ConditionJudgmentOperationModel conditionJudgmentOperationModel = mItem as ConditionJudgmentOperationModel;
+                    StringBuilder positionBuild = new StringBuilder();
+                    positionBuild.Append("new List<int>(){");
+                    for (int i = 0; i < conditionJudgmentOperationModel.IfPosition.Count; i++)
+                    {
+                        if (i != conditionJudgmentOperationModel.IfPosition.Count - 1)
+                        {
+                            positionBuild.Append(conditionJudgmentOperationModel.IfPosition[i] + ",");
+                        }
+                        else
+                        {
+                            positionBuild.Append(conditionJudgmentOperationModel.IfPosition[i] );
+                        }
+                    }
+                    positionBuild.Append("}");
+                    StringBuilder colorBuild = new StringBuilder();
+                    colorBuild.Append("new List<int>(){");
+                    for (int i = 0; i < conditionJudgmentOperationModel.IfColor.Count; i++)
+                    {
+                        if (i != conditionJudgmentOperationModel.IfColor.Count - 1)
+                        {
+                            colorBuild.Append(conditionJudgmentOperationModel.IfColor[i] + ",");
+                        }
+                        else
+                        {
+                            colorBuild.Append(conditionJudgmentOperationModel.IfColor[i] );
+                        }
+                    }
+                    colorBuild.Append("}");
+                    sb.Append(Environment.NewLine + "\t" + name + "LightGroup.ConditionJudgment(ConditionJudgmentOperationModel.Operation." + conditionJudgmentOperationModel.MyOperator + ","
+                                                                                                 + conditionJudgmentOperationModel.IfTime+ ","
+                                                                                                 + conditionJudgmentOperationModel.IfAction  +","
+                                                                                                 + positionBuild.ToString() + ","
+                                                                                                 + colorBuild.ToString() + ",\""
+                                                                                                 + conditionJudgmentOperationModel.ThenTime + "\",\""
+                                                                                                 + conditionJudgmentOperationModel.ThenPosition + "\",\""
+                                                                                                 + conditionJudgmentOperationModel.ThenColor
+                                                                                                 + "\");");
+                }
+                else if (mItem is SetAttributeOperationModel)
                 {
                     SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
                     for (int i = 0; i < setAttributeOperationModel.AttributeOperationModels.Count; i++)
@@ -420,8 +461,7 @@ namespace Operation
                     }
                 }
                 else if (mItem is CreateFromQuickOperationModel)
-                    {
-                  
+                {
                     CreateFromQuickOperationModel createFromQuickOperationModel = mItem as CreateFromQuickOperationModel;
                     StringBuilder positionBuild = new StringBuilder();
                     positionBuild.Append("new List<int>(){");
@@ -436,9 +476,9 @@ namespace Operation
                     }
                     StringBuilder colorBuild = new StringBuilder();
                     colorBuild.Append("new List<int>(){");
-                    for (int i = 0; i < createFromQuickOperationModel.PositionList.Count; i++)
+                    for (int i = 0; i < createFromQuickOperationModel.ColorList.Count; i++)
                     {
-                        if (i != createFromQuickOperationModel.PositionList.Count - 1)
+                        if (i != createFromQuickOperationModel.ColorList.Count - 1)
                         {
                             colorBuild.Append(createFromQuickOperationModel.ColorList[i] + ",");
                         }

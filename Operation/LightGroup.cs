@@ -1474,14 +1474,162 @@ namespace Operation
                 List<Light> lol = new List<Light>();
                 foreach (Light l in this)
                 {
-                    lol.Add(new Operation.Light(l.Time, l.Action, l.Position, l.Color));
+                    lol.Add(new Light(l.Time, l.Action, l.Position, l.Color));
                 }
 
-                lol = (List<Operation.Light>)mi.Invoke(o, new Object[] { lol, parameters });
+                lol = (List<Light>)mi.Invoke(o, new Object[] { lol, parameters });
 
                 Clear();
                 AddRange(lol.ToArray());
             }
+        }
+
+        /// <summary>
+        /// 如果那么
+        /// </summary>
+        /// <param name="myOperator"></param>
+        /// <param name="ifTime"></param>
+        /// <param name="ifAction"></param>
+        /// <param name="ifPosition"></param>
+        /// <param name="ifColor"></param>
+        /// <param name="thenTime"></param>
+        /// <param name="thenPosition"></param>
+        /// <param name="thenColor"></param>
+        public void ConditionJudgment(ConditionJudgmentOperationModel.Operation myOperator, int ifTime, int ifAction, List<int> ifPosition, List<int> ifColor, string thenTime, string thenPosition, string thenColor)
+        {
+            if (myOperator == ConditionJudgmentOperationModel.Operation.REMOVE)
+            {
+                RemoveAll(delegate (Light light)
+                {
+                    if (ifAction == 1)
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color)) &&
+                        (light.Action == 144);
+                    }
+                    else if (ifAction == 2)
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color)) &&
+                        (light.Action == 128);
+                    }
+                    else
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color));
+                    }
+                });
+            }
+            else {
+               List<Light> ll = FindAll(delegate (Light light)
+                {
+                    if (ifAction == 1)
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color)) &&
+                        (light.Action == 144);
+                    }
+                    else if (ifAction == 2)
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color)) &&
+                        (light.Action == 128);
+                    }
+                    else
+                    {
+                        return
+                        (ifTime == -1 ? true : light.Time == ifTime) &&
+                        (ifPosition.Count == 0 ? true : ifPosition.Contains(light.Position)) &&
+                        (ifColor.Count == 0 ? true : ifColor.Contains(light.Color));
+                    }
+                });
+
+                foreach (var item in ll) {
+                    if (!thenTime.Equals(String.Empty)) {
+                        if (thenTime.StartsWith("+") && thenTime.Length > 1) {
+                            if (int.TryParse(thenTime.Substring(1), out int result)) {
+                                item.Time += result;
+                            }
+                        }else if (thenTime.StartsWith("-") && thenTime.Length > 1)
+                        {
+                            if (int.TryParse(thenTime.Substring(1), out int result))
+                            {
+                                item.Time -= result;
+                            }
+                        }else
+                        {
+                            if (int.TryParse(thenTime, out int result))
+                            {
+                                item.Time = result;
+                            }
+                        }
+                    }
+                    if (!thenPosition.Equals(String.Empty))
+                    {
+                        if (thenPosition.StartsWith("+") && thenPosition.Length > 1)
+                        {
+                            if (int.TryParse(thenPosition.Substring(1), out int result))
+                            {
+                                item.Position += result;
+                            }
+                        }
+                        else if (thenPosition.StartsWith("-") && thenPosition.Length > 1)
+                        {
+                            if (int.TryParse(thenPosition.Substring(1), out int result))
+                            {
+                                item.Position -= result;
+                            }
+                        }
+                        else
+                        {
+                            if (int.TryParse(thenPosition, out int result))
+                            {
+                                item.Position = result;
+                            }
+                        }
+                    }
+                    if (!thenColor.Equals(String.Empty))
+                    {
+                        if (thenColor.StartsWith("+") && thenColor.Length > 1)
+                        {
+                            if (int.TryParse(thenColor.Substring(1), out int result))
+                            {
+                                item.Color += result;
+                            }
+                        }
+                        else if (thenColor.StartsWith("-") && thenColor.Length > 1)
+                        {
+                            if (int.TryParse(thenColor.Substring(1), out int result))
+                            {
+                                item.Color -= result;
+                            }
+                        }
+                        else
+                        {
+                            if (int.TryParse(thenColor, out int result))
+                            {
+                                item.Color = result;
+                            }
+                        }
+                    }
+                }
+                List<Light> _ll = LightBusiness.RemoveNotLaunchpadNumbers(this);
+                Clear();
+                AddRange(_ll.ToArray());
+                LightBusiness.Print(this);
+            }
+            //Clear();
+            //AddRange(result);
         }
     }
 }

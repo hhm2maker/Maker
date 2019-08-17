@@ -335,6 +335,9 @@ namespace Maker.View.UI.Style.Child
                 }
             }
             conditionJudgmentOperationModel.ThenColor = tbThenColor.Text;
+            this.conditionJudgmentOperationModel = conditionJudgmentOperationModel;
+
+            suc.Test();
 
             //String stepName = GetUsableStepName();
             //char splitNotation = ',';
@@ -642,7 +645,6 @@ namespace Maker.View.UI.Style.Child
             //scriptModel.Value += temporary + ifPrerequisite + thenPrerequisite;
 
             //suc.UpdateStep();
-            suc.Test();
         }
 
 

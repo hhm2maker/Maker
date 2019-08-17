@@ -5,6 +5,7 @@ using Maker.View.Style.Child;
 using Maker.View.UI.Style.Child;
 using Maker.View.UI.Style.Child.Operation;
 using Maker.View.UI.UserControlDialog;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Windows;
