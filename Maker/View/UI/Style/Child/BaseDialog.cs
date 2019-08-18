@@ -438,10 +438,6 @@ namespace Maker.View.Style.Child
             cb.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
             cb.Padding = new Thickness(10,5,10,5);
             //cb.Margin = new Thickness(16, 0, 0, 0);
-            if (selectionChangedEvent != null)
-            {
-                cb.SelectionChanged += selectionChangedEvent;
-            }
             foreach (String child in childTextName)
             {
                 ComboBoxItem item = new ComboBoxItem();
@@ -450,6 +446,10 @@ namespace Maker.View.Style.Child
                 item.FontSize = 16;
                 item.SetResourceReference(ContentProperty, child);
                 cb.Items.Add(item);
+            }
+            if (selectionChangedEvent != null)
+            {
+                cb.SelectionChanged += selectionChangedEvent;
             }
             return cb;
         }
@@ -488,7 +488,6 @@ namespace Maker.View.Style.Child
             border.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
 
             TextBlock tbContent = new TextBlock();
-            //tbContent.HorizontalAlignment = HorizontalAlignment.Center;
             tbContent.Margin = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
@@ -506,6 +505,26 @@ namespace Maker.View.Style.Child
             return border;
         }
 
+        /// <summary>
+        /// 添加标题和值
+        /// </summary>
+        public TextBlock GetTexeBlockNoBorder(String textContent, bool isResourceReference)
+        {
+            TextBlock tbContent = new TextBlock();
+            tbContent.Margin = new Thickness(5, 2, 5, 2);
+            tbContent.FontSize = 16;
+            tbContent.Foreground = new SolidColorBrush(Color.FromRgb(200,200,200));
+            if (isResourceReference)
+            {
+                tbContent.SetResourceReference(TextBlock.TextProperty, textContent);
+            }
+            else
+            {
+                tbContent.Text = textContent;
+            }
+
+            return tbContent;
+        }
 
         /// <summary>
         /// 添加标题和值

@@ -36,31 +36,31 @@ namespace Operation
         {
             get;
             set;
-        }
+        } = new List<int>();
 
         public List<int> IfColor
         {
             get;
             set;
-        }
+        } = new List<int>();
 
         public String ThenTime
         {
             get;
             set;
-        }
+        } = "";
 
         public String ThenPosition
         {
             get;
             set;
-        }
+        } = "";
 
         public String ThenColor
         {
             get;
             set;
-        }
+        } = "";
 
 
         public ConditionJudgmentOperationModel()

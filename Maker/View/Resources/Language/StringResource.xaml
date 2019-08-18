@@ -535,4 +535,6 @@
     <sys:String x:Key="NameColon">Name:</sys:String>
     <sys:String x:Key="CreateFromTheFile">Create from the file</sys:String>
     <sys:String x:Key="Setup">Setup</sys:String>
+    <sys:String x:Key="If">If</sys:String>
+    <sys:String x:Key="Then">Then</sys:String>
 </ResourceDictionary>

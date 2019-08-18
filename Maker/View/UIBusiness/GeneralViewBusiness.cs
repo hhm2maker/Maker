@@ -164,7 +164,10 @@ namespace Maker.ViewBusiness
                     Content = str,
                     FontSize = fontSize
                 };
-                mItem.PreviewMouseLeftButtonDown += clickEvent;
+                if (clickEvent != null)
+                {
+                    mItem.PreviewMouseLeftButtonDown += clickEvent;
+                }
                 menuItem.Items.Add(mItem);
             }
         }

@@ -33,7 +33,6 @@ namespace Maker
        
         public MainWindow mw;
         public InputUserControlBridge bridge;
-        public InputUserControlViewBusiness viewBusiness;
         public InputUserControl(MainWindow mw)
         {
             InitializeComponent();
@@ -2846,7 +2845,6 @@ namespace Maker
 
         private void ClearInput(object sender, RoutedEventArgs e)
         {
-            viewBusiness.ClearInput(sender);
         }
 
         private void ShowRangeList(object sender, RoutedEventArgs e)

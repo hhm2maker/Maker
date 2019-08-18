@@ -1626,7 +1626,6 @@ namespace Operation
                 List<Light> _ll = LightBusiness.RemoveNotLaunchpadNumbers(this);
                 Clear();
                 AddRange(_ll.ToArray());
-                LightBusiness.Print(this);
             }
             //Clear();
             //AddRange(result);

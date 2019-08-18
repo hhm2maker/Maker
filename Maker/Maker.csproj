@@ -246,7 +246,6 @@
     <Compile Include="Business\Utils\NoFileRequestUtils.cs" />
     <Compile Include="Business\Utils\StringExtensions.cs" />
     <Compile Include="View\UIBusiness\GeneralViewBusiness.cs" />
-    <Compile Include="View\UIBusiness\InputUserControlViewBusiness.cs" />
     <Compile Include="View\UIBusiness\UIViewBusiness.cs" />
     <Compile Include="View\UI\Control\MainControlUserControl.xaml.cs">
       <DependentUpon>MainControlUserControl.xaml</DependentUpon>
@@ -271,6 +270,9 @@
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
+    <Compile Include="View\UI\Dialog\WindowDialog\ShowMyContentWindowDialog.xaml.cs">
+      <DependentUpon>ShowMyContentWindowDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Edit\EditUserControl.xaml.cs">
       <DependentUpon>EditUserControl.xaml</DependentUpon>
     </Compile>
@@ -685,6 +687,10 @@
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Dialog\WindowDialog\ShowMyContentWindowDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Edit\EditUserControl.xaml">
       <SubType>Designer</SubType>

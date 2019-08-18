@@ -538,4 +538,6 @@
     <sys:String x:Key="NameColon">名称：</sys:String>
     <sys:String x:Key="CreateFromTheFile">从文件中创建</sys:String>
     <sys:String x:Key="Setup">安装</sys:String>
+    <sys:String x:Key="If">如果</sys:String>
+    <sys:String x:Key="Then">那么</sys:String>
 </ResourceDictionary>

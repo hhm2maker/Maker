@@ -41,6 +41,10 @@
     </Script>
     <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
+      <ConditionJudgment operation="40" ifTime="-1" ifAction="0" ifPosition="," ifColor="" thenTime="" thenPosition="12" thenColor="" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="0.light" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

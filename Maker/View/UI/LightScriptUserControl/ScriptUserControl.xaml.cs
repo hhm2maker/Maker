@@ -30,6 +30,7 @@ using static Maker.Business.Model.ThirdPartySetupsModel;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Maker.View.UI.Dialog.WindowDialog;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -40,7 +41,6 @@ namespace Maker.View.LightScriptUserControl
     {
         //public MainWindow mw_;
         public InputUserControlBridge _bridge;
-        public InputUserControlViewBusiness viewBusiness;
 
         private ScriptUserControlBridge bridge;
 
@@ -64,14 +64,9 @@ namespace Maker.View.LightScriptUserControl
             binding.Executed += Binding_Executed;
             binding.CanExecute += Binding_CanExecute;
 
-            //按钮
-            tbIfThenReplace.CommandBindings.Add(binding);
-            tbIfThenRemove.CommandBindings.Add(binding);
-
             //CommandManager.InvalidateRequerySuggested();
 
             _bridge = new InputUserControlBridge(this);
-            viewBusiness = new InputUserControlViewBusiness(this);
             //加载库文件
             _bridge.InitLibrary(_bridge.GetLibrary(), LibraryMenuItem_Click);
 
@@ -217,11 +212,7 @@ namespace Maker.View.LightScriptUserControl
         private void Binding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllPopup();
-
-            if (sender == tbIfThenReplace || sender == tbIfThenRemove)
-            {
-                ToLightScript(sender);
-            }
+          
             e.Handled = true;
         }
 
@@ -243,8 +234,6 @@ namespace Maker.View.LightScriptUserControl
             //toolTip.Content = Application.Current.Resources["IDoNotThinkItWorks"];
             //toolTip.SetValue(StyleProperty, null);
             //iNewStep.ToolTip = toolTip;
-
-
 
             InitFormat();
         }
@@ -488,15 +477,8 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
         }
-        private void ToLightScript(object sender, RoutedEventArgs e)
-        {
-            ToLightScript(sender);
-        }
-
-        private void ToLightScript(object sender)
-        {
-          
-        }
+    
+      
 
         /// <summary>
         /// 内容是否正确
@@ -2127,40 +2109,6 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void ClearInput(object sender, RoutedEventArgs e)
-        {
-            viewBusiness.ClearInput(sender);
-        }
-
-        private void ShowRangeList(object sender, RoutedEventArgs e)
-        {
-            ShowRangeList(sender);
-        }
-
-        private void ShowRangeList(object sender, MouseButtonEventArgs e)
-        {
-            ShowRangeList(sender);
-        }
-
-        private void ShowRangeList(object sender)
-        {
-            ShowRangeListDialog dialog = new ShowRangeListDialog(this);
-            if (dialog.ShowDialog() == true)
-            {
-                if (sender == btnIfPositionRange)
-                {
-                    String[] str = rangeDictionary.Keys.ToArray();
-                    tbIfPosition.Text = str[dialog.lbMain.SelectedIndex];
-                }
-                if (sender == btnIfColor)
-                {
-                    String[] str = rangeDictionary.Keys.ToArray();
-                    tbIfColor.Text = str[dialog.lbMain.SelectedIndex];
-                }
-            }
-            SaveRangeFile();
-        }
-
         private void SaveRangeFile()
         {
             StringBuilder builder = new StringBuilder();
@@ -2202,33 +2150,6 @@ namespace Maker.View.LightScriptUserControl
             StyleWindow style = new StyleWindow(this);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             mw.AddSetting(style);
-        }
-
-        private void DrawRange(object sender, MouseButtonEventArgs e)
-        {
-            DrawRange(sender);
-        }
-
-        private void DrawRange(object sender, RoutedEventArgs e)
-        {
-            DrawRange(sender);
-        }
-
-        private void DrawRange(object sender)
-        {
-            DrawRangeDialog dialog = new DrawRangeDialog(mw);
-            StringBuilder builder = new StringBuilder();
-            if (dialog.ShowDialog() == true)
-            {
-                foreach (int i in dialog.Content)
-                {
-                    builder.Append(i + " ");
-                }
-                if (sender == btnIfPositionDraw)
-                {
-                    tbIfPosition.Text = builder.ToString().Trim();
-                }
-            }
         }
 
         private void LbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -3053,24 +2974,6 @@ namespace Maker.View.LightScriptUserControl
             new MessageDialog(mw, GetCompleteScript(), 0).ShowDialog();
         }
 
-        private void CbMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (spConditionJudgment == null)
-                return;
-
-            switch (cbMode.SelectedIndex)
-            {
-                case 0:
-                    spConditionJudgment.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    spConditionJudgment.Visibility = Visibility.Collapsed;
-                    break;
-                case 2:
-                    spConditionJudgment.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
 
         private void MiIntroduce_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -3495,7 +3398,31 @@ namespace Maker.View.LightScriptUserControl
          
                 foreach (var mItem in item.Value.OperationModels)
                 {
-                    if (mItem is SetAttributeOperationModel)
+                    if (mItem is ConditionJudgmentOperationModel)
+                    {
+                        XElement xVerticalFlipping = new XElement("ConditionJudgment");
+                        ConditionJudgmentOperationModel conditionJudgmentOperationModel = mItem as ConditionJudgmentOperationModel;
+                        xVerticalFlipping.SetAttributeValue("operation", (int)conditionJudgmentOperationModel.MyOperator);
+                        xVerticalFlipping.SetAttributeValue("ifTime", conditionJudgmentOperationModel.IfTime);
+                        xVerticalFlipping.SetAttributeValue("ifAction", conditionJudgmentOperationModel.IfAction);
+                        StringBuilder sbPositions = new StringBuilder();
+                        for (int i = 0; i < conditionJudgmentOperationModel.IfPosition.Count; i++)
+                        {
+                            sbPositions.Append((char)(conditionJudgmentOperationModel.IfPosition[i] + 33));
+                        }
+                        xVerticalFlipping.SetAttributeValue("ifPosition", sbPositions.ToString());
+                        StringBuilder sbColors = new StringBuilder();
+                        for (int i = 0; i < conditionJudgmentOperationModel.IfColor.Count; i++)
+                        {
+                            sbColors.Append((char)(conditionJudgmentOperationModel.IfColor[i] + 33));
+                        }
+                        xVerticalFlipping.SetAttributeValue("ifColor", sbColors.ToString());
+                        xVerticalFlipping.SetAttributeValue("thenTime", conditionJudgmentOperationModel.ThenTime);
+                        xVerticalFlipping.SetAttributeValue("thenPosition", conditionJudgmentOperationModel.ThenPosition);
+                        xVerticalFlipping.SetAttributeValue("thenColor", conditionJudgmentOperationModel.ThenColor);
+                        xScript.Add(xVerticalFlipping);
+                    }
+                    else if(mItem is SetAttributeOperationModel)
                     {
                         XElement xVerticalFlipping = new XElement("SetAttribute");
                         SetAttributeOperationModel setAttributeOperationModel = mItem as SetAttributeOperationModel;
@@ -4379,61 +4306,6 @@ namespace Maker.View.LightScriptUserControl
 
         }
 
-        private void lbStep_PreviewDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetData(typeof(ListBoxItem)) is ListBoxItem)
-            {
-                ListBoxItem item = e.Data.GetData(typeof(ListBoxItem)) as ListBoxItem;
-                if (cbMyContent.SelectedIndex == 1)
-                {
-                    if ((mw.LastProjectPath + @"\LightScript\" + item.Content.ToString()).Equals(filePath))
-                    {
-                        return;
-                    }
-                    ImportLibraryDialog dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + item.Content.ToString());
-                    mw.AddSetting(dialog);
-                }
-                else if (cbMyContent.SelectedIndex == 0)
-                {
-                    String stepName = GetUsableStepName();
-                    ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(item.Content.ToString()) };
-                    scriptModel.Name = stepName;
-                    scriptModel.Value = "";
-                    scriptModel.Visible = true;
-                    //scriptModel.Contain = new List<string>() { stepName };
-                    scriptModel.Intersection = new List<string>();
-                    scriptModel.Complement = new List<string>();
-                    scriptModelDictionary.Add(stepName, scriptModel);
-                    UpdateStep();
-
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-
-                    Test();
-                }
-                else if (cbMyContent.SelectedIndex == 2)
-                {
-                    String stepName = GetUsableStepName();
-                    String commandLine = "";
-                    commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + item.Content.ToString() + "\");";
-
-                    ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.Name = stepName;
-                    scriptModel.Value = commandLine;
-                    scriptModel.Visible = true;
-                    //scriptModel.Contain = new List<string>() { stepName };
-                    scriptModel.Intersection = new List<string>();
-                    scriptModel.Complement = new List<string>();
-                    scriptModelDictionary.Add(stepName, scriptModel);
-                    UpdateStep();
-
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-
-                    Test();
-                }
-            }
-          
-            }
 
         public void NewFromImport(String fileName, String _stepName)
         {
@@ -4722,343 +4594,79 @@ namespace Maker.View.LightScriptUserControl
 
         private void ConditionJudgment_Click(object sender, RoutedEventArgs e)
         {
-            //String stepName = GetUsableStepName();
-            //if (stepName == null)
-            //{
-            //    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-            //    return;
-            //}
-
-             if (lbStep.SelectedIndex == -1)
-             {
-                 return;
-             }
-             ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
-             if (lockedDictionary.ContainsKey(GetStepName()))
-             {
-                 new MessageDialog(mw, "TheStepIsLocked" ).ShowDialog();
-                 return;
-             }
+            if (lbStep.SelectedIndex == -1)
+            {
+                return;
+            }
+            ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
+            if (lockedDictionary.ContainsKey(GetStepName()))
+            {
+                new MessageDialog(mw, "TheStepIsLocked").ShowDialog();
+                return;
+            }
             if (sender == btnConditionJudgmentReplace || sender == btnConditionJudgmentReplace)
             {
-                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, -1, 0, new List<int>() , new List<int>(), "", "", ""));
+                scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REPLACE, -1, 0, new List<int>(), new List<int>(), "", "", ""));
             }
-            else {
+            else
+            {
                 scriptModel.OperationModels.Add(new ConditionJudgmentOperationModel(ConditionJudgmentOperationModel.Operation.REMOVE, -1, 0, new List<int>(), new List<int>(), "", "", ""));
             }
             sw.SetData(scriptModelDictionary[scriptModel.Name].OperationModels, true);
-            return;
+        }
 
+        private void MiMycontent_Click(object sender, RoutedEventArgs e)
+        {
+            ShowMyContentWindowDialog dialog = new ShowMyContentWindowDialog(this);
+            if (dialog.ShowDialog() == true) {
+                if (cbMyContent.SelectedIndex == 1)
+                {
+                    if ((mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName).Equals(filePath))
+                    {
+                        return;
+                    }
+                    ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
+                    mw.AddSetting(_dialog);
+                }
+                else if (cbMyContent.SelectedIndex == 0)
+                {
+                    String stepName = GetUsableStepName();
+                    ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName) };
+                    scriptModel.Name = stepName;
+                    scriptModel.Value = "";
+                    scriptModel.Visible = true;
+                    //scriptModel.Contain = new List<string>() { stepName };
+                    scriptModel.Intersection = new List<string>();
+                    scriptModel.Complement = new List<string>();
+                    scriptModelDictionary.Add(stepName, scriptModel);
+                    UpdateStep();
 
-            char splitNotation = ',';
-                if (strInputFormatDelimiter.Equals("Comma"))
-                {
-                    splitNotation = ',';
-                }
-                else if (strInputFormatDelimiter.Equals("Space"))
-                {
-                    splitNotation = ' ';
-                }
+                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
 
-                char rangeNotation = '-';
-                if (strInputFormatRange.Equals("Shortbar"))
-                {
-                    rangeNotation = '-';
+                    Test();
                 }
-                else if (strInputFormatRange.Equals("R"))
+                else if (cbMyContent.SelectedIndex == 2)
                 {
-                    rangeNotation = 'r';
-                }
-                if (!scriptModel.Value.Contains(GetStepName() + "LightGroup"))
-                {
-                    return;
-                }
-                String control = String.Empty;
-                String temporary = String.Empty;
-                String ifPrerequisite = String.Empty;
-                String thenPrerequisite = String.Empty;
+                    String stepName = GetUsableStepName();
+                    String commandLine = "";
+                    commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + dialog.resultFileName + "\");";
 
-                if (sender == btnConditionJudgmentReplace)
-                    control = "Edit";
-                else
-                    control = "Remove";
+                    ScriptModel scriptModel = new ScriptModel();
+                    scriptModel.Name = stepName;
+                    scriptModel.Value = commandLine;
+                    scriptModel.Visible = true;
+                    //scriptModel.Contain = new List<string>() { stepName };
+                    scriptModel.Intersection = new List<string>();
+                    scriptModel.Complement = new List<string>();
+                    scriptModelDictionary.Add(stepName, scriptModel);
+                    UpdateStep();
 
-                int x = 1;
-                //while (x <= 100000)
-                //{
-                //    if (!scriptModel.Contain.Contains("Step" + x))
-                //    {
-                //        //不存在重复
-                //        break;
-                //    }
-                //    x++;
-                //}
-                if (x > 100000)
-                {
-                    new MessageDialog(mw, "NoNameIsAvailable").ShowDialog();
-                    return;
-                }
-                if (!tbIfPosition.Text.Equals(String.Empty))
-                {
-                    StringBuilder ifPositionBuilder = new StringBuilder();
-                    if (rangeDictionary.ContainsKey(tbIfPosition.Text))
-                    {
-                        for (int i = 0; i < rangeDictionary[tbIfPosition.Text].Count; i++)
-                        {
-                            if (i != rangeDictionary[tbIfPosition.Text].Count - 1)
-                            {
-                                ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i] + splitNotation.ToString());
-                            }
-                            else
-                            {
-                                ifPositionBuilder.Append(rangeDictionary[tbIfPosition.Text][i]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (GetTrueContent(tbIfPosition.Text, splitNotation, rangeNotation) != null)
-                        {
-                            ifPositionBuilder.Append(tbIfPosition.Text);
-                        }
-                        else
-                        {
-                            tbIfPosition.Select(0, tbIfPosition.Text.Length);
-                            tbIfPosition.Focus();
-                            return;
-                        }
-                    }
-                    ifPrerequisite += Environment.NewLine + "\tPositionGroup " + "step" + x.ToString() + "PositionGroup = new PositionGroup(\""
-                        + ifPositionBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                    //scriptModel.Contain.Add("Step" + x);
-                }
-                if (!tbIfColor.Text.Equals(String.Empty))
-                {
-                    StringBuilder ifColorBuilder = new StringBuilder();
-                    if (rangeDictionary.ContainsKey(tbIfColor.Text))
-                    {
+                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
 
-                        for (int i = 0; i < rangeDictionary[tbIfColor.Text].Count; i++)
-                        {
-                            if (i != rangeDictionary[tbIfColor.Text].Count - 1)
-                            {
-                                ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i] + splitNotation.ToString());
-                            }
-                            else
-                            {
-                                ifColorBuilder.Append(rangeDictionary[tbIfColor.Text][i]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (GetTrueContent(tbIfColor.Text, splitNotation, rangeNotation) != null)
-                        {
-                            ifColorBuilder.Append(tbIfColor.Text);
-                        }
-                        else
-                        {
-                            tbIfColor.Select(0, tbIfColor.Text.Length);
-                            tbIfColor.Focus();
-                            return;
-                        }
-                    }
-                    ifPrerequisite += Environment.NewLine + "\tColorGroup " + "step" + x.ToString() + "ColorGroup = new ColorGroup(\""
-                   + ifColorBuilder.ToString() + "\",'" + splitNotation + "','" + rangeNotation + "');";
-                    //if (!scriptModel.Contain.Contains("Step" + x))
-                    //{
-                    //    scriptModel.Contain.Add("Step" + x);
-                    //}
+                    Test();
                 }
-                for (int j = 0; j < 4; j++)
-                {
-                    if (j == 0 && !tbIfTime.Text.Equals(String.Empty))
-                    {
-                        try
-                        {
-                            string expression = tbIfTime.Text;
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            object result = eval.Compute(expression, "");
-
-                            //StackTrace st = new StackTrace();
-                            //StackFrame sf = st.GetFrame(0);
-                            //Console.WriteLine(sf.GetMethod().Name);
-
-                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(" + GetStepName() + "LightGroup[i].Time == " + result;
-                        }
-                        catch
-                        {
-                            tbIfTime.Select(0, tbIfTime.Text.Length);
-                            tbIfTime.Focus();
-                            return;
-                        }
-                    }
-                    if (j == 1 && cbIfAction.SelectedIndex != 0)
-                    {
-                        StringBuilder ifActionBuilder = new StringBuilder();
-                        if (ifPrerequisite.Equals(String.Empty))
-                        {
-                            if (cbIfAction.SelectedIndex == 1)
-                            {
-                                ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 144";
-                            }
-                            else if (cbIfAction.SelectedIndex == 2)
-                            {
-                                ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 128";
-                            }
-                        }
-                        else
-                        {
-                            if (cbIfAction.SelectedIndex == 1)
-                            {
-                                ifPrerequisite += " && LightGroup[i].Action == 144";
-                            }
-                            else if (cbIfAction.SelectedIndex == 2)
-                            {
-                                ifPrerequisite += " && LightGroup[i].Action == 128";
-                            }
-                        }
-                    }
-                    if (j == 2 && !tbIfPosition.Text.Equals(String.Empty))
-                    {
-
-                        if (ifPrerequisite.Equals(String.Empty))
-                        {
-                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
-                        }
-                        else
-                        {
-                            ifPrerequisite += " && step" + x.ToString() + "PositionGroup.Contains(" + GetStepName() + "LightGroup[i].Position)";
-                        }
-                    }
-                    if (j == 3 && !tbIfColor.Text.Equals(String.Empty))
-                    {
-                        if (ifPrerequisite.Equals(String.Empty))
-                        {
-                            ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(step" + x.ToString() + "ColorGroup.Contains(" + GetStepName() + "LightGroup[i].Color)";
-                        }
-                        else
-                        {
-                            ifPrerequisite += " && step" + x.ToString() + "ColorGroup.Contains(" + GetStepName() + "LightGroup[i].Color)";
-                        }
-                    }
-                }
-                temporary = "LightGroup Step" + x.ToString() + "TemporaryLightGroup = new LightGroup();";
-                if (ifPrerequisite.Equals(String.Empty))
-                {
-                    //把动作选中加上
-                    if (cbIfAction.SelectedIndex == 0)
-                    {
-                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(" + GetStepName() + "LightGroup[i].Action == 144 || " + GetStepName() + "LightGroup[i].Action == 128";
-                    }
-                    else if (cbIfAction.SelectedIndex == 1)
-                    {
-                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 144";
-                    }
-                    else if (cbIfAction.SelectedIndex == 2)
-                    {
-                        ifPrerequisite += Environment.NewLine + "for (int i = 0; i < " + GetStepName() + "LightGroup.Count; i++){if(LightGroup[i].Action == 128";
-                    }
-                }
-                ifPrerequisite += ") { Step" + x.ToString() + "TemporaryLightGroup.Add(" + GetStepName() + "LightGroup[i]); }}";
-                if (sender == tbIfThenRemove)
-                {
-                    //移除
-                    thenPrerequisite = "\t" + Environment.NewLine + "for (int i = 0; i < Step" + x.ToString() + "TemporaryLightGroup.Count; i++) {" + GetStepName() + "LightGroup.Remove(Step" + x.ToString() + "TemporaryLightGroup[i]);}";
-                }
-                else
-                {
-                    if (!tbThenTime.Text.Equals(String.Empty))
-                    {
-                        String result;
-                        if (tbThenTime.Text.Trim()[0] == '+' || tbThenTime.Text.Trim()[0] == '-')
-                        {
-                            //计算数学表达式
-                            string expression = tbThenTime.Text.Substring(1);
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                            result = tbThenTime.Text.Trim()[0] + result;
-                        }
-                        else
-                        {
-                            //计算数学表达式
-                            string expression = tbThenTime.Text;
-                            System.Data.DataTable eval = new System.Data.DataTable();
-                            result = eval.Compute(expression, "").ToString();
-                        }
-                        if (thenPrerequisite.Equals(String.Empty))
-                        {
-                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
-                        }
-                        else
-                        {
-                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.TIME,\"" + tbThenTime.Text + "\");";
-                        }
-                    }
-                    if (!tbThenPosition.Text.Equals(String.Empty))
-                    {
-                        String strNumber = tbThenPosition.Text.Trim();
-                        if (strNumber[0] == '+' || strNumber[0] == '-')
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                            {
-                                tbThenPosition.Select(0, tbThenPosition.Text.Length);
-                                tbThenPosition.Focus();
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                            {
-                                tbThenPosition.Select(0, tbThenPosition.Text.Length);
-                                tbThenPosition.Focus();
-                                return;
-                            }
-                        }
-                        if (scriptModel.Value.Equals(String.Empty))
-                        {
-                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.POSITION,\"" + tbThenPosition.Text.Trim() + "\");";
-                        }
-                        else
-                        {
-                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.POSITION,\"" + tbThenPosition.Text.Trim() + "\");";
-                        }
-                    }
-                    if (!tbThenColor.Text.Equals(String.Empty))
-                    {
-                        String strNumber = tbThenColor.Text.Trim();
-                        if (strNumber[0] == '+' || strNumber[0] == '-')
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
-                            {
-                                tbThenColor.Select(0, tbThenColor.Text.Length);
-                                tbThenColor.Focus();
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
-                            {
-                                tbThenColor.Select(0, tbThenColor.Text.Length);
-                                tbThenColor.Focus();
-                                return;
-                            }
-                        }
-                        if (scriptModel.Value.Equals(String.Empty))
-                        {
-                            thenPrerequisite += "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.COLOR,\"" + tbThenColor.Text.Trim() + "\");";
-                        }
-                        else
-                        {
-                            thenPrerequisite += Environment.NewLine + "\tStep" + x.ToString() + "TemporaryLightGroup.SetAttribute(LightGroup.COLOR,\"" + tbThenColor.Text.Trim() + "\");";
-                        }
-                    }
-                }
-                scriptModel.Value += temporary + ifPrerequisite + thenPrerequisite;
-                Test();
-                return;
+            }
         }
     }
 }

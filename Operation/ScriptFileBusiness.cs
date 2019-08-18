@@ -55,14 +55,6 @@ namespace Operation
                     Name = xScript.Attribute("name").Value,
                     Value = Base2String(xScript.Attribute("value").Value)
                 };
-                //if (xScript.Attribute("parent") == null)
-                //{
-                //    scriptModel.Parent = "";
-                //}
-                //else
-                //{
-                //    scriptModel.Parent = xScript.Attribute("parent").Value;
-                //}
                 if (xScript.Attribute("intersection") != null && !xScript.Attribute("intersection").Value.ToString().Trim().Equals(String.Empty))
                 {
                     scriptModel.Intersection = xScript.Attribute("intersection").Value.Trim().Split(' ').ToList();
@@ -91,8 +83,33 @@ namespace Operation
                 //scriptModel.Contain = xScript.Attribute("contain").Value.Split(' ').ToList();
                 //command = fileBusiness.Base2String(xScript.Attribute("value").Value);
 
-                foreach (var xEdit in xScript.Elements()) {
-                    if (xEdit.Name.ToString().Equals("SetAttribute"))
+                foreach (var xEdit in xScript.Elements())
+                {
+                    if (xEdit.Name.ToString().Equals("ConditionJudgment"))
+                    {
+                        ConditionJudgmentOperationModel conditionJudgmentOperationModel = new ConditionJudgmentOperationModel();
+                        conditionJudgmentOperationModel.MyOperator = (ConditionJudgmentOperationModel.Operation)int.Parse(xEdit.Attribute("operation").Value);
+                        conditionJudgmentOperationModel.IfTime = int.Parse(xEdit.Attribute("ifTime").Value);
+                        conditionJudgmentOperationModel.IfAction = int.Parse(xEdit.Attribute("ifAction").Value);
+                        List<int> positions = new List<int>();
+                        for (int i = 0; i < xEdit.Attribute("ifPosition").Value.Length; i++)
+                        {
+                            positions.Add(xEdit.Attribute("ifPosition").Value[i] - 33);
+                        }
+                        conditionJudgmentOperationModel.IfPosition = positions;
+                        List<int> colors = new List<int>();
+                        for (int i = 0; i < xEdit.Attribute("ifColor").Value.Length; i++)
+                        {
+                            colors.Add(xEdit.Attribute("ifColor").Value[i] - 33);
+                        }
+                        conditionJudgmentOperationModel.IfColor = colors;
+                        conditionJudgmentOperationModel.ThenTime = xEdit.Attribute("thenTime").Value;
+                        conditionJudgmentOperationModel.ThenPosition = xEdit.Attribute("thenPosition").Value;
+                        conditionJudgmentOperationModel.ThenColor = xEdit.Attribute("thenColor").Value;
+
+                        scriptModel.OperationModels.Add(conditionJudgmentOperationModel);
+                    }
+                    else if(xEdit.Name.ToString().Equals("SetAttribute"))
                     {
                         SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
                         setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>();
