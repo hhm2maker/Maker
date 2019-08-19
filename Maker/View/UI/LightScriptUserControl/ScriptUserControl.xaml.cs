@@ -238,14 +238,6 @@ namespace Maker.View.LightScriptUserControl
             InitFormat();
         }
 
-        public void InitMyContent()
-        {
-            //获取最新的我的内容
-            if (_bridge == null || filePath.Equals(String.Empty))
-                return;
-            _bridge.InitMyContent(_bridge.GetMyContent(Path.GetFileName(filePath)), MyContentMenuItem_Click);
-        }
-
         private void InitFormat()
         {
             XmlDocument doc = new XmlDocument();
@@ -4326,11 +4318,6 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            InitMyContent();
-        }
-
         /// <summary>
         /// 获取第三方插件列表
         /// </summary>
@@ -4493,30 +4480,6 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private int leftPosition = 0;
-        private void BtnLeft_Click(object sender, RoutedEventArgs e)
-        {
-            Button btn = (sender as Button);
-            int position = 2 - (btn.Parent as Panel).Children.IndexOf(btn);
-
-            if (leftPosition == position) {
-                bLeft.Visibility = Visibility.Collapsed;
-                leftPosition = -1;
-                return;
-            }
-            bLeft.Visibility = Visibility.Visible;
-            leftPosition = position;
-
-            for (int i = 0; i < spLeft.Children.Count - 1; i++) {
-                if (i == position)
-                {
-                    spLeft.Children[i].Visibility = Visibility.Visible;
-                }
-                else {
-                    spLeft.Children[i].Visibility = Visibility.Collapsed;
-                }
-            }
-        }
 
         private void FastGeneration_Click(object sender, RoutedEventArgs e)
         {
@@ -4619,7 +4582,7 @@ namespace Maker.View.LightScriptUserControl
         {
             ShowMyContentWindowDialog dialog = new ShowMyContentWindowDialog(this);
             if (dialog.ShowDialog() == true) {
-                if (cbMyContent.SelectedIndex == 1)
+                if (dialog.cbMyContent.SelectedIndex == 1)
                 {
                     if ((mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName).Equals(filePath))
                     {

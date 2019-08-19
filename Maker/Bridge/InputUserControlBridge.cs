@@ -601,10 +601,10 @@ namespace Maker.Bridge
         /// </summary>
         /// <param name="clickEvent"></param>
         /// <returns></returns>
-        public void InitMyContent(List<String> contents, MouseButtonEventHandler clickEvent)
-        {
-            GeneralViewBusiness.SetStringsAndClickEventToListBox(iuc.miChildMycontent, contents, clickEvent,true,16);
-        }
+        //public void InitMyContent(List<String> contents, MouseButtonEventHandler clickEvent)
+        //{
+        //    GeneralViewBusiness.SetStringsAndClickEventToListBox(iuc.miChildMycontent, contents, clickEvent,true,16);
+        //}
 
         /// <summary>
         /// 获取库文件列表
@@ -624,42 +624,42 @@ namespace Maker.Bridge
         /// 获取我的文件列表
         /// </summary>
         /// <returns></returns>
-        public List<String> GetMyContent(String exceptStr)
-        {
-            List<String> contents = new List<String>();
-            if (iuc.cbMyContent.SelectedIndex == 0)
-            {
-                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\Light");
-                foreach (FileInfo file in folder.GetFiles("*.light"))
-                {
-                    if (!file.Name.Equals(exceptStr))
-                        contents.Add(System.IO.Path.GetFileName(file.FullName));
-                }
-                foreach (FileInfo file in folder.GetFiles("*.mid"))
-                {
-                    if (!file.Name.Equals(exceptStr))
-                        contents.Add(System.IO.Path.GetFileName(file.FullName));
-                }
-            }
-            if (iuc.cbMyContent.SelectedIndex == 1) {
-                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
-                foreach (FileInfo file in folder.GetFiles("*.lightScript"))
-                {
-                    if (!file.Name.Equals(exceptStr))
-                        contents.Add(System.IO.Path.GetFileName(file.FullName));
-                }
-            }
-            if (iuc.cbMyContent.SelectedIndex == 2)
-            {
-                DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LimitlessLamp");
-                foreach (FileInfo file in folder.GetFiles("*.LimitlessLamp"))
-                {
-                    if (!file.Name.Equals(exceptStr))
-                        contents.Add(System.IO.Path.GetFileName(file.FullName));
-                }
-            }
-            return contents;
-        }
+        //public List<String> GetMyContent(String exceptStr)
+        //{
+        //    List<String> contents = new List<String>();
+        //    if (iuc.cbMyContent.SelectedIndex == 0)
+        //    {
+        //        DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\Light");
+        //        foreach (FileInfo file in folder.GetFiles("*.light"))
+        //        {
+        //            if (!file.Name.Equals(exceptStr))
+        //                contents.Add(System.IO.Path.GetFileName(file.FullName));
+        //        }
+        //        foreach (FileInfo file in folder.GetFiles("*.mid"))
+        //        {
+        //            if (!file.Name.Equals(exceptStr))
+        //                contents.Add(System.IO.Path.GetFileName(file.FullName));
+        //        }
+        //    }
+        //    if (iuc.cbMyContent.SelectedIndex == 1) {
+        //        DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LightScript");
+        //        foreach (FileInfo file in folder.GetFiles("*.lightScript"))
+        //        {
+        //            if (!file.Name.Equals(exceptStr))
+        //                contents.Add(System.IO.Path.GetFileName(file.FullName));
+        //        }
+        //    }
+        //    if (iuc.cbMyContent.SelectedIndex == 2)
+        //    {
+        //        DirectoryInfo folder = new DirectoryInfo(iuc.mw.LastProjectPath + @"\LimitlessLamp");
+        //        foreach (FileInfo file in folder.GetFiles("*.LimitlessLamp"))
+        //        {
+        //            if (!file.Name.Equals(exceptStr))
+        //                contents.Add(System.IO.Path.GetFileName(file.FullName));
+        //        }
+        //    }
+        //    return contents;
+        //}
 
         ///// <summary>
         ///// 获取主窗口数据

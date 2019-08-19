@@ -118,39 +118,14 @@
                 </MenuItem>
                 <MenuItem Name="miThirdParty" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" />
                 <MenuItem Name="miMycontent" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" Click="MiMycontent_Click"/>
+                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
             </Menu>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
-                <DockPanel VerticalAlignment="Top" Grid.Row="0">
-                    <DockPanel.LayoutTransform >
-                        <RotateTransform Angle="270"/>
-                    </DockPanel.LayoutTransform>
-                    <Button Style="{DynamicResource Button1}" Content="{DynamicResource Library}" Click="BtnLeft_Click" Foreground="White" FontSize="20" Width="150" />
-                    <Button Style="{DynamicResource Button1}" Content="{DynamicResource Mycontent}" Click="BtnLeft_Click" Foreground="White" FontSize="20"  Width="150" />
-                </DockPanel>
-                <Border Padding="0" Name="bLeft" BorderThickness="2,0,0,0" BorderBrush="#282828" Grid.Column="1" >
-                    <StackPanel Name="spLeft" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                        <Grid Width="420">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <ListBox Grid.Column="0" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildMycontent" BorderBrush="{x:Null}" />
-                            <ComboBox Name="cbMyContent" Grid.Column="1" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" FontSize="14" Width="100" HorizontalContentAlignment="Right" VerticalAlignment="Top" Foreground="{StaticResource boxTextColor}" Background="#454545"  >
-                                <ComboBoxItem Content="{DynamicResource Light}"   Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                <ComboBoxItem  Content="{DynamicResource LightScript}"  Style="{DynamicResource ComboBoxItemStyle1}"/>
-                                <ComboBoxItem Content="{DynamicResource LimitlessLamp}" Style="{DynamicResource ComboBoxItemStyle1}"/>
-                            </ComboBox>
-                        </Grid>
-                        <TreeView Visibility="Collapsed" FontSize="16" Background="Transparent" Foreground="#ffffff" Name="miChildLibrary" BorderBrush="{x:Null}" />
-                    </StackPanel>
-                </Border>
-                <Grid  x:Name="gMain"  Grid.Column="2">
+                <Grid  x:Name="gMain"  Grid.Column="0">
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -217,7 +192,7 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2" Grid.Column="3" >
+                <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2" Grid.Column="1" >
                     <!--Background="#262829"-->
                     <Grid Name="gRight" >
                     <Grid.RowDefinitions>
