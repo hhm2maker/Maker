@@ -459,6 +459,10 @@ namespace Operation
                     {
                         sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromMidiFile(\"" + createFromFileOperationModel.FileName + "\");");
                     }
+                    else if (createFromFileOperationModel.FileName.EndsWith(".limitlessLamp"))
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + createFromFileOperationModel.FileName + "\");");
+                    }
                 }
                 else if (mItem is CreateFromQuickOperationModel)
                 {

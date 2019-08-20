@@ -190,7 +190,7 @@ namespace Maker.View
                 mw.projectUserControl.lbFile.Items.Add(item);
                 item.IsSelected = true;
             }
-            mw.projectUserControl.suc.InitMyContent();
+            //mw.projectUserControl.suc.InitMyContent();
         }
         /// <summary>
         /// 创建文件

@@ -412,10 +412,10 @@ namespace Maker.View.UI.Project
             }
             baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
-            if (baseUserControl is ScriptUserControl)
-            {
-                (baseUserControl as ScriptUserControl).InitMyContent();
-            }
+            //if (baseUserControl is ScriptUserControl)
+            //{
+            //    (baseUserControl as ScriptUserControl).InitMyContent();
+            //}
             }
         }
 
@@ -516,9 +516,32 @@ namespace Maker.View.UI.Project
 
         public void IntoUserControl(int index)
         {
-            EditUserControl euc = new EditUserControl(mw);
+            int position = -1;
+            for (int i = 0; i < mw.contentUserControls.Count; i++)
+            {
+                if (mw.contentUserControls[i] is EditUserControl)
+                {
+                    position = i;
+                }
+            }
+
+            EditUserControl euc;
+            if (position == -1)
+            {
+                euc = new EditUserControl(mw);
+                mw.AddContentUserControl(euc);
+
+                mw.SetSpFilePosition(mw.contentUserControls.Count -1);
+            }
+            else
+            {
+                euc = mw.contentUserControls[position] as EditUserControl;
+
+                mw.SetSpFilePosition(position);
+            }
+
+            euc.gMain.Children.Clear();
             euc.gMain.Children.Add(userControls[index]);
-            mw.AddContentUserControl(euc);
 
             return;
             mw.cMost.Background = new SolidColorBrush(Colors.Transparent);

@@ -44,7 +44,7 @@
       <ConditionJudgment operation="40" ifTime="-1" ifAction="0" ifPosition="," ifColor="" thenTime="" thenPosition="12" thenColor="" />
     </Script>
     <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromFile fileName="0.light" />
+      <CreateFromFile fileName="Test.limitlessLamp" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

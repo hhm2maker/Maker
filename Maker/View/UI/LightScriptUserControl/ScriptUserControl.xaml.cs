@@ -4582,8 +4582,7 @@ namespace Maker.View.LightScriptUserControl
         {
             ShowMyContentWindowDialog dialog = new ShowMyContentWindowDialog(this);
             if (dialog.ShowDialog() == true) {
-                if (dialog.cbMyContent.SelectedIndex == 1)
-                {
+                if (dialog.resultFileName.EndsWith(".lightScript")) {
                     if ((mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName).Equals(filePath))
                     {
                         return;
@@ -4591,33 +4590,13 @@ namespace Maker.View.LightScriptUserControl
                     ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
                     mw.AddSetting(_dialog);
                 }
-                else if (cbMyContent.SelectedIndex == 0)
+                else 
                 {
                     String stepName = GetUsableStepName();
                     ScriptModel scriptModel = new ScriptModel();
                     scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName) };
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
-                    scriptModel.Visible = true;
-                    //scriptModel.Contain = new List<string>() { stepName };
-                    scriptModel.Intersection = new List<string>();
-                    scriptModel.Complement = new List<string>();
-                    scriptModelDictionary.Add(stepName, scriptModel);
-                    UpdateStep();
-
-                    lbStep.SelectedIndex = lbStep.Items.Count - 1;
-
-                    Test();
-                }
-                else if (cbMyContent.SelectedIndex == 2)
-                {
-                    String stepName = GetUsableStepName();
-                    String commandLine = "";
-                    commandLine = "\tLightGroup " + GetUsableStepName() + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + dialog.resultFileName + "\");";
-
-                    ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.Name = stepName;
-                    scriptModel.Value = commandLine;
                     scriptModel.Visible = true;
                     //scriptModel.Contain = new List<string>() { stepName };
                     scriptModel.Intersection = new List<string>();

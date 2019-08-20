@@ -4044,7 +4044,7 @@ namespace Maker
             if (sender == miMycontent)
             {
                 //获取最新的我的内容
-                bridge.InitMyContent(bridge.GetMyContent(""), MyContentMenuItem_Click);
+                //bridge.InitMyContent(bridge.GetMyContent(""), MyContentMenuItem_Click);
                 miChildMycontent.IsSubmenuOpen = true;
             }
             if (sender == miDebug)

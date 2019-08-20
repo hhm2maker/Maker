@@ -108,7 +108,7 @@ namespace Maker.View.UI.Dialog.WindowDialog
         {
             if (miChildMycontent.SelectedIndex == -1)
                 return;
-
+          
             resultFileName = (miChildMycontent.SelectedItem as ListBoxItem).Content as String;
             DialogResult = true;
             Close();

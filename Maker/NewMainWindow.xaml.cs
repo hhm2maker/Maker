@@ -73,16 +73,18 @@ namespace Maker
         }
 
         public void AddContentUserControl(BaseChildUserControl uc) {
+          
             TextBlock tb = new TextBlock();
-            tb.Padding = new Thickness(10);
-            tb.FontSize = 18;
-            tb.Text = (String)Application.Current.Resources[uc.Title];
+                tb.Padding = new Thickness(10);
+                tb.FontSize = 18;
+                tb.Text = (String)Application.Current.Resources[uc.Title];
 
-            tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
-            spContentTitle.Children.Add(tb);
+                tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
+                spContentTitle.Children.Add(tb);
 
-            contentUserControls.Add(uc);
-            SetSpFilePosition(contentUserControls.Count-1);
+                contentUserControls.Add(uc);
+                SetSpFilePosition(contentUserControls.Count - 1);
+         
         }
 
         private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -334,7 +336,7 @@ namespace Maker
             //    }
             //}
 
-            projectUserControl.suc.InitMyContent();
+            //projectUserControl.suc.InitMyContent();
         }
 
 
