@@ -43,7 +43,6 @@
                     <MenuItem Header="{DynamicResource SelectEditor_Add}" Name="btnSelectEditorAdd"  Click="SelectEditor_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource ConditionJudgment_Replace}" Name="btnConditionJudgmentReplace"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource ConditionJudgment_Remove}" Name="btnConditionJudgmentRemove"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
-                    
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Time}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource Reversal}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>

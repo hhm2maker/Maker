@@ -1358,7 +1358,9 @@
     <Resource Include="View\Resources\Image\textbox.png" />
     <Resource Include="View\Resources\Image\thirdparty.png" />
     <Resource Include="View\Resources\Image\time.png" />
-    <Resource Include="View\Resources\Image\tochild.png" />
+    <Resource Include="View\Resources\Image\tochild.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\toleft.png" />
     <Resource Include="View\Resources\Image\tool.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

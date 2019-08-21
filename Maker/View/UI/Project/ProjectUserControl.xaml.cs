@@ -390,7 +390,7 @@ namespace Maker.View.UI.Project
             //if (mw.cMost.Children.Count == 0)
             //    return;
             //是否是制作灯光的用户控件
-            baseUserControl = (mw.contentUserControls[2] as EditUserControl).gMain.Children[0] as BaseUserControl;
+            baseUserControl = (mw.contentUserControls[1] as EditUserControl).gMain.Children[0] as BaseUserControl;
 
             if (!fileName.EndsWith(".lightScript"))
             {

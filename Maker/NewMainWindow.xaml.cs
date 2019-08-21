@@ -57,7 +57,7 @@ namespace Maker
 
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
-            contentUserControls.Add(new LocalUserControl(this));
+            //contentUserControls.Add(new LocalUserControl(this));
             contentUserControls.Add(projectUserControl);
             
 
@@ -69,7 +69,7 @@ namespace Maker
                 tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
                 spContentTitle.Children.Add(tb);
             }
-            SetSpFilePosition(1);
+            SetSpFilePosition(0);
         }
 
         public void AddContentUserControl(BaseChildUserControl uc) {
@@ -92,34 +92,35 @@ namespace Maker
             SetSpFilePosition((((sender as TextBlock).Parent) as Panel).Children.IndexOf(sender as TextBlock));
         }
 
-        public int filePosition = 0;
+        public int filePosition = -1;
         public void SetSpFilePosition(int position)
         {
             if (filePosition == position)
                 return;
 
-            if (contentUserControls[filePosition].IsShowWindowTitle == false && contentUserControls[position].IsShowWindowTitle) {
-                //最上面一栏展开
-                DoubleAnimation doubleAnimation = new DoubleAnimation
-                {
-                    From = 0,
-                    To = 56,
-                    Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                };
-                gTop.BeginAnimation(HeightProperty, doubleAnimation);
-            }
-            if (contentUserControls[filePosition].IsShowWindowTitle && contentUserControls[position].IsShowWindowTitle == false)
-            {
-                //最上面一栏关闭
-                DoubleAnimation doubleAnimation = new DoubleAnimation
-                {
-                    From = 56,
-                    To = 0,
-                    Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-                };
-                gTop.BeginAnimation(HeightProperty, doubleAnimation);
-            }
+            //if (contentUserControls[filePosition].IsShowWindowTitle == false && contentUserControls[position].IsShowWindowTitle) {
+            //    //最上面一栏展开
+            //    DoubleAnimation doubleAnimation = new DoubleAnimation
+            //    {
+            //        From = 0,
+            //        To = 56,
+            //        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //    };
+            //    gTop.BeginAnimation(HeightProperty, doubleAnimation);
+            //}
+            //if (contentUserControls[filePosition].IsShowWindowTitle && contentUserControls[position].IsShowWindowTitle == false)
+            //{
+            //    //最上面一栏关闭
+            //    DoubleAnimation doubleAnimation = new DoubleAnimation
+            //    {
+            //        From = 56,
+            //        To = 0,
+            //        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
+            //    };
+            //    gTop.BeginAnimation(HeightProperty, doubleAnimation);
+            //}
 
+            if (filePosition!=-1)
             (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
             (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
@@ -632,21 +633,6 @@ namespace Maker
             }
         }
 
-       
-        private void OpenDevice(object sender, MouseButtonEventArgs e)
-        {
-            if (deviceUserControl == null)
-            {
-                deviceUserControl = new DeviceUserControl(this);
-            }
-            AddSetting(deviceUserControl);
-        }
-
-        private void OpenSettingControl(object sender, MouseButtonEventArgs e)
-        {
-            AddContentUserControl(new SettingUserControl(this));
-            //OpenSettingControl();
-        }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -836,6 +822,55 @@ namespace Maker
             AddContentUserControl(new HomeUserControl(this, blogConfigModel.Shortcuts[position]));
 
             popFollow.IsOpen = false;
+        }
+
+        private void btnNewFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Setting_Click(object sender, RoutedEventArgs e)
+        {
+            AddContentUserControl(new SettingUserControl(this));
+        }
+
+        private void Device_Click(object sender, RoutedEventArgs e)
+        {
+            if (deviceUserControl == null)
+            {
+                deviceUserControl = new DeviceUserControl(this);
+            }
+            AddSetting(deviceUserControl);
+        }
+
+        private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
+        {
+
+       
+         
+        }
+
+        private void MenuItem_SubmenuOpened2(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            btnOpenFile.Items.Clear();
+            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
+            foreach (var str in strs)
+            {
+                MenuItem item = new MenuItem() { Header = str };
+                item.IsChecked = str.Equals(projectConfigModel.Path);
+                btnOpenFile.Click += btnOpenFile_Click;
+                btnOpenFile.Items.Add(item);
+            }
         }
     }
 }
