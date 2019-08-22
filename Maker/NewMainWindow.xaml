@@ -37,9 +37,9 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0"  Background="#FF282828">
             <Menu VerticalAlignment="Center">
-                <MenuItem Header="{DynamicResource File}" Click="MenuItem_Click" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
-                    <MenuItem Header="{DynamicResource Open}"  Name="btnOpenFile" />
+                    <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
@@ -77,7 +77,6 @@
                 <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Background="#222326" -->
-    
         <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True">
             <Grid VerticalAlignment="Center">
             <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
@@ -89,7 +88,12 @@
             <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
         </StackPanel>
         <DockPanel Grid.Row="1">
-            <Grid DockPanel.Dock="Top">
+                <TreeView Name="tvII" Background="Transparent" FontSize="18" Width="300">
+                    <TreeViewItem Name="tvLight" Header="{DynamicResource Light}" Style="{DynamicResource TreeViewItemNormal}"/>
+                    <TreeViewItem Name="tvLightScript" Header="{DynamicResource LightScript}"  Style="{DynamicResource TreeViewItemNormal}"/>
+                    <TreeViewItem Name="tvLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  Style="{DynamicResource TreeViewItemNormal}"/>
+                </TreeView>
+            <Grid >
                 <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>
                 <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">

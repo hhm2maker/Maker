@@ -59,7 +59,19 @@ namespace Maker
 
             //contentUserControls.Add(new LocalUserControl(this));
             contentUserControls.Add(projectUserControl);
-            
+
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
+            {
+                Console.WriteLine(str);
+
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                //item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
+                tvLight.Items.Add(item) ;
+            }
+         
 
             for (int i = 0; i < contentUserControls.Count; i++) {
                 TextBlock tb = new TextBlock();
@@ -848,19 +860,8 @@ namespace Maker
             AddSetting(deviceUserControl);
         }
 
-        private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
-        {
-
        
-         
-        }
-
-        private void MenuItem_SubmenuOpened2(object sender, RoutedEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             btnOpenFile.Items.Clear();
             List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
