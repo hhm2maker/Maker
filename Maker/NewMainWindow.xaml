@@ -88,7 +88,7 @@
             <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
         </StackPanel>
         <DockPanel Grid.Row="1">
-                <TreeView Name="tvII" Background="Transparent" FontSize="18" Width="300">
+                <TreeView Background="Transparent" FontSize="18" Width="300" SelectedItemChanged="TreeView_SelectedItemChanged">
                     <TreeViewItem Name="tvLight" Header="{DynamicResource Light}" Style="{DynamicResource TreeViewItemNormal}"/>
                     <TreeViewItem Name="tvLightScript" Header="{DynamicResource LightScript}"  Style="{DynamicResource TreeViewItemNormal}"/>
                     <TreeViewItem Name="tvLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  Style="{DynamicResource TreeViewItemNormal}"/>

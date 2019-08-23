@@ -59,19 +59,9 @@ namespace Maker
 
             //contentUserControls.Add(new LocalUserControl(this));
             contentUserControls.Add(projectUserControl);
+            contentUserControls.Add(new EditUserControl(this));
 
-            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
-            {
-                Console.WriteLine(str);
-
-                TreeViewItem item = new TreeViewItem
-                {
-                    Header = str,
-                };
-                //item.PreviewMouseLeftButtonDown += Item_MouseLeftButtonDown;
-                tvLight.Items.Add(item) ;
-            }
-         
+            initFile();
 
             for (int i = 0; i < contentUserControls.Count; i++) {
                 TextBlock tb = new TextBlock();
@@ -82,6 +72,47 @@ namespace Maker
                 spContentTitle.Children.Add(tb);
             }
             SetSpFilePosition(0);
+        }
+
+        private void initFile()
+        {
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                item.FontSize = 16;
+                tvLight.Items.Add(item);
+            }
+
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LightScript", new List<string>() { ".lightScript" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                item.FontSize = 16;
+                tvLightScript.Items.Add(item);
+            }
+
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "LimitlessLamp", new List<string>() { ".limitlessLamp" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                item.FontSize = 16;
+                tvLimitlessLamp.Items.Add(item);
+            }
+        }
+
+        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView)
+                return;
+            Console.WriteLine((((sender as TreeView).SelectedItem) as TreeViewItem).Header);
+           
         }
 
         public void AddContentUserControl(BaseChildUserControl uc) {
@@ -873,5 +904,7 @@ namespace Maker
                 btnOpenFile.Items.Add(item);
             }
         }
+
+    
     }
 }
