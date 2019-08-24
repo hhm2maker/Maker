@@ -61,7 +61,13 @@ namespace Maker.View.UI.Style.Child
         protected virtual void InitData() {}
 
         public virtual void Refresh() {
-            StaticConstant.mw.projectUserControl.suc.spHint.Visibility = Visibility.Visible;
+            StaticConstant.mw.editUserControl.suc.spHint.Visibility = Visibility.Visible;
+            StaticConstant.mw.editUserControl.suc.spRefresh.Visibility = Visibility.Visible;
+        }
+
+        public void NeedRefresh()
+        {
+            StaticConstant.mw.editUserControl.suc.spRefresh.Visibility = Visibility.Visible;
         }
 
         public virtual bool ToSave()

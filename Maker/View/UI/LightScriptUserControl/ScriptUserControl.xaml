@@ -35,7 +35,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
-            <Menu x:Name="menu" HorizontalAlignment="Center" Margin="0,0,0,30">
+            <Menu x:Name="menu" HorizontalAlignment="Center" Margin="0,0,450,30">
                 <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource FastGeneration}" Name="btnFastGeneration" Click="FastGeneration_Click"  Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
@@ -67,36 +67,30 @@
                     <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource bigMenuItem}"  Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
-                    <StackPanel Orientation="Vertical">
-                        <TabControl BorderThickness="0" Margin="5">
-                            <TabItem Header="{DynamicResource Color}" Foreground="#ffffff" >
+                    <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" >
                                 <Canvas Name="cColor" Height="60" Background="#222326" >
                                     <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
                                 </Canvas>
-                            </TabItem>
-                        </TabControl>
-                        <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False">
-                            <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
-                        </Popup>
-                        <TreeView FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}">
-                            <TreeViewItem Header="{DynamicResource Change}" Name="btnColorChange" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Format}"  Foreground="#ffffff">
-                                <TreeViewItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                <TreeViewItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                <TreeViewItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                <TreeViewItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            </TreeViewItem>
-                            <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Shape}"  Foreground="#ffffff">
-                                <TreeViewItem Header="{DynamicResource Square}" Name="miSquare" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                <TreeViewItem Style="{DynamicResource TreeViewItemNormal}" Header="{DynamicResource Radial}"  Foreground="#ffffff">
-                                    <TreeViewItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                    <TreeViewItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                </TreeViewItem>
-                            </TreeViewItem>
-                            <TreeViewItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            <TreeViewItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                        </TreeView>
-                    </StackPanel>
+                            </MenuItem>
+                    <MenuItem Header="{DynamicResource Change}" Name="btnColorChange" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    <MenuItem Header="{DynamicResource Format}"  Foreground="#ffffff">
+                        <MenuItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            </MenuItem>
+                    <MenuItem Header="{DynamicResource Shape}"  Foreground="#ffffff">
+                        <MenuItem Header="{DynamicResource Square}" Name="miSquare" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource Radial}"  Foreground="#ffffff">
+                            <MenuItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <MenuItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                </MenuItem>
+                            </MenuItem>
+                    <MenuItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    <MenuItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False">
+                                <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
+                            </Popup>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
                         <MenuItem Header="{DynamicResource ColorSuperposition}" Name="btnCopyToTheEnd" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -197,12 +191,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Name="spHint" Visibility="Collapsed" Margin="0,15,0,15">
                         <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                         <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                     </StackPanel>
-                </Grid>
+                        <StackPanel Grid.Row="2" Name="spRefresh" Visibility="Collapsed" Margin="0,15,0,15">
+                            <Button Content="{DynamicResource Refresh}" Click="BtnRefresh_Click"/>
+                        </StackPanel>
+                    </Grid>
                 </Border>
             </Grid>
                 <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>

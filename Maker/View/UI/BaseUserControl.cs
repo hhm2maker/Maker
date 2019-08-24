@@ -186,8 +186,19 @@ namespace Maker.View
                 {
                     Header = filePath,
                 };
-                item.ContextMenu = mw.projectUserControl.contextMenu;
-                mw.projectUserControl.lbFile.Items.Add(item);
+                item.FontSize = 16;
+                item.ContextMenu = mw.contextMenu;
+                if (filePath.EndsWith(".light")) {
+                    mw.tvLight.Items.Add(item);
+                }
+                else if (filePath.EndsWith(".lightScript"))
+                {
+                    mw.tvLightScript.Items.Add(item);
+                }
+                else if (filePath.EndsWith(".limitlessLamp"))
+                {
+                    mw.tvLimitlessLamp.Items.Add(item);
+                }
                 item.IsSelected = true;
             }
             //mw.projectUserControl.suc.InitMyContent();

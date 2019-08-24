@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMjggMjkgMzAgMzEgMzYgMzcgMzggMzkgNDAgNDEgNDIgNDMgNDQgNDUgNDYgNDcgNDggNDkgNTAgNTEgNTIgNTMgNTQgNTUgNTYgNTcgNTggNTkgNjAgNjEgNjIgNjMgNjQgNjUgNjYgNjcgMTA4IDEwOSAxMTAgMTExIDExMiAxMTMgMTE0IDExNSAxMTYgMTE3IDExOCAxMTkiLCcgJywnLScpOw0KCUNvbG9yR3JvdXAgU3RlcDFDb2xvckdyb3VwID0gbmV3IENvbG9yR3JvdXAoIjUiLCcgJywnLScpOw0KCUxpZ2h0R3JvdXAgU3RlcDFMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUxpZ2h0R3JvdXAoMCxTdGVwMVBvc2l0aW9uR3JvdXAsMCwxMixTdGVwMUNvbG9yR3JvdXAsQ3JlYXRlLlVQLENyZWF0ZS5BTEwpOw==" visible="true" contain="Step1" intersection="" complement="">
+      <VerticalFlipping />
+    </Script>
+    <Script name="Step2" parent="" value="CUxpZ2h0R3JvdXAgU3RlcDJMaWdodEdyb3VwID0gQ3JlYXRlLkNyZWF0ZUZyb21MaW1pdGxlc3NMYW1wRmlsZSgiVGVzdC5saW1pdGxlc3NMYW1wIik7" visible="true" contain="Step2" intersection="" complement="" />
+  </Scripts>
+  <Introduce>sss</Introduce>
+</Root>

@@ -38,6 +38,7 @@ namespace Maker.View.UI.Style.Child
             }
             tbValue.Text = setEndTimeOperationModel.Value.ToString();
 
+            tbValue.LostFocus += TbNumber_LostFocus;
             cbType.SelectionChanged += CbOperation_SelectionChanged;
         }
 
@@ -54,6 +55,8 @@ namespace Maker.View.UI.Style.Child
             {
                 setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.ALLANDEND;
             }
+
+            NeedRefresh();
         }
 
         public TextBox tbValue;
@@ -67,6 +70,19 @@ namespace Maker.View.UI.Style.Child
             }
             setEndTimeOperationModel.Value = tbValue.Text;
             return true;
+        }
+
+        private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(tbValue.Text, "^\\d+$"))
+            {
+                tbValue.Select(0, tbValue.Text.Length);
+                tbValue.Focus();
+                return;
+            }
+            setEndTimeOperationModel.Value = tbValue.Text;
+
+            NeedRefresh();
         }
     }
 }

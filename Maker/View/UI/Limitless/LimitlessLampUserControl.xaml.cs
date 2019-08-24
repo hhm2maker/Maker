@@ -41,8 +41,8 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth;
-            Height = mw.gMost.ActualHeight;
+            Width = mw.ActualWidth - 300;
+            Height = mw.gMost.ActualHeight - 50;
         }
 
             private void btnOk_Click(object sender, RoutedEventArgs e)

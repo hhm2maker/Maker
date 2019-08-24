@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
-    <Script name="Step1" value="" visible="false" contain="" intersection="" complement="">
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
       <ChangeColor colors="73 74 75 76" />
       <VerticalFlipping />
@@ -13,7 +13,6 @@
       <InterceptTime start="0" end="12" />
       <Fold orientation="vertical" startPosition="0" span="0" />
       <ShapeColor shapeType="radialVertical" colors="5 5 5 5 5 5 5 5 5 5" />
-      <FillColor number="5" hintKeyword="FillColorColon" />
       <CopyToTheEnd colors="5" />
       <CopyToTheFollow colors="5" />
       <AccelerationOrDeceleration colors="100" />
@@ -27,7 +26,7 @@
         </Parameters>
       </ThirdParty>
     </Script>
-    <Script name="Step2" value="" visible="false" contain="" intersection="" complement="">
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromStep stepName="Step1" />
       <SetAttribute>
         <AttributeOperationModel attributeType="POSITION" value="+11" />
@@ -39,11 +38,11 @@
     <Script name="Step4" value="" visible="false" contain="" intersection="" complement="">
       <CreateFromQuick time="0" position="5" interval="12" continued="12" color="&amp;" type="0" action="10" />
     </Script>
-    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+    <Script name="Step5" value="" visible="false" contain="" intersection="" complement="">
       <CreateFromQuick time="0" position="," interval="12" continued="12" color="&amp;" type="0" action="10" />
       <ConditionJudgment operation="40" ifTime="-1" ifAction="0" ifPosition="," ifColor="" thenTime="" thenPosition="12" thenColor="" />
     </Script>
-    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+    <Script name="Step6" value="" visible="false" contain="" intersection="" complement="">
       <CreateFromFile fileName="Test.limitlessLamp" />
     </Script>
   </Scripts>

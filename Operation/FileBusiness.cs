@@ -861,6 +861,7 @@ namespace Operation
                         mLl[j].Time = i * limitlessLampModel.Interval;
                     ll.AddRange(mLl);
                 }
+            CreateInstance().ReplaceControl(ll, CreateInstance().normalArr);
             return ll;
         }
 
@@ -879,14 +880,14 @@ namespace Operation
                         {
                             if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
                             {
-                                lightList.Add(new Light(0, 144, 36 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                lightList.Add(new Light(0, 144, 8 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
                             }
                         }
                         else
                         {
                             if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
                             {
-                                lightList.Add(new Light(0, 144, 36 + x + 4 * (6 - y) + 32, mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                lightList.Add(new Light(0, 144, 8 + x + 4 * (6 - y) + 32, mData[x + positionX + (y + positionY) * ColumnsCount]));
                             }
                         }
                     }

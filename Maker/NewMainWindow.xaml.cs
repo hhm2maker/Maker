@@ -43,6 +43,7 @@ namespace Maker
     {
         private NewMainWindowBridge bridge;
         public ProjectUserControl projectUserControl;
+        public EditUserControl editUserControl;
         public NewMainWindow()
         {
             InitializeComponent();
@@ -54,14 +55,15 @@ namespace Maker
             bridge.Init();
 
             projectUserControl = new ProjectUserControl(this);
-
+            editUserControl = new EditUserControl(this);
+           
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
             //contentUserControls.Add(new LocalUserControl(this));
-            contentUserControls.Add(projectUserControl);
-            contentUserControls.Add(new EditUserControl(this));
+            //contentUserControls.Add(projectUserControl);
+            contentUserControls.Add(editUserControl);
 
-            initFile();
+           
 
             for (int i = 0; i < contentUserControls.Count; i++) {
                 TextBlock tb = new TextBlock();
@@ -72,9 +74,210 @@ namespace Maker
                 spContentTitle.Children.Add(tb);
             }
             SetSpFilePosition(0);
+
+            InitContextMenu();
+            InitFile();
         }
 
-        private void initFile()
+        public ContextMenu contextMenu;
+        private void InitContextMenu()
+        {
+            contextMenu = new ContextMenu();
+            MenuItem renameMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Rename"]
+            };
+            renameMenuItem.Click += RenameFileName;
+            contextMenu.Items.Add(renameMenuItem);
+
+            MenuItem deleteMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Delete"]
+            };
+            deleteMenuItem.Click += btnDelete_Click;
+            contextMenu.Items.Add(deleteMenuItem);
+
+            MenuItem goToFileMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["OpenFoldersInTheFileResourceManager"]
+            };
+            goToFileMenuItem.Click += GoToFile;
+            contextMenu.Items.Add(goToFileMenuItem);
+        }
+
+        public TreeViewItem needControlListBoxItem;
+        public String needControlFileName;
+        public BaseUserControl needControlBaseUserControl;
+        private void GetNeedControl(object sender)
+        {
+            needControlListBoxItem = ((sender as MenuItem).Parent as ContextMenu).PlacementTarget as TreeViewItem;
+            needControlFileName = needControlListBoxItem.Header.ToString();
+        }
+
+        private void GoToFile(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                if (needControlFileName.EndsWith(".mid"))
+                {
+                    baseUserControl = editUserControl.userControls[0];
+                }
+                else
+                {
+                    for (int i = 0; i < editUserControl.userControls.Count; i++)
+                    {
+                        if (needControlFileName.EndsWith(editUserControl.userControls[i]._fileExtension))
+                        {
+                            baseUserControl = editUserControl.userControls[i];
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = editUserControl.userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            needControlBaseUserControl = baseUserControl;
+
+            baseUserControl.filePath = needControlFileName;
+
+            String _filePath = baseUserControl.GetFileDirectory() + baseUserControl.filePath;
+            Console.WriteLine(_filePath);
+
+            ProcessStartInfo psi;
+            psi = new ProcessStartInfo("Explorer.exe")
+            {
+
+                Arguments = "/e,/select," + _filePath
+            };
+            Process.Start(psi);
+        }
+
+        private void RenameFileName(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < editUserControl.userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(editUserControl.userControls[i]._fileExtension))
+                    {
+                        baseUserControl = editUserControl.userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = editUserControl.userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            needControlBaseUserControl = baseUserControl;
+
+            baseUserControl.filePath = needControlFileName;
+
+            String _filePath = baseUserControl.GetFileDirectory();
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            ShowMakerDialog(newFileDialog);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            if (hintModelDictionary.ContainsKey(2))
+            {
+                if (hintModelDictionary[2].IsHint == false)
+                {
+                    DeleteFile(sender, e);
+                    return;
+                }
+            }
+            HintDialog hintDialog = new HintDialog("删除文件", "您确定要删除文件？",
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    DeleteFile(_o, _e);
+                    RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    RemoveDialog();
+                },
+                delegate (System.Object _o, RoutedEventArgs _e)
+                {
+                    NotHint(2);
+                });
+            ShowMakerDialog(hintDialog);
+        }
+
+        public void DeleteFile(object sender, RoutedEventArgs e)
+        {
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < editUserControl.userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(editUserControl.userControls[i]._fileExtension))
+                    {
+                        baseUserControl = editUserControl.userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = editUserControl.userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            baseUserControl.filePath = needControlFileName;
+            baseUserControl.DeleteFile(sender, e);
+
+            if (baseUserControl == editUserControl.userControls[3])
+                baseUserControl.HideControl();
+
+            //lbFile.Items.RemoveAt();
+
+
+            //for (int i = 0; i < lbFile.Items.Count; i++)
+            //{
+            //    if ((lbFile.Items[i] as ListBoxItem).Items.Contains(needControlListBoxItem))
+            //    {
+            //        (lbFile.Items[i] as ListBoxItem).Items.Remove(needControlListBoxItem);
+            //    }
+            //}
+        }
+        public void NewFileResult(String filePath)
+        {
+            RemoveDialog();
+            String _filePath = needControlBaseUserControl.GetFileDirectory();
+
+            _filePath = _filePath + filePath;
+            if (File.Exists(_filePath))
+            {
+                new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                File.Move(LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
+                    , LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
+                needControlListBoxItem.Header = filePath;
+                needControlBaseUserControl.filePath = filePath;
+            }
+        }
+
+
+        private void InitFile()
         {
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
             {
@@ -83,6 +286,7 @@ namespace Maker
                     Header = str,
                 };
                 item.FontSize = 16;
+                item.ContextMenu = contextMenu;
                 tvLight.Items.Add(item);
             }
 
@@ -93,6 +297,7 @@ namespace Maker
                     Header = str,
                 };
                 item.FontSize = 16;
+                item.ContextMenu = contextMenu;
                 tvLightScript.Items.Add(item);
             }
 
@@ -103,16 +308,42 @@ namespace Maker
                     Header = str,
                 };
                 item.FontSize = 16;
+                item.ContextMenu = contextMenu;
                 tvLimitlessLamp.Items.Add(item);
             }
+        }
+
+        public void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            BaseUserControl baseUserControl;
+            if (sender == miNewLight)
+            {
+                baseUserControl = editUserControl.userControls[0];
+            }
+            else if (sender == miNewLightScript)
+            {
+                baseUserControl = editUserControl.userControls[3];
+            }
+            else if (sender == miNewLimitlessLamp)
+            {
+                baseUserControl = editUserControl.userControls[9];
+            }
+            //else if (sender == miPage)
+            //{
+            //    baseUserControl = editUserControl.userControls[5];
+            //}
+            else
+            {
+                return;
+            }
+            baseUserControl.NewFile(sender, e);
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView)
                 return;
-            Console.WriteLine((((sender as TreeView).SelectedItem) as TreeViewItem).Header);
-           
+            editUserControl.IntoUserControl((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
         }
 
         public void AddContentUserControl(BaseChildUserControl uc) {

@@ -80,6 +80,8 @@ namespace Maker.View.UI.Style.Child
                 }
                 else {
                     oneNumberOperationModel.Number = num;
+
+                    NeedRefresh();
                 }
             }
             else {

@@ -1,4 +1,5 @@
-﻿using Maker.Model;
+﻿using Maker.Business;
+using Maker.Model;
 using Maker.View.Dialog;
 using System;
 using System.Collections.Generic;
@@ -202,14 +203,14 @@ namespace Maker.View.Device
                         {
                             if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
                             {
-                                lightList.Add(new Light(0, 144, 36 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                lightList.Add(new Light(0, 144, 8 + x + 4 * (7 - y), mData[x + positionX + (y + positionY) * ColumnsCount]));
                             }
                         }
                         else
                         {
                             if (mData[x + positionX + (y + positionY) * ColumnsCount] != 0)
                             {
-                                lightList.Add(new Light(0, 144, 36 + x + 4 * (6 - y) + 32, mData[x + positionX + (y + positionY) * ColumnsCount]));
+                                lightList.Add(new Light(0, 144, 8 + x + 4 * (6 - y) + 32, mData[x + positionX + (y + positionY) * ColumnsCount]));
                             }
                         }
                     }
@@ -219,6 +220,7 @@ namespace Maker.View.Device
                     }
                 }
             }
+            FileBusiness.CreateInstance().ReplaceControl(lightList, FileBusiness.CreateInstance().normalArr);
             return lightList;
         }
 

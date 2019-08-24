@@ -79,7 +79,7 @@
                     <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="200"  />
                     <TextBox Name="tbInterval" Width="200" FontSize="18"  Margin="10,0,0,0" Text="12" TextAlignment="Center" Foreground="White" Background="#1c1e1f" BorderThickness="0" />
                 </StackPanel>
-                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0"/>
+                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0" Size="400"/>
             </Grid>
     </Grid>
     </Grid>

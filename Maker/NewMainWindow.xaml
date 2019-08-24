@@ -31,7 +31,8 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Name="gMost">
-        <Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -71,13 +72,13 @@
                 </Popup>
             </Grid>
         </DockPanel>
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
         <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--Background="#222326" -->
-        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True" Visibility="Collapsed">
             <Grid VerticalAlignment="Center">
             <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
                 <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -88,10 +89,28 @@
             <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
         </StackPanel>
         <DockPanel Grid.Row="1">
-                <TreeView Background="Transparent" FontSize="18" Width="300" SelectedItemChanged="TreeView_SelectedItemChanged">
-                    <TreeViewItem Name="tvLight" Header="{DynamicResource Light}" Style="{DynamicResource TreeViewItemNormal}"/>
-                    <TreeViewItem Name="tvLightScript" Header="{DynamicResource LightScript}"  Style="{DynamicResource TreeViewItemNormal}"/>
-                    <TreeViewItem Name="tvLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  Style="{DynamicResource TreeViewItemNormal}"/>
+                <TreeView Background="Transparent" FontSize="18" Width="300" SelectedItemChanged="TreeView_SelectedItemChanged" BorderBrush="#555555" BorderThickness="0,0,1,0">
+                    <TreeViewItem Name="tvLight" Header="{DynamicResource Light}" Style="{DynamicResource TreeViewItemNormal}">
+                        <TreeViewItem.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Name="miNewLight" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                            </ContextMenu>
+                        </TreeViewItem.ContextMenu>
+                    </TreeViewItem>
+                    <TreeViewItem Name="tvLightScript" Header="{DynamicResource LightScript}"  Style="{DynamicResource TreeViewItemNormal}">
+                        <TreeViewItem.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Name="miNewLightScript" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                            </ContextMenu>
+                        </TreeViewItem.ContextMenu>
+                    </TreeViewItem>
+                    <TreeViewItem Name="tvLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  Style="{DynamicResource TreeViewItemNormal}">
+                        <TreeViewItem.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Name="miNewLimitlessLamp" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                            </ContextMenu>
+                        </TreeViewItem.ContextMenu>
+                    </TreeViewItem>
                 </TreeView>
             <Grid >
                 <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
@@ -163,6 +182,7 @@
             </Grid>
         </Border>
     </Grid>
+        </Grid>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

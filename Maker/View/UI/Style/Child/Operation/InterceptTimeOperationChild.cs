@@ -21,7 +21,10 @@ namespace Maker.View.UI.Style.Child
             AddTitleAndControl("StartColon", tbStart);
             tbEnd = GetTexeBox(interceptTimeOperationModel.End.ToString());
             AddTitleAndControl("EndColon", tbEnd);
-          
+
+            tbStart.LostFocus += TbStart_LostFocus;
+            tbEnd.LostFocus += TbEnd_LostFocus;
+
             CreateDialog();
         }
 
@@ -51,6 +54,38 @@ namespace Maker.View.UI.Style.Child
             {
                 tbEnd.Focus();
                 return false;
+            }
+        }
+
+        private void TbStart_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse((sender as TextBox).Text, out int num))
+            {
+                if (num == interceptTimeOperationModel.Start)
+                    return;
+
+                interceptTimeOperationModel.Start = num;
+                    NeedRefresh();
+            }
+            else
+            {
+                tbStart.Text = interceptTimeOperationModel.Start.ToString();
+            }
+        }
+
+        private void TbEnd_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse((sender as TextBox).Text, out int num))
+            {
+                if (num == interceptTimeOperationModel.End)
+                    return;
+
+                interceptTimeOperationModel.End = num;
+                NeedRefresh();
+            }
+            else
+            {
+                tbStart.Text = interceptTimeOperationModel.End.ToString();
             }
         }
     }

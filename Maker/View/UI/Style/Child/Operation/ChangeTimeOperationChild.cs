@@ -42,17 +42,27 @@ namespace Maker.View.UI.Style.Child
             {
                 changeTimeOperationModel.Multiple = multiple;
             }
+            NeedRefresh();
         }
       
         private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbOperation.SelectedIndex == 0) {
+                if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.MULTIPLICATION)
+                {
+                    return;
+                }
                 changeTimeOperationModel.MyOperator = ChangeTimeOperationModel.Operation.MULTIPLICATION;
             }
             else if (cbOperation.SelectedIndex == 1)
             {
+                if (changeTimeOperationModel.MyOperator == ChangeTimeOperationModel.Operation.DIVISION)
+                {
+                    return;
+                }
                 changeTimeOperationModel.MyOperator = ChangeTimeOperationModel.Operation.DIVISION;
             }
+            NeedRefresh();
         }
 
         public TextBox tbPolyploidy;

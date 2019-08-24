@@ -4610,5 +4610,12 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
         }
+
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            Test();
+            spRefresh.Visibility = Visibility.Collapsed;
+            spHint.Visibility = Visibility.Collapsed;
+        }
     }
 }
