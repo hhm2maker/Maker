@@ -649,18 +649,6 @@ namespace Maker
             gSetting.Children.RemoveAt(gSetting.Children.Count - 1);
         }
 
-        /// <summary>
-        /// 移除工具页面
-        /// </summary>
-        public void RemoveTool()
-        {
-            gTool.Children.RemoveAt(gTool.Children.Count - 1);
-            gToolBackGround.Visibility = Visibility.Collapsed;
-            HideTool();
-        }
-
-        
-
         private void MediaElement_MediaEnded(object sender, RoutedEventArgs e)
         {
             (sender as MediaElement).Stop();
@@ -778,97 +766,8 @@ namespace Maker
                 hintModelDictionary[id].IsHint = false;
         }
 
-        private List<Light> mLightList = new List<Light>();
+  
         private DeviceUserControl deviceUserControl;
-        private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            if (cMost.Children.Count == 0 || (cMost.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
-            {
-                if ((projectUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
-                {
-                    return;
-                }
-                mLightList = (projectUserControl.userControls[3] as BaseMakerLightUserControl).GetData();
-            }
-            else
-            {
-                if (projectUserControl.userControls[projectUserControl.userControls.IndexOf((BaseUserControl)cMost.Children[0])].IsMakerLightUserControl())
-                {
-                    BaseMakerLightUserControl baseMakerLightUserControl = cMost.Children[0] as BaseMakerLightUserControl;
-                    mLightList = baseMakerLightUserControl.GetData();
-                }
-            }
-            mLightList = LightBusiness.Copy(mLightList);
-            UserControl userControl = null;
-            if (sender == iPlayer)
-            {
-                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
-                //bToolChild.Width = deviceModel.DeviceSize;
-                //bToolChild.Height = deviceModel.DeviceSize + 31;
-                //bToolChild.Visibility = Visibility.Visible;
-                //加入播放器页面
-                userControl = new PlayerUserControl(this, mLightList);
-            }
-            else if (sender == iPaved)
-            {
-                //加入平铺页面
-                userControl = new ShowPavedUserControl(this, mLightList);
-            }
-            else if (sender == iExport)
-            {
-                userControl = new ExportUserControl(this, mLightList); 
-            }
-            else if (sender == iPianoRoll)
-            {
-                userControl = new ShowPianoRollUserControl(this, mLightList);
-            }
-            else if (sender == iData)
-            {
-                userControl = new DataGridUserControl(this, mLightList);
-            }
-            else if (sender == iMy3D)
-            {
-                userControl = new My3DUserControl(this, mLightList);
-            }
-            gTool.Children.Clear();
-            gTool.Children.Add(userControl);
-            gToolBackGround.Visibility = Visibility.Visible;
-            DoubleAnimation daV = new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)));
-            userControl.BeginAnimation(OpacityProperty, daV);
-        }
-
-     
-
-        private void Canvas_MouseEnter(object sender, MouseEventArgs e)
-        {
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                To = 0,
-                Duration = TimeSpan.FromSeconds(0.2),
-            };
-            spBottomTool.BeginAnimation(Canvas.TopProperty, animation);
-        }
-
-        private void HideTool()
-        {
-            if (gTool.Children.Count > 0)
-                return;
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                To = 40,
-                Duration = TimeSpan.FromSeconds(0.2),
-            };
-            spBottomTool.BeginAnimation(Canvas.TopProperty, animation);
-        }
-        private void Canvas_MouseLeave(object sender, MouseEventArgs e)
-        {
-            HideTool();
-        }
-
-        private void gToolBackGround_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            RemoveTool();
-        }
 
         private void cMost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -1122,7 +1021,11 @@ namespace Maker
             AddSetting(deviceUserControl);
         }
 
-       
+        private void CalcTime_Click(object sender, RoutedEventArgs e)
+        {
+            new CalcTimeWindow().Show();
+        }
+
         private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             btnOpenFile.Items.Clear();

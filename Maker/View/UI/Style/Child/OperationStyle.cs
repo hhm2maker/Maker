@@ -16,7 +16,7 @@ namespace Maker.View.UI.Style.Child
     {
         protected List<Light> NowData {
             get {
-                return StaticConstant.mw.projectUserControl.suc.mLaunchpadData;
+                return StaticConstant.mw.editUserControl.suc.mLaunchpadData;
             }
         }
 
@@ -27,10 +27,10 @@ namespace Maker.View.UI.Style.Child
                 if (myData == null)
                 {
                     //StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
-                    StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
+                    StaticConstant.mw.editUserControl.suc.Test(StaticConstant.mw.editUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
                 
                     List<int> times = LightBusiness.GetTimeList(NowData);
-                    int position = Convert.ToInt32(StaticConstant.mw.projectUserControl.suc.tbTimePointCountLeft.Text) - 1;
+                    int position = Convert.ToInt32(StaticConstant.mw.editUserControl.suc.tbTimePointCountLeft.Text) - 1;
                     myData = new List<Light>();
                     for (int i = 0; i < NowData.Count; i++)
                     {

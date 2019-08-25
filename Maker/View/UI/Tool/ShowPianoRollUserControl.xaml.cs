@@ -53,7 +53,7 @@ namespace Maker.View.Tool
 
         private void Board_Completed(object sender, EventArgs e)
         {
-            mw.RemoveTool();
+            mw.editUserControl.RemoveTool();
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)

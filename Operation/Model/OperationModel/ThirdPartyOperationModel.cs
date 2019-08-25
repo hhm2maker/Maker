@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Maker.Business.Model.OperationModel
-{ 
+{
+    [Serializable]
     public class ThirdPartyOperationModel : BaseOperationModel
     {
         public List<String> Parameters

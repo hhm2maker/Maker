@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maker.Business.Model.OperationModel
 {
+    [Serializable]
     public class InterceptTimeOperationModel : BaseOperationModel
     {
         public int Start

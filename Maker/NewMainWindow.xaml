@@ -42,11 +42,16 @@
                     <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
                     <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
                 </MenuItem>
-                <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                    <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                        <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
+                        <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
                     <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
                 </MenuItem>
-            </Menu>
+                    
+                </Menu>
             <Grid Focusable="True" HorizontalAlignment="Right" Margin="0,5,0,5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                     <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,15,0">
@@ -162,25 +167,8 @@
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-        <Canvas VerticalAlignment="Bottom" Visibility="Collapsed" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
-            <StackPanel Orientation="Horizontal" Canvas.Top="40" Background="#1c1a1c" Name="spBottomTool">
-                <Image Margin="5"  Name="iPlayer" Source="View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
-                <Image Margin="5"  Name="iPaved" Source="View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-                <Image Margin="5"  Name="iExport" Source="View/Resources/Image/switch.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-                <Image Margin="5"  Name="iPianoRoll" Source="View/Resources/Image/mypianoroll.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-                <Image Margin="5"  Name="iData" Source="View/Resources/Image/data.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-                <Image Margin="5"  Name="iMy3D" Source="View/Resources/Image/3d.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
-            </StackPanel>
-        </Canvas>
-        <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
-        <Border HorizontalAlignment="Center" VerticalAlignment="Bottom" CornerRadius="10" Name="bToolChild" Background="#272727" >
-            <Border.Effect>
-                <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
-            </Border.Effect>
-            <Grid>
-                <Grid Name="gTool" />
-            </Grid>
-        </Border>
+      
+    
     </Grid>
         </Grid>
     </Grid>

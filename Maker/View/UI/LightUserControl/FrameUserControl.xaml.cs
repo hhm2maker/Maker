@@ -38,7 +38,7 @@ namespace Maker.View.LightUserControl
             mainView = gMain;
             HideControl();
 
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(System.Windows.Media.Color.FromRgb(46, 48, 51)));
+            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Color.FromRgb(46, 48, 51)));
 
             //初始化贴膜
             mLaunchpad.AddMembrane();
@@ -55,7 +55,6 @@ namespace Maker.View.LightUserControl
             FileStream stream = new FileStream("Config/frame.xml", FileMode.Open);
             frameModel = (FrameConfigModel)serializer.Deserialize(stream);
             stream.Close();
-
         }
 
         private FrameConfigModel frameModel;

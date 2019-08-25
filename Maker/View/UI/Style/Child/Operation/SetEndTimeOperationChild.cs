@@ -74,13 +74,26 @@ namespace Maker.View.UI.Style.Child
 
         private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(tbValue.Text, "^\\d+$"))
+            String strNumber = tbValue.Text.Trim();
+            if (strNumber[0] == '+' || strNumber[0] == '-')
             {
-                tbValue.Select(0, tbValue.Text.Length);
-                tbValue.Focus();
-                return;
+                if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                {
+                    tbValue.Select(0, tbValue.Text.Length);
+                    tbValue.Focus();
+                    return;
+                }
             }
-            setEndTimeOperationModel.Value = tbValue.Text;
+            else
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                {
+                    tbValue.Select(0, tbValue.Text.Length);
+                    tbValue.Focus();
+                    return;
+                }
+            }
+            setEndTimeOperationModel.Value = strNumber;
 
             NeedRefresh();
         }

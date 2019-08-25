@@ -80,8 +80,10 @@ namespace Maker.View.UI.Style.Child
             int position = lb.Items.IndexOf((slider.Parent as Grid));
 
             int number = (int)slider.Value;
+
             if (number == changeColorOperationModel.Colors[position])
                 return;
+
             //真实数据同步
             changeColorOperationModel.Colors[position] = number;
             ((slider.Parent as Grid).Children[1] as TextBox).Text = number.ToString();
@@ -109,7 +111,6 @@ namespace Maker.View.UI.Style.Child
             for (int i = 0; i < mColor.Count; i++)
             {
                 OldColorList.Add(mColor[i]);
-               
             }
         }
 
@@ -120,7 +121,6 @@ namespace Maker.View.UI.Style.Child
 
             List<int> geshihua = changeColorOperationModel.Colors;
             NewColorList.AddRange(OldColorList.ToArray());
-
 
             //获取一共有多少种老颜色
             int OldColorCount = mColor.Count;
@@ -177,7 +177,8 @@ namespace Maker.View.UI.Style.Child
                     }
                 }
             }
-            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(nowLl);
+
+            StaticConstant.mw.editUserControl.suc.mLaunchpad.SetData(nowLl);
         }
 
         private void Add(int i) {

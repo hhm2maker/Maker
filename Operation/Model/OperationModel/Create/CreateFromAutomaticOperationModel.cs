@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Maker.Business.Model.OperationModel
 {
+    [Serializable]
     public class CreateFromAutomaticOperationModel : CreateOperationModel
     {
         public enum AutomaticType
@@ -55,10 +56,12 @@ namespace Maker.Business.Model.OperationModel
             MyBaseAutomatic = baseAutomatic;
         }
 
+        [Serializable]
         public class BaseAutomatic {
 
         }
 
+        [Serializable]
         public class BaseOneNumberAutomatic : BaseAutomatic
         {
             public int Position
@@ -78,17 +81,19 @@ namespace Maker.Business.Model.OperationModel
             }
         }
 
+        [Serializable]
         public class RhombusDiffusionAutomaticOperationModel : BaseOneNumberAutomatic
         {
             public RhombusDiffusionAutomaticOperationModel(int position) : base(position){ }
-           
         }
 
+        [Serializable]
         public class CrossAutomaticOperationModel : BaseOneNumberAutomatic
         {
             public CrossAutomaticOperationModel(int position) : base(position){}
         }
 
+        [Serializable]
         public class RandomFountainAutomaticOperationModel : BaseAutomatic
         {
             public int Min

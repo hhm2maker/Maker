@@ -54,7 +54,7 @@ namespace Maker.View.Tool
 
         private void Board_Completed(object sender, EventArgs e)
         {
-            mw.RemoveTool();
+            mw.editUserControl.RemoveTool();
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
@@ -209,7 +209,7 @@ namespace Maker.View.Tool
             {
                 ImportFile(0, 1);
             }
-            mw.gToolBackGround.Visibility = Visibility.Visible;
+            mw.editUserControl.gToolBackGround.Visibility = Visibility.Visible;
         }
 
         /// <summary>

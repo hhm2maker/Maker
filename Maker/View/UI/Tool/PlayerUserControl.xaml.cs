@@ -63,6 +63,8 @@ namespace Maker.View
 
             GeneralViewBusiness.SetLaunchpadStyle(playLpd, FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
             gMain.Width = playLpd.Width;
+
+            playLpd.ClearAllColorExcept();
             //if (lbMain.SelectedIndex == -1)
             //{
             //    return;
@@ -171,7 +173,7 @@ namespace Maker.View
 
         private void DaV_Completed(object sender, EventArgs e)
         {
-            mw.RemoveTool();
+            mw.editUserControl.RemoveTool();
         }
 
         private String AudioResources = String.Empty;

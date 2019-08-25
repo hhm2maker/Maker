@@ -1,4 +1,5 @@
-﻿using Maker.Business.Model.OperationModel;
+﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using System.Collections.Generic;
 using System.Windows;
@@ -110,13 +111,13 @@ namespace Maker.View.UI.Style.Child
             //StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(OperationUtils.OperationLightToMakerLight(lg));
             List<int> li = new List<int>();
             List<Light> ll = new List<Light>();
-         
-
+        
             for (int i = 0; i < MyData.Count; i++)
             {
                 li.Add(MyData[i].Position);
                 ll.Add(new Light(0, 144, MyData[i].Position, MyData[i].Color));
             }
+
             for (int i = 0; i < 100; i++)
             {
                 if (!li.Contains(i))
@@ -124,7 +125,7 @@ namespace Maker.View.UI.Style.Child
                     ll.Add(new Light(0, 144, i, color));
                 }
             }
-            StaticConstant.mw.projectUserControl.suc.mLaunchpad.SetData(ll);
+            StaticConstant.mw.editUserControl.suc.mLaunchpad.SetData(ll);
         }
 
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Operation
 {
+    [Serializable]
     public class ConditionJudgmentOperationModel : BaseOperationModel
     {
         public enum Operation
