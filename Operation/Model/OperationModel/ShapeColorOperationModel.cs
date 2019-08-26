@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -68,6 +69,36 @@ namespace Maker.Business.Model.OperationModel
         {
             MyShapeType = mShapeType;
             Colors = colors;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("ShapeColor");
+            if (MyShapeType == ShapeType.SQUARE)
+            {
+                xVerticalFlipping.SetAttributeValue("shapeType", "square");
+            }
+            else if (MyShapeType == ShapeType.RADIALVERTICAL)
+            {
+                xVerticalFlipping.SetAttributeValue("shapeType", "radialVertical");
+            }
+            else if (MyShapeType == ShapeType.RADIALHORIZONTAL)
+            {
+                xVerticalFlipping.SetAttributeValue("shapeType", "radialHorizontal");
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int count = 0; count < Colors.Count; count++)
+            {
+                if (count != Colors.Count - 1)
+                    sb.Append(Colors[count] + " ");
+                else
+                {
+                    sb.Append(Colors[count]);
+                }
+            }
+            xVerticalFlipping.SetAttributeValue("colors", sb.ToString());
+
+            return xVerticalFlipping;
         }
     }
 }

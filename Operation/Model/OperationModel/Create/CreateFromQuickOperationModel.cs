@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -66,6 +67,30 @@ namespace Maker.Business.Model.OperationModel
             ColorList = colorList;
             Type = type;
             Action = action;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("CreateFromQuick");
+            xVerticalFlipping.SetAttributeValue("time", Time);
+            StringBuilder sbPositions = new StringBuilder();
+            for (int i = 0; i < PositionList.Count; i++)
+            {
+                sbPositions.Append((char)(PositionList[i] + 33));
+            }
+            xVerticalFlipping.SetAttributeValue("position", sbPositions.ToString());
+            xVerticalFlipping.SetAttributeValue("interval", Interval);
+            xVerticalFlipping.SetAttributeValue("continued", Continued);
+            StringBuilder sbColors = new StringBuilder();
+            for (int i = 0; i < ColorList.Count; i++)
+            {
+                sbColors.Append((char)(ColorList[i] + 33));
+            }
+            xVerticalFlipping.SetAttributeValue("color", sbColors.ToString());
+            xVerticalFlipping.SetAttributeValue("type", Type);
+            xVerticalFlipping.SetAttributeValue("action", Action);
+
+            return xVerticalFlipping;
         }
     }
 }

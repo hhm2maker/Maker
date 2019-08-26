@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -41,6 +42,20 @@ namespace Maker.Business.Model.OperationModel
         public SetAttributeOperationModel(List<AttributeOperationModel> attributeOperationModels)
         {
             AttributeOperationModels = attributeOperationModels;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("SetAttribute");
+            for (int i = 0; i < AttributeOperationModels.Count; i++)
+            {
+                XElement xItem = new XElement("AttributeOperationModel");
+                xItem.SetAttributeValue("attributeType", AttributeOperationModels[i].attributeType);
+                xItem.SetAttributeValue("value", AttributeOperationModels[i].Value);
+                xVerticalFlipping.Add(xItem);
+            }
+
+            return xVerticalFlipping;
         }
     }
 }

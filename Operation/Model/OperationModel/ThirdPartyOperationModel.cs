@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -42,5 +43,22 @@ namespace Maker.Business.Model.OperationModel
 
         public ThirdPartyOperationModel()
         { }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("ThirdParty");
+            xVerticalFlipping.SetAttributeValue("thirdPartyName", ThirdPartyName);
+            xVerticalFlipping.SetAttributeValue("dllFileName", DllFileName);
+            XElement xParameters = new XElement("Parameters");
+            for (int i = 0; i < Parameters.Count; i++)
+            {
+                XElement xParameter = new XElement("Parameter");
+                xParameter.SetAttributeValue("value", Parameters[i]);
+                xParameters.Add(xParameter);
+            }
+            xVerticalFlipping.Add(xParameters);
+
+            return xVerticalFlipping;
+        }
     }
 }

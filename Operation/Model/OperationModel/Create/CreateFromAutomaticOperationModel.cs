@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -113,6 +114,24 @@ namespace Maker.Business.Model.OperationModel
                 Min = min;
                 Max = max;
             }
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("CreateFromAutomatic");
+            xVerticalFlipping.SetAttributeValue("automaticType", (int)MyAutomaticType);
+            if (MyAutomaticType == AutomaticType.RhombusDiffusion
+                || MyAutomaticType == AutomaticType.Cross)
+            {
+                xVerticalFlipping.SetAttributeValue("position", (MyBaseAutomatic as BaseOneNumberAutomatic).Position);
+            }
+            if (MyAutomaticType == AutomaticType.RandomFountain)
+            {
+                xVerticalFlipping.SetAttributeValue("max", (MyBaseAutomatic as RandomFountainAutomaticOperationModel).Max);
+                xVerticalFlipping.SetAttributeValue("min", (MyBaseAutomatic as RandomFountainAutomaticOperationModel).Min);
+            }
+
+            return xVerticalFlipping;
         }
     }
 }

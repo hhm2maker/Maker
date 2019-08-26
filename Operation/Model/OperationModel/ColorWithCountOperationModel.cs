@@ -18,5 +18,11 @@ namespace Maker.Business.Model.OperationModel
         {
             HintString = "ColorWithCount";
         }
+
+        public override String OperationName
+        {
+            get;
+            set;
+        } = "ColorWithCount";
     }
 }

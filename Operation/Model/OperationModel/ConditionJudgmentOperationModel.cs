@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Operation
 {
@@ -79,6 +80,31 @@ namespace Operation
             ThenTime = thenTime;
             ThenPosition = thenPosition;
             ThenColor = thenColor;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("ConditionJudgment");
+            xVerticalFlipping.SetAttributeValue("operation", (int)MyOperator);
+            xVerticalFlipping.SetAttributeValue("ifTime", IfTime);
+            xVerticalFlipping.SetAttributeValue("ifAction", IfAction);
+            StringBuilder sbPositions = new StringBuilder();
+            for (int i = 0; i < IfPosition.Count; i++)
+            {
+                sbPositions.Append((char)(IfPosition[i] + 33));
+            }
+            xVerticalFlipping.SetAttributeValue("ifPosition", sbPositions.ToString());
+            StringBuilder sbColors = new StringBuilder();
+            for (int i = 0; i < IfColor.Count; i++)
+            {
+                sbColors.Append((char)(IfColor[i] + 33));
+            }
+            xVerticalFlipping.SetAttributeValue("ifColor", sbColors.ToString());
+            xVerticalFlipping.SetAttributeValue("thenTime", ThenTime);
+            xVerticalFlipping.SetAttributeValue("thenPosition", ThenPosition);
+            xVerticalFlipping.SetAttributeValue("thenColor", ThenColor);
+
+            return xVerticalFlipping;
         }
     }
 }

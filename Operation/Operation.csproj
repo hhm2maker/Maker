@@ -69,6 +69,7 @@
     <Compile Include="FileBusiness.cs" />
     <Compile Include="LimitlessLampModel.cs" />
     <Compile Include="Model\OperationModel\AccelerationOrDecelerationOperationModel.cs" />
+    <Compile Include="Model\OperationModel\BaseNoOperationModel.cs" />
     <Compile Include="Model\OperationModel\ConditionJudgmentOperationModel.cs" />
     <Compile Include="Model\OperationModel\Create\CreateFromFileOperationModel.cs" />
     <Compile Include="Model\OperationModel\Create\CreateFromAutomaticOperationModel.cs" />

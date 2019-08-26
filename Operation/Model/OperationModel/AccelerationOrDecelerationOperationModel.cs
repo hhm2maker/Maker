@@ -18,5 +18,11 @@ namespace Maker.Business.Model.OperationModel
         {
             HintString = "AccelerationOrDeceleration";
         }
+
+        public override String OperationName
+        {
+            get;
+            set;
+        } = "AccelerationOrDeceleration";
     }
 }

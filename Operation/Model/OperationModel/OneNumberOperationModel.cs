@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -53,6 +54,14 @@ namespace Maker.Business.Model.OperationModel
             MyNumberType = numberType;
         }
 
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement(Identifier);
+            xVerticalFlipping.SetAttributeValue("number", Number.ToString());
+            xVerticalFlipping.SetAttributeValue("hintKeyword", HintKeyword.ToString());
+
+            return xVerticalFlipping;
+        }
 
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -35,6 +36,25 @@ namespace Maker.Business.Model.OperationModel
             MyType = mType;
             Value = value;
         }
-     
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("SetEndTime");
+            if (MyType == Type.ALL)
+            {
+                xVerticalFlipping.SetAttributeValue("type", "all");
+            }
+            else if (MyType == Type.END)
+            {
+                xVerticalFlipping.SetAttributeValue("type", "end");
+            }
+            else if (MyType == Type.ALLANDEND)
+            {
+                xVerticalFlipping.SetAttributeValue("type", "allandend");
+            }
+            xVerticalFlipping.SetAttributeValue("value", Value.ToString());
+
+            return xVerticalFlipping;
+        }
     }
 }

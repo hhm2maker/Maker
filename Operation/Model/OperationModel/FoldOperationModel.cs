@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -43,6 +44,22 @@ namespace Maker.Business.Model.OperationModel
             StartPosition = startPosition;
             Span = span;
         }
-     
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("Fold");
+            if (MyOrientation == Orientation.VERTICAL)
+            {
+                xVerticalFlipping.SetAttributeValue("orientation", "vertical");
+            }
+            else if (MyOrientation == Orientation.HORIZONTAL)
+            {
+                xVerticalFlipping.SetAttributeValue("orientation", "horizontal");
+            }
+            xVerticalFlipping.SetAttributeValue("startPosition", StartPosition.ToString());
+            xVerticalFlipping.SetAttributeValue("span", Span.ToString());
+
+            return xVerticalFlipping;
+        }
     }
 }

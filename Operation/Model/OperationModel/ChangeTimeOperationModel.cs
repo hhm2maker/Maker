@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -35,6 +36,21 @@ namespace Maker.Business.Model.OperationModel
             MyOperator = mOperator;
             Multiple = multiple;
         }
-     
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("ChangeTime");
+            if (MyOperator == Operation.MULTIPLICATION)
+            {
+                xVerticalFlipping.SetAttributeValue("operator", "multiplication");
+            }
+            else if (MyOperator == Operation.DIVISION)
+            {
+                xVerticalFlipping.SetAttributeValue("operator", "division");
+            }
+            xVerticalFlipping.SetAttributeValue("multiple", Multiple.ToString());
+
+            return xVerticalFlipping;
+        }
     }
 }

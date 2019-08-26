@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -24,6 +25,14 @@ namespace Maker.Business.Model.OperationModel
         public CreateFromFileOperationModel(String fileName)
         {
             FileName = fileName;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("CreateFromFile");
+            xVerticalFlipping.SetAttributeValue("fileName", FileName);
+
+            return xVerticalFlipping;
         }
     }
 }

@@ -367,9 +367,9 @@ namespace Maker.View.Style
 
                 box.SetResourceReference(TextBlock.TextProperty, (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Title);
             }
-            if (svMain.Children.Count != 0){
-                (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Margin = new Thickness(0,0,0,20);
-            }
+            //if (svMain.Children.Count != 0){
+            //    (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Margin = new Thickness(0,0,0,20);
+            //}
     }
 
         public void SetData(List<BaseOperationModel> operationModels,bool isNew)

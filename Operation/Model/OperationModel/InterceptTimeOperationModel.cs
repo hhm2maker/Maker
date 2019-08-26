@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Maker.Business.Model.OperationModel
 {
@@ -30,6 +31,15 @@ namespace Maker.Business.Model.OperationModel
         {
             Start = start;
             End = end;
+        }
+
+        public override XElement GetXElement()
+        {
+            XElement xVerticalFlipping = new XElement("InterceptTime");
+            xVerticalFlipping.SetAttributeValue("start", Start.ToString());
+            xVerticalFlipping.SetAttributeValue("end", End.ToString());
+
+            return xVerticalFlipping;
         }
     }
 }

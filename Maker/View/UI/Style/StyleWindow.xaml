@@ -19,7 +19,7 @@
                     </ListBox.Template>
                 </ListBox>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
-                <StackPanel  Name="svMain" />
+                <StackPanel  Name="svMain" Margin="0,0,0,20"/>
             </ScrollViewer>
         </Grid>
 </usercontroldialog:MakerDialog>

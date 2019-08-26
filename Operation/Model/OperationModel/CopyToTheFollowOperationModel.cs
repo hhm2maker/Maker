@@ -18,5 +18,11 @@ namespace Maker.Business.Model.OperationModel
         {
             HintString = "ColorSuperpositionFollow";
         }
+
+        public override String OperationName
+        {
+            get;
+            set;
+        } = "CopyToTheFollow";
     }
 }

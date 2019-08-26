@@ -18,5 +18,11 @@ namespace Maker.Business.Model.OperationModel
         {
             HintString = "CustomFormattedColor";
         }
+
+        public override String OperationName
+        {
+            get;
+            set;
+        } = "ChangeColor";
     }
 }

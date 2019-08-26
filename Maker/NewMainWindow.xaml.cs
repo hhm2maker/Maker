@@ -63,8 +63,6 @@ namespace Maker
             //contentUserControls.Add(projectUserControl);
             contentUserControls.Add(editUserControl);
 
-           
-
             for (int i = 0; i < contentUserControls.Count; i++) {
                 TextBlock tb = new TextBlock();
                 tb.Padding = new Thickness(10);
@@ -79,6 +77,7 @@ namespace Maker
             InitFile();
         }
 
+       
         public ContextMenu contextMenu;
         private void InitContextMenu()
         {
