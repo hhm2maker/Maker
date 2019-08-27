@@ -37,6 +37,30 @@ namespace Maker.Business.Model.OperationModel
             Multiple = multiple;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("operator") != null && !xEdit.Attribute("operator").Value.ToString().Equals(String.Empty))
+            {
+                String operation = xEdit.Attribute("operator").Value;
+                if (operation.Equals("multiplication"))
+                {
+                    MyOperator = Operation.MULTIPLICATION;
+                }
+                else if (operation.Equals("division"))
+                {
+                    MyOperator = Operation.DIVISION;
+                }
+            }
+            if (xEdit.Attribute("multiple") != null && !xEdit.Attribute("multiple").Value.ToString().Equals(String.Empty))
+            {
+                String multiple = xEdit.Attribute("multiple").Value;
+                if (Double.TryParse(multiple, out double dMultiple))
+                {
+                    Multiple = dMultiple;
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("ChangeTime");

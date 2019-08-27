@@ -69,6 +69,27 @@ namespace Maker.Business.Model.OperationModel
             Action = action;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            Time = int.Parse(xEdit.Attribute("time").Value);
+            List<int> positions = new List<int>();
+            for (int i = 0; i < xEdit.Attribute("position").Value.Length; i++)
+            {
+                positions.Add(xEdit.Attribute("position").Value[i] - 33);
+            }
+            PositionList = positions;
+            Interval = int.Parse(xEdit.Attribute("interval").Value);
+            Continued = int.Parse(xEdit.Attribute("continued").Value);
+            List<int> colors = new List<int>();
+            for (int i = 0; i < xEdit.Attribute("color").Value.Length; i++)
+            {
+                colors.Add(xEdit.Attribute("color").Value[i] - 33);
+            }
+            ColorList = colors;
+            Type = int.Parse(xEdit.Attribute("type").Value);
+            Action = int.Parse(xEdit.Attribute("action").Value);
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromQuick");

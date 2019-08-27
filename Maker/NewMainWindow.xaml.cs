@@ -82,6 +82,14 @@ namespace Maker
         private void InitContextMenu()
         {
             contextMenu = new ContextMenu();
+
+            MenuItem copyMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Copy"]
+            };
+            copyMenuItem.Click += CopyFileName;
+            contextMenu.Items.Add(copyMenuItem);
+
             MenuItem renameMenuItem = new MenuItem
             {
                 Header = Application.Current.Resources["Rename"]
@@ -156,6 +164,37 @@ namespace Maker
                 Arguments = "/e,/select," + _filePath
             };
             Process.Start(psi);
+        }
+
+        private void CopyFileName(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            BaseUserControl baseUserControl = null;
+            if (!needControlFileName.EndsWith(".lightScript"))
+            {
+                for (int i = 0; i < editUserControl.userControls.Count; i++)
+                {
+                    if (needControlFileName.EndsWith(editUserControl.userControls[i]._fileExtension))
+                    {
+                        baseUserControl = editUserControl.userControls[i];
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                baseUserControl = editUserControl.userControls[3] as BaseUserControl;
+            }
+
+            if (baseUserControl == null)
+                return;
+            needControlBaseUserControl = baseUserControl;
+
+            baseUserControl.filePath = needControlFileName;
+
+            String _filePath = baseUserControl.GetFileDirectory();
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult2);
+            ShowMakerDialog(newFileDialog);
         }
 
         private void RenameFileName(object sender, RoutedEventArgs e)
@@ -275,9 +314,35 @@ namespace Maker
             }
         }
 
+        public void NewFileResult2(String filePath)
+        {
+            RemoveDialog();
+            String _filePath = needControlBaseUserControl.GetFileDirectory();
+
+            _filePath = _filePath + filePath;
+            if (File.Exists(_filePath))
+            {
+                new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                File.Copy(LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
+                    , LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
+                //needControlListBoxItem.Header = filePath;
+                //needControlBaseUserControl.filePath = filePath;
+
+                InitFile();
+            }
+        }
 
         private void InitFile()
         {
+            tvLight.Items.Clear();
+            tvLightScript.Items.Clear();
+            tvLimitlessLamp.Items.Clear();
+            tvPage.Items.Clear();
+
             foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Light", new List<string>() { ".light", ".mid" }))
             {
                 TreeViewItem item = new TreeViewItem
@@ -310,6 +375,17 @@ namespace Maker
                 item.ContextMenu = contextMenu;
                 tvLimitlessLamp.Items.Add(item);
             }
+
+            foreach (String str in FileBusiness.CreateInstance().GetFilesName(LastProjectPath + "Play", new List<string>() { ".lightPage" }))
+            {
+                TreeViewItem item = new TreeViewItem
+                {
+                    Header = str,
+                };
+                item.FontSize = 16;
+                item.ContextMenu = contextMenu;
+                tvPage.Items.Add(item);
+            }
         }
 
         public void btnNew_Click(object sender, RoutedEventArgs e)
@@ -326,6 +402,10 @@ namespace Maker
             else if (sender == miNewLimitlessLamp)
             {
                 baseUserControl = editUserControl.userControls[9];
+            }
+            else if (sender == miNewPage)
+            {
+                baseUserControl = editUserControl.userControls[8];
             }
             //else if (sender == miPage)
             //{

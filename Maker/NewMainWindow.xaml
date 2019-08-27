@@ -115,7 +115,14 @@
                             </ContextMenu>
                         </TreeViewItem.ContextMenu>
                     </TreeViewItem>
-                </TreeView>
+                        <TreeViewItem Name="tvPage" Header="{DynamicResource Page}"  Style="{DynamicResource TreeViewItemNormal}">
+                            <TreeViewItem.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Name="miNewPage" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                                </ContextMenu>
+                            </TreeViewItem.ContextMenu>
+                        </TreeViewItem>
+                    </TreeView>
             <Grid >
                 <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
                 <Grid  Name="gCenter" Visibility="Collapsed"/>

@@ -116,6 +116,22 @@ namespace Maker.Business.Model.OperationModel
             }
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (int.Parse(xEdit.Attribute("automaticType").Value) == 0)
+            {
+                MyBaseAutomatic = new RhombusDiffusionAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+            }
+            else if (int.Parse(xEdit.Attribute("automaticType").Value) == 1)
+            {
+                MyBaseAutomatic = new CrossAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+            }
+            else if (int.Parse(xEdit.Attribute("automaticType").Value) == 2)
+            {
+                MyBaseAutomatic = new RandomFountainAutomaticOperationModel(int.Parse(xEdit.Attribute("min").Value), int.Parse(xEdit.Attribute("max").Value));
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromAutomatic");

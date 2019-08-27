@@ -33,6 +33,26 @@ namespace Maker.Business.Model.OperationModel
             Interval = interval;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("startTime") != null && !xEdit.Attribute("startTime").Value.ToString().Equals(String.Empty))
+            {
+                String startTime = xEdit.Attribute("startTime").Value;
+                if (int.TryParse(startTime, out int iStartTime))
+                {
+                    StartTime = iStartTime;
+                }
+            }
+            if (xEdit.Attribute("interval") != null && !xEdit.Attribute("interval").Value.ToString().Equals(String.Empty))
+            {
+                String interval = xEdit.Attribute("interval").Value;
+                if (int.TryParse(interval, out int iInterval))
+                {
+                    Interval = iInterval;
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("AnimationDisappear");
@@ -41,5 +61,6 @@ namespace Maker.Business.Model.OperationModel
 
             return xVerticalFlipping;
         }
+
     }
 }

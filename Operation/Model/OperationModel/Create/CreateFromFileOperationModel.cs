@@ -27,6 +27,11 @@ namespace Maker.Business.Model.OperationModel
             FileName = fileName;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            FileName = xEdit.Attribute("fileName").Value;
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromFile");

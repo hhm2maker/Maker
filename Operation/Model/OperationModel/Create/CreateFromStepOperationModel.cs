@@ -27,6 +27,11 @@ namespace Maker.Business.Model.OperationModel
             StepName = stepName;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            StepName = xEdit.Attribute("stepName").Value;
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromStep");

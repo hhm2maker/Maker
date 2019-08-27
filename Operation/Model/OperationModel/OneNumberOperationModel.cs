@@ -54,6 +54,40 @@ namespace Maker.Business.Model.OperationModel
             MyNumberType = numberType;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            Identifier = xEdit.Name.ToString();
+            if (xEdit.Attribute("number") != null && !xEdit.Attribute("number").Value.ToString().Equals(String.Empty))
+            {
+                String multiple = xEdit.Attribute("number").Value;
+                if (int.TryParse(multiple, out int iNumber))
+                {
+                    Number = iNumber;
+                }
+            }
+            if (xEdit.Name.ToString().Equals("SetStartTime"))
+            {
+                MyNumberType = NumberType.OTHER;
+            }
+            else if (xEdit.Name.ToString().Equals("FillColor"))
+            {
+                MyNumberType = NumberType.COLOR;
+            }
+            else if (xEdit.Name.ToString().Equals("SetAllTime"))
+            {
+                MyNumberType = NumberType.OTHER;
+            }
+            else if (xEdit.Name.ToString().Equals("MatchTotalTimeLattice"))
+            {
+                MyNumberType = NumberType.OTHER;
+            }
+            else if (xEdit.Name.ToString().Equals("Animation.Windmill"))
+            {
+                MyNumberType = NumberType.OTHER;
+            }
+            HintKeyword = xEdit.Attribute("hintKeyword").Value;
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement(Identifier);

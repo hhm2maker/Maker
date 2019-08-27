@@ -44,6 +44,26 @@ namespace Maker.Business.Model.OperationModel
             AttributeOperationModels = attributeOperationModels;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            AttributeOperationModels = new List<AttributeOperationModel>();
+            foreach (var xItem in xEdit.Elements())
+            {
+                if (xItem.Attribute("attributeType").Value.Equals("TIME"))
+                {
+                    AttributeOperationModels.Add(new AttributeOperationModel(AttributeOperationModel.AttributeType.TIME, xItem.Attribute("value").Value));
+                }
+                else if (xItem.Attribute("attributeType").Value.Equals("POSITION"))
+                {
+                    AttributeOperationModels.Add(new AttributeOperationModel(AttributeOperationModel.AttributeType.POSITION, xItem.Attribute("value").Value));
+                }
+                else if (xItem.Attribute("attributeType").Value.Equals("COLOR"))
+                {
+                    AttributeOperationModels.Add(new AttributeOperationModel(AttributeOperationModel.AttributeType.COLOR, xItem.Attribute("value").Value));
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("SetAttribute");
@@ -57,5 +77,7 @@ namespace Maker.Business.Model.OperationModel
 
             return xVerticalFlipping;
         }
+
+
     }
 }

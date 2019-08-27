@@ -82,6 +82,28 @@ namespace Operation
             ThenColor = thenColor;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            MyOperator = (Operation)int.Parse(xEdit.Attribute("operation").Value);
+            IfTime = int.Parse(xEdit.Attribute("ifTime").Value);
+            IfAction = int.Parse(xEdit.Attribute("ifAction").Value);
+            List<int> positions = new List<int>();
+            for (int i = 0; i < xEdit.Attribute("ifPosition").Value.Length; i++)
+            {
+                positions.Add(xEdit.Attribute("ifPosition").Value[i] - 33);
+            }
+            IfPosition = positions;
+            List<int> colors = new List<int>();
+            for (int i = 0; i < xEdit.Attribute("ifColor").Value.Length; i++)
+            {
+                colors.Add(xEdit.Attribute("ifColor").Value[i] - 33);
+            }
+            IfColor = colors;
+            ThenTime = xEdit.Attribute("thenTime").Value;
+            ThenPosition = xEdit.Attribute("thenPosition").Value;
+            ThenColor = xEdit.Attribute("thenColor").Value;
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("ConditionJudgment");

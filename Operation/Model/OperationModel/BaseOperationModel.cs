@@ -13,5 +13,10 @@ namespace Maker.Business.Model.OperationModel
         public virtual XElement GetXElement() {
             throw new NotImplementedException();
         }
+
+        public virtual void SetXElement(XElement xEdit)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

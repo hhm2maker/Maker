@@ -33,6 +33,26 @@ namespace Maker.Business.Model.OperationModel
             End = end;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("start") != null && !xEdit.Attribute("start").Value.ToString().Equals(String.Empty))
+            {
+                String start = xEdit.Attribute("start").Value;
+                if (int.TryParse(start, out int iStart))
+                {
+                    Start = iStart;
+                }
+            }
+            if (xEdit.Attribute("end") != null && !xEdit.Attribute("end").Value.ToString().Equals(String.Empty))
+            {
+                String end = xEdit.Attribute("end").Value;
+                if (int.TryParse(end, out int iEnd))
+                {
+                    End = iEnd;
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("InterceptTime");

@@ -45,6 +45,38 @@ namespace Maker.Business.Model.OperationModel
             Span = span;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("orientation") != null && !xEdit.Attribute("orientation").Value.ToString().Equals(String.Empty))
+            {
+                String operation = xEdit.Attribute("orientation").Value;
+                if (operation.Equals("vertical"))
+                {
+                    MyOrientation = Orientation.VERTICAL;
+                }
+                else if (operation.Equals("horizontal"))
+                {
+                    MyOrientation = Orientation.HORIZONTAL;
+                }
+            }
+            if (xEdit.Attribute("startPosition") != null && !xEdit.Attribute("startPosition").Value.ToString().Equals(String.Empty))
+            {
+                String startPosition = xEdit.Attribute("startPosition").Value;
+                if (int.TryParse(startPosition, out int iStartPosition))
+                {
+                    StartPosition = iStartPosition;
+                }
+            }
+            if (xEdit.Attribute("span") != null && !xEdit.Attribute("span").Value.ToString().Equals(String.Empty))
+            {
+                String span = xEdit.Attribute("span").Value;
+                if (int.TryParse(span, out int iSpan))
+                {
+                    Span = iSpan;
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("Fold");

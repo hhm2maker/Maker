@@ -37,6 +37,30 @@ namespace Maker.Business.Model.OperationModel
             Value = value;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("type") != null && !xEdit.Attribute("type").Value.ToString().Equals(String.Empty))
+            {
+                String type = xEdit.Attribute("type").Value;
+                if (type.Equals("all"))
+                {
+                    MyType = Type.ALL;
+                }
+                else if (type.Equals("end"))
+                {
+                    MyType = Type.END;
+                }
+                else if (type.Equals("allandend"))
+                {
+                    MyType = Type.ALLANDEND;
+                }
+            }
+            if (xEdit.Attribute("value") != null && !xEdit.Attribute("value").Value.ToString().Equals(String.Empty))
+            {
+                Value = xEdit.Attribute("value").Value;
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("SetEndTime");
