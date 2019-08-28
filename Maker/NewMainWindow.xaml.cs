@@ -74,10 +74,18 @@ namespace Maker
             SetSpFilePosition(0);
 
             InitContextMenu();
+
+            InitProject();
             InitFile();
+
         }
 
-       
+        public ProjectModel NowProjectModel;
+        private void InitProject()
+        {
+            XmlSerializerBusiness.Load(ref NowProjectModel, LastProjectPath + "project.xml");
+        }
+
         public ContextMenu contextMenu;
         private void InitContextMenu()
         {
@@ -1102,7 +1110,7 @@ namespace Maker
 
         private void CalcTime_Click(object sender, RoutedEventArgs e)
         {
-            new CalcTimeWindow().Show();
+            new CalcTimeWindow(this).Show();
         }
 
         private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)

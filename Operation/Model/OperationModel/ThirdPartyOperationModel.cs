@@ -44,6 +44,27 @@ namespace Maker.Business.Model.OperationModel
         public ThirdPartyOperationModel()
         { }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("thirdPartyName") != null && !xEdit.Attribute("thirdPartyName").Value.ToString().Equals(String.Empty))
+            {
+                ThirdPartyName = xEdit.Attribute("thirdPartyName").Value;
+            }
+            if (xEdit.Attribute("dllFileName") != null && !xEdit.Attribute("dllFileName").Value.ToString().Equals(String.Empty))
+            {
+                DllFileName = xEdit.Attribute("dllFileName").Value;
+            }
+            List<String> parameters = new List<string>();
+            foreach (var xParameters in xEdit.Element(("Parameters")).Elements("Parameter"))
+            {
+                if (xParameters.Attribute("value").Value != null && !xParameters.Attribute("value").Value.ToString().Equals(String.Empty))
+                {
+                    parameters.Add(xParameters.Attribute("value").Value);
+                }
+            }
+            Parameters = parameters;
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("ThirdParty");

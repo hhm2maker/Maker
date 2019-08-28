@@ -495,7 +495,7 @@ namespace Maker.View.Control
 
         private void OpenCalcTime(object sender, RoutedEventArgs e)
         {
-            new CalcTimeWindow().Show();
+            //new CalcTimeWindow(this).Show();
         }
 
         private void DefaultOpenPositionTab(object sender, RoutedEventArgs e)

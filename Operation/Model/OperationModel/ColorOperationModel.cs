@@ -33,6 +33,22 @@ namespace Maker.Business.Model.OperationModel
             Colors = colors;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
+            {
+                String colors = xEdit.Attribute("colors").Value;
+                String[] strsColor = colors.Split(' ');
+                foreach (var item in strsColor)
+                {
+                    if (int.TryParse(item, out int color))
+                    {
+                        Colors.Add(color);
+                    }
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement(OperationName);

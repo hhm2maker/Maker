@@ -176,94 +176,34 @@ namespace Operation
                         || xEdit.Name.ToString().Equals("AccelerationOrDeceleration")
                         || xEdit.Name.ToString().Equals("ColorWithCount"))
                     {
-                        ColorOperationModel changeColorOperationModel;
                         if (xEdit.Name.ToString().Equals("ChangeColor"))
                         {
-                            changeColorOperationModel = new ChangeColorOperationModel();
+                            baseOperationModel = new ChangeColorOperationModel();
                         }
                         else if (xEdit.Name.ToString().Equals("CopyToTheEnd"))
                         {
-                            changeColorOperationModel = new CopyToTheEndOperationModel();
+                            baseOperationModel = new CopyToTheEndOperationModel();
                         }
                          else if (xEdit.Name.ToString().Equals("CopyToTheFollow"))
                         {
-                            changeColorOperationModel = new CopyToTheFollowOperationModel();
+                            baseOperationModel = new CopyToTheFollowOperationModel();
                         }
                         else if (xEdit.Name.ToString().Equals("AccelerationOrDeceleration"))
                         {
-                            changeColorOperationModel = new AccelerationOrDecelerationOperationModel();
+                            baseOperationModel = new AccelerationOrDecelerationOperationModel();
                         }
                         else
                         {
-                            changeColorOperationModel = new ColorWithCountOperationModel();
+                            baseOperationModel = new ColorWithCountOperationModel();
                         }
-                        if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
-                        {
-                            String colors = xEdit.Attribute("colors").Value;
-                            String[] strsColor = colors.Split(' ');
-                            foreach (var item in strsColor) {
-                                if (int.TryParse(item, out int color)) {
-                                    changeColorOperationModel.Colors.Add(color);
-                                }
-                            }
-                        }
-                        scriptModel.OperationModels.Add(changeColorOperationModel);
                     }
                     else if (xEdit.Name.ToString().Equals("ShapeColor"))
                     {
-                        ShapeColorOperationModel shapeColorOperationModel;
-                        shapeColorOperationModel = new ShapeColorOperationModel();
-                        if (xEdit.Attribute("shapeType") != null && !xEdit.Attribute("shapeType").Value.ToString().Equals(String.Empty))
-                        {
-                            String shapeType = xEdit.Attribute("shapeType").Value.ToString();
-                            if (shapeType.Equals("square"))
-                            {
-                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.SQUARE;
-                            }
-                            else if(shapeType.Equals("radialVertical"))
-                            {
-                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.RADIALVERTICAL;
-                            }
-                            else if (shapeType.Equals("radialHorizontal"))
-                            {
-                                shapeColorOperationModel.MyShapeType = ShapeColorOperationModel.ShapeType.RADIALHORIZONTAL;
-                            }
-                        }
-                        if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
-                        {
-                            String colors = xEdit.Attribute("colors").Value;
-                            String[] strsColor = colors.Split(' ');
-                            foreach (var item in strsColor)
-                            {
-                                if (int.TryParse(item, out int color))
-                                {
-                                    shapeColorOperationModel.Colors.Add(color);
-                                }
-                            }
-                        }
-                        scriptModel.OperationModels.Add(shapeColorOperationModel);
+                        baseOperationModel = new ShapeColorOperationModel();
                     }
                     else if (xEdit.Name.ToString().Equals("ThirdParty"))
                     {
-                        ThirdPartyOperationModel thirdPartyOperationModel = new ThirdPartyOperationModel();
-                        if (xEdit.Attribute("thirdPartyName") != null && !xEdit.Attribute("thirdPartyName").Value.ToString().Equals(String.Empty))
-                        {
-                            thirdPartyOperationModel.ThirdPartyName = xEdit.Attribute("thirdPartyName").Value;
-                        }
-                        if (xEdit.Attribute("dllFileName") != null && !xEdit.Attribute("dllFileName").Value.ToString().Equals(String.Empty))
-                        {
-                            thirdPartyOperationModel.DllFileName = xEdit.Attribute("dllFileName").Value;
-                        }
-                        List<String> parameters = new List<string>();
-                        foreach (var xParameters in xEdit.Element(("Parameters")).Elements("Parameter"))
-                        {
-                            if (xParameters.Attribute("value").Value != null && !xParameters.Attribute("value").Value.ToString().Equals(String.Empty))
-                            {
-                                parameters.Add (xParameters.Attribute("value").Value);
-                            }
-                        }
-                        thirdPartyOperationModel.Parameters = parameters;
-                        scriptModel.OperationModels.Add(thirdPartyOperationModel);
+                        baseOperationModel = new ThirdPartyOperationModel();
                     }
                     baseOperationModel.SetXElement(xEdit);
                     scriptModel.OperationModels.Add(baseOperationModel);
@@ -272,6 +212,7 @@ namespace Operation
             }
             return scriptModelDictionary;
         }
+
         public static Dictionary<string, List<Light>> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
             CSharpCodeProvider objCSharpCodePrivoder = new CSharpCodeProvider();

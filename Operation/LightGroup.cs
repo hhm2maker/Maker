@@ -627,82 +627,95 @@ namespace Operation
         {
             List<Light> ll = LightBusiness.Copy(this);
             Clear();
-
-            List<char> mColor = new List<char>();
-            for (int j = 0; j < ll.Count; j++)
+            if (geshihua.Count == 1)
             {
-                if (ll[j].Action == 144)
+                foreach (var item in ll)
                 {
-                    if (!mColor.Contains((char)ll[j].Color))
+                    if (item.Action == 144)
                     {
-                        mColor.Add((char)ll[j].Color);
+                        item.Color = geshihua[0];
                     }
                 }
             }
-            List<char> OldColorList = new List<char>();
-            List<char> NewColorList = new List<char>();
-            for (int i = 0; i < mColor.Count; i++)
-            {
-                OldColorList.Add(mColor[i]);
-                NewColorList.Add(mColor[i]);
-            }
-            //获取一共有多少种老颜色
-            int OldColorCount = mColor.Count;
-            if (OldColorCount == 0)
-            {
-                return;
-            }
-            int chuCount = OldColorCount / geshihua.Count;
-            int yuCount = OldColorCount % geshihua.Count;
-            List<int> meigeyanseCount = new List<int>();//每个颜色含有的个数
-
-            for (int i = 0; i < geshihua.Count; i++)
-            {
-                meigeyanseCount.Add(chuCount);
-            }
-            if (yuCount != 0)
-            {
-                for (int i = 0; i < yuCount; i++)
+            else {
+                List<char> mColor = new List<char>();
+                for (int j = 0; j < ll.Count; j++)
                 {
-                    meigeyanseCount[i]++;
-                }
-            }
-            List<int> yansefanwei = new List<int>();
-            for (int i = 0; i < geshihua.Count; i++)
-            {
-                int AllCount = 0;
-                if (i != 0)
-                {
-                    for (int j = 0; j < i; j++)
+                    if (ll[j].Action == 144)
                     {
-                        AllCount += meigeyanseCount[j];
+                        if (!mColor.Contains((char)ll[j].Color))
+                        {
+                            mColor.Add((char)ll[j].Color);
+                        }
                     }
                 }
-                yansefanwei.Add(AllCount);
-            }
-            for (int i = 0; i < geshihua.Count; i++)
-            {
-                for (int j = yansefanwei[i]; j < yansefanwei[i] + meigeyanseCount[i]; j++)
+                List<char> OldColorList = new List<char>();
+                List<char> NewColorList = new List<char>();
+                for (int i = 0; i < mColor.Count; i++)
                 {
-                    NewColorList[j] = (char)geshihua[i];
+                    OldColorList.Add(mColor[i]);
+                    NewColorList.Add(mColor[i]);
                 }
-            }
-            //给原颜色排序
-            OldColorList.Sort();
-        
+                //获取一共有多少种老颜色
+                int OldColorCount = mColor.Count;
+                if (OldColorCount == 0)
+                {
+                    return;
+                }
+                int chuCount = OldColorCount / geshihua.Count;
+                int yuCount = OldColorCount % geshihua.Count;
+                List<int> meigeyanseCount = new List<int>();//每个颜色含有的个数
+
+                for (int i = 0; i < geshihua.Count; i++)
+                {
+                    meigeyanseCount.Add(chuCount);
+                }
+                if (yuCount != 0)
+                {
+                    for (int i = 0; i < yuCount; i++)
+                    {
+                        meigeyanseCount[i]++;
+                    }
+                }
+                List<int> yansefanwei = new List<int>();
+                for (int i = 0; i < geshihua.Count; i++)
+                {
+                    int AllCount = 0;
+                    if (i != 0)
+                    {
+                        for (int j = 0; j < i; j++)
+                        {
+                            AllCount += meigeyanseCount[j];
+                        }
+                    }
+                    yansefanwei.Add(AllCount);
+                }
+                for (int i = 0; i < geshihua.Count; i++)
+                {
+                    for (int j = yansefanwei[i]; j < yansefanwei[i] + meigeyanseCount[i]; j++)
+                    {
+                        NewColorList[j] = (char)geshihua[i];
+                    }
+                }
+                //给原颜色排序
+                OldColorList.Sort();
+
                 for (int k = 0; k < ll.Count; k++)
                 {
                     for (int l = 0; l < OldColorList.Count; l++)
                     {
-                     
-                            if (ll[k].Color == OldColorList[l])
-                            {
-                                ll[k].Color = NewColorList[l];
-                                break;
-                            }
+
+                        if (ll[k].Color == OldColorList[l])
+                        {
+                            ll[k].Color = NewColorList[l];
+                            break;
+                        }
                     }
                 }
+            }
             AddRange(ll);
+
+
         }
         /// <summary>
         /// 根据次数变换颜色

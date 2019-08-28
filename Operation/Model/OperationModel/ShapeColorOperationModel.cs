@@ -71,6 +71,38 @@ namespace Maker.Business.Model.OperationModel
             Colors = colors;
         }
 
+        public override void SetXElement(XElement xEdit)
+        {
+            if (xEdit.Attribute("shapeType") != null && !xEdit.Attribute("shapeType").Value.ToString().Equals(String.Empty))
+            {
+                String shapeType = xEdit.Attribute("shapeType").Value.ToString();
+                if (shapeType.Equals("square"))
+                {
+                    MyShapeType = ShapeType.SQUARE;
+                }
+                else if (shapeType.Equals("radialVertical"))
+                {
+                    MyShapeType = ShapeType.RADIALVERTICAL;
+                }
+                else if (shapeType.Equals("radialHorizontal"))
+                {
+                    MyShapeType = ShapeType.RADIALHORIZONTAL;
+                }
+            }
+            if (xEdit.Attribute("colors") != null && !xEdit.Attribute("colors").Value.ToString().Equals(String.Empty))
+            {
+                String colors = xEdit.Attribute("colors").Value;
+                String[] strsColor = colors.Split(' ');
+                foreach (var item in strsColor)
+                {
+                    if (int.TryParse(item, out int color))
+                    {
+                        Colors.Add(color);
+                    }
+                }
+            }
+        }
+
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("ShapeColor");

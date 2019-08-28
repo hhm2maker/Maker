@@ -13,10 +13,13 @@ namespace Maker.View.Tool
     /// </summary>
     public partial class CalcTimeWindow : Window
     {
-        public CalcTimeWindow()
+        private NewMainWindow mw;
+        public CalcTimeWindow(NewMainWindow mw)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            this.mw = mw;
         }
    
         public int time = 0;
@@ -36,6 +39,8 @@ namespace Maker.View.Tool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            tbBPM.Text = mw.NowProjectModel.Bpm;
+
             tbFilePath.Focus();
         }
 
