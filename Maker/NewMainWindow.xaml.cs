@@ -112,6 +112,17 @@ namespace Maker
             deleteMenuItem.Click += btnDelete_Click;
             contextMenu.Items.Add(deleteMenuItem);
 
+            contextMenu.Items.Add(new Separator());
+
+            MenuItem editMenuItem = new MenuItem
+            {
+                Header = Application.Current.Resources["Edit"]
+            };
+            editMenuItem.Click += btnEdit_Click;
+            contextMenu.Items.Add(editMenuItem);
+
+            contextMenu.Items.Add(new Separator());
+
             MenuItem goToFileMenuItem = new MenuItem
             {
                 Header = Application.Current.Resources["OpenFoldersInTheFileResourceManager"]
@@ -174,6 +185,8 @@ namespace Maker
             Process.Start(psi);
         }
 
+
+
         private void CopyFileName(object sender, RoutedEventArgs e)
         {
             GetNeedControl(sender);
@@ -234,6 +247,13 @@ namespace Maker
             String _filePath = baseUserControl.GetFileDirectory();
             View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
             ShowMakerDialog(newFileDialog);
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            GetNeedControl(sender);
+            EditWindow editWindow = new EditWindow(this);
+            editWindow.ShowDialog();
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

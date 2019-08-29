@@ -49,7 +49,6 @@
                     <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
                     <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
                 </MenuItem>
-                    
                 </Menu>
             <Grid Focusable="True" HorizontalAlignment="Right" Margin="0,5,0,5">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
