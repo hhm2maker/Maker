@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="{DynamicResource Edit}" 
         Background="#222326"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Closed="Window_Closed"
         >
     <Grid>
         <Grid.RowDefinitions>
@@ -14,8 +17,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" >
-            <TextBox Name="tbFileName" FontSize="18" Foreground="White" Background="Transparent" CaretBrush="White" BorderThickness="0"/>
-            <TextBlock FontSize="18" Foreground="White" Text=".lightScript" HorizontalAlignment="Right"/>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" >
+            <TextBlock FontSize="18" Foreground="White" Text=".lightScript" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="../../../View/Resources/Image/save_white.png" Width="25" Margin="15,10,15,10" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+            </StackPanel>
+            <TextBox Name="tbFileName" FontSize="18" HorizontalAlignment="Stretch" Foreground="White" Background="Transparent" CaretBrush="White" BorderThickness="0" VerticalAlignment="Center" DockPanel.Dock="Left"/>
         </DockPanel>
         <TextBox Name="tbContent" Grid.Row="1" FontSize="18" Foreground="White" Background="Transparent" BorderBrush="White" CaretBrush="White"/>
     </Grid>

@@ -94,8 +94,10 @@ namespace Maker.View.UI.Edit
           
         }
 
+        public String FileName = "";
         public void IntoUserControl(String fileName)
         {
+            FileName = fileName;
             if (fileName.EndsWith(".mid"))
             {
                 gMain.Children.Clear();
@@ -133,10 +135,49 @@ namespace Maker.View.UI.Edit
             }
             baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
-
         }
 
+        public void IntoUserControl(String fileName,bool checkFileName)
+        {
+            FileName = fileName;
+            if (fileName.EndsWith(".mid"))
+            {
+                gMain.Children.Clear();
+                gMain.Children.Add(userControls[0]);
+            }
+            else
+            {
+                for (int i = 0; i < userControls.Count; i++)
+                {
+                    if (fileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        gMain.Children.Clear();
+                        gMain.Children.Add(userControls[i]);
+                        break;
+                    }
+                }
+            }
+            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
 
+            if (!fileName.EndsWith(".lightScript"))
+            {
+
+            }
+            else
+            {
+                //关闭文件选择器
+                //CloseFileControl();
+                //baseUserControl = mw.gCenter.Children[0] as BaseUserControl;
+                if (baseUserControl.filePath.Equals(mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName) && checkFileName)
+                    return;
+                if (baseUserControl is ScriptUserControl)
+                {
+                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
+                }
+            }
+            baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
+            baseUserControl.LoadFile(fileName);
+        }
 
         private List<Light> mLightList = new List<Light>();
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)

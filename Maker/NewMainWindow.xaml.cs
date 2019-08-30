@@ -364,7 +364,7 @@ namespace Maker
             }
         }
 
-        private void InitFile()
+        public void InitFile()
         {
             tvLight.Items.Clear();
             tvLightScript.Items.Clear();
