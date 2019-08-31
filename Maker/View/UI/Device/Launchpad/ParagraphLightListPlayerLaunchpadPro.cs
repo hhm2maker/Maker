@@ -148,6 +148,10 @@ namespace Maker.View.Device
                     e.Cancel = true;
                     break;
                 }
+                if (NowTimePosition == 0)
+                {
+                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * timeList[NowTimePosition]));
+                }
                 if (NowTimePosition > 0)
                 {
                     Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));

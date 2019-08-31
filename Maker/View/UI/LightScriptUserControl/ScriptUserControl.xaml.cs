@@ -3270,8 +3270,10 @@ namespace Maker.View.LightScriptUserControl
             }
             //Import Introduce Final Locked
             scriptModelDictionary.Clear();
-            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce);
+            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce,out String audioResources);
             this.introduce = introduce;
+            AudioResources = audioResources;
+            tbMusic.Text = AudioResources;
 
             UpdateStep();
             UpdateCollection();
@@ -3329,6 +3331,11 @@ namespace Maker.View.LightScriptUserControl
                 Value = introduce
             };
             xRoot.Add(xIntroduce);
+            XElement xAudioResources = new XElement("AudioResources")
+            {
+                Value = AudioResources
+            };
+            xRoot.Add(xAudioResources);
             foreach (var item in scriptModelDictionary)
             {
                 XElement xScript = new XElement("Script");
@@ -4313,6 +4320,26 @@ namespace Maker.View.LightScriptUserControl
             Test();
             spRefresh.Visibility = Visibility.Collapsed;
             spHint.Visibility = Visibility.Collapsed;
+        }
+
+        public String AudioResources = String.Empty;
+        private void ChooseAudio(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            if (mw.strMyLanguage.Equals("en-US"))
+            {
+                openFileDialog1.Filter = "Wav file(*.wav)|*.wav|Mp3 file(*.mp3)|*.mp3|All files(*.*)|*.*";
+            }
+            else
+            {
+                openFileDialog1.Filter = "Wav文件(*.wav)|*.wav|Mp3文件(*.mp3)|*.mp3|所有文件(*.*)|*.*";
+            }
+            openFileDialog1.RestoreDirectory = true;
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                AudioResources = openFileDialog1.FileName;
+                tbMusic.Text = AudioResources;
+            }
         }
     }
 }

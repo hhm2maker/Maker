@@ -32,6 +32,8 @@ namespace Maker.View
             InitializeComponent();
             this.mw = mw;
             InitPlayLaunchpad();
+
+            tbBPM.Text = mw.NowProjectModel.Bpm;
         }
 
         public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList)
@@ -40,6 +42,20 @@ namespace Maker.View
             this.mw = mw;
             InitPlayLaunchpad();
             SetData(mActionBeanList);
+
+            tbBPM.Text = mw.NowProjectModel.Bpm;
+        }
+
+        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList,String audioResources)
+        {
+            InitializeComponent();
+            this.mw = mw;
+
+            AudioResources = audioResources;
+            InitPlayLaunchpad();
+            SetData(mActionBeanList);
+
+            tbBPM.Text = mw.NowProjectModel.Bpm;
         }
 
         private void InitPlayLaunchpad()
@@ -55,7 +71,7 @@ namespace Maker.View
             {
                 playLpd = new AccuratePlayerLaunchpadPro(this);
             }
-            playLpd.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+            playLpd.HorizontalAlignment = HorizontalAlignment.Center;
             playLpd.VerticalAlignment = VerticalAlignment.Center;
             playLpd.Width = 750;
             playLpd.Height = 750;
@@ -143,6 +159,8 @@ namespace Maker.View
         }
 
         public void SetData(List<Light> mActionBeanList) {
+            mActionBeanList = LightBusiness.Sort(mActionBeanList);
+          
             //for (int i = 0; i < mActionBeanList.Count; i++)
             //    mActionBeanList[i].Position -= 28;
             playLpd.SetData(mActionBeanList);
@@ -193,6 +211,7 @@ namespace Maker.View
                 AudioResources = openFileDialog1.FileName;
             }
         }
+
         private void ClearAudio(object sender, RoutedEventArgs e)
         {
             AudioResources = String.Empty;

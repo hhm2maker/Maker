@@ -39,6 +39,16 @@ namespace Maker.Bridge
             InitHide();
             InitTest();
             InitVersion();
+
+            InitHintWindow();
+        }
+
+        /// <summary>
+        /// 初始化提示窗口
+        /// </summary>
+        private void InitHintWindow()
+        {
+            XmlSerializerBusiness.Load(ref view.hintWindowConfigModel, "Config/hintwindow.xml");
         }
 
         /// <summary>
@@ -63,6 +73,7 @@ namespace Maker.Bridge
         /// </summary>
         public void Close() {
             Business.ViewBusiness.MainWindow.Close.ClearCache();
+
             SaveFile();
             SaveHint();
            
@@ -255,6 +266,7 @@ namespace Maker.Bridge
         public void SaveFile()
         {
             XmlSerializerBusiness.Save(view.projectConfigModel, "Config/project.xml");
+            XmlSerializerBusiness.Save(view.hintWindowConfigModel, "Config/hintwindow.xml");
         }
 
      

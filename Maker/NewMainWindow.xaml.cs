@@ -33,6 +33,7 @@ using Maker.View.UI.Base;
 using Maker.Business.Model.Config;
 using Maker.Business.Currency;
 using System.Xml.Linq;
+using Maker.View.UI.Tool;
 
 namespace Maker
 {
@@ -174,7 +175,6 @@ namespace Maker
             baseUserControl.filePath = needControlFileName;
 
             String _filePath = baseUserControl.GetFileDirectory() + baseUserControl.filePath;
-            Console.WriteLine(_filePath);
 
             ProcessStartInfo psi;
             psi = new ProcessStartInfo("Explorer.exe")
@@ -539,10 +539,10 @@ namespace Maker
        
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (cMost.Children.Count > 0 && cMost.Children[0] is BaseUserControl)
+            if (editUserControl.gMain.Children.Count > 0 && editUserControl.gMain.Children[0] is BaseUserControl)
             {
                 //LoadFileList();
-                BaseUserControl baseUserControl = cMost.Children[0] as BaseUserControl;
+                BaseUserControl baseUserControl = editUserControl.gMain.Children[0] as BaseUserControl;
                 baseUserControl.SaveFile();
             }
 
@@ -1146,6 +1146,214 @@ namespace Maker
             }
         }
 
-    
+        private void ToolBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToolBar toolBar = sender as ToolBar;
+            if (toolBar.Template.FindName("OverflowGrid", toolBar) is FrameworkElement overflowGrid)
+            {
+                overflowGrid.Visibility = Visibility.Collapsed;
+            }
+            if (toolBar.Template.FindName("MainPanelBorder", toolBar) is FrameworkElement mainPanelBorder)
+            {
+                mainPanelBorder.Margin = new Thickness(0);
+            }
+        }
+
+        private HintWindow hintWindow = null;
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (hintWindow == null)
+            {
+                hintWindow = new HintWindow(this);
+                hintWindow.Show();
+            }
+            else {
+                hintWindow.Close();
+                hintWindow = null;
+            }
+        }
+
+        private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+             List<Light> mLightList = GetData();
+
+            UserControl userControl = null;
+            if (cbPlay.SelectedIndex == 0)
+            {
+                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
+                //bToolChild.Width = deviceModel.DeviceSize;
+                //bToolChild.Height = deviceModel.DeviceSize + 31;
+                //bToolChild.Visibility = Visibility.Visible;
+                //加入播放器页面
+                if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+                {
+                    userControl = new PlayerUserControl(this, mLightList, (editUserControl.userControls[3] as ScriptUserControl).AudioResources);
+                }
+                else
+                {
+                    userControl = new PlayerUserControl(this, mLightList);
+                }
+            }
+            else if (cbPlay.SelectedIndex == 1)
+            {
+                //加入平铺页面
+                userControl = new ShowPavedUserControl(this, mLightList);
+            }
+            else if (cbPlay.SelectedIndex == 2)
+            {
+                userControl = new ExportUserControl(this, mLightList);
+            }
+            else if (cbPlay.SelectedIndex == 3)
+            {
+                userControl = new ShowPianoRollUserControl(this, mLightList);
+            }
+            else if (cbPlay.SelectedIndex == 4)
+            {
+                userControl = new DataGridUserControl(this, mLightList);
+            }
+            else if (cbPlay.SelectedIndex == 5)
+            {
+                userControl = new My3DUserControl(this, mLightList);
+            }
+
+            spPlay.Children.Clear();
+
+            Point point = iPlay.TranslatePoint(new Point(0, 0), this);
+            spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0,0);
+            spPlay.Children.Add(userControl);
+            gToolBackGround.Visibility = Visibility.Visible;
+        }
+
+        private void gToolBackGround_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            spPlay.Children.Clear();
+            gToolBackGround.Visibility = Visibility.Collapsed;
+        }
+
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            List<Light> mLightList = GetData();
+            
+            //(lbMain.SelectedItem as TreeViewItem).Header.ToString()
+            //没有AB集合不能保存
+            if (mLightList.Count == 0)
+            {
+                new MessageDialog(this, "CanNotExportEmptyFiles").ShowDialog();
+                return;
+            }
+            if (sender == miExportMidiFile)
+            {
+                ExportMidi(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), false, mLightList);
+            }
+            if (sender == miExportLightFile)
+            {
+                ExportLight(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), mLightList);
+            }
+            if (sender == miExportAdvanced)
+            {
+                AdvancedExportDialog dialog = new AdvancedExportDialog(this, "");
+                if (dialog.ShowDialog() == true)
+                {
+                    if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
+                    {
+                        mLightList = LightBusiness.Split(mLightList);
+                    }
+                    else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
+                    {
+                        mLightList = LightBusiness.Splice(mLightList);
+                    }
+                    if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true)
+                    {
+                        mLightList = LightBusiness.RemoveNotLaunchpadNumbers(mLightList);
+                    }
+                    if (dialog.cbCloseColorTo64.IsChecked == true)
+                    {
+                        mLightList = LightBusiness.CloseColorTo64(mLightList);
+                    }
+                    if (dialog.cbExportType.SelectedIndex == 0)
+                    {
+                        ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked,mLightList);
+                    }
+                    else if (dialog.cbExportType.SelectedIndex == 1)
+                    {
+                        ExportLight(dialog.tbFileName.Text, mLightList);
+                    }
+                }
+            }
+        }
+
+        private void ExportMidi(String fileName, bool isWriteToFile,List<Light> mLightList)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            //设置文件类型
+            if (strMyLanguage.Equals("en-US"))
+            {
+                saveFileDialog.Filter = @"MIDI File|*.mid";
+            }
+            else if (strMyLanguage.Equals("zh-CN"))
+            {
+                saveFileDialog.Filter = @"MIDI 序列|*.mid";
+            }
+            //设置默认文件类型显示顺序
+            saveFileDialog.FilterIndex = 2;
+            //默认保存名
+            saveFileDialog.FileName = fileName;
+            //保存对话框是否记忆上次打开的目录
+            saveFileDialog.RestoreDirectory = true;
+            //点了保存按钮进入
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FileBusiness.CreateInstance().WriteMidiFile(saveFileDialog.FileName.ToString(), fileName, mLightList, isWriteToFile);
+            }
+        }
+
+        private void ExportLight(String fileName, List<Light> mLightList)
+        {
+            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            //设置文件类型
+            if (strMyLanguage.Equals("en-US"))
+            {
+                saveFileDialog.Filter = @"Light File|*.light";
+            }
+            else if (strMyLanguage.Equals("zh-CN"))
+            {
+                saveFileDialog.Filter = @"Light 文件|*.light";
+            }
+            //设置默认文件类型显示顺序
+            saveFileDialog.FilterIndex = 2;
+            //默认保存名
+            saveFileDialog.FileName = fileName;
+            //保存对话框是否记忆上次打开的目录
+            saveFileDialog.RestoreDirectory = true;
+            //点了保存按钮进入
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(), mLightList);
+                //bridge.ExportLight(saveFileDialog.FileName.ToString(), mActionBeanList);
+            }
+        }
+
+        private List<Light> GetData()
+        {
+            List<Light> mLightList = new List<Light>();
+            if (editUserControl.gMain.Children.Count == 0 || (editUserControl.gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+            {
+                if ((editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+                {
+                    return mLightList;
+                }
+                mLightList = (editUserControl.userControls[3] as BaseMakerLightUserControl).GetData();
+            }
+            else
+            {
+                if (editUserControl.userControls[editUserControl.userControls.IndexOf((BaseUserControl)editUserControl.gMain.Children[0])].IsMakerLightUserControl())
+                {
+                    BaseMakerLightUserControl baseMakerLightUserControl = editUserControl.gMain.Children[0] as BaseMakerLightUserControl;
+                    mLightList = baseMakerLightUserControl.GetData();
+                }
+            }
+            mLightList = LightBusiness.Copy(mLightList);
+            return mLightList;
+        }
     }
 }

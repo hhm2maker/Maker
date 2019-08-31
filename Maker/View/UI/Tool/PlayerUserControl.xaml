@@ -5,8 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-             Opacity="0"
-                Margin="10"
         >
     <Grid Name="gMain">
         <Grid.RowDefinitions>

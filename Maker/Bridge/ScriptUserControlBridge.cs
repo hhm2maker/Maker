@@ -53,8 +53,8 @@ namespace Maker.Bridge
             view.mLaunchpadData = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(scriptModelDictionary, stepName));
         }
 
-        public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce) {
-            return ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce);
+        public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce,out String audioResources ) {
+            return ScriptFileBusiness.GetScriptModelDictionary(filePath,out introduce,out audioResources);
         }
 
       

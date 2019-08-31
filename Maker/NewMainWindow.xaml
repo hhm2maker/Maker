@@ -36,12 +36,22 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0"  Background="#FF282828">
+            <StackPanel Grid.Row="0"  >
+        <DockPanel Background="#282828">
             <Menu VerticalAlignment="Center">
                 <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
                     <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
-                </MenuItem>
+                            <Separator />
+                            <MenuItem Header="{DynamicResource Export}">
+                                <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click"/>
+                                <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click"/>
+                                <Separator />
+                                <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click"/>
+                            </MenuItem>
+                            <Separator />
+                            <MenuItem Header="{DynamicResource Exit}" />
+                        </MenuItem>
                     <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
                     </MenuItem>
@@ -75,7 +85,22 @@
                 </Popup>
             </Grid>
         </DockPanel>
-        <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
+                <DockPanel Background="#282828">
+                    <Image VerticalAlignment="Center" Margin="5,5,5,5" Source="View/Resources/Image/hint_white.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" Margin="20,0,0,0" FontSize="18" Background="#222326" VerticalAlignment="Center" >
+                            <ComboBoxItem FontSize="18" Foreground="White" Background="Red" Content="{DynamicResource Player}"/>
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Paved}"/>
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Export}"/>
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource PianoRoll}"/>
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="Data"/>
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="3D"/>
+                        </ComboBox>
+                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
         <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*"/>
@@ -172,10 +197,10 @@
         <Grid Name="gSetting"/>
         <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
         <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-      
-    
     </Grid>
         </Grid>
+        <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
+        <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </Window>

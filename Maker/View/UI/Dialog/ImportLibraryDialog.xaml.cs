@@ -45,7 +45,7 @@ namespace Maker.View.Dialog
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Dictionary<String, ScriptModel> stepsDictionary = ScriptFileBusiness.GetScriptModelDictionary(fileName,out string introduce);
+            Dictionary<String, ScriptModel> stepsDictionary = ScriptFileBusiness.GetScriptModelDictionary(fileName,out string introduce,out string audioResources);
             foreach (ScriptModel step in stepsDictionary.Values) {
                 if (step.Visible) {
                     lbMain.Items.Add(step.Name);

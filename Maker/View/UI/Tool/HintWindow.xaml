@@ -1,0 +1,25 @@
+﻿<Window x:Class="Maker.View.UI.Tool.HintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.UI.Tool"
+        mc:Ignorable="d"
+        Title="HintWindow"
+        Background="#222326"
+         Width="500"
+        Height="560"
+        Closed="Window_Closed"
+        Loaded="Window_Loaded"
+        Topmost="True"
+        >
+    <DockPanel>
+        <DockPanel  DockPanel.Dock="Top" Name="dpTitle">
+            <StackPanel Orientation="Horizontal" Margin="10" >
+                <TextBlock Name="tbPosition" Text="{DynamicResource Position}" Foreground="White" FontSize="18" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+                <TextBlock Name="tbColor" Text="{DynamicResource Color}" Foreground="White" FontSize="18" Margin="20,0,0,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+            </StackPanel>
+        </DockPanel>
+        <Image Name="iMain" VerticalAlignment="Center" Source="../../../View/Resources/Image/positiontab.png" RenderOptions.BitmapScalingMode="Fant"/>
+    </DockPanel>
+</Window>

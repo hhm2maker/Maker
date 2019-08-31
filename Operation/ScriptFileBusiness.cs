@@ -15,7 +15,7 @@ namespace Operation
     public class ScriptFileBusiness
     {
         public static LightGroup FileToLight(String filePath) {
-            Dictionary < string, List < Light >> mLights = Test(GetScriptModelDictionary(filePath, out String introduce));
+            Dictionary < string, List < Light >> mLights = Test(GetScriptModelDictionary(filePath, out String introduce,out String audioResources));
             LightGroup lights = new LightGroup();
             foreach (var item in mLights) {
                 lights.AddRange(item.Value);
@@ -25,7 +25,7 @@ namespace Operation
 
         public static LightGroup FileToLight(String filePath,String stepName)
         {
-            Dictionary<string, List<Light>> mLights = Test(GetScriptModelDictionary(filePath, out String introduce), stepName);
+            Dictionary<string, List<Light>> mLights = Test(GetScriptModelDictionary(filePath, out String introduce,out String audioResources), stepName);
             LightGroup lights = new LightGroup();
             foreach (var item in mLights)
             {
@@ -34,7 +34,7 @@ namespace Operation
             return lights;
         }
 
-        public static Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce)
+        public static Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce,out String audioResources)
         {
             Dictionary<String, ScriptModel> scriptModelDictionary = new Dictionary<string, ScriptModel>();
             XDocument xDoc = XDocument.Load(filePath);
@@ -46,6 +46,15 @@ namespace Operation
             }
             else {
                 introduce = "";
+            }
+            XElement xAudioResources = xRoot.Element("AudioResources");
+            if (xAudioResources != null)
+            {
+                audioResources = xAudioResources.Value;
+            }
+            else
+            {
+                audioResources = "";
             }
             XElement xScripts = xRoot.Element("Scripts");
             foreach (var xScript in xScripts.Elements("Script"))

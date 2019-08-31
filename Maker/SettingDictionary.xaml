@@ -343,7 +343,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     
     <Style x:Key="EmptyButtonStyle" TargetType="Button">
         <Setter Property="Padding" Value="0"/>
@@ -356,7 +355,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
  
     <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#2B2B2B"/>
     <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#1F1F1F"/>

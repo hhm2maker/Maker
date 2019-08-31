@@ -68,6 +68,6 @@ namespace Maker
         public HideConfigModel hideConfigModel = new HideConfigModel();
         public VersionConfigModel versionConfigModel = new VersionConfigModel();
         public HelpConfigModel helpConfigModel = new HelpConfigModel();
-     
+        public HintWindowConfigModel hintWindowConfigModel = new HintWindowConfigModel();
     }
 }
