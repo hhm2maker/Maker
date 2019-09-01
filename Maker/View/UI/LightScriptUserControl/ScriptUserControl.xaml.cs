@@ -4138,11 +4138,11 @@ namespace Maker.View.LightScriptUserControl
 
                 if (sender == miRhombusDiffusion)
                 {
-                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11)));
+                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11,1)));
                 }
                 else if (sender == miCross)
                 {
-                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11)));
+                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11,1)));
                 }
                 else if (sender == miRandomFountain)
                 {

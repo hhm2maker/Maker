@@ -289,7 +289,7 @@ namespace Maker.View.UI.Project
             baseUserControl.filePath = needControlFileName;
 
             String _filePath = baseUserControl.GetFileDirectory();
-            UserControlDialog.NewFileDialog newFileDialog = new UserControlDialog.NewFileDialog(mw, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            UserControlDialog.NewFileDialog newFileDialog = new UserControlDialog.NewFileDialog(mw, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, "",NewFileResult);
             mw.ShowMakerDialog(newFileDialog);
         }
 

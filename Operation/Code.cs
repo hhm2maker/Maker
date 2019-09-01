@@ -553,17 +553,19 @@ namespace Operation
                     CreateFromAutomaticOperationModel createFromAutomaticOperationModel = mItem as CreateFromAutomaticOperationModel;
                     if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position + ");");
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RHOMBUSDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position +
+                            "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Continued + ");");
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
                     {
-                     
-                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.CROSS," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position + ");");
+
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.CROSS," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position +
+                            "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued + ");");
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
                     {
                         sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
-                            ","+ (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min +");");
+                            "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min + ");");
                     }
                 }
                 else if (mItem is FoldOperationModel)

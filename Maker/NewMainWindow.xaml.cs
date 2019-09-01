@@ -6,10 +6,7 @@ using Maker.Business;
 using Maker.View.Dialog;
 using Maker.View.LightScriptUserControl;
 using Maker.View.LightUserControl;
-using Maker.View.PageWindow;
-using Maker.View.Play;
 using Maker.View.Tool;
-using Maker.ViewBusiness;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
@@ -22,17 +19,14 @@ using Maker.View.Setting;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Maker.View.UI.Search;
 using Maker.View.UI.Project;
 using Maker.View.UI.Help;
-using System.Windows.Shapes;
 using Maker.View.UI.Game;
 using Maker.View.UI.Home;
 using Maker.View.UI.Edit;
 using Maker.View.UI.Base;
 using Maker.Business.Model.Config;
 using Maker.Business.Currency;
-using System.Xml.Linq;
 using Maker.View.UI.Tool;
 
 namespace Maker
@@ -213,8 +207,8 @@ namespace Maker
 
             baseUserControl.filePath = needControlFileName;
 
-            String _filePath = baseUserControl.GetFileDirectory();
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult2);
+            //String _filePath = baseUserControl.GetFileDirectory();
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension,"", NewFileResult2);
             ShowMakerDialog(newFileDialog);
         }
 
@@ -245,7 +239,7 @@ namespace Maker
             baseUserControl.filePath = needControlFileName;
 
             String _filePath = baseUserControl.GetFileDirectory();
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, NewFileResult);
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, "",NewFileResult);
             ShowMakerDialog(newFileDialog);
         }
 
@@ -1284,27 +1278,23 @@ namespace Maker
 
         private void ExportMidi(String fileName, bool isWriteToFile,List<Light> mLightList)
         {
-            System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            //设置文件类型
-            if (strMyLanguage.Equals("en-US"))
-            {
-                saveFileDialog.Filter = @"MIDI File|*.mid";
-            }
-            else if (strMyLanguage.Equals("zh-CN"))
-            {
-                saveFileDialog.Filter = @"MIDI 序列|*.mid";
-            }
-            //设置默认文件类型显示顺序
-            saveFileDialog.FilterIndex = 2;
-            //默认保存名
-            saveFileDialog.FileName = fileName;
-            //保存对话框是否记忆上次打开的目录
-            saveFileDialog.RestoreDirectory = true;
-            //点了保存按钮进入
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                FileBusiness.CreateInstance().WriteMidiFile(saveFileDialog.FileName.ToString(), fileName, mLightList, isWriteToFile);
-            }
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid",editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
+             (ResultFileName) => {
+                 if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
+                 {
+                     if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                     {
+                         FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+                     }
+                 }
+                 else
+                 {
+                     FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+                 }
+                 RemoveDialog();
+             }
+            );
+            ShowMakerDialog(newFileDialog);
         }
 
         private void ExportLight(String fileName, List<Light> mLightList)

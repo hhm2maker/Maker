@@ -88,8 +88,8 @@
                 <DockPanel Background="#282828">
                     <Image VerticalAlignment="Center" Margin="5,5,5,5" Source="View/Resources/Image/hint_white.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" Margin="20,0,0,0" FontSize="18" Background="#222326" VerticalAlignment="Center" >
-                            <ComboBoxItem FontSize="18" Foreground="White" Background="Red" Content="{DynamicResource Player}"/>
+                        <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >
+                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Player}"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Paved}"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Export}"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource PianoRoll}"/>

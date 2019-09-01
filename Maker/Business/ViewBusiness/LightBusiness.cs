@@ -95,7 +95,9 @@ namespace Maker.Business
                     }
                 }
             }
-            linShiActionBeanList = Sort(linShiActionBeanList); //排序  
+
+            linShiActionBeanList = Sort(linShiActionBeanList); //排序 
+
             return linShiActionBeanList;
         }
 
@@ -483,6 +485,7 @@ namespace Maker.Business
         public static Dictionary<int, List<Light>> GetParagraphLightLightList(List<Light> mActionBeanList)
         {
             mActionBeanList = Sort(mActionBeanList);
+
             Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
             int time = -1;
             for (int i = 0; i < mActionBeanList.Count; i++)

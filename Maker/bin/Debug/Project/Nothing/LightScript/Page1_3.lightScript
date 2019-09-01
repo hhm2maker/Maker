@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromAutomatic automaticType="1" position="17" />
+      <CreateFromAutomatic automaticType="1" position="17" continued="4" />
       <MatchTotalTimeLattice number="82" hintKeyword="TotalTimeLatticeColon" />
       <ChangeColor colors="56" />
     </Script>
   </Scripts>
   <Introduce></Introduce>
+  <AudioResources></AudioResources>
 </Root>

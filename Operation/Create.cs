@@ -464,7 +464,7 @@ namespace Operation
             }
             else if (automaticType == CROSS)
             {
-                return Cross(nums[0]);
+                return Cross(nums[0], nums[1]);
             }
             else if (automaticType == RANDOMFOUNTAIN)
             {
@@ -626,7 +626,7 @@ namespace Operation
             }
         }
 
-        private static LightGroup Cross(int startPosition)
+        private static LightGroup Cross(int startPosition,int continued)
         {
             if (startPosition >= 100)
                 return null;
@@ -646,7 +646,7 @@ namespace Operation
                 if (count == 0)
                 {
                     mLl.Add(new Light(count * plus, 144, startPosition, 5));
-                    mLl.Add(new Light((count + 1) * plus, 128, startPosition, 64));
+                    mLl.Add(new Light((count + continued) * plus, 128, startPosition, 64));
                     count++;
                     continue;
                 }
@@ -664,7 +664,7 @@ namespace Operation
                     if (bTop)
                     {
                         mLl.Add(new Light(count * plus, 144, iTop, 5));
-                        mLl.Add(new Light((count + 1) * plus, 128, iTop, 64));
+                        mLl.Add(new Light((count + continued) * plus, 128, iTop, 64));
                     }
                 }
                 if (bBottom)
@@ -681,7 +681,7 @@ namespace Operation
                     if (bBottom)
                     {
                         mLl.Add(new Light(count * plus, 144, iBottom, 5));
-                        mLl.Add(new Light((count + 1) * plus, 128, iBottom, 64));
+                        mLl.Add(new Light((count + continued) * plus , 128, iBottom, 64));
                     }
                 }
                 if (bLeft)
@@ -698,7 +698,7 @@ namespace Operation
                     if (bLeft)
                     {
                         mLl.Add(new Light(count * plus, 144, iLeft, 5));
-                        mLl.Add(new Light((count + 1) * plus, 128, iLeft, 64));
+                        mLl.Add(new Light((count + continued) * plus, 128, iLeft, 64));
                     }
                 }
                 if (bRight)
@@ -715,7 +715,7 @@ namespace Operation
                     if (bRight)
                     {
                         mLl.Add(new Light(count * plus, 144, iRight, 5));
-                        mLl.Add(new Light((count + 1) * plus, 128, iRight, 64));
+                        mLl.Add(new Light((count + continued) * plus, 128, iRight, 64));
                     }
                 }
                 count++;

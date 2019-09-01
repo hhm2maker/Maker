@@ -24,12 +24,16 @@ namespace Maker.View.UI.Style.Child
                 AddTitleAndControl("TypeColon", GetTexeBlock("RhombusDiffusion", true));
                 tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position.ToString());
                 AddTitleAndControl("PositionColon", tbOne);
+                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Continued.ToString());
+                AddTitleAndControl("DurationColon", tbTwo);
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
             {
                 AddTitleAndControl("TypeColon", GetTexeBlock("CrossDiffusion", true));
                 tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position.ToString());
                 AddTitleAndControl("PositionColon", tbOne);
+                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued.ToString());
+                AddTitleAndControl("DurationColon", tbTwo);
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
             {
@@ -41,10 +45,7 @@ namespace Maker.View.UI.Style.Child
             }
 
             tbOne.LostFocus += TbNumber_LostFocus;
-            if (tbTwo != null)
-            {
-                tbTwo.LostFocus += TbNumber_LostFocus;
-            }
+            tbTwo.LostFocus += TbNumber_LostFocus;
 
             CreateDialog();
         }
@@ -75,7 +76,18 @@ namespace Maker.View.UI.Style.Child
             {
                 if (int.TryParse(tbTwo.Text, out int result))
                 {
-                    (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max = result;
+                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
+                    {
+                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Continued = result;
+                    }
+                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
+                    {
+                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued = result;
+                    }
+                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
+                    {
+                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max = result;
+                    }
                 }
                 else
                 {

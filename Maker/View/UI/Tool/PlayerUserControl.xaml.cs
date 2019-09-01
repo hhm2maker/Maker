@@ -241,12 +241,6 @@ namespace Maker.View
             btnPause.SetResourceReference(ContentProperty, "Pause");
             btnPause.IsEnabled = true;
 
-            if (File.Exists(AudioResources))
-            {
-                mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
-                mediaElement.Play();
-            }
-
             if (playLpd is ParagraphIntListPlayerLaunchpadPro || playLpd is ParagraphLightListPlayerLaunchpadPro)
             {
                 if (Double.TryParse(tbBPM.Text, out Double dBpm))
@@ -258,6 +252,13 @@ namespace Maker.View
             {  
                 playLpd.SetWait(TimeSpan.FromMilliseconds(1000 / Double.Parse(tbBPM.Text)));
             }
+
+            if (File.Exists(AudioResources))
+            {
+                mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
+                mediaElement.Play();
+            }
+
         }
 
         public void StopEvent()

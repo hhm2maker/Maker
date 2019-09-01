@@ -71,27 +71,34 @@ namespace Maker.Business.Model.OperationModel
                 set;
             }
 
+            public int Continued
+            {
+                get;
+                set;
+            }
+
             public BaseOneNumberAutomatic()
             {
            
             }
 
-            public BaseOneNumberAutomatic(int position)
+            public BaseOneNumberAutomatic(int position, int continued)
             {
                 Position = position;
+                Continued = continued;
             }
         }
 
         [Serializable]
         public class RhombusDiffusionAutomaticOperationModel : BaseOneNumberAutomatic
         {
-            public RhombusDiffusionAutomaticOperationModel(int position) : base(position){ }
+            public RhombusDiffusionAutomaticOperationModel(int position, int continued) : base(position, continued) { }
         }
 
         [Serializable]
         public class CrossAutomaticOperationModel : BaseOneNumberAutomatic
         {
-            public CrossAutomaticOperationModel(int position) : base(position){}
+            public CrossAutomaticOperationModel(int position, int continued) : base(position,continued){}
         }
 
         [Serializable]
@@ -120,11 +127,18 @@ namespace Maker.Business.Model.OperationModel
         {
             if (int.Parse(xEdit.Attribute("automaticType").Value) == 0)
             {
-                MyBaseAutomatic = new RhombusDiffusionAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+                MyBaseAutomatic = new RhombusDiffusionAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value), int.Parse(xEdit.Attribute("continued").Value));
             }
             else if (int.Parse(xEdit.Attribute("automaticType").Value) == 1)
             {
-                MyBaseAutomatic = new CrossAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value));
+                if (xEdit.Attribute("continued") == null)
+                {
+                    MyBaseAutomatic = new CrossAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value), 1);
+                }
+                else
+                {
+                    MyBaseAutomatic = new CrossAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value), int.Parse(xEdit.Attribute("continued").Value));
+                }
             }
             else if (int.Parse(xEdit.Attribute("automaticType").Value) == 2)
             {
@@ -140,6 +154,7 @@ namespace Maker.Business.Model.OperationModel
                 || MyAutomaticType == AutomaticType.Cross)
             {
                 xVerticalFlipping.SetAttributeValue("position", (MyBaseAutomatic as BaseOneNumberAutomatic).Position);
+                xVerticalFlipping.SetAttributeValue("continued", (MyBaseAutomatic as BaseOneNumberAutomatic).Continued);
             }
             if (MyAutomaticType == AutomaticType.RandomFountain)
             {

@@ -191,6 +191,7 @@ namespace Maker.View.LightUserControl
         public override void SetData(List<Light> mActionBeanList)
         {
                 ClearFrame();
+                mActionBeanList = LightBusiness.Split(mActionBeanList);
                 LiTime = LightBusiness.GetTimeList(mActionBeanList);
                 Dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
                 allTimePoint = LiTime.Count;
@@ -713,7 +714,7 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, MouseEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text", NewTextFile);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text","", NewTextFile);
             mw.ShowMakerDialog(newFileDialog);
         }
 

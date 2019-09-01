@@ -820,7 +820,7 @@
                 </Border>
                 <Border  VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2,0,2,0">
                     <Canvas Name="cLaunchpad" Width="600" Height="600" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center"  >
-                         <launchpad:DrawLaunchpadPro Data="{Binding Model.NowLightLight}" SelectData="{Binding Model.Selects}" PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" Focusable="True" PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
+                         <launchpad:DrawLaunchpadPro Data="{Binding Model.NowLightLight}" Size="600" SelectData="{Binding Model.Selects}" PreviewKeyDown="BaseLightUserControl_KeyDown" PreviewKeyUp="BaseLightUserControl_PreviewKeyUp" Focusable="True" PreviewMouseDown="Canvas_MouseDown"  MouseLeave="mLaunchpad_MouseLeave" MouseEnter="mLaunchpad_MouseEnter" PreviewMouseUp="Canvas_MouseUp" MouseMove="mLaunchpad_MouseMove" x:Name="mLaunchpad"/>
                         <widget:TextCanvas Data="{Binding Model.Texts}" x:Name="cText" />
                     </Canvas>
                 </Border>

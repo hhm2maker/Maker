@@ -427,6 +427,8 @@ namespace Maker.Bridge
         public void SetDataToLaunchpad(List<Light> mActionBeanList)
         {
             //切割
+            mActionBeanList = LightBusiness.Split(mActionBeanList);
+
             liTime.Clear();
             dic = LightBusiness.GetParagraphLightLightList(mActionBeanList);
             liTime = dic.Keys.ToList();
