@@ -22,7 +22,7 @@
             <ToolBar  Background="#535353" >
                 <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Click="ChooseAudio" Content="{DynamicResource SelectionOfAudio}"></Button>
                 <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"   Click="ClearAudio" Content="{DynamicResource ClearAudio}"></Button>
-                <MediaElement  Margin="0,0,0,0" Name="mediaElement" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Fill" Visibility="Collapsed" />
+                <MediaElement  Margin="0,0,0,0" Name="mediaElement" MediaOpened="mediaElement_MediaOpened" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Fill" Visibility="Collapsed" />
             </ToolBar>
             <ToolBar  Background="#535353" HorizontalAlignment="Right">
                 <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Background="#535353" Name="btnHide" Click="btnHide_Click" Content="{DynamicResource Hide}"></Button>

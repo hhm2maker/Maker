@@ -2,10 +2,11 @@
 <Root>
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromAutomatic automaticType="1" position="27" />
+      <CreateFromAutomatic automaticType="1" position="27" continued="4" />
       <MatchTotalTimeLattice number="82" hintKeyword="TotalTimeLatticeColon" />
       <ChangeColor colors="56" />
     </Script>
   </Scripts>
   <Introduce></Introduce>
+  <AudioResources></AudioResources>
 </Root>

@@ -252,13 +252,6 @@ namespace Maker.View
             {  
                 playLpd.SetWait(TimeSpan.FromMilliseconds(1000 / Double.Parse(tbBPM.Text)));
             }
-
-            if (File.Exists(AudioResources))
-            {
-                mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
-                mediaElement.Play();
-            }
-
         }
 
         public void StopEvent()
@@ -289,7 +282,15 @@ namespace Maker.View
    
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-            playLpd.Play();
+            if (File.Exists(AudioResources))
+            {
+                mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
+                mediaElement.Play();
+            }
+            else
+            {
+                playLpd.Play();
+            }
         }
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
@@ -299,6 +300,10 @@ namespace Maker.View
         {
             playLpd.Pause();
         }
-      
+
+        private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            playLpd.Play();
+        }
     }
 }
