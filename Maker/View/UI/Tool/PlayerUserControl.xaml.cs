@@ -234,6 +234,7 @@ namespace Maker.View
             btnPause.SetResourceReference(ContentProperty, "Pause");
             btnPause.IsEnabled = false;
             mediaElement.Stop();
+            mediaElement.Close();
         }
 
         public void PlayEvent()

@@ -3,67 +3,67 @@
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_1.mid" />
-      <SetStartTime number="70" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="50" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_2.mid" />
-      <SetStartTime number="152" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="108" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_3.mid" />
-      <SetStartTime number="234" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="166" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_4.mid" />
-      <SetStartTime number="316" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="224" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_5.mid" />
-      <SetStartTime number="398" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="282" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_6.mid" />
-      <SetStartTime number="480" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="340" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_7.mid" />
-      <SetStartTime number="562" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="398" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_8.mid" />
-      <SetStartTime number="644" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="456" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_9.mid" />
-      <SetStartTime number="726" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="514" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step10" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_10.mid" />
-      <SetStartTime number="808" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="572" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step11" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_11.mid" />
-      <SetStartTime number="890" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="630" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step12" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_12.mid" />
-      <SetStartTime number="972" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="688" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step13" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_13.mid" />
-      <SetStartTime number="1054" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="746" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step14" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_14.mid" />
-      <SetStartTime number="1136" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="804" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step15" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_15.mid" />
-      <SetStartTime number="1218" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="862" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step16" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_16.mid" />
-      <SetStartTime number="1300" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <SetStartTime number="920" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

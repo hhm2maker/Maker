@@ -3,7 +3,7 @@
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromAutomatic automaticType="1" position="21" continued="4" />
-      <MatchTotalTimeLattice number="82" hintKeyword="TotalTimeLatticeColon" />
+      <MatchTotalTimeLattice number="58" hintKeyword="TotalTimeLatticeColon" />
       <ChangeColor colors="56" />
     </Script>
   </Scripts>
