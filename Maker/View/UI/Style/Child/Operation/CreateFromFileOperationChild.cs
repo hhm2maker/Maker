@@ -1,4 +1,5 @@
-﻿using Maker.Business.Model.OperationModel;
+﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,29 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "CreateFromTheFile";
         private CreateFromFileOperationModel createFromFileOperationModel;
+
+        private TextBox tbFileName;
         public CreateFromFileOperationChild(CreateFromFileOperationModel createFromStepOperationModel)
         {
             createFromFileOperationModel =  createFromStepOperationModel;
             //构建对话框
-            AddTitleAndControl("FileNameColon", GetTexeBlock(createFromStepOperationModel.FileName.ToString()));
+            tbFileName = GetTexeBox(createFromStepOperationModel.FileName.ToString());
+            AddTitleAndControl("FileNameColon", tbFileName);
 
             CreateDialog();
+
+            tbFileName.LostFocus += TbNumber_LostFocus;
         }
 
-      
+
+        private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (FileBusiness.CreateInstance().CheckFile(tbFileName.Text))
+            {
+                createFromFileOperationModel.FileName = tbFileName.Text;
+                NeedRefresh();
+            }
+        }
+
     }
 }

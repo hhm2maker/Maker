@@ -135,10 +135,9 @@ namespace Maker.View
             if (tbCount.Text.Equals("0"))
                 return;
             List<String> fileNames = new List<string>();
-            FileBusiness business = new FileBusiness();
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Light",new List<string>() { ".light"}));
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\LightScript",new List<string>() { ".lightScript"}));
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.lastProjectPath + @"\Light",new List<string>() { ".light"}));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.lastProjectPath + @"\LightScript",new List<string>() { ".lightScript"}));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.lastProjectPath + @"\Midi", new List<string>() { ".mid" }));
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbLightName.Text,fileNames);
             if (dialog.ShowDialog() == true) {
                 tbLightName.Text = dialog.selectItem;
@@ -168,8 +167,7 @@ namespace Maker.View
             if (tbCount.Text.Equals("0"))
                 return;
             List<String> fileNames = new List<string>();
-            FileBusiness business = new FileBusiness();
-            fileNames.AddRange(business.GetFilesName(mw.lastProjectPath + @"\Page", new List<string>() { ".xml" }));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.lastProjectPath + @"\Page", new List<string>() { ".xml" }));
             fileNames.Remove(System.IO.Path.GetFileName(mw.lightScriptFilePath));
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbLightName.Text, fileNames);
             if (dialog.ShowDialog() == true)

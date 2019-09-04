@@ -21,10 +21,6 @@ namespace Maker.Bridge
         /// </summary>
         MainWindow window;
         /// <summary>
-        /// 文件操作业务类
-        /// </summary>
-        FileBusiness fileBusiness = new FileBusiness();
-        /// <summary>
         /// 传入窗口后续的业务由桥梁来连接业务和窗口
         /// </summary>
         /// <param name="mw"></param>
@@ -56,10 +52,10 @@ namespace Maker.Bridge
         public void ExportMidi(String filePath, String fileName,List<Light> mActionBeanList,bool isWriteToFile) {
             if (isWriteToFile)
             {
-                fileBusiness.WriteMidiFile(filePath, fileName, mActionBeanList, isWriteToFile);
+                FileBusiness.CreateInstance().WriteMidiFile(filePath, fileName, mActionBeanList, isWriteToFile);
             }
             else {
-                fileBusiness.WriteMidiFile(filePath, mActionBeanList);
+                FileBusiness.CreateInstance().WriteMidiFile(filePath, mActionBeanList);
             }
         }
         /// <summary>
@@ -69,7 +65,7 @@ namespace Maker.Bridge
         /// <param name="mActionBeanList"></param>
         public void ExportLight(String filePath, List<Light> mActionBeanList)
         {
-            fileBusiness.WriteLightFile(filePath, mActionBeanList);
+            FileBusiness.CreateInstance().WriteLightFile(filePath, mActionBeanList);
         }
         /// <summary>
         /// 系统默认方式打开图片文件
@@ -100,7 +96,7 @@ namespace Maker.Bridge
         /// <returns></returns>
         public String CheckSaveFile(String saveFilePath)
         {
-            return fileBusiness.CheckSaveFile(saveFilePath);
+            return FileBusiness.CreateInstance().CheckSaveFile(saveFilePath);
         }
         /// <summary>
         /// 创建桌面快捷方式

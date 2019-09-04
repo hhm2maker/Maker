@@ -35,14 +35,13 @@ namespace Maker.View.Play
         private void btnSelectFile_Click(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
-            FileBusiness business = new FileBusiness();
             if (sender == btnSelectFileTutorial )
             {
-                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
-                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
+                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
+                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
             }
             else {
-                fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
+                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
             }
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
             if (dialog.ShowDialog() == true)
@@ -145,7 +144,7 @@ namespace Maker.View.Play
             }
             else
             {
-                xContent = new XAttribute("content", fileBusiness.String2Base(fileBusiness.WriteMidiContent(AllFileToLightList(tutorialName))));
+                xContent = new XAttribute("content", FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(AllFileToLightList(tutorialName))));
             }
             xTutorial.Add(xContent);
             xRoot.Add(xTutorial);
@@ -279,7 +278,7 @@ namespace Maker.View.Play
                 //}
                 //LightBusiness.Print(fileBusiness.ReadMidiContent(mList));
 
-                XAttribute xValue = new XAttribute("value", fileBusiness.String2Base(fileBusiness.WriteMidiContent(mItem.Value)));
+                XAttribute xValue = new XAttribute("value", FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(mItem.Value)));
                 xLight.Add(xValue);
                 xLights.Add(xLight);
             }
@@ -296,11 +295,11 @@ namespace Maker.View.Play
             }
             else if (filePath.EndsWith(".light"))
             {
-                mLightList = fileBusiness.ReadLightFile(mw.LastProjectPath + @"\Light\" + filePath);
+                mLightList = FileBusiness.CreateInstance().ReadLightFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             else if (filePath.EndsWith(".mid"))
             {
-                mLightList = fileBusiness.ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
+                mLightList = FileBusiness.CreateInstance().ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;

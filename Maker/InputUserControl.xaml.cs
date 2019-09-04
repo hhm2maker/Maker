@@ -1131,13 +1131,12 @@ namespace Maker
             }
             if (lockedDictionary.Count != 0)
             {
-                FileBusiness fileBusiness = new FileBusiness();
                 StringBuilder mLockedBuilder = new StringBuilder();
                 mLockedBuilder.Append("Locked{" + Environment.NewLine);
                 foreach (var item in lockedDictionary)
                 {
                     if (!item.Value.Equals(String.Empty))
-                        mLockedBuilder.Append("\t" + item.Key + ":" + fileBusiness.String2Base(fileBusiness.WriteMidiContent(item.Value)) + "." + Environment.NewLine);
+                        mLockedBuilder.Append("\t" + item.Key + ":" + FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(item.Value)) + "." + Environment.NewLine);
                 }
                 mLockedBuilder.Append("}" + Environment.NewLine);
                 mBuilder.Append(mLockedBuilder.ToString());

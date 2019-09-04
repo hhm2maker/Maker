@@ -406,9 +406,8 @@ namespace Maker.Business.Discarded
         private void LoadFileList()
         {
             lbMain.Items.Clear();
-            FileBusiness fileBusiness = new FileBusiness();
             BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-            List<String> fileNames = fileBusiness.GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
+            List<String> fileNames = FileBusiness.CreateInstance().GetFilesName(baseUserControl.GetFileDirectory(), new List<string>() { baseUserControl._fileExtension });
             for (int i = 0; i < fileNames.Count; i++)
             {
                 lbMain.Items.Add(fileNames[i]);

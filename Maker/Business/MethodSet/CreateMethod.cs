@@ -1284,8 +1284,7 @@ namespace Maker.MethodSet
                 }
             }
             filePath += ".mid";
-            FileBusiness business = new FileBusiness();
-            return business.ReadMidiFile(filePath);
+            return FileBusiness.CreateInstance().ReadMidiFile(filePath);
         }
         /// <summary>
         /// 通过Light文件创建灯光组
@@ -1370,9 +1369,7 @@ namespace Maker.MethodSet
                 }
             }
             filePath += ".light";
-
-            FileBusiness business = new FileBusiness();
-            return business.ReadLightFile(filePath);
+            return FileBusiness.CreateInstance().ReadLightFile(filePath);
         }
 
         /// <summary>

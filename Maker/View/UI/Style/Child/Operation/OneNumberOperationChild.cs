@@ -71,21 +71,27 @@ namespace Maker.View.UI.Style.Child
 
         private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse((sender as TextBox).Text, out int num))
+            try
             {
-                if (num == oneNumberOperationModel.Number)
+                string expression = (sender as TextBox).Text;
+                System.Data.DataTable eval = new System.Data.DataTable();
+                int result = (int)eval.Compute(expression, "");
+
+                if (result == oneNumberOperationModel.Number)
                     return;
                 if (slider != null)
                 {
-                    slider.Value = num;
+                    slider.Value = result;
                 }
-                else {
-                    oneNumberOperationModel.Number = num;
+                else
+                {
+                    oneNumberOperationModel.Number = result;
 
                     NeedRefresh();
                 }
             }
-            else {
+            catch
+            {
                 tbNumber.Text = oneNumberOperationModel.Number.ToString();
             }
         }

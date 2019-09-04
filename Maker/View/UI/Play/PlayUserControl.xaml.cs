@@ -129,8 +129,6 @@ namespace Maker.View.UI
                 mw.hintModelDictionary[id].IsHint = false;
         }
 
-
-        private FileBusiness business = new FileBusiness();
         private static Dictionary<String, Dictionary<int, List<PageButtonModel>>> pages = new Dictionary<string, Dictionary<int, List<PageButtonModel>>>();
         /// <summary>
         /// 前面的int是位置，后面的是次数
@@ -160,14 +158,14 @@ namespace Maker.View.UI
             XElement _root = _doc.Element("Root");
 
             XElement _tutorial = _root.Element("Tutorial");
-            String strTutorial = business.Base2String(_tutorial.Attribute("content").Value);
+            String strTutorial = FileBusiness.CreateInstance().Base2String(_tutorial.Attribute("content").Value);
             List<int> mTutorialList = new List<int>();
             for (int i = 0; i < strTutorial.Length; i++)
             {
                 mTutorialList.Add(strTutorial[i]);
             }
 
-            List<Light> tutorialLights = business.ReadMidiContent(mTutorialList);
+            List<Light> tutorialLights = FileBusiness.CreateInstance().ReadMidiContent(mTutorialList);
             InitTeachingData(tutorialLights);
 
               XElement _pages = _root.Element("Pages");
@@ -206,14 +204,14 @@ namespace Maker.View.UI
             foreach (XElement lightElement in _lights.Elements("Light"))
             {
                 //lights.Add(lightElement.Attribute("name").Value, business.LightStringToLightList(lightElement.Attribute("value").Value));
-                String str = business.Base2String(lightElement.Attribute("value").Value);
+                String str = FileBusiness.CreateInstance().Base2String(lightElement.Attribute("value").Value);
 
                 List<int> mList = new List<int>();
                 for (int i = 0; i < str.Length; i++)
                 {
                     mList.Add(str[i]);
                 }
-                lights.Add(lightElement.Attribute("name").Value, business.ReadMidiContent(mList));
+                lights.Add(lightElement.Attribute("name").Value, FileBusiness.CreateInstance().ReadMidiContent(mList));
             }
             //foreach (var item in lights)
             //{

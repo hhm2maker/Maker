@@ -11,11 +11,18 @@ using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Maker.Business.Currency;
 using Maker.Business.Model.Config;
+using Maker.View.LightScriptUserControl;
+using Maker.View;
 
 namespace Maker.Business
 {
     public class FileBusiness
     {
+        private FileBusiness()
+        {
+
+        }
+
         private static FileBusiness _fileBusiness = null;
         public static FileBusiness CreateInstance()
         {
@@ -1074,5 +1081,34 @@ namespace Maker.Business
                  80,70,60,50,40,30,20,10,
                  1,2,3,4,5,6,7,8
               };
+
+        public bool CheckFile(String fileName)
+        {
+            BaseUserControl baseUserControl = null;
+            if (fileName.EndsWith(".mid"))
+            {
+                baseUserControl = StaticConstant.mw.editUserControl.userControls[0];
+            }
+            else
+            {
+                for (int i = 0; i < StaticConstant.mw.editUserControl.userControls.Count; i++)
+                {
+                    if (fileName.EndsWith(StaticConstant.mw.editUserControl.userControls[i]._fileExtension))
+                    {
+                        baseUserControl = StaticConstant.mw.editUserControl.userControls[i];
+                        break;
+                    }
+                }
+            }
+            if (baseUserControl == null)
+            {
+                return false;
+            }
+            if (File.Exists(StaticConstant.mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

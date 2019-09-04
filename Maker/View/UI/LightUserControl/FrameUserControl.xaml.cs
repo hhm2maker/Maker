@@ -714,7 +714,7 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, MouseEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", fileBusiness.GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text","", NewTextFile);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text","", NewTextFile);
             mw.ShowMakerDialog(newFileDialog);
         }
 
@@ -859,8 +859,7 @@ namespace Maker.View.LightUserControl
         private void LoadTextFile(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
-            FileBusiness business = new FileBusiness();
-            fileNames.AddRange(business.GetFilesName(mw.LastProjectPath + @"\Text", new List<string>() { ".text" }));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text", new List<string>() { ".text" }));
 
             ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
             if (dialog.ShowDialog() == true)

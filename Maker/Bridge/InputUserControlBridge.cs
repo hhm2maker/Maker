@@ -578,10 +578,9 @@ namespace Maker.Bridge
                 }
             }
         }
-        private FileBusiness file = new FileBusiness();
         public void LoadRangeFile()
         {
-            iuc.rangeDictionary = file.ReadRangeFile(AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range");
+            iuc.rangeDictionary = FileBusiness.CreateInstance().ReadRangeFile(AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range");
             if (iuc.rangeDictionary == null)
             {
                 new MessageDialog(iuc.mw, "TheReadRangeFileFailed").ShowDialog();

@@ -26,8 +26,6 @@ namespace Maker.View.Dialog
         public ListChangeColorDialog(Window mw,List<Light> mLightList)
         {
             InitializeComponent();
-
-            FileBusiness file = new FileBusiness();
             //ColorList = file.ReadColorFile(mw.strColortabPath);
 
             this.mw = mw;

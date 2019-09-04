@@ -3340,7 +3340,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 XElement xScript = new XElement("Script");
                 xScript.SetAttributeValue("name", item.Key);
-                xScript.SetAttributeValue("value", fileBusiness.String2Base(item.Value.Value));
+                xScript.SetAttributeValue("value", Business.FileBusiness.CreateInstance().String2Base(item.Value.Value));
                 xScript.SetAttributeValue("visible", item.Value.Visible);
                 StringBuilder builder = new StringBuilder();
                 //for (int i = 0; i < item.Value.Contain.Count; i++)

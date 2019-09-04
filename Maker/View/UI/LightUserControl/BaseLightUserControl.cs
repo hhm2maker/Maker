@@ -21,11 +21,11 @@ namespace Maker.View.LightUserControl
         protected override void  LoadFileContent()
         {
             if (filePath.EndsWith(".light")) {
-                lightList = fileBusiness.ReadLightFile(filePath);
+                lightList = FileBusiness.CreateInstance().ReadLightFile(filePath);
             }
             else
             {
-                lightList = fileBusiness.ReadMidiFile(filePath);
+                lightList = FileBusiness.CreateInstance().ReadMidiFile(filePath);
             }
 
             SetData(lightList);
@@ -47,11 +47,11 @@ namespace Maker.View.LightUserControl
         {
             if (filePath.EndsWith(".light"))
             {
-                fileBusiness.WriteLightFile(filePath, GetData());
+                FileBusiness.CreateInstance().WriteLightFile(filePath, GetData());
             }
             else
             {
-                fileBusiness.WriteMidiFile(filePath, GetData());
+                FileBusiness.CreateInstance().WriteMidiFile(filePath, GetData());
             }
         }
 

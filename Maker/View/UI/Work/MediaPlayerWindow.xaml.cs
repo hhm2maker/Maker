@@ -57,8 +57,7 @@ namespace Maker.View.Work
             {
                 //获得路径
                 directoryPath = fbd.SelectedPath;
-                FileBusiness business = new FileBusiness();
-                musicFileNames = business.GetFilesName(directoryPath, new List<string>() {".mp3",".mav" });
+                musicFileNames = FileBusiness.CreateInstance().GetFilesName(directoryPath, new List<string>() {".mp3",".mav" });
                 if (musicFileNames.Count > 0)
                 {
                     player.Open(new Uri(directoryPath +@"\"+ musicFileNames[0], UriKind.RelativeOrAbsolute));

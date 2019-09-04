@@ -58,11 +58,11 @@
       <SetStartTime number="804" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step15" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromFile fileName="Page1_15.mid" />
+      <CreateFromFile fileName="Page1_16.mid" />
       <SetStartTime number="862" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
     <Script name="Step16" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromFile fileName="Page1_16.mid" />
+      <CreateFromFile fileName="Page1_15.mid" />
       <SetStartTime number="920" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
   </Scripts>

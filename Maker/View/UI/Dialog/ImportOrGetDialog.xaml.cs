@@ -74,16 +74,15 @@ namespace Maker.View.Dialog
               StringBuilder builder = new StringBuilder();
             builder.Append("\tLightGroup " + UsableStepName + "LightGroup = new LightGroup();" + Environment.NewLine);
             getList.Add(UsableStepName);
-            FileBusiness business = new FileBusiness();
 
             List<Light> mLl = null;
             if (type == 0)
             {
-                mLl= business.ReadMidiFile(filepath); 
+                mLl= FileBusiness.CreateInstance().ReadMidiFile(filepath); 
             }
             else
             {
-                mLl = business.ReadLightFile(filepath);
+                mLl = FileBusiness.CreateInstance().ReadLightFile(filepath);
             }
             int i = 1;
             foreach (Light l in mLl)

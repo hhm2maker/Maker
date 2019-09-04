@@ -16,7 +16,6 @@ namespace Maker.View
     {
         public NewMainWindow mw;
         public String filePath = String.Empty;
-        protected FileBusiness fileBusiness = new FileBusiness();
         protected StackPanel spHint;
         protected Panel mainView;
         protected bool bMakerLightUserControl;
@@ -156,7 +155,7 @@ namespace Maker.View
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, _fileExtension, fileBusiness.GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension,"", NewFileResult);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, _fileExtension, FileBusiness.CreateInstance().GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension,"", NewFileResult);
             mw.ShowMakerDialog(newFileDialog);
         }
 

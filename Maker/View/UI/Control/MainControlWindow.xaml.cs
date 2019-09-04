@@ -215,8 +215,7 @@ namespace Maker.View.Control
             System.Windows.Forms.DialogResult dr = saveFileDialog1.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
-                FileBusiness business = new FileBusiness();
-                business.WriteLightFile(saveFileDialog1.FileName, mLightList);
+                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog1.FileName, mLightList);
             }
         }
 
@@ -227,8 +226,7 @@ namespace Maker.View.Control
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FileBusiness fileBusiness = new FileBusiness();
-                mLightList = fileBusiness.ReadLightFile(openFileDialog1.FileName);
+                mLightList = FileBusiness.CreateInstance().ReadLightFile(openFileDialog1.FileName);
                 SetDataToChildren();
             }
         }
