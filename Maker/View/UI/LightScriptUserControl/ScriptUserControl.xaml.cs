@@ -1672,7 +1672,10 @@ namespace Maker.View.LightScriptUserControl
                 ScriptModel scriptModel = new ScriptModel();
                 scriptModel.Name = stepName;
                 scriptModel.Visible = scriptModelDictionary[oldName].Visible;
-                scriptModel.OperationModels.AddRange(scriptModelDictionary[oldName].OperationModels.ToArray());
+                foreach (var item in scriptModelDictionary[oldName].OperationModels)
+                {
+                    scriptModel.OperationModels.Add((BaseOperationModel)item.Clone());
+                }
 
                 //String newScript = scriptModelDictionary[oldName].Value;
                 ////新的包含

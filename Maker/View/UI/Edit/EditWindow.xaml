@@ -9,7 +9,6 @@
         Background="#222326"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        Closed="Window_Closed"
         >
     <Grid>
         <Grid.RowDefinitions>

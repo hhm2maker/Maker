@@ -72,7 +72,6 @@ namespace Maker
 
             InitProject();
             InitFile();
-
         }
 
         public ProjectModel NowProjectModel;
@@ -1344,6 +1343,11 @@ namespace Maker
             }
             mLightList = LightBusiness.Copy(mLightList);
             return mLightList;
+        }
+
+        public void ShowFileName(String fileName)
+        {
+            tbFileName.Text = fileName;
         }
     }
 }

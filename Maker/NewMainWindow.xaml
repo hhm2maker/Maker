@@ -86,8 +86,9 @@
             </Grid>
         </DockPanel>
                 <DockPanel Background="#282828">
-                    <Image VerticalAlignment="Center" Margin="5,5,5,5" Source="View/Resources/Image/hint_white.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                    <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                         <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Player}"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Paved}"/>

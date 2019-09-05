@@ -56,6 +56,7 @@ namespace Maker.View.UI.Edit
             {
                 WriteContent(filePath);
             }
+            mw.InitFile();
         }
 
         private void WriteContent(String filePath)
@@ -77,11 +78,6 @@ namespace Maker.View.UI.Edit
                 mw.editUserControl.IntoUserControl(tbFileName.Text+".lightScript",false);
                 //(mw.editUserControl.gMain.Children[0] as BaseUserControl).LoadFile(filePath);
             }
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            mw.InitFile();
         }
     }
 }

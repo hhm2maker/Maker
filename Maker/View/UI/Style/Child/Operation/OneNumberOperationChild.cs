@@ -86,7 +86,7 @@ namespace Maker.View.UI.Style.Child
                 else
                 {
                     oneNumberOperationModel.Number = result;
-
+                    tbNumber.Text = result.ToString();
                     NeedRefresh();
                 }
             }

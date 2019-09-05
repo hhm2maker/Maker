@@ -98,6 +98,8 @@ namespace Maker.View.UI.Edit
         public void IntoUserControl(String fileName)
         {
             FileName = fileName;
+            mw.ShowFileName(FileName);
+
             if (fileName.EndsWith(".mid"))
             {
                 gMain.Children.Clear();
@@ -140,6 +142,8 @@ namespace Maker.View.UI.Edit
         public void IntoUserControl(String fileName,bool checkFileName)
         {
             FileName = fileName;
+            mw.ShowFileName(FileName);
+
             if (fileName.EndsWith(".mid"))
             {
                 gMain.Children.Clear();
