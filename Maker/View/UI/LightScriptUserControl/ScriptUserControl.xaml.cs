@@ -1736,12 +1736,15 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
             UpdateVisible();
             Test();
+            lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            lbStep.ScrollIntoView(lbStep.Items[lbStep.Items.Count-1]);
         }
 
         private void DelStep(object sender, RoutedEventArgs e)
         {
             DelStep();
         }
+
         private void DelStep()
         {
             if (lbStep.SelectedIndex == -1)

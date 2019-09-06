@@ -129,6 +129,70 @@
       <CreateFromFile fileName="Page1_32.mid" />
       <SetStartTime number="1848" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step33" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_33.mid" />
+      <SetStartTime number="1906" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step34" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_34.mid" />
+      <SetStartTime number="1964" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step35" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_35.mid" />
+      <SetStartTime number="2022" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step36" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_36.mid" />
+      <SetStartTime number="2080" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step37" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_37.mid" />
+      <SetStartTime number="2138" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step38" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_38.mid" />
+      <SetStartTime number="2196" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step39" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_39.mid" />
+      <SetStartTime number="2254" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step40" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_40.mid" />
+      <SetStartTime number="2312" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step41" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_41.mid" />
+      <SetStartTime number="2370" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step42" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_42.mid" />
+      <SetStartTime number="2428" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step43" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_43.mid" />
+      <SetStartTime number="2486" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step44" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_44.mid" />
+      <SetStartTime number="2544" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step45" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_45.mid" />
+      <SetStartTime number="2602" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step46" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_46.mid" />
+      <SetStartTime number="2660" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step47" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_47.mid" />
+      <SetStartTime number="2718" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step48" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page1_48.mid" />
+      <SetStartTime number="2776" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
