@@ -2,6 +2,7 @@
 using Maker.Business.Model.OperationModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Operation
@@ -429,6 +430,11 @@ namespace Operation
         {
             ProjectConfigModel projectConfigModel = new ProjectConfigModel();
             XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
+            String midPath = AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\_Cache\_" + fileName.Substring(0, fileName.LastIndexOf('.')) + ".mid";
+            if (stepName.Equals(String.Empty) || File.Exists(midPath))
+            {
+                return FileBusiness.CreateInstance().ReadMidiFile(midPath);
+            }
             return ScriptFileBusiness.FileToLight(AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ projectConfigModel.Path + @"\LightScript\"+fileName,stepName);
         }
 
@@ -456,6 +462,8 @@ namespace Operation
         public static int RHOMBUSDIFFUSION = 20;
         public static int CROSS = 21;
         public static int RANDOMFOUNTAIN = 22;
+        public static int BILATERALDIFFUSION = 23;
+        
         public static LightGroup Automatic(int automaticType,params int[] nums)
         {
             if (automaticType == RHOMBUSDIFFUSION)
@@ -464,13 +472,17 @@ namespace Operation
             }
             else if (automaticType == CROSS)
             {
-                return Cross(nums[0], nums[1]);
+                return Cross(nums[0], nums[1],false);
             }
             else if (automaticType == RANDOMFOUNTAIN)
             {
                 return RandomFountain(nums[0],nums[1],true);
             }
-        
+            else if (automaticType == BILATERALDIFFUSION)
+            {
+                return Cross(nums[0], nums[1],true);
+            }
+
             return null;
         }
 
@@ -626,15 +638,38 @@ namespace Operation
             }
         }
 
-        private static LightGroup Cross(int startPosition,int continued)
+        private static LightGroup Cross(int startPosition,int continued,bool isTwo)
         {
             if (startPosition >= 100)
                 return null;
             LightGroup mLl = new LightGroup();
+
             bool bTop = true;
             bool bBottom = true;
             bool bLeft = true;
             bool bRight = true;
+
+            if (isTwo)
+            {
+                if (startPosition % 10 > 4)
+                {
+                    bRight = false;
+                   
+                }
+                else
+                {
+                    bLeft = false;
+                }
+
+                if (startPosition > 49)
+                {
+                    bTop = false;
+                }
+                else
+                {
+                    bBottom = false;
+                }
+            }
             int iTop = startPosition;
             int iBottom = startPosition;
             int iLeft = startPosition;

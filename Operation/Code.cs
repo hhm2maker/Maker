@@ -463,6 +463,10 @@ namespace Operation
                     {
                         sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromLimitlessLampFile(\"" + createFromFileOperationModel.FileName + "\");");
                     }
+                    else if (createFromFileOperationModel.FileName.EndsWith(".lightScript"))
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.CreateFromLightScriptFile(\"" + createFromFileOperationModel.FileName +"\",\""+ createFromFileOperationModel.StepName+ "\");");
+                    }
                 }
                 else if (mItem is CreateFromQuickOperationModel)
                 {
@@ -566,6 +570,11 @@ namespace Operation
                     {
                         sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
                             "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min + ");");
+                    }
+                    else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
+                    {
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.BILATERALDIFFUSION," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Position +
+                            "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Continued + ");");
                     }
                 }
                 else if (mItem is FoldOperationModel)

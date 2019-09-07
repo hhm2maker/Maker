@@ -540,4 +540,5 @@
     <sys:String x:Key="Setup">安装</sys:String>
     <sys:String x:Key="If">如果</sys:String>
     <sys:String x:Key="Then">那么</sys:String>
+    <sys:String x:Key="BilateralDiffusion">两侧扩散</sys:String>
 </ResourceDictionary>

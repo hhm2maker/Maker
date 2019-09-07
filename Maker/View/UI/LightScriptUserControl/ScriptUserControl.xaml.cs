@@ -4012,11 +4012,12 @@ namespace Maker.View.LightScriptUserControl
         public void NewFromImport(String fileName, String _stepName)
         {
             String stepName = GetUsableStepName();
-            String commandLine = "\tLightGroup " + stepName + "LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + _stepName + "\");";
+            //String commandLine = "\tLightGroup Step1LightGroup = Create.CreateFromLightScriptFile(\"" + fileName + "\",\"" + _stepName + "\");";
             ScriptModel scriptModel = new ScriptModel();
             scriptModel.Name = stepName;
-            scriptModel.Value = commandLine;
+            scriptModel.Value = "";
             scriptModel.Visible = true;
+            scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(fileName, _stepName) };
             //scriptModel.Contain = new List<string>() { stepName };
             scriptModel.Intersection = new List<string>();
             scriptModel.Complement = new List<string>();
@@ -4298,13 +4299,13 @@ namespace Maker.View.LightScriptUserControl
                         return;
                     }
                     ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
-                    mw.AddSetting(_dialog);
+                    mw.ShowMakerDialog(_dialog);
                 }
                 else 
                 {
                     String stepName = GetUsableStepName();
                     ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName) };
+                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName,"") };
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
                     scriptModel.Visible = true;

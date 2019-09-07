@@ -1349,5 +1349,17 @@ namespace Maker
         {
             tbFileName.Text = fileName;
         }
+
+        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            List<Light> mLightList = GetData();
+
+            //没有AB集合不能保存
+            if (mLightList.Count == 0)
+            {
+                return;
+            }
+            FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.'))+".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
+        }
     }
 }

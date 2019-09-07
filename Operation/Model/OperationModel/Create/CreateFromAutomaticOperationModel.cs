@@ -14,7 +14,8 @@ namespace Maker.Business.Model.OperationModel
         {
             RhombusDiffusion = 0,
             Cross = 1,
-            RandomFountain = 2
+            RandomFountain = 2,
+            BilateralDiffusion = 3
         };
 
         public AutomaticType MyAutomaticType
@@ -42,6 +43,10 @@ namespace Maker.Business.Model.OperationModel
                 if (value is RandomFountainAutomaticOperationModel)
                 {
                     MyAutomaticType = AutomaticType.RandomFountain;
+                }
+                if (value is BilateralDiffusionAutomaticOperationModel)
+                {
+                    MyAutomaticType = AutomaticType.BilateralDiffusion;
                 }
             }
         }
@@ -102,6 +107,12 @@ namespace Maker.Business.Model.OperationModel
         }
 
         [Serializable]
+        public class BilateralDiffusionAutomaticOperationModel : BaseOneNumberAutomatic
+        {
+            public BilateralDiffusionAutomaticOperationModel(int position, int continued) : base(position, continued) { }
+        }
+
+        [Serializable]
         public class RandomFountainAutomaticOperationModel : BaseAutomatic
         {
             public int Min
@@ -144,14 +155,20 @@ namespace Maker.Business.Model.OperationModel
             {
                 MyBaseAutomatic = new RandomFountainAutomaticOperationModel(int.Parse(xEdit.Attribute("min").Value), int.Parse(xEdit.Attribute("max").Value));
             }
+            else if(int.Parse(xEdit.Attribute("automaticType").Value) == 3)
+            {
+                MyBaseAutomatic = new BilateralDiffusionAutomaticOperationModel(int.Parse(xEdit.Attribute("position").Value), int.Parse(xEdit.Attribute("continued").Value));
+            }
         }
 
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromAutomatic");
+            Console.WriteLine();
             xVerticalFlipping.SetAttributeValue("automaticType", (int)MyAutomaticType);
             if (MyAutomaticType == AutomaticType.RhombusDiffusion
-                || MyAutomaticType == AutomaticType.Cross)
+                || MyAutomaticType == AutomaticType.Cross
+                || MyAutomaticType == AutomaticType.BilateralDiffusion)
             {
                 xVerticalFlipping.SetAttributeValue("position", (MyBaseAutomatic as BaseOneNumberAutomatic).Position);
                 xVerticalFlipping.SetAttributeValue("continued", (MyBaseAutomatic as BaseOneNumberAutomatic).Continued);

@@ -43,6 +43,14 @@ namespace Maker.View.UI.Style.Child
                 tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max.ToString());
                 AddTitleAndControl("MaxColon", tbTwo);
             }
+            else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
+            {
+                AddTitleAndControl("TypeColon", GetTexeBlock("BilateralDiffusion", true));
+                tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Position.ToString());
+                AddTitleAndControl("PositionColon", tbOne);
+                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Continued.ToString());
+                AddTitleAndControl("DurationColon", tbTwo);
+            }
 
             tbOne.LostFocus += TbNumber_LostFocus;
             tbTwo.LostFocus += TbNumber_LostFocus;

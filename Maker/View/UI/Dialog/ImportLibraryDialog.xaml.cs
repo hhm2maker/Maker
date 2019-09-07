@@ -30,17 +30,21 @@ namespace Maker.View.Dialog
             if (lbMain.SelectedIndex == -1)
                 return;
             FileInfo fileInfo = new FileInfo(fileName);
-            if(lbMain.SelectedItem.ToString().Equals("Main"))
-                mw.projectUserControl.suc.NewFromImport(fileInfo.Name,"");
+            if (lbMain.SelectedItem.ToString().Equals("Main"))
+            {
+                mw.editUserControl.suc.NewFromImport(fileInfo.Name, "");
+            }
             else
-                mw.projectUserControl.suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
-            mw.RemoveSetting();
+            {
+                mw.editUserControl.suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
+            }
+            mw.RemoveDialog();
         }
       
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            mw.RemoveSetting();
+            mw.RemoveDialog();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
