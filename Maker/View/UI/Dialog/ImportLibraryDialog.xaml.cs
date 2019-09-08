@@ -54,8 +54,8 @@ namespace Maker.View.Dialog
                 if (step.Visible) {
                     lbMain.Items.Add(step.Name);
                 }
-                lbMain.Items.Add("Main");
             }
+            lbMain.Items.Add("Main");
             //LightScriptBusiness scriptBusiness = new LightScriptBusiness();
             //String command = scriptBusiness.LoadLightScript(fileName);
             //Dictionary<String, String> dictionary = scriptBusiness.GetCatalog(command, out Dictionary<String, List<String>> extendsDictionary, out Dictionary<String, List<String>> intersectionDictionary, out Dictionary<String, List<String>> complementDictionary);

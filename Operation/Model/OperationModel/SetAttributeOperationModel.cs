@@ -10,6 +10,7 @@ namespace Maker.Business.Model.OperationModel
     [Serializable]
     public class SetAttributeOperationModel : CreateOperationModel
     {
+        [Serializable]
         public class AttributeOperationModel {
             public enum AttributeType {
                 TIME = 0,
@@ -33,6 +34,7 @@ namespace Maker.Business.Model.OperationModel
         }
 
         public List<AttributeOperationModel> AttributeOperationModels = new List<AttributeOperationModel>();
+
 
         public SetAttributeOperationModel()
         {

@@ -1,4 +1,6 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.Model;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +15,32 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "CreateFromTheStep";
         private CreateFromStepOperationModel createFromStepOperationModel;
+
+        public TextBox tbStepName;
         public CreateFromStepOperationChild(CreateFromStepOperationModel createFromStepOperationModel)
         {
             this.createFromStepOperationModel =  createFromStepOperationModel;
             //构建对话框
-            AddTitleAndControl("ParentColon", GetTexeBlock(createFromStepOperationModel.StepName.ToString()));
+            tbStepName = GetTexeBox(createFromStepOperationModel.StepName.ToString());
+            AddTitleAndControl("ParentColon", tbStepName);
 
             CreateDialog();
+
+            tbStepName.LostFocus += TbStart_LostFocus;
         }
 
-      
+        private void TbStart_LostFocus(object sender, RoutedEventArgs e)
+        {
+            String strStepName = (sender as TextBox).Text;
+            if ((StaticConstant.mw.editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary.ContainsKey(strStepName) && !strStepName.Equals((StaticConstant.mw.editUserControl.userControls[3] as ScriptUserControl).lbStep.SelectedItem.ToString()))
+            {
+                createFromStepOperationModel.StepName = strStepName;
+                 NeedRefresh();
+            }
+            else
+            {
+                tbStepName.Text = createFromStepOperationModel.StepName.ToString();
+            }
+        }
     }
 }

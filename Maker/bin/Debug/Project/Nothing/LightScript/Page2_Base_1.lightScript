@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position=",-./" interval="12" continued="24" color="&amp;" type="0" action="10" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step1" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step2" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step3" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

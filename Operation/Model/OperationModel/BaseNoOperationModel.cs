@@ -23,5 +23,10 @@ namespace Operation.Model.OperationModel
 
             return xVerticalFlipping;
         }
+
+        public override void SetXElement(XElement xEdit)
+        {
+            OperationName = xEdit.Name.ToString();
+        }
     }
 }

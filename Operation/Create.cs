@@ -431,7 +431,7 @@ namespace Operation
             ProjectConfigModel projectConfigModel = new ProjectConfigModel();
             XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
             String midPath = AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\_Cache\_" + fileName.Substring(0, fileName.LastIndexOf('.')) + ".mid";
-            if (stepName.Equals(String.Empty) || File.Exists(midPath))
+            if (stepName.Equals(String.Empty) && File.Exists(midPath))
             {
                 return FileBusiness.CreateInstance().ReadMidiFile(midPath);
             }
