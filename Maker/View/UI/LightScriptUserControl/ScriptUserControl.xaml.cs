@@ -4348,5 +4348,10 @@ namespace Maker.View.LightScriptUserControl
                 tbMusic.Text = AudioResources;
             }
         }
+
+        private void lbStep_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            svTime.ScrollToVerticalOffset(e.VerticalOffset * 32);
+        }
     }
 }

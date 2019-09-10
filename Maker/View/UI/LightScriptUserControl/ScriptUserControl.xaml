@@ -217,8 +217,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <!--Style="{StaticResource ListBoxStyle1}"-->
-                    <ListBox Background="#222326" Grid.Column="0" Focusable="True" x:Name="lbStep" Style="{DynamicResource ListBoxStyle1}" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
-                        <ListBox.ContextMenu >
+                    <ListBox Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" x:Name="lbStep" Style="{DynamicResource ListBoxStyle1}" MouseDoubleClick="LbStep_MouseDoubleClick"  SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
+                        <ListBox.ContextMenu>
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
                                 <MenuItem Click="EditPart" Header="{DynamicResource Edit}" FontSize="14"/>
@@ -233,7 +233,9 @@
                             </ContextMenu>
                         </ListBox.ContextMenu>
                     </ListBox>
-                    <Canvas Name="cTime" Grid.Column="1" Background="#222326" SizeChanged="cTime_SizeChanged"  />
+                    <ScrollViewer Name="svTime" Grid.Column="1" Background="#222326">
+                        <Canvas Name="cTime" SizeChanged="cTime_SizeChanged"  />
+                    </ScrollViewer>
                 </Grid>
                 <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">
                     <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>

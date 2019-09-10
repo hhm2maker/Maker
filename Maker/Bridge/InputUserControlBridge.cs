@@ -396,6 +396,9 @@ namespace Maker.Bridge
                 stepNum++;
             }
             }
+            iuc.cTime.Height = iuc.scriptModelDictionary.Count * (30+2);
+
+
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             {
                 //清空
