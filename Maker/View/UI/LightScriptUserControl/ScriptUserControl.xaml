@@ -234,7 +234,10 @@
                         </ListBox.ContextMenu>
                     </ListBox>
                     <ScrollViewer Name="svTime" Grid.Column="1" Background="#222326">
-                        <Canvas Name="cTime" SizeChanged="cTime_SizeChanged"  />
+                        <Grid SizeChanged="cTime_SizeChanged" >
+                            <Canvas Name="cTime" VerticalAlignment="Top" />
+                            <Canvas Name="cTimeLine" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeave="cTimeLine_MouseLeave" MouseLeftButtonDown="cTime_MouseLeftButtonDown" MouseLeftButtonUp="cTimeLine_MouseLeftButtonUp" MouseMove="cTimeLine_MouseMove"/>
+                        </Grid>
                     </ScrollViewer>
                 </Grid>
                 <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">

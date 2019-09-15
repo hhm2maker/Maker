@@ -79,10 +79,9 @@ namespace Maker.View.Device
                 //清空
                 ClearAllColorExceptMembrane();
                 iplay.EndPlayEvent();
-
                 return;
             }
-            if (number == 0)
+            if (number == SmallTime)
             {
                 //开始播放事件 - 进程中
                 iplay.StartPlayEvent();
@@ -99,33 +98,11 @@ namespace Maker.View.Device
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
                 if (x[i].Action == 128)
                 {
-                    if (GetButton(x[i].Position) is RoundedCornersPolygon rcp)
-                    {
-                        rcp.Fill = closeBrush;
-                    }
-                    if (GetButton(x[i].Position) is Ellipse e)
-                    {
-                        e.Fill = closeBrush;
-                    }
-                    if (GetButton(x[i].Position) is Rectangle r)
-                    {
-                        r.Fill = closeBrush;
-                    }
+                    (GetButton(x[i].Position) as Shape).Fill = closeBrush;
                 }
                 else
                 {
-                    if (GetButton(x[i].Position) is RoundedCornersPolygon rcp)
-                    {
-                        rcp.Fill = StaticConstant.brushList[x[i].Color];
-                    }
-                    if (GetButton(x[i].Position) is Ellipse e)
-                    {
-                        e.Fill = StaticConstant.brushList[x[i].Color];
-                    }
-                    if (GetButton(x[i].Position) is Rectangle r)
-                    {
-                        r.Fill = StaticConstant.brushList[x[i].Color];
-                    }
+                    (GetButton(x[i].Position) as Shape).Fill = StaticConstant.brushList[x[i].Color];
                 }
             }
         }
@@ -148,10 +125,10 @@ namespace Maker.View.Device
                     e.Cancel = true;
                     break;
                 }
-                if (NowTimePosition == 0)
-                {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * timeList[NowTimePosition]));
-                }
+                //if (NowTimePosition == SmallTime)
+                //{
+                //    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * timeList[NowTimePosition]));
+                //}
                 if (NowTimePosition > 0)
                 {
                     Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
@@ -174,15 +151,21 @@ namespace Maker.View.Device
             timeDictionary = LightBusiness.GetParagraphLightLightList(mActionBeanList);
         }
 
+        private int myTTT;
+
         /// <summary>
         /// 播放
         /// </summary>
         public override void Play()
         {
-            NowTimePosition = 0;
+            myTTT = timeList.IndexOf(SmallTime);
+            NowTimePosition = myTTT;
             //开始播放事件
             iplay.PlayEvent();
-            worker.RunWorkerAsync();
+            if (!worker.IsBusy)
+            {
+                worker.RunWorkerAsync();
+            }
         }
 
         /// <summary>
@@ -194,9 +177,8 @@ namespace Maker.View.Device
             iplay.StopEvent();
 
             worker.CancelAsync();
-            NowTimePosition = 0;
+            NowTimePosition = myTTT;
             return;
-
         }
 
 

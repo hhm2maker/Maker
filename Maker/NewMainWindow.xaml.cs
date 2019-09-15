@@ -28,6 +28,7 @@ using Maker.View.UI.Base;
 using Maker.Business.Model.Config;
 using Maker.Business.Currency;
 using Maker.View.UI.Tool;
+using Maker.Business.Model.OperationModel;
 
 namespace Maker
 {
@@ -1180,7 +1181,7 @@ namespace Maker
                 //加入播放器页面
                 if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
-                    userControl = new PlayerUserControl(this, mLightList, (editUserControl.userControls[3] as ScriptUserControl).AudioResources);
+                    userControl = new PlayerUserControl(this, mLightList, (editUserControl.userControls[3] as ScriptUserControl).AudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
                 }
                 else
                 {
@@ -1360,6 +1361,17 @@ namespace Maker
                 return;
             }
             FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.'))+".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
+        }
+
+        private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
+        {
+            Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
+            int i = 0;
+            foreach (var item in models.Values) {
+                (item.OperationModels[1] as OneNumberOperationModel).Number = 2868 + i * 58;
+                i++;
+            }
+            (editUserControl.userControls[3] as ScriptUserControl).Test();
         }
     }
 }

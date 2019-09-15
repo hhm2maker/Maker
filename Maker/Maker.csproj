@@ -172,6 +172,7 @@
     <Compile Include="Business\Model\IdeaModel.cs" />
     <Compile Include="Business\Model\HintModel.cs" />
     <Compile Include="Business\Parameter\NewMainWindow.cs" />
+    <Compile Include="Business\Utils\MediaFileTimeUtil.cs" />
     <Compile Include="Business\Utils\WebClientUtil.cs" />
     <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
     <Compile Include="Business\Model\KeyboardModel.cs" />

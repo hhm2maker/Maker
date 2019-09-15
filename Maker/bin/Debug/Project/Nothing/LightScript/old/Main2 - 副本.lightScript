@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_1.lightScript" />
+      <SetStartTime number="2940" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_2.lightScript" />
+      <SetStartTime number="3000" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_3.lightScript" />
+      <SetStartTime number="3060" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_4.lightScript" />
+      <SetStartTime number="3120" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_5.lightScript" />
+      <SetStartTime number="3180" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_6.lightScript" />
+      <SetStartTime number="3240" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_7.lightScript" />
+      <SetStartTime number="3300" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_8.lightScript" />
+      <SetStartTime number="3360" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_9.lightScript" />
+      <SetStartTime number="3420" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step10" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_10.lightScript" />
+      <SetStartTime number="3480" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step11" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_11.lightScript" />
+      <SetStartTime number="3540" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step12" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_12.lightScript" />
+      <SetStartTime number="3600" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step13" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_13.lightScript" />
+      <SetStartTime number="3660" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step14" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_14.lightScript" />
+      <SetStartTime number="3720" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step15" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_15.lightScript" />
+      <SetStartTime number="3780" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step16" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_16.lightScript" />
+      <SetStartTime number="3840" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step17" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_17.lightScript" />
+      <SetStartTime number="3900" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step18" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_18.lightScript" />
+      <SetStartTime number="3960" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step19" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_19.lightScript" />
+      <SetStartTime number="4020" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step20" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_20.lightScript" />
+      <SetStartTime number="4080" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step21" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_21.lightScript" />
+      <SetStartTime number="4140" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step22" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_22.lightScript" />
+      <SetStartTime number="4200" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step23" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_23.lightScript" />
+      <SetStartTime number="4260" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step24" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_24.lightScript" />
+      <SetStartTime number="4320" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step25" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_25.lightScript" />
+      <SetStartTime number="4380" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step26" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_26.lightScript" />
+      <SetStartTime number="4440" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step27" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_27.lightScript" />
+      <SetStartTime number="4500" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step28" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_28.lightScript" />
+      <SetStartTime number="4560" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step29" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_29.lightScript" />
+      <SetStartTime number="4620" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step30" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page2_30.lightScript" />
+      <SetStartTime number="4680" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
+</Root>

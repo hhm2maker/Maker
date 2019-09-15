@@ -56,5 +56,10 @@ namespace Maker.View.Device
             this.Width = Width;
             this.Height = Height;
         }
+
+        /// <summary>
+        /// 最小播放时间 - 起始时间
+        /// </summary>
+        public int SmallTime = 0;
     }
 }

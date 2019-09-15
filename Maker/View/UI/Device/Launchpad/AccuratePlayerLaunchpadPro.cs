@@ -79,7 +79,7 @@ namespace Maker.View.Device
         /// <param name="e"></param>
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (NowTime == 0)
+            if (NowTime == SmallTime)
             {
                 //开始播放事件 - 进程中
                 if(iplay != null)
@@ -91,7 +91,7 @@ namespace Maker.View.Device
                 if (iplay != null)
                     iplay.EndPlayEvent();
             }
-            int i = 0;
+            int i = SmallTime;
             for (int l = i; l < lightList.Count; l++)
             {
                 if (lightList[l].Time == NowTime)
@@ -148,7 +148,7 @@ namespace Maker.View.Device
         /// 播放
         /// </summary>
         public override void Play() {
-            NowTime = 0;
+            NowTime = SmallTime;
             //开始播放事件
             if (iplay != null)
                 iplay.PlayEvent();
@@ -159,7 +159,7 @@ namespace Maker.View.Device
         /// 停止
         /// </summary>
         public override void Stop() {
-            NowTime = 0;
+            NowTime = SmallTime;
             //停止播放事件
             if (iplay != null)
                 iplay.StopEvent();
@@ -168,14 +168,11 @@ namespace Maker.View.Device
             foreach (var item in Children)
             {
                 //停止播放=取消着色
-                RoundedCornersPolygon rcp = item as RoundedCornersPolygon;
-                if (rcp != null)
+                if (item is RoundedCornersPolygon rcp)
                     rcp.Fill = closeBrush;
-                Ellipse e2 = item as Ellipse;
-                if (e2 != null)
+                if (item is Ellipse e2)
                     e2.Fill = closeBrush;
-                Rectangle r = item as Rectangle;
-                if (r != null)
+                if (item is Rectangle r)
                     r.Fill = closeBrush;
             }
         }
@@ -209,5 +206,7 @@ namespace Maker.View.Device
         public override void SetWait(TimeSpan wait) {
             this.wait = wait;
         }
+
+    
     }
 }

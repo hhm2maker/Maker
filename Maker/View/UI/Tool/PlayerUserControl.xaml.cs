@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 using System.Windows.Controls;
 using Maker.ViewBusiness;
 using System.Windows.Media.Animation;
+using System.Runtime.InteropServices;
+using System.Text;
+using Maker.Business.Utils;
 
 namespace Maker.View
 {
@@ -46,17 +49,28 @@ namespace Maker.View
             tbBPM.Text = mw.NowProjectModel.Bpm;
         }
 
-        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList,String audioResources)
+        private List<Light> mActionBeanList;
+        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList,String audioResources, double dTime,int nowTimeI)
         {
             InitializeComponent();
             this.mw = mw;
 
             AudioResources = audioResources;
+            this.dTime = dTime;
+            this.mActionBeanList = mActionBeanList;
             InitPlayLaunchpad();
             SetData(mActionBeanList);
 
             tbBPM.Text = mw.NowProjectModel.Bpm;
+
+            playLpd.SmallTime = nowTimeI;
+            //(int)(LightBusiness.GetMax(mActionBeanList) * dTime)  
+            //Console.WriteLine((int)Math.Round(nowTimeP * LightBusiness.GetMax(GetData())));
+
+            dAllTime = double.Parse(MediaFileTimeUtil.GetAsfTime(AudioResources, double.Parse(tbBPM.Text)));
+            MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
         }
+        double MediaElementPosition = 0;
 
         private void InitPlayLaunchpad()
         {
@@ -195,6 +209,7 @@ namespace Maker.View
         }
 
         private String AudioResources = String.Empty;
+        private double dTime = 0;
         private void ChooseAudio(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -280,12 +295,21 @@ namespace Maker.View
                 }
             }
         }
-   
+
+        double dAllTime = 0;
+
+        bool isFirst = true;
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
+          
+
             if (File.Exists(AudioResources))
             {
-                mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
+                if (isFirst) {
+                    //初始化进度条
+                    mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
+                    isFirst = false;
+                }
                 mediaElement.Play();
             }
             else
@@ -293,6 +317,8 @@ namespace Maker.View
                 playLpd.Play();
             }
         }
+
+     
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             playLpd.Stop();
@@ -304,6 +330,8 @@ namespace Maker.View
 
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
+            mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * MediaElementPosition);
+            //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
             playLpd.Play();
         }
     }

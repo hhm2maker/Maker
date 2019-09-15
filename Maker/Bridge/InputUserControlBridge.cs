@@ -409,7 +409,7 @@ namespace Maker.Bridge
                 SetDataToDataGrid(lights);
             }
         }
-        private List<int> liTime = new List<int>();
+        public List<int> liTime = new List<int>();
         private Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
         private List<String> ColorList = new List<string>();
         private int nowTimePoint = 1;

@@ -31,6 +31,7 @@ using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Maker.View.UI.Dialog.WindowDialog;
+using System.Windows.Shapes;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -2133,8 +2134,16 @@ namespace Maker.View.LightScriptUserControl
             mw.AddSetting(style);
         }
 
+        int lastStepSelect = -1;
         private void LbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lastStepSelect != -1 && lbStep.Items.Count >= lastStepSelect + 1)
+            {
+                StackPanel sp = lbStep.Items[lastStepSelect] as StackPanel;
+                sp.Background = new SolidColorBrush(Colors.Transparent);
+            }
+
+            lastStepSelect = lbStep.SelectedIndex;
             if (lbStep.SelectedIndex == -1)
             {
                 //_bridge.UpdateForColor(mLightList, false);
@@ -2150,6 +2159,8 @@ namespace Maker.View.LightScriptUserControl
                 //spStepControl.ToolTip = null;
 
                 //更新右侧Style
+                StackPanel sp = lbStep.SelectedItem as StackPanel;
+                sp.Background = new SolidColorBrush(Colors.Black);
                 sw.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             }
         }
@@ -2904,7 +2915,7 @@ namespace Maker.View.LightScriptUserControl
 
                 iNowPosition -= 1;
                 //重新加载
-                LoadFile(Path.GetFileName(filePath));
+                LoadFile(System.IO.Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -2928,7 +2939,7 @@ namespace Maker.View.LightScriptUserControl
 
                 iNowPosition += 1;
                 //重新加载
-                LoadFile(Path.GetFileName(filePath));
+                LoadFile(System.IO.Path.GetFileName(filePath));
                 if (selectedIndex < lbStep.Items.Count)
                 {
                     lbStep.SelectedIndex = selectedIndex;
@@ -4352,6 +4363,83 @@ namespace Maker.View.LightScriptUserControl
         private void lbStep_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             svTime.ScrollToVerticalOffset(e.VerticalOffset * 32);
+        }
+
+        bool bTimeLine = false;
+        private void cTime_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            bTimeLine = true;
+
+            TimeLineChange(e.GetPosition(cTimeLine as Canvas));
+        }
+
+        public double nowTimeP = 0;
+        public int nowTimeI = 0;
+
+        private void cTimeLine_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            bTimeLine = false;
+        }
+
+        private void cTimeLine_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (bTimeLine)
+            {
+                TimeLineChange(e.GetPosition(cTimeLine as Canvas));
+            }
+        }
+
+        private void TimeLineChange(Point p)
+        {
+            nowTimeP = p.X / cTimeLine.ActualWidth;
+
+            int now = (int)(LightBusiness.GetMax(GetData()) * nowTimeP);
+
+            for (int i = 0; i < _bridge.liTime.Count; i++)
+            {
+                if (now == _bridge.liTime[i])
+                {
+                    nowTimeI = _bridge.liTime[i];
+                    break;
+                }
+
+                if (now < _bridge.liTime[i])
+                {
+                    if (i == 0)
+                    {
+                        nowTimeI = _bridge.liTime[i];
+                        break;
+                    }
+                    else
+                    {
+                        nowTimeI = now - _bridge.liTime[i - 1] < _bridge.liTime[i] - now ? _bridge.liTime[i - 1] : _bridge.liTime[i];
+                        break;
+                    }
+                }
+            }
+
+            tbTimePointCountLeft.Text = (_bridge.liTime.IndexOf(nowTimeI) + 1).ToString();
+
+            double d = nowTimeI * 1.0 / LightBusiness.GetMax(GetData());
+
+            cTimeLine.Children.Clear();
+            Line line = new Line()
+            {
+                X1 = d * cTimeLine.ActualWidth,
+                X2 = d * cTimeLine.ActualWidth + 5,
+                Y1 = 0,
+                Y2 = cTimeLine.ActualHeight,
+                Stroke = new SolidColorBrush(Colors.White),
+                //StrokeThickness = 10
+            };
+            cTimeLine.Children.Add(line);
+
+            nowTimeP = d;
+        }
+
+        private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)
+        {
+            bTimeLine = false;
         }
     }
 }
