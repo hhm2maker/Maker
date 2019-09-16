@@ -131,11 +131,19 @@ namespace Maker.View.Device
                 //}
                 if (NowTimePosition > 0)
                 {
-                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                    else {
+                        Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    }
                 }
                 worker.ReportProgress(NowTimePosition);//返回进度
             }
         }
+
+        bool isFirst = true;
 
         /// <summary>
         /// 设置数据
@@ -158,6 +166,7 @@ namespace Maker.View.Device
         /// </summary>
         public override void Play()
         {
+            isFirst = true;
             myTTT = timeList.IndexOf(SmallTime);
             NowTimePosition = myTTT;
             //开始播放事件

@@ -68,7 +68,12 @@ namespace Maker.View
             //Console.WriteLine((int)Math.Round(nowTimeP * LightBusiness.GetMax(GetData())));
 
             dAllTime = double.Parse(MediaFileTimeUtil.GetAsfTime(AudioResources, double.Parse(tbBPM.Text)));
-            MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
+            //MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
+            MediaElementPosition = (nowTimeI * 1.0 / dAllTime);
+
+            //Console.WriteLine(nowTimeI +"---"+ LightBusiness.GetMax(mActionBeanList)+ "---"+dAllTime);
+            //Console.WriteLine(MediaElementPosition);
+
         }
         double MediaElementPosition = 0;
 
