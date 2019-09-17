@@ -412,7 +412,7 @@ namespace Maker.Bridge
         public List<int> liTime = new List<int>();
         private Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
         private List<String> ColorList = new List<string>();
-        private int nowTimePoint = 1;
+        public int nowTimePoint = 1;
 
         public void RefreshColor()
         {
@@ -511,6 +511,7 @@ namespace Maker.Bridge
             //    }
             //    iuc.mLaunchpadData.Add(new Light(0,144,i,x[i]));
             //}
+            iuc.OnDrawTimeLine();
 
             if (nowTimePoint == 1)
             {
@@ -533,19 +534,19 @@ namespace Maker.Bridge
         {
             if (nowTimePoint <= 1) return;
             nowTimePoint--;
-            iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
+            //iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
             iuc.tbTimePointCountLeft.Text = nowTimePoint.ToString();
-            iuc.tbTimePointCount.Text = liTime.Count.ToString();
-            LoadFrame();
+            //iuc.tbTimePointCount.Text = liTime.Count.ToString();
+            //LoadFrame();
         }
         public void ToNextTime()
         {
             if (nowTimePoint > dic.Count - 1) return;
             nowTimePoint++;
-            iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
+            //iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
             iuc.tbTimePointCountLeft.Text = nowTimePoint.ToString();
-            iuc.tbTimePointCount.Text = liTime.Count.ToString();
-            LoadFrame();
+            //iuc.tbTimePointCount.Text = liTime.Count.ToString();
+            //LoadFrame();
         }
         public void tbTimePointCountLeft_TextChanged()
         {

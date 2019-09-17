@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Input>
   <Format>
-    <Delimiter>Comma</Delimiter>
+    <Delimiter>Space</Delimiter>
     <Range>Shortbar</Range>
   </Format>
 </Input>

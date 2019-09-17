@@ -49,6 +49,10 @@ namespace Maker.View.UI.UserControlDialog
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
+            Ok();
+        }
+
+        private void Ok() {
             if (tbNumber.Text.Equals(String.Empty))
             {
                 tbNumber.Focus();
@@ -64,7 +68,6 @@ namespace Maker.View.UI.UserControlDialog
                 tbNumber.Focus();
                 return;
             }
-
             toReturnResult(fileName);
         }
 
@@ -85,6 +88,14 @@ namespace Maker.View.UI.UserControlDialog
             if (!fileName.EndsWith(fileType))
             {
                 fileName += fileType;
+            }
+        }
+
+        private void tbNumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Ok();
             }
         }
     }

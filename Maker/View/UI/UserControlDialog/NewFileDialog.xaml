@@ -26,7 +26,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" HorizontalAlignment="Stretch" FontSize="14" Background="{x:Null}" BorderBrush="#b8bfc6" Height="22"  Name="tbNumber" CaretBrush="#f0f0f0"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged"/>
+                <TextBox Grid.Column="0" HorizontalAlignment="Stretch" FontSize="14" Background="{x:Null}" BorderBrush="#b8bfc6" Height="22"  Name="tbNumber" CaretBrush="#f0f0f0"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged" KeyDown="tbNumber_KeyDown"/>
                 <TextBlock Grid.Column="1" FontSize="14" Background="{x:Null}" Height="22" Width="100" Name="tbExtension" TextAlignment="Left" Foreground="#b8bfc6" Margin="10,0,0,0"/>
             </Grid>
         </StackPanel>

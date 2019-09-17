@@ -4418,28 +4418,44 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
 
-            tbTimePointCountLeft.Text = (_bridge.liTime.IndexOf(nowTimeI) + 1).ToString();
+            _bridge.nowTimePoint = _bridge.liTime.IndexOf(nowTimeI) + 1;
+            _bridge.LoadFrame();
+            //tbTimePointCountLeft.Text = (_bridge.liTime.IndexOf(nowTimeI) + 1).ToString();
 
-            double d = nowTimeI * 1.0 / LightBusiness.GetMax(GetData());
+            //cTimeLine.Children.Clear();
+            //Line line = new Line()
+            //{
+            //    X1 = d * cTimeLine.ActualWidth,
+            //    X2 = d * cTimeLine.ActualWidth + 5,
+            //    Y1 = 0,
+            //    Y2 = cTimeLine.ActualHeight,
+            //    Stroke = new SolidColorBrush(Colors.White),
+            //    //StrokeThickness = 10
+            //};
+            //cTimeLine.Children.Add(line);
+        
+        }
+
+        private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)
+        {
+            bTimeLine = false;
+        }
+
+        public void OnDrawTimeLine() {
+            nowTimeI = _bridge.liTime[_bridge.nowTimePoint - 1];
+            nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData());
 
             cTimeLine.Children.Clear();
             Line line = new Line()
             {
-                X1 = d * cTimeLine.ActualWidth,
-                X2 = d * cTimeLine.ActualWidth + 5,
+                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth,
+                X2 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth + 5,
                 Y1 = 0,
                 Y2 = cTimeLine.ActualHeight,
                 Stroke = new SolidColorBrush(Colors.White),
                 //StrokeThickness = 10
             };
             cTimeLine.Children.Add(line);
-
-            nowTimeP = d;
-        }
-
-        private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)
-        {
-            bTimeLine = false;
         }
     }
 }

@@ -151,7 +151,7 @@
                                         <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
                                     </Border>
                                     <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Background="#1c1e1f">
-                                        <TextBlock  TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" ><Run Text="0"/></TextBlock>
+                                        <TextBlock TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" Text="0" />
                                     </Border>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="0,0,15,0">
