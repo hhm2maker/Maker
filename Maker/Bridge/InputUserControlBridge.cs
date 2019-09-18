@@ -501,6 +501,9 @@ namespace Maker.Bridge
         {
             iuc.mLaunchpadData = dic[liTime[nowTimePoint - 1]];
             iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
+
+            iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
+
             //for (int i = 0; i < x.Count(); i++)
             //{
             //    //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;

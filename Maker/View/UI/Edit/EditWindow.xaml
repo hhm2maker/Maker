@@ -22,6 +22,6 @@
             </StackPanel>
             <TextBox Name="tbFileName" FontSize="18" HorizontalAlignment="Stretch" Foreground="White" Background="Transparent" CaretBrush="White" BorderThickness="0" VerticalAlignment="Center" DockPanel.Dock="Left"/>
         </DockPanel>
-        <TextBox Name="tbContent" Grid.Row="1" FontSize="18" Foreground="White" Background="Transparent" BorderBrush="White" CaretBrush="White"/>
+        <TextBox Name="tbContent" Grid.Row="1" FontSize="18" Foreground="White" Background="Transparent" BorderBrush="White" CaretBrush="White" AcceptsReturn="True"/>
     </Grid>
 </Window>

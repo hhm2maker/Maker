@@ -5,7 +5,16 @@
       <CreateFromFile fileName="Page3_1.lightScript" />
       <SetStartTime number="4860" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_2.lightScript" />
+      <SetStartTime number="4963" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_3.lightScript" />
+      <MatchTotalTimeLattice number="33" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5021" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
-  <AudioResources></AudioResources>
+  <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
 </Root>

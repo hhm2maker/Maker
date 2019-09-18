@@ -4419,7 +4419,8 @@ namespace Maker.View.LightScriptUserControl
             }
 
             _bridge.nowTimePoint = _bridge.liTime.IndexOf(nowTimeI) + 1;
-            _bridge.LoadFrame();
+            tbTimePointCountLeft.Text = _bridge.nowTimePoint.ToString();
+            //_bridge.LoadFrame();
             //tbTimePointCountLeft.Text = (_bridge.liTime.IndexOf(nowTimeI) + 1).ToString();
 
             //cTimeLine.Children.Clear();
@@ -4433,7 +4434,7 @@ namespace Maker.View.LightScriptUserControl
             //    //StrokeThickness = 10
             //};
             //cTimeLine.Children.Add(line);
-        
+
         }
 
         private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)
