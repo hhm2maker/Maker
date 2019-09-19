@@ -15,11 +15,7 @@
       </SetAttribute>
     </Script>
     <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromStep stepName="Step3" />
-      <SetAttribute>
-        <AttributeOperationModel attributeType="TIME" value="+12" />
-        <AttributeOperationModel attributeType="POSITION" value="-1" />
-      </SetAttribute>
+      <CreateFromQuick time="24" position=",6@JT^hr" interval="0" continued="12" color="F" type="0" action="11" />
     </Script>
     <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromQuick time="0" position="0:DNXblv" interval="0" continued="12" color="a" type="0" action="12" />
@@ -37,12 +33,7 @@
       <VerticalFlipping />
     </Script>
     <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromStep stepName="Step3" />
-      <SetAttribute>
-        <AttributeOperationModel attributeType="TIME" value="+12" />
-        <AttributeOperationModel attributeType="POSITION" value="-1" />
-      </SetAttribute>
-      <VerticalFlipping />
+      <CreateFromQuick time="24" position="3=GQ[eoy" interval="0" continued="12" color="F" type="0" action="11" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

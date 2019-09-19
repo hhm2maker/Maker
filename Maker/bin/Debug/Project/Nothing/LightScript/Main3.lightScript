@@ -11,8 +11,59 @@
     </Script>
     <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page3_3.lightScript" />
-      <MatchTotalTimeLattice number="33" hintKeyword="TotalTimeLatticeColon" />
-      <SetStartTime number="5021" hintKeyword="PleaseEnterTheStartTimeColon" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="4993" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_4.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5023" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_5.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5053" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_6.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5083" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_7.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5113" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_8.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5143" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_9.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5173" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step10" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_10.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5203" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step11" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_11.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5233" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step12" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_12.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5263" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step13" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_13.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <HorizontalFlipping />
+      <SetStartTime number="5293" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
   </Scripts>
   <Introduce></Introduce>
