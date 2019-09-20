@@ -65,6 +65,26 @@
       <HorizontalFlipping />
       <SetStartTime number="5293" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step14" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_14.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5323" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step15" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_15.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5353" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step16" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_16.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5383" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step17" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_17.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="5413" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
