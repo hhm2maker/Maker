@@ -514,12 +514,18 @@ namespace Operation
             Clear();
             AddRange(ll);
             int max = LightBusiness.GetMax(this);
+            if (max == 0)
+            {
+                return;
+            }
             double d = (double)v / max;
             for (int i = 0; i < Count; i++)
             {
                 int result = (int)Math.Round(this[i].Time * d, MidpointRounding.AwayFromZero);
                 if (result > v)
+                { 
                     result--;
+                }
                 this[i].Time = result;
             }
         }

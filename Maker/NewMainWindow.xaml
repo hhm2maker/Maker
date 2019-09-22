@@ -86,6 +86,7 @@
             </Grid>
         </DockPanel>
                 <DockPanel Background="#282828">
+                    <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/new_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
                     <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" />

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="&lt;ENW" interval="0" continued="12" color="B" type="0" action="10" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="12" position="ENW`" interval="0" continued="12" color="B" type="0" action="10" />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="24" position="NW`i" interval="0" continued="12" color="B" type="0" action="10" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="36" position="W`ir" interval="0" continued="12" color="B" type="0" action="11" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="3" interval="0" continued="12" color="B" type="0" action="12" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

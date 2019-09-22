@@ -1373,5 +1373,10 @@ namespace Maker
             }
             (editUserControl.userControls[3] as ScriptUserControl).Test();
         }
+
+        private void Image_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
+        {
+            btnNew_Click(miNewLightScript, null);
+        }
     }
 }

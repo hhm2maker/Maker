@@ -129,8 +129,8 @@ namespace Maker.View.Device
                 //{
                 //    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * timeList[NowTimePosition]));
                 //}
-                if (NowTimePosition > 0)
-                {
+                //if (NowTimePosition > 0)
+                //{
                     if (isFirst)
                     {
                         isFirst = false;
@@ -138,7 +138,7 @@ namespace Maker.View.Device
                     else {
                         Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
                     }
-                }
+                //}
                 worker.ReportProgress(NowTimePosition);//返回进度
             }
         }

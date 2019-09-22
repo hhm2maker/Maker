@@ -299,7 +299,6 @@ namespace Maker.Bridge
                 lights.AddRange(item.Value);
             }
             colorLightList = lights;
-
             //if (iuc.lbStep.SelectedIndex == -1)
             //{
             //    colorLightList = mLightList;
@@ -397,7 +396,6 @@ namespace Maker.Bridge
             }
             }
             iuc.cTime.Height = iuc.scriptModelDictionary.Count * (30+2);
-
 
             if (iuc.mShow == ScriptUserControl.ShowMode.Launchpad)
             {

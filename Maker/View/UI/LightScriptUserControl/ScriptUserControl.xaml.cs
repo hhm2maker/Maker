@@ -3993,6 +3993,7 @@ namespace Maker.View.LightScriptUserControl
         //    }
         //    Test();
         //}
+
         private void cTime_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             _bridge.UpdateData();
@@ -4447,10 +4448,19 @@ namespace Maker.View.LightScriptUserControl
             nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData());
 
             cTimeLine.Children.Clear();
+            double X1 = 0;
+            if (Double.IsNaN(_bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth))
+            {
+                X1 = 0;
+            }
+            else {
+                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
+            }
+            double X2 = X1+5;
             Line line = new Line()
             {
-                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth,
-                X2 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth + 5,
+                X1 = X1,
+                X2 = X2,
                 Y1 = 0,
                 Y2 = cTimeLine.ActualHeight,
                 Stroke = new SolidColorBrush(Colors.White),
