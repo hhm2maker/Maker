@@ -128,6 +128,65 @@
       <CreateFromFile fileName="Page4_26.lightScript" />
       <SetStartTime number="7725" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step27" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_27.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7846" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step28" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_28.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7876" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step29" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_29.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7906" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step30" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_30.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7936" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step31" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_31.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7966" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step32" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_32.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="7996" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step33" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_33.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8026" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step34" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_34.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8056" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step35" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_35.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8086" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step36" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_36.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8116" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step37" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_37.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8146" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step38" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_38.lightScript" />
+      <SetStartTime number="8156" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
