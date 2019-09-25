@@ -187,6 +187,50 @@
       <CreateFromFile fileName="Page4_38.lightScript" />
       <SetStartTime number="8156" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step39" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_39.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8446" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step40" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_40.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8476" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step41" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_41.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8506" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step42" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_42.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8536" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step43" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_43.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8566" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step44" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_44.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8596" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step45" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_45.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8626" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step46" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_46.lightScript" />
+      <MatchTotalTimeLattice number="10" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="8656" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step47" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page4_47.lightScript" />
+      <SetStartTime number="8686" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="u" interval="12" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="12" position="kt" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="24" position="js" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="36" position="ir" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="48" position="_h" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="60" position="U^" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+    <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="72" position="T" interval="0" continued="12" color="$" type="0" action="11" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>
