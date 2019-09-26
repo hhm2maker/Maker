@@ -10,6 +10,12 @@
     <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Main3.lightScript" />
     </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main4.lightScript" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main5.lightScript" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
