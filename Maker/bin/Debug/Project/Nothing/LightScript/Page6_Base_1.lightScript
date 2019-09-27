@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="W" interval="0" continued="24" color="$" type="0" action="10" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step1" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step2" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step3" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="12" position="V" interval="0" continued="24" color="*" type="0" action="10" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step5" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step6" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step7" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="24" position="U" interval="0" continued="24" color="$" type="0" action="10" />
+    </Script>
+    <Script name="Step10" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step9" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step11" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step10" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step12" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step11" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step13" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="36" position="T" interval="0" continued="24" color="*" type="0" action="10" />
+    </Script>
+    <Script name="Step14" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step13" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step15" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step14" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+    <Script name="Step16" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step15" />
+      <SetAttribute>
+        <AttributeOperationModel attributeType="TIME" value="+12" />
+        <AttributeOperationModel attributeType="POSITION" value="+10" />
+      </SetAttribute>
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>
