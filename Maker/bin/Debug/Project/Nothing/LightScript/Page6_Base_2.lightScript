@@ -2,7 +2,7 @@
 <Root>
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="0" position="W" interval="0" continued="24" color="$" type="0" action="10" />
+      <CreateFromQuick time="0" position="W" interval="0" continued="24" color="*" type="0" action="10" />
     </Script>
     <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromStep stepName="Step1" />
@@ -26,7 +26,7 @@
       </SetAttribute>
     </Script>
     <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="12" position="V" interval="0" continued="24" color="*" type="0" action="10" />
+      <CreateFromQuick time="12" position="V" interval="0" continued="24" color="$" type="0" action="10" />
     </Script>
     <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromStep stepName="Step5" />
@@ -50,7 +50,7 @@
       </SetAttribute>
     </Script>
     <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="24" position="U" interval="0" continued="24" color="$" type="0" action="10" />
+      <CreateFromQuick time="24" position="U" interval="0" continued="24" color="*" type="0" action="10" />
     </Script>
     <Script name="Step10" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromStep stepName="Step9" />
@@ -74,7 +74,7 @@
       </SetAttribute>
     </Script>
     <Script name="Step13" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="36" position="T" interval="0" continued="24" color="*" type="0" action="10" />
+      <CreateFromQuick time="36" position="T" interval="0" continued="24" color="$" type="0" action="10" />
     </Script>
     <Script name="Step14" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromStep stepName="Step13" />
