@@ -1368,11 +1368,7 @@ namespace Maker
             Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
             int i = 0;
             foreach (var item in models.Values) {
-                if (i > 9)
-                {
-                    (item.OperationModels[1] as OneNumberOperationModel).Number = 12406 + (i-9) * 120;
-                    Console.WriteLine(12406 + i * 120);
-                }
+                    (item.OperationModels[1] as OneNumberOperationModel).Number = 2926 +  60*i;
                 i++;
             }
             (editUserControl.userControls[3] as ScriptUserControl).Test();

@@ -93,6 +93,21 @@
       <CreateFromFile fileName="Page6_23.lightScript" />
       <SetStartTime number="13306" hintKeyword="PleaseEnterTheStartTimeColon" />
     </Script>
+    <Script name="Step24" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_24.lightScript" />
+      <MatchTotalTimeLattice number="161" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="13366" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step25" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_4.lightScript" />
+      <MatchTotalTimeLattice number="36" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="13527" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step26" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_5.lightScript" />
+      <MatchTotalTimeLattice number="36" hintKeyword="TotalTimeLatticeColon" />
+      <SetStartTime number="13563" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources>C:\Users\Administrator\Desktop\Faded\Alan Walker - Faded.mp3</AudioResources>
