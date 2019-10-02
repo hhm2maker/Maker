@@ -795,6 +795,27 @@ namespace Maker.View.Device
         }
 
         /// <summary>
+        /// 设置数据 - 不看时间
+        /// </summary>
+        /// <param name="mListList"></param>
+        public virtual void SetDataToLaunchpad(List<Light> mListList)
+        {
+            ClearAllColorExcept();
+
+            for (int i = 0; i < mListList.Count; i++)
+            {
+                if (mListList[i].Action == 128)
+                {
+                    SetButtonBackground(mListList[i].Position, closeBrush);
+                }
+                else
+                {
+                    SetButtonBackground(mListList[i].Position, StaticConstant.brushList[mListList[i].Color]);
+                }
+            }
+        }
+
+        /// <summary>
         /// 设置数据不清除颜色 - 不看时间
         /// </summary>
         /// <param name="mListList"></param>

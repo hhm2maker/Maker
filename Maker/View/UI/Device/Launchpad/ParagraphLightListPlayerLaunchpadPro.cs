@@ -11,6 +11,7 @@ using Maker.View.Utils;
 using System.Windows.Shapes;
 using System.Threading;
 using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace Maker.View.Device
 {
@@ -80,9 +81,10 @@ namespace Maker.View.Device
                 //清空
                 ClearAllColorExceptMembrane();
                 iplay.EndPlayEvent();
+
                 return;
             }
-            if (number == SmallTime)
+            if (number == 0)
             {
                 //开始播放事件 - 进程中
                 iplay.StartPlayEvent();
@@ -99,11 +101,33 @@ namespace Maker.View.Device
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
                 if (x[i].Action == 128)
                 {
-                    (GetButton(x[i].Position) as Shape).Fill = closeBrush;
+                    if (GetButton(x[i].Position) is RoundedCornersPolygon rcp)
+                    {
+                        rcp.Fill = closeBrush;
+                    }
+                    if (GetButton(x[i].Position) is Ellipse e)
+                    {
+                        e.Fill = closeBrush;
+                    }
+                    if (GetButton(x[i].Position) is Rectangle r)
+                    {
+                        r.Fill = closeBrush;
+                    }
                 }
                 else
                 {
-                    (GetButton(x[i].Position) as Shape).Fill = StaticConstant.brushList[x[i].Color];
+                    if (GetButton(x[i].Position) is RoundedCornersPolygon rcp)
+                    {
+                        rcp.Fill = StaticConstant.brushList[x[i].Color];
+                    }
+                    if (GetButton(x[i].Position) is Ellipse e)
+                    {
+                        e.Fill = StaticConstant.brushList[x[i].Color];
+                    }
+                    if (GetButton(x[i].Position) is Rectangle r)
+                    {
+                        r.Fill = StaticConstant.brushList[x[i].Color];
+                    }
                 }
             }
         }
@@ -126,25 +150,18 @@ namespace Maker.View.Device
                     e.Cancel = true;
                     break;
                 }
-                //if (NowTimePosition == SmallTime)
-                //{
-                //    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * timeList[NowTimePosition]));
-                //}
-                //if (NowTimePosition > 0)
-                //{
-                    if (isFirst)
-                    {
-                        isFirst = false;
-                    }
-                    else {
-                        Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
-                    }
+                if (NowTimePosition > 0)
+                {
+                    Console.WriteLine(NowTimePosition + "---" + TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+
+                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition-1])));
+                }
+                //else {
+                //    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition])));
                 //}
                 worker.ReportProgress(NowTimePosition);//返回进度
             }
         }
-
-        bool isFirst = true;
 
         /// <summary>
         /// 设置数据
@@ -167,15 +184,13 @@ namespace Maker.View.Device
         /// </summary>
         public override void Play()
         {
-            isFirst = true;
             myTTT = timeList.IndexOf(SmallTime);
             NowTimePosition = myTTT;
+
+            //NowTimePosition = 0;
             //开始播放事件
             iplay.PlayEvent();
-            if (!worker.IsBusy)
-            {
-                worker.RunWorkerAsync();
-            }
+            worker.RunWorkerAsync();
         }
 
         /// <summary>
@@ -187,8 +202,9 @@ namespace Maker.View.Device
             iplay.StopEvent();
 
             worker.CancelAsync();
-            NowTimePosition = myTTT;
+            NowTimePosition = 0;
             return;
+
         }
 
 

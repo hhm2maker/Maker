@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Maker.View.Device
 {
@@ -61,5 +62,7 @@ namespace Maker.View.Device
         /// 最小播放时间 - 起始时间
         /// </summary>
         public int SmallTime = 0;
+
+        public MediaElement mediaElement;
     }
 }

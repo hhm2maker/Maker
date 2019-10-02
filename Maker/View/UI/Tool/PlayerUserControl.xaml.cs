@@ -90,6 +90,10 @@ namespace Maker.View
             {
                 playLpd = new AccuratePlayerLaunchpadPro(this);
             }
+
+            playLpd.mediaElement = mediaElement;
+
+
             playLpd.HorizontalAlignment = HorizontalAlignment.Center;
             playLpd.VerticalAlignment = VerticalAlignment.Center;
             playLpd.Width = 750;
@@ -244,7 +248,7 @@ namespace Maker.View
 
         public void StartPlayEvent()
         {
-            btnPlay.IsEnabled = false;
+            //btnPlay.IsEnabled = false;
         }
 
         public void EndPlayEvent()
@@ -306,8 +310,6 @@ namespace Maker.View
         bool isFirst = true;
         private void btnPlay_Click(object sender, RoutedEventArgs e)
         {
-          
-
             if (File.Exists(AudioResources))
             {
                 if (isFirst) {
@@ -335,9 +337,12 @@ namespace Maker.View
 
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
+            //这是正确的
             mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * MediaElementPosition);
-            //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
             playLpd.Play();
+
+            //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
+
         }
     }
 }
