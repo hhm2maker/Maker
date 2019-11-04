@@ -58,6 +58,9 @@ namespace Maker.View.Tool
             }
         }
 
+       
+
+
         private void btnCalc_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(tbFilePath.Text))

@@ -222,6 +222,7 @@
       <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Device\Launchpad\FastPlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro3.cs" />
     <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro2.cs" />
     <Compile Include="View\UI\Device\Launchpad\TeachingLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\DrawLaunchpadPro.cs" />

@@ -39,10 +39,14 @@
                 <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource FastGeneration}" Name="btnFastGeneration" Click="FastGeneration_Click"  Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
+                    <Separator />
                     <MenuItem Header="{DynamicResource SelectEditor_Replace}" Name="btnSelectEditorReplace"  Click="SelectEditor_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource SelectEditor_Add}" Name="btnSelectEditorAdd"  Click="SelectEditor_Click" Foreground="#ffffff"/>
+                    <Separator />
                     <MenuItem Header="{DynamicResource ConditionJudgment_Replace}" Name="btnConditionJudgmentReplace"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource ConditionJudgment_Remove}" Name="btnConditionJudgmentRemove"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
+                    <Separator />
+                    <MenuItem Header="{DynamicResource CopyFromStep}" Click="CopyFromStep_Click" Foreground="#ffffff"/>
                 </MenuItem>
                 <MenuItem Header="{DynamicResource Time}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource Reversal}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -67,7 +71,7 @@
                     <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource bigMenuItem}"  Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
-                    <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" >
+                    <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" Visibility="Collapsed">
                                 <Canvas Name="cColor" Height="60" Background="#222326" >
                                     <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
                                 </Canvas>
@@ -88,9 +92,6 @@
                             </MenuItem>
                     <MenuItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False">
-                                <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
-                            </Popup>
                 </MenuItem>
                 <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
                         <MenuItem Header="{DynamicResource ColorSuperposition}" Name="btnCopyToTheEnd" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -202,6 +203,9 @@
                         </StackPanel>
                     </Grid>
                 </Border>
+                <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
+                    <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
+                </Popup>
             </Grid>
                 <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
             <Grid Grid.Row="3" HorizontalAlignment="Stretch" Background="#4d4d4d">
@@ -248,7 +252,7 @@
                 </StackPanel>
                 <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMusic" >
                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="Music" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio"/>
+                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
                         <TextBlock Name="tbMusic" Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="20,0,0,0"  TextAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>

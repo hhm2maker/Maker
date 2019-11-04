@@ -465,9 +465,9 @@ namespace Maker.View.Device
         /// </summary>
         /// <param name="position">位置</param>
         /// <returns></returns>
-        public FrameworkElement GetButton(int position)
+        public Shape GetButton(int position)
         {
-            return (FrameworkElement)Children[position];
+            return (Shape)Children[position];
         }
 
         /// <summary>

@@ -541,4 +541,6 @@
     <sys:String x:Key="If">如果</sys:String>
     <sys:String x:Key="Then">那么</sys:String>
     <sys:String x:Key="BilateralDiffusion">两侧扩散</sys:String>
+    <sys:String x:Key="CopyFromStep">复制该步骤</sys:String>
+    <sys:String x:Key="Audio">音频</sys:String>
 </ResourceDictionary>

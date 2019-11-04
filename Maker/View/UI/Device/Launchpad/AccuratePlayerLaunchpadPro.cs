@@ -70,7 +70,7 @@ namespace Maker.View.Device
         /// <summary>
         /// 等待时间 => 根据BPM计算得出
         /// </summary>
-        private TimeSpan wait ;
+        private TimeSpan wait;
 
         /// <summary>
         /// 进度返回处理

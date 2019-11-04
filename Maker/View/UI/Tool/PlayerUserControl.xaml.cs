@@ -67,14 +67,17 @@ namespace Maker.View
             //(int)(LightBusiness.GetMax(mActionBeanList) * dTime)  
             //Console.WriteLine((int)Math.Round(nowTimeP * LightBusiness.GetMax(GetData())));
 
-            dAllTime = double.Parse(MediaFileTimeUtil.GetAsfTime(AudioResources, double.Parse(tbBPM.Text)));
-            //MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
-            MediaElementPosition = (nowTimeI * 1.0 / dAllTime);
+            if (!AudioResources.Equals(String.Empty)) {
+                dAllTime = double.Parse(MediaFileTimeUtil.GetAsfTime(AudioResources, double.Parse(tbBPM.Text)));
+
+                //MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
+                MediaElementPosition = (nowTimeI * 1.0 / dAllTime);
+            }
 
             //Console.WriteLine(nowTimeI +"---"+ LightBusiness.GetMax(mActionBeanList)+ "---"+dAllTime);
             //Console.WriteLine(MediaElementPosition);
-
         }
+
         double MediaElementPosition = 0;
 
         private void InitPlayLaunchpad()
@@ -248,7 +251,7 @@ namespace Maker.View
 
         public void StartPlayEvent()
         {
-            //btnPlay.IsEnabled = false;
+            btnPlay.IsEnabled = false;
         }
 
         public void EndPlayEvent()
@@ -317,7 +320,9 @@ namespace Maker.View
                     mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
                     isFirst = false;
                 }
+
                 mediaElement.Play();
+               
             }
             else
             {
@@ -338,9 +343,11 @@ namespace Maker.View
         private void mediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
             //这是正确的
-            mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * MediaElementPosition);
+            if (mw.playerType == EnumCollection.PlayerType.ParagraphLightList)
+            {
+                mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * MediaElementPosition);
+            }
             playLpd.Play();
-
             //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
 
         }

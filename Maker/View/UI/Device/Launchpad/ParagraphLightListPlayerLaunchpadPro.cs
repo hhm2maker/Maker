@@ -130,6 +130,7 @@ namespace Maker.View.Device
                     }
                 }
             }
+         
         }
 
         /// <summary>
@@ -139,6 +140,8 @@ namespace Maker.View.Device
         /// <param name="e"></param>
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            long _startTime = DateTime.Now.Ticks / 10000;
+
             for (; NowTimePosition < timeList.Count; NowTimePosition++)
             {
                 if (worker.CancellationPending)
@@ -150,18 +153,46 @@ namespace Maker.View.Device
                     e.Cancel = true;
                     break;
                 }
-                if (NowTimePosition > 0)
+                if (!isFirst)
                 {
-                    Console.WriteLine(NowTimePosition + "---" + TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    //Console.WriteLine(NowTimePosition + "---" + TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1])));
+                    double d = DateTime.Now.Ticks / 10000 - _startTime - (timeList[NowTimePosition] - timeList[0]) / dWait * 1000.0;
+                    if (d > 0 && (timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0 - d > 0)
+                    {
+                        Thread.Sleep(TimeSpan.FromMilliseconds((timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0 - d));
+                    }
+                    else {
+                        Thread.Sleep(TimeSpan.FromMilliseconds((timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0));
+                    }
 
-                    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition-1])));
+                    //if (NowTimePosition == 545)
+                    //{
+                    //    Console.WriteLine(d);
+                    //}
+
+                    //long _nowTime = DateTime.Now.Ticks / 10000;
+                    //double d = timeList[NowTimePosition] / dWait * 1000;
+                    //double d2 = timeList[NowTimePosition-1] / dWait * 1000;dw
+
+                    //Console.WriteLine(1000.0 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1]) + _nowTime - _startTime - timeList[NowTimePosition - 1] * dWait / 1000);
+                    //Thread.Sleep(TimeSpan.FromMilliseconds(1000.0 / dWait * (timeList[NowTimePosition] - timeList[NowTimePosition - 1]) + _nowTime - _startTime - 1000.0 / dWait * (timeList[NowTimePosition-1])));
+                    //_startTime = _nowTime;
+
+                    //Dispatcher.Invoke(new Action(() => {
+                    //    Console.WriteLine(mediaElement.Position);
+                    //}));
+                }                                                                          
+                else {
+                    isFirst = false;
                 }
                 //else {
                 //    Thread.Sleep(TimeSpan.FromMilliseconds(1000 / dWait * (timeList[NowTimePosition])));
                 //}
-                worker.ReportProgress(NowTimePosition);//返回进度
+                 worker.ReportProgress(NowTimePosition);//返回进度
             }
         }
+
+        bool isFirst = true;
 
         /// <summary>
         /// 设置数据
@@ -184,6 +215,7 @@ namespace Maker.View.Device
         /// </summary>
         public override void Play()
         {
+            isFirst = true;
             myTTT = timeList.IndexOf(SmallTime);
             NowTimePosition = myTTT;
 
@@ -203,8 +235,6 @@ namespace Maker.View.Device
 
             worker.CancelAsync();
             NowTimePosition = 0;
-            return;
-
         }
 
 

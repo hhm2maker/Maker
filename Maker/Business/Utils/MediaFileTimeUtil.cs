@@ -31,7 +31,7 @@ namespace Maker.Business.Utils
 
         public static string GetAsfTime(string filePath, double dBpm)
         {
-            return (long.Parse(GetAsfTime(filePath)) * dBpm / 1000).ToString();
+            return (long.Parse(GetAsfTime(filePath)) * dBpm / 1000.0).ToString();
         }
     }
 }

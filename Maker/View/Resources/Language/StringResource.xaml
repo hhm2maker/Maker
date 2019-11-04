@@ -538,5 +538,8 @@
     <sys:String x:Key="If">If</sys:String>
     <sys:String x:Key="Then">Then</sys:String>
     <sys:String x:Key="BilateralDiffusion">Bilateral diffusion</sys:String>
+    <sys:String x:Key="CopyFromStep">Copy from step</sys:String>
+    <sys:String x:Key="Audio">Audio</sys:String>
+
     
 </ResourceDictionary>

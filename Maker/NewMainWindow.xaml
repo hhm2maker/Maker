@@ -75,7 +75,7 @@
                     <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2" Margin="15,0,15,0">
                         <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/appreciate.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
                     </StackPanel>
-                    <StackPanel Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                    <StackPanel Visibility="Collapsed" Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
                         <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
                         <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10,0,15,0"   FontSize="17"/>
                     </StackPanel>
@@ -89,7 +89,7 @@
                     <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/new_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
                     <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" />
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" />
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                         <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >

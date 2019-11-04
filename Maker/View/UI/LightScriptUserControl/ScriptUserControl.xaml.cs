@@ -4468,5 +4468,26 @@ namespace Maker.View.LightScriptUserControl
             };
             cTimeLine.Children.Add(line);
         }
+
+        private void CopyFromStep_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbStep.SelectedIndex == -1)
+            {
+                return;
+            }
+            String stepName = GetUsableStepName();
+            //复制并修改
+            ScriptModel scriptModel = new ScriptModel();
+            scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromStepOperationModel(GetStepName()) };
+            scriptModel.Name = stepName;
+            scriptModel.Value = "";
+            scriptModel.Visible = true;
+            //scriptModel.Contain = new List<string>() { stepName };
+            scriptModelDictionary.Add(stepName, scriptModel);
+          
+            UpdateStep();
+            lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            Test();
+        }
     }
 }

@@ -91,7 +91,6 @@ namespace Maker.View.UI.Edit
             //IdeaUserControl
             iuc = new IdeaUserControl(mw);
             userControls.Add(iuc);
-          
         }
 
         public String FileName = "";

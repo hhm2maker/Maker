@@ -123,6 +123,10 @@ namespace Maker.Business
                 while ((i = f.ReadByte()) != -1)
                 {
                     mData.Add(i);
+                    //Console.WriteLine((int)i);
+
+                    //Console.WriteLine(i.ToString("0X"));
+                    Console.WriteLine(string.Format("{0:X02}", i));
                 }
             }
             List<int> listMainData = new List<int>();
@@ -166,7 +170,9 @@ namespace Maker.Business
             {
                 mActionBeanList[l].Position -= 28;
             }
-            CreateInstance().ReplaceControl(mActionBeanList, normalArr);
+
+
+            //CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
 
@@ -322,7 +328,7 @@ namespace Maker.Business
                 (char)0,
                 (char)1,
                 (char)0,
-                (char)96,
+                (char)60, //BPM
                 (char)77,
                 (char)84,
                 (char)114,
@@ -330,13 +336,24 @@ namespace Maker.Business
                 (char)0,
                 (char)0,
                 (char)0,
+                //(char)40 // 带 音轨速度
                 (char)33
             };//文件头
-            //StartStr.Add((char)0);
+              //StartStr.Add((char)0);
+              //StartStr.Add((char)255);
+              //StartStr.Add((char)3);
+              //StartStr.Add((char)1);
+              //StartStr.Add((char)0);
+
+            //StartStr.Add((char)0); //00 FF 51 - 音轨速度
             //StartStr.Add((char)255);
+            //StartStr.Add((char)81);
             //StartStr.Add((char)3);
-            //StartStr.Add((char)1);
-            //StartStr.Add((char)0);
+            //StartStr.Add((char)Convert.ToInt64("a", 16));
+            //StartStr.Add((char)Convert.ToInt64("2c", 16));
+            //StartStr.Add((char)Convert.ToInt64("2a", 16));
+          
+
             if (isWriteToFile)
             {
                 StartStr.Add((char)0); //00 ff 03 - 音轨名称
@@ -386,16 +403,16 @@ namespace Maker.Business
             {
                 if (Encoding.Default.BodyName.ToLower().Equals("gb2312") || Encoding.Default.BodyName.ToLower().Equals("big5"))
                 {
-                    Size = System.Convert.ToString(20 + fileName.Length * 2 + mActionBeanList.Count * 4, 2);
+                    Size = Convert.ToString(20 + fileName.Length * 2 + mActionBeanList.Count * 4, 2);
                 }
                 else
                 {
-                    Size = System.Convert.ToString(20 + fileName.Length + mActionBeanList.Count * 4, 2);
+                    Size = Convert.ToString(20 + fileName.Length + mActionBeanList.Count * 4, 2);
                 }
             }
             else
             { 
-                Size = System.Convert.ToString(20 + mActionBeanList.Count * 4, 2);
+                Size = Convert.ToString(20 + mActionBeanList.Count * 4, 2);
             }
             for (int j = 0; j < 32 - Size.Length; j++)
             {
@@ -406,10 +423,10 @@ namespace Maker.Business
             String two = Size.Substring(8, 8);
             String three = Size.Substring(16, 8);
             String four = Size.Substring(24, 8);
-            StartStr[18] = (char)System.Convert.ToInt32(one, 2);
-            StartStr[19] = (char)System.Convert.ToInt32(two, 2);
-            StartStr[20] = (char)System.Convert.ToInt32(three, 2);
-            StartStr[21] = (char)System.Convert.ToInt32(four, 2);
+            StartStr[18] = (char)Convert.ToInt32(one, 2);
+            StartStr[19] = (char)Convert.ToInt32(two, 2);
+            StartStr[20] = (char)Convert.ToInt32(three, 2);
+            StartStr[21] = (char)Convert.ToInt32(four, 2);
             StringBuilder line = new StringBuilder();
             for (int j = 0; j < StartStr.Count; j++)
             {
@@ -498,7 +515,8 @@ namespace Maker.Business
             StartStr.Add((char)0);
             StartStr.Add((char)1);
             StartStr.Add((char)0);
-            StartStr.Add((char)96);
+            StartStr.Add((char)90);
+
             StartStr.Add((char)77);
             StartStr.Add((char)84);
             StartStr.Add((char)114);

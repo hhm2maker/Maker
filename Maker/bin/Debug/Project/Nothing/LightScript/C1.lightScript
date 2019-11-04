@@ -8,6 +8,9 @@
     <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
       <CreateFromFile fileName="Page1_1.lightScript" />
     </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromStep stepName="Step2" />
+    </Script>
   </Scripts>
   <Introduce></Introduce>
   <AudioResources></AudioResources>
