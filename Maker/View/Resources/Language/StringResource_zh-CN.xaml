@@ -543,4 +543,5 @@
     <sys:String x:Key="BilateralDiffusion">两侧扩散</sys:String>
     <sys:String x:Key="CopyFromStep">复制该步骤</sys:String>
     <sys:String x:Key="Audio">音频</sys:String>
+    <sys:String x:Key="BPMColon">BPM：</sys:String>
 </ResourceDictionary>

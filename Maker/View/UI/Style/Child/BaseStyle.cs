@@ -32,7 +32,15 @@ namespace Maker.View.Style.Child
             AddUIToDialog();
         }
 
-        private StackPanel spContacts;
+        public void CreateDialogNormal()
+        {
+            //AddParentPanel();
+            //SetRoutine();
+            Content = spContacts;
+            AddUIToDialog();
+        }
+
+        private StackPanel spContacts = new StackPanel();
 
         private StackPanel GetTitle()
         {
@@ -104,7 +112,6 @@ namespace Maker.View.Style.Child
                 borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderBottom.CornerRadius = new CornerRadius(0, 0, 3, 3);
 
-                spContacts = new StackPanel();
                 spContacts.Orientation = Orientation.Vertical;
                 spContacts.Margin = new Thickness(10);
                 borderBottom.Child = spContacts;
@@ -357,6 +364,12 @@ namespace Maker.View.Style.Child
             _UI.Add(tb);
         }
 
+        public BaseStyle GetButton(String textName, RoutedEventHandler routedEventHandler,out Button btn)
+        {
+            btn = GetButton(textName, routedEventHandler);
+            return this;
+        }
+
         public Button GetButton(String textName, RoutedEventHandler routedEventHandler)
         {
             Button btn = new Button();
@@ -396,6 +409,19 @@ namespace Maker.View.Style.Child
                 sp.Children.Add(item);
             }
             return sp;
+        }
+
+        public BaseStyle GetDockPanel(out DockPanel dp, params FrameworkElement[] frameworkElements)
+        {
+            dp = GetDockPanel(frameworkElements);
+            return this;
+        }
+
+        public BaseStyle AddDockPanel(out DockPanel dp, params FrameworkElement[] frameworkElements)
+        {
+            dp = GetDockPanel(frameworkElements);
+            _UI.Add(dp);
+            return this;
         }
 
         public DockPanel GetDockPanel(params FrameworkElement[] frameworkElements)
@@ -550,6 +576,18 @@ namespace Maker.View.Style.Child
             AddTitleAndControl(textTitle,new List<FrameworkElement>() { frameworkElement });
         }
 
+        public BaseStyle AddTitleAndControl(String textTitle, FrameworkElement frameworkElement,Orientation orientation)
+        {
+            StackPanel dp = new StackPanel();
+            dp.Orientation = orientation;
+            dp.Children.Add(GetTitle(textTitle));
+            frameworkElement.Margin = new Thickness(0, 5, 0, 0);
+            dp.Children.Add(frameworkElement);
+
+            _UI.Add(dp);
+            return this;
+        }
+
         public void AddTitleAndControl(String textTitle, bool isResourceReference, FrameworkElement frameworkElement)
         {
             AddTitleAndControl(textTitle, isResourceReference,new List<FrameworkElement>() { frameworkElement });
@@ -661,9 +699,10 @@ namespace Maker.View.Style.Child
         /// 添加自定义控件
         /// </summary>
         /// <param name="uie"></param>
-        public void AddUIElement(UIElement uie)
+        public BaseStyle AddUIElement(UIElement uie)
         {
             _UI.Add(uie);
+            return this;
         }
    
         /// <summary>

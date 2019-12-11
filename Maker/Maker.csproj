@@ -275,6 +275,12 @@
       <DependentUpon>RandomFountainDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Dialog\BaseDialog.cs" />
+    <Compile Include="View\UI\Dialog\WindowDialog\GetValueWindowDialog.xaml.cs">
+      <DependentUpon>GetValueWindowDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Dialog\WindowDialog\NewProjectWindowDialog.xaml.cs">
+      <DependentUpon>NewProjectWindowDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Dialog\WindowDialog\ShowMyContentWindowDialog.xaml.cs">
       <DependentUpon>ShowMyContentWindowDialog.xaml</DependentUpon>
     </Compile>
@@ -313,7 +319,7 @@
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Style\Child\BaseDialog.cs" />
+    <Compile Include="View\UI\Style\Child\BaseStyle.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\CreateFromFileOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\CreateFromAutomaticOperationChild.cs" />
@@ -696,6 +702,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Dialog\GetStringDialog3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Dialog\WindowDialog\GetValueWindowDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Dialog\WindowDialog\NewProjectWindowDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

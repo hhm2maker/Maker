@@ -1,0 +1,22 @@
+﻿<Window x:Class="Maker.View.Dialog.NewProjectWindowDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Maker.View.Dialog"
+        mc:Ignorable="d"
+        ShowInTaskbar="False" 
+        Title="{DynamicResource NewProject}" 
+        Background="#363b40"
+        WindowStartupLocation="CenterScreen"
+           ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        Width="500"
+        Height="330"
+        >
+    <Window.Effect>
+        <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
+    </Window.Effect>
+    <Grid Name="spMain" />
+
+</Window>

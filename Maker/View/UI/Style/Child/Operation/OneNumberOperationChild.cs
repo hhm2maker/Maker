@@ -17,9 +17,7 @@ namespace Maker.View.UI.Style.Child
             this.oneNumberOperationModel = oneNumberOperationModel;
             Title = oneNumberOperationModel.Identifier;
             //构建对话框
-         
             //AddTextBox();
-
             DockPanel grid = new DockPanel();
 
             tbNumber = GetTexeBox(oneNumberOperationModel.Number.ToString());
@@ -88,6 +86,7 @@ namespace Maker.View.UI.Style.Child
                     oneNumberOperationModel.Number = result;
                     tbNumber.Text = result.ToString();
                     NeedRefresh();
+                    //sw.mw.Test();
                 }
             }
             catch
@@ -133,8 +132,6 @@ namespace Maker.View.UI.Style.Child
             }
             StaticConstant.mw.editUserControl.suc.mLaunchpad.SetData(ll);
         }
-
-
 
         public TextBox tbNumber;
 

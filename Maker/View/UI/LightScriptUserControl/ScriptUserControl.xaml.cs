@@ -1646,6 +1646,14 @@ namespace Maker.View.LightScriptUserControl
 
         private void CopyStep(object sender, RoutedEventArgs e)
         {
+            {
+                //思考ing，如果不加入这一条，那么走完这个逻辑会选中最后一条，这样也是合理的吧_(:з」∠)_
+                if (lbStep.SelectedItems.Count == 0)
+                {
+                return;
+                }
+            }
+
             while (lbStep.SelectedItems.Count > 0)
             {
                 String stepName = String.Empty;
@@ -3287,6 +3295,7 @@ namespace Maker.View.LightScriptUserControl
             }
             //Import Introduce Final Locked
             scriptModelDictionary.Clear();
+          
             scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce,out String audioResources);
             this.introduce = introduce;
             AudioResources = audioResources;
@@ -3301,6 +3310,7 @@ namespace Maker.View.LightScriptUserControl
             //SaveFile();
 
             Test();
+            spRefresh.Visibility = Visibility.Collapsed;
             //mw.SetSpFilePosition(mw.filePosition);
         }
 
@@ -4336,6 +4346,7 @@ namespace Maker.View.LightScriptUserControl
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            UpdateStep();
             Test();
             spRefresh.Visibility = Visibility.Collapsed;
             spHint.Visibility = Visibility.Collapsed;
@@ -4488,6 +4499,12 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
             lbStep.SelectedIndex = lbStep.Items.Count - 1;
             Test();
+        }
+
+        private void ClearAudio(object sender, MouseButtonEventArgs e)
+        {
+            AudioResources = String.Empty;
+            tbMusic.Text = AudioResources;
         }
     }
 }

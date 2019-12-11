@@ -36,7 +36,7 @@ namespace Maker.View
             this.mw = mw;
             InitPlayLaunchpad();
 
-            tbBPM.Text = mw.NowProjectModel.Bpm;
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
         }
 
         public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList)
@@ -46,7 +46,7 @@ namespace Maker.View
             InitPlayLaunchpad();
             SetData(mActionBeanList);
 
-            tbBPM.Text = mw.NowProjectModel.Bpm;
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
         }
 
         private List<Light> mActionBeanList;
@@ -61,7 +61,7 @@ namespace Maker.View
             InitPlayLaunchpad();
             SetData(mActionBeanList);
 
-            tbBPM.Text = mw.NowProjectModel.Bpm;
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
 
             playLpd.SmallTime = nowTimeI;
             //(int)(LightBusiness.GetMax(mActionBeanList) * dTime)  

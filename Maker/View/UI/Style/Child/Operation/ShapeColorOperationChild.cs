@@ -23,7 +23,6 @@ namespace Maker.View.UI.Style.Child.Operation
         private List<TextBox> textBoxs = new List<TextBox>();
         public ShapeColorOperationChild(ShapeColorOperationModel shapeColorOperationModel)
         {
-
             this.shapeColorOperationModel = shapeColorOperationModel;
 
             ComboBox cb = GetComboBox(new List<string>() { "Square", "Vertical", "Horizontal" }, null);
@@ -70,7 +69,7 @@ namespace Maker.View.UI.Style.Child.Operation
             frameworkElements.AddRange(textBoxs.ToArray());
             frameworkElements.Add(GetTexeBlock(shapeColorOperationModel.BottomString));
 
-            AddUIElement(GetDockPanel(mLaunchpad, GetVerticalStackPanel(frameworkElements)));
+            AddUIElement(GetDockPanel(mLaunchpad, GetVerticalStackPanel(frameworkElements))).
             AddUIElement(GetHorizontalStackPanel(new List<FrameworkElement>() { GetButton("Preview", Preview), GetButton("PasteValue", PasteRangeListContent) }));
 
             CreateDialog();

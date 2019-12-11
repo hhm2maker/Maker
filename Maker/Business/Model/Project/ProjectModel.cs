@@ -11,10 +11,10 @@ namespace Maker.Business.Model.Config
         /// 透明度
         /// </summary>
         [XmlElement("Bpm", IsNullable = false)]
-        public string Bpm
+        public double Bpm
         {
             get;
             set;
-        } = "";
+        } = 0.0;
     }
 }

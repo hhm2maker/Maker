@@ -126,7 +126,7 @@ namespace Maker.Business
                     //Console.WriteLine((int)i);
 
                     //Console.WriteLine(i.ToString("0X"));
-                    Console.WriteLine(string.Format("{0:X02}", i));
+                    //Console.WriteLine(string.Format("{0:X02}", i));
                 }
             }
             List<int> listMainData = new List<int>();

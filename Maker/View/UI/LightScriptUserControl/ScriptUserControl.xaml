@@ -253,6 +253,7 @@
                 <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMusic" >
                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
                         <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
+                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="0,10,10,10" Text="{DynamicResource Clear}" TextAlignment="Center" MouseLeftButtonDown="ClearAudio" TextDecorations="Underline" />
                         <TextBlock Name="tbMusic" Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="20,0,0,0"  TextAlignment="Center" VerticalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>

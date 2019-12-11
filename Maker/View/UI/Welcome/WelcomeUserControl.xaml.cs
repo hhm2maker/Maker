@@ -61,7 +61,7 @@ namespace Maker.View.UI.Welcome
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            mw.NewProject();
+            mw.NewProject(true);
         }
 
         private void StackPanel_MouseEnter(object sender, MouseEventArgs e)

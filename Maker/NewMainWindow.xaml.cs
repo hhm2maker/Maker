@@ -70,9 +70,6 @@ namespace Maker
             SetSpFilePosition(0);
 
             InitContextMenu();
-
-            InitProject();
-            InitFile();
         }
 
         public ProjectModel NowProjectModel;
@@ -305,8 +302,9 @@ namespace Maker
             if (baseUserControl == editUserControl.userControls[3])
                 baseUserControl.HideControl();
 
-            //lbFile.Items.RemoveAt();
-
+            tbFileName.Text = String.Empty;
+            ((needControlListBoxItem as TreeViewItem).Parent as ItemsControl).Items.Remove(needControlListBoxItem as TreeViewItem);
+            //tvMain.Items.Remove(tvMain.SelectedItem);
 
             //for (int i = 0; i < lbFile.Items.Count; i++)
             //{
@@ -459,7 +457,6 @@ namespace Maker
 
                 contentUserControls.Add(uc);
                 SetSpFilePosition(contentUserControls.Count - 1);
-         
         }
 
         private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -784,10 +781,10 @@ namespace Maker
         //    projectUserControl.RefreshFile();
         //}
 
-        public void NewProject()
+        public void NewProject(bool isClose)
         {
             String _projectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\";
-            GetStringDialog3 dialog = new GetStringDialog3(this, _projectPath);
+            NewProjectWindowDialog dialog = new NewProjectWindowDialog(this, _projectPath,isClose);
             if (dialog.ShowDialog() == true)
             {
                 _projectPath = _projectPath + dialog.fileName;
@@ -808,8 +805,20 @@ namespace Maker
                     directoryInfoPlay.Create();
                     DirectoryInfo directoryInfoLimitlessLamp = new DirectoryInfo(_projectPath + @"\LimitlessLamp");
                     directoryInfoLimitlessLamp.Create();
+                    DirectoryInfo directoryInfoAudio = new DirectoryInfo(_projectPath + @"\Audio");
+                    directoryInfoAudio.Create();
+                    DirectoryInfo directoryInfoCache = new DirectoryInfo(_projectPath + @"\_Cache");
+                    directoryInfoCache.Create();
+
+                    ProjectModel projectModel = new ProjectModel();
+                    projectModel.Bpm = dialog.dBpm;
+                    XmlSerializerBusiness.Save(projectModel, _projectPath+ @"\project.xml");
 
                     projectConfigModel.Path = dialog.fileName;
+                    XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
+
+                    InitProjects();
+    
                     if (gMain.Children.Count > 0)
                     {
                         //LoadFileList();
@@ -875,7 +884,6 @@ namespace Maker
             RemoveChildren();
         }
 
-
         //public SettingUserControl settingUserControl;
         //private void OpenSetting(object sender, RoutedEventArgs e)
         //{
@@ -887,8 +895,23 @@ namespace Maker
         //    AddSetting(settingUserControl);
         //}
 
+        private void InitProjects() {
+            InitProject();
+            InitFile();
+            tbBPM.Text = NowProjectModel.Bpm.ToString();
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (projectConfigModel.Path.Equals(String.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
+            {
+                NewProject(false);
+            }
+            else
+            {
+                InitProjects();
+            }
+
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             //spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
             spContentTitle.Margin = new Thickness(leftMargin - 10 , 15, leftMargin, 15);
@@ -930,7 +953,6 @@ namespace Maker
             }
             else
             {
-               
                 animation.To = new Thickness(0, 0, -500, 0);
             }
             animation.Completed += Animation_Completed;
@@ -989,7 +1011,7 @@ namespace Maker
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NewProject();
+            NewProject(true);
         }
 
         double dSpSearchActualWidth = 0.0;
@@ -1100,12 +1122,15 @@ namespace Maker
 
         private void btnNewFile_Click(object sender, RoutedEventArgs e)
         {
-
+            NewProject(true);
         }
 
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
+            projectConfigModel.Path = (sender as MenuItem).Header.ToString();
+            XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
 
+            InitProjects();
         }
 
         private void Setting_Click(object sender, RoutedEventArgs e)
@@ -1135,7 +1160,7 @@ namespace Maker
             {
                 MenuItem item = new MenuItem() { Header = str };
                 item.IsChecked = str.Equals(projectConfigModel.Path);
-                btnOpenFile.Click += btnOpenFile_Click;
+                item.Click += btnOpenFile_Click;
                 btnOpenFile.Items.Add(item);
             }
         }
@@ -1326,7 +1351,7 @@ namespace Maker
         private List<Light> GetData()
         {
             List<Light> mLightList = new List<Light>();
-            if (editUserControl.gMain.Children.Count == 0 || (editUserControl.gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+            if (editUserControl.gMain.Children.Count == 1 || (editUserControl.gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
             {
                 if ((editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
@@ -1368,7 +1393,7 @@ namespace Maker
             Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
             int i = 0;
             foreach (var item in models.Values) {
-                    (item.OperationModels[1] as OneNumberOperationModel).Number = 47 +  58*i;
+                    (item.OperationModels[1] as OneNumberOperationModel).Number = 47 +  59 * i;
                 i++;
             }
             (editUserControl.userControls[3] as ScriptUserControl).Test();
@@ -1377,6 +1402,21 @@ namespace Maker
         private void Image_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
             btnNew_Click(miNewLightScript, null);
+        }
+
+        private void StackPanel_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
+        {
+            GetValueWindowDialog getValueWindowDialog = new GetValueWindowDialog(this,"BPM",NowProjectModel.Bpm.ToString(),typeof(double));
+            if (getValueWindowDialog.ShowDialog() == true) {
+                NowProjectModel.Bpm = double.Parse(getValueWindowDialog.Value);
+                tbBPM.Text = NowProjectModel.Bpm.ToString();
+                XmlSerializerBusiness.Save(NowProjectModel, LastProjectPath + @"\project.xml");
+            }
+        }
+
+        private void Image_MouseLeftButtonDown_5(object sender, MouseButtonEventArgs e)
+        {
+            InitFile();
         }
     }
 }

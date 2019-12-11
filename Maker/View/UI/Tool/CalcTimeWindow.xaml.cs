@@ -40,7 +40,7 @@ namespace Maker.View.Tool
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tbBPM.Text = mw.NowProjectModel.Bpm;
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
 
             tbFilePath.Focus();
         }
