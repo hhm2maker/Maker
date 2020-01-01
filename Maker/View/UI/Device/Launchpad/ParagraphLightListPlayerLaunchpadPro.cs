@@ -162,7 +162,9 @@ namespace Maker.View.Device
                         Thread.Sleep(TimeSpan.FromMilliseconds((timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0 - d));
                     }
                     else {
-                        Thread.Sleep(TimeSpan.FromMilliseconds((timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0));
+                        if (NowTimePosition != 0) {
+                            Thread.Sleep(TimeSpan.FromMilliseconds((timeList[NowTimePosition] - timeList[NowTimePosition - 1]) / dWait * 1000.0));
+                        }
                     }
 
                     //if (NowTimePosition == 545)

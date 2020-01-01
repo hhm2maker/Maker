@@ -114,7 +114,7 @@
                 <MenuItem Name="miMycontent" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" Click="MiMycontent_Click"/>
                 <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
             </Menu>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" SizeChanged="dpShow_SizeChanged" Name="gCenter">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
@@ -125,9 +125,9 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <StackPanel  Margin="0,55,0,0" x:Name="dpShow" >
-                        <DockPanel  x:Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                            <Border BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="0,20,0,20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
+                    <StackPanel Margin="0,55,0,0" x:Name="dpShow" >
+                        <DockPanel  Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
+                            <Border Name="bLaunchpad"  BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <launchpad:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />
                             </Border>
                         </DockPanel>

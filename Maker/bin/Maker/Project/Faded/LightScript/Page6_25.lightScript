@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_1.lightScript" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_1.lightScript" />
+      <VerticalFlipping />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_2.lightScript" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page6_Base_2.lightScript" />
+      <VerticalFlipping />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

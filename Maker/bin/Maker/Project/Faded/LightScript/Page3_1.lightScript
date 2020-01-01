@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_Base_3.lightScript" />
+      <CopyToTheFollow colors="33 17 13 9 5 57 53 49 3" />
+      <MatchTotalTimeLattice number="49" hintKeyword="TotalTimeLatticeColon" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

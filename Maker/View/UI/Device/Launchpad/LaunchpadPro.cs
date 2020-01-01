@@ -998,7 +998,7 @@ namespace Maker.View.Device
         }
 
         /// <summary>
-        /// 是否已经贴膜
+        /// 大小
         /// </summary>
         public double Size
         {

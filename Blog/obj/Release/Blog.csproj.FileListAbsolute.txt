@@ -1,0 +1,6 @@
+E:\Sharer\Maker\Blog\bin\Release\Blog.dll
+E:\Sharer\Maker\Blog\bin\Release\Blog.pdb
+E:\Sharer\Maker\Blog\obj\Release\Blog.csprojResolveAssemblyReference.cache
+E:\Sharer\Maker\Blog\obj\Release\Blog.csproj.CoreCompileInputs.cache
+E:\Sharer\Maker\Blog\obj\Release\Blog.dll
+E:\Sharer\Maker\Blog\obj\Release\Blog.pdb

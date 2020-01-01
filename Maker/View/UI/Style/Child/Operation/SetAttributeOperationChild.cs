@@ -21,7 +21,7 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             foreach (var item in setAttributeOperationModel.AttributeOperationModels)
             {
-                ComboBox cb = GetComboBox(new List<string>{ "Time", "Position", "Color" }, null);
+                ComboBox cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, null);
                 TextBox tb = GetTexeBox(item.Value);
                 tb.Width = 300;
                 if (item.attributeType.Equals(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME))
@@ -50,7 +50,8 @@ namespace Maker.View.UI.Style.Child
         private void IvChange_Click(object sender, RoutedEventArgs e)
         {
             SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
-            for (int i = 0; i < _UI.Count - 1 ; i++) {
+            for (int i = 0; i < _UI.Count - 1; i++)
+            {
                 DockPanel dp = _UI[i] as DockPanel;
                 int type = (dp.Children[0] as ComboBox).SelectedIndex;
                 TextBox tb = dp.Children[1] as TextBox;
@@ -166,18 +167,53 @@ namespace Maker.View.UI.Style.Child
 
         private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ComboBox cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, null);
+            ComboBox cb = null;
+            if (setAttributeOperationModel.AttributeOperationModels.Count == 0)
+            {
+                cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, null);
+            }
+            else
+            {
+                DockPanel dp = _UI[_UI.Count -2] as DockPanel;
+
+                int type = (dp.Children[0] as ComboBox).SelectedIndex;
+                if (type == 0)
+                {
+                    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 1, null);
+                }
+                else if (type == 1)
+                {
+                    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 2, null);
+                }
+                else if (type == 2)
+                {
+                    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 0, null);
+                }
+                //if (setAttributeOperationModel.AttributeOperationModels[setAttributeOperationModel.AttributeOperationModels.Count - 1].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME)
+                //{
+                //    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 1, null);
+                //}
+                //else if (setAttributeOperationModel.AttributeOperationModels[setAttributeOperationModel.AttributeOperationModels.Count - 1].attributeType == SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION)
+                //{
+                //    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 2, null);
+                //}
+                //else {
+                //    cb = GetComboBox(new List<string> { "Time", "Position", "Color" }, 0, null);
+                //}
+            }
+
             TextBox tb = GetTexeBox("+0");
             tb.Width = 300;
-            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) } ),UICount - 1);
+            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }), UICount - 1);
         }
 
         private void IvReduce_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if(checkedPositions.Count == 0)
+            if (checkedPositions.Count == 0)
                 return;
             checkedPositions.Sort();
-            for (int i = checkedPositions.Count - 1; i >= 0; i--) {
+            for (int i = checkedPositions.Count - 1; i >= 0; i--)
+            {
                 RemoveUIToDialog(checkedPositions[i]);
             }
             checkedPositions.Clear();

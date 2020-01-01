@@ -46,7 +46,8 @@ namespace Maker.View.UI.Dialog.WindowDialog
             //获取最新的我的内容
             if (position == oldPosition)
                 return;
-            GeneralViewBusiness.SetStringsAndClickEventToListBox(miChildMycontent, GetMyContent(position, suc.filePath), null, true, 16);
+
+            GeneralViewBusiness.SetStringsAndClickEventToListBox(miChildMycontent, GetMyContent(position, System.IO.Path.GetFileName(suc.filePath)), null, true, 16);
 
             if (oldPosition != -1) {
                 Border bOld = spTitle.Children[oldPosition] as Border;

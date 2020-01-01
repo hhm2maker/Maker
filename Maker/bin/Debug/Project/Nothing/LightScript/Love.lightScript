@@ -2,10 +2,10 @@
 <Root>
   <Scripts>
     <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="0" position="9:BCDEKLMNOPTUVWXYZ[^_`abcdeijmn" interval="0" continued="12" color="&amp;" type="0" action="11" />
+      <CreateFromQuick time="0" position="9:BCDEKLMNOPTUVWXYZ[^_`abcdeijmn" interval="0" continued="1572" color="&amp;" type="0" action="10" />
     </Script>
     <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
-      <CreateFromQuick time="0" position=",-./0123678;&lt;=@AFGJQhklorstuvwxy" interval="0" continued="12" color="$" type="0" action="11" />
+      <CreateFromQuick time="0" position=",-./0123678;&lt;=@AFGJQhklorstuvwxy" interval="0" continued="1572" color="$" type="0" action="10" />
     </Script>
   </Scripts>
   <Introduce></Introduce>

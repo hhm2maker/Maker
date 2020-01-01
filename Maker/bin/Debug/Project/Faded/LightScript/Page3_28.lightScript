@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="rst" interval="12" continued="12" color="." type="0" action="10" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="0" position="rst" interval="12" continued="12" color="." type="0" action="10" />
+      <VerticalFlipping />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromQuick time="36" position="uv" interval="0" continued="12" color="." type="0" action="11" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

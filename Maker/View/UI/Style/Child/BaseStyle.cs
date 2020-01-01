@@ -326,7 +326,7 @@ namespace Maker.View.Style.Child
         private void AddUIToDialog() {
             foreach (FrameworkElement ui in _UI) {
                 if (_UI.IndexOf(ui) != 0) {
-                    ui.Margin = new Thickness(0, 20, 0, 0);
+                    ui.Margin = new Thickness(0, 10, 0, 0);
                 }
                 spContacts.Children.Add(ui);
             }
@@ -473,6 +473,39 @@ namespace Maker.View.Style.Child
                 item.SetResourceReference(ContentProperty, child);
                 cb.Items.Add(item);
             }
+            if (selectionChangedEvent != null)
+            {
+                cb.SelectionChanged += selectionChangedEvent;
+            }
+            return cb;
+        }
+
+        /// <summary>
+        /// 添加组合框
+        /// </summary>
+        /// <param name="textName"></param>
+        /// <param name="isIndependent"></param>
+        public ComboBox GetComboBox(List<String> childTextName, int index,SelectionChangedEventHandler selectionChangedEvent)
+        {
+            ComboBox cb = new ComboBox();
+            cb.SelectedIndex = 0;
+            cb.FontSize = 16;
+            cb.BorderThickness = new Thickness(2);
+            cb.Foreground = new SolidColorBrush(Colors.White);
+            cb.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
+            cb.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
+            cb.Padding = new Thickness(10, 5, 10, 5);
+            //cb.Margin = new Thickness(16, 0, 0, 0);
+            foreach (String child in childTextName)
+            {
+                ComboBoxItem item = new ComboBoxItem();
+                item.SetResourceReference(StyleProperty, "ComboBoxItemStyle1");
+                item.Foreground = new SolidColorBrush(Colors.White);
+                item.FontSize = 16;
+                item.SetResourceReference(ContentProperty, child);
+                cb.Items.Add(item);
+            }
+            cb.SelectedIndex = index;
             if (selectionChangedEvent != null)
             {
                 cb.SelectionChanged += selectionChangedEvent;

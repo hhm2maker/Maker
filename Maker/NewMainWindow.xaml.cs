@@ -29,6 +29,7 @@ using Maker.Business.Model.Config;
 using Maker.Business.Currency;
 using Maker.View.UI.Tool;
 using Maker.Business.Model.OperationModel;
+using System.Linq;
 
 namespace Maker
 {
@@ -1206,7 +1207,18 @@ namespace Maker
                 //加入播放器页面
                 if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
-                    userControl = new PlayerUserControl(this, mLightList, (editUserControl.userControls[3] as ScriptUserControl).AudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
+                    String strAudioResources = (editUserControl.userControls[3] as ScriptUserControl).AudioResources;
+                    if (!strAudioResources.Contains(@"\")) {
+                        //说明是不完整路径
+                        strAudioResources = LastProjectPath +@"Audio\"+ strAudioResources;
+                    }
+                    if (File.Exists(strAudioResources))
+                    {
+                        userControl = new PlayerUserControl(this, mLightList, strAudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
+                    }
+                    else {
+                        userControl = new PlayerUserControl(this, mLightList);
+                    }
                 }
                 else
                 {

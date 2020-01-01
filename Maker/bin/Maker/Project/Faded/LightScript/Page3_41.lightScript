@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Page3_39.lightScript" />
+      <ChangeColor colors="49" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources></AudioResources>
+</Root>

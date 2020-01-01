@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Views> 
+  <View type="textblock" text="Before number:" /> 
+  <View type="textbox"/> 
+  <View type="textblock" text="After number:" /> 
+  <View type="textbox"/> 
+</Views>

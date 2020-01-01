@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Scripts>
+    <Script name="Step1" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main1.lightScript" />
+    </Script>
+    <Script name="Step2" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main2.lightScript" />
+    </Script>
+    <Script name="Step3" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main3.lightScript" />
+    </Script>
+    <Script name="Step4" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main4.lightScript" />
+    </Script>
+    <Script name="Step5" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main5.lightScript" />
+    </Script>
+    <Script name="Step6" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main6.lightScript" />
+    </Script>
+    <Script name="Step7" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main3.lightScript" />
+      <SetStartTime number="13621" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step8" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Main4.lightScript" />
+      <SetStartTime number="15653" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+    <Script name="Step9" value="" visible="true" contain="" intersection="" complement="">
+      <CreateFromFile fileName="Love.lightScript" />
+      <SetStartTime number="17562" hintKeyword="PleaseEnterTheStartTimeColon" />
+    </Script>
+  </Scripts>
+  <Introduce></Introduce>
+  <AudioResources>Alan Walker - Faded.mp3</AudioResources>
+</Root>

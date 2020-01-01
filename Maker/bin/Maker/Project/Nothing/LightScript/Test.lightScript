@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Root>
-  <Scripts>
-    <Script name="Step1" parent="" value="UG9zaXRpb25Hcm91cCBTdGVwMVBvc2l0aW9uR3JvdXAgPSBuZXcgUG9zaXRpb25Hcm91cCgiMC05OSIsJyAnLCctJyk7DQoJQ29sb3JHcm91cCBTdGVwMUNvbG9yR3JvdXAgPSBuZXcgQ29sb3JHcm91cCgiNSIsJyAnLCctJyk7DQoJTGlnaHRHcm91cCBTdGVwMUxpZ2h0R3JvdXAgPSBDcmVhdGUuQ3JlYXRlTGlnaHRHcm91cCgwLFN0ZXAxUG9zaXRpb25Hcm91cCwwLDEyLFN0ZXAxQ29sb3JHcm91cCxDcmVhdGUuVVAsQ3JlYXRlLkFMTCk7" visible="true" contain="Step1" intersection="" complement="">
-      <ShapeColor shapeType="square" colors="5 9 13 17 21" />
-    </Script>
-  </Scripts>
-  <Introduce>sss</Introduce>
-</Root>

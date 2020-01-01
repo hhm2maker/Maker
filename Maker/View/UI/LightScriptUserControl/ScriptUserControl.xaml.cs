@@ -3423,6 +3423,10 @@ namespace Maker.View.LightScriptUserControl
                 return;
 
             iNowPosition++;
+
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache")) {
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Cache");
+            }
             File.Copy(filePath, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iNowPosition + ".lightScript", true);
             if (iNowPosition == 999)
             {
@@ -4262,7 +4266,8 @@ namespace Maker.View.LightScriptUserControl
 
                 ScriptModel scriptModel = scriptModelDictionary[GetStepName()];
                 SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
-                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, "+0") };
+                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, "+0") };
+                //setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, "+0") };
                 scriptModel.OperationModels.Add(setAttributeOperationModel);
                 //UpdateStep();
                 sw.SetData(scriptModelDictionary[scriptModel.Name].OperationModels, true);
@@ -4279,7 +4284,7 @@ namespace Maker.View.LightScriptUserControl
                 //scriptModel.Contain = new List<string>() { stepName };
                 scriptModelDictionary.Add(stepName, scriptModel);
                 SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
-                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.POSITION, "+0") };
+                setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, "+0") };
                 scriptModel.OperationModels.Add(setAttributeOperationModel);
               
                 UpdateStep();
@@ -4358,18 +4363,23 @@ namespace Maker.View.LightScriptUserControl
             System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             if (mw.strMyLanguage.Equals("en-US"))
             {
-                openFileDialog1.Filter = "Wav file(*.wav)|*.wav|Mp3 file(*.mp3)|*.mp3|All files(*.*)|*.*";
+                openFileDialog1.Filter = "音频文件(*.wav,*.mp3)|*.wav;*.mp3|All files(*.*)|*.*";
             }
             else
             {
-                openFileDialog1.Filter = "Wav文件(*.wav)|*.wav|Mp3文件(*.mp3)|*.mp3|所有文件(*.*)|*.*";
+                openFileDialog1.Filter = "音频文件(*.wav,*.mp3)|*.wav;*.mp3|所有文件(*.*)|*.*";
             }
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                AudioResources = openFileDialog1.FileName;
+                String fileName = openFileDialog1.FileName;
+                if (fileName.StartsWith(mw.LastProjectPath + @"Audio\")) {
+                    fileName = fileName.Substring((mw.LastProjectPath + @"Audio\").Length);
+                }
+                AudioResources = fileName;
                 tbMusic.Text = AudioResources;
             }
+            SaveFile();
         }
 
         private void lbStep_ScrollChanged(object sender, ScrollChangedEventArgs e)
@@ -4505,6 +4515,11 @@ namespace Maker.View.LightScriptUserControl
         {
             AudioResources = String.Empty;
             tbMusic.Text = AudioResources;
+        }
+
+        private void dpShow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            mLaunchpad.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
         }
     }
 }
