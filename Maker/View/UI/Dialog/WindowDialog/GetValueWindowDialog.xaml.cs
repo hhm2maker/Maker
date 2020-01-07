@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.View.Control;
 using Maker.View.Style.Child;
+using Maker.View.UIBusiness;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,7 +52,7 @@ namespace Maker.View.Dialog
             //构建对话框
             tbBPM = baseStyle.GetTexeBox(Value);
             baseStyle.AddTitleAndControl("ValueColon", tbBPM, Orientation.Vertical)
-                .AddDockPanel(out DockPanel dp,baseStyle.GetButton("Ok", btnOk_Click), baseStyle.GetButton("Cancel", btnCancel_Click))
+                .AddDockPanel(out DockPanel dp,GeneralMainViewBusiness.CreateInstance().GetButton("Ok", btnOk_Click), GeneralMainViewBusiness.CreateInstance().GetButton("Cancel", btnCancel_Click))
                 .CreateDialogNormal();
             //DockPanel dp = baseStyle.GetDockPanel(baseStyle.GetButton("Ok", btnOk_Click), baseStyle.GetButton("Cancel", btnCancel_Click));
             dp.HorizontalAlignment = HorizontalAlignment.Center;

@@ -70,7 +70,7 @@ namespace Maker.View.UI.Style.Child.Operation
             frameworkElements.Add(GetTexeBlock(shapeColorOperationModel.BottomString));
 
             AddUIElement(GetDockPanel(mLaunchpad, GetVerticalStackPanel(frameworkElements))).
-            AddUIElement(GetHorizontalStackPanel(new List<FrameworkElement>() { GetButton("Preview", Preview), GetButton("PasteValue", PasteRangeListContent) }));
+            AddUIElement(GetHorizontalStackPanel(new List<FrameworkElement>() { ViewBusiness.GetButton("Preview", Preview), ViewBusiness.GetButton("PasteValue", PasteRangeListContent) }));
 
             CreateDialog();
         }

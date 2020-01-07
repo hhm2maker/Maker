@@ -62,6 +62,7 @@ namespace Maker
 
         public IsFirstConfigModel isFirstConfigModel = new IsFirstConfigModel();
         public LanguageConfigModel languageConfigModel = new LanguageConfigModel();
+        public BasicConfigModel basicConfigModel = new BasicConfigModel();
         public TestConfigModel testConfigModel = new TestConfigModel();
         public PavedConfigModel pavedConfigModel = new PavedConfigModel();
         public ProjectConfigModel projectConfigModel = new ProjectConfigModel();

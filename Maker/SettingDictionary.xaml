@@ -280,6 +280,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
     <!-- ListBoxItem -->
     <!-- 部分内容已经被我测试修改过 -->
     <Style x:Key="FocusVisual2">
@@ -291,10 +293,10 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <SolidColorBrush x:Key="Item.MouseOver.Border" Color="Red"/>
+    <SolidColorBrush x:Key="Item.MouseOver.Border" Color="Transparent"/>
     <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#00000000"/>
-
+    
     <Style x:Key="ListBoxItem1" TargetType="{x:Type ListBoxItem}">
         <!--<Setter Property="FontFamily" Value="Microsoft YaHei UI Light"/>-->
         <!--<Setter Property="FontSize" Value="16"/>-->
@@ -305,7 +307,7 @@
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>-->
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <!--<Setter Property="BorderThickness" Value="0"/>-->
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual2}"/>
         <Setter Property="Template">
             <Setter.Value>

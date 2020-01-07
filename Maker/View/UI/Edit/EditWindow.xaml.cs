@@ -29,9 +29,9 @@ namespace Maker.View.UI.Edit
 
             Owner = mw;
 
-            tbFileName.Text = mw.needControlFileName.Substring(0, mw.needControlFileName.IndexOf('.'));
+            tbFileName.Text = mw.normalFileManager.needControlFileName.Substring(0, mw.normalFileManager.needControlFileName.IndexOf('.'));
 
-            using(StreamReader sr = new StreamReader(mw.LastProjectPath+@"LightScript\"+ mw.needControlFileName, Encoding.UTF8)){
+            using(StreamReader sr = new StreamReader(mw.LastProjectPath+@"LightScript\"+ mw.normalFileManager.needControlFileName, Encoding.UTF8)){
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = sr.ReadLine()) != null)
@@ -56,7 +56,7 @@ namespace Maker.View.UI.Edit
             {
                 WriteContent(filePath);
             }
-            mw.InitFile();
+            mw.normalFileManager.InitFile();
         }
 
         private void WriteContent(String filePath)

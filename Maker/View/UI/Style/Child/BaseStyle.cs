@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.UIBusiness;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
@@ -194,32 +195,31 @@ namespace Maker.View.Style.Child
             sp.Children.Add(spBottomImage);
         }
 
-        protected Image GetImage(String imageUris,int size, MouseButtonEventHandler e)
-        {
-            Image image = new Image
-            {
-                Width = size,
-                Height = size,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
-                Stretch = Stretch.Fill
-            };
-            image.MouseLeftButtonDown += e;
-            return image;
+        //protected Image GetImage(String imageUris,int size, MouseButtonEventHandler e)
+        //{
+        //    Image image = new Image
+        //    {
+        //        Width = size,
+        //        Height = size,
+        //        Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
+        //        Stretch = Stretch.Fill
+        //    };
+        //    image.MouseLeftButtonDown += e;
+        //    return image;
              
-        }
+        //}
 
 
-        protected Image GetImage(String imageUris, int size)
-        {
-            return new Image
-            {
-                Width = size,
-                Height = size,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
-                Stretch = Stretch.Fill
-            };
-
-        }
+        //protected Image GetImage(String imageUris, int size)
+        //{
+        //    return new Image
+        //    {
+        //        Width = size,
+        //        Height = size,
+        //        Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris, UriKind.RelativeOrAbsolute)),
+        //        Stretch = Stretch.Fill
+        //    };
+        //}
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -356,38 +356,15 @@ namespace Maker.View.Style.Child
         /// </summary>
         public void AddTopHintTextBlock(String textName)
         {
-            TextBlock tb = new TextBlock();
-            tb.FontSize = 16;
-            tb.Foreground = new SolidColorBrush(Color.FromArgb(255,240,240,240));
-         
-            tb.SetResourceReference(TextBlock.TextProperty, textName);
-            _UI.Add(tb);
+            _UI.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock(textName));
         }
 
         public BaseStyle GetButton(String textName, RoutedEventHandler routedEventHandler,out Button btn)
         {
-            btn = GetButton(textName, routedEventHandler);
+            btn = ViewBusiness.GetButton(textName, routedEventHandler);
             return this;
         }
 
-        public Button GetButton(String textName, RoutedEventHandler routedEventHandler)
-        {
-            Button btn = new Button();
-            btn.BorderThickness = new Thickness(2);
-            btn.HorizontalAlignment = HorizontalAlignment.Stretch;
-            btn.Background = new SolidColorBrush(Color.FromRgb(31, 31, 31));
-            btn.BorderBrush = new SolidColorBrush(Color.FromRgb(43, 43, 43)); 
-            btn.Margin = new Thickness(5, 0, 0, 0);
-            btn.Padding = new Thickness(5, 2, 5, 2);
-            btn.FontSize = 16;
-            btn.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            btn.SetResourceReference(ContentProperty, textName);
-            if (routedEventHandler != null)
-            {
-                btn.Click += routedEventHandler;
-            }
-            return btn;
-        }
 
         public StackPanel GetVerticalStackPanel(List<FrameworkElement> frameworkElements)
         {
@@ -706,17 +683,13 @@ namespace Maker.View.Style.Child
             tb.TextWrapping = TextWrapping.Wrap;
             _UI.Add(tb);
         }
+
         /// <summary>
         /// 添加文本框(输入框)
         /// </summary>
         public void AddTextBox()
         {
-            TextBox tb = new TextBox();
-            tb.FontSize = 16;
-            tb.Background = null;
-            tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-            tb.Margin = new Thickness(0, 10, 0, 0);
-            _UI.Add(tb);
+            _UI.Add(ViewBusiness.GetTextBox());
         }
 
         /// <summary>
@@ -747,5 +720,9 @@ namespace Maker.View.Style.Child
             return spContacts.Children[position];
         }
 
+
+        protected GeneralMainViewBusiness ViewBusiness {
+            get { return GeneralMainViewBusiness.CreateInstance(); }
+        }
     }
 }

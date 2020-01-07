@@ -138,7 +138,7 @@ namespace Maker.View.UI.Setting
                     break;
             }
             //播放器 - 默认
-            GeneralViewBusiness.SetStringsToListBox(lbMain, FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"\Device", new List<String>() { ".ini" }), mw.playerDefault);
+            GeneralOtherViewBusiness.SetStringsToListBox(lbMain, FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"\Device", new List<String>() { ".ini" }), mw.playerDefault);
         }
 
 

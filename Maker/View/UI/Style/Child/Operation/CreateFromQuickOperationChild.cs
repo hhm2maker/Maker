@@ -34,7 +34,7 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             tbTime = GetTexeBox(createFromQuickOperationModel.Time.ToString());
             tbTime.Width = 270;
-            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbTime, GetImage("calc.png",25) });
+            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbTime, ViewBusiness.GetImage("calc.png",25) });
 
             StringBuilder sbPosition = new StringBuilder();
             foreach(var item in createFromQuickOperationModel.PositionList)
@@ -45,7 +45,7 @@ namespace Maker.View.UI.Style.Child
             tbPosition.Width = 270;
             DrawRangeClass drawRangeClass = new DrawRangeClass(tbPosition);
             ShowRangeClass showRangeClassPosition = new ShowRangeClass(tbPosition);
-            AddTitleAndControl("PositionColon", new List<FrameworkElement>() { tbPosition, GetImage("draw.png", 25, drawRangeClass.DrawRange), GetImage("more_white.png", 25, showRangeClassPosition.ShowRangeList) });
+            AddTitleAndControl("PositionColon", new List<FrameworkElement>() { tbPosition, ViewBusiness.GetImage("draw.png", 25, drawRangeClass.DrawRange), ViewBusiness.GetImage("more_white.png", 25, showRangeClassPosition.ShowRangeList) });
 
             tbInterval = GetTexeBox(createFromQuickOperationModel.Interval.ToString());
             AddTitleAndControl("IntervalColon", tbInterval);
@@ -61,7 +61,7 @@ namespace Maker.View.UI.Style.Child
             tbColor = GetTexeBox(sbColor.ToString().Substring(0, sbColor.ToString().Length - 1));
             tbColor.Width = 270;
             ShowRangeClass showRangeClassColor = new ShowRangeClass(tbColor);
-            AddTitleAndControl("ColorColon", new List<FrameworkElement>() { tbColor, GetImage("more_white.png", 25, showRangeClassColor.ShowRangeList) });
+            AddTitleAndControl("ColorColon", new List<FrameworkElement>() { tbColor, ViewBusiness.GetImage("more_white.png", 25, showRangeClassColor.ShowRangeList) });
 
             cbType = GetComboBox(new List<String>() { "Up", "Down","UpDown", "DownUp" ,"UpAndDown", "DownAndUp", "FreezeFrame" },null);
             cbType.SelectedIndex = createFromQuickOperationModel.Type;
@@ -76,7 +76,7 @@ namespace Maker.View.UI.Style.Child
                 cbAction.SelectedIndex = 0;
             }
 
-            AddUIElement(GetButton("Change", IvChange_Click));
+            AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
 
             CreateDialog();
         }
@@ -151,9 +151,9 @@ namespace Maker.View.UI.Style.Child
                 }
                 String filePath = AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range";
                 //获得文件路径
-                if (File.Exists(filePath))
+                if (System.IO.File.Exists(filePath))
                 {
-                    File.Delete(filePath);
+                    System.IO.File.Delete(filePath);
                 }
                 FileStream f = new FileStream(filePath, FileMode.OpenOrCreate);
                 for (int j = 0; j < builder.Length; j++)

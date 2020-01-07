@@ -224,7 +224,7 @@
                         Style="{StaticResource ListBoxStyle1}"
                         MouseDoubleClick="LbStep_MouseDoubleClick"  
                     -->
-                    <ListBox Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" x:Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
+                    <ListBox Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
                         <ListBox.ContextMenu>
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

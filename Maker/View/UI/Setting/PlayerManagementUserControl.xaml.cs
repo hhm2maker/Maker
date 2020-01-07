@@ -60,7 +60,7 @@ namespace Maker.View.Tool
         protected override void LoadFileContent()
         {
             DeviceModel deviceModel = FileBusiness.CreateInstance().LoadDeviceModel(filePath);
-            GeneralViewBusiness.SetLaunchpadStyle(mLaunchpad, deviceModel);
+            GeneralOtherViewBusiness.SetLaunchpadStyle(mLaunchpad, deviceModel);
             if (deviceModel.Equals("Launchpad Pro"))
             {
                 cbDeviceType.SelectedIndex = 0;

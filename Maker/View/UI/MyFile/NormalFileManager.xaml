@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Maker.View.UI.MyFile.NormalFileManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.MyFile"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../View/StyleResources/AllDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderBrush="#555555" BorderThickness="0,0,2,0">
+        <DockPanel >
+            <DockPanel DockPanel.Dock="Top" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" Background="#363b40">
+                <StackPanel Orientation="Horizontal"  >
+                    <Image VerticalAlignment="Center" Margin="20,15,15,15" Source="../../../View/Resources/Image/new_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
+                    <TextBlock Text="{DynamicResource Add}" VerticalAlignment="Center" FontSize="20"/>
+                </StackPanel>
+                <Grid DockPanel.Dock="Right" HorizontalAlignment="Right" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" >
+                    <Image  VerticalAlignment="Center" Margin="20,15,15,15" Source="../../../View/Resources/Image/arrow_down.png" Width="20" RenderOptions.BitmapScalingMode="Fant" />
+                </Grid>
+            </DockPanel>
+            <StackPanel Orientation="Horizontal" Width="300" DockPanel.Dock="Top">
+                <Image VerticalAlignment="Center" Margin="20,15,15,0" Source="../../../View/Resources/Image/refresh.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
+            </StackPanel>
+            <TreeView Name="tvMain" Background="Transparent" FontSize="18"  SelectedItemChanged="TreeView_SelectedItemChanged" BorderThickness="0" Margin="0,10,0,0">
+                <TreeViewItem Name="tvLight" Header="{DynamicResource Light}" Style="{DynamicResource TreeViewItemNormal}">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="miNewLight" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+                <TreeViewItem Name="tvLightScript" Header="{DynamicResource LightScript}"  Style="{DynamicResource TreeViewItemNormal}">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="miNewLightScript" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+                <TreeViewItem Name="tvLimitlessLamp" Header="{DynamicResource LimitlessLamp}"  Style="{DynamicResource TreeViewItemNormal}">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="miNewLimitlessLamp" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+                <TreeViewItem Name="tvPage" Header="{DynamicResource Page}"  Style="{DynamicResource TreeViewItemNormal}">
+                    <TreeViewItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="miNewPage" Click="btnNew_Click" Header="{DynamicResource New}"/>
+                        </ContextMenu>
+                    </TreeViewItem.ContextMenu>
+                </TreeViewItem>
+            </TreeView>
+        </DockPanel>
+    </Border>
+</UserControl>

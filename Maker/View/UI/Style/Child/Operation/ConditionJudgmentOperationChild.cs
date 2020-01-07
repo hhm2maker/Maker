@@ -3,6 +3,7 @@ using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.LightScriptUserControl;
+using Maker.View.UIBusiness;
 using Operation;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Maker.View.UI.Style.Child
 
             tbIfTime = GetTexeBox(conditionJudgmentOperationModel.IfTime.ToString());
             tbIfTime.Width = 270;
-            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbIfTime, GetImage("calc.png",25) });
+            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbIfTime, ViewBusiness.GetImage("calc.png",25) });
 
             cbAction = GetComboBox(new List<String>() { "All", "Open", "Close" }, null);
             cbAction.SelectedIndex = conditionJudgmentOperationModel.IfAction;
@@ -54,7 +55,7 @@ namespace Maker.View.UI.Style.Child
             tbIfPosition.Width = 270;
             DrawRangeClass drawRangeClass = new DrawRangeClass(tbIfPosition);
             ShowRangeClass showRangeClassPosition = new ShowRangeClass(tbIfPosition);
-            AddTitleAndControl("PositionColon", new List<FrameworkElement>() { tbIfPosition, GetImage("draw.png", 25, drawRangeClass.DrawRange), GetImage("more_white.png", 25, showRangeClassPosition.ShowRangeList) });
+            AddTitleAndControl("PositionColon", new List<FrameworkElement>() { tbIfPosition, ViewBusiness.GetImage("draw.png", 25, drawRangeClass.DrawRange), ViewBusiness.GetImage("more_white.png", 25, showRangeClassPosition.ShowRangeList) });
 
             StringBuilder sbColor = new StringBuilder();
             foreach (var item in conditionJudgmentOperationModel.IfColor)
@@ -64,7 +65,7 @@ namespace Maker.View.UI.Style.Child
             tbIfColor = GetTexeBox(sbColor.ToString().Length > 0 ? sbColor.ToString().Substring(0, sbColor.ToString().Length - 1) : "");
             tbIfColor.Width = 270;
             ShowRangeClass showRangeClassColor = new ShowRangeClass(tbIfColor);
-            AddTitleAndControl("ColorColon", new List<FrameworkElement>() { tbIfColor, GetImage("more_white.png", 25, showRangeClassColor.ShowRangeList) });
+            AddTitleAndControl("ColorColon", new List<FrameworkElement>() { tbIfColor, ViewBusiness.GetImage("more_white.png", 25, showRangeClassColor.ShowRangeList) });
 
             AddUIElement(GetTexeBlockNoBorder("Then", true));
 
@@ -77,7 +78,7 @@ namespace Maker.View.UI.Style.Child
             tbThenColor = GetTexeBox(conditionJudgmentOperationModel.ThenColor.ToString());
             AddTitleAndControl("ColorColon", tbThenColor);
 
-            AddUIElement(GetButton("Change", IvChange_Click));
+            AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
 
             cbOperator.SelectedIndex = (int)conditionJudgmentOperationModel.MyOperator - 40;
 

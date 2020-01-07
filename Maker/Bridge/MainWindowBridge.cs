@@ -121,14 +121,14 @@ namespace Maker.Bridge
         /// </summary>
         public void SetFullScreen()
         {
-            GeneralViewBusiness.SetFullScreen(window);
+            GeneralOtherViewBusiness.SetFullScreen(window);
         }
         /// <summary>
         /// 设置MainWindow全屏
         /// </summary>
         public void SetPercentageOfScreen(double percentage)
         {
-            GeneralViewBusiness.SetPercentageOfScreen(window,percentage);
+            GeneralOtherViewBusiness.SetPercentageOfScreen(window,percentage);
         }
         /// <summary>
         /// 获取历史记录列表

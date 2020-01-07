@@ -186,17 +186,17 @@ namespace Maker.View
                     Header = filePath,
                 };
                 item.FontSize = 16;
-                item.ContextMenu = mw.contextMenu;
+                item.ContextMenu = mw.normalFileManager.contextMenu;
                 if (filePath.EndsWith(".light")) {
-                    mw.tvLight.Items.Add(item);
+                    mw.normalFileManager.tvLight.Items.Add(item);
                 }
                 else if (filePath.EndsWith(".lightScript"))
                 {
-                    mw.tvLightScript.Items.Add(item);
+                    mw.normalFileManager.tvLightScript.Items.Add(item);
                 }
                 else if (filePath.EndsWith(".limitlessLamp"))
                 {
-                    mw.tvLimitlessLamp.Items.Add(item);
+                    mw.normalFileManager.tvLimitlessLamp.Items.Add(item);
                 }
                 item.IsSelected = true;
             }

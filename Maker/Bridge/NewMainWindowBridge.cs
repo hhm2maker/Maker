@@ -32,12 +32,14 @@ namespace Maker.Bridge
             InitStaticConstant();
             InitLanguage();
             InitIsFirst();
+            InitBasic();
             InitPlayerType();
             InitProject();
             InitPaved();
             InitHint();
             InitHide();
             InitTest();
+            InitVersion();
             InitVersion();
 
             InitHintWindow();
@@ -50,6 +52,15 @@ namespace Maker.Bridge
         {
             XmlSerializerBusiness.Load(ref view.hintWindowConfigModel, "Config/hintwindow.xml");
         }
+
+        /// <summary>
+        /// 初始化基础设置
+        /// </summary>
+        private void InitBasic()
+        {
+            XmlSerializerBusiness.Load(ref view.basicConfigModel, "Config/basic.xml");
+        }
+
 
         /// <summary>
         /// 初始化测试

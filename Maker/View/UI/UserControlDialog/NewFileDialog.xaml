@@ -8,7 +8,7 @@
              Background="#363b40"
              Height="230" Width="600"
              VerticalAlignment="Top"
-                   Loaded="MakerDialog_Loaded"
+             Loaded="MakerDialog_Loaded"
              >
     <UserControl.Effect>
         <DropShadowEffect Color="#1b1e21"  BlurRadius="20" />
@@ -18,7 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-    <StackPanel Orientation="Vertical" Grid.Row="0">
+        <StackPanel Orientation="Vertical" Grid.Row="0">
             <TextBlock Name="tbTitle" Text="{DynamicResource CreateFile}"  FontSize="18" Foreground="#b8bfc6" Margin="30" />
             <TextBlock Text="{DynamicResource NewFileNameColon}" FontSize="14" Foreground="#b8bfc6" Margin="30,0,30,20" />
             <Grid Margin="30,0,30,30" >
@@ -26,8 +26,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" HorizontalAlignment="Stretch" FontSize="14" Background="{x:Null}" BorderBrush="#b8bfc6" Height="22"  Name="tbNumber" CaretBrush="#f0f0f0"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged" KeyDown="tbNumber_KeyDown"/>
-                <TextBlock Grid.Column="1" FontSize="14" Background="{x:Null}" Height="22" Width="100" Name="tbExtension" TextAlignment="Left" Foreground="#b8bfc6" Margin="10,0,0,0"/>
+                <TextBox Grid.Column="0" HorizontalAlignment="Stretch" FontSize="14" Background="{x:Null}" BorderBrush="#b8bfc6" Name="tbNumber" CaretBrush="#f0f0f0"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged"/>
+                <TextBlock Grid.Column="1" FontSize="14" Width="100" Name="tbExtension" TextAlignment="Left" Foreground="#b8bfc6" Margin="10,0,0,0"/>
             </Grid>
         </StackPanel>
         <DockPanel Grid.Row="1">
@@ -43,4 +43,5 @@
             </Button>
         </DockPanel>
     </Grid>
+
 </local:MakerDialog>

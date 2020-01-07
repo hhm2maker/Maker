@@ -51,7 +51,6 @@
                 </Grid>
                 <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
                 <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
-           
                 <StackPanel Name="spContent" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="0,15,0,0" />
             </StackPanel>
         </Border>

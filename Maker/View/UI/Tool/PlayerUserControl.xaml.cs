@@ -103,7 +103,7 @@ namespace Maker.View
             playLpd.Height = 750;
             gMain.Children.Add(playLpd);
 
-            GeneralViewBusiness.SetLaunchpadStyle(playLpd, FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
+            GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
             gMain.Width = playLpd.Width;
 
             playLpd.ClearAllColorExcept();

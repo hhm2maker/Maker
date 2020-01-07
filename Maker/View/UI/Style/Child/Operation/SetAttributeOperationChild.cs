@@ -37,10 +37,10 @@ namespace Maker.View.UI.Style.Child
                 {
                     cb.SelectedIndex = 2;
                 }
-                AddUIElement(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }));
+                AddUIElement(GetDockPanel(new List<FrameworkElement> { cb, tb, ViewBusiness.GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }));
             }
 
-            AddUIElement(GetButton("Change", IvChange_Click));
+            AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
 
             CreateDialog();
 
@@ -204,7 +204,7 @@ namespace Maker.View.UI.Style.Child
 
             TextBox tb = GetTexeBox("+0");
             tb.Width = 300;
-            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }), UICount - 1);
+            AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, ViewBusiness.GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }), UICount - 1);
         }
 
         private void IvReduce_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

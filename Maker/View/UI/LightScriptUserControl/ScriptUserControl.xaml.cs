@@ -4079,7 +4079,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     strs.Add(item.text);
                 }
-                GeneralViewBusiness.SetStringsAndClickEventToMenuItemView(miThirdParty, strs, clickEvent, true, 16);
+                GeneralOtherViewBusiness.SetStringsAndClickEventToMenuItemView(miThirdParty, strs, clickEvent, true, 16);
             }
             miThirdParty.Items.Add(new Separator());
             MenuItem menuItem = new MenuItem();

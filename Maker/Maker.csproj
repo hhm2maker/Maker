@@ -154,6 +154,7 @@
     <Compile Include="Business\Model\Config\BlogConfigModel.cs" />
     <Compile Include="Business\Model\Config\BlogPageModel.cs" />
     <Compile Include="Business\Model\Config\BlogContentModel.cs" />
+    <Compile Include="Business\Model\Config\BasicConfigModel.cs" />
     <Compile Include="Business\Model\Config\HintWindowConfigModel.cs" />
     <Compile Include="Business\Model\Project\ProjectModel.cs" />
     <Compile Include="Business\Model\ThirdPartyModelsModel.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="ViewModel\FrameUserControlViewModel.cs" />
     <Compile Include="ViewModel\NowTimePointValidationRule.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\UIBusiness\GeneralMainViewBusiness.cs" />
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
@@ -250,7 +252,7 @@
     <Compile Include="Business\Utils\FormItemModel.cs" />
     <Compile Include="Business\Utils\NoFileRequestUtils.cs" />
     <Compile Include="Business\Utils\StringExtensions.cs" />
-    <Compile Include="View\UIBusiness\GeneralViewBusiness.cs" />
+    <Compile Include="View\UIBusiness\GeneralOtherViewBusiness.cs" />
     <Compile Include="View\UIBusiness\UIViewBusiness.cs" />
     <Compile Include="View\UI\Control\MainControlUserControl.xaml.cs">
       <DependentUpon>MainControlUserControl.xaml</DependentUpon>
@@ -290,6 +292,10 @@
     <Compile Include="View\UI\Edit\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\MyFile\BaseFileManager.cs" />
+    <Compile Include="View\UI\MyFile\NormalFileManager.xaml.cs">
+      <DependentUpon>NormalFileManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Game\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
@@ -306,6 +312,9 @@
       <DependentUpon>HomeUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\ISimpleMakerLight.cs" />
+    <Compile Include="View\UI\MyFile\TabletPCFileManagerWindow.xaml.cs">
+      <DependentUpon>TabletPCFileManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Project\FastLaunchpadProUserControl.xaml.cs">
       <DependentUpon>FastLaunchpadProUserControl.xaml</DependentUpon>
@@ -725,6 +734,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UI\MyFile\NormalFileManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UI\Game\GameWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -742,6 +755,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Home\HomeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\MyFile\TabletPCFileManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

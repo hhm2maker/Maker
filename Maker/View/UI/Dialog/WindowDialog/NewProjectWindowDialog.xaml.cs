@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.View.Control;
 using Maker.View.Style.Child;
+using Maker.View.UIBusiness;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,7 +54,7 @@ namespace Maker.View.Dialog
             tbBPM = baseStyle.GetTexeBox("96");
             baseStyle.AddTitleAndControl("BPMColon", tbBPM, Orientation.Vertical)
                 .GetButton("Cancel", btnCancel_Click, out Button btnClose)
-                .GetDockPanel(out DockPanel dp,baseStyle.GetButton("Ok", btnOk_Click), btnClose);
+                .GetDockPanel(out DockPanel dp, GeneralMainViewBusiness.CreateInstance().GetButton("Ok", btnOk_Click), btnClose);
 
             dp.HorizontalAlignment = HorizontalAlignment.Center;
             baseStyle.AddUIElement(dp);
