@@ -22,11 +22,13 @@ namespace Maker.View.UI.MyFile
     public partial class TabletPCFileManagerWindow : Window
     {
         private BaseFileManager baseFileManager;
+        private NewMainWindow mw;
         public TabletPCFileManagerWindow(NewMainWindow mw)
         {
             InitializeComponent();
 
             Owner = mw;
+            this.mw = mw;
             AddContentUserControl("Light");
             AddContentUserControl("LightScript");
             AddContentUserControl("LimitlessLamp");
@@ -65,21 +67,14 @@ namespace Maker.View.UI.MyFile
             (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
 
-            switch (position)
+            lbFile.Items.Clear();
+
+            foreach (var item in PositionToData(position))
             {
-                case 0:
-                    tbExtension.Text = ".light";
-                    break;
-                case 1:
-                    tbExtension.Text = ".lightScript";
-                    break;
-                case 2:
-                    tbExtension.Text = ".limitlessLamp";
-                    break;
-                case 3:
-                    tbExtension.Text = ".lightPage";
-                    break;
+                lbFile.Items.Add(item);
             }
+
+            tbExtension.Text = PositionToFileExtension(position);
            
             //spContent.Children.Clear();
             //spContent.Children.Add(contentUserControls[position]);
@@ -104,7 +99,26 @@ namespace Maker.View.UI.MyFile
                 };
                 rFile.BeginAnimation(MarginProperty, animation2);
             }
+        }
 
+        private List<String> PositionToData(int position) {
+            return baseFileManager.GetFile((BaseFileManager.FileType)position);
+        }
+
+        private String PositionToFileExtension(int position)
+        {
+            switch (position)
+            {
+                case 0:
+                    return ".light";
+                case 1:
+                    return ".lightScript";
+                case 2:
+                    return ".limitlessLamp";
+                case 3:
+                    return ".lightPage";
+            }
+            return "";
         }
 
         private void lbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,15 +132,99 @@ namespace Maker.View.UI.MyFile
         {
             spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("NewFileNameColon"));
             spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetGrid(ref tbNumber,ref tbExtension));
-            spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetButton("Ok",null));
 
-            
+            Button btn = GeneralMainViewBusiness.CreateInstance().GetButton("IntelligentFillIn", lbStep_SelectionChanged2);
+            btn.HorizontalAlignment = HorizontalAlignment.Right;
+            btn.Margin = new Thickness(0,20,0,0);
+            spRight.Children.Add(btn);
+
+            Button btn2 = GeneralMainViewBusiness.CreateInstance().GetButton("Ok", lbStep_SelectionChanged3);
+            btn2.HorizontalAlignment = HorizontalAlignment.Right;
+            btn2.Margin = new Thickness(0, 10, 0, 0);
+            spRight.Children.Add(btn2);
+
             SetSpFilePosition(1);
+        }
 
-            foreach (var item in baseFileManager.GetFile(BaseFileManager.FileType.LightScript))
+        private void lbStep_SelectionChanged2(object sender, RoutedEventArgs e)
+        {
+            List<String> files = PositionToData(filePosition);
+            files.Reverse();
+
+            String strTop = GetFileNameTop(files);
+
+            if (strTop.Equals("Page1_1"))
             {
-                lbFile.Items.Add(item);
+                tbNumber.Text = "Page1_1";
+            }
+            else {
+                for (int i = 99; i > 0; i--)
+                {
+                    if (files.Contains(strTop+i + PositionToFileExtension(filePosition)))
+                    {
+                        tbNumber.Text = strTop + (i+1);
+                        break;
+                    }
+                }
             }
         }
+
+        private void lbStep_SelectionChanged3(object sender, RoutedEventArgs e)
+        {
+            BaseUserControl baseUserControl;
+            if (filePosition == 0)
+            {
+                baseUserControl = mw.editUserControl.userControls[0];
+            }
+            else if (filePosition == 1)
+            {
+                baseUserControl = mw.editUserControl.userControls[3];
+            }
+            else if (filePosition == 2)
+            {
+                baseUserControl = mw.editUserControl.userControls[9];
+            }
+            else if (filePosition == 3)
+            {
+                baseUserControl = mw.editUserControl.userControls[8];
+            }
+            //else if (sender == miPage)
+            //{
+            //    baseUserControl = editUserControl.userControls[5];
+            //}
+            else
+            {
+                return;
+            }
+            baseUserControl.NewFileResult2(tbNumber.Text+tbExtension.Text);
+            mw.editUserControl.IntoUserControl(tbNumber.Text + tbExtension.Text);
+            Close();
+        }
+
+        private String GetFileNameTop(List<String> files)
+        {
+            if (files.Count == 0) {
+                return "Page1_1";
+            }
+
+            int i = 10;
+
+            for (; i > 0; i--){
+                foreach (var file in files)
+                {
+                    if (file.Contains("Page" + i + "_"))
+                    {
+                        return "Page" + i + "_";
+                    }
+                }
+            }
+            if (i == 0)
+            {
+                return "Page1_1";
+            }
+
+            return "";
+        }
+
     }
 }

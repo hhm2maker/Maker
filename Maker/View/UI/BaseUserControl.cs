@@ -200,8 +200,32 @@ namespace Maker.View
                 }
                 item.IsSelected = true;
             }
-            //mw.projectUserControl.suc.InitMyContent();
         }
+
+        public void NewFileResult2(String filePath)
+        {
+            String _filePath = GetFileDirectory();
+
+            _filePath = _filePath + filePath;
+            if (File.Exists(_filePath))
+            {
+                new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
+                return;
+            }
+            else
+            {
+                CreateFile(_filePath);
+                if (_filePath.EndsWith(".playExport"))
+                {
+                    //mw.lbPlay.Items.Add(item);
+                    this.filePath = _filePath;
+                    SaveFile();
+                    return;
+                }
+                LoadFile(filePath);
+            }
+        }
+
         /// <summary>
         /// 创建文件
         /// </summary>

@@ -191,7 +191,7 @@ namespace Maker.View.UI.MyFile
             baseUserControl.filePath = needControlFileName;
 
             //String _filePath = baseUserControl.GetFileDirectory();
-            Maker.View.UI.UserControlDialog.NewFileDialog newFileDialog = new Maker.View.UI.UserControlDialog.NewFileDialog(mw, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, "", NewFileResult2);
+            UserControlDialog.NewFileDialog newFileDialog = new UserControlDialog.NewFileDialog(mw, true, baseUserControl._fileExtension, FileBusiness.CreateInstance().GetFilesName(baseUserControl.filePath, new List<string>() { baseUserControl._fileExtension }), baseUserControl._fileExtension, "", NewFileResult2);
             mw.ShowMakerDialog(newFileDialog);
         }
 
@@ -247,9 +247,6 @@ namespace Maker.View.UI.MyFile
             };
             Process.Start(psi);
         }
-
-
-
 
         private void RenameFileName(object sender, RoutedEventArgs e)
         {
