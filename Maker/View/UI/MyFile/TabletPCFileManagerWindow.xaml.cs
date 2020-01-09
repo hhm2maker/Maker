@@ -123,7 +123,11 @@ namespace Maker.View.UI.MyFile
 
         private void lbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lbFile.SelectedIndex == -1) {
+                return;
+            }
 
+            tbNumber.Text = lbFile.SelectedItem.ToString().Substring(0, lbFile.SelectedItem.ToString().Length - tbExtension.Text.Length);
         }
 
         TextBox tbNumber;
@@ -133,17 +137,17 @@ namespace Maker.View.UI.MyFile
             spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("NewFileNameColon"));
             spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetGrid(ref tbNumber,ref tbExtension));
 
-            Button btn = GeneralMainViewBusiness.CreateInstance().GetButton("IntelligentFillIn", lbStep_SelectionChanged2);
-            btn.HorizontalAlignment = HorizontalAlignment.Right;
-            btn.Margin = new Thickness(0,20,0,0);
-            spRight.Children.Add(btn);
+            DockPanel dp = GeneralMainViewBusiness.CreateInstance().GetDockPanel(GeneralMainViewBusiness.CreateInstance().GetButton("IntelligentFillIn", lbStep_SelectionChanged2)
+                                                                                ,GeneralMainViewBusiness.CreateInstance().GetButton("New", lbStep_SelectionChanged3));
+            dp.Margin = new Thickness(0, 10, 0, 0);
+            dp.HorizontalAlignment = HorizontalAlignment.Right;
 
-            Button btn2 = GeneralMainViewBusiness.CreateInstance().GetButton("Ok", lbStep_SelectionChanged3);
-            btn2.HorizontalAlignment = HorizontalAlignment.Right;
-            btn2.Margin = new Thickness(0, 10, 0, 0);
-            spRight.Children.Add(btn2);
+            spRight.Children.Add(dp);
+
+            spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("SelectedColon"));
 
             SetSpFilePosition(1);
+            InitProject();
         }
 
         private void lbStep_SelectionChanged2(object sender, RoutedEventArgs e)
@@ -224,6 +228,75 @@ namespace Maker.View.UI.MyFile
             }
 
             return "";
+        }
+
+
+
+        private void InitProject()
+        {
+            List<String> strs = new List<string> { "Copy", "Rename", "Delete", "Edit", "OpenFoldersInTheFileResourceManager","Open" };
+            //GeneralViewBusiness.SetStringsToListBox(lbProject, strs, projectConfigModel.Path);
+            for (int i = 0; i < strs.Count; i++)
+            {
+                Border border = new Border
+                {
+                    Background = new SolidColorBrush(Colors.Transparent)
+                };
+                border.MouseLeftButtonDown += Border_MouseLeftButtonDown;
+                border.CornerRadius = new CornerRadius(3);
+                border.BorderThickness = new Thickness(2);
+                border.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                border.Margin = new Thickness(0, 15, 15, 0);
+                //if (i > strs.Count - 5)
+                //{
+                //    border.Margin = new Thickness(15, 15, 0, 15);
+                //}
+                Grid grid = new Grid();
+                border.Child = grid;
+                TextBlock tb = new TextBlock
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = (String)Application.Current.Resources[strs[i]],
+                    FontSize = 16,
+                    Margin = new Thickness(15,10,15,10),
+                    Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198))
+                };
+                grid.Children.Add(tb);
+                wpProject.Children.Add(border);
+            }
+            SetSpFilePosition2(strs.IndexOf(mw.projectConfigModel.Path));
+        }
+
+        public int filePosition2 = -1;
+        public void SetSpFilePosition2(int position)
+        {
+            if (filePosition2 == position)
+                return;
+
+            if (filePosition2 != -1)
+            {
+                (wpProject.Children[filePosition2] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                (wpProject.Children[filePosition2] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                (((wpProject.Children[filePosition2] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            }
+
+            (wpProject.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+            (wpProject.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+            (((wpProject.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
+            filePosition2 = position;
+            RefreshFile();
+        }
+
+        private void RefreshFile()
+        {
+            //TODO:
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SetSpFilePosition2(((sender as Border).Parent as Panel).Children.IndexOf(sender as Border));
         }
 
     }

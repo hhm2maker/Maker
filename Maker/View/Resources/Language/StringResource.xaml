@@ -542,6 +542,7 @@
     <sys:String x:Key="Audio">Audio</sys:String>
     <sys:String x:Key="BPMColon">BPM:</sys:String>
     <sys:String x:Key="IntelligentFillIn">Intelligent fill in</sys:String>
+    <sys:String x:Key="SelectedColon">Selected:</sys:String>
 
     
 

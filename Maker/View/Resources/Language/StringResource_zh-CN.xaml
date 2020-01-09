@@ -545,4 +545,5 @@
     <sys:String x:Key="Audio">音频</sys:String>
     <sys:String x:Key="BPMColon">BPM：</sys:String>
     <sys:String x:Key="IntelligentFillIn">智能填写</sys:String>
+    <sys:String x:Key="SelectedColon">已选中：</sys:String>
 </ResourceDictionary>

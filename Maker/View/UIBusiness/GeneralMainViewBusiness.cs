@@ -132,5 +132,29 @@ namespace Maker.View.UIBusiness
             }
             return btn;
         }
+
+        public DockPanel GetDockPanel(params FrameworkElement[] frameworkElements)
+        {
+            DockPanel dp = new DockPanel();
+            foreach (var item in frameworkElements)
+            {
+                if (dp.Children.Count != 0)
+                {
+                    item.Margin = new Thickness(20, 0, 0, 0);
+                }
+                dp.Children.Add(item);
+            }
+            return dp;
+        }
+
+        public DockPanel GetDockPanel(List<FrameworkElement> frameworkElements)
+        {
+            DockPanel dp = new DockPanel();
+            foreach (var item in frameworkElements)
+            {
+                dp.Children.Add(item);
+            }
+            return dp;
+        }
     }
 }
