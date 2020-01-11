@@ -127,7 +127,8 @@ namespace Maker.View.UI.MyFile
                 return;
             }
 
-            tbNumber.Text = lbFile.SelectedItem.ToString().Substring(0, lbFile.SelectedItem.ToString().Length - tbExtension.Text.Length);
+            //tbSelected.Text = lbFile.SelectedItem.ToString().Substring(0, lbFile.SelectedItem.ToString().Length - tbExtension.Text.Length);
+            tbSelected.Text = lbFile.SelectedItem.ToString();
         }
 
         TextBox tbNumber;
@@ -144,7 +145,9 @@ namespace Maker.View.UI.MyFile
 
             spRight.Children.Add(dp);
 
-            spRight.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("SelectedColon"));
+            TextBlock tb = GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("SelectedColon");
+            tb.Margin = new Thickness(0,20,0,10);
+            spRight.Children.Add(tb);
 
             SetSpFilePosition(1);
             InitProject();
@@ -230,8 +233,6 @@ namespace Maker.View.UI.MyFile
             return "";
         }
 
-
-
         private void InitProject()
         {
             List<String> strs = new List<string> { "Copy", "Rename", "Delete", "Edit", "OpenFoldersInTheFileResourceManager","Open" };
@@ -246,7 +247,7 @@ namespace Maker.View.UI.MyFile
                 border.CornerRadius = new CornerRadius(3);
                 border.BorderThickness = new Thickness(2);
                 border.BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                border.Margin = new Thickness(0, 15, 15, 0);
+                border.Margin = new Thickness(0, 10, 10, 0);
                 //if (i > strs.Count - 5)
                 //{
                 //    border.Margin = new Thickness(15, 15, 0, 15);
@@ -274,16 +275,19 @@ namespace Maker.View.UI.MyFile
             if (filePosition2 == position)
                 return;
 
-            if (filePosition2 != -1)
-            {
-                (wpProject.Children[filePosition2] as Border).Background = new SolidColorBrush(Colors.Transparent);
-                (wpProject.Children[filePosition2] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
-                (((wpProject.Children[filePosition2] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
-            }
+                if (filePosition2 != -1 || position == -1)
+                {
+                    (wpProject.Children[filePosition2] as Border).Background = new SolidColorBrush(Colors.Transparent);
+                    (wpProject.Children[filePosition2] as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+                    (((wpProject.Children[filePosition2] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+                }
 
-            (wpProject.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
-            (wpProject.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
-            (((wpProject.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+            if (position != -1) {
+                (wpProject.Children[position] as Border).Background = new SolidColorBrush(Color.FromRgb(184, 191, 198));
+                (wpProject.Children[position] as Border).BorderBrush = new SolidColorBrush(Colors.Transparent);
+                (((wpProject.Children[position] as Border).Child as Grid).Children[0] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(85, 85, 85));
+
+            }
 
             filePosition2 = position;
             RefreshFile();
@@ -291,13 +295,123 @@ namespace Maker.View.UI.MyFile
 
         private void RefreshFile()
         {
-            //TODO:
+            if (filePosition2 == 5) {
+                baseFileManager.InitFile((tbSelected.Text.ToString()));
+                Close();
+            }
+
+            if (filePosition2 == 0)
+            {
+                ShowControl();
+                CreateCopyView(CopyFile);
+            }
+            if (filePosition2 == 1)
+            {
+                ShowControl();
+                CreateCopyView(RenameFile);
+            }
+            if (filePosition2 == 2)
+            {
+                ShowControl();
+                CreateDeleteView();
+            }
+        }
+
+        private void CopyFile(object sender, RoutedEventArgs e)
+        {
+            baseFileManager.CopyFile(tbSelected.Text, tbNewFileName.Text + PositionToFileExtension(filePosition));
+            BackSelected(tbSelected.Text);
+        }
+
+        private void RenameFile(object sender, RoutedEventArgs e)
+        {
+            String newFileName = tbNewFileName.Text + PositionToFileExtension(filePosition);
+            baseFileManager.RenameFile(tbSelected.Text, newFileName);
+            BackSelected(newFileName);
+        }
+
+        private void DeleteFile(object sender, RoutedEventArgs e)
+        {
+            baseFileManager.DeleteFile(tbSelected.Text);
+            BackSelected(null);
+        }
+
+        private void BackSelected(String selectedName) {
+            HideControl();
+            SetSpFilePosition(filePosition);
+
+            if (selectedName != null && !selectedName.Equals(String.Empty))
+            {
+                foreach (var item in lbFile.Items)
+                {
+                    if (item.ToString().Equals(selectedName))
+                    {
+                        lbFile.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+            else {
+                tbSelected.Text = String.Empty;
+            }
+        }
+
+        private TextBox tbNewFileName;
+        private TextBlock tbExtensionBottom;
+        private void CreateCopyView(RoutedEventHandler routedEventHandler)
+        {
+            spBottom.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("NewFileNameColon"));
+
+            spBottom.Children.Add(GeneralMainViewBusiness.CreateInstance().GetGrid(ref tbNewFileName, ref tbExtensionBottom));
+
+            tbExtensionBottom.Text = PositionToFileExtension(filePosition);
+
+            DockPanel dp = GeneralMainViewBusiness.CreateInstance().GetDockPanel(GeneralMainViewBusiness.CreateInstance().GetButton("Ok", routedEventHandler)
+                                                                            , GeneralMainViewBusiness.CreateInstance().GetButton("Cancel", HideControl));
+            dp.Margin = new Thickness(0, 10, 0, 0);
+            dp.HorizontalAlignment = HorizontalAlignment.Center;
+
+            spBottom.Children.Add(dp);
+        }
+
+        private void CreateDeleteView() {
+            spBottom.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("Do you want to delete the file?"));
+
+            DockPanel dp = GeneralMainViewBusiness.CreateInstance().GetDockPanel(GeneralMainViewBusiness.CreateInstance().GetButton("Ok", DeleteFile)
+                                                                            , GeneralMainViewBusiness.CreateInstance().GetButton("Cancel", HideControl));
+            dp.Margin = new Thickness(0, 10, 0, 0);
+            dp.HorizontalAlignment = HorizontalAlignment.Center;
+
+            spBottom.Children.Add(dp);
+        }
+
+
+        private void ShowControl() {
+            wpProject.Visibility = Visibility.Collapsed;
+        }
+
+        private void HideControl(object sender, RoutedEventArgs e)
+        {
+            HideControl();
+        }
+
+        private void HideControl()
+        {
+            wpProject.Visibility = Visibility.Visible;
+
+            spBottom.Children.Clear();
+
+            SetSpFilePosition2(-1);
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (lbFile.SelectedIndex == -1)
+            {
+                return;
+            }
             SetSpFilePosition2(((sender as Border).Parent as Panel).Children.IndexOf(sender as Border));
         }
-
+       
     }
 }

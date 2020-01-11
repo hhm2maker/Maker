@@ -543,7 +543,8 @@
     <sys:String x:Key="BPMColon">BPM:</sys:String>
     <sys:String x:Key="IntelligentFillIn">Intelligent fill in</sys:String>
     <sys:String x:Key="SelectedColon">Selected:</sys:String>
+    <sys:String x:Key="Unselected">Unselected</sys:String>
+    <sys:String x:Key="Do you want to delete the file?">Do you want to delete the file?</sys:String>
 
-    
 
 </ResourceDictionary>

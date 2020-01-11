@@ -514,7 +514,6 @@ namespace Maker
         }
 
   
-        private DeviceUserControl deviceUserControl;
 
         private void cMost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -783,16 +782,18 @@ namespace Maker
 
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
-            AddContentUserControl(new SettingUserControl(this));
+            new SettingWindow(this).Show();
         }
+
+        private DeviceWindow deviceWindow;
 
         private void Device_Click(object sender, RoutedEventArgs e)
         {
-            if (deviceUserControl == null)
+            if (deviceWindow == null)
             {
-                deviceUserControl = new DeviceUserControl(this);
+                deviceWindow = new DeviceWindow(this);
             }
-            AddSetting(deviceUserControl);
+            deviceWindow.Show();
         }
 
         private void CalcTime_Click(object sender, RoutedEventArgs e)

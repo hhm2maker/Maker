@@ -25,14 +25,17 @@ namespace Maker.View.Setting
     /// <summary>
     /// SettingWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingUserControl : BaseChildUserControl
+    public partial class SettingWindow : Window
     {
-        public SettingUserControl(NewMainWindow mw)
+        public NewMainWindow mw;
+
+        public SettingWindow(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
 
-            Title = "Setting";
+            Width = mw.ActualWidth / 4 + 330 + 300 + 30 + 60;
+            Owner = mw;
 
             for (int i = 0; i < spCenter.Children.Count; i++) {
                 spCenter.Children[i].Visibility = Visibility.Collapsed;
@@ -40,8 +43,7 @@ namespace Maker.View.Setting
 
             SetData();
         }
-        public NewMainWindow mw;
-        
+
         /// <summary>
         /// 初始化数据
         /// </summary>
@@ -320,6 +322,7 @@ namespace Maker.View.Setting
             //Width = mw.ActualWidth * 0.8 ;
             //Height = mw.ActualHeight * 0.8;
             bCenter.Width = mw.ActualWidth / 4 + 330;
+           
 
             SetSpFilePosition(0);
         }
@@ -631,7 +634,7 @@ namespace Maker.View.Setting
 
         private void JoinQQGroup_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
+            Process.Start("http://shang.qq.com/wpa/qunwpa?idkey=fb8e751342aaa74a322e9a3af8aa239749aca6f7d07bac5a03706ccbfddb6f40");
         }
 
         private void ToFeedbackDialog(object sender, RoutedEventArgs e)

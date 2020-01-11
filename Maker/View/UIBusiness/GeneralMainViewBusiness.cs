@@ -71,7 +71,8 @@ namespace Maker.View.UIBusiness
                 Background = null,
                 CaretBrush = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
-                Margin = new Thickness(0, 10, 0, 0)
+                Margin = new Thickness(0, 10, 0, 0),
+                Padding = new Thickness(3)
             };
             return tb;
         }

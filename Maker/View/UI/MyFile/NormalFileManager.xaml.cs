@@ -26,6 +26,7 @@ namespace Maker.View.UI.MyFile
     /// </summary>
     public partial class NormalFileManager : UserControl
     {
+        private BaseFileManager baseFileManager;
         private NewMainWindow mw;
         public NormalFileManager(NewMainWindow mw)
         {
@@ -33,6 +34,7 @@ namespace Maker.View.UI.MyFile
 
             this.mw = mw;
 
+            baseFileManager = new BaseFileManager(mw);
             InitContextMenu();
             InitFile();
         }
@@ -283,7 +285,7 @@ namespace Maker.View.UI.MyFile
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             GetNeedControl(sender);
-            EditWindow editWindow = new EditWindow(mw);
+            EditWindow editWindow = new EditWindow(mw, needControlFileName);
             editWindow.ShowDialog();
         }
 
@@ -354,6 +356,7 @@ namespace Maker.View.UI.MyFile
             //    }
             //}
         }
+
         public void NewFileResult(String filePath)
         {
             mw.RemoveDialog();
@@ -413,7 +416,8 @@ namespace Maker.View.UI.MyFile
         {
             if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView)
                 return;
-            mw.editUserControl.IntoUserControl((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
+
+            baseFileManager.InitFile((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
         }
     }
 }

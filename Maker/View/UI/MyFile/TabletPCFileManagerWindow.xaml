@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Background="#363b40"
         WindowStartupLocation="CenterOwner"
-        Title="{DynamicResource FileManager}" Height="540" Width="800"
+        Title="{DynamicResource FileManager}" Height="530" Width="800"
         Loaded="Window_Loaded"
         >
     <Grid HorizontalAlignment="Stretch" Name="spCenter" Focusable="True" Margin="15">
@@ -31,8 +31,9 @@
             <ListBox Background="#222326" Grid.Column="0" Foreground="#F0F0F0" Name="lbFile" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="lbStep_SelectionChanged" BorderBrush="#383838" FontSize="16" />
             <StackPanel Orientation="Vertical" Grid.Column="1" Margin="15,0,0,0" >
                 <StackPanel Orientation="Vertical"  Name="spRight" />
-                <TextBox CaretBrush="#ffffff" Background="{x:Null}" Foreground="#ffffff" Margin="0,30,0,0" FontSize="16"/>
+                <TextBlock Name="tbSelected" Background="{x:Null}" Foreground="#ffffff" FontSize="16" Text="{DynamicResource Unselected}"/>
                 <WrapPanel Name="wpProject" Orientation="Horizontal"/>
+                <StackPanel Orientation="Vertical"  Name="spBottom" Margin="0,30,0,0"/>
             </StackPanel>
             <!--<Grid  Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>

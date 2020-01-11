@@ -21,7 +21,7 @@ namespace Maker.View.UI.Edit
     public partial class EditWindow : Window
     {
         private NewMainWindow mw;
-        public EditWindow(NewMainWindow mw)
+        public EditWindow(NewMainWindow mw,String fileName)
         {
             InitializeComponent();
 
@@ -29,9 +29,9 @@ namespace Maker.View.UI.Edit
 
             Owner = mw;
 
-            tbFileName.Text = mw.normalFileManager.needControlFileName.Substring(0, mw.normalFileManager.needControlFileName.IndexOf('.'));
+            tbFileName.Text = fileName.Substring(0, fileName.IndexOf('.'));
 
-            using(StreamReader sr = new StreamReader(mw.LastProjectPath+@"LightScript\"+ mw.normalFileManager.needControlFileName, Encoding.UTF8)){
+            using(StreamReader sr = new StreamReader(mw.LastProjectPath+@"LightScript\"+ fileName, Encoding.UTF8)){
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = sr.ReadLine()) != null)

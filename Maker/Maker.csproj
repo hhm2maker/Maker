@@ -360,8 +360,8 @@
     <Compile Include="View\UI\Tool\DataGridUserControl.xaml.cs">
       <DependentUpon>DataGridUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Tool\DeviceUserControl.xaml.cs">
-      <DependentUpon>DeviceUserControl.xaml</DependentUpon>
+    <Compile Include="View\UI\Tool\DeviceWindow.xaml.cs">
+      <DependentUpon>DeviceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Tool\HintWindow.xaml.cs">
       <DependentUpon>HintWindow.xaml</DependentUpon>
@@ -617,8 +617,8 @@
     <Compile Include="View\UI\Setting\DeviceManagementWindow.xaml.cs">
       <DependentUpon>DeviceManagementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Setting\SettingUserControl.xaml.cs">
-      <DependentUpon>SettingUserControl.xaml</DependentUpon>
+    <Compile Include="View\UI\Setting\SettingWindow.xaml.cs">
+      <DependentUpon>SettingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Style\Child\BaseChild.cs" />
     <Compile Include="View\UI\Style\Child\ColorChild.xaml.cs">
@@ -786,7 +786,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UI\Tool\DeviceUserControl.xaml">
+    <Page Include="View\UI\Tool\DeviceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1206,7 +1206,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Setting\SettingUserControl.xaml">
+    <Page Include="View\UI\Setting\SettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -30,7 +30,7 @@ namespace Maker.View
 
         public BaseUserControl()
         {
-            this.MouseLeftButtonDown += BaseUserControl_MouseLeftButtonDown;
+            MouseLeftButtonDown += BaseUserControl_MouseLeftButtonDown;
             //Closing += BaseLightWindow_Closing;
         }
 

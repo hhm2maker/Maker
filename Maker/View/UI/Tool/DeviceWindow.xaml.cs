@@ -27,20 +27,17 @@ using System.Runtime.InteropServices;
 namespace Maker.View.Tool
 {
     /// <summary>
-    /// PavedLaunchpadWindow.xaml 的交互逻辑
+    /// DeviceWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class DeviceUserControl : UserControl
+    public partial class DeviceWindow : Window
     {
         private NewMainWindow mw;
-        public DeviceUserControl(NewMainWindow mw)
+        public DeviceWindow(NewMainWindow mw)
         {
             InitializeComponent();
             this.mw = mw;
-        }
 
-        private void btnPaved_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            mw.RemoveSetting();
+            Owner = mw;
         }
 
         private void wMain_Loaded(object sender, RoutedEventArgs e)
