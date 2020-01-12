@@ -10,10 +10,10 @@
             Loaded="wMain_Loaded"
              Margin="10"
              Width="750"
-             Height="200"
             WindowStartupLocation="CenterOwner"
         Background="#222326"
               Title="{DynamicResource Device}"
+        Closing="wMain_Closing"
              >
     <Window.Resources>
         <ResourceDictionary>
@@ -23,15 +23,21 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <StackPanel Orientation="Vertical" Margin="30">
-            <DockPanel Background="#262829" Grid.Row="0" >
-                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+    <StackPanel Margin="30" Orientation="Vertical">
+        <!--Background="#262829"-->
+        <StackPanel Orientation="Vertical" >
+            <TextBlock Text="当前连接：" Foreground="#f0f0f0" />
+            
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+            <TextBlock Text="添加设备：" Foreground="#f0f0f0" />
+            <DockPanel Margin="0,10,0,0">
+                <ToolBar  Background="Transparent" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <ComboBox Name="cbRealDeviceIn" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbRealDeviceIn_SelectionChanged"/>
                     <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="SearchEquipment" />
                 </ToolBar>
             </DockPanel>
-            <DockPanel Background="#262829"  Grid.Row="1">
+            <DockPanel   >
                 <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <ComboBox Name="cbRealDevice" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="CbRealDevice_SelectionChanged"/>
                     <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
@@ -42,5 +48,9 @@
             <Button Content="强制开启" FontSize="14"  HorizontalAlignment="Left" Foreground="#f0f0f0" Name="btnMustOpenMidi" Click="btnMustOpenMidi_Click" Height="25" Margin="5,0,0,0" />-->
             </DockPanel>
         </StackPanel>
-    </Grid>
+        <StackPanel Orientation="Vertical" Margin="0,20,0,0">
+            <TextBlock Text="设备列表：" Foreground="#f0f0f0" />
+          
+        </StackPanel>
+    </StackPanel>
 </Window>

@@ -27,9 +27,9 @@ namespace Maker.View.LightUserControl
     /// <summary>
     /// FrameUserControlWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class FrameUserControl : BaseLightUserControl, ICanDraw
+    public partial class FrameUserControl2 : BaseLightUserControl, ICanDraw
     {
-        public FrameUserControl(NewMainWindow mw)
+        public FrameUserControl2(NewMainWindow mw)
         {
             InitializeComponent();
 
@@ -911,6 +911,19 @@ namespace Maker.View.LightUserControl
         {
             int position = spLeft.Children.IndexOf(sender as UIElement);
 
+            for (int i = 0; i < spLeft.Children.Count; i++)
+            {
+                TextBlock textBlock = ((Panel)((Panel)((Border)spLeft.Children[i]).Child).Children[0]).Children[1] as TextBlock;
+                if (i == position)
+                {
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                }
+                else
+                {
+                    textBlock.Foreground = new SolidColorBrush(Color.FromRgb(168, 169, 169));
+                }
+            }
+
             if (sender == bStyle)
             {
                 nowControlType = ControlType.Style;
@@ -1007,8 +1020,26 @@ namespace Maker.View.LightUserControl
 
         private void BaseLightUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.gRight.ActualWidth;
-            Height = mw.gRight.ActualHeight;
+            //Width = mw.gRight.ActualWidth;
+
+            if (mw.basicConfigModel.Model == BasicConfigModel.ModelType.PC)
+            {
+                Height = mw.gRight.ActualHeight;
+
+                dpCenter.Width = mw.ActualWidth / 4;
+                mLaunchpad.Size = mw.ActualWidth / 4 - 30;
+                cLaunchpad.Width = mLaunchpad.Width;
+                cLaunchpad.Height = mLaunchpad.Height;
+            }
+            else {
+                //Height = mw.gRight.ActualHeight;
+
+                //dpCenter.Width = mw.ActualWidth /2;
+                //mLaunchpad.Size = mw.ActualWidth/2 - 30;
+                //cLaunchpad.Width = mLaunchpad.Width;
+                //cLaunchpad.Height = mLaunchpad.Height;
+            }
+         
 
             Canvas_MouseLeftButtonUp(bStyle,null);
         }
@@ -1108,14 +1139,6 @@ namespace Maker.View.LightUserControl
                     Dic[LiTime[NowTimePoint - 1]][position] = 0;
                 (DataContext as FrameUserControlViewModel).Model.LoadFrame();
             }
-        }
-
-        private void bLaunchpadCenter_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //dpCenter.Width = mw.ActualWidth / 2;
-            mLaunchpad.Size = bLaunchpadCenter.ActualWidth < bLaunchpadCenter.ActualHeight ? bLaunchpadCenter.ActualWidth - 30 : bLaunchpadCenter.ActualHeight - 30;
-            cLaunchpad.Width = mLaunchpad.Width;
-            cLaunchpad.Height = mLaunchpad.Height;
         }
     }
 }

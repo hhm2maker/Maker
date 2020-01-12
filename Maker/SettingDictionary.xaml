@@ -295,7 +295,8 @@
     </Style>
     <SolidColorBrush x:Key="Item.MouseOver.Border" Color="Transparent"/>
     <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#00000000"/>
+    <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FFFFFFFF"/>
+    <!--<SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#00000000"/>-->
     
     <Style x:Key="ListBoxItem1" TargetType="{x:Type ListBoxItem}">
         <!--<Setter Property="FontFamily" Value="Microsoft YaHei UI Light"/>-->

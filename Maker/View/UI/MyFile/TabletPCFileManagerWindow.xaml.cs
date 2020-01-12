@@ -1,6 +1,8 @@
-﻿using Maker.View.UIBusiness;
+﻿using Maker.View.UI.Edit;
+using Maker.View.UIBusiness;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -178,6 +180,9 @@ namespace Maker.View.UI.MyFile
 
         private void lbStep_SelectionChanged3(object sender, RoutedEventArgs e)
         {
+            if (tbNumber.Text.Equals(String.Empty)) {
+                return;
+            }
             BaseUserControl baseUserControl;
             if (filePosition == 0)
             {
@@ -299,7 +304,6 @@ namespace Maker.View.UI.MyFile
                 baseFileManager.InitFile((tbSelected.Text.ToString()));
                 Close();
             }
-
             if (filePosition2 == 0)
             {
                 ShowControl();
@@ -313,7 +317,17 @@ namespace Maker.View.UI.MyFile
             if (filePosition2 == 2)
             {
                 ShowControl();
-                CreateDeleteView();
+                CreateOkView("Do you want to delete the file?", DeleteFile);
+            }
+            if (filePosition2 == 3)
+            {
+                ShowControl();
+                CreateOkView("Do you want to edit the file?", EditFile);
+            }
+            if (filePosition2 == 4)
+            {
+                baseFileManager.GotoFile(tbSelected.Text);
+                SetSpFilePosition2(-1);
             }
         }
 
@@ -333,6 +347,13 @@ namespace Maker.View.UI.MyFile
         private void DeleteFile(object sender, RoutedEventArgs e)
         {
             baseFileManager.DeleteFile(tbSelected.Text);
+            BackSelected(null);
+        }
+
+        private void EditFile(object sender, RoutedEventArgs e)
+        {
+            EditWindow editWindow = new EditWindow(mw, tbSelected.Text);
+            editWindow.ShowDialog();
             BackSelected(null);
         }
 
@@ -374,10 +395,10 @@ namespace Maker.View.UI.MyFile
             spBottom.Children.Add(dp);
         }
 
-        private void CreateDeleteView() {
-            spBottom.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock("Do you want to delete the file?"));
+        private void CreateOkView(String hintText, RoutedEventHandler routedEventHandler) {
+            spBottom.Children.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock(hintText));
 
-            DockPanel dp = GeneralMainViewBusiness.CreateInstance().GetDockPanel(GeneralMainViewBusiness.CreateInstance().GetButton("Ok", DeleteFile)
+            DockPanel dp = GeneralMainViewBusiness.CreateInstance().GetDockPanel(GeneralMainViewBusiness.CreateInstance().GetButton("Ok", routedEventHandler)
                                                                             , GeneralMainViewBusiness.CreateInstance().GetButton("Cancel", HideControl));
             dp.Margin = new Thickness(0, 10, 0, 0);
             dp.HorizontalAlignment = HorizontalAlignment.Center;

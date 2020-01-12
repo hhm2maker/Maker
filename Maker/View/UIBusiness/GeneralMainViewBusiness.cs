@@ -107,6 +107,7 @@ namespace Maker.View.UIBusiness
 
             textBlock = GetTextBlock();
             textBlock.Margin = new Thickness(10, 10, 0, 0);
+            textBlock.VerticalAlignment = VerticalAlignment.Center;
             Grid.SetColumn(textBlock, 1);
             grid.Children.Add(textBlock);
 

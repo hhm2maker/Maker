@@ -11,7 +11,7 @@
         <Grid Name="gMain" >
             <TextBlock Text="{DynamicResource NoFileWasOpened}" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Canvas VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
+        <Canvas VerticalAlignment="Bottom" Visibility="Collapsed" HorizontalAlignment="Center" Height="45" Width="272" Background="Transparent"  MouseEnter="Canvas_MouseEnter" MouseLeave="Canvas_MouseLeave">
             <StackPanel Orientation="Horizontal" Canvas.Top="40" Background="#1c1a1c" Name="spBottomTool">
                 <Image Margin="5"  Name="iPlayer" Source="../../../View/Resources/Image/player_white.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1" />
                 <Image Margin="5"  Name="iPaved" Source="../../../View/Resources/Image/paved.png" Width="35" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>

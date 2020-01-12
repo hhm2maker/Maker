@@ -2,6 +2,7 @@
 using Maker.View.Dialog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -105,6 +106,20 @@ namespace Maker.View.UI.MyFile
                 baseUserControl.HideControl();
 
             mw.tbFileName.Text = String.Empty;
+            return true;
+        }
+
+        public bool GotoFile(String fileName) {
+            BaseUserControl baseUserControl = GetNeedControlBaseUserControl(fileName);
+            String _filePath = baseUserControl.GetFileDirectory() + fileName;
+
+            ProcessStartInfo psi;
+            psi = new ProcessStartInfo("Explorer.exe")
+            {
+
+                Arguments = "/e,/select," + _filePath
+            };
+            Process.Start(psi);
             return true;
         }
 

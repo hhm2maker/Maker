@@ -292,6 +292,9 @@
     <Compile Include="View\UI\Edit\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\LightUserControl\FrameUserControl2.xaml.cs">
+      <DependentUpon>FrameUserControl2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\MyFile\BaseFileManager.cs" />
     <Compile Include="View\UI\MyFile\NormalFileManager.xaml.cs">
       <DependentUpon>NormalFileManager.xaml</DependentUpon>
@@ -733,6 +736,10 @@
     <Page Include="View\UI\Edit\EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\LightUserControl\FrameUserControl2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\MyFile\NormalFileManager.xaml">
       <SubType>Designer</SubType>
