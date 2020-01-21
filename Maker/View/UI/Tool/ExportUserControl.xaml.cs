@@ -22,6 +22,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Maker.View.LightUserControl;
+using Operation;
+
 namespace Maker.View.Tool
 {
     /// <summary>
@@ -83,7 +85,7 @@ namespace Maker.View.Tool
             //点了保存按钮进入
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FileBusiness.CreateInstance().WriteMidiFile(saveFileDialog.FileName.ToString(), fileName, mLightList, isWriteToFile);
+                Business.FileBusiness.CreateInstance().WriteMidiFile(saveFileDialog.FileName.ToString(), fileName, mLightList, isWriteToFile);
             }
         }
 
@@ -108,7 +110,7 @@ namespace Maker.View.Tool
             //点了保存按钮进入
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(),  mLightList);
+                Business.FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(),  mLightList);
                 //bridge.ExportLight(saveFileDialog.FileName.ToString(), mActionBeanList);
             }
         }
@@ -134,7 +136,7 @@ namespace Maker.View.Tool
             //点了保存按钮进入
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FileBusiness.CreateInstance().WriteUnipadLightFile(saveFileDialog.FileName.ToString(),int.Parse(tbBpm.Text), mLightList);
+                Business.FileBusiness.CreateInstance().WriteUnipadLightFile(saveFileDialog.FileName.ToString(),int.Parse(tbBpm.Text), mLightList);
             }
         }
 

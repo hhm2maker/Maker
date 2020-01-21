@@ -1,15 +1,19 @@
-﻿<base:BaseChildUserControl
+﻿<Window
     xmlns:base="clr-namespace:Maker.View.UI.Base"
-    x:Class="Maker.View.UI.Help.AppreciateUserControl"
+    x:Class="Maker.View.UI.Help.AppreciateWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.Help"
              mc:Ignorable="d" 
-    Loaded="BaseChildUserControl_Loaded"
+    Title="{DynamicResource Appreciate}"
+    Width="520"
+    Height="430"
+     Background="#222326"
+    WindowStartupLocation="CenterOwner"
              >
-    <StackPanel Orientation="Vertical" >
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
         <Grid Height="375" Width="500" VerticalAlignment="Center" >
             <Border Name="bMain" CornerRadius="3" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                 <Border.Background>
@@ -27,4 +31,4 @@
         </Grid>
 
     </StackPanel>
-</base:BaseChildUserControl>
+</Window>

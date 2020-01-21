@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Threading;
+using Operation;
 
 namespace Maker.View.Device
 {

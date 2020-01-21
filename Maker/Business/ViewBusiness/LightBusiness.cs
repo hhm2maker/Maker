@@ -1,4 +1,5 @@
 ﻿using Maker.Model;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,131 @@ namespace Maker.Business
 {
     static class LightBusiness
     {
+        public static List<List<Light>> GetPositionLights(List<Light> mActionBeanList)
+        {
+            mActionBeanList = Copy(mActionBeanList);
+            mActionBeanList = Sort(mActionBeanList); //排序
+
+            List<List<Light>> lists = new List<List<Light>>();
+            for (int i = 0; i < 100; i++)
+            {
+                lists.Add(mActionBeanList.Where(s => s.Position == i).ToList());
+            }
+            return lists;
+        }
+
+        public static List<int> GetListTime(List<Light> mActionBeanList)
+        {
+            List<int> times = new List<int>();
+
+            mActionBeanList = Copy(mActionBeanList);
+            mActionBeanList = Sort(mActionBeanList); //排序
+
+            int time = -1;
+
+            for (int i = 0; i < mActionBeanList.Count; i++)
+            {
+                if (mActionBeanList[i].Time != time)
+                {
+                    time = mActionBeanList[i].Time;
+                    times.Add(time);
+                }
+            }
+            return times;
+        }
+
+        /// <summary>
+        /// 根据当前时间找到当前数据
+        /// </summary>
+        /// <param name="allData"></param>
+        public static List<Light> GetNowTimeData(List<List<Light>> allData, int nowTime)
+        {
+            List<Light> lights = new List<Light>();
+            for (int i = 0; i < allData.Count; i++)
+            {
+
+
+                var items = allData[i];
+                if (items.Count == 0)
+                {
+                    continue;
+                }
+                var timeList = items.Where(t => t.Action == 144).Select(t => t.Time).ToArray();
+
+                if (nowTime < timeList[0])
+                {
+                    continue;
+                }
+
+                int rr = BinarySearch(timeList, 0, timeList.Length - 1, nowTime);
+
+                lights.Add(new Light(0, 144, i, items[rr].Color));
+
+            }
+
+            return lights;
+
+        }
+
+        /// <summary>
+        /// 二分查找
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <param name="low">开始索引 0</param>
+        /// <param name="high">结束索引 </param>
+        /// <param name="key">要查找的对象</param>
+        /// <returns></returns>
+        public static int BinarySearch(int[] arr, int low, int high, int key)
+        {
+            int mid = (low + high) / 2;
+            if (low > high)
+                return -1;
+            else
+            {
+                if (arr[mid] == key)
+                {
+                    return mid;
+                }
+                else if (arr[mid] > key)
+                {
+                    if (mid > 0)
+                    {
+                        if (arr[mid - 1] < key)
+                        {
+                            return mid - 1;
+                        }
+                        else
+                        {
+                            return BinarySearch(arr, low, mid - 1, key);
+                        }
+                    }
+                    else
+                    {
+                        return mid;
+                    }
+                }
+                else
+                {
+                    if (mid != arr.Length - 1)
+                    {
+                        if (arr[mid + 1] > key)
+                        {
+                            return mid;
+                        }
+                        else
+                        {
+                            return BinarySearch(arr, mid + 1, high, key);
+                        }
+                    }
+                    else
+                    {
+                        return mid;
+                    }
+                }
+            }
+        }
+
+
         /// <summary>
         /// 拆分ActionBean集合
         /// </summary>
@@ -17,6 +143,7 @@ namespace Maker.Business
             //将原动作排序(现在的输入将不会在跳转时排序)
             mActionBeanList = Copy(mActionBeanList);
             mActionBeanList = Sort(mActionBeanList); //排序
+
             List<Light> linShiActionBeanList = new List<Light>();
             List<Light> linShiActionBeanListZi = new List<Light>();
             List<int> linShiLiTime = new List<int>();
@@ -37,12 +164,12 @@ namespace Maker.Business
                 {
                     if (mActionBeanList[j].Position == i)
                     {
-                        Light ab = new Light();
-                        ab.Time = mActionBeanList[j].Time;
-                        ab.Action = mActionBeanList[j].Action;
-                        ab.Position = mActionBeanList[j].Position;
-                        ab.Color = mActionBeanList[j].Color;
-                        linShiActionBeanListZi.Add(ab);
+                        //Light ab = new Light();
+                        //ab.Time = mActionBeanList[j].Time;
+                        //ab.Action = mActionBeanList[j].Action;
+                        //ab.Position = mActionBeanList[j].Position;
+                        //ab.Color = mActionBeanList[j].Color;
+                        linShiActionBeanListZi.Add((Light)mActionBeanList[j].Clone());
                     }
                 }
                 Boolean bIsOpen = false;//是否打开
@@ -106,7 +233,7 @@ namespace Maker.Business
         /// </summary>
         /// <param name="childLightList">需要拆分的ActionBean集合</param>
         /// <returns>拆分后的ActionBean集合</returns>
-        public static List<Light> Split(List<Light> parentLightList,List<Light> childLightList)
+        public static List<Light> Split(List<Light> parentLightList, List<Light> childLightList)
         {
             //复制
             parentLightList = Copy(parentLightList);
@@ -334,7 +461,8 @@ namespace Maker.Business
         public static List<Light> RemoveNotLaunchpadNumbers(List<Light> mActionBeanList)
         {
             List<Light> _lightList = Copy(mActionBeanList);
-            for (int i = _lightList.Count - 1; i >= 0; i--) {
+            for (int i = _lightList.Count - 1; i >= 0; i--)
+            {
                 if (_lightList[i].Position < 28 || _lightList[i].Position > 123 || _lightList[i].Color < 1 || _lightList[i].Color > 128)
                 {
                     _lightList.RemoveAt(i);
@@ -346,9 +474,11 @@ namespace Maker.Business
         /// 把集合所有属性打印到控制台
         /// </summary>
         /// <param name="mActionBeanList"></param>
-        public static void Print(List<Light> mActionBeanList) {
-            foreach (Light l in mActionBeanList) {
-                Console.WriteLine(l.Time+"---"+l.Action+"---"+l.Position+"---"+l.Color);
+        public static void Print(List<Light> mActionBeanList)
+        {
+            foreach (Light l in mActionBeanList)
+            {
+                Console.WriteLine(l.Time + "---" + l.Action + "---" + l.Position + "---" + l.Color);
             }
         }
         /// <summary>
@@ -361,17 +491,20 @@ namespace Maker.Business
             mActionBeanList = Sort(mActionBeanList);
             List<Light> lightList = new List<Light>();
             int notCanTime = -1;
-            for (int i = 0; i < mActionBeanList.Count; i++) {
+            for (int i = 0; i < mActionBeanList.Count; i++)
+            {
                 if (mActionBeanList[i].Action == 144)
                 {
                     lightList.Add(new Light(mActionBeanList[i].Time, mActionBeanList[i].Action, mActionBeanList[i].Position, mActionBeanList[i].Color));
                 }
-                else {
+                else
+                {
                     if (i == mActionBeanList.Count - 1)
                     {
                         lightList.Add(new Light(mActionBeanList[i].Time, mActionBeanList[i].Action, mActionBeanList[i].Position, mActionBeanList[i].Color));
                     }
-                    if (mActionBeanList[i].Time == notCanTime) {
+                    if (mActionBeanList[i].Time == notCanTime)
+                    {
                         break;
                     }
                     else
@@ -429,9 +562,11 @@ namespace Maker.Business
         /// </summary>
         /// <param name="mActionBeanList"></param>
         /// <returns></returns>
-        public static List<int> GetTimeList(List<Light> mActionBeanList) {
+        public static List<int> GetTimeList(List<Light> mActionBeanList)
+        {
             List<int> timeList = new List<int>();
-            for (int i = 0; i < mActionBeanList.Count; i++) {
+            for (int i = 0; i < mActionBeanList.Count; i++)
+            {
                 if (!timeList.Contains(mActionBeanList[i].Time))
                     timeList.Add(mActionBeanList[i].Time);
             }
@@ -440,7 +575,8 @@ namespace Maker.Business
         /// <summary>
         /// 得到分段灯光 - int 数组
         /// </summary>
-        public static Dictionary<int, int[]> GetParagraphLightIntList(List<Light> mActionBeanList) {
+        public static Dictionary<int, int[]> GetParagraphLightIntList(List<Light> mActionBeanList)
+        {
             mActionBeanList = Sort(mActionBeanList);
             Dictionary<int, int[]> dic = new Dictionary<int, int[]>();
             int time = -1;
@@ -513,17 +649,18 @@ namespace Maker.Business
             int time = -1;
             for (int i = 0; i < mActionBeanList.Count; i++)
             {
-                if(mActionBeanList[i].Action == 144) { 
-                if (mActionBeanList[i].Time != time )
+                if (mActionBeanList[i].Action == 144)
                 {
-                    time = mActionBeanList[i].Time;
-                    dic.Add(new List<int>());
-                    dic[dic.Count-1].Add(mActionBeanList[i].Position);
-                }
-                else
-                {
-                    dic[dic.Count - 1].Add(mActionBeanList[i].Position);
-                }
+                    if (mActionBeanList[i].Time != time)
+                    {
+                        time = mActionBeanList[i].Time;
+                        dic.Add(new List<int>());
+                        dic[dic.Count - 1].Add(mActionBeanList[i].Position);
+                    }
+                    else
+                    {
+                        dic[dic.Count - 1].Add(mActionBeanList[i].Position);
+                    }
                 }
             }
             return dic;

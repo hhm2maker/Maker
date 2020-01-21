@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Model;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Maker.View.UI.Project
         private void InitData()
         {
             // .net 4.5
-            lightList = FileBusiness.CreateInstance().ReadMidiFileNoFormatTime(@"C:\Users\Administrator\Desktop\AAA.mid");
+            lightList = Business.FileBusiness.CreateInstance().ReadMidiFileNoFormatTime(@"C:\Users\Administrator\Desktop\AAA.mid");
 
             foo();
             async void foo()

@@ -549,4 +549,7 @@
     <sys:String x:Key="Unselected">未选中</sys:String>
     <sys:String x:Key="Do you want to delete the file?">是否要删除文件？</sys:String>
     <sys:String x:Key="Do you want to edit the file?">是否要编辑文件？</sys:String>
+    <sys:String x:Key="input device">输入设备</sys:String>
+    <sys:String x:Key="output device">输出设备</sys:String>
+    <sys:String x:Key="channel">通道</sys:String>
 </ResourceDictionary>

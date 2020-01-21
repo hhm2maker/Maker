@@ -9,6 +9,7 @@ using Maker.View.Dialog.Automatic;
 using Maker.View.Dialog.Script;
 using Maker.View.Style;
 using Maker.ViewBusiness;
+using Operation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1136,7 +1137,7 @@ namespace Maker
                 foreach (var item in lockedDictionary)
                 {
                     if (!item.Value.Equals(String.Empty))
-                        mLockedBuilder.Append("\t" + item.Key + ":" + FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(item.Value)) + "." + Environment.NewLine);
+                        mLockedBuilder.Append("\t" + item.Key + ":" + Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContent(item.Value)) + "." + Environment.NewLine);
                 }
                 mLockedBuilder.Append("}" + Environment.NewLine);
                 mBuilder.Append(mLockedBuilder.ToString());

@@ -24,7 +24,8 @@ namespace Maker.Bridge
       
         public void GetResult() {
             //view.mLightList = Results.Test(view.scriptModelDictionary);
-            view.UpdateData(Business.Currency.OperationUtils.OperationLightDictionaryToMakerLightDictionary(Results.Test(view.scriptModelDictionary)));
+            //view.UpdateData(Business.Currency.OperationUtils.OperationLightDictionaryToMakerLightDictionary(Results.Test(view.scriptModelDictionary)));
+            view.UpdateData(Results.Test(view.scriptModelDictionary));
             if (!view._bIsEdit) {
                 view.SaveFile();
                 view.CopyFile();
@@ -39,7 +40,7 @@ namespace Maker.Bridge
         public void GetBlockResult(String stepName)
         {
             view.mBlockLightList.Clear();
-            view.mBlockLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(view.scriptModelDictionary,stepName)); 
+            view.mBlockLightList = Results.Test(view.scriptModelDictionary, stepName); 
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Maker.Bridge
         public void GetBlockResult(String stepName, Dictionary<String, ScriptModel> scriptModelDictionary)
         {
             view.mLaunchpadData.Clear();
-            view.mLaunchpadData = Business.Currency.OperationUtils.OperationLightToMakerLight(Results.Test(scriptModelDictionary, stepName));
+            view.mLaunchpadData = Results.Test(scriptModelDictionary, stepName);
         }
 
         public Dictionary<String, ScriptModel> GetScriptModelDictionary(String filePath,out String introduce,out String audioResources ) {

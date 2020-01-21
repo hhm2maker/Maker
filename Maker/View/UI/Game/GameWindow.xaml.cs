@@ -20,6 +20,7 @@ using System.Windows.Interop;
 using System.Text;
 using Maker.Business.Currency;
 using Maker.View.UI.Decorate;
+using Operation;
 
 namespace Maker.View.UI.Game
 {
@@ -340,21 +341,22 @@ namespace Maker.View.UI.Game
                         {
                             //position
                             //List<Light> lights = Cross((int) position);
-                            List<Light> lights = Cross(FileBusiness.CreateInstance().midiArr[(int)position]);
+                            List<Light> lights = Cross(Business.FileBusiness.CreateInstance().midiArr[(int)position]);
                             for (int i = 0; i < lights.Count; i++)
                             {
                                 lights[i].Position -= 28;
                             }
                             
                             if (gw.nowPosition >= 4) {
-                                Operation.LightGroup lightGroup = OperationUtils.MakerLightToOperationLight(lights);
+                                LightGroup lightGroup = new LightGroup();
+                                lightGroup.AddRange(lights.ToArray());
                                 lightGroup.CopyToTheFollow(new List<int>() { 9,13,17,21,33});
-                                lights = OperationUtils.OperationLightToMakerLight(lightGroup);
+                                lights = lightGroup;
                             }
 
                             gw.sb.ToUpNum((int)position);
 
-                            FileBusiness.CreateInstance().ReplaceControl(lights, FileBusiness.CreateInstance().normalArr);
+                            Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().normalArr);
 
                             Thread thread = new Thread(ThreadMethod);     //执行的必须是无返回值的方法
                             thread.Start(lights);                       //在此方法内传递参数，类型为object，发送和接收涉及到拆装箱操作

@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Dialog;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -220,7 +221,7 @@ namespace Maker.View.Device
                     }
                 }
             }
-            FileBusiness.CreateInstance().ReplaceControl(lightList, FileBusiness.CreateInstance().normalArr);
+            Business.FileBusiness.CreateInstance().ReplaceControl(lightList, Business.FileBusiness.CreateInstance().normalArr);
             return lightList;
         }
 

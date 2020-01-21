@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Model;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -215,7 +216,7 @@ namespace Maker.View.Control
             System.Windows.Forms.DialogResult dr = saveFileDialog1.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
-                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog1.FileName, mLightList);
+                Business.FileBusiness.CreateInstance().WriteLightFile(saveFileDialog1.FileName, mLightList);
             }
         }
 
@@ -226,7 +227,7 @@ namespace Maker.View.Control
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                mLightList = FileBusiness.CreateInstance().ReadLightFile(openFileDialog1.FileName);
+                mLightList = Business.FileBusiness.CreateInstance().ReadLightFile(openFileDialog1.FileName);
                 SetDataToChildren();
             }
         }

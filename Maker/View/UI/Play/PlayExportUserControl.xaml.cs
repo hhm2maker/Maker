@@ -2,6 +2,7 @@
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.UI.UserControlDialog;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,11 +38,11 @@ namespace Maker.View.Play
             List<String> fileNames = new List<string>();
             if (sender == btnSelectFileTutorial )
             {
-                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
-                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
             }
             else {
-                fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
             }
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
             if (dialog.ShowDialog() == true)
@@ -113,7 +114,7 @@ namespace Maker.View.Play
 
         private void ToLoadFile(object sender, MouseEventArgs e)
         {
-            mw.ShowMakerDialog(new ListDialog(mw, FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
+            mw.ShowMakerDialog(new ListDialog(mw, Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
         }
 
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -144,7 +145,7 @@ namespace Maker.View.Play
             }
             else
             {
-                xContent = new XAttribute("content", FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(AllFileToLightList(tutorialName))));
+                xContent = new XAttribute("content", Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContent(AllFileToLightList(tutorialName))));
             }
             xTutorial.Add(xContent);
             xRoot.Add(xTutorial);
@@ -278,7 +279,7 @@ namespace Maker.View.Play
                 //}
                 //LightBusiness.Print(fileBusiness.ReadMidiContent(mList));
 
-                XAttribute xValue = new XAttribute("value", FileBusiness.CreateInstance().String2Base(FileBusiness.CreateInstance().WriteMidiContent(mItem.Value)));
+                XAttribute xValue = new XAttribute("value", Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContent(mItem.Value)));
                 xLight.Add(xValue);
                 xLights.Add(xLight);
             }
@@ -291,15 +292,15 @@ namespace Maker.View.Play
             List<Light> mLightList = new List<Light>();
             if (filePath.EndsWith(".lightScript"))
             {
-                mLightList = Business.Currency.OperationUtils.OperationLightToMakerLight(Operation.ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath));
+                mLightList = ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath);
             }
             else if (filePath.EndsWith(".light"))
             {
-                mLightList = FileBusiness.CreateInstance().ReadLightFile(mw.LastProjectPath + @"\Light\" + filePath);
+                mLightList = Business.FileBusiness.CreateInstance().ReadLightFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             else if (filePath.EndsWith(".mid"))
             {
-                mLightList = FileBusiness.CreateInstance().ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
+                mLightList = Business.FileBusiness.CreateInstance().ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
             }
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;

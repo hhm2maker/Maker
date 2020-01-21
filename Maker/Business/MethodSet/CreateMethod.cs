@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Model;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -179,7 +180,7 @@ namespace Maker.MethodSet
                     }
                 }
                 //使用垂直int集合
-                List<List<int>> lli = IntCollection.VerticalIntList.ToList();
+                List<List<int>> lli = Model.IntCollection.VerticalIntList.ToList();
                 int count = 10 + _numberList.Count;//从0开始算，第0的时候就在最右边出现
                 int now = -_numberList.Count + 1;
                 int plus = 16;
@@ -858,7 +859,7 @@ namespace Maker.MethodSet
                     }
                 }
                 //使用垂直int集合
-                List<List<int>> lli = IntCollection.VerticalIntList.ToList();
+                List<List<int>> lli = Model.IntCollection.VerticalIntList.ToList();
                 int count = 10 + _numberList.Count;//从0开始算，第0的时候就在最右边出现
                 int now = -_numberList.Count + 1;
                 int plus = 16;
@@ -932,7 +933,7 @@ namespace Maker.MethodSet
         {
             //Random类默认的无参构造函数可以根据当前系统时钟为种子,进行一系列算法得出要求范围内的伪随机数.
             List<Light> mLl = new List<Light>();
-            List<List<int>> lli = IntCollection.VerticalIntList.ToList();
+            List<List<int>> lli = Model.IntCollection.VerticalIntList.ToList();
             List<int> list = new List<int>();
             Random rd = new Random();
             for (int i = 0; i < 10; i++) {
@@ -1284,7 +1285,7 @@ namespace Maker.MethodSet
                 }
             }
             filePath += ".mid";
-            return FileBusiness.CreateInstance().ReadMidiFile(filePath);
+            return Business.FileBusiness.CreateInstance().ReadMidiFile(filePath);
         }
         /// <summary>
         /// 通过Light文件创建灯光组
@@ -1369,7 +1370,7 @@ namespace Maker.MethodSet
                 }
             }
             filePath += ".light";
-            return FileBusiness.CreateInstance().ReadLightFile(filePath);
+            return Business.FileBusiness.CreateInstance().ReadLightFile(filePath);
         }
 
         /// <summary>

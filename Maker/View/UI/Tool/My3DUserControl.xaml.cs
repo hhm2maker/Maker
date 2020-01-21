@@ -22,8 +22,8 @@ namespace Maker.View.Tool
     public partial class My3DUserControl : UserControl
     {
         private NewMainWindow mw;
-        private List<Model.Light> mLightList;
-        public My3DUserControl(NewMainWindow mw, List<Model.Light> mLightList)
+        private List<Operation.Light> mLightList;
+        public My3DUserControl(NewMainWindow mw, List<Operation.Light> mLightList)
         {
             InitializeComponent();
             this.mw = mw;
@@ -291,7 +291,7 @@ namespace Maker.View.Tool
             }
 
 
-            List<Model.Light> x = timeDictionary[timeList[number]];
+            List<Operation.Light> x = timeDictionary[timeList[number]];
             for (int i = 0; i < x.Count; i++)
             {
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
@@ -358,7 +358,7 @@ namespace Maker.View.Tool
         /// 设置数据
         /// </summary>
         /// <param name="mActionBeanList"></param>
-        public void SetData(List<Model.Light> mActionBeanList)
+        public void SetData(List<Operation.Light> mActionBeanList)
         {
             //清空数据
             timeList.Clear();
@@ -381,7 +381,7 @@ namespace Maker.View.Tool
         /// <summary>
         /// 时间段落字典
         /// </summary>
-        private Dictionary<int, List<Model.Light>> timeDictionary = new Dictionary<int, List<Model.Light>>();
+        private Dictionary<int, List<Operation.Light>> timeDictionary = new Dictionary<int, List<Operation.Light>>();
 
         bool isMove = false;
         Point point = new Point(0, 0);

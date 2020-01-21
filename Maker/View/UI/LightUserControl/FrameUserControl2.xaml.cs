@@ -6,6 +6,7 @@ using Maker.View.Device;
 using Maker.View.Dialog;
 using Maker.View.UI.Tool.Paved;
 using Maker.ViewModel;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -714,7 +715,7 @@ namespace Maker.View.LightUserControl
         private void NewTextFile(object sender, MouseEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text","", NewTextFile);
+            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, ".text", Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text\", new List<string>() { ".text" }), ".text","", NewTextFile);
             mw.ShowMakerDialog(newFileDialog);
         }
 
@@ -859,7 +860,7 @@ namespace Maker.View.LightUserControl
         private void LoadTextFile(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text", new List<string>() { ".text" }));
+            fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Text", new List<string>() { ".text" }));
 
             ShowLightListDialog dialog = new ShowLightListDialog(mw, "", fileNames);
             if (dialog.ShowDialog() == true)
@@ -1108,7 +1109,7 @@ namespace Maker.View.LightUserControl
         public override void SaveFile()
         {
             base.SaveFile();
-            XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
+            Business.Currency.XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
         }
 
         private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
@@ -1123,7 +1124,7 @@ namespace Maker.View.LightUserControl
 
         public override void OnDismiss() {
             //SaveFile();
-            XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
+            Business.Currency.XmlSerializerBusiness.Save(frameModel, "Config/frame.xml");
         }
 
         public void SetButton(int position)

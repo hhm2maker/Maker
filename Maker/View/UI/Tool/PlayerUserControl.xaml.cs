@@ -19,6 +19,7 @@ using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Text;
 using Maker.Business.Utils;
+using Operation;
 
 namespace Maker.View
 {
@@ -43,6 +44,7 @@ namespace Maker.View
         {
             InitializeComponent();
             this.mw = mw;
+
             InitPlayLaunchpad();
             SetData(mActionBeanList);
 
@@ -93,9 +95,12 @@ namespace Maker.View
             {
                 playLpd = new AccuratePlayerLaunchpadPro(this);
             }
+            else if (mw.playerType == EnumCollection.PlayerType.Fast)
+            {
+                playLpd = new AccuratePlayerLaunchpadPro(this);
+            }
 
             playLpd.mediaElement = mediaElement;
-
 
             playLpd.HorizontalAlignment = HorizontalAlignment.Center;
             playLpd.VerticalAlignment = VerticalAlignment.Center;
@@ -103,7 +108,7 @@ namespace Maker.View
             playLpd.Height = 750;
             gMain.Children.Add(playLpd);
 
-            GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
+            GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, Business.FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
             gMain.Width = playLpd.Width;
 
             playLpd.ClearAllColorExcept();
@@ -322,7 +327,6 @@ namespace Maker.View
                 }
 
                 mediaElement.Play();
-               
             }
             else
             {

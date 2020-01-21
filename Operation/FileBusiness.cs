@@ -102,6 +102,7 @@ namespace Operation
                     return null;
                 }
             }
+
             LightGroup mActionBeanList = new LightGroup();//存放AB的集合
             List<int> mData = new List<int>();//文件字符集合
             List<String> mAction = new List<String>();
@@ -136,6 +137,7 @@ namespace Operation
             mData.RemoveRange(0, iFilterHead);
             mData.RemoveRange(mData.Count - iFilterFoot, iFilterFoot);
             mActionBeanList = ReadMidiContent(mData);
+
             //格式化时间
             int time = 0;
             for (int l = 0; l < mActionBeanList.Count; l++)
@@ -156,6 +158,7 @@ namespace Operation
                 mActionBeanList[l].Position -= 28;
             }
             CreateInstance().ReplaceControl(mActionBeanList, normalArr);
+
             return mActionBeanList;
         }
         /// <summary>

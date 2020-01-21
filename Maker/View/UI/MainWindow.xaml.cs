@@ -10,6 +10,7 @@ using Maker.View.Test;
 using Maker.View.Tool;
 using Maker.View.User.Login;
 using Maker.View.Work;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1589,7 +1590,7 @@ namespace Maker.View.Control
             DragDrop.DoDragDrop(tvProject, new System.Windows.Forms.DataObject(System.Windows.Forms.DataFormats.FileDrop, files), System.Windows.DragDropEffects.Copy | System.Windows.DragDropEffects.Move /* | DragDropEffects.Link */);
         }
         public String firstPageName = String.Empty;
-        private FileBusiness fileBusiness;
+        private Business.FileBusiness fileBusiness;
 
         private void ToPlayUserControl(object sender, RoutedEventArgs e)
         {

@@ -112,6 +112,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -145,12 +146,12 @@
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
     <Compile Include="Business\Currency\CDD.cs" />
-    <Compile Include="Business\Currency\OperationUtils.cs" />
     <Compile Include="Business\Currency\XmlSerializerBusiness.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Discarded\DiscardedClass.cs" />
+    <Compile Include="Business\Model\Config\DeviceConfigModel.cs" />
     <Compile Include="Business\Model\Config\BlogConfigModel.cs" />
     <Compile Include="Business\Model\Config\BlogPageModel.cs" />
     <Compile Include="Business\Model\Config\BlogContentModel.cs" />
@@ -223,7 +224,7 @@
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
       <DependentUpon>CompleteColorPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Device\Launchpad\FastPlayerLaunchpadPro.cs" />
+    <Compile Include="View\UI\Device\Launchpad\AccuratePlayerLaunchpadPro2.cs" />
     <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro3.cs" />
     <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro2.cs" />
     <Compile Include="View\UI\Device\Launchpad\TeachingLaunchpadPro.cs" />
@@ -243,7 +244,6 @@
     <Compile Include="Business\Model\ConstantCollection.cs" />
     <Compile Include="Business\Model\EnumCollection.cs" />
     <Compile Include="Business\Model\IntCollection.cs" />
-    <Compile Include="Business\Model\Light.cs" />
     <Compile Include="Business\Model\ThirdPartyModel.cs" />
     <Compile Include="Business\Parameter\MainWindow.cs" />
     <Compile Include="Business\Utils\CursorHelper.cs" />
@@ -305,8 +305,8 @@
     <Compile Include="View\UI\Game\TestGameWindow.xaml.cs">
       <DependentUpon>TestGameWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Help\AppreciateUserControl.xaml.cs">
-      <DependentUpon>AppreciateUserControl.xaml</DependentUpon>
+    <Compile Include="View\UI\Help\AppreciateWindow.xaml.cs">
+      <DependentUpon>AppreciateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Home\LocalUserControl.xaml.cs">
       <DependentUpon>LocalUserControl.xaml</DependentUpon>
@@ -753,7 +753,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\UI\Help\AppreciateUserControl.xaml">
+    <Page Include="View\UI\Help\AppreciateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1824,6 +1824,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\cache.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\UI\Weight\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\window_back.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\window_maximized.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

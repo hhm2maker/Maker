@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Control;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,11 +79,11 @@ namespace Maker.View.Dialog
             List<Light> mLl = null;
             if (type == 0)
             {
-                mLl= FileBusiness.CreateInstance().ReadMidiFile(filepath); 
+                mLl= Business.FileBusiness.CreateInstance().ReadMidiFile(filepath); 
             }
             else
             {
-                mLl = FileBusiness.CreateInstance().ReadLightFile(filepath);
+                mLl = Business.FileBusiness.CreateInstance().ReadLightFile(filepath);
             }
             int i = 1;
             foreach (Light l in mLl)

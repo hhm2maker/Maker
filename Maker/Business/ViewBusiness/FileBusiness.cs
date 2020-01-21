@@ -13,6 +13,7 @@ using Maker.Business.Currency;
 using Maker.Business.Model.Config;
 using Maker.View.LightScriptUserControl;
 using Maker.View;
+using Operation;
 
 namespace Maker.Business
 {
@@ -871,7 +872,7 @@ namespace Maker.Business
                 colorPath = filePath;
             }
             ColorFileModel colorListModel = new ColorFileModel();
-            XmlSerializerBusiness.Load(ref colorListModel, filePath);
+            Currency.XmlSerializerBusiness.Load(ref colorListModel, filePath);
             List<SolidColorBrush> brushList = new List<SolidColorBrush>();
 
             foreach (String str in colorListModel.Colors)

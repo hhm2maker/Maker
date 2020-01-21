@@ -6,6 +6,7 @@ using System.Windows;
 using Maker.Model;
 using System.Windows.Controls;
 using System.IO;
+using Operation;
 
 namespace Maker.View.LightUserControl
 {
@@ -21,11 +22,11 @@ namespace Maker.View.LightUserControl
         protected override void  LoadFileContent()
         {
             if (filePath.EndsWith(".light")) {
-                lightList = FileBusiness.CreateInstance().ReadLightFile(filePath);
+                lightList = Operation.FileBusiness.CreateInstance().ReadLightFile(filePath);
             }
             else
             {
-                lightList = FileBusiness.CreateInstance().ReadMidiFile(filePath);
+                lightList = Business.FileBusiness.CreateInstance().ReadMidiFile(filePath);
             }
 
             SetData(lightList);
@@ -47,11 +48,11 @@ namespace Maker.View.LightUserControl
         {
             if (filePath.EndsWith(".light"))
             {
-                FileBusiness.CreateInstance().WriteLightFile(filePath, GetData());
+                Business.FileBusiness.CreateInstance().WriteLightFile(filePath, GetData());
             }
             else
             {
-                FileBusiness.CreateInstance().WriteMidiFile(filePath, GetData());
+                Business.FileBusiness.CreateInstance().WriteMidiFile(filePath, GetData());
             }
         }
 

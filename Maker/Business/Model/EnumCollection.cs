@@ -53,6 +53,7 @@ namespace Maker.Model
             ParagraphLightList = 0,//段落Light
             Accurate = 1,//精确
             ParagraphIntList = 2,//段落Int
+            Fast = 3,//快速
         }
     }
 }

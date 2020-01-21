@@ -7,6 +7,7 @@ using Maker.Model;
 using System.Windows.Controls;
 using System.IO;
 using System.Xml.Linq;
+using Operation;
 
 namespace Maker.View
 {
@@ -20,5 +21,6 @@ namespace Maker.View
         public virtual void SetData(List<Light> lightList) { }
 
         public virtual List<Light> GetData() { return null; }
+
     }
 }

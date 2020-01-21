@@ -546,6 +546,9 @@
     <sys:String x:Key="Unselected">Unselected</sys:String>
     <sys:String x:Key="Do you want to delete the file?">Do you want to delete the file?</sys:String>
     <sys:String x:Key="Do you want to edit the file?">Do you want to edit the file?</sys:String>
+    <sys:String x:Key="input device">input device</sys:String>
+    <sys:String x:Key="output device">output device</sys:String>
+    <sys:String x:Key="channel">channel</sys:String>
 
     
 </ResourceDictionary>

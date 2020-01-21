@@ -22,6 +22,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Maker.View.LightUserControl;
+using Operation;
+
 namespace Maker.View.Tool
 {
     /// <summary>

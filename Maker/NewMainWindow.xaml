@@ -1,4 +1,4 @@
-﻿<Window x:Class="Maker.NewMainWindow"
+﻿<RibbonWindow x:Class="Maker.NewMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,10 +9,14 @@
         mc:Ignorable="d"
         Closed="Window_Closed"
         Title="Maker" 
-        WindowState="Maximized"
-        Background="#222326"
+        WindowState="Normal"
+        Background="#282828"
         Loaded="Window_Loaded"
+        WindowStyle="None"
         >
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="1"  ResizeBorderThickness="2,0,2,2"      CornerRadius="0"   GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
     <!--AllowsTransparency="True"
         WindowStyle="None"-->
     <Window.Resources>
@@ -37,8 +41,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
-        <DockPanel Background="#282828">
-            <Menu VerticalAlignment="Center">
+                <Grid Background="#282828"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+            <Menu VerticalAlignment="Center" Grid.Column="0">
                 <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
                     <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
@@ -55,27 +64,37 @@
                     <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
                     </MenuItem>
-                    <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                    <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
-                    <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
-                </MenuItem>
+                        <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                            <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
+                            <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                            <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" />
+                        </MenuItem>
                 </Menu>
-            <Grid Focusable="True" HorizontalAlignment="Right" Margin="0,5,0,5">
+                    <StackPanel Grid.Column="1" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
+                    <Grid Margin="0,5,0,5" Grid.Column="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                     <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,15,0">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
                         <Grid Name="gSearch" Visibility="Collapsed">
                             <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="5" FontSize="17"/>
                             <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="5" FontSize="17" BorderThickness="0" />
                         </Grid>
                     </StackPanel>
                     <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
                     </StackPanel>
-                    <StackPanel Name="spAppreciate" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_2" Margin="15,0,15,0">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/appreciate.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
-                    </StackPanel>
-                    <StackPanel Visibility="Collapsed" Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnMin_Click" Margin="20,0,0,0">
+                                <Image VerticalAlignment="Center" Source="View/Resources/Image/small.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                            </StackPanel>
+                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="Label_MouseDoubleClick" Margin="15,0,0,0">
+                                <Image Name="iMaximized" VerticalAlignment="Center" Source="View/Resources/Image/window_back.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                            </StackPanel>
+                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnClose_Click" Margin="15,0,10,0">
+                                <Image VerticalAlignment="Center" Source="View/Resources/Image/close.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                            </StackPanel>
+                            <StackPanel Visibility="Collapsed" Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
                         <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
                         <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10,0,15,0"   FontSize="17"/>
                     </StackPanel>
@@ -84,9 +103,9 @@
                     <makerui:ListUserControl x:Name="listUserControl" Background="#222326" Width="300"/>
                 </Popup>
             </Grid>
-        </DockPanel>
+        </Grid>
                 <DockPanel Background="#282828">
-                    <StackPanel Orientation="Horizontal" Margin="5,0,0,0" VerticalAlignment="Center" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
                         <TextBlock Text="{DynamicResource BPMColon}" Foreground="White" FontSize="18" />
                         <TextBlock Name="tbBPM" Foreground="White" FontSize="18" Margin="5,0,0,0"/>
                     </StackPanel>
@@ -110,7 +129,7 @@
                     </StackPanel>
                 </DockPanel>
             </StackPanel>
-            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" >
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#222326" >
         <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*"/>
@@ -183,4 +202,4 @@
         <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
-</Window>
+</RibbonWindow>

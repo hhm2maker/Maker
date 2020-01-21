@@ -266,7 +266,7 @@ namespace Maker.View.LightScriptUserControl
         public Dictionary<String, String> finalDictionary = new Dictionary<string, string>();
         public Dictionary<String, List<String>> intersectionDictionary = new Dictionary<string, List<String>>();
         public Dictionary<String, List<String>> complementDictionary = new Dictionary<string, List<String>>();
-        public Dictionary<String, List<Model.Light>> lockedDictionary = new Dictionary<string, List<Model.Light>>();
+        public Dictionary<String, List<Light>> lockedDictionary = new Dictionary<string, List<Light>>();
 
         private String introduce = "";
         /// <summary>
@@ -1048,9 +1048,9 @@ namespace Maker.View.LightScriptUserControl
         {
             bridge.GetBlockResult(stepName);
         }
-        public override List<Model.Light> GetData()
+        public override List<Light> GetData()
         {
-            List<Model.Light> ll = new List<Model.Light>();
+            List<Light> ll = new List<Light>();
             foreach (var item in mLightDictionary)
             {
                 ll.AddRange(item.Value);
@@ -1058,10 +1058,10 @@ namespace Maker.View.LightScriptUserControl
             return ll;
         }
 
-        public Dictionary<string, List<Model.Light>> mLightDictionary;
-        public List<Model.Light> mBlockLightList = new List<Model.Light>();
+        public Dictionary<string, List<Light>> mLightDictionary;
+        public List<Light> mBlockLightList = new List<Light>();
 
-        public List<Model.Light> RefreshData(String partName)
+        public List<Light> RefreshData(String partName)
         {
             //添加导入库语句
             StringBuilder importbuilder = new StringBuilder();
@@ -1512,7 +1512,7 @@ namespace Maker.View.LightScriptUserControl
                 StringBuilder builder = new StringBuilder();
                 builder.Append("\tLightGroup " + GetStepName() + "LightGroup = new LightGroup();" + Environment.NewLine);
                 int i = 1;
-                foreach (Model.Light l in control.mLightList)
+                foreach (Operation.Light l in control.mLightList)
                 {
                     builder.Append("\tLight light" + i + " = new LightGroup(" + l.Time + "," + l.Action + "," + l.Position + "," + l.Color + ");" + Environment.NewLine);
                     builder.Append("\t" + GetStepName() + "LightGroup.Add(" + "light" + i + ");" + Environment.NewLine);
@@ -2056,14 +2056,14 @@ namespace Maker.View.LightScriptUserControl
             return blockStepName.Text;
         }
 
-        public List<Model.Light> mLaunchpadData = new List<Model.Light>();
+        public List<Operation.Light> mLaunchpadData = new List<Operation.Light>();
 
         public void SetSize(double width, double height)
         {
             Width = width;
             Height = height;
         }
-        public void UpdateData(Dictionary<string, List<Model.Light>> mLightList)
+        public void UpdateData(Dictionary<string, List<Operation.Light>> mLightList)
         {
             _bridge.UpdateData(mLightList);
         }
@@ -2713,7 +2713,7 @@ namespace Maker.View.LightScriptUserControl
                 }
                 if (sender == btnChangeColorDiy)
                 {
-                    List<Model.Light> mLightList = mLightDictionary[name];
+                    List<Operation.Light> mLightList = mLightDictionary[name];
                     List<int> mColor = new List<int>();
                     for (int j = 0; j < mLightList.Count; j++)
                     {

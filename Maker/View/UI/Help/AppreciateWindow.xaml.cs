@@ -19,15 +19,15 @@ namespace Maker.View.UI.Help
     /// <summary>
     /// AppreciateUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AppreciateUserControl : BaseChildUserControl
+    public partial class AppreciateWindow : Window
     {
         private NewMainWindow mw;
-        public AppreciateUserControl(NewMainWindow mw)
+        public AppreciateWindow(NewMainWindow mw)
         {
             InitializeComponent();
 
             this.mw = mw;
-            Title = "Appreciate";
+            Owner = mw;
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -36,9 +36,6 @@ namespace Maker.View.UI.Help
             spMain.Visibility = Visibility.Visible;
         }
 
-        private void BaseChildUserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            Width = mw.ActualWidth / 4 + 630;
-        }
+     
     }
 }

@@ -9,6 +9,7 @@ using System.Windows;
 using Maker.View.Style.Child;
 using Maker.Model;
 using Maker.Business;
+using Operation;
 
 namespace Maker.View.UI.Style.Child
 {

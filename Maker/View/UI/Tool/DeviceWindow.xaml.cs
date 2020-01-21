@@ -3,6 +3,8 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Runtime.InteropServices;
+using Maker.Business.Currency;
+using System.Windows.Media;
 
 namespace Maker.View.Tool
 {
@@ -26,6 +28,75 @@ namespace Maker.View.Tool
             {
                 InitData();
                 isFirst = false;
+            }
+            { 
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Horizontal;
+
+            TextBlock tbIn = new TextBlock();
+                tbIn.Margin = new Thickness(0, 10, 15, 0);
+                tbIn.FontSize = 16;
+                tbIn.Width = 200;
+                tbIn.HorizontalAlignment = HorizontalAlignment.Center;
+                tbIn.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbIn.Text = (String)FindResource("input device");
+
+                TextBlock tbOut = new TextBlock();
+                tbOut.Margin = new Thickness(0, 10, 15, 0);
+                tbOut.FontSize = 16;
+                tbOut.Width = 200;
+                tbOut.HorizontalAlignment = HorizontalAlignment.Center;
+                tbOut.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbOut.Text = (String)FindResource("output device");
+
+                TextBlock tbCh = new TextBlock();
+                tbCh.Margin = new Thickness(0, 10, 15, 0);
+                tbCh.FontSize = 16;
+                tbCh.Width = 200;
+                tbCh.HorizontalAlignment = HorizontalAlignment.Center;
+                tbCh.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbCh.Text = (String)FindResource("channel");
+
+                sp.Children.Add(tbIn);
+            sp.Children.Add(tbOut);
+            sp.Children.Add(tbCh);
+
+            spDevices.Children.Add(sp);
+            }
+
+            foreach (var item in mw.deviceConfigModel.Devices) {
+                StackPanel sp = new StackPanel();
+                sp.Orientation = Orientation.Horizontal;
+
+                TextBlock tbIn = new TextBlock();
+                tbIn.Margin = new Thickness(0, 10, 15,0);
+                tbIn.FontSize = 16;
+                tbIn.Width = 200;
+                tbIn.HorizontalAlignment = HorizontalAlignment.Center;
+                tbIn.Foreground = new SolidColorBrush(Color.FromRgb(240,240,240));
+                tbIn.Text = item.DeviceIn;
+
+                TextBlock tbOut = new TextBlock();
+                tbOut.Margin = new Thickness(0, 10, 15, 0);
+                tbOut.FontSize = 16;
+                tbOut.Width = 200;
+                tbOut.HorizontalAlignment = HorizontalAlignment.Center;
+                tbOut.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbOut.Text = item.DeviceOut;
+
+                TextBlock tbCh = new TextBlock();
+                tbCh.Margin = new Thickness(0, 10, 15, 0);
+                tbCh.FontSize = 16;
+                tbCh.Width = 200;
+                tbCh.HorizontalAlignment = HorizontalAlignment.Center;
+                tbCh.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbCh.Text = "ch."+(item.Channel +1);
+
+                sp.Children.Add(tbIn);
+                sp.Children.Add(tbOut);
+                sp.Children.Add(tbCh);
+
+                spDevices.Children.Add(sp);
             }
         }
 
@@ -173,6 +244,12 @@ namespace Maker.View.Tool
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void AddEquipment(object sender, RoutedEventArgs e)
+        {
+            mw.deviceConfigModel.Devices.Add(new Business.Model.Config.DeviceConfigModel.Device(cbRealDeviceIn.SelectedItem.ToString(), cbRealDevice.SelectedItem.ToString(), cbPassageway.SelectedIndex));
+            XmlSerializerBusiness.Save(mw.deviceConfigModel, "Config/device.xml");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Utils;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,8 +47,8 @@ namespace Maker.View.Device
                 teachingList[i].Position -= 28;
             }
             this.teachingList = LightBusiness.Sort(teachingList);
-           
-            FileBusiness.CreateInstance().ReplaceControl(this.teachingList, FileBusiness.CreateInstance().normalArr);
+
+            Business.FileBusiness.CreateInstance().ReplaceControl(this.teachingList, Business.FileBusiness.CreateInstance().normalArr);
             //LightBusiness.Print(teachingList);
         }
 

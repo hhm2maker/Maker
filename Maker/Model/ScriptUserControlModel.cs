@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using Maker.Business;
 using Maker.View.LightUserControl;
+using Operation;
 using System;
 using System.Collections;
 using System.Collections.Generic;

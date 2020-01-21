@@ -6,6 +6,7 @@ using Maker.View.Dialog;
 using Maker.View.LightScriptUserControl;
 using Maker.View.Utils;
 using Maker.ViewBusiness;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -281,7 +282,8 @@ namespace Maker.Bridge
         {
             UpdateData(mLightList);
         }
-          private Dictionary<string, List<Light>> mLightList ;
+
+        private Dictionary<string, List<Light>> mLightList ;
         public void UpdateData(Dictionary<string, List<Light>> mLightList)
         {
             if (mLightList == null) {
@@ -358,7 +360,6 @@ namespace Maker.Bridge
                     }
                 }
             }
-
             //时间轴
             iuc.cTime.Children.Clear();
             double actualWidth = iuc.cTime.ActualWidth;
@@ -408,7 +409,7 @@ namespace Maker.Bridge
             }
         }
         public List<int> liTime = new List<int>();
-        private Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
+        //private Dictionary<int, List<Light>> dic = new Dictionary<int, List<Light>>();
         private List<String> ColorList = new List<string>();
         public int nowTimePoint = 1;
 
@@ -422,53 +423,17 @@ namespace Maker.Bridge
         {
             //iuc.dgMain.ItemsSource = mActionBeanList;
         }
+
+        List<List<Light>> lists;
         /// <summary>
         /// 获取主窗口数据
         /// </summary>
         public void SetDataToLaunchpad(List<Light> mActionBeanList)
         {
             //切割
-            mActionBeanList = LightBusiness.Split(mActionBeanList);
-
-            liTime.Clear();
-            dic = LightBusiness.GetParagraphLightLightList(mActionBeanList);
-            liTime = dic.Keys.ToList();
-
-            //dic.Clear();
-            //int time = -1;
-            //for (int i = 0; i < mActionBeanList.Count; i++)
-            //{
-            //    if (mActionBeanList[i].Time != time)
-            //    {
-            //        time = mActionBeanList[i].Time;
-            //        liTime.Add(time);
-            //        int[] x = new int[100];
-            //        for (int j = 0; j < 100; j++)
-            //        {
-            //            x[j] = 0;
-            //        }
-            //        dic.Add(time, x);
-            //        if (mActionBeanList[i].Action == 144)
-            //        {
-            //            dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
-            //        }
-            //        else if (mActionBeanList[i].Action == 128)
-            //        {
-            //            dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (mActionBeanList[i].Action == 144)
-            //        {
-            //            dic[time][mActionBeanList[i].Position] = mActionBeanList[i].Color;
-            //        }
-            //        else if (mActionBeanList[i].Action == 128)
-            //        {
-            //            dic[time][mActionBeanList[i].Position] = 0;//关闭为黑色
-            //        }
-            //    }
-            //}
+            lists = LightBusiness.GetPositionLights(mActionBeanList);
+            liTime = LightBusiness.GetListTime(mActionBeanList);
+          
             if (liTime.Count == 0)
             {
                 iuc.tbTimeNow.Text = "0";
@@ -497,7 +462,7 @@ namespace Maker.Bridge
 
         public void LoadFrame()
         {
-            iuc.mLaunchpadData = dic[liTime[nowTimePoint - 1]];
+            iuc.mLaunchpadData = LightBusiness.GetNowTimeData(lists,liTime[nowTimePoint - 1]);
             iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
 
             iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
@@ -542,7 +507,7 @@ namespace Maker.Bridge
         }
         public void ToNextTime()
         {
-            if (nowTimePoint > dic.Count - 1) return;
+            if (nowTimePoint > liTime.Count - 1) return;
             nowTimePoint++;
             //iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
             iuc.tbTimePointCountLeft.Text = nowTimePoint.ToString();
@@ -585,7 +550,7 @@ namespace Maker.Bridge
         }
         public void LoadRangeFile()
         {
-            iuc.rangeDictionary = FileBusiness.CreateInstance().ReadRangeFile(AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range");
+            iuc.rangeDictionary = Business.FileBusiness.CreateInstance().ReadRangeFile(AppDomain.CurrentDomain.BaseDirectory + @"RangeList\test.Range");
             if (iuc.rangeDictionary == null)
             {
                 new MessageDialog(iuc.mw, "TheReadRangeFileFailed").ShowDialog();

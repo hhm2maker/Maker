@@ -10,6 +10,7 @@ using Maker.Business;
 using Maker.View.Utils;
 using System.Windows.Shapes;
 using System.Threading;
+using Operation;
 
 namespace Maker.View.Device
 {

@@ -577,7 +577,7 @@ namespace Maker.View.UI.Game
             }
 
 
-            List<Model.Light> x = timeDictionary[timeList[number]];
+            List<Operation.Light> x = timeDictionary[timeList[number]];
             for (int i = 0; i < x.Count; i++)
             {
                 //RoundedCornersPolygon rcp = lfe[x[i]] as RoundedCornersPolygon;
@@ -644,7 +644,7 @@ namespace Maker.View.UI.Game
         /// 设置数据
         /// </summary>
         /// <param name="mActionBeanList"></param>
-        public void SetData(List<Model.Light> mActionBeanList)
+        public void SetData(List<Operation.Light> mActionBeanList)
         {
             //清空数据
             timeList.Clear();
@@ -667,7 +667,7 @@ namespace Maker.View.UI.Game
         /// <summary>
         /// 时间段落字典
         /// </summary>
-        private Dictionary<int, List<Model.Light>> timeDictionary = new Dictionary<int, List<Model.Light>>();
+        private Dictionary<int, List<Operation.Light>> timeDictionary = new Dictionary<int, List<Operation.Light>>();
 
         bool isMove = false;
         Point point = new Point(0, 0);

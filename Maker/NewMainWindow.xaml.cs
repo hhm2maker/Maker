@@ -31,13 +31,16 @@ using Maker.View.UI.Tool;
 using Maker.Business.Model.OperationModel;
 using System.Linq;
 using Maker.View.UI.MyFile;
+using Operation;
+using System.Windows.Controls.Ribbon;
+using System.Windows.Media.Imaging;
 
 namespace Maker
 {
     /// <summary>
     /// NewMainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class NewMainWindow : Window
+    public partial class NewMainWindow : RibbonWindow
     {
         private NewMainWindowBridge bridge;
         public ProjectUserControl projectUserControl;
@@ -72,13 +75,15 @@ namespace Maker
             }
             SetSpFilePosition(0);
 
-          
         }
+
+     
+
         public NormalFileManager normalFileManager;
         public ProjectModel NowProjectModel;
         private void InitProject()
         {
-            XmlSerializerBusiness.Load(ref NowProjectModel, LastProjectPath + "project.xml");
+            Business.Currency.XmlSerializerBusiness.Load(ref NowProjectModel, LastProjectPath + "project.xml");
         }
 
 
@@ -449,10 +454,10 @@ namespace Maker
 
                     ProjectModel projectModel = new ProjectModel();
                     projectModel.Bpm = dialog.dBpm;
-                    XmlSerializerBusiness.Save(projectModel, _projectPath+ @"\project.xml");
+                    Business.Currency.XmlSerializerBusiness.Save(projectModel, _projectPath+ @"\project.xml");
 
                     projectConfigModel.Path = dialog.fileName;
-                    XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
+                    Business.Currency.XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
 
                     InitProjects();
     
@@ -565,8 +570,10 @@ namespace Maker
             bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 0);
 
             //spHead.Visibility = Visibility.Collapsed;
+
+            btnMaximize_Click(null, null);
         }
-       
+
 
         public void SetButton(int position)
         {
@@ -704,9 +711,9 @@ namespace Maker
             }
         }
 
-        private void StackPanel_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        private void StackPanel_MouseLeftButtonDown_2(object sender, RoutedEventArgs e)
         {
-            AddContentUserControl(new AppreciateUserControl(this));
+            new AppreciateWindow(this).Show();
         }
 
         private void spLaboratory_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -741,7 +748,7 @@ namespace Maker
         {
             Width = Width / 4;
             Height = Height / 4;
-            XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
+            Business.Currency.XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
             UpdateShortcuts();
         }
 
@@ -775,7 +782,7 @@ namespace Maker
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             projectConfigModel.Path = (sender as MenuItem).Header.ToString();
-            XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
+            Business.Currency.XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
 
             InitProjects();
         }
@@ -804,7 +811,7 @@ namespace Maker
         private void MenuItem_SubmenuOpened(object sender, RoutedEventArgs e)
         {
             btnOpenFile.Items.Clear();
-            List<String> strs = FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
+            List<String> strs = Business.FileBusiness.CreateInstance().GetDirectorysName(AppDomain.CurrentDomain.BaseDirectory + @"\Project");
             foreach (var str in strs)
             {
                 MenuItem item = new MenuItem() { Header = str };
@@ -969,12 +976,12 @@ namespace Maker
                  {
                      if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                      {
-                         FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+                         Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
                      }
                  }
                  else
                  {
-                     FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+                     Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
                  }
                  RemoveDialog();
              }
@@ -1003,7 +1010,7 @@ namespace Maker
             //点了保存按钮进入
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(), mLightList);
+                Business.FileBusiness.CreateInstance().WriteLightFile(saveFileDialog.FileName.ToString(), mLightList);
                 //bridge.ExportLight(saveFileDialog.FileName.ToString(), mActionBeanList);
             }
         }
@@ -1045,7 +1052,7 @@ namespace Maker
             {
                 return;
             }
-            FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.'))+".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
+            Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.'))+".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
         }
 
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
@@ -1066,13 +1073,129 @@ namespace Maker
             if (getValueWindowDialog.ShowDialog() == true) {
                 NowProjectModel.Bpm = double.Parse(getValueWindowDialog.Value);
                 tbBPM.Text = NowProjectModel.Bpm.ToString();
-                XmlSerializerBusiness.Save(NowProjectModel, LastProjectPath + @"\project.xml");
+                Business.Currency.XmlSerializerBusiness.Save(NowProjectModel, LastProjectPath + @"\project.xml");
             }
         }
 
         private void Image_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
             new TabletPCFileManagerWindow(this).ShowDialog();
+        }
+
+        /// <summary>
+        /// 关闭
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+      
+        /// <summary>
+        /// 最小化窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMin_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// 窗口拖动
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WrapPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                btnNormal_ClickNotPosition(null, null);
+                DragMove();
+            }
+        }
+
+        private long lastTitleLeftDownTime = 0;
+        /// <summary>
+        /// 双击放大
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            long ticks = DateTime.Now.Ticks / 1000;
+            if (ticks - 2000 > lastTitleLeftDownTime)
+            {
+                lastTitleLeftDownTime = ticks;
+            }
+            else
+            {
+                lastTitleLeftDownTime = 0;
+
+                Label_MouseDoubleClick(null, null);
+            }
+        }
+        /// <summary>
+        /// 双击最大化或还原
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Label_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (Maximized)
+            {
+                btnNormal_Click(null,null);
+            }
+            else
+            {
+                btnMaximize_Click(null, null);
+            }
+        }
+
+        Rect rcnormal;//定义一个全局rect记录还原状态下窗口的位置和大小。
+        bool Maximized = true;
+        /// <summary>
+        /// 最大化
+        /// </summary>
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            iMaximized.Source = new BitmapImage(new Uri("View/Resources/Image/window_back.png", UriKind.RelativeOrAbsolute));
+            rcnormal = new Rect(Left, Top, ActualWidth, ActualHeight);//保存下当前位置与大小
+            Left = -2;//设置位置
+            Top = -2;
+            Rect rc = SystemParameters.WorkArea;//获取工作区大小
+            Width = rc.Width + 4;
+            Height = rc.Height + 4;
+
+            Maximized = true;
+        }
+        /// <summary>
+        /// 还原
+        /// </summary>
+        private void btnNormal_Click(object sender, RoutedEventArgs e)
+        {
+            iMaximized.Source = new BitmapImage(new Uri("View/Resources/Image/window_maximized.png", UriKind.RelativeOrAbsolute));
+
+            Left = rcnormal.Left;
+            Top = rcnormal.Top;
+            Width = rcnormal.Width;
+            Height = rcnormal.Height;
+
+            Maximized = false;
+        }
+
+        /// <summary>
+        /// 还原
+        /// </summary>
+        private void btnNormal_ClickNotPosition(object sender, RoutedEventArgs e)
+        {
+            iMaximized.Source = new BitmapImage(new Uri("View/Resources/Image/window_maximized.png", UriKind.RelativeOrAbsolute));
+        
+            Width = rcnormal.Width;
+            Height = rcnormal.Height;
+
+            Maximized = false;
         }
     }
 }

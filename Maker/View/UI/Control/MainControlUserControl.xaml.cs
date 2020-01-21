@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Maker.Business;
 using Maker.Model;
 using System.Windows.Forms;
+using Operation;
 
 namespace Maker.View.Control
 {
@@ -61,7 +62,7 @@ namespace Maker.View.Control
         }
 
         public void LoadFileData(string filePath) {
-            mLightList = FileBusiness.CreateInstance().ReadLightFile(filePath);
+            mLightList = Business.FileBusiness.CreateInstance().ReadLightFile(filePath);
             mode = Mode.Number;
             ToNumberUserControl();
         }
@@ -173,7 +174,7 @@ namespace Maker.View.Control
             System.Windows.Forms.DialogResult dr = saveFileDialog1.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK && saveFileDialog1.FileName.Length > 0)
             {
-                FileBusiness.CreateInstance().WriteLightFile(saveFileDialog1.FileName, mLightList);
+                Business.FileBusiness.CreateInstance().WriteLightFile(saveFileDialog1.FileName, mLightList);
             }
         }
 
@@ -184,7 +185,7 @@ namespace Maker.View.Control
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                mLightList = FileBusiness.CreateInstance().ReadLightFile(openFileDialog1.FileName);
+                mLightList = Business.FileBusiness.CreateInstance().ReadLightFile(openFileDialog1.FileName);
                 SetDataToChildren();
             }
         }
@@ -192,7 +193,7 @@ namespace Maker.View.Control
         private void tbSave_Click(object sender, RoutedEventArgs e)
         {
             RefreshData();
-            FileBusiness.CreateInstance().WriteLightFile(mw.lightScriptFilePath, mLightList);
+            Business.FileBusiness.CreateInstance().WriteLightFile(mw.lightScriptFilePath, mLightList);
         }
     }
 }

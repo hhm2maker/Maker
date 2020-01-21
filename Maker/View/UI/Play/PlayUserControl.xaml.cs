@@ -2,6 +2,7 @@
 using Maker.Business.Model;
 using Maker.Model;
 using Maker.View.UI.UserControlDialog;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -158,14 +159,14 @@ namespace Maker.View.UI
             XElement _root = _doc.Element("Root");
 
             XElement _tutorial = _root.Element("Tutorial");
-            String strTutorial = FileBusiness.CreateInstance().Base2String(_tutorial.Attribute("content").Value);
+            String strTutorial = Business.FileBusiness.CreateInstance().Base2String(_tutorial.Attribute("content").Value);
             List<int> mTutorialList = new List<int>();
             for (int i = 0; i < strTutorial.Length; i++)
             {
                 mTutorialList.Add(strTutorial[i]);
             }
 
-            List<Light> tutorialLights = FileBusiness.CreateInstance().ReadMidiContent(mTutorialList);
+            List<Light> tutorialLights = Business.FileBusiness.CreateInstance().ReadMidiContent(mTutorialList);
             InitTeachingData(tutorialLights);
 
               XElement _pages = _root.Element("Pages");
@@ -204,14 +205,14 @@ namespace Maker.View.UI
             foreach (XElement lightElement in _lights.Elements("Light"))
             {
                 //lights.Add(lightElement.Attribute("name").Value, business.LightStringToLightList(lightElement.Attribute("value").Value));
-                String str = FileBusiness.CreateInstance().Base2String(lightElement.Attribute("value").Value);
+                String str = Business.FileBusiness.CreateInstance().Base2String(lightElement.Attribute("value").Value);
 
                 List<int> mList = new List<int>();
                 for (int i = 0; i < str.Length; i++)
                 {
                     mList.Add(str[i]);
                 }
-                lights.Add(lightElement.Attribute("name").Value, FileBusiness.CreateInstance().ReadMidiContent(mList));
+                lights.Add(lightElement.Attribute("name").Value, Business.FileBusiness.CreateInstance().ReadMidiContent(mList));
             }
             //foreach (var item in lights)
             //{
@@ -1013,7 +1014,7 @@ namespace Maker.View.UI
             openFileDialog1.RestoreDirectory = true;
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                List<Light> tutorialLightList = FileBusiness.CreateInstance().ReadMidiFile(openFileDialog1.FileName);
+                List<Light> tutorialLightList = Business.FileBusiness.CreateInstance().ReadMidiFile(openFileDialog1.FileName);
 
                 oldTutorialParagraphLightIntList = LightBusiness.GetParagraphLightIntListList(tutorialLightList);
                 if (oldTutorialParagraphLightIntList.Count == 0)

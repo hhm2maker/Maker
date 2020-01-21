@@ -14,7 +14,12 @@ using Operation;
 
 namespace Maker.View.Device
 {
-    public class AccuratePlayerLaunchpadPro: PlayerLaunchpadPro
+    /// <summary>
+    /// 重要！本代码基本拷贝AccuratePlayerLaunchpadPro 但据我印象里那三个播放器的代码都是会预先分组来做到任意时候暂停都能恢复，来避免启动时灯光不全的现象
+    /// 但是迷之卡顿
+    /// </summary>
+
+    public class AccuratePlayerLaunchpadPro2 : PlayerLaunchpadPro
     {
         /// <summary>
         /// 笔刷列表
@@ -34,7 +39,7 @@ namespace Maker.View.Device
         /// 无参构造函数
         /// </summary>
         /// <param name="iplay"></param>
-        public AccuratePlayerLaunchpadPro() : base()
+        public AccuratePlayerLaunchpadPro2() : base()
         {
             //这里可以自定义笔刷数组
             brushList = StaticConstant.brushList;
@@ -48,7 +53,7 @@ namespace Maker.View.Device
         /// 带参构造函数
         /// </summary>
         /// <param name="iplay"></param>
-        public AccuratePlayerLaunchpadPro(IPlay iplay) :base() {
+        public AccuratePlayerLaunchpadPro2(IPlay iplay) :base() {
             //这里可以自定义笔刷数组
             brushList = StaticConstant.brushList;
             this.iplay = iplay;
@@ -143,9 +148,6 @@ namespace Maker.View.Device
             lightList.Clear();
             //获取数据
             lightList = LightBusiness.Sort(mActionBeanList);
-            if (SmallTime == 0) {
-                SmallTime = lightList[0].Time;
-            }
         }
 
         /// <summary>

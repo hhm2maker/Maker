@@ -40,9 +40,17 @@ namespace Maker.Bridge
             InitHide();
             InitTest();
             InitVersion();
-            InitVersion();
+            InitDevice();
 
             InitHintWindow();
+        }
+
+        /// <summary>
+        /// 初始化设备
+        /// </summary>
+        private void InitDevice()
+        {
+            XmlSerializerBusiness.Load(ref view.deviceConfigModel, "Config/device.xml");
         }
 
         /// <summary>
@@ -190,6 +198,10 @@ namespace Maker.Bridge
             else if (playType.InnerText.Equals("Accurate"))
             {
                 view.playerType = PlayerType.Accurate;
+            }
+            else if (playType.InnerText.Equals("Fast"))
+            {
+                view.playerType = PlayerType.Fast;
             }
         }
 

@@ -3,6 +3,7 @@ using Maker.Model;
 using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.ViewBusiness;
+using Operation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,10 +53,10 @@ namespace Maker.Bridge
         public void ExportMidi(String filePath, String fileName,List<Light> mActionBeanList,bool isWriteToFile) {
             if (isWriteToFile)
             {
-                FileBusiness.CreateInstance().WriteMidiFile(filePath, fileName, mActionBeanList, isWriteToFile);
+                Business.FileBusiness.CreateInstance().WriteMidiFile(filePath, fileName, mActionBeanList, isWriteToFile);
             }
             else {
-                FileBusiness.CreateInstance().WriteMidiFile(filePath, mActionBeanList);
+                Business.FileBusiness.CreateInstance().WriteMidiFile(filePath, mActionBeanList);
             }
         }
         /// <summary>
@@ -65,7 +66,7 @@ namespace Maker.Bridge
         /// <param name="mActionBeanList"></param>
         public void ExportLight(String filePath, List<Light> mActionBeanList)
         {
-            FileBusiness.CreateInstance().WriteLightFile(filePath, mActionBeanList);
+            Business.FileBusiness.CreateInstance().WriteLightFile(filePath, mActionBeanList);
         }
         /// <summary>
         /// 系统默认方式打开图片文件
@@ -96,7 +97,7 @@ namespace Maker.Bridge
         /// <returns></returns>
         public String CheckSaveFile(String saveFilePath)
         {
-            return FileBusiness.CreateInstance().CheckSaveFile(saveFilePath);
+            return Business.FileBusiness.CreateInstance().CheckSaveFile(saveFilePath);
         }
         /// <summary>
         /// 创建桌面快捷方式

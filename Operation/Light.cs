@@ -1,5 +1,11 @@
-﻿namespace Operation
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
+namespace Operation
 {
+    [Serializable]
     public class Light
     {
         /// <summary>
@@ -10,6 +16,7 @@
             get;
             set;
         }
+
         /// <summary>
         /// 行为
         /// </summary>
@@ -18,6 +25,7 @@
             get;
             set;
         }
+
         /// <summary>
         /// 位置
         /// </summary>
@@ -26,6 +34,7 @@
             get;
             set;
         }
+
         /// <summary>
         /// 颜色
         /// </summary>
@@ -34,6 +43,7 @@
             get;
             set;
         }
+
         /// <summary>
         /// 返回灯光对象
         /// </summary>
@@ -70,6 +80,7 @@
         //    temp = (Light)obj;
         //    return this.Time.Equals(temp.Time) && this.Action.Equals(temp.Action) && this.Position.Equals(temp.Position) && this.Color.Equals(temp.Color);
         //}
+
         /// <summary>
         /// 除了颜色其他都相同
         /// </summary>
@@ -96,13 +107,23 @@
             {
                 return false;
             }
-            if ((obj.GetType().Equals(this.GetType())) == false)
+            if ((obj.GetType().Equals(GetType())) == false)
             {
                 return false;
             }
             Light temp = null;
             temp = (Light)obj;
             return Time.Equals(temp.Time) && temp.Action == 144 && Position.Equals(temp.Position);
+        }
+
+        public object Clone()
+        {
+            BinaryFormatter Formatter = new BinaryFormatter(null, new StreamingContext(StreamingContextStates.Clone));
+            MemoryStream stream = new MemoryStream(); Formatter.Serialize(stream, this);
+            stream.Position = 0;
+            object clonedObj = Formatter.Deserialize(stream);
+            stream.Close();
+            return clonedObj;
         }
     }
 }

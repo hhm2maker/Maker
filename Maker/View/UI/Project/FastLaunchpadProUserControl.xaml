@@ -6,5 +6,5 @@
              xmlns:device="clr-namespace:Maker.View.Device"
              mc:Ignorable="d" 
              >
-    <device:FastPlayerLaunchpadPro x:Name="mLaunchpad"/>
+    <device:LaunchpadPro x:Name="mLaunchpad"/>
 </UserControl>
