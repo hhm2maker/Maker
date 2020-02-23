@@ -318,6 +318,12 @@
     <Compile Include="View\UI\MyFile\TabletPCFileManagerWindow.xaml.cs">
       <DependentUpon>TabletPCFileManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\PlayStyle\Child\Operation\AudioFilePlayChild.cs" />
+    <Compile Include="View\UI\PlayStyle\Child\Operation\GotoPagePlayChild.cs" />
+    <Compile Include="View\UI\PlayStyle\Child\Operation\LightFilePlayChild.cs" />
+    <Compile Include="View\UI\PlayStyle\PlayStyleWindow.xaml.cs">
+      <DependentUpon>PlayStyleWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Project\FastLaunchpadProUserControl.xaml.cs">
       <DependentUpon>FastLaunchpadProUserControl.xaml</DependentUpon>
@@ -331,6 +337,7 @@
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\UserControlDialog\BaseStyleUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseStyle.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\Operation\CreateFromFileOperationChild.cs" />
@@ -768,6 +775,10 @@
     <Page Include="View\UI\MyFile\TabletPCFileManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\PlayStyle\PlayStyleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Project\FastLaunchpadProUserControl.xaml">
       <SubType>Designer</SubType>

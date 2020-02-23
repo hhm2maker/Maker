@@ -1,4 +1,4 @@
-﻿<usercontroldialog:MakerDialog
+﻿<usercontroldialog:BaseStyleUserControl
     xmlns:usercontroldialog="clr-namespace:Maker.View.UI.UserControlDialog"
     x:Class="Maker.View.Style.StyleWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,7 +9,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListBox Margin="20,20,0,0" Grid.Row="0" MouseEnter="lbCatalog_MouseEnter" Padding="0"  Grid.Column="0" DockPanel.Dock="Top" FontSize="16" SelectionChanged="lbCatalog_SelectionChanged" Background="#535353" Foreground="#f0f0f0" Name="lbCatalog" BorderBrush="#FF424242" >
+            <ListBox Margin="20,20,0,0" Grid.Row="0" MouseEnter="lbCatalog_MouseEnter" Padding="0"  Grid.Column="0" DockPanel.Dock="Top" FontSize="16" Background="#535353" Foreground="#f0f0f0" Name="lbCatalog" BorderBrush="#FF424242" >
                     <ListBox.Template>
                         <ControlTemplate TargetType="{x:Type ListBox}">
                             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="0">
@@ -22,4 +22,4 @@
                 <StackPanel  Name="svMain" Margin="0,0,0,20"/>
             </ScrollViewer>
         </Grid>
-</usercontroldialog:MakerDialog>
+</usercontroldialog:BaseStyleUserControl>

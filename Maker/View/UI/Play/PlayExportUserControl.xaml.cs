@@ -1,4 +1,5 @@
 ﻿using Maker.Business;
+using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.UI.UserControlDialog;
@@ -36,15 +37,18 @@ namespace Maker.View.Play
         private void btnSelectFile_Click(object sender, MouseEventArgs e)
         {
             List<String> fileNames = new List<string>();
+            ShowLightListDialog dialog;
             if (sender == btnSelectFileTutorial )
             {
+                dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
                 fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
                 fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
             }
             else {
+                dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames,true);
                 fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
             }
-            ShowLightListDialog dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
+             
             if (dialog.ShowDialog() == true)
             {
                 if (sender == btnSelectFileTutorial)
@@ -61,6 +65,9 @@ namespace Maker.View.Play
                 {
                     for(int i = 0; i < dialog.lbMain.SelectedItems.Count; i++)
                     {
+                        if (lbPages.Items.Contains(dialog.lbMain.SelectedItems[i])) {
+                            continue;
+                        }
                         lbPages.Items.Add(dialog.lbMain.SelectedItems[i]);
                         pageNames.Add(dialog.lbMain.SelectedItems[i].ToString());
                     }
@@ -158,6 +165,7 @@ namespace Maker.View.Play
             xRoot.Add(xPages);
 
             int nowPosition = 0;
+            bool bIsLive = cbLive.IsChecked == true ? true : false;
             for (int i = 0; i < pageNames.Count; i++)
             {
                 XElement xPage = new XElement("Page");
@@ -171,80 +179,140 @@ namespace Maker.View.Play
                         continue;
 
                     XElement xButtons = new XElement("Buttons");
-                    XAttribute xPosition = new XAttribute("position", x + 28);
+                    XAttribute xPosition;
+                    if (bIsLive)
+                    {
+                        xPosition = new XAttribute("position", Business.FileBusiness.CreateInstance().midiArr[x]);
+                    }
+                    else {
+                        xPosition = new XAttribute("position", x);
+                    }
                     xButtons.Add(xPosition);
+
                     for (int y = 0; y < pageModes[x].Count; y++)
                     {
                         XElement xButton = new XElement("Button");
                         //Down
                         XElement xDown = new XElement("Down");
-                        XAttribute xDownLightName = new XAttribute("lightname", "");
-                        if (!pageModes[x][y]._down._lightName.Equals(String.Empty))
                         {
-                            if (mDictionary.ContainsKey(pageModes[x][y]._down._lightName))
+                            foreach (var mItem in pageModes[x][y]._down.OperationModels)
                             {
-                                xDownLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._down._lightName]);
-                            }
-                            else
-                            {
-                                mDictionary.Add(pageModes[x][y]._down._lightName, nowPosition.ToString());
-                                mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._down._lightName));
-                                xDownLightName = new XAttribute("lightname", nowPosition.ToString());
-                                nowPosition++;
+                                if (mItem is LightFilePlayModel) {
+                                    var item = mItem as LightFilePlayModel;
+                                    if (!item.FileName.Equals(String.Empty))
+                                    {
+                                        if (mDictionary.ContainsKey(item.FileName))
+                                        {
+                                            item.FileName = mDictionary[item.FileName];
+                                        }
+                                        else
+                                        {
+                                            mDictionary.Add(item.FileName, nowPosition.ToString());
+                                            List<Light> lights = AllFileToLightList(item.FileName);
+                                            //if (cbLive.IsChecked == true) {
+                                            //    Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().midiArr);
+                                            //}
+
+                                            mLightDictionary.Add(nowPosition.ToString(), lights);
+                                            item.FileName = nowPosition.ToString();
+                                            nowPosition++;
+                                        }
+                                    }
+                                }
+                                xDown.Add(mItem.GetXElement());
                             }
                         }
-                        XAttribute xDownGoto = new XAttribute("goto", pageModes[x][y]._down._goto);
-                        XAttribute xDownBpm = new XAttribute("bpm", pageModes[x][y]._down._bpm);
-                        xDown.Add(xDownLightName);
-                        xDown.Add(xDownGoto);
-                        xDown.Add(xDownBpm);
                         xButton.Add(xDown);
                         //Loop
                         XElement xLoop = new XElement("Loop");
-                        XAttribute xLoopLightName = new XAttribute("lightname", "");
-                        if (!pageModes[x][y]._loop._lightName.Equals(String.Empty))
                         {
-                            if (mDictionary.ContainsKey(pageModes[x][y]._loop._lightName))
+                            foreach (var mItem in pageModes[x][y]._loop.OperationModels)
                             {
-                                xLoopLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._loop._lightName]);
-                            }
-                            else
-                            {
-                                mDictionary.Add(pageModes[x][y]._loop._lightName, nowPosition.ToString());
-                                mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._loop._lightName));
-                                xLoopLightName = new XAttribute("lightname", nowPosition.ToString());
-                                nowPosition++;
+                                xLoop.Add(mItem.GetXElement());
                             }
                         }
-                        XAttribute xLoopGoto = new XAttribute("goto", pageModes[x][y]._loop._goto);
-                        XAttribute xLoopBpm = new XAttribute("bpm", pageModes[x][y]._loop._bpm);
-                        xLoop.Add(xLoopLightName);
-                        xLoop.Add(xLoopGoto);
-                        xLoop.Add(xLoopBpm);
                         xButton.Add(xLoop);
                         //Up
                         XElement xUp = new XElement("Up");
-                        XAttribute xUpLightName = new XAttribute("lightname", "");
-                        if (!pageModes[x][y]._up._lightName.Equals(String.Empty))
                         {
-                            if (mDictionary.ContainsKey(pageModes[x][y]._up._lightName))
+
+                            foreach (var mItem in pageModes[x][y]._up.OperationModels)
                             {
-                                xUpLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._up._lightName]);
-                            }
-                            else
-                            {
-                                mDictionary.Add(pageModes[x][y]._up._lightName, nowPosition.ToString());
-                                mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._up._lightName));
-                                xUpLightName = new XAttribute("lightname", nowPosition.ToString());
-                                nowPosition++;
+                                xUp.Add(mItem.GetXElement());
                             }
                         }
-                        XAttribute xUpGoto = new XAttribute("goto", pageModes[x][y]._up._goto);
-                        XAttribute xUpBpm = new XAttribute("bpm", pageModes[x][y]._up._bpm);
-                        xUp.Add(xUpLightName);
-                        xUp.Add(xUpGoto);
-                        xUp.Add(xUpBpm);
                         xButton.Add(xUp);
+
+                        ////Down
+                        //XElement xDown = new XElement("Down");
+
+                        //XAttribute xDownLightName = new XAttribute("lightname", "");
+                        //if (!pageModes[x][y]._down._lightName.Equals(String.Empty))
+                        //{
+                        //    if (mDictionary.ContainsKey(pageModes[x][y]._down._lightName))
+                        //    {
+                        //        xDownLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._down._lightName]);
+                        //    }
+                        //    else
+                        //    {
+                        //        mDictionary.Add(pageModes[x][y]._down._lightName, nowPosition.ToString());
+                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._down._lightName));
+                        //        xDownLightName = new XAttribute("lightname", nowPosition.ToString());
+                        //        nowPosition++;
+                        //    }
+                        //}
+                        //XAttribute xDownGoto = new XAttribute("goto", pageModes[x][y]._down._goto);
+                        //XAttribute xDownBpm = new XAttribute("bpm", pageModes[x][y]._down._bpm);
+                        //xDown.Add(xDownLightName);
+                        //xDown.Add(xDownGoto);
+                        //xDown.Add(xDownBpm);
+                        //xButton.Add(xDown);
+                        ////Loop
+                        //XElement xLoop = new XElement("Loop");
+                        //XAttribute xLoopLightName = new XAttribute("lightname", "");
+                        //if (!pageModes[x][y]._loop._lightName.Equals(String.Empty))
+                        //{
+                        //    if (mDictionary.ContainsKey(pageModes[x][y]._loop._lightName))
+                        //    {
+                        //        xLoopLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._loop._lightName]);
+                        //    }
+                        //    else
+                        //    {
+                        //        mDictionary.Add(pageModes[x][y]._loop._lightName, nowPosition.ToString());
+                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._loop._lightName));
+                        //        xLoopLightName = new XAttribute("lightname", nowPosition.ToString());
+                        //        nowPosition++;
+                        //    }
+                        //}
+                        //XAttribute xLoopGoto = new XAttribute("goto", pageModes[x][y]._loop._goto);
+                        //XAttribute xLoopBpm = new XAttribute("bpm", pageModes[x][y]._loop._bpm);
+                        //xLoop.Add(xLoopLightName);
+                        //xLoop.Add(xLoopGoto);
+                        //xLoop.Add(xLoopBpm);
+                        //xButton.Add(xLoop);
+                        ////Up
+                        //XElement xUp = new XElement("Up");
+                        //XAttribute xUpLightName = new XAttribute("lightname", "");
+                        //if (!pageModes[x][y]._up._lightName.Equals(String.Empty))
+                        //{
+                        //    if (mDictionary.ContainsKey(pageModes[x][y]._up._lightName))
+                        //    {
+                        //        xUpLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._up._lightName]);
+                        //    }
+                        //    else
+                        //    {
+                        //        mDictionary.Add(pageModes[x][y]._up._lightName, nowPosition.ToString());
+                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._up._lightName));
+                        //        xUpLightName = new XAttribute("lightname", nowPosition.ToString());
+                        //        nowPosition++;
+                        //    }
+                        //}
+                        //XAttribute xUpGoto = new XAttribute("goto", pageModes[x][y]._up._goto);
+                        //XAttribute xUpBpm = new XAttribute("bpm", pageModes[x][y]._up._bpm);
+                        //xUp.Add(xUpLightName);
+                        //xUp.Add(xUpGoto);
+                        //xUp.Add(xUpBpm);
+                        //xButton.Add(xUp);
 
                         xButtons.Add(xButton);
                     }
@@ -278,7 +346,6 @@ namespace Maker.View.Play
                 //    mList.Add(str[i]);
                 //}
                 //LightBusiness.Print(fileBusiness.ReadMidiContent(mList));
-
                 XAttribute xValue = new XAttribute("value", Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContent(mItem.Value)));
                 xLight.Add(xValue);
                 xLights.Add(xLight);

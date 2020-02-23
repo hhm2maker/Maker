@@ -18,115 +18,22 @@ namespace Maker.View.Style
     /// <summary>
     /// StyleWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class StyleWindow : MakerDialog
+    public partial class StyleWindow : BaseStyleUserControl
     {
         public ScriptUserControl mw;
         public StyleWindow(ScriptUserControl mw)
         {
             InitializeComponent();
             this.mw = mw;
+
+            lbMain = lbCatalog;
+            spMain = svMain;
+        }
+      
+        public override void OnRefresh() {
+            mw.Test();
         }
 
-        private void lbCatalog_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //svMain.Children.Clear();
-            if (lbCatalog.SelectedIndex == -1)
-            {
-                return;
-            }
-            else {
-                //BaseOperationModel baseOperationModel = operationModels[lbCatalog.SelectedIndex];
-                //if (baseOperationModel is VerticalFlippingOperationModel)
-                //    {
-                //        svMain.Children.Add(new VerticalFlippingOperationChild());
-                //    }
-                //else if (baseOperationModel is HorizontalFlippingOperationModel)
-                //{
-                //    svMain.Children.Add(new HorizontalFlippingOperationChild());
-                //}
-                //else if (baseOperationModel is LowerLeftSlashFlippingOperationModel)
-                //{
-                //    svMain.Children.Add(new LowerLeftSlashFlippingOperationChild());
-                //}
-                //else if (baseOperationModel is LowerRightSlashFlippingOperationModel)
-                //{
-                //    svMain.Children.Add(new LowerRightSlashFlippingOperationChild());
-                //}
-                //else if (baseOperationModel is ClockwiseOperationModel)
-                //{
-                //    svMain.Children.Add(new ClockwiseOperationChild());
-                //}
-                //else if (baseOperationModel is AntiClockwiseOperationModel)
-                //{
-                //    svMain.Children.Add(new AntiClockwiseOperationChild());
-                //}
-                //else if (baseOperationModel is RemoveBorderOperationModel)
-                //{
-                //    svMain.Children.Add(new RemoveBorderOperationChild());
-                //}
-                //else if (baseOperationModel is ReversalOperationModel)
-                //{
-                //    svMain.Children.Add(new ReversalOperationChild());
-                //}
-                //else if (baseOperationModel is ChangeTimeOperationModel)
-                //{
-                //    svMain.Children.Add(new ChangeTimeOperationChild(baseOperationModel as ChangeTimeOperationModel));
-                //}
-                //else if (baseOperationModel is FoldOperationModel)
-                //{
-                //    svMain.Children.Add(new FoldOperationChild(baseOperationModel as FoldOperationModel));
-                //}
-                //else if (baseOperationModel is SetEndTimeOperationModel)
-                //{
-                //    svMain.Children.Add(new SetEndTimeOperationChild(baseOperationModel as SetEndTimeOperationModel));
-                //}
-                //else if (baseOperationModel is ShapeColorOperationModel)
-                //{
-                //    svMain.Children.Add(new ShapeColorOperationChild(baseOperationModel as ShapeColorOperationModel));
-                //}
-                //else if (baseOperationModel is OneNumberOperationModel)
-                //{
-                //    svMain.Children.Add(new OneNumberOperationChild(baseOperationModel as OneNumberOperationModel));
-                //}
-                //else if (baseOperationModel is ChangeColorOperationModel)
-                //{
-                //    svMain.Children.Add(new ColorOperationChild(baseOperationModel as ChangeColorOperationModel));
-                //}
-                //else if (baseOperationModel is CopyToTheEndOperationModel)
-                //{
-                //    svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheEndOperationModel));
-                //}
-                //else if (baseOperationModel is CopyToTheFollowOperationModel)
-                //{
-                //    svMain.Children.Add(new ColorOperationChild(baseOperationModel as CopyToTheFollowOperationModel));
-                //}
-                //else if (baseOperationModel is AccelerationOrDecelerationOperationModel)
-                //{
-                //    svMain.Children.Add(new ColorOperationChild(baseOperationModel as AccelerationOrDecelerationOperationModel));
-                //}
-                //else if (baseOperationModel is AnimationDisappearOperationModel)
-                //{
-                //    svMain.Children.Add(new AnimationDisappearOperationChild(baseOperationModel as AnimationDisappearOperationModel));
-                //}
-                //else if (baseOperationModel is ColorWithCountOperationModel)
-                //{
-                //    svMain.Children.Add(new ColorOperationChild(baseOperationModel as ColorWithCountOperationModel));
-                //}
-                //else if (baseOperationModel is AnimationDisappearOperationModel)
-                //{
-                //    svMain.Children.Add(new AnimationDisappearOperationChild(baseOperationModel as AnimationDisappearOperationModel));
-                //}
-                //else if (baseOperationModel is InterceptTimeOperationModel)
-                //{
-                //    svMain.Children.Add(new InterceptTimeOperationChild(baseOperationModel as InterceptTimeOperationModel));
-                //}
-                //else if (baseOperationModel is ThirdPartyOperationModel)
-                //{
-                //    svMain.Children.Add(new ThirdPartyOperationChild(baseOperationModel as ThirdPartyOperationModel));
-                //}
-            }       
-        }
-       public List<BaseOperationModel> operationModels;
         public void SetData(List<BaseOperationModel> operationModels)
         {
             lbCatalog.Items.Clear();

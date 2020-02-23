@@ -194,7 +194,7 @@
                         <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="1" Name="spHint" Visibility="Collapsed" Margin="0,15,0,15">
+                    <StackPanel Grid.Row="1" Name="spMyHint" Visibility="Collapsed" Margin="0,15,0,15">
                         <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                         <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
                     </StackPanel>

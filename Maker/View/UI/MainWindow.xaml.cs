@@ -709,13 +709,13 @@ namespace Maker.View.Control
                             
                             String[] strs = str.Split(':');
 
-                            String strContent = fileBusiness.Base2String(strs[1]);
+                            String strContent = Business.FileBusiness.CreateInstance().Base2String(strs[1]);
                             List<int> mContentList = new List<int>();
                             for (int x = 0; x < strContent.Length; x++)
                             {
                                 mContentList.Add(strContent[x]);
                             }
-                            iuc.lockedDictionary.Add(strs[0],fileBusiness.ReadMidiContent(mContentList));
+                            iuc.lockedDictionary.Add(strs[0], Business.FileBusiness.CreateInstance().ReadMidiContent(mContentList));
                         }
                         iuc.UpdateLocked();
                     }
@@ -1590,7 +1590,6 @@ namespace Maker.View.Control
             DragDrop.DoDragDrop(tvProject, new System.Windows.Forms.DataObject(System.Windows.Forms.DataFormats.FileDrop, files), System.Windows.DragDropEffects.Copy | System.Windows.DragDropEffects.Move /* | DragDropEffects.Link */);
         }
         public String firstPageName = String.Empty;
-        private Business.FileBusiness fileBusiness;
 
         private void ToPlayUserControl(object sender, RoutedEventArgs e)
         {

@@ -50,8 +50,6 @@ namespace Maker.Business
             List<Light> lights = new List<Light>();
             for (int i = 0; i < allData.Count; i++)
             {
-
-
                 var items = allData[i];
                 if (items.Count == 0)
                 {

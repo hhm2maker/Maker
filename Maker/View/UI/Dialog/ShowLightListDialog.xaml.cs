@@ -30,6 +30,18 @@ namespace Maker.View.Dialog
             Owner = mw;
         }
 
+        public ShowLightListDialog(Window mw, String nowName, List<String> lightName,bool isMultiple)
+        {
+            InitializeComponent();
+            this.nowName = nowName;
+            this.lightName = lightName;
+            Owner = mw;
+
+            if (isMultiple) {
+                lbMain.SelectionMode = SelectionMode.Multiple;
+            }
+        }
+
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
             if (lbMain.SelectedIndex == -1)

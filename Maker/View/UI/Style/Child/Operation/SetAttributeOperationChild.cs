@@ -145,7 +145,7 @@ namespace Maker.View.UI.Style.Child
             }
             this.setAttributeOperationModel.AttributeOperationModels.Clear();
             this.setAttributeOperationModel.AttributeOperationModels.AddRange(setAttributeOperationModel.AttributeOperationModels.ToArray());
-            sw.mw.Test();
+            sw.OnRefresh();
         }
 
         List<int> checkedPositions = new List<int>();

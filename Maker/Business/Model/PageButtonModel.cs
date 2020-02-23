@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.Business.Model.OperationModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,7 @@ namespace Maker.Model
             get;
             set;
         }
+      
         public PageButtonModel() {
             _down = new DownButtonModel();
             _loop = new LoopButtonModel();
@@ -36,22 +38,24 @@ namespace Maker.Model
     public class BaseButtonModel
     {
         public BaseButtonModel() {
-            _lightName = "";
             _goto = "";
             _bpm = "";
+            OperationModels = new List<BaseOperationModel>();
         }
-        public String _lightName
-        {
-            get;
-            set;
-        }
+   
         public String _goto
         {
             get;
             set;
         }
+
         public String _bpm
         {
+            get;
+            set;
+        }
+
+        public List<BaseOperationModel> OperationModels {
             get;
             set;
         }

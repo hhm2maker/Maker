@@ -187,6 +187,9 @@ namespace Maker.View
                 };
                 item.FontSize = 16;
                 item.ContextMenu = mw.normalFileManager.contextMenu;
+                item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                item.VerticalContentAlignment = VerticalAlignment.Center;
+
                 if (filePath.EndsWith(".light")) {
                     mw.normalFileManager.tvLight.Items.Add(item);
                 }

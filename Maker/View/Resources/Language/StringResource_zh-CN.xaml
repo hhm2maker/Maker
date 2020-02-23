@@ -552,4 +552,8 @@
     <sys:String x:Key="input device">输入设备</sys:String>
     <sys:String x:Key="output device">输出设备</sys:String>
     <sys:String x:Key="channel">通道</sys:String>
+    <sys:String x:Key="Play lights">播放灯光</sys:String>
+    <sys:String x:Key="Model">模式</sys:String>
+    <sys:String x:Key="Use in live">在Live中使用</sys:String>
+
 </ResourceDictionary>

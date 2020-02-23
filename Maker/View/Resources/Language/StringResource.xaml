@@ -549,6 +549,9 @@
     <sys:String x:Key="input device">input device</sys:String>
     <sys:String x:Key="output device">output device</sys:String>
     <sys:String x:Key="channel">channel</sys:String>
+    <sys:String x:Key="Play lights">Play lights</sys:String>
+    <sys:String x:Key="Model">Model</sys:String>
+    <sys:String x:Key="Use in live">Use in live</sys:String>
 
-    
+
 </ResourceDictionary>

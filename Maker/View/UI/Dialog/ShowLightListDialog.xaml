@@ -11,9 +11,10 @@
         Width="620" Height="400"
         ResizeMode="NoResize"
         Loaded="Window_Loaded">
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-        <StackPanel  Margin="20"  Height="380">
-            <ListBox Height="300" MouseDoubleClick="lbMain_MouseDoubleClick" Width="480" Background="#535353" FontSize="14" Name="lbMain" Foreground="#FFFFFF" SelectionMode="Multiple"/>
+    <StackPanel Orientation="Horizontal" >
+        <StackPanel  Margin="20" >
+            <!-- SelectionMode="Multiple"-->
+            <ListBox Height="300" MouseDoubleClick="lbMain_MouseDoubleClick" Width="480" Background="#535353" FontSize="14" Name="lbMain" Foreground="#FFFFFF" />
         </StackPanel>
         <StackPanel>
             <Button  Click="btnOk_Click" Foreground="White" FontSize="14" Width="60" Background="{x:Null}" BorderBrush="White" Margin="0,20,20,0" Content="{DynamicResource Ok}"></Button>

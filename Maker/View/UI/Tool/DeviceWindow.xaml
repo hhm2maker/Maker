@@ -33,20 +33,20 @@
             <TextBlock Text="添加设备：" Foreground="#f0f0f0" />
             <DockPanel Margin="0,10,0,0">
                 <ToolBar  Background="Transparent" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                    <ComboBox Name="cbRealDeviceIn" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" SelectionChanged="cbRealDeviceIn_SelectionChanged"/>
-                    <ComboBox Name="cbRealDevice" Background="#454545" Width="150" Margin="15,0,0,0" BorderBrush="#666666" Foreground="White" SelectionChanged="CbRealDevice_SelectionChanged"/>
+                    <ComboBox Name="cbRealDeviceIn" Background="#454545" Width="150"  BorderBrush="#666666" Foreground="White" />
+                    <ComboBox Name="cbRealDevice" Background="#454545" Width="150" Margin="15,0,0,0" BorderBrush="#666666" Foreground="White" />
                     <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbTestPosition"/>-->
                     <ComboBox Name="cbPassageway" Background="#454545" Width="50"  Margin="15,0,0,0" BorderBrush="#666666" Foreground="White" SelectionChanged="cbPassageway_SelectionChanged" />
                 </ToolBar>
             </DockPanel>
             <DockPanel>
-                <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Visibility="Collapsed" Foreground="#f0f0f0" IsEnabled="False" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center"/>
                 <!--<TextBox FontSize="14" Foreground="#FFFFFF" Width="100" Background="{x:Null}" Name="tbMustOpenNumber" Height="21" Margin="10,0,0,0" HorizontalAlignment="Left"/>
             <Button Content="强制开启" FontSize="14"  HorizontalAlignment="Left" Foreground="#f0f0f0" Name="btnMustOpenMidi" Click="btnMustOpenMidi_Click" Height="25" Margin="5,0,0,0" />-->
             </DockPanel>
             <DockPanel >
                 <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                    <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="SearchEquipment" />
+                    <CheckBox Content="{DynamicResource OnlySearchForLaunchpad}" FontSize="14" Foreground="#f0f0f0" Name="cbOnlySearchForLaunchpad" VerticalAlignment="Center" Visibility="Collapsed"  Margin="0,0,15,0"/>
+                    <Button Content="{DynamicResource SearchEquipment}" FontSize="14"  Foreground="#f0f0f0" Name="btnSearchEquipmentIn" Click="SearchEquipment"/>
                     <Button Content="{DynamicResource Add}" FontSize="14"  Foreground="#f0f0f0" Click="AddEquipment" Margin="30,0,0,0"/>
                 </ToolBar>
             </DockPanel>

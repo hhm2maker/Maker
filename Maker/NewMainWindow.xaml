@@ -34,7 +34,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Name="gMost">
+    <Grid Name="gMost" >
         <Grid>
             <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -59,11 +59,13 @@
                                 <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click"/>
                             </MenuItem>
                             <Separator />
-                            <MenuItem Header="{DynamicResource Exit}" />
+                            <MenuItem Header="{DynamicResource Exit}" Click="Exit"/>
                         </MenuItem>
                     <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
                     </MenuItem>
+                        <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click"/>
+                        <MenuItem Header="{DynamicResource Play_}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click_1"/>
                         <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                             <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
                             <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
@@ -147,7 +149,7 @@
         </StackPanel>
         <DockPanel Grid.Row="1" Name="dpCenter">
                     <Grid >
-                <Grid Name="gRight" HorizontalAlignment="Stretch"  Margin="0,30,0,0"/>
+                <Grid Name="gRight" HorizontalAlignment="Stretch" />
                 <Grid  Name="gCenter" Visibility="Collapsed"/>
                 <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">

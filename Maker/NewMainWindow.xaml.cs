@@ -74,7 +74,6 @@ namespace Maker
                 spContentTitle.Children.Add(tb);
             }
             SetSpFilePosition(0);
-
         }
 
      
@@ -577,11 +576,11 @@ namespace Maker
 
         public void SetButton(int position)
         {
-            if (projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl)
-            {
-                FrameUserControl frameUserControl = projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
-                frameUserControl.SetButton(position);
-            }
+            //if (projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] is FrameUserControl)
+            //{
+            //    FrameUserControl frameUserControl = projectUserControl.userControls[projectUserControl.userControls.IndexOf(cMost.Children[cMost.Children.Count - 1] as BaseUserControl)] as FrameUserControl;
+            //    frameUserControl.SetButton(position);
+            //}
         }
 
 
@@ -792,7 +791,20 @@ namespace Maker
             new SettingWindow(this).Show();
         }
 
-        private DeviceWindow deviceWindow;
+        public DeviceWindow _deviceWindow;
+        public DeviceWindow deviceWindow {
+            get
+            {
+                if (_deviceWindow == null)
+                {
+                    _deviceWindow = new DeviceWindow(this);
+                }
+                return _deviceWindow;
+            }
+            set {
+                _deviceWindow = value;
+            }
+        }
 
         private void Device_Click(object sender, RoutedEventArgs e)
         {
@@ -1196,6 +1208,31 @@ namespace Maker
             Height = rcnormal.Height;
 
             Maximized = false;
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(LastProjectPath + @"Play\" + projectConfigModel.Path + ".playExport"))
+            {
+                editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
+            }
+            else {
+                editUserControl.peuc.NewFileResult2(projectConfigModel.Path + ".playExport");
+                editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
+            }
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(LastProjectPath + @"Play\" + projectConfigModel.Path + ".play"))
+            {
+                editUserControl.IntoUserControl(projectConfigModel.Path + ".play");
+            }
         }
     }
 }

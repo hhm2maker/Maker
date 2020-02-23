@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Business.Model;
+using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.UI.UserControlDialog;
 using Operation;
@@ -41,7 +42,6 @@ namespace Maker.View.UI
         {
             XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
             XElement _root = _doc.Element("Root");
-
 
             foreach (XElement keyElement in _root.Elements("Key"))
             {
@@ -169,7 +169,7 @@ namespace Maker.View.UI
             List<Light> tutorialLights = Business.FileBusiness.CreateInstance().ReadMidiContent(mTutorialList);
             InitTeachingData(tutorialLights);
 
-              XElement _pages = _root.Element("Pages");
+           XElement _pages = _root.Element("Pages");
             nowPageName = _pages.Attribute("first").Value;
             foreach (XElement pageElement in _pages.Elements("Page"))
             {
@@ -181,18 +181,75 @@ namespace Maker.View.UI
                     foreach (XElement buttonElement in buttonsElement.Elements("Button"))
                     {
                         PageButtonModel model = new PageButtonModel();
-                        XElement elementDown = buttonElement.Element("Down");
-                        model._down._lightName = elementDown.Attribute("lightname").Value;
-                        model._down._goto = elementDown.Attribute("goto").Value;
-                        model._down._bpm = elementDown.Attribute("bpm").Value;
-                        XElement elementLoop = buttonElement.Element("Loop");
-                        model._loop._lightName = elementLoop.Attribute("lightname").Value;
-                        model._loop._goto = elementLoop.Attribute("goto").Value;
-                        model._loop._bpm = elementLoop.Attribute("bpm").Value;
-                        XElement elementUp = buttonElement.Element("Up");
-                        model._up._lightName = elementUp.Attribute("lightname").Value;
-                        model._up._goto = elementUp.Attribute("goto").Value;
-                        model._up._bpm = elementUp.Attribute("bpm").Value;
+                        XElement xDown = buttonElement.Element("Down");
+                        {
+                            foreach (var xEdit in xDown.Elements())
+                            {
+                                BaseOperationModel baseOperationModel = null;
+                                if (xEdit.Name.ToString().Equals("LightFile"))
+                                {
+                                    baseOperationModel = new LightFilePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("GotoPage"))
+                                {
+                                    baseOperationModel = new GotoPagePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("AudioFile"))
+                                {
+                                    baseOperationModel = new AudioFilePlayModel();
+                                }
+
+                                baseOperationModel.SetXElement(xEdit);
+                                model._down.OperationModels.Add(baseOperationModel);
+                            }
+                        }
+
+                        XElement xLoop = buttonElement.Element("Loop");
+
+                        {
+                            foreach (var xEdit in xLoop.Elements())
+                            {
+                                BaseOperationModel baseOperationModel = null;
+                                if (xEdit.Name.ToString().Equals("LightFile"))
+                                {
+                                    baseOperationModel = new LightFilePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("GotoPage"))
+                                {
+                                    baseOperationModel = new GotoPagePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("AudioFile"))
+                                {
+                                    baseOperationModel = new AudioFilePlayModel();
+                                }
+
+                                baseOperationModel.SetXElement(xEdit);
+                                model._loop.OperationModels.Add(baseOperationModel);
+                            }
+                        }
+
+                        XElement xUp = buttonElement.Element("Up");
+                        {
+                            foreach (var xEdit in xUp.Elements())
+                            {
+                                BaseOperationModel baseOperationModel = null;
+                                if (xEdit.Name.ToString().Equals("LightFile"))
+                                {
+                                    baseOperationModel = new LightFilePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("GotoPage"))
+                                {
+                                    baseOperationModel = new GotoPagePlayModel();
+                                }
+                                else if (xEdit.Name.ToString().Equals("AudioFile"))
+                                {
+                                    baseOperationModel = new AudioFilePlayModel();
+                                }
+
+                                baseOperationModel.SetXElement(xEdit);
+                                model._up.OperationModels.Add(baseOperationModel);
+                            }
+                        }
                         mListButton.Add(model);
                     }
                     mDictionaryListButton.Add(int.Parse(buttonsElement.Attribute("position").Value), mListButton);
@@ -213,6 +270,22 @@ namespace Maker.View.UI
                     mList.Add(str[i]);
                 }
                 lights.Add(lightElement.Attribute("name").Value, Business.FileBusiness.CreateInstance().ReadMidiContent(mList));
+                //格式化时间
+                int time = 0;
+
+                List<Light> mActionBeanList = lights[lightElement.Attribute("name").Value];
+                for (int l = 0; l < mActionBeanList.Count; l++)
+                {
+                    if (mActionBeanList[l].Time == 0)
+                    {
+                        mActionBeanList[l].Time = time;
+                    }
+                    else
+                    {
+                        time += mActionBeanList[l].Time;
+                        mActionBeanList[l].Time = time;
+                    }
+                }
             }
             //foreach (var item in lights)
             //{
@@ -371,6 +444,7 @@ namespace Maker.View.UI
                     }
                     if(pages.Count == 0)
                         return;
+
                     if (!pages[nowPageName].ContainsKey((int)position))
                         return;
 
@@ -379,7 +453,6 @@ namespace Maker.View.UI
                         //打开
                         //Console.WriteLine("开："+position);
                         //System.Windows.Forms.MessageBox.Show(position.ToString());
-
                         positions[nowPageName][(int)position] = (positions[nowPageName][(int)position] + 1) % pages[nowPageName][(int)position].Count;
                         Thread newThread = new Thread(
                         new ParameterizedThreadStart(PlayToLaunchpad)
@@ -621,7 +694,9 @@ namespace Maker.View.UI
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Width = mw.ActualWidth * 0.9;
+            mw.deviceWindow.InitMidiIn();
+            mw.deviceWindow.InitMidiOut();
+
             Height = mw.gMost.ActualHeight;
            
             LoadHint();
@@ -654,185 +729,194 @@ namespace Maker.View.UI
             List<object> _objects = threads[_thread];
             //按下
             DownButtonModel downModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down;
-            if (!downModel._lightName.Equals(String.Empty) && lights.ContainsKey(downModel._lightName))
-            {
-                List<Light> downLight = lights[downModel._lightName];
-                int maxTime = LightBusiness.GetMax(downLight);
-                if (!Double.TryParse(downModel._bpm, out double downBpm))
-                {
-                    _thread.Abort();
-                    threads.Remove(_thread);
-                    return;
-                }
-                TimeSpan wait = TimeSpan.FromMilliseconds(1000 / downBpm);
-                //int wait = Convert.ToInt32(1000 / Double.Parse(pages["1.xml"][0].Bpm));
-
-                //翻页
-                String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
-                if (!page.Equals(String.Empty))
-                {
-                    nowPageName = page;
-                }
-
-                for (int i = 0; i <= maxTime; i++)
-                {
-                    for (int j = 0; j < downLight.Count; j++)
+            foreach (var item in downModel.OperationModels) {
+                if (item is LightFilePlayModel) {
+                    LightFilePlayModel lightFilePlayModel = item as LightFilePlayModel;
+                    if (!lightFilePlayModel.FileName.Equals(String.Empty) && lights.ContainsKey(lightFilePlayModel.FileName))
                     {
-                        if (downLight[j].Time == i)
+                        List<Light> downLight = lights[lightFilePlayModel.FileName];
+                        int maxTime = LightBusiness.GetMax(downLight);
+                        //if (!Double.TryParse(downModel._bpm, out double downBpm))
+                        //{
+                        //    _thread.Abort();
+                        //    threads.Remove(_thread);
+                        //    return;
+                        //}
+                        TimeSpan wait = TimeSpan.FromMilliseconds(1000 / lightFilePlayModel.Bpm);
+                        //int wait = Convert.ToInt32(1000 / Double.Parse(pages["1.xml"][0].Bpm));
+                        for (int i = 0; i <= maxTime; i++)
                         {
-                            if (downLight[j].Position >= 28 && downLight[j].Position <= 35)
+                            for (int j = 0; j < downLight.Count; j++)
                             {
-                                //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
-                                //顶部灯光
-                                if (downLight[j].Action == 144)
+                                if (downLight[j].Time == i)
                                 {
-                                    String str = "0x" + downLight[j].Color.ToString("X2").PadLeft(2, '0') + (downLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                    //Console.WriteLine(str);
-                                    //Console.WriteLine(Convert.ToInt64(str, 16));
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
-                                }
-                                else
-                                {
-                                    String str = "0x" + (downLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
-                                }
-                            }
-                            else
-                            {
-                                MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(downLight[j].Action + downLight[j].Position * 0x100 + downLight[j].Color * 0x10000 + passageway));
-                            }
-                            //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x90 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
-                            //Thread.Sleep(1000);
-                            //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x80 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
-                        }
-                    }
-                    Thread.Sleep(wait);
-                }
-            }
-            //循环
-            LoopButtonModel loopModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._loop;
-            if (!loopModel._lightName.Equals(String.Empty) && lights.ContainsKey(loopModel._lightName))
-            {
-                List<Light> loopLight = lights[loopModel._lightName];
-                int maxTime = LightBusiness.GetMax(loopLight);
-                if (!Double.TryParse(loopModel._bpm, out double loopBpm))
-                {
-                    _thread.Abort();
-                    threads.Remove(_thread);
-                    return;
-                }
-                TimeSpan wait = TimeSpan.FromMilliseconds(1000 / loopBpm);
-
-                //翻页
-                String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
-                if (!page.Equals(String.Empty))
-                {
-                    nowPageName = page;
-                }
-
-                while (true)
-                {
-                    for (int i = 0; i <= maxTime; i++)
-                    {
-                        for (int j = 0; j < loopLight.Count; j++)
-                        {
-                            if (loopLight[j].Time == i)
-                            {
-                                Thread mThread = thread as Thread;
-                                List<object> mObjects = threads[mThread];
-                                if ((bool)mObjects[1] == false)
-                                {
-                                    mThread.Abort();
-                                    threads.Remove(mThread);
-                                    break;
-                                }
-                                if (loopLight[j].Position >= 28 && loopLight[j].Position <= 35)
-                                {
-                                    //顶部灯光
-                                    if (loopLight[j].Action == 144)
+                                    if (downLight[j].Position >= 28 && downLight[j].Position <= 35)
                                     {
-                                        String str = "0x" + loopLight[j].Color.ToString("X2").PadLeft(2, '0') + (loopLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                        //7f5bb5 7f - 颜色 - 128 5b - 位置 - 91 b5应该是
+                                        //顶部灯光
+                                        if (downLight[j].Action == 144)
+                                        {
+                                            String str = "0x" + downLight[j].Color.ToString("X2").PadLeft(2, '0') + (downLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                                            //Console.WriteLine(str);
+                                            //Console.WriteLine(Convert.ToInt64(str, 16));
+                                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                        }
+                                        else
+                                        {
+                                            String str = "0x" + (downLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+                                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                        }
                                     }
                                     else
                                     {
-                                        String str = "0x" + (loopLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(downLight[j].Action + downLight[j].Position * 0x100 + downLight[j].Color * 0x10000 + passageway));
                                     }
-                                }
-                                else
-                                {
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(loopLight[j].Action + loopLight[j].Position * 0x100 + loopLight[j].Color * 0x10000 + passageway));
+                                    //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x90 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
+                                    //Thread.Sleep(1000);
+                                    //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x80 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
                                 }
                             }
+                            Thread.Sleep(wait);
                         }
-                        Thread.Sleep(wait);
                     }
                 }
-            }
-        }
-        private static void StopToLaunchpad(object thread)
-        {
-            try
-            {
-                Thread _thread = thread as Thread;
-                List<object> _objects = threadsStop[_thread];
-                //抬起
-                UpButtonModel upModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
-                if (!upModel._lightName.Equals(String.Empty) && lights.ContainsKey(upModel._lightName))
+                if (item is GotoPagePlayModel)
                 {
-                    List<Light> upLight = lights[upModel._lightName];
-                    int maxTime = LightBusiness.GetMax(upLight);
-
-                    if (!Double.TryParse(upModel._bpm, out double upBpm))
-                    {
-                        _thread.Abort();
-                        threadsStop.Remove(_thread);
-                        return;
-                    }
-                    TimeSpan wait = TimeSpan.FromMilliseconds(1000 / upBpm);
-
                     //翻页
-                    String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
+                    GotoPagePlayModel gotoPagePlayModel = item as GotoPagePlayModel;
+                    String page = gotoPagePlayModel.PageName;
                     if (!page.Equals(String.Empty))
                     {
                         nowPageName = page;
                     }
-
-                    for (int i = 0; i <= maxTime; i++)
-                    {
-                        for (int j = 0; j < upLight.Count; j++)
-                        {
-                            if (upLight[j].Time == i)
-                            {
-                                if (upLight[j].Position >= 28 && upLight[j].Position <= 35)
-                                {
-                                    //顶部灯光
-                                    if (upLight[j].Action == 144)
-                                    {
-                                        String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
-                                    }
-                                    else
-                                    {
-                                        String str = "0x" + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
-                                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
-                                    }
-                                }
-                                else
-                                {
-                                    MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(upLight[j].Action + upLight[j].Position * 0x100 + upLight[j].Color * 0x10000 + passageway));
-
-                                }
-                            }
-                        }
-                        Thread.Sleep(wait);
-                    }
-                    _thread.Abort();
-                    threadsStop.Remove(_thread);
                 }
-            }
-            catch { }
+
+                }
+           
+            ////循环
+            //LoopButtonModel loopModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._loop;
+            //if (!loopModel._lightName.Equals(String.Empty) && lights.ContainsKey(loopModel._lightName))
+            //{
+            //    List<Light> loopLight = lights[loopModel._lightName];
+            //    int maxTime = LightBusiness.GetMax(loopLight);
+            //    if (!Double.TryParse(loopModel._bpm, out double loopBpm))
+            //    {
+            //        _thread.Abort();
+            //        threads.Remove(_thread);
+            //        return;
+            //    }
+            //    TimeSpan wait = TimeSpan.FromMilliseconds(1000 / loopBpm);
+
+            //    //翻页
+            //    String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
+            //    if (!page.Equals(String.Empty))
+            //    {
+            //        nowPageName = page;
+            //    }
+
+            //    while (true)
+            //    {
+            //        for (int i = 0; i <= maxTime; i++)
+            //        {
+            //            for (int j = 0; j < loopLight.Count; j++)
+            //            {
+            //                if (loopLight[j].Time == i)
+            //                {
+            //                    Thread mThread = thread as Thread;
+            //                    List<object> mObjects = threads[mThread];
+            //                    if ((bool)mObjects[1] == false)
+            //                    {
+            //                        mThread.Abort();
+            //                        threads.Remove(mThread);
+            //                        break;
+            //                    }
+            //                    if (loopLight[j].Position >= 28 && loopLight[j].Position <= 35)
+            //                    {
+            //                        //顶部灯光
+            //                        if (loopLight[j].Action == 144)
+            //                        {
+            //                            String str = "0x" + loopLight[j].Color.ToString("X2").PadLeft(2, '0') + (loopLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+            //                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+            //                        }
+            //                        else
+            //                        {
+            //                            String str = "0x" + (loopLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+            //                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(loopLight[j].Action + loopLight[j].Position * 0x100 + loopLight[j].Color * 0x10000 + passageway));
+            //                    }
+            //                }
+            //            }
+            //            Thread.Sleep(wait);
+            //        }
+            //    }
+            //}
+        }
+        private static void StopToLaunchpad(object thread)
+        {
+            //try
+            //{
+            //    Thread _thread = thread as Thread;
+            //    List<object> _objects = threadsStop[_thread];
+            //    //抬起
+            //    UpButtonModel upModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
+            //    if (!upModel._lightName.Equals(String.Empty) && lights.ContainsKey(upModel._lightName))
+            //    {
+            //        List<Light> upLight = lights[upModel._lightName];
+            //        int maxTime = LightBusiness.GetMax(upLight);
+
+            //        if (!Double.TryParse(upModel._bpm, out double upBpm))
+            //        {
+            //            _thread.Abort();
+            //            threadsStop.Remove(_thread);
+            //            return;
+            //        }
+            //        TimeSpan wait = TimeSpan.FromMilliseconds(1000 / upBpm);
+
+            //        //翻页
+            //        String page = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._down._goto;
+            //        if (!page.Equals(String.Empty))
+            //        {
+            //            nowPageName = page;
+            //        }
+
+            //        for (int i = 0; i <= maxTime; i++)
+            //        {
+            //            for (int j = 0; j < upLight.Count; j++)
+            //            {
+            //                if (upLight[j].Time == i)
+            //                {
+            //                    if (upLight[j].Position >= 28 && upLight[j].Position <= 35)
+            //                    {
+            //                        //顶部灯光
+            //                        if (upLight[j].Action == 144)
+            //                        {
+            //                            String str = "0x" + upLight[j].Color.ToString("X2").PadLeft(2, '0') + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+            //                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+            //                        }
+            //                        else
+            //                        {
+            //                            String str = "0x" + (upLight[j].Position + 63).ToString("X2").PadLeft(2, '0') + "b5";
+            //                            MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(Convert.ToInt64(str, 16)));
+            //                        }
+            //                    }
+            //                    else
+            //                    {
+            //                        MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(upLight[j].Action + upLight[j].Position * 0x100 + upLight[j].Color * 0x10000 + passageway));
+
+            //                    }
+            //                }
+            //            }
+            //            Thread.Sleep(wait);
+            //        }
+            //        _thread.Abort();
+            //        threadsStop.Remove(_thread);
+            //    }
+            //}
+            //catch { }
         }
         
 
@@ -1049,18 +1133,5 @@ namespace Maker.View.UI
         //    System.Windows.Forms.MessageBox.Show(i.ToString());
 
         //}
-
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            mw.RemoveChildren();
-        }
-
-
-
-
-
-   
     }
-
-
 }

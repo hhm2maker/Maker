@@ -93,15 +93,12 @@ namespace Maker.View
                 {
                     PageButtonModel model = new PageButtonModel();
                     XElement xDown = _element.Element("Down");
-                    model._down._lightName = xDown.Attribute("lightname").Value;
                     model._down._goto = xDown.Attribute("goto").Value;
                     model._down._bpm = xDown.Attribute("bpm").Value;
                     XElement xLoop = _element.Element("Loop");
-                    model._loop._lightName = xLoop.Attribute("lightname").Value;
                     model._loop._goto = xLoop.Attribute("goto").Value;
                     model._loop._bpm = xLoop.Attribute("bpm").Value;
                     XElement xUp = _element.Element("Up");
-                    model._up._lightName = xUp.Attribute("lightname").Value;
                     model._up._goto = xUp.Attribute("goto").Value;
                     model._up._bpm = xUp.Attribute("bpm").Value;
                     _mButtons.Add(model);
@@ -141,18 +138,18 @@ namespace Maker.View
             ShowLightListDialog dialog = new ShowLightListDialog(mw, tbLightName.Text,fileNames);
             if (dialog.ShowDialog() == true) {
                 tbLightName.Text = dialog.selectItem;
-                int position = int.Parse(tbPosition.Text) - 28;
-                if (nowSelectType == PageUCSelectType.Down) {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = dialog.selectItem;
-                }
-                else if (nowSelectType == PageUCSelectType.Loop)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = dialog.selectItem;
-                }
-                else if (nowSelectType == PageUCSelectType.Up)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = dialog.selectItem;
-                }
+                //int position = int.Parse(tbPosition.Text) - 28;
+                //if (nowSelectType == PageUCSelectType.Down) {
+                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = dialog.selectItem;
+                //}
+                //else if (nowSelectType == PageUCSelectType.Loop)
+                //{
+                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = dialog.selectItem;
+                //}
+                //else if (nowSelectType == PageUCSelectType.Up)
+                //{
+                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = dialog.selectItem;
+                //}
                 //if (!_gotos[position].Equals(""))
                 //{
                 //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 0, 255)));
@@ -281,28 +278,22 @@ namespace Maker.View
                     XElement xButton = new XElement("Button");
                     //Down
                     XElement xDown = new XElement("Down");
-                    XAttribute xDownLightName = new XAttribute("lightname", _pageModes[i][j]._down._lightName);
                     XAttribute xDownGoto = new XAttribute("goto", _pageModes[i][j]._down._goto);
                     XAttribute xDownBpm = new XAttribute("bpm", _pageModes[i][j]._down._bpm);
-                    xDown.Add(xDownLightName);
                     xDown.Add(xDownGoto);
                     xDown.Add(xDownBpm);
                     xButton.Add(xDown);
                     //Loop
                     XElement xLoop = new XElement("Loop");
-                    XAttribute xLoopLightName = new XAttribute("lightname", _pageModes[i][j]._loop._lightName);
                     XAttribute xLoopGoto = new XAttribute("goto", _pageModes[i][j]._loop._goto);
                     XAttribute xLoopBpm = new XAttribute("bpm", _pageModes[i][j]._loop._bpm);
-                    xLoop.Add(xLoopLightName);
                     xLoop.Add(xLoopGoto);
                     xLoop.Add(xLoopBpm);
                     xButton.Add(xLoop);
                     //Up
                     XElement xUp = new XElement("Up");
-                    XAttribute xUpLightName = new XAttribute("lightname", _pageModes[i][j]._up._lightName);
                     XAttribute xUpGoto = new XAttribute("goto", _pageModes[i][j]._up._goto);
                     XAttribute xUpBpm = new XAttribute("bpm", _pageModes[i][j]._up._bpm);
-                    xUp.Add(xUpLightName);
                     xUp.Add(xUpGoto);
                     xUp.Add(xUpBpm);
                     xButton.Add(xUp);
@@ -321,18 +312,18 @@ namespace Maker.View
                 return;
             tbLightName.Text = "";
             int position = int.Parse(tbPosition.Text) - 28;
-            if (nowSelectType == PageUCSelectType.Down)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = "";
-            }
-            else if (nowSelectType == PageUCSelectType.Loop)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = "";
-            }
-            else if (nowSelectType == PageUCSelectType.Up)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = "";
-            }
+            //if (nowSelectType == PageUCSelectType.Down)
+            //{
+            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = "";
+            //}
+            //else if (nowSelectType == PageUCSelectType.Loop)
+            //{
+            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = "";
+            //}
+            //else if (nowSelectType == PageUCSelectType.Up)
+            //{
+            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = "";
+            //}
             //if (!_gotos[position].Equals(""))
             //{
             //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 0, 0, 255)));
@@ -437,19 +428,16 @@ namespace Maker.View
             {
                 int position = int.Parse(tbPosition.Text) - 28;
                 if (nowSelectType == PageUCSelectType.Down) {
-                    tbLightName.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName; 
                     tbGoto.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._down._goto;
                     tbBpm.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._down._bpm;
                 }
                 else if (nowSelectType == PageUCSelectType.Loop)
                 {
-                    tbLightName.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName;
                     tbGoto.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._goto;
                     tbBpm.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._bpm;
                 }
                 else if (nowSelectType == PageUCSelectType.Up)
                 {
-                    tbLightName.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName;
                     tbGoto.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._up._goto;
                     tbBpm.Text = _pageModes[position][int.Parse(tbCount.Text) - 1]._up._bpm;
                 }

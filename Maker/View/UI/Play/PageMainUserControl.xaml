@@ -7,7 +7,8 @@
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
         mc:Ignorable="d"
-        Loaded="Window_Loaded" Background="#FF262829"
+        Loaded="Window_Loaded" Background="#262829"
+        VerticalAlignment="Stretch"
 >
     <UserControl.Resources>
         <ControlTemplate x:Key="ScrollViewerControlTemplate1" TargetType="{x:Type ScrollViewer}">
@@ -299,63 +300,78 @@
         <local:View/>
     </UserControl.DataContext>
     <Grid Name="gMain">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <launchpad:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
             </StackPanel>
-            <ScrollViewer  Margin="10,0,10,0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" >
-                <StackPanel Orientation="Vertical">
-                    <Border Margin="0,20,0,0" BorderThickness="1" BorderBrush="#282828">
-                        <StackPanel Orientation="Horizontal">
+        <ScrollViewer  Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Stretch">
+                <StackPanel Orientation="Vertical" Name="spRight" Background="#222326">
+                    <Border BorderThickness="1" BorderBrush="#282828">
+                        <StackPanel Orientation="Vertical">
                             <Border BorderBrush="#282828" BorderThickness="0,0,1,0">
-                                <StackPanel Margin="10">
-                                    <StackPanel  Height="35" Orientation="Horizontal">
-                                        <TextBlock  Text="{DynamicResource PositionColon}" />
-                                        <TextBlock Margin="30,0,0,0" Name="tbPosition" Text="-1" Foreground="#ffffff" Width="100" FontSize="18"/>
+                            <StackPanel Margin="10">
+                                <DockPanel>
+                                    <StackPanel  Height="35" Orientation="Horizontal" >
+                                        <TextBlock  Text="{DynamicResource PositionColon}" TextAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="30,0,0,0" Name="tbPosition" Text="-1" Foreground="#ffffff" Width="100" FontSize="18"  VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">
-                                        <TextBlock  Text ="{DynamicResource CountColon}"  />
-                                        <TextBlock Name="tbCount" Text="{Binding Count}"  Margin="30,0,0,0"   Foreground="#ffffff" Width="100" FontSize="18" />
-                                        <Button Margin="30,0,0,0"  Content="{DynamicResource AddCount}"  Click="AddCount"/>
-                                        <Button Margin="30,0,0,0"  Content="{DynamicResource RemoveCount}" Click="RemoveCount"/>
-                                        <Button Margin="30,0,0,0"  Content="{DynamicResource LastCount}" Click="LastCount"/>
-                                        <Button Margin="30,0,0,0"  Content="{DynamicResource NextCount}" Click="NextCount"/>
-                                    </StackPanel>
-                                    <StackPanel Height="35" Orientation="Horizontal"  Margin="0,10,0,0" >
-                                        <TextBlock  Text ="{DynamicResource TypeColon}"  FontSize="18"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnDownButton" Margin="160,0,0,0"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnLoopButton" Margin="30,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnUpButton" Margin="30,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
-
-                            <StackPanel Margin="20,10,10,10" >
-                                <StackPanel  Height="35" Orientation="Horizontal" >
-                                    <TextBlock  Text="{DynamicResource LightNameColon}" Width="150" VerticalAlignment="Center"/>
-                                    <TextBlock Margin="30,0,0,0" Name="tbLightName"  Foreground="#ffffff" Width="150" FontSize="18" VerticalAlignment="Center"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplaceLight"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Edit}" Click="EditLight"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}" Click="MoveLight"/>
-                                </StackPanel>
-                                <StackPanel  Height="35" Orientation="Horizontal" Margin="0,10,0,0">
-                                    <TextBlock  Text="{DynamicResource GotoColon}" Width="150" />
-                                    <TextBlock Margin="30,0,0,0" Name="tbGoto"  Foreground="#ffffff" Width="150" FontSize="18"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Replace}" Click="ReplacePage"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Goto}"  Click="GotoPage"/>
-                                    <Button Margin="30,0,0,0"  Content="{DynamicResource Remove}"  Click="MovePage"/>
-                                </StackPanel>
-                                <DockPanel  Height="35" Margin="0,10,0,0">
-                                    <TextBlock DockPanel.Dock="Left"  Text="Bpm:" Width="150"/>
-                                    <TextBox DockPanel.Dock="Left"  Name="tbBpm"  Foreground="#ffffff" Width="150" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
-                                    <Button  DockPanel.Dock="Right"  Content="{DynamicResource Exit}" Click="Exit" HorizontalAlignment="Right" />
-                                    <Button  DockPanel.Dock="Right" Margin="0,0,30,0" Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" />
+                                    <Image Source="../../../View/Resources/Image/save_gray.png" Width="25" Height="25" MouseLeftButtonDown="SavePage" RenderOptions.BitmapScalingMode="Fant"  Margin="0,0,20,0" HorizontalAlignment="Right"/>
                                 </DockPanel>
+                             
+                                    <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">
+                                    <TextBlock  Text ="{DynamicResource CountColon}" TextAlignment="Left" VerticalAlignment="Center"/>
+                                    <Image Source="../../../View/Resources/Image/toleft_gray.png" Width="20" Height="20" MouseLeftButtonDown="LastCount" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <TextBlock Name="tbCount" Text="{Binding Count}" VerticalAlignment="Center"  Margin="20,0,20,0"   Foreground="#ffffff" Width="100" FontSize="18" />
+                                    <Image Source="../../../View/Resources/Image/toright_gray.png" Width="20" Height="20" MouseLeftButtonDown="NextCount" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Source="../../../View/Resources/Image/add_gray.png" Margin="30,0,20,0" Width="20" Height="20" MouseLeftButtonDown="AddCount" RenderOptions.BitmapScalingMode="Fant"/>
+                                    <Image Source="../../../View/Resources/Image/delete_gray.png" Width="20" Height="20" MouseLeftButtonDown="RemoveCount" RenderOptions.BitmapScalingMode="Fant"/>
+                                </StackPanel>
+                                    <StackPanel Height="35" Orientation="Horizontal"  Margin="0,10,0,0" >
+                                    <TextBlock  Text ="{DynamicResource TypeColon}" TextAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnDownButton"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnLoopButton" Margin="20,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
+                                        <Button Style="{DynamicResource NormalButton}" Name="btnUpButton" Margin="20,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
+                                    </StackPanel>
+                                <StackPanel Height="35" Orientation="Horizontal"  Margin="0,20,0,0" >
+                                    <TextBlock  Text ="{DynamicResource Add}" TextAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
+                                    <Button Name="btnAddLight" Style="{DynamicResource NormalButton}" Content="{DynamicResource Light}"  Click="Add"/>
+                                    <Button Name="btnAddAudio" Style="{DynamicResource NormalButton}" Margin="20,0,0,0"  Content="{DynamicResource Audio}" Click="Add"/>
+                                    <Button Name="btnAddGoto" Style="{DynamicResource NormalButton}" Margin="20,0,0,0"  Content="{DynamicResource Goto}" Click="Add"/>
+                                </StackPanel>
+                            </StackPanel>
+                                
+                            </Border>
+                            <StackPanel Margin="20,10,10,10" Visibility="Collapsed">
+                                <StackPanel  Height="35" Orientation="Horizontal" >
+                                <TextBlock Text="{DynamicResource LightNameColon}" TextAlignment="Left" Width="150" VerticalAlignment="Center"/>
+                                    <TextBlock Name="tbLightName" Margin="0,0,30,0" Foreground="#ffffff" Width="150" FontSize="18" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Button Content="{DynamicResource Replace}" Click="ReplaceLight"/>
+                                <Button Content="{DynamicResource Edit}" Margin="15,0,0,0" Click="EditLight"/>
+                                <Button Content="{DynamicResource Remove}" Margin="15,0,0,0" Click="MoveLight"/>
+                            </StackPanel>
+                            <StackPanel  Height="35" Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBlock  Text="{DynamicResource GotoColon}" TextAlignment="Left" Width="150" VerticalAlignment="Center"/>
+                                <TextBlock Name="tbGoto"  Foreground="#ffffff" Width="150" FontSize="18" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Button Margin="0,0,0,0"  Content="{DynamicResource Replace}" Click="ReplacePage"/>
+                                <Button Margin="15,0,0,0"  Content="{DynamicResource Goto}"  Click="GotoPage"/>
+                                <Button Margin="15,0,0,0"  Content="{DynamicResource Remove}"  Click="MovePage"/>
+                            </StackPanel>
+                            <StackPanel  Height="35" Margin="0,10,0,0" Orientation="Horizontal">
+                                    <TextBlock TextAlignment="Left" Text="Bpm:" Width="130" VerticalAlignment="Center"/>
+                                <TextBox  Name="tbBpm" Margin="0,0,30,0" Foreground="#ffffff" Width="150" VerticalAlignment="Center" FontSize="18" Background="{x:Null}" BorderBrush="#f0f0f0" TextChanged="tbBpm_TextChanged"/>
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Border>
+
                 </StackPanel>
             </ScrollViewer>
-        </StackPanel>
     </Grid>
 </view:BaseUserControl>

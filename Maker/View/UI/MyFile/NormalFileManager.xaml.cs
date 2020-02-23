@@ -54,6 +54,8 @@ namespace Maker.View.UI.MyFile
                 };
                 item.FontSize = 16;
                 item.ContextMenu = contextMenu;
+                item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                item.VerticalContentAlignment = VerticalAlignment.Center;
                 tvLight.Items.Add(item);
             }
 
@@ -65,6 +67,8 @@ namespace Maker.View.UI.MyFile
                 };
                 item.FontSize = 16;
                 item.ContextMenu = contextMenu;
+                item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                item.VerticalContentAlignment = VerticalAlignment.Center;
                 tvLightScript.Items.Add(item);
             }
 
@@ -76,6 +80,8 @@ namespace Maker.View.UI.MyFile
                 };
                 item.FontSize = 16;
                 item.ContextMenu = contextMenu;
+                item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                item.VerticalContentAlignment = VerticalAlignment.Center;
                 tvLimitlessLamp.Items.Add(item);
             }
 
@@ -87,6 +93,8 @@ namespace Maker.View.UI.MyFile
                 };
                 item.FontSize = 16;
                 item.ContextMenu = contextMenu;
+                item.HorizontalContentAlignment = HorizontalAlignment.Left;
+                item.VerticalContentAlignment = VerticalAlignment.Center;
                 tvPage.Items.Add(item);
             }
         }
@@ -153,7 +161,7 @@ namespace Maker.View.UI.MyFile
             }
             else if (sender == miNewPage)
             {
-                baseUserControl = mw.editUserControl.userControls[8];
+                baseUserControl = mw.editUserControl.userControls[5];
             }
             //else if (sender == miPage)
             //{

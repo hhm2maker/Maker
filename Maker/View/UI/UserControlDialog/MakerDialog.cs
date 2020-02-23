@@ -8,8 +8,8 @@ using System.Windows.Controls;
 
 namespace Maker.View.UI.UserControlDialog
 {
-   public class MakerDialog:UserControl
+    public class MakerDialog : UserControl
     {
-       
+
     }
 }

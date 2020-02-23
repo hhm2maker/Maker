@@ -943,7 +943,7 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test()
         {
-            spHint.Visibility = Visibility.Collapsed;
+            spMyHint.Visibility = Visibility.Collapsed;
 
             bridge.GetResult();
 
@@ -2438,7 +2438,6 @@ namespace Maker.View.LightScriptUserControl
 
         private void CollectionIntegration(object sender, RoutedEventArgs e)
         {
-
             String parentName = String.Empty;
             String childName = GetStepName();
             CollectionType type = CollectionType.Intersection;
@@ -4354,7 +4353,7 @@ namespace Maker.View.LightScriptUserControl
             UpdateStep();
             Test();
             spRefresh.Visibility = Visibility.Collapsed;
-            spHint.Visibility = Visibility.Collapsed;
+            spMyHint.Visibility = Visibility.Collapsed;
         }
 
         public String AudioResources = String.Empty;

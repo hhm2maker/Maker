@@ -49,8 +49,7 @@
                     <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                 </ToolBar>
             </DockPanel>
-          
         </Grid>
-        <Image Width="25" Margin="0,25,30,0" VerticalAlignment="Top" HorizontalAlignment="Right"  Source="../../Resources/Image/close_uc.png" RenderOptions.BitmapScalingMode="Fant"  MouseLeftButtonDown="Image_MouseLeftButtonDown" />
     </Grid>
 </local:BaseUserControl>
+    

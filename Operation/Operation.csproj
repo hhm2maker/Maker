@@ -99,6 +99,9 @@
     <Compile Include="Model\OperationModel\ShapeColorOperationModel.cs" />
     <Compile Include="Model\OperationModel\ThirdPartyOperationModel.cs" />
     <Compile Include="Model\OperationModel\VerticalFlippingOperationModel.cs" />
+    <Compile Include="Model\PlayModel\AudioFilePlayModel.cs" />
+    <Compile Include="Model\PlayModel\GotoPagePlayModel.cs" />
+    <Compile Include="Model\PlayModel\LightFilePlayModel.cs" />
     <Compile Include="ProjectConfigModel.cs" />
     <Compile Include="RangeGroup.cs" />
     <Compile Include="ColorGroup.cs" />

@@ -28,7 +28,7 @@ namespace Maker.View.LightUserControl
         /// <summary>
         /// 获取主窗口数据
         /// </summary>
-        public  void SetData(List<Light> mActionBeanList)
+        public override void SetData(List<Light> mActionBeanList)
         {
             rbTime.IsChecked = false;
             rbAction.IsChecked = false;
@@ -184,7 +184,7 @@ namespace Maker.View.LightUserControl
         /// 返回数据
         /// </summary>
         /// <returns>ActionBean集合</returns>
-        public  List<Light> GetData()
+        public override List<Light> GetData()
         {
             List<Light> mActionBeanList = new List<Light>();
             String ActionStr = tbMain.Text;
