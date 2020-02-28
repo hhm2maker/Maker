@@ -59,13 +59,25 @@ namespace Maker.View.Tool
                 tbCh.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
                 tbCh.Text = (String)FindResource("channel");
 
+                TextBlock tbRemove = new TextBlock();
+                tbRemove.Margin = new Thickness(0, 10, 15, 0);
+                tbRemove.FontSize = 16;
+                tbRemove.Width = 200;
+                tbRemove.HorizontalAlignment = HorizontalAlignment.Center;
+                tbRemove.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbRemove.Text = (String)FindResource("Remove");
+
                 sp.Children.Add(tbIn);
                 sp.Children.Add(tbOut);
                 sp.Children.Add(tbCh);
+                sp.Children.Add(tbRemove);
 
                 spDevices.Children.Add(sp);
             }
+            ShowAddDevice();
+        }
 
+        private void ShowAddDevice() {
             foreach (var item in mw.deviceConfigModel.Devices)
             {
                 StackPanel sp = new StackPanel();
@@ -95,11 +107,32 @@ namespace Maker.View.Tool
                 tbCh.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
                 tbCh.Text = "ch." + (item.Channel + 1);
 
+                TextBlock tbRemove = new TextBlock();
+                tbRemove.Margin = new Thickness(0, 10, 15, 0);
+                tbRemove.FontSize = 16;
+                tbRemove.Width = 200;
+                tbRemove.HorizontalAlignment = HorizontalAlignment.Center;
+                tbRemove.Foreground = new SolidColorBrush(Color.FromRgb(240, 240, 240));
+                tbRemove.Text = (String)FindResource("Remove");
+                tbRemove.TextDecorations = TextDecorations.Underline;
+                tbRemove.MouseLeftButtonDown += TbRemove_MouseLeftButtonDown;
+
                 sp.Children.Add(tbIn);
                 sp.Children.Add(tbOut);
                 sp.Children.Add(tbCh);
+                sp.Children.Add(tbRemove);
 
                 spDevices.Children.Add(sp);
+            }
+        }
+
+        private void TbRemove_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int position = spDevices.Children.IndexOf(((sender as TextBlock).Parent as Panel));
+            if (position != -1) {
+                mw.deviceConfigModel.Devices.RemoveAt(position - 1);
+                XmlSerializerBusiness.Save(mw.deviceConfigModel, "Config/device.xml");
+                spDevices.Children.RemoveAt(position);
             }
         }
 
@@ -115,7 +148,7 @@ namespace Maker.View.Tool
 
         private void SearchEquipmentOut()
         {
-            mw.projectUserControl.playuc.CloseMidiOut();
+            mw.editUserControl.playuc.CloseMidiOut();
             cbRealDevice.Items.Clear();
             for (int j = 0; j < MidiDeviceBusiness.midiOutGetNumDevs(); j++)
             {
@@ -181,31 +214,31 @@ namespace Maker.View.Tool
 
         public void InitMidiIn()
         {
-            if (mw.projectUserControl.playuc.ip != null)
+            if (mw.editUserControl.playuc.ip != null)
             {
-                mw.projectUserControl.playuc.ip.Stop();
-                mw.projectUserControl.playuc.ip.Close();
+                mw.editUserControl.playuc.ip.Stop();
+                mw.editUserControl.playuc.ip.Close();
             }
 
             int position = SearchEquipmentIn2();
             if (position != -1)
             {
                 //Console.WriteLine("Hello");
-                mw.projectUserControl.playuc.ip = new UI.PlayUserControl.InputPort(mw.projectUserControl.playuc, mw.projectUserControl.playuc.keyboardModels, mw.projectUserControl.playuc.inputType, mw.projectUserControl.playuc.tbPosition)
+                mw.editUserControl.playuc.ip = new UI.PlayUserControl.InputPort(mw.editUserControl.playuc, mw.editUserControl.playuc.keyboardModels, mw.editUserControl.playuc.inputType, mw.editUserControl.playuc.tbPosition)
                 {
                     cb = mw.deviceConfigModel.Devices[0].DeviceIn
                 };
 
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
-                mw.projectUserControl.playuc.ip.Open(position);
-                mw.projectUserControl.playuc.ip.Start();
+                mw.editUserControl.playuc.ip.Open(position);
+                mw.editUserControl.playuc.ip.Start();
             }
             //Console.WriteLine("Bye~");
         }
 
         public void InitMidiOut()
         {
-            mw.projectUserControl.playuc.CloseMidiOut();
+            mw.editUserControl.playuc.CloseMidiOut();
             int position = SearchEquipmentOut2(out int chPosition);
             if (position != -1) {
                 //MidiDeviceBusiness.midiOutOpen(out IntPtr nowOutDeviceIntPtr, (uint)cbRealDevice.SelectedIndex, (IntPtr)0, (IntPtr)0, 0);
@@ -295,7 +328,13 @@ namespace Maker.View.Tool
         private void AddEquipment(object sender, RoutedEventArgs e)
         {
             mw.deviceConfigModel.Devices.Add(new Business.Model.Config.DeviceConfigModel.Device(cbRealDeviceIn.SelectedItem.ToString(), cbRealDevice.SelectedItem.ToString(), cbPassageway.SelectedIndex));
+            ShowAddDevice();
             XmlSerializerBusiness.Save(mw.deviceConfigModel, "Config/device.xml");
+        }
+
+        private void InstallUsbDriver(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Attachments\novation-usb-driver-2.7.exe");
         }
     }
 }

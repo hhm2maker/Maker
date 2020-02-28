@@ -172,11 +172,9 @@ namespace Maker.Business
                 mActionBeanList[l].Position -= 28;
             }
 
-
             //CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
-
 
         /// <summary>
         /// 读取Midi文件
@@ -255,6 +253,7 @@ namespace Maker.Business
             CreateInstance().ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
+
         /// <summary>
         /// 写入Midi文件内容
         /// </summary>
@@ -305,7 +304,55 @@ namespace Maker.Business
             return Action.ToString();
         }
 
-        
+        /// <summary>
+        /// 写入Midi文件内容
+        /// </summary>
+        /// <param name="filePath">Midi文件的内容</param>
+        public String WriteMidiContentNotReplace(List<Light> lab)
+        {
+            lab = LightBusiness.Sort(lab);
+
+            //还原时间
+            int NowTime = 0;
+            int jianTime = 0;
+            for (int j = 0; j < lab.Count; j++)
+            {
+                if (lab[j].Time != NowTime)
+                {
+                    NowTime = lab[j].Time;
+                    lab[j].Time -= jianTime;
+                    jianTime = NowTime;
+                }
+                else
+                {
+                    lab[j].Time -= jianTime;
+                }
+            }
+            StringBuilder Action = new StringBuilder();
+            //144 128
+            for (int j = 0; j < lab.Count; j++)
+            {
+                List<int> lI = GetListTime(lab[j].Time);
+
+                for (int x = 0; x < lI.Count; x++)
+                {
+                    if (x != lI.Count - 1)
+                    {
+                        Action.Append((char)(lI[x] + 128));
+                    }
+                    else
+                    {
+                        Action.Append((char)(lI[x]));
+                    }
+                }
+                //Action.Append((char)lab[j].Time);
+                Action.Append((char)lab[j].Action);
+                Action.Append((char)lab[j].Position);
+                Action.Append((char)lab[j].Color);
+            }
+            return Action.ToString();
+        }
+
         /// <summary>
         /// 写入Midi文件
         /// </summary>
@@ -1098,7 +1145,7 @@ namespace Maker.Business
                  75,76,77,78,85,86,87,88,
                  89,79,69,59,49,39,29,19,
                  80,70,60,50,40,30,20,10,
-                 1,2,3,4,5,6,7,8
+                 1,2,3,4,5,6,7,8,0,0,0,0
               };
 
         public bool CheckFile(String fileName)

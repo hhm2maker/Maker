@@ -16,6 +16,7 @@
     SizeChanged="DockPanel_SizeChanged"
        xmlns:viewmodel="clr-namespace:Maker.ViewModel"
        DataContext="{Binding Source={StaticResource Locator},Path=Script}"
+    Margin="0,30,0,0"
     >
     <!--Background="#1c1a1c"-->
     <UserControl.Resources>
@@ -224,7 +225,7 @@
                         Style="{StaticResource ListBoxStyle1}"
                         MouseDoubleClick="LbStep_MouseDoubleClick"  
                     -->
-                    <ListBox Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" SelectionMode="Extended" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
+                    <ListBox SelectionMode="Extended" Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
                         <ListBox.ContextMenu>
                             <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                 <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>

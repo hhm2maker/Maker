@@ -1472,6 +1472,10 @@
       <Project>{e727841a-ba0e-4bf8-8b35-f24e06655312}</Project>
       <Name>Operation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlugLib\PlugLib.csproj">
+      <Project>{466eae35-d0d0-4319-9e3a-f7dae3e996aa}</Project>
+      <Name>PlugLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\language.png">

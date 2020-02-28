@@ -110,8 +110,18 @@ namespace Maker.View.Play
             {
                 pageNames.Add(pageElement.Value);
             }
-            for (int i = 0; i < pageNames.Count; i++)
+            for (int i = 0; i < pageNames.Count; i++) {
                 lbPages.Items.Add(pageNames[i]);
+            }
+
+            String model = xnroot.Element("Model").Value;
+            if (model.Equals("0"))
+            {
+                cbLive.IsChecked = true;
+            }
+            else {
+                cbLive.IsChecked = false;
+            }
         }
 
         private void GenerateExe(object sender, MouseEventArgs e)
@@ -136,6 +146,10 @@ namespace Maker.View.Play
 
         private void GenerateLaunchpadLightProject()
         {
+            SaveFile();
+
+            bool bIsLive = cbLive.IsChecked == true ? true : false;
+
             Dictionary<String, String> mDictionary = new Dictionary<string, string>();
             Dictionary<String, List<Light>> mLightDictionary = new Dictionary<string, List<Light>>();
             //获取对象
@@ -157,6 +171,17 @@ namespace Maker.View.Play
             xTutorial.Add(xContent);
             xRoot.Add(xTutorial);
 
+            //Model
+            XElement xModel = new XElement("Model");
+            if (bIsLive)
+            {
+                xModel.Value = "0";
+            }
+            else {
+                xModel.Value = "1";
+            }
+            xRoot.Add(xModel);
+
             //Pages
             XElement xPages = new XElement("Pages");
             firstPageName = tbFirstPageName.Text;
@@ -165,7 +190,6 @@ namespace Maker.View.Play
             xRoot.Add(xPages);
 
             int nowPosition = 0;
-            bool bIsLive = cbLive.IsChecked == true ? true : false;
             for (int i = 0; i < pageNames.Count; i++)
             {
                 XElement xPage = new XElement("Page");
@@ -209,10 +233,10 @@ namespace Maker.View.Play
                                         {
                                             mDictionary.Add(item.FileName, nowPosition.ToString());
                                             List<Light> lights = AllFileToLightList(item.FileName);
-                                            //if (cbLive.IsChecked == true) {
-                                            //    Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().midiArr);
-                                            //}
-
+                                            if (bIsLive)
+                                            {
+                                                Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().midiArr);
+                                            }
                                             mLightDictionary.Add(nowPosition.ToString(), lights);
                                             item.FileName = nowPosition.ToString();
                                             nowPosition++;
@@ -228,6 +252,29 @@ namespace Maker.View.Play
                         {
                             foreach (var mItem in pageModes[x][y]._loop.OperationModels)
                             {
+                                if (mItem is LightFilePlayModel)
+                                {
+                                    var item = mItem as LightFilePlayModel;
+                                    if (!item.FileName.Equals(String.Empty))
+                                    {
+                                        if (mDictionary.ContainsKey(item.FileName))
+                                        {
+                                            item.FileName = mDictionary[item.FileName];
+                                        }
+                                        else
+                                        {
+                                            mDictionary.Add(item.FileName, nowPosition.ToString());
+                                            List<Light> lights = AllFileToLightList(item.FileName);
+                                            if (bIsLive)
+                                            {
+                                                Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().midiArr);
+                                            }
+                                            mLightDictionary.Add(nowPosition.ToString(), lights);
+                                            item.FileName = nowPosition.ToString();
+                                            nowPosition++;
+                                        }
+                                    }
+                                }
                                 xLoop.Add(mItem.GetXElement());
                             }
                         }
@@ -238,81 +285,33 @@ namespace Maker.View.Play
 
                             foreach (var mItem in pageModes[x][y]._up.OperationModels)
                             {
+                                if (mItem is LightFilePlayModel)
+                                {
+                                    var item = mItem as LightFilePlayModel;
+                                    if (!item.FileName.Equals(String.Empty))
+                                    {
+                                        if (mDictionary.ContainsKey(item.FileName))
+                                        {
+                                            item.FileName = mDictionary[item.FileName];
+                                        }
+                                        else
+                                        {
+                                            mDictionary.Add(item.FileName, nowPosition.ToString());
+                                            List<Light> lights = AllFileToLightList(item.FileName);
+                                            if (bIsLive)
+                                            {
+                                                Business.FileBusiness.CreateInstance().ReplaceControl(lights, Business.FileBusiness.CreateInstance().midiArr);
+                                            }
+                                            mLightDictionary.Add(nowPosition.ToString(), lights);
+                                            item.FileName = nowPosition.ToString();
+                                            nowPosition++;
+                                        }
+                                    }
+                                }
                                 xUp.Add(mItem.GetXElement());
                             }
                         }
                         xButton.Add(xUp);
-
-                        ////Down
-                        //XElement xDown = new XElement("Down");
-
-                        //XAttribute xDownLightName = new XAttribute("lightname", "");
-                        //if (!pageModes[x][y]._down._lightName.Equals(String.Empty))
-                        //{
-                        //    if (mDictionary.ContainsKey(pageModes[x][y]._down._lightName))
-                        //    {
-                        //        xDownLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._down._lightName]);
-                        //    }
-                        //    else
-                        //    {
-                        //        mDictionary.Add(pageModes[x][y]._down._lightName, nowPosition.ToString());
-                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._down._lightName));
-                        //        xDownLightName = new XAttribute("lightname", nowPosition.ToString());
-                        //        nowPosition++;
-                        //    }
-                        //}
-                        //XAttribute xDownGoto = new XAttribute("goto", pageModes[x][y]._down._goto);
-                        //XAttribute xDownBpm = new XAttribute("bpm", pageModes[x][y]._down._bpm);
-                        //xDown.Add(xDownLightName);
-                        //xDown.Add(xDownGoto);
-                        //xDown.Add(xDownBpm);
-                        //xButton.Add(xDown);
-                        ////Loop
-                        //XElement xLoop = new XElement("Loop");
-                        //XAttribute xLoopLightName = new XAttribute("lightname", "");
-                        //if (!pageModes[x][y]._loop._lightName.Equals(String.Empty))
-                        //{
-                        //    if (mDictionary.ContainsKey(pageModes[x][y]._loop._lightName))
-                        //    {
-                        //        xLoopLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._loop._lightName]);
-                        //    }
-                        //    else
-                        //    {
-                        //        mDictionary.Add(pageModes[x][y]._loop._lightName, nowPosition.ToString());
-                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._loop._lightName));
-                        //        xLoopLightName = new XAttribute("lightname", nowPosition.ToString());
-                        //        nowPosition++;
-                        //    }
-                        //}
-                        //XAttribute xLoopGoto = new XAttribute("goto", pageModes[x][y]._loop._goto);
-                        //XAttribute xLoopBpm = new XAttribute("bpm", pageModes[x][y]._loop._bpm);
-                        //xLoop.Add(xLoopLightName);
-                        //xLoop.Add(xLoopGoto);
-                        //xLoop.Add(xLoopBpm);
-                        //xButton.Add(xLoop);
-                        ////Up
-                        //XElement xUp = new XElement("Up");
-                        //XAttribute xUpLightName = new XAttribute("lightname", "");
-                        //if (!pageModes[x][y]._up._lightName.Equals(String.Empty))
-                        //{
-                        //    if (mDictionary.ContainsKey(pageModes[x][y]._up._lightName))
-                        //    {
-                        //        xUpLightName = new XAttribute("lightname", mDictionary[pageModes[x][y]._up._lightName]);
-                        //    }
-                        //    else
-                        //    {
-                        //        mDictionary.Add(pageModes[x][y]._up._lightName, nowPosition.ToString());
-                        //        mLightDictionary.Add(nowPosition.ToString(), AllFileToLightList(pageModes[x][y]._up._lightName));
-                        //        xUpLightName = new XAttribute("lightname", nowPosition.ToString());
-                        //        nowPosition++;
-                        //    }
-                        //}
-                        //XAttribute xUpGoto = new XAttribute("goto", pageModes[x][y]._up._goto);
-                        //XAttribute xUpBpm = new XAttribute("bpm", pageModes[x][y]._up._bpm);
-                        //xUp.Add(xUpLightName);
-                        //xUp.Add(xUpGoto);
-                        //xUp.Add(xUpBpm);
-                        //xButton.Add(xUp);
 
                         xButtons.Add(xButton);
                     }
@@ -346,20 +345,29 @@ namespace Maker.View.Play
                 //    mList.Add(str[i]);
                 //}
                 //LightBusiness.Print(fileBusiness.ReadMidiContent(mList));
-                XAttribute xValue = new XAttribute("value", Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContent(mItem.Value)));
+                XAttribute xValue = new XAttribute("value", Business.FileBusiness.CreateInstance().String2Base(Business.FileBusiness.CreateInstance().WriteMidiContentNotReplace(mItem.Value)));
                 xLight.Add(xValue);
                 xLights.Add(xLight);
             }
             DirectoryInfo d = new DirectoryInfo(mw.LastProjectPath);
             xDoc.Save(mw.LastProjectPath + @"\Play\" + d.Name + ".play");
         }
+
         LightScriptBusiness business = new LightScriptBusiness();
         public List<Light> AllFileToLightList(String filePath)
         {
             List<Light> mLightList = new List<Light>();
             if (filePath.EndsWith(".lightScript"))
             {
-                mLightList = ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath);
+                String _file = mw.LastProjectPath + @"_Cache\_" + filePath.Substring(0, filePath.Length - ".lightScript".Length) + ".mid";
+                if (File.Exists(_file))
+                {
+                    mLightList = Business.FileBusiness.CreateInstance().ReadMidiFile(_file);
+                    Business.FileBusiness.CreateInstance().ReplaceControl(mLightList, Business.FileBusiness.CreateInstance().normalArr);
+                }
+                else {
+                    mLightList = ScriptFileBusiness.FileToLight(mw.LastProjectPath + @"\LightScript\" + filePath);
+                }
             }
             else if (filePath.EndsWith(".light"))
             {
@@ -368,6 +376,7 @@ namespace Maker.View.Play
             else if (filePath.EndsWith(".mid"))
             {
                 mLightList = Business.FileBusiness.CreateInstance().ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
+                Business.FileBusiness.CreateInstance().ReplaceControl(mLightList, Business.FileBusiness.CreateInstance().normalArr);
             }
             mLightList = LightBusiness.Sort(mLightList);
             return mLightList;
@@ -378,20 +387,20 @@ namespace Maker.View.Play
             if (filePath.Equals(String.Empty))
                 return;
             XDocument doc = new XDocument();
-            XElement xnroot = new XElement("Root");
-            doc.Add(xnroot);
+            XElement xnRoot = new XElement("Root");
+            doc.Add(xnRoot);
             XElement xnTutorial = new XElement("Tutorial")
             {
                 Value = tutorialName
             };
-            xnroot.Add(xnTutorial);
+            xnRoot.Add(xnTutorial);
 
             firstPageName = tbFirstPageName.Text;
             XElement xnFirstPageName = new XElement("FirstPageName")
             {
                 Value = firstPageName
             };
-            xnroot.Add(xnFirstPageName);
+            xnRoot.Add(xnFirstPageName);
             XElement xnPages = new XElement("Pages");
             foreach (XElement pageElement in xnPages.Elements("Page"))
             {
@@ -405,7 +414,18 @@ namespace Maker.View.Play
                 };
                 xnPages.Add(xnPage);
             }
-            xnroot.Add(xnPages);
+            xnRoot.Add(xnPages);
+
+            XElement xnModel = new XElement("Model");
+            if (cbLive.IsChecked == true)
+            {
+                xnModel.Value = "0";
+            }
+            else {
+                xnModel.Value = "1";
+            }
+            xnRoot.Add(xnModel);
+
             doc.Save(filePath);
         }
 
@@ -424,6 +444,9 @@ namespace Maker.View.Play
             xRoot.Add(xFirstPageName);
             XElement xPages = new XElement("Pages");
             xRoot.Add(xPages);
+            XElement xModel = new XElement("Model");
+            xModel.Value = "0";
+            xRoot.Add(xModel);
             // 保存该文档  
             xDoc.Save(filePath);
         }
@@ -436,8 +459,11 @@ namespace Maker.View.Play
         private void ToSaveFile(object sender, MouseEventArgs e)
         {
             //<MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
-            if (filePath.Equals(String.Empty))
-                NewFile(sender, e);
+            //if (filePath.Equals(String.Empty))
+            //{
+            //    NewFile(sender, e);
+            //}
+            SaveFile();
         }
     }
 }

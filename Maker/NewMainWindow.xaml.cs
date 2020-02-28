@@ -571,8 +571,18 @@ namespace Maker
             //spHead.Visibility = Visibility.Collapsed;
 
             btnMaximize_Click(null, null);
+
+            InitPlugs();
         }
 
+        private void InitPlugs()
+        {
+            List<String> plugs = Business.FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"Plugs", new List<string>() { ".dll" });
+            foreach (var item in plugs)
+            {
+                aaa
+            }
+        }
 
         public void SetButton(int position)
         {
@@ -808,10 +818,6 @@ namespace Maker
 
         private void Device_Click(object sender, RoutedEventArgs e)
         {
-            if (deviceWindow == null)
-            {
-                deviceWindow = new DeviceWindow(this);
-            }
             deviceWindow.Show();
         }
 
@@ -1225,6 +1231,12 @@ namespace Maker
                 editUserControl.peuc.NewFileResult2(projectConfigModel.Path + ".playExport");
                 editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
             }
+
+
+            if (normalFileManager != null)
+            {
+                normalFileManager.NoSelected();
+            }
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -1233,6 +1245,11 @@ namespace Maker
             {
                 editUserControl.IntoUserControl(projectConfigModel.Path + ".play");
             }
+
+            if (normalFileManager != null) {
+                normalFileManager.NoSelected();
+            }
+            
         }
     }
 }

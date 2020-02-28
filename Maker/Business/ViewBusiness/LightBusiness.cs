@@ -55,7 +55,8 @@ namespace Maker.Business
                 {
                     continue;
                 }
-                var timeList = items.Where(t => t.Action == 144).Select(t => t.Time).ToArray();
+                //var timeList = items.Where(t => t.Action == 144).Select(t => t.Time).ToArray();
+                var timeList = items.Select(t => t.Time).ToArray();
 
                 if (nowTime < timeList[0])
                 {
@@ -64,12 +65,10 @@ namespace Maker.Business
 
                 int rr = BinarySearch(timeList, 0, timeList.Length - 1, nowTime);
 
-                lights.Add(new Light(0, 144, i, items[rr].Color));
-
+                lights.Add(new Light(0, items[rr].Action, i, items[rr].Color));
             }
 
             return lights;
-
         }
 
         /// <summary>

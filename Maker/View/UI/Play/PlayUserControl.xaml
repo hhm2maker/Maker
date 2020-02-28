@@ -16,7 +16,8 @@
         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
     </UserControl.Effect>
     <Grid Name="gMain">
-        <Grid Name="gMost">
+        <Button Content="加载" Click="Button_Click"/>
+        <Grid Name="gMost" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />

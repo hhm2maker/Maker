@@ -72,35 +72,14 @@ namespace Maker.View.PageWindow
             _pageModes.Clear();
             tbPosition.Text = "-1";
             view.Count = 0;
-            tbLightName.Text = "";
-            tbGoto.Text = "";
-            tbBpm.Text = "";
 
             ReadPageFile(filePath, out _pageModes);
-
-            //for (int i = 0; i < mLaunchpad.Count; i++)
-            //{
-            //    if (!_lightNames[i].Equals(String.Empty))
-            //    {
-            //        mLaunchpad.SetButtonBackground(i, new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
-            //    }
-            //    if (!_gotos[i].Equals(String.Empty))
-            //    {
-            //        mLaunchpad.SetButtonBackground(i, new SolidColorBrush(Color.FromArgb(255, 0, 0, 255)));
-            //    }
-            //    if (!_lightNames[i].Equals(String.Empty) && !_gotos[i].Equals(String.Empty))
-            //    {
-            //        mLaunchpad.SetButtonBackground(i, new SolidColorBrush(Color.FromArgb(255, 255, 0, 255)));
-            //    }
-            //}
         }
-        protected override void LoadFileContent() {
+
+        protected override void LoadFileContent()
+        {
             _pageModes.Clear();
-            tbPosition.Text = "-1";
             view.Count = 0;
-            tbLightName.Text = "";
-            tbGoto.Text = "";
-            tbBpm.Text = "";
 
             ReadPageFile(filePath, out _pageModes);
 
@@ -117,234 +96,64 @@ namespace Maker.View.PageWindow
                 {
                     PageButtonModel model = new PageButtonModel();
                     XElement xDown = _element.Element("Down");
-                    { 
-                    foreach (var xEdit in xDown.Elements())
                     {
-                        BaseOperationModel baseOperationModel = null;
-                        if (xEdit.Name.ToString().Equals("LightFile"))
+                        foreach (var xEdit in xDown.Elements())
                         {
-                            baseOperationModel = new LightFilePlayModel();
+                            model._down.OperationModels.Add(XNameToModel(xEdit));
                         }
-                        else if (xEdit.Name.ToString().Equals("GotoPage"))
-                        {
-                            baseOperationModel = new GotoPagePlayModel();
-                        }
-                            else if (xEdit.Name.ToString().Equals("AudioFile"))
-                            {
-                                baseOperationModel = new AudioFilePlayModel();
-                            }
-
-                            baseOperationModel.SetXElement(xEdit);
-                        model._down.OperationModels.Add(baseOperationModel);
                     }
-                    }
-
                     XElement xLoop = _element.Element("Loop");
-
                     {
                         foreach (var xEdit in xLoop.Elements())
                         {
-                            BaseOperationModel baseOperationModel = null;
-                            if (xEdit.Name.ToString().Equals("LightFile"))
-                            {
-                                baseOperationModel = new LightFilePlayModel();
-                            }
-                            else if (xEdit.Name.ToString().Equals("GotoPage"))
-                            {
-                                baseOperationModel = new GotoPagePlayModel();
-                            }
-                            else if (xEdit.Name.ToString().Equals("AudioFile"))
-                            {
-                                baseOperationModel = new AudioFilePlayModel();
-                            }
-
-                            baseOperationModel.SetXElement(xEdit);
-                            model._loop.OperationModels.Add(baseOperationModel);
+                            model._loop.OperationModels.Add(XNameToModel(xEdit));
                         }
                     }
-               
-                    XElement xUp = _element.Element("Up");
 
+                    XElement xUp = _element.Element("Up");
                     {
                         foreach (var xEdit in xUp.Elements())
                         {
-                            BaseOperationModel baseOperationModel = null;
-                            if (xEdit.Name.ToString().Equals("LightFile"))
-                            {
-                                baseOperationModel = new LightFilePlayModel();
-                            }
-                            else if (xEdit.Name.ToString().Equals("GotoPage"))
-                            {
-                                baseOperationModel = new GotoPagePlayModel();
-                            }
-                            else if (xEdit.Name.ToString().Equals("AudioFile"))
-                            {
-                                baseOperationModel = new AudioFilePlayModel();
-                            }
-
-                            baseOperationModel.SetXElement(xEdit);
-                            model._up.OperationModels.Add(baseOperationModel);
+                            model._up.OperationModels.Add(XNameToModel(xEdit));
                         }
                     }
                     _mButtons.Add(model);
                 }
                 pageModes.Add(_mButtons);
             }
-
-           
         }
-        private bool noSaveBpm = false;
+
+        private BaseOperationModel XNameToModel(XElement xEdit)
+        {
+            BaseOperationModel baseOperationModel = null;
+            if (xEdit.Name.ToString().Equals("LightFile"))
+            {
+                baseOperationModel = new LightFilePlayModel();
+            }
+            else if (xEdit.Name.ToString().Equals("GotoPage"))
+            {
+                baseOperationModel = new GotoPagePlayModel();
+            }
+            else if (xEdit.Name.ToString().Equals("AudioFile"))
+            {
+                baseOperationModel = new AudioFilePlayModel();
+            }
+            baseOperationModel.SetXElement(xEdit);
+            return baseOperationModel;
+        }
+
         private void Button_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            noSaveBpm = true;
             position = mLaunchpad.GetNumber((Shape)sender);
             InitPosition(position);
         }
 
-        private void InitPosition(int position) {
+        private void InitPosition(int position)
+        {
             tbPosition.Text = (position).ToString();
             int count = _pageModes[position].Count;
             view.Count = count;
             RefreshContent();
-        }
-   
-
-        private void ReplaceLight(object sender, RoutedEventArgs e)
-        {
-            if (tbCount.Text.Equals("0"))
-                return;
-            List<String> fileNames = new List<string>();
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light" }));
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Midi", new List<string>() { ".mid" }));
-            ShowLightListDialog dialog = new ShowLightListDialog(mw, tbLightName.Text, fileNames);
-            if (dialog.ShowDialog() == true)
-            {
-                tbLightName.Text = dialog.selectItem;
-                int position = int.Parse(tbPosition.Text);
-                //if (nowSelectType == PageUCSelectType.Down)
-                //{
-                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = dialog.selectItem;
-                //}
-                //else if (nowSelectType == PageUCSelectType.Loop)
-                //{
-                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = dialog.selectItem;
-                //}
-                //else if (nowSelectType == PageUCSelectType.Up)
-                //{
-                //    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = dialog.selectItem;
-                //}
-                //if (!_gotos[position].Equals(""))
-                //{
-                //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 0, 255)));
-                //}
-                //else {
-                //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
-                //}
-            }
-        }
-        private void ReplacePage(object sender, RoutedEventArgs e)
-        {
-            if (tbCount.Text.Equals("0"))
-                return;
-            List<String> fileNames = new List<string>();
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Page", new List<string>() { ".xml" }));
-            fileNames.Remove(System.IO.Path.GetFileName(filePath));
-            ShowLightListDialog dialog = new ShowLightListDialog(mw, tbLightName.Text, fileNames);
-            if (dialog.ShowDialog() == true)
-            {
-                tbGoto.Text = dialog.selectItem;
-                int position = int.Parse(tbPosition.Text);
-                if (nowSelectType == PageUCSelectType.Down)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._goto = dialog.selectItem;
-                }
-                else if (nowSelectType == PageUCSelectType.Loop)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._goto = dialog.selectItem;
-                }
-                else if (nowSelectType == PageUCSelectType.Up)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._goto = dialog.selectItem;
-                }
-                //if (!_lightNames[position].Equals(""))
-                //{
-                //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 0, 255)));
-                //}
-                //else
-                //{
-                //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 0, 0, 255)));
-                //}
-            }
-        }
-        private void EditLight(object sender, RoutedEventArgs e)
-        {
-            if (tbLightName.Text.Equals(String.Empty))
-                return;
-            String[] str = tbLightName.Text.Split('.');
-            String name = str[0];
-            String extension = str[1];
-            if (extension.EndsWith("light"))
-            {
-                SelectTreeViewItem(GetTreeViewRootItem("Light"), name, "light");
-            }
-            else if (extension.EndsWith("lightScript"))
-            {
-                SelectTreeViewItem(GetTreeViewRootItem("LightScript"), name, "lightScript");
-            }
-            else if (extension.EndsWith("mid"))
-            {
-                SelectTreeViewItem(GetTreeViewRootItem("Midi"), name, "mid");
-            }
-        }
-        private void GotoPage(object sender, RoutedEventArgs e)
-        {
-            if (tbGoto.Text.Equals(String.Empty))
-                return;
-            String[] str = tbGoto.Text.Split('.');
-            String name = str[0];
-            String extension = str[1];
-            if (extension.EndsWith("xml"))
-            {
-                SelectTreeViewItem(GetTreeViewRootItem("Page"), name, "xml");
-            }
-        }
-        private TreeViewItem GetTreeViewRootItem(String rootName)
-        {
-            //TreeViewItem item = null;
-            //StackPanel _panel = null;
-            //TextBlock _text = null;
-            //for (int i = 0; i < mw.tvProject.Items.Count; i++)
-            //{
-            //    item = (TreeViewItem)mw.tvProject.Items[i];
-            //    _panel = (StackPanel)item.Header;
-            //    _text = (TextBlock)_panel.Children[1];
-            //    if (_text.Text.Equals(rootName))
-            //    {
-            //        return item;
-            //    }
-            //    //找不到该文件夹
-            //    if (i == mw.tvProject.Items.Count - 1)
-            //        return null;
-            //}
-            return null;
-        }
-        private void SelectTreeViewItem(TreeViewItem root, String selectName, String extension)
-        {
-            TreeViewItem item = null;
-            StackPanel _panel = null;
-            TextBlock _text = null;
-            for (int i = 0; i < root.Items.Count; i++)
-            {
-                item = (TreeViewItem)root.Items[i];
-                _panel = (StackPanel)item.Header;
-                _text = (TextBlock)_panel.Children[1];
-                if (_text.Text.Equals(selectName + "." + extension))
-                {
-                    item.IsSelected = true;
-                    return;
-                }
-            }
         }
 
         private void SavePage(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -364,11 +173,11 @@ namespace Maker.View.PageWindow
                     XElement xButton = new XElement("Button");
                     //Down
                     XElement xDown = new XElement("Down");
-                    { 
-                    foreach (var mItem in _pageModes[i][j]._down.OperationModels)
                     {
+                        foreach (var mItem in _pageModes[i][j]._down.OperationModels)
+                        {
                             xDown.Add(mItem.GetXElement());
-                    }
+                        }
                     }
                     xButton.Add(xDown);
                     //Loop
@@ -399,100 +208,19 @@ namespace Maker.View.PageWindow
             xDoc.Save(filePath);
         }
 
-        private void MoveLight(object sender, RoutedEventArgs e)
-        {
-            if (tbLightName.Text.Equals(String.Empty))
-                return;
-            tbLightName.Text = "";
-            int position = int.Parse(tbPosition.Text);
-            //if (nowSelectType == PageUCSelectType.Down)
-            //{
-            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._lightName = "";
-            //}
-            //else if (nowSelectType == PageUCSelectType.Loop)
-            //{
-            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._lightName = "";
-            //}
-            //else if (nowSelectType == PageUCSelectType.Up)
-            //{
-            //    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._lightName = "";
-            //}
-            //if (!_gotos[position].Equals(""))
-            //{
-            //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 0, 0, 255)));
-            //}
-            //else
-            //{
-            //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
-            //}
-        }
-
-        private void MovePage(object sender, RoutedEventArgs e)
-        {
-            if (tbGoto.Text.Equals(String.Empty))
-                return;
-            tbGoto.Text = "";
-            int position = int.Parse(tbPosition.Text);
-            if (nowSelectType == PageUCSelectType.Down)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._down._goto = "";
-            }
-            else if (nowSelectType == PageUCSelectType.Loop)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._goto = "";
-            }
-            else if (nowSelectType == PageUCSelectType.Up)
-            {
-                _pageModes[position][int.Parse(tbCount.Text) - 1]._up._goto = "";
-            }
-            //if (!_lightNames[position].Equals(""))
-            //{
-            //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)));
-            //}
-            //else
-            //{
-            //    mLaunchpad.SetButtonBackground(position, new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)));
-            //}
-        }
-
-        private void tbBpm_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (noSaveBpm)
-            {
-                noSaveBpm = false;
-                return;
-            }
-            try
-            {
-                int position = int.Parse(tbPosition.Text);
-                if (nowSelectType == PageUCSelectType.Down)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._down._bpm = tbBpm.Text;
-                }
-                else if (nowSelectType == PageUCSelectType.Loop)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._loop._bpm = tbBpm.Text;
-                }
-                else if (nowSelectType == PageUCSelectType.Up)
-                {
-                    _pageModes[position][int.Parse(tbCount.Text) - 1]._up._bpm = tbBpm.Text;
-                }
-            }
-            catch { }
-        }
 
         private void AddCount(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AddCount();
+        }
+
+        private void AddCount()
         {
             if (tbPosition.Text.Equals("-1"))
                 return;
             int position = int.Parse(tbPosition.Text);
             _pageModes[position].Add(new PageButtonModel());
             view.Count = view.Count + 1;
-
-            noSaveBpm = true;
-            tbLightName.Text = "";
-            tbGoto.Text = "";
-            tbBpm.Text = "";
         }
 
         private void RemoveCount(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -503,7 +231,6 @@ namespace Maker.View.PageWindow
             int position = int.Parse(tbPosition.Text);
             _pageModes[position].RemoveAt(view.Count - 1);
             view.Count = view.Count - 1;
-            noSaveBpm = true;
             RefreshContent();
         }
 
@@ -513,12 +240,7 @@ namespace Maker.View.PageWindow
         {
             if (view.Count == 0)
             {
-                tbLightName.Text = "";
-                tbGoto.Text = "";
-                tbBpm.Text = "";
-
                 psw.SetData(new List<BaseOperationModel>());
-
             }
             else
             {
@@ -537,7 +259,18 @@ namespace Maker.View.PageWindow
                 }
             }
 
-           
+            for (int i = 0; i < _pageModes.Count; i++)
+            {
+
+                if (_pageModes[i].Count == 0)
+                {
+                    mLaunchpad.SetButtonBackground(i, 0);
+                }
+                else
+                {
+                    mLaunchpad.SetButtonBackground(i, 5);
+                }
+            }
         }
 
         private void LastCount(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -548,7 +281,6 @@ namespace Maker.View.PageWindow
                 return;
             int position = int.Parse(tbPosition.Text);
             view.Count = view.Count - 1;
-            noSaveBpm = true;
             RefreshContent();
         }
 
@@ -560,7 +292,6 @@ namespace Maker.View.PageWindow
             if (int.Parse(tbCount.Text) == _pageModes[position].Count)
                 return;
             view.Count = view.Count + 1;
-            noSaveBpm = true;
             RefreshContent();
         }
 
@@ -629,7 +360,7 @@ namespace Maker.View.PageWindow
             XElement xRoot = new XElement("Page");
             // 添加节点使用Add
             xDoc.Add(xRoot);
-            for (int i = 0; i < 96; i++)
+            for (int i = 0; i < 100; i++)
             {
                 // 创建一个按钮加到root中
                 XElement xButton = new XElement("Buttons");
@@ -643,7 +374,8 @@ namespace Maker.View.PageWindow
         {
             if (_pageModes[position].Count == 0)
             {
-                return;
+                AddCount();
+                //return;
             }
             BaseButtonModel bbm;
             switch (nowSelectType)
@@ -661,9 +393,10 @@ namespace Maker.View.PageWindow
                     bbm = _pageModes[position][int.Parse(tbCount.Text) - 1]._down;
                     break;
             }
-        
-            if (sender == btnAddLight) {
-                bbm.OperationModels.Add(new LightFilePlayModel("",mw.NowProjectModel.Bpm));
+
+            if (sender == btnAddLight)
+            {
+                bbm.OperationModels.Add(new LightFilePlayModel("", mw.NowProjectModel.Bpm));
             }
             else if (sender == btnAddAudio)
             {

@@ -15,7 +15,7 @@
         WindowStyle="None"
         >
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="1"  ResizeBorderThickness="2,0,2,2"      CornerRadius="0"   GlassFrameThickness="0"/>
+        <WindowChrome CaptionHeight="1" ResizeBorderThickness="2,0,2,2" CornerRadius="0" GlassFrameThickness="0"/>
     </WindowChrome.WindowChrome>
     <!--AllowsTransparency="True"
         WindowStyle="None"-->

@@ -201,6 +201,10 @@ namespace Maker.View
                 {
                     mw.normalFileManager.tvLimitlessLamp.Items.Add(item);
                 }
+                else if (filePath.EndsWith(".lightPage"))
+                {
+                    mw.normalFileManager.tvPage.Items.Add(item);
+                }
                 item.IsSelected = true;
             }
         }

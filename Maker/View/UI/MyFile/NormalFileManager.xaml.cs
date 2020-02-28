@@ -422,10 +422,23 @@ namespace Maker.View.UI.MyFile
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView)
+            if (tvMain.SelectedItem == null) {
                 return;
+            }
+            if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView) {
+                return;
+            }
 
             baseFileManager.InitFile((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
+        }
+
+        public void NoSelected()
+        {
+            if (tvMain.SelectedItem == null)
+            {
+                return;
+            }
+            (tvMain.SelectedItem  as TreeViewItem).IsSelected = false;
         }
     }
 }

@@ -2167,8 +2167,11 @@ namespace Maker.View.LightScriptUserControl
                 //spStepControl.ToolTip = null;
 
                 //更新右侧Style
-                StackPanel sp = lbStep.SelectedItem as StackPanel;
-                sp.Background = new SolidColorBrush(Colors.Black);
+                 foreach (var item in lbStep.SelectedItems)
+                 {
+                    StackPanel sp = item as StackPanel;
+                    sp.Background = new SolidColorBrush(Colors.Black);
+                }
                 sw.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             }
         }

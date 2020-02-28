@@ -574,6 +574,25 @@ namespace Maker.View.Device
             //}
         }
 
+        /// <summary>
+        /// 给指定位置的按钮设置颜色
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        public void SetButtonBackground(int position, int color)
+        {
+            if (position < 0 || position >= Children.Count)
+                return;
+            Shape shape = Children[position] as Shape;
+            if (IsMembrane)
+            {
+                shape.Stroke = StaticConstant.brushList[color];
+            }
+            else
+            {
+                shape.Fill = StaticConstant.brushList[color];
+            }
+        }
 
         /// <summary>
         /// 给指定位置的按钮设置颜色

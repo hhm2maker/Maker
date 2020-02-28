@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog", "Blog\Blog.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakerUI", "MakerUI\MakerUI.csproj", "{A2AECCB9-8EE4-421F-A2D0-AF3E2B20BF25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlugLib", "PlugLib\PlugLib.csproj", "{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,18 @@ Global
 		{A2AECCB9-8EE4-421F-A2D0-AF3E2B20BF25}.Release|x64.Build.0 = Release|Any CPU
 		{A2AECCB9-8EE4-421F-A2D0-AF3E2B20BF25}.Release|x86.ActiveCfg = Release|Any CPU
 		{A2AECCB9-8EE4-421F-A2D0-AF3E2B20BF25}.Release|x86.Build.0 = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|x64.Build.0 = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|x64.ActiveCfg = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|x64.Build.0 = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|x86.ActiveCfg = Release|Any CPU
+		{466EAE35-D0D0-4319-9E3A-F7DAE3E996AA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
