@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Maker.View
 {
-    public enum KeyModifiers        //组合键枚举
-    {
-        None = 0,
-        Alt = 1,
-        Control = 2,
-        Shift = 4,
-        Windows = 8
-    }
+    //public enum KeyModifiers        //组合键枚举
+    //{
+    //    None = 0,
+    //    Alt = 1,
+    //    Control = 2,
+    //    Shift = 4,
+    //    Windows = 8
+    //}
     public enum MouseBtn           //鼠标按键枚举 
     {
         左下 = 1,

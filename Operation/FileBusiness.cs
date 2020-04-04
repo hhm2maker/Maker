@@ -915,9 +915,21 @@ namespace Operation
         }
 
         /// <summary>
+        /// 固定位置交换/替换
+        /// </summary>
+        public void ReplaceControl(List<int> lights, List<int> arr)
+        {
+            for (int k = 0; k < lights.Count; k++)
+            { 
+                //lights[k].Position = arr[lights[k].Position];
+                //Console.WriteLine(lights[k]);
+            }
+        }
+
+        /// <summary>
         /// MIDI位置数组
         /// </summary>
-        private List<int> midiArr = new List<int>()
+        public List<int> midiArr = new List<int>()
             {
                 0,116,117,118,119,120,121,122,123,0,
                 115,36,37,38,39,68,69,70,71,107,
@@ -934,7 +946,7 @@ namespace Operation
         /// <summary>
         /// 普通位置数组
         /// </summary>
-        private List<int> normalArr = new List<int>()
+        public List<int> normalArr = new List<int>()
             {
                 91,92,93,94,95,96,97,98,
                 11,12,13,14,21,22,23,24,
@@ -947,7 +959,7 @@ namespace Operation
                  75,76,77,78,85,86,87,88,
                  89,79,69,59,49,39,29,19,
                  80,70,60,50,40,30,20,10,
-                 1,2,3,4,5,6,7,8
+                 1,2,3,4,5,6,7,8,0,0,0,0
               };
     }
 }

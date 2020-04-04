@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Utils;
+using MakerUI.Device;
 using Operation;
 using System;
 using System.Collections.Generic;

@@ -151,6 +151,7 @@
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Discarded\DiscardedClass.cs" />
+    <Compile Include="Business\Model\Config\PlugsConfigModel.cs" />
     <Compile Include="Business\Model\Config\DeviceConfigModel.cs" />
     <Compile Include="Business\Model\Config\BlogConfigModel.cs" />
     <Compile Include="Business\Model\Config\BlogPageModel.cs" />
@@ -177,7 +178,6 @@
     <Compile Include="Business\Utils\MediaFileTimeUtil.cs" />
     <Compile Include="Business\Utils\WebClientUtil.cs" />
     <Compile Include="Business\ViewBusiness\MainWindow\Close.cs" />
-    <Compile Include="Business\Model\KeyboardModel.cs" />
     <Compile Include="Business\ViewBusiness\FilesNameComparerClass.cs" />
     <Compile Include="Business\Commands\DataCommands.cs" />
     <Compile Include="Business\Model\DeviceModel.cs" />
@@ -233,7 +233,6 @@
     <Compile Include="View\UI\Device\Launchpad\ParagraphLightListPlayerLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\ParagraphIntListPlayerLaunchpadPro.cs" />
     <Compile Include="View\UI\Device\Launchpad\IPlay.cs" />
-    <Compile Include="View\UI\Device\Launchpad\LaunchpadPro.cs" />
     <Compile Include="View\UI\Control\LiveUserControl.xaml.cs">
       <DependentUpon>LiveUserControl.xaml</DependentUpon>
     </Compile>
@@ -654,7 +653,6 @@
       <DependentUpon>PlayerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Business\Utils\AVIWriter.cs" />
-    <Compile Include="View\UI\Utils\RoundedCornersPolygon.cs" />
     <Compile Include="Business\UploadFile\FormItemModel.cs" />
     <Compile Include="Business\UploadFile\NoFileUtils.cs" />
     <Compile Include="Business\UploadFile\Util.cs" />

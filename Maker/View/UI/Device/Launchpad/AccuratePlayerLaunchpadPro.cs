@@ -11,15 +11,12 @@ using Maker.View.Utils;
 using System.Windows.Shapes;
 using System.Threading;
 using Operation;
+using MakerUI.Device;
 
 namespace Maker.View.Device
 {
     public class AccuratePlayerLaunchpadPro: PlayerLaunchpadPro
     {
-        /// <summary>
-        /// 笔刷列表
-        /// </summary>
-        private List<SolidColorBrush> brushList = new List<SolidColorBrush>();
         /// <summary>
         /// 灯光组 - 灯光列表
         /// </summary>

@@ -6,7 +6,8 @@
     xmlns:launchpad="clr-namespace:Maker.View.Device"
     xmlns:view="clr-namespace:Maker.View"
     xmlns:control="clr-namespace:Maker.View.Control"
-    xmlns:pianoroll="clr-namespace:Maker.View.PianoRoll" 
+    xmlns:pianoroll="clr-namespace:Maker.View.PianoRoll"
+    xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
     x:Class="Maker.InputUserControl"
              mc:Ignorable="d" 
              Width="1490"
@@ -348,7 +349,7 @@
                                     <TextBlock   Width="130" Foreground="White" FontSize="25"  Background="{x:Null}"  Text="{DynamicResource NowTimeColon}"/>
                                     <TextBlock  x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="25" TextAlignment="Right"><Run Text="0"/></TextBlock>
                                 </StackPanel>
-                                <launchpad:LaunchpadPro x:Name="mLaunchpad" DockPanel.Dock="Top"   HorizontalAlignment="Center" />
+                                <device:LaunchpadPro x:Name="mLaunchpad" DockPanel.Dock="Top"   HorizontalAlignment="Center" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Top"  Height="50" VerticalAlignment="Top" Margin="10,0,10,10">
                                     <Image x:Name="btnLastTimePoint"  Margin="10" Width="30"  Source="Image/back.png" Height="30"   MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown"/>
                                     <TextBox x:Name="tbTimePointCountLeft" Foreground="White" FontSize="20" Width="100" Height="30" TextAlignment="Center" Background="{x:Null}" TextChanged="TimePointCountLeft_TextChanged"/>

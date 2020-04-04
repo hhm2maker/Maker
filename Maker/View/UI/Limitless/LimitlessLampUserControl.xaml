@@ -5,8 +5,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:device="clr-namespace:Maker.View.Device"
     xmlns:view1="clr-namespace:Maker.View.UI.Device.ColorPanel"
+    xmlns:device="clr-namespace:Maker.View.Device"
+    xmlns:device1="clr-namespace:MakerUI.Device;assembly=MakerUI"
     mc:Ignorable="d"
          Background="#262829"
         Loaded="Window_Loaded"
@@ -79,7 +80,7 @@
                     <TextBlock Text="{DynamicResource IntervalColon}" Foreground="White" Width="200"  />
                     <TextBox Name="tbInterval" Width="200" FontSize="18"  Margin="10,0,0,0" Text="12" TextAlignment="Center" Foreground="White" Background="#1c1e1f" BorderThickness="0" />
                 </StackPanel>
-                <device:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0" Size="400"/>
+                <device1:LaunchpadPro x:Name="previewLaunchpad" VerticalAlignment="Bottom"  Grid.Row="4" Margin="0,20,0,0" Size="400"/>
             </Grid>
     </Grid>
     </Grid>

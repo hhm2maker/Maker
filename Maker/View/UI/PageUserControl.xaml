@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View"
              xmlns:launchpad="clr-namespace:Maker.View.Device"
+             xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
              mc:Ignorable="d"
              Loaded="UserControl_Loaded"
             >
@@ -304,7 +305,7 @@
     </UserControl.DataContext>
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <launchpad:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
+            <device:LaunchpadPro Width="600" Height="600"   x:Name="mLaunchpad"  />
             <StackPanel Orientation="Vertical" VerticalAlignment="Top">
                 <Button  Content="{DynamicResource Save}" Click="SavePage" HorizontalAlignment="Right" Margin="0,0,0,20" Style="{StaticResource BigButton}"/>
                 <Button  HorizontalAlignment="Right" Margin="30,0,0,0"  Content="{DynamicResource SetAsTheStartingPage}" Width="200" Style="{StaticResource BigButton}" Click="SetAsTheStartingPage"/>

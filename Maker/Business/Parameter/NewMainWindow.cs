@@ -71,5 +71,6 @@ namespace Maker
         public HelpConfigModel helpConfigModel = new HelpConfigModel();
         public HintWindowConfigModel hintWindowConfigModel = new HintWindowConfigModel();
         public DeviceConfigModel deviceConfigModel = new DeviceConfigModel();
+        public PlugsConfigModel plugsConfigModel = new PlugsConfigModel();
     }
 }

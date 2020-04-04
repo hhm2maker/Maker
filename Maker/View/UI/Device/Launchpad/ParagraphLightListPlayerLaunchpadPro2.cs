@@ -19,11 +19,6 @@ namespace Maker.View.Device
     public class ParagraphLightListPlayerLaunchpadPro2 : PlayerLaunchpadPro
     {
         /// <summary>
-        /// 笔刷列表
-        /// </summary>
-        private List<SolidColorBrush> brushList = new List<SolidColorBrush>();
-
-        /// <summary>
         /// 时间集合
         /// </summary>
         private List<int> timeList = new List<int>();

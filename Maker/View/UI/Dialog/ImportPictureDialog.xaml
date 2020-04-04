@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.Dialog"
-        xmlns:local1="clr-namespace:Maker.View.Device"
+        xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
         mc:Ignorable="d"
         ShowInTaskbar="False" 
         Title="{DynamicResource ImportingPicture}" 
@@ -15,7 +15,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <StackPanel Orientation="Vertical">
-        <local1:LaunchpadPro x:Name="mLaunchpad" ></local1:LaunchpadPro>
+        <device:LaunchpadPro x:Name="mLaunchpad" ></device:LaunchpadPro>
         <TextBlock Foreground="#FF5A5A" Margin="5" FontSize="14" Text="{DynamicResource OnlyPreviewFunctionalityForTheTimeBeing}"/>
         <StackPanel Visibility="Collapsed">
             <TextBox Name="tbNoColor" Width="80" Text="14"></TextBox>

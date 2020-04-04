@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:device="clr-namespace:Maker.View.Device"
+             xmlns:device1="clr-namespace:MakerUI.Device;assembly=MakerUI"
              mc:Ignorable="d" 
              >
-    <device:LaunchpadPro x:Name="mLaunchpad"/>
+    <device1:LaunchpadPro x:Name="mLaunchpad"/>
 </UserControl>

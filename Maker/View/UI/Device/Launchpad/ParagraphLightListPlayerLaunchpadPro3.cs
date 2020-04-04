@@ -13,16 +13,12 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Threading;
 using Operation;
+using MakerUI.Device;
 
 namespace Maker.View.Device
 {
     public class ParagraphLightListPlayerLaunchpadPro3 : PlayerLaunchpadPro
     {
-        /// <summary>
-        /// 笔刷列表
-        /// </summary>
-        private List<SolidColorBrush> brushList = new List<SolidColorBrush>();
-
         /// <summary>
         /// 时间集合
         /// </summary>
@@ -261,7 +257,7 @@ namespace Maker.View.Device
                                 }
                                 else
                                 {
-                                    GetButton(x[z].Position).Fill = StaticConstant.brushList[x[z].Color];
+                                    GetButton(x[z].Position).Fill = Model.StaticConstant.brushList[x[z].Color];
                                 }
                             }
                         }

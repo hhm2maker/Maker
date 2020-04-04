@@ -3,6 +3,7 @@ using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Control;
 using Maker.View.Device;
+using MakerUI.Device;
 using System;
 using System.Collections.Generic;
 using System.IO;

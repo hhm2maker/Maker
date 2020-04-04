@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Hide>
+<?xml version="1.0" encoding="utf-8"?>
+<Hide xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <RangeListNumber>false</RangeListNumber>
-  <Tip>false</Tip>
 </Hide>

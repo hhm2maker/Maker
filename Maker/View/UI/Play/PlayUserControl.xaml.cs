@@ -4,9 +4,11 @@ using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.UI.UserControlDialog;
 using Operation;
+using PlugLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -40,51 +42,51 @@ namespace Maker.View.UI
         private int tutorialPosition = 0;
         private void LoadKeyboards(object sender, RoutedEventArgs e)
         {
-            XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
-            XElement _root = _doc.Element("Root");
+            //XDocument _doc = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + @"Keyboard\keyboard.xml");
+            //XElement _root = _doc.Element("Root");
 
-            foreach (XElement keyElement in _root.Elements("Key"))
-            {
-                KeyboardModel keyboardModel = new KeyboardModel();
-                String strPosition = keyElement.Attribute("position").Value;
-                if (strPosition.Equals(String.Empty))
-                {
-                    keyboardModel.Position = -1;
-                }
-                else
-                {
-                    if (int.TryParse(strPosition, out int result))
-                    {
-                        keyboardModel.Position = result;
-                    }
-                    else
-                    {
-                        keyboardModel.Position = -1;
-                    }
-                }
-                String strDdKey = keyElement.Attribute("ddkey").Value;
-                if (strDdKey.Equals(String.Empty))
-                {
-                    keyboardModel.DdKey = -1;
-                }
-                else
-                {
-                    if (int.TryParse(strDdKey, out int result))
-                    {
-                        keyboardModel.DdKey = result;
-                    }
-                    else
-                    {
-                        keyboardModel.DdKey = -1;
-                    }
-                }
-                keyboardModel.SendKey = keyElement.Attribute("sendkey").Value;
-                if (keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
-                    keyboardModels.Add(keyboardModel.Position, keyboardModel);
-            }
-            if (ip == null)
-                return;
-            ip.button1_Click();
+            //foreach (XElement keyElement in _root.Elements("Key"))
+            //{
+            //    KeyboardModel keyboardModel = new KeyboardModel();
+            //    String strPosition = keyElement.Attribute("position").Value;
+            //    if (strPosition.Equals(String.Empty))
+            //    {
+            //        keyboardModel.Position = -1;
+            //    }
+            //    else
+            //    {
+            //        if (int.TryParse(strPosition, out int result))
+            //        {
+            //            keyboardModel.Position = result;
+            //        }
+            //        else
+            //        {
+            //            keyboardModel.Position = -1;
+            //        }
+            //    }
+            //    String strDdKey = keyElement.Attribute("ddkey").Value;
+            //    if (strDdKey.Equals(String.Empty))
+            //    {
+            //        keyboardModel.DdKey = -1;
+            //    }
+            //    else
+            //    {
+            //        if (int.TryParse(strDdKey, out int result))
+            //        {
+            //            keyboardModel.DdKey = result;
+            //        }
+            //        else
+            //        {
+            //            keyboardModel.DdKey = -1;
+            //        }
+            //    }
+            //    keyboardModel.SendKey = keyElement.Attribute("sendkey").Value;
+            //    if (keyboardModel.Position != -1 && !keyboardModels.ContainsKey(keyboardModel.Position))
+            //        keyboardModels.Add(keyboardModel.Position, keyboardModel);
+            //}
+            //if (ip == null)
+            //    return;
+            //ip.button1_Click();
         }
 
         private void LoadHint()
@@ -290,14 +292,14 @@ namespace Maker.View.UI
             private PlayUserControl pc;
             private IntPtr handle;
             private CDD dd;
-            private Dictionary<int, KeyboardModel> keyboardModels;
+            private String keyboardModels;
 
             public InputPort()
             {
 
             }
 
-            public InputPort(PlayUserControl pc, Dictionary<int, KeyboardModel> keyboardModels, int inputType, TextBox tbPosition)
+            public InputPort(PlayUserControl pc, String keyboardModels, int inputType, TextBox tbPosition)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
@@ -614,30 +616,36 @@ namespace Maker.View.UI
             public int inputType = 0;//0浅度 1深度(驱动)
             private void KeyEvent(int position, int openOrClose)
             {
-                //模拟键盘输入
-                if (!keyboardModels.ContainsKey(position))
-                {
-                    return;
+                if (openOrClose == 0) {
+                    pc.aaaa.OnInput(position,InputAndOutputControlEnum.KeyModel.KeyDown);
                 }
-                if (inputType == 0 && openOrClose == 0)
-                {
-                    System.Windows.Forms.SendKeys.SendWait(keyboardModels[position].SendKey);
+                else {
+                    pc.aaaa.OnInput(position, InputAndOutputControlEnum.KeyModel.KeyUp);
                 }
-                else if (inputType == 1)
-                {
-                    if (dd == null)
-                        return;
-                    if (openOrClose == 0)
-                    {
-                        int ddcode = keyboardModels[position].DdKey;                         //tab键位在DD键码表的3区第1个位置
-                        dd.key(ddcode, 1);                                                  // 1=按下 2=放开          
-                    }
-                    if (openOrClose == 1)
-                    {
-                        int ddcode = keyboardModels[position].DdKey;
-                        dd.key(ddcode, 2);
-                    }
-                }
+                ////模拟键盘输入
+                //if (!keyboardModels.ContainsKey(position))
+                //{
+                //    return;
+                //}
+                //if (inputType == 0 && openOrClose == 0)
+                //{
+                //    System.Windows.Forms.SendKeys.SendWait(keyboardModels[position].SendKey);
+                //}
+                //else if (inputType == 1)
+                //{
+                //    if (dd == null)
+                //        return;
+                //    if (openOrClose == 0)
+                //    {
+                //        int ddcode = keyboardModels[position].DdKey;                         //tab键位在DD键码表的3区第1个位置
+                //        dd.key(ddcode, 1);                                                  // 1=按下 2=放开          
+                //    }
+                //    if (openOrClose == 1)
+                //    {
+                //        int ddcode = keyboardModels[position].DdKey;
+                //        dd.key(ddcode, 2);
+                //    }
+                //}
             }
 
             public void button1_Click()
@@ -739,7 +747,6 @@ namespace Maker.View.UI
         //}
 
 
-        public Dictionary<int, KeyboardModel> keyboardModels = new Dictionary<int, KeyboardModel>();
 
         private string ReadDataFromReg()
         {
@@ -812,7 +819,13 @@ namespace Maker.View.UI
             Height = mw.gMost.ActualHeight;
 
             LoadHint();
+
+            MethodInfo mi = StaticConstant.mw.Plugs[0].GetType().GetMethod("GetControl");
+            List<IControl> icon = (List<IControl>)mi.Invoke(StaticConstant.mw.Plugs[0], new Object[] { });
+            aaaa = (IInputAndOutputControl)icon[0];
         }
+
+        public IInputAndOutputControl aaaa = null;
 
         protected override void LoadFileContent()
         {

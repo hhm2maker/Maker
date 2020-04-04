@@ -1,4 +1,5 @@
 ﻿using Maker.View.Utils;
+using MakerUI.Device;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

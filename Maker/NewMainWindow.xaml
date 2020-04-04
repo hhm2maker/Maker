@@ -15,7 +15,7 @@
         WindowStyle="None"
         >
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="1" ResizeBorderThickness="2,0,2,2" CornerRadius="0" GlassFrameThickness="0"/>
+        <WindowChrome CaptionHeight="1" ResizeBorderThickness="2,0,2,2" CornerRadius="0" GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
     <!--AllowsTransparency="True"
         WindowStyle="None"-->
@@ -85,7 +85,7 @@
                         </Grid>
                     </StackPanel>
                     <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                <Image Name="iFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
                     </StackPanel>
                             <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnMin_Click" Margin="20,0,0,0">
                                 <Image VerticalAlignment="Center" Source="View/Resources/Image/small.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
@@ -129,6 +129,9 @@
                         </ComboBox>
                         <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
                     </StackPanel>
+                </DockPanel>
+                <DockPanel Height="35" Background="#282828">
+                    <StackPanel Orientation="Horizontal" Margin="10,0,5,0" VerticalAlignment="Center" Name="spPlugs" HorizontalAlignment="Right" />
                 </DockPanel>
             </StackPanel>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#222326" >
@@ -202,6 +205,7 @@
         </Grid>
         <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
         <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <Popup  Name="popPlug" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" />
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </RibbonWindow>

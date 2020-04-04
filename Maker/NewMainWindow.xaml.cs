@@ -34,6 +34,8 @@ using Maker.View.UI.MyFile;
 using Operation;
 using System.Windows.Controls.Ribbon;
 using System.Windows.Media.Imaging;
+using System.Reflection;
+using PlugLib;
 
 namespace Maker
 {
@@ -574,14 +576,63 @@ namespace Maker
 
             InitPlugs();
         }
-
+       
+        public List<object> Plugs = new List<object>();
         private void InitPlugs()
         {
-            List<String> plugs = Business.FileBusiness.CreateInstance().GetFilesName(AppDomain.CurrentDomain.BaseDirectory + @"Plugs", new List<string>() { ".dll" });
-            foreach (var item in plugs)
+            foreach (var item in plugsConfigModel.Plugs)
             {
-                aaa
+                String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path;
+                if (File.Exists(filePath)) {
+                    Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path);
+                    Type[] types = ass.GetTypes();
+                    Type type = null;
+                    foreach (Type t in types)
+                    {
+                        if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath)+"." + Path.GetFileNameWithoutExtension(filePath)))
+                        {
+                            type = t;
+                            break;
+                        }
+                    }
+                    if (type == null)
+                        continue;
+
+                    //判断是否继承于IGetOperationResult类
+                    Type _type = type.GetInterface("PlugLib.IBasePlug");
+                    if (_type == null) {
+                        continue;
+                    }
+                    Object o = Activator.CreateInstance(type);
+                    Plugs.Add(o);
+                    MethodInfo mi = o.GetType().GetMethod("GetIcon");
+                    BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
+
+                    if (icon != null) {
+                        Image image = new Image();
+                        image.Width = 30;
+                        image.Height = 30;
+                        image.Source = icon;
+                        image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
+                        RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.Fant);
+
+                        spPlugs.Children.Add(image);
+                    }
+                }
             }
+        }
+
+        private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int position = spPlugs.Children.IndexOf(sender as Image);
+            var item = plugsConfigModel.Plugs[position];
+
+            Object o = Plugs[position];
+            MethodInfo mi = o.GetType().GetMethod("GetView");
+            UserControl view = (UserControl)mi.Invoke(o, new Object[] { });
+            popPlug.Child = view;
+            popPlug.PlacementTarget = sender as Image;
+            popPlug.IsOpen = true;
         }
 
         public void SetButton(int position)
@@ -687,7 +738,6 @@ namespace Maker
                 dSpSearchActualWidth = spSearch.ActualWidth;
                 spSearch.Width = spSearch.ActualWidth;
             }
-           
             if (spSearch.Width == dSpSearchActualWidth) {
                 DoubleAnimation animation = new DoubleAnimation
                 {
@@ -755,10 +805,10 @@ namespace Maker
         public BlogConfigModel blogConfigModel = new BlogConfigModel();
         public void InitShortcuts()
         {
-            Width = Width / 4;
-            Height = Height / 4;
-            Business.Currency.XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
-            UpdateShortcuts();
+            //Width = Width / 4;
+            //Height = Height / 4;
+            //Business.Currency.XmlSerializerBusiness.Load(ref blogConfigModel, "Blog/blog.xml");
+            //UpdateShortcuts();
         }
 
         public void UpdateShortcuts()
@@ -774,7 +824,6 @@ namespace Maker
 
             popFollow.IsOpen = false;
             popFollow.IsOpen = true;
-
         }
 
         public void GoHome(int position) {
@@ -1251,5 +1300,9 @@ namespace Maker
             }
             
         }
+
+     
     }
+
+ 
 }

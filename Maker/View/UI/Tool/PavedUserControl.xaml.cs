@@ -4,6 +4,7 @@ using Maker.View.Control;
 using Maker.View.Device;
 using Maker.View.LightScriptUserControl;
 using Maker.View.UI;
+using MakerUI.Device;
 using Operation;
 using System;
 using System.Collections.Generic;

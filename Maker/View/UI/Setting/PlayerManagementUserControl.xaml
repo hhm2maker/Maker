@@ -7,6 +7,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.Tool"
     xmlns:device="clr-namespace:Maker.View.Device"
+    xmlns:device1="clr-namespace:MakerUI.Device;assembly=MakerUI"
     mc:Ignorable="d" 
     Loaded="BaseUserControl_Loaded"
       Background="#262829"
@@ -20,7 +21,7 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <device:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="mLaunchpad"/>
+            <device1:LaunchpadPro HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="mLaunchpad"/>
         </ScrollViewer>
         <TextBlock VerticalAlignment="Stretch" Margin="30,100,30,100" Width="2" Background="#646464"  Grid.Column="1"/>
         <StackPanel Orientation="Vertical" Grid.Column="2" Margin="0,70,0,0">

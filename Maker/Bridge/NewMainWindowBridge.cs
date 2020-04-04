@@ -41,8 +41,17 @@ namespace Maker.Bridge
             InitTest();
             InitVersion();
             InitDevice();
+            InitPlugs();
 
             InitHintWindow();
+        }
+
+        /// <summary>
+        /// 初始化插件
+        /// </summary>
+        private void InitPlugs()
+        {
+            XmlSerializerBusiness.Load(ref view.plugsConfigModel, "Config/plugs.xml");
         }
 
         /// <summary>

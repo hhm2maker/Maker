@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Maker.View.Dialog"
-        xmlns:launchpad="clr-namespace:Maker.View.Device"
+        xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
         mc:Ignorable="d"
         Title="Recording" Height="700" Width="1000"
         Loaded="Window_Loaded"
@@ -14,7 +13,7 @@
         >
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0" >
-            <launchpad:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad" Background="#282828"></launchpad:LaunchpadPro>
+            <device:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad" Background="#282828"></device:LaunchpadPro>
             <!--
             
             <StackPanel Orientation="Horizontal">

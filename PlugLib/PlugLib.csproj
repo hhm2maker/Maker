@@ -45,9 +45,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IControl.cs" />
+    <Compile Include="IInputAndOutputControl.cs" />
     <Compile Include="IBasePlug.cs" />
+    <Compile Include="InputAndOutputControlEnum.cs" />
     <Compile Include="PermissionsClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Operation\Operation.csproj">
+      <Project>{e727841a-ba0e-4bf8-8b35-f24e06655312}</Project>
+      <Name>Operation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

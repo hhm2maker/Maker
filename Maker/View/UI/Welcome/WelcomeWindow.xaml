@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.UI"
         xmlns:device="clr-namespace:Maker.View.Device"
+        xmlns:device1="clr-namespace:MakerUI.Device;assembly=MakerUI"
         mc:Ignorable="d"
         Title="Welcome"   
         WindowStyle="None"
@@ -93,7 +94,7 @@
                     <Grid Grid.Column="0"  Background="#CC9632FF" >
                         <TextBlock Name="tbDevice" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="18"  Text="{DynamicResource Device}" />
                         <Border x:Name="mBorderLaunchpad" CornerRadius="30" BorderBrush="White" BorderThickness="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-                            <device:LaunchpadPro x:Name="mLaunchpad" />
+                            <device1:LaunchpadPro x:Name="mLaunchpad" />
                         </Border>
                     </Grid>
                     <Grid Grid.Column="1"  Background="#CCFF64FF" >

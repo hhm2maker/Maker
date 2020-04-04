@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Maker.View.PageWindow"
         xmlns:view="clr-namespace:Maker.View"
         xmlns:launchpad="clr-namespace:Maker.View.Device"
-        mc:Ignorable="d"
+                      xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
+                      mc:Ignorable="d"
         Loaded="Window_Loaded" Background="#262829"
         VerticalAlignment="Stretch"
 >
@@ -305,7 +306,7 @@
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <launchpad:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad"  />
+                <device:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad"  />
             </StackPanel>
         <ScrollViewer  Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Stretch">
                 <StackPanel Orientation="Vertical" Name="spRight" Background="#222326">

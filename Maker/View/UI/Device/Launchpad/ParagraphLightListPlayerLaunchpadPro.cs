@@ -13,16 +13,12 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Threading;
 using Operation;
+using MakerUI.Device;
 
 namespace Maker.View.Device
 {
     public class ParagraphLightListPlayerLaunchpadPro : PlayerLaunchpadPro
     {
-        /// <summary>
-        /// 笔刷列表
-        /// </summary>
-        private List<SolidColorBrush> brushList = new List<SolidColorBrush>();
-
         /// <summary>
         /// 时间集合
         /// </summary>
