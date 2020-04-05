@@ -190,7 +190,7 @@ namespace Maker.View
         }
 
         public void SetData(List<Light> mActionBeanList) {
-            mActionBeanList = LightBusiness.Sort(mActionBeanList);
+            mActionBeanList = Business.LightBusiness.Sort(mActionBeanList);
           
             //for (int i = 0; i < mActionBeanList.Count; i++)
             //    mActionBeanList[i].Position -= 28;

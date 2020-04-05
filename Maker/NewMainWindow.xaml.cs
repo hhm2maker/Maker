@@ -1009,19 +1009,19 @@ namespace Maker
                 {
                     if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 1)
                     {
-                        mLightList = LightBusiness.Split(mLightList);
+                        mLightList = Business.LightBusiness.Split(mLightList);
                     }
                     else if (dialog.cbDisassemblyOrSplicingColon.SelectedIndex == 2)
                     {
-                        mLightList = LightBusiness.Splice(mLightList);
+                        mLightList = Business.LightBusiness.Splice(mLightList);
                     }
                     if (dialog.cbRemoveNotLaunchpadNumbers.IsChecked == true)
                     {
-                        mLightList = LightBusiness.RemoveNotLaunchpadNumbers(mLightList);
+                        mLightList = Business.LightBusiness.RemoveNotLaunchpadNumbers(mLightList);
                     }
                     if (dialog.cbCloseColorTo64.IsChecked == true)
                     {
-                        mLightList = LightBusiness.CloseColorTo64(mLightList);
+                        mLightList = Business.LightBusiness.CloseColorTo64(mLightList);
                     }
                     if (dialog.cbExportType.SelectedIndex == 0)
                     {
@@ -1101,7 +1101,7 @@ namespace Maker
                     mLightList = baseMakerLightUserControl.GetData();
                 }
             }
-            mLightList = LightBusiness.Copy(mLightList);
+            mLightList = Business.LightBusiness.Copy(mLightList);
             return mLightList;
         }
 

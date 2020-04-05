@@ -202,7 +202,7 @@ namespace Maker.View.UI.Edit
                     mLightList = baseMakerLightUserControl.GetData();
                 }
             }
-            mLightList = LightBusiness.Copy(mLightList);
+            mLightList = Business.LightBusiness.Copy(mLightList);
             UserControl userControl = null;
             if (sender == iPlayer)
             {

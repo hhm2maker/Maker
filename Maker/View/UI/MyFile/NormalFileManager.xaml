@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.MyFile"
              mc:Ignorable="d" 
+             Background="{DynamicResource bgTitleColor}"
              >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../View/StyleResources/ColorDictionary.xaml" />
                 <ResourceDictionary Source="../../../View/StyleResources/AllDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

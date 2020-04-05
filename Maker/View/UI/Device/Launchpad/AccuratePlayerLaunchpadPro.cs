@@ -117,7 +117,7 @@ namespace Maker.View.Device
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             //获取最大的时间
-            MaxTime = LightBusiness.GetMax(lightList) ;
+            MaxTime = Business.LightBusiness.GetMax(lightList) ;
             for (; NowTime <= MaxTime; NowTime++)
             {
                 if (worker.CancellationPending)
@@ -139,7 +139,7 @@ namespace Maker.View.Device
             //清空数据
             lightList.Clear();
             //获取数据
-            lightList = LightBusiness.Sort(mActionBeanList);
+            lightList = Business.LightBusiness.Sort(mActionBeanList);
             if (SmallTime == 0) {
                 SmallTime = lightList[0].Time;
             }

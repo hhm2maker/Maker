@@ -187,8 +187,8 @@ namespace Maker.View.Device
             timeDictionary.Clear();
             _timeDictionary.Clear();
             //获取数据
-            timeList = LightBusiness.GetTimeList(mActionBeanList);
-            _timeDictionary = LightBusiness.GetParagraphLightLightList(mActionBeanList);
+            timeList = Business.LightBusiness.GetTimeList(mActionBeanList);
+            _timeDictionary = Business.LightBusiness.GetParagraphLightLightList(mActionBeanList);
             for (int i = 0; i < timeList.Count; i++)
             {
                 if (i == timeList.Count - 1)

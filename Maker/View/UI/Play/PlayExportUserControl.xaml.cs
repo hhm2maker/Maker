@@ -378,7 +378,7 @@ namespace Maker.View.Play
                 mLightList = Business.FileBusiness.CreateInstance().ReadMidiFile(mw.LastProjectPath + @"\Light\" + filePath);
                 Business.FileBusiness.CreateInstance().ReplaceControl(mLightList, Business.FileBusiness.CreateInstance().normalArr);
             }
-            mLightList = LightBusiness.Sort(mLightList);
+            mLightList = Business.LightBusiness.Sort(mLightList);
             return mLightList;
         }
 

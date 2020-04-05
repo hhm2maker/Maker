@@ -142,8 +142,8 @@ namespace Maker.View.Control
         public void SetData(List<Light> mActionBeanList)
         {
             ClearFrame();
-            liTime = LightBusiness.GetTimeList(mActionBeanList);
-            dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
+            liTime = Business.LightBusiness.GetTimeList(mActionBeanList);
+            dic = Business.LightBusiness.GetParagraphLightIntList(mActionBeanList);
             if (liTime.Count == 0)
             {
                 tbTimeNow.Text = "0";

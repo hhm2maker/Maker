@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Operation
 {
-    static class LightBusiness
+    public static class LightBusiness
     {
         /// <summary>
         /// 拆分ActionBean集合
@@ -516,6 +516,31 @@ namespace Operation
             }
             return lightGroup;
         }
-
+        /// <summary>
+        /// 得到分段灯光 - int 数组(非字典)
+        /// </summary>
+        public static List<List<int>> GetParagraphLightIntListList(List<Light> mActionBeanList)
+        {
+            mActionBeanList = Sort(mActionBeanList);
+            List<List<int>> dic = new List<List<int>>();
+            int time = -1;
+            for (int i = 0; i < mActionBeanList.Count; i++)
+            {
+                if (mActionBeanList[i].Action == 144)
+                {
+                    if (mActionBeanList[i].Time != time)
+                    {
+                        time = mActionBeanList[i].Time;
+                        dic.Add(new List<int>());
+                        dic[dic.Count - 1].Add(mActionBeanList[i].Position);
+                    }
+                    else
+                    {
+                        dic[dic.Count - 1].Add(mActionBeanList[i].Position);
+                    }
+                }
+            }
+            return dic;
+        }
     }
 }

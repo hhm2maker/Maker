@@ -37,7 +37,7 @@ namespace Maker.MethodSet
         /// <returns></returns>
         public static List<Light> SetAttribute(List<Light> lightGroup, String attribute,int mOperator, int value)
         {
-            List<Light> ll = LightBusiness.Copy(lightGroup);
+            List<Light> ll = Business.LightBusiness.Copy(lightGroup);
             if (attribute.Equals("Time")) {
                 if (mOperator == 0)
                 {

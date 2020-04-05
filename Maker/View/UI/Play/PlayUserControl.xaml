@@ -23,29 +23,15 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <DockPanel Background="#262829" Grid.Row="2">
-                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                    <Button Content="加载键盘" FontSize="14"  Foreground="#f0f0f0" Click="LoadKeyboards" />
-                </ToolBar>
-                <CheckBox Content="深度" FontSize="14" Foreground="#f0f0f0" Name="cbIsDD" Checked="cbIsDD_Checked" Unchecked="cbIsDD_Unchecked" VerticalAlignment="Center"/>
-
-            </DockPanel>
-            <DockPanel Background="#262829" Grid.Row="3">
-                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                    <Button Content="加载教程轨" FontSize="14"  Foreground="#f0f0f0" Click="LoadTutorial" />
-                </ToolBar>
-            </DockPanel>
-            <DockPanel Background="#262829" Grid.Row="4">
                 <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <TextBox Name="tbExport" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                     <Button Content="{DynamicResource Export}" FontSize="14"  Foreground="#f0f0f0" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click"/>
                 </ToolBar>
             </DockPanel>
-            <DockPanel Background="#262829" Grid.Row="5">
+            <DockPanel Background="#262829" Grid.Row="3">
                 <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                 </ToolBar>

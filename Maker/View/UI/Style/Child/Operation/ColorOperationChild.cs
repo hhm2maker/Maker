@@ -97,7 +97,7 @@ namespace Maker.View.UI.Style.Child
 
         protected override void InitData()
         {
-            List<Light> ll = LightBusiness.Copy(NowData);
+            List<Light> ll = Business.LightBusiness.Copy(NowData);
             mColor = new List<char>();
             for (int j = 0; j < ll.Count; j++)
             {
@@ -118,7 +118,7 @@ namespace Maker.View.UI.Style.Child
         public override void Refresh()
         {
             base.Refresh();
-            List<Light> nowLl = LightBusiness.Copy(MyData); 
+            List<Light> nowLl = Business.LightBusiness.Copy(MyData); 
 
             List<int> geshihua = changeColorOperationModel.Colors;
             NewColorList.AddRange(OldColorList.ToArray());

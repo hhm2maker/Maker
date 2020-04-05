@@ -192,9 +192,9 @@ namespace Maker.View.LightUserControl
         public override void SetData(List<Light> mActionBeanList)
         {
                 ClearFrame();
-                mActionBeanList = LightBusiness.Split(mActionBeanList);
-                LiTime = LightBusiness.GetTimeList(mActionBeanList);
-                Dic = LightBusiness.GetParagraphLightIntList(mActionBeanList);
+                mActionBeanList = Business.LightBusiness.Split(mActionBeanList);
+                LiTime = Business.LightBusiness.GetTimeList(mActionBeanList);
+                Dic = Business.LightBusiness.GetParagraphLightIntList(mActionBeanList);
                 allTimePoint = LiTime.Count;
                 if (LiTime.Count == 0)
                 {

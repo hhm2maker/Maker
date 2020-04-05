@@ -67,7 +67,7 @@ namespace Maker.View.Tool
         private void Animation_Completed(object sender, EventArgs e)
         {
             double d = wpMain.ActualWidth / pavedColumns;
-            Dictionary<int, List<Light>> dil = LightBusiness.GetParagraphLightLightList(mLightList);
+            Dictionary<int, List<Light>> dil = Business.LightBusiness.GetParagraphLightLightList(mLightList);
             Count = dil.Count;
             int max = mw.pavedConfigModel.Max;
             if (dil.Count > max) {

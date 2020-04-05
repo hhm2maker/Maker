@@ -203,8 +203,8 @@ namespace Maker.View.Device
             timeList.Clear();
             timeDictionary.Clear();
             //获取数据
-            timeList = LightBusiness.GetTimeList(mActionBeanList);
-            timeDictionary = LightBusiness.GetParagraphLightLightList(mActionBeanList);
+            timeList = Business.LightBusiness.GetTimeList(mActionBeanList);
+            timeDictionary = Business.LightBusiness.GetParagraphLightLightList(mActionBeanList);
         }
 
         private int myTTT;

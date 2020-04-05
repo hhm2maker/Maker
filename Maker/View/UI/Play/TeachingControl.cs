@@ -90,7 +90,7 @@ namespace Maker.View.Play
             if (teachingList == null)
                 return;
 
-            teachingList = LightBusiness.SortCouple(teachingList);
+            teachingList = Business.LightBusiness.SortCouple(teachingList);
          
             storyboard = new Storyboard();
             storyboard.FillBehavior = FillBehavior.Stop;

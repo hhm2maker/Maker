@@ -47,7 +47,7 @@ namespace Maker.View.Device
             {
                 teachingList[i].Position -= 28;
             }
-            this.teachingList = LightBusiness.Sort(teachingList);
+            this.teachingList = Business.LightBusiness.Sort(teachingList);
 
             Business.FileBusiness.CreateInstance().ReplaceControl(this.teachingList, Business.FileBusiness.CreateInstance().normalArr);
             //LightBusiness.Print(teachingList);
@@ -182,7 +182,7 @@ namespace Maker.View.Device
         void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             //获取最大的时间
-            MaxTime = LightBusiness.GetMax(teachingList);
+            MaxTime = Business.LightBusiness.GetMax(teachingList);
             for (; NowTime <= MaxTime; NowTime++)
             {
                 if (worker.CancellationPending)

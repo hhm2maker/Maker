@@ -52,7 +52,7 @@ namespace Maker.View.Dialog
             }
 
             //切割
-            mActionBeanList = LightBusiness.Split(mActionBeanList);
+            mActionBeanList = Business.LightBusiness.Split(mActionBeanList);
             liTime.Clear();
             dic.Clear();
             int time = -1;

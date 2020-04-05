@@ -30,7 +30,7 @@ namespace Maker.View.UI.Style.Child
                     //StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
                     StaticConstant.mw.editUserControl.suc.Test(StaticConstant.mw.editUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
                 
-                    List<int> times = LightBusiness.GetTimeList(NowData);
+                    List<int> times = Business.LightBusiness.GetTimeList(NowData);
                     int position = Convert.ToInt32(StaticConstant.mw.editUserControl.suc.tbTimePointCountLeft.Text) - 1;
                     myData = new List<Light>();
                     for (int i = 0; i < NowData.Count; i++)

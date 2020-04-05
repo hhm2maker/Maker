@@ -37,7 +37,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
-            <Menu x:Name="menu" HorizontalAlignment="Center" Margin="0,0,450,30">
+            <Menu x:Name="menu" HorizontalAlignment="Center" Margin="0,0,450,20">
                 <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                     <MenuItem Header="{DynamicResource FastGeneration}" Name="btnFastGeneration" Click="FastGeneration_Click"  Foreground="#ffffff"/>
                     <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
@@ -127,7 +127,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <StackPanel Margin="0,55,0,0" x:Name="dpShow" >
+                    <StackPanel x:Name="dpShow" >
                         <DockPanel  Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
                             <Border Name="bLaunchpad"  BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />
@@ -143,37 +143,6 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
                             <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
                             <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#222326">
-                            <StackPanel.Effect>
-                                <DropShadowEffect Color="#222326"  BlurRadius="20" />
-                            </StackPanel.Effect>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="15,0,10,0">
-                                    <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
-                                        <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
-                                    </Border>
-                                    <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Background="#1c1e1f">
-                                        <TextBlock TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" Text="0" />
-                                    </Border>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="0,0,15,0">
-                                    <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
-                                        <Image Name="btnLastTimePoint" Source="../../Resources/Image/toleft_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
-                                    </Border>
-                                    <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5"  Background="#1c1e1f">
-                                        <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                            <TextBox FontSize="16" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
-                                            <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " VerticalAlignment="Center" />
-                                            <TextBlock FontSize="16"  Name="tbTimePointCount" Width="60"  Foreground="White" VerticalAlignment="Center"  Background="{x:Null}"  />
-                                        </StackPanel>
-                                    </Border>
-                                    <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
-                                        <Image Name="btnNextTimePoint" Source="../../Resources/Image/toright_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
-                                    </Border>
-                                </StackPanel>
-                            </StackPanel>
-                            <Image Margin="0,15,15,15" Name="iRefresh" Source="../../Resources/Image/refresh.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="iRefresh_MouseLeftButtonDown" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
                                 <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
@@ -210,65 +179,98 @@
                 </Popup>
             </Grid>
                 <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
-            <Grid Grid.Row="3" HorizontalAlignment="Stretch" Background="#4d4d4d">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0" MinHeight="100">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <!--
+            <DockPanel Grid.Row="3" Background="#222326">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
+                    <StackPanel.Effect>
+                        <DropShadowEffect Color="#222326"  BlurRadius="20" />
+                    </StackPanel.Effect>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="15,0,10,0">
+                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                                <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
+                            </Border>
+                            <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Background="#1c1e1f">
+                                <TextBlock TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" Text="0" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="0,0,15,0">
+                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                                <Image Name="btnLastTimePoint" Source="../../Resources/Image/toleft_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                            </Border>
+                            <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5"  Background="#1c1e1f">
+                                <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
+                                    <TextBox FontSize="16" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
+                                    <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="16"  Name="tbTimePointCount" Width="60"  Foreground="White" VerticalAlignment="Center"  Background="{x:Null}"  />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
+                                <Image Name="btnNextTimePoint" Source="../../Resources/Image/toright_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                    <Image Margin="0,15,15,15" Name="iRefresh" Source="../../Resources/Image/refresh.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="iRefresh_MouseLeftButtonDown" />
+                </StackPanel>
+                <Grid HorizontalAlignment="Stretch" Background="#4d4d4d">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" MinHeight="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--
                         Style="{StaticResource ListBoxStyle1}"
                         MouseDoubleClick="LbStep_MouseDoubleClick"  
                     -->
-                    <ListBox SelectionMode="Extended" Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
-                        <ListBox.ContextMenu>
-                            <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
-                                <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
-                                <MenuItem Click="EditPart" Header="{DynamicResource Edit}" FontSize="14"/>
-                                <MenuItem Click="ShowPart" Header="{DynamicResource SeeScript}" FontSize="14"/>
-                                <Separator />
-                                <MenuItem Click="SetCollection" Header="{DynamicResource Collection}" FontSize="14"/>
-                                <MenuItem Click="CollectionIntegration" Header="{DynamicResource CollectionIntegration}" FontSize="14"/>
-                                <Separator />
-                                <MenuItem Click="StyleIntegration" Header="{DynamicResource StyleIntegration}" FontSize="14"/>
-                                <Separator />
-                                <MenuItem Click="CheckProperties" Header="{DynamicResource CheckProperties}" FontSize="14"/>
-                            </ContextMenu>
-                        </ListBox.ContextMenu>
-                    </ListBox>
-                    <ScrollViewer Name="svTime" Grid.Column="1" Background="#222326">
-                        <Grid SizeChanged="cTime_SizeChanged" >
-                            <Canvas Name="cTime" VerticalAlignment="Top" />
-                            <Canvas Name="cTimeLine" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeave="cTimeLine_MouseLeave" MouseLeftButtonDown="cTime_MouseLeftButtonDown" MouseLeftButtonUp="cTimeLine_MouseLeftButtonUp" MouseMove="cTimeLine_MouseMove"/>
-                        </Grid>
-                    </ScrollViewer>
-                </Grid>
-                <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">
-                    <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
-                </StackPanel>
-                <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMusic" >
-                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
-                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="0,10,10,10" Text="{DynamicResource Clear}" TextAlignment="Center" MouseLeftButtonDown="ClearAudio" TextDecorations="Underline" />
-                        <TextBlock Name="tbMusic" Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="20,0,0,0"  TextAlignment="Center" VerticalAlignment="Center"/>
+                        <ListBox SelectionMode="Extended" Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
+                            <ListBox.ContextMenu>
+                                <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
+                                    <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
+                                    <MenuItem Click="EditPart" Header="{DynamicResource Edit}" FontSize="14"/>
+                                    <MenuItem Click="ShowPart" Header="{DynamicResource SeeScript}" FontSize="14"/>
+                                    <Separator />
+                                    <MenuItem Click="SetCollection" Header="{DynamicResource Collection}" FontSize="14"/>
+                                    <MenuItem Click="CollectionIntegration" Header="{DynamicResource CollectionIntegration}" FontSize="14"/>
+                                    <Separator />
+                                    <MenuItem Click="StyleIntegration" Header="{DynamicResource StyleIntegration}" FontSize="14"/>
+                                    <Separator />
+                                    <MenuItem Click="CheckProperties" Header="{DynamicResource CheckProperties}" FontSize="14"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                        <ScrollViewer Name="svTime" Grid.Column="1" Background="#222326">
+                            <Grid SizeChanged="cTime_SizeChanged" >
+                                <Canvas Name="cTime" VerticalAlignment="Top" />
+                                <Canvas Name="cTimeLine" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeave="cTimeLine_MouseLeave" MouseLeftButtonDown="cTime_MouseLeftButtonDown" MouseLeftButtonUp="cTimeLine_MouseLeftButtonUp" MouseMove="cTimeLine_MouseMove"/>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                    <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">
+                        <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                     </StackPanel>
-                </StackPanel>
-                <Grid Background="#222326" Height="45" Grid.Row="3" >
-                    <StackPanel Orientation="Horizontal" Background="#222326">
-                        <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant"  AllowDrop="True" />
-                        <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                        <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->
-                        <Image Source="../../Resources/Image/merge_white.png" MouseLeftButtonDown="MergeStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
-                        <Image Source="../../Resources/Image/delete_white.png" MouseLeftButtonDown="DelStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                    <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMusic" >
+                        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                            <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
+                            <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="0,10,10,10" Text="{DynamicResource Clear}" TextAlignment="Center" MouseLeftButtonDown="ClearAudio" TextDecorations="Underline" />
+                            <TextBlock Name="tbMusic" Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="20,0,0,0"  TextAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
+                    <Grid Background="#222326" Height="45" Grid.Row="3" >
+                        <StackPanel Orientation="Horizontal" Background="#222326">
+                            <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant"  AllowDrop="True" />
+                            <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->
+                            <Image Source="../../Resources/Image/merge_white.png" MouseLeftButtonDown="MergeStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                            <Image Source="../../Resources/Image/delete_white.png" MouseLeftButtonDown="DelStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </DockPanel>
         </Grid>
     </Grid>
 </lightscriptusercontrol:BaseLightScriptUserControl>

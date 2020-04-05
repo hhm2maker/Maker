@@ -32,6 +32,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Maker.View.UI.Dialog.WindowDialog;
 using System.Windows.Shapes;
+using MakerUI.Device;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -93,6 +94,7 @@ namespace Maker.View.LightScriptUserControl
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
 
+            LaunchpadPro.brushList = StaticConstant.brushList;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.AddMembrane();
@@ -4417,7 +4419,7 @@ namespace Maker.View.LightScriptUserControl
         {
             nowTimeP = p.X / cTimeLine.ActualWidth;
 
-            int now = (int)(LightBusiness.GetMax(GetData()) * nowTimeP);
+            int now = (int)(Business.LightBusiness.GetMax(GetData()) * nowTimeP);
 
             for (int i = 0; i < _bridge.liTime.Count; i++)
             {
@@ -4468,16 +4470,16 @@ namespace Maker.View.LightScriptUserControl
 
         public void OnDrawTimeLine() {
             nowTimeI = _bridge.liTime[_bridge.nowTimePoint - 1];
-            nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData());
+            nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData());
 
             cTimeLine.Children.Clear();
             double X1 = 0;
-            if (Double.IsNaN(_bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth))
+            if (Double.IsNaN(_bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth))
             {
                 X1 = 0;
             }
             else {
-                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
+                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
             }
             double X2 = X1+5;
             Line line = new Line()

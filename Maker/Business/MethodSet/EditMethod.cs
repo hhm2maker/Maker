@@ -19,7 +19,7 @@ namespace Maker.MethodSet
         /// <returns></returns>
         public static List<Light> EditMain(String commandLine, List<Light> lightGroup, Dictionary<String, List<int>> rangeGroupDictionary, Dictionary<String, List<int>> colorGroupDictionary,List<ThirdPartyModel> thirdPartyModelList)
         {
-            List<Light> _lightGroup = LightBusiness.Copy(lightGroup);
+            List<Light> _lightGroup = Business.LightBusiness.Copy(lightGroup);
           
             //Regex P_ShapeColor = new Regex(@"\s*ShapeColor\([\S\s]*\)");
             //if (P_ShapeColor.IsMatch(commandLine))
@@ -119,8 +119,8 @@ namespace Maker.MethodSet
         {
             //IfThen(灯光组名称,"Time=范围&&Color=范围","Time=+5&&Position=-5",Edit);
             //IfThen(灯光组名称,"Time=范围&&Color=范围","",Remove);
-            List<Light> oldLightGroup = LightBusiness.Copy(lightGroup);
-            List<Light> _lightGroup = LightBusiness.Copy(lightGroup) ;
+            List<Light> oldLightGroup = Business.LightBusiness.Copy(lightGroup);
+            List<Light> _lightGroup = Business.LightBusiness.Copy(lightGroup) ;
 
             String[] strs = commandLine.Split(',');
             if (strs.Count() != 4) { 

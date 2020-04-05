@@ -10,7 +10,7 @@
         Closed="Window_Closed"
         Title="Maker" 
         WindowState="Normal"
-        Background="#282828"
+        Background="{DynamicResource bgColor}"
         Loaded="Window_Loaded"
         WindowStyle="None"
         >
@@ -22,6 +22,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="View/StyleResources/ColorDictionary.xaml" />
                 <ResourceDictionary Source="View/StyleResources/CatalogUserControlDictionary.xaml" />
                 <ResourceDictionary Source="View/StyleResources/AllDictionary.xaml" />
                 <ResourceDictionary Source="View/StyleResources/MainWindowStyle.xaml" />
@@ -41,7 +42,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
-                <Grid Background="#282828"  >
+                <Grid Background="{DynamicResource bgTitleColor}"  >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
@@ -106,7 +107,7 @@
                 </Popup>
             </Grid>
         </Grid>
-                <DockPanel Background="#282828">
+                <DockPanel Background="{DynamicResource bgTitleColor}">
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
                         <TextBlock Text="{DynamicResource BPMColon}" Foreground="White" FontSize="18" />
                         <TextBlock Name="tbBPM" Foreground="White" FontSize="18" Margin="5,0,0,0"/>
@@ -130,11 +131,11 @@
                         <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
                     </StackPanel>
                 </DockPanel>
-                <DockPanel Height="35" Background="#282828">
+                <DockPanel Height="35" Background="{DynamicResource bgTitleColor}">
                     <StackPanel Orientation="Horizontal" Margin="10,0,5,0" VerticalAlignment="Center" Name="spPlugs" HorizontalAlignment="Right" />
                 </DockPanel>
             </StackPanel>
-            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#222326" >
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >
         <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*"/>

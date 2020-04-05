@@ -367,7 +367,7 @@ namespace Maker.Bridge
             int lightMaxTime = -1;
 
             foreach (var item in mLightList) {
-                int nowMax = LightBusiness.GetMax(item.Value);
+                int nowMax = Business.LightBusiness.GetMax(item.Value);
                 if (lightMaxTime < nowMax) {
                     lightMaxTime = nowMax;
                 }
@@ -378,8 +378,8 @@ namespace Maker.Bridge
             int stepNum = 0;
             foreach (var item in iuc.scriptModelDictionary) {
                 if (mLightList.ContainsKey(item.Key)) {
-                    int min = LightBusiness.GetMin(mLightList[item.Key]);
-                    int max = LightBusiness.GetMax(mLightList[item.Key]);
+                    int min = Business.LightBusiness.GetMin(mLightList[item.Key]);
+                    int max = Business.LightBusiness.GetMax(mLightList[item.Key]);
 
                     Rectangle myRect = new Rectangle
                     {
@@ -431,8 +431,8 @@ namespace Maker.Bridge
         public void SetDataToLaunchpad(List<Light> mActionBeanList)
         {
             //切割
-            lists = LightBusiness.GetPositionLights(mActionBeanList);
-            liTime = LightBusiness.GetListTime(mActionBeanList);
+            lists = Business.LightBusiness.GetPositionLights(mActionBeanList);
+            liTime = Business.LightBusiness.GetListTime(mActionBeanList);
           
             if (liTime.Count == 0)
             {
@@ -462,7 +462,7 @@ namespace Maker.Bridge
 
         public void LoadFrame()
         {
-            iuc.mLaunchpadData = LightBusiness.GetNowTimeData(lists,liTime[nowTimePoint - 1]);
+            iuc.mLaunchpadData = Business.LightBusiness.GetNowTimeData(lists,liTime[nowTimePoint - 1]);
             iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
 
             iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();

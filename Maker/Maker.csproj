@@ -145,7 +145,6 @@
     <Compile Include="Bridge\BaseBridge.cs" />
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
-    <Compile Include="Business\Currency\CDD.cs" />
     <Compile Include="Business\Currency\XmlSerializerBusiness.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
@@ -685,6 +684,10 @@
     <Page Include="NewMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StyleResources\ColorDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\StyleResources\CatalogUserControlDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>

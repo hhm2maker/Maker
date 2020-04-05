@@ -89,10 +89,10 @@ namespace Maker.MethodSet
             List<Light> mainBig = new List<Light>();
             mainBig.AddRange(lightDictionary[strContents[0]].ToList());
             mainBig.AddRange(lightDictionary[strContents[1]].ToList());
-            mainBig = LightBusiness.Splice(mainBig);
+            mainBig = Business.LightBusiness.Splice(mainBig);
 
-            List<Light> big = LightBusiness.Split(mainBig, lightDictionary[strContents[0]]);
-            List<Light> small = LightBusiness.Split(mainBig, lightDictionary[strContents[1]]);
+            List<Light> big = Business.LightBusiness.Split(mainBig, lightDictionary[strContents[0]]);
+            List<Light> small = Business.LightBusiness.Split(mainBig, lightDictionary[strContents[1]]);
 
             List<Light> result = new List<Light>();
             for (int i = 0; i < big.Count; i++)
@@ -127,10 +127,10 @@ namespace Maker.MethodSet
             List<Light> mainBig = new List<Light>();
             mainBig.AddRange(lightDictionary[strContents[0]].ToList());
             mainBig.AddRange(lightDictionary[strContents[1]].ToList());
-            mainBig = LightBusiness.Splice(mainBig);
+            mainBig = Business.LightBusiness.Splice(mainBig);
 
-            List<Light> big = LightBusiness.Split(mainBig, lightDictionary[strContents[0]]);
-            List<Light> small = LightBusiness.Split(mainBig, lightDictionary[strContents[1]]);
+            List<Light> big = Business.LightBusiness.Split(mainBig, lightDictionary[strContents[0]]);
+            List<Light> small = Business.LightBusiness.Split(mainBig, lightDictionary[strContents[1]]);
 
             List<Light> result = new List<Light>();
             for (int i = 0; i < big.Count; i++)

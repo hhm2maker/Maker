@@ -305,7 +305,7 @@ namespace Maker.View.PianoRoll
         private void DrawActionBean(List<Light> mActionBeanList)
         {
 
-            mActionBeanList = LightBusiness.Sort(mActionBeanList);
+            mActionBeanList = Business.LightBusiness.Sort(mActionBeanList);
             mRectangleList.Clear();
 
             Double abWidth = 0.0;

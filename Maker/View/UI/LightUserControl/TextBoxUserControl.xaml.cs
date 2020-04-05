@@ -35,7 +35,7 @@ namespace Maker.View.LightUserControl
             rbPosition.IsChecked = false;
             rbColor.IsChecked = false;
 
-            lab = LightBusiness.Copy(mActionBeanList);
+            lab = Business.LightBusiness.Copy(mActionBeanList);
             Print();
         }
         private void SortWith(String str)

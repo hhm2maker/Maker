@@ -236,8 +236,8 @@ namespace Maker.View.Device
             timeList.Clear();
             timeDictionary.Clear();
             //获取数据
-            timeList = LightBusiness.GetTimeList(mActionBeanList);
-            timeDictionary = LightBusiness.GetParagraphLightLightList(mActionBeanList);
+            timeList = Business.LightBusiness.GetTimeList(mActionBeanList);
+            timeDictionary = Business.LightBusiness.GetParagraphLightLightList(mActionBeanList);
         }
 
         private int myTTT;
@@ -372,7 +372,7 @@ namespace Maker.View.Device
         public void UpdateTime() {
             if (NowTimePosition == 8)
             {
-                LightBusiness.Print(timeDictionary[timeList[NowTimePosition]]);
+                Business.LightBusiness.Print(timeDictionary[timeList[NowTimePosition]]);
             }
 
             List<Light> x = timeDictionary[timeList[number]];
