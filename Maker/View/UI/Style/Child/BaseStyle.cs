@@ -33,7 +33,40 @@ namespace Maker.View.Style.Child
             AddParentPanel();
             SetRoutine();
             AddUIToDialog();
+
+
+            MouseLeftButtonDown += BaseStyle_MouseMove;
         }
+
+        private void BaseStyle_MouseMove(object sender, MouseEventArgs e)
+        {
+            DataObject dataObject = new DataObject();
+            dataObject.SetData("this", this);
+            DragDrop.DoDragDrop(this, dataObject, DragDropEffects.Copy);
+        }
+
+        //protected override void OnDragOver(DragEventArgs e)
+        //{
+        //    base.OnDragOver(e);
+
+        //    //设置Effects 为不接受数据
+        //    e.Effects = DragDropEffects.None;
+
+        //    if (e.Data.GetDataPresent(DataFormats.StringFormat))
+        //    {
+        //        string dataString = (string)e.Data.GetData(DataFormats.StringFormat);
+        //        BrushConverter converter = new BrushConverter();
+
+        //        //判断拖动值是否有效
+        //        if (converter.IsValid(dataString))
+        //        {
+        //            //判断Ctrl键是否按下
+        //            e.Effects = DragDropEffects.Move;
+        //        }
+        //    }
+        //    e.Handled = true;
+        //}
+
 
         public void CreateDialogNormal()
         {
@@ -63,11 +96,11 @@ namespace Maker.View.Style.Child
             if (OnlyTitle)
             {
                 StackPanel sp = new StackPanel();
-                sp.Margin = new Thickness(20, 0, 20, 0);
+                sp.Margin = new Thickness(20, 10, 20, 0);
                 Border borderTop = new Border();
-                borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
+                borderTop.SetResourceReference(BackgroundProperty, "bgContentColor");
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderTop.CornerRadius = new CornerRadius(3);
+                borderTop.CornerRadius = new CornerRadius(5);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
 
                 dp = new DockPanel();
@@ -86,11 +119,11 @@ namespace Maker.View.Style.Child
             else
             {
                 StackPanel sp = new StackPanel();
-                sp.Margin = new Thickness(20, 0, 20, 0);
+                sp.Margin = new Thickness(20, 10, 20, 0);
                 Border borderTop = new Border();
-                borderTop.Background = new SolidColorBrush(Color.FromRgb(74, 74, 74));
+                borderTop.SetResourceReference(BackgroundProperty, "bgContentColor");
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderTop.CornerRadius = new CornerRadius(3, 3, 0, 0);
+                borderTop.CornerRadius = new CornerRadius(5, 5, 0, 0);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
 
                 StackPanel spTitle = new StackPanel();
@@ -111,9 +144,9 @@ namespace Maker.View.Style.Child
                 sp.Children.Add(borderTop);
 
                 Border borderBottom = new Border();
-                borderBottom.Background = new SolidColorBrush(Color.FromRgb(51, 51, 51));
+                borderBottom.SetResourceReference(BackgroundProperty, "bgContentColor");
                 borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderBottom.CornerRadius = new CornerRadius(0, 0, 3, 3);
+                borderBottom.CornerRadius = new CornerRadius(0, 0, 5, 5);
 
                 spContacts.Orientation = Orientation.Vertical;
                 spContacts.Margin = new Thickness(10);

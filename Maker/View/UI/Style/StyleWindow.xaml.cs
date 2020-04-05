@@ -29,7 +29,7 @@ namespace Maker.View.Style
             lbMain = lbCatalog;
             spMain = svMain;
         }
-      
+
         public override void OnRefresh() {
             mw.Test();
         }
@@ -43,103 +43,6 @@ namespace Maker.View.Style
 
             foreach (var item in operationModels)
             {
-               
-                //if (item is SetAttributeOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
-                //}
-                //else if (item is CreateFromStepOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
-                //}
-                //else if (item is CreateFromQuickOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "FastGeneration");
-                //}
-                //else if (item is VerticalFlippingOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "VerticalFlipping");
-                //}
-                //else if (item is HorizontalFlippingOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "HorizontalFlipping");
-                //}
-                //else if (item is LowerLeftSlashFlippingOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "LowerLeftSlashFlipping");
-                //}
-                //else if (item is LowerRightSlashFlippingOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "LowerRightSlashFlipping");
-                //}
-                //else if (item is ClockwiseOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ClockwiseRotation");
-                //}
-                //else if (item is AntiClockwiseOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "AntiClockwiseRotation");
-                //}
-                //else if (item is ChangeTimeOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ChangeTime");
-                //}
-                //else if (item is RemoveBorderOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "RemoveTheBorder");
-                //}
-                //else if (item is ReversalOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "Reversal");
-                //}
-                //else if (item is FoldOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "Fold");
-                //}
-                //else if (item is ChangeColorOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ChangeColor");
-                //}
-                //else if (item is SetEndTimeOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "EndTime");
-                //}
-                //else if (item is CopyToTheEndOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ColorSuperposition");
-                //}
-                //else if (item is CopyToTheFollowOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ColorSuperpositionFollow");
-                //}
-                //else if (item is AccelerationOrDecelerationOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "AccelerationOrDeceleration");
-                //}
-                //else if (item is InterceptTimeOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "InterceptTime");
-                //}
-                //else if (item is AnimationDisappearOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "Disappear");
-                //}
-                //else if (item is ShapeColorOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ShapeColor");
-                //}
-                //else if (item is ColorWithCountOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ColorWithCount");
-                //}
-                //else if (item is OneNumberOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, (item as OneNumberOperationModel).Identifier);
-                //}
-                //else if (item is ThirdPartyOperationModel)
-                //{
-                //    box.SetResourceReference(TextBlock.TextProperty, "ThirdParty");
-                //}
                 lbCatalog.SelectedIndex = 0;
 
                 if (item is ConditionJudgmentOperationModel)
@@ -312,6 +215,45 @@ namespace Maker.View.Style
             }
         }
 
-     
+        private void BaseStyleUserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            svMain.AllowDrop = true;
+            svMain.Drop += SvMain_Drop;
+            svMain.DragLeave += BaseStyle_DragLeave;
+        }
+
+        private void SvMain_Drop(object sender, DragEventArgs e)
+        {
+
+            BaseStyle bs = (BaseStyle)e.Data.GetData("this");
+            //Point position = bs.TranslatePoint(new Point(0, 0), svMain);
+            //Console.WriteLine(position.X + "---" + position.Y);
+
+            int iPosition = -100;
+
+            Point nowPoint = e.GetPosition(svMain);
+            for (int i = 0; i < svMain.Children.Count; i++)
+            {
+                Point position = svMain.Children[i].TranslatePoint(new Point(0, 0), svMain);
+                if (position.Y > nowPoint.Y)
+                {
+                    iPosition = i - 1;
+                    break;
+                }
+            }
+            if (iPosition == -100)
+            {
+                //将控件移至最后
+            }
+            else {
+                //将控件移至 iPosition
+            }
+
+            //Console.WriteLine(nowPoint.X + "---" + nowPoint.Y);
+        }
+
+        private void BaseStyle_DragLeave(object sender, DragEventArgs e)
+        {
+        }
     }
 }

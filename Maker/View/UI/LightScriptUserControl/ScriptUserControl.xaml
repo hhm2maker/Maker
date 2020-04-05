@@ -18,11 +18,12 @@
     xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
     DataContext="{Binding Source={StaticResource Locator},Path=Script}"
     Margin="0,30,0,0"
-    >
+    Background="{DynamicResource bgContentColor}">
     <!--Background="#1c1a1c"-->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../StyleResources/ColorDictionary.xaml" />
                 <ResourceDictionary Source="../../StyleResources/AllDictionary.xaml" />
                 <ResourceDictionary Source="../../StyleResources/InputDictionary.xaml" />
                 <!--<ResourceDictionary Source="SettingDictionary.xaml" />-->
@@ -37,20 +38,25 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
-            <Menu x:Name="menu" HorizontalAlignment="Center" Margin="0,0,450,20">
-                <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                    <MenuItem Header="{DynamicResource FastGeneration}" Name="btnFastGeneration" Click="FastGeneration_Click"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource SelectEditor_Replace}" Name="btnSelectEditorReplace"  Click="SelectEditor_Click" Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource SelectEditor_Add}" Name="btnSelectEditorAdd"  Click="SelectEditor_Click" Foreground="#ffffff"/>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource ConditionJudgment_Replace}" Name="btnConditionJudgmentReplace"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource ConditionJudgment_Remove}" Name="btnConditionJudgmentRemove"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
-                    <Separator />
-                    <MenuItem Header="{DynamicResource CopyFromStep}" Click="CopyFromStep_Click" Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Header="{DynamicResource Time}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+            <DockPanel Margin="0,0,0,20" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
+                    <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
+                    <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
+                </StackPanel>
+                <Menu x:Name="menu" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                        <MenuItem Header="{DynamicResource FastGeneration}" Name="btnFastGeneration" Click="FastGeneration_Click"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource FastGenerationAndSelection}" Name="btnFastGenerationAndSelection" Click="FastGeneration_Click" Foreground="#ffffff"/>
+                        <Separator />
+                        <MenuItem Header="{DynamicResource SelectEditor_Replace}" Name="btnSelectEditorReplace"  Click="SelectEditor_Click" Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource SelectEditor_Add}" Name="btnSelectEditorAdd"  Click="SelectEditor_Click" Foreground="#ffffff"/>
+                        <Separator />
+                        <MenuItem Header="{DynamicResource ConditionJudgment_Replace}" Name="btnConditionJudgmentReplace"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource ConditionJudgment_Remove}" Name="btnConditionJudgmentRemove"  Click="ConditionJudgment_Click" Foreground="#ffffff"/>
+                        <Separator />
+                        <MenuItem Header="{DynamicResource CopyFromStep}" Click="CopyFromStep_Click" Foreground="#ffffff"/>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Time}" Style="{DynamicResource bigMenuItem}" FontSize="18">
                         <MenuItem Header="{DynamicResource Reversal}"  Name="btnReversal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource LengtheningOrShortening}"  Foreground="#ffffff">
                             <MenuItem Header="{DynamicResource DoubleExtension}" Name="btnExtendTime" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -62,60 +68,67 @@
                         <MenuItem Header="{DynamicResource SetAllTime}" Name="btnSetAllTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource MatchTotalTimeLattice}" Name="btnMatchTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource InterceptTime}" Name="btnInterceptTime"  PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
-                    <MenuItem Header="{DynamicResource VerticalFlipping}" Name="btnVerticalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource HorizontalFlipping}" Name="btnHorizontalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource Fold}" Name="btnFold" MouseLeftButtonDown="EditToScript" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource LowerLeftSlashFlipping}" Name="btnLowerLeftSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource LowerRightSlashFlipping}" Name="btnLowerRightSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource ClockwiseRotation}" Name="btnClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}"  Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
-                    <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" Visibility="Collapsed">
-                                <Canvas Name="cColor" Height="60" Background="#222326" >
-                                    <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
-                                </Canvas>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Shape}" Foreground="#ffffff"  FontSize="18" >
+                        <MenuItem Header="{DynamicResource VerticalFlipping}" Name="btnVerticalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource HorizontalFlipping}" Name="btnHorizontalFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource Fold}" Name="btnFold" MouseLeftButtonDown="EditToScript" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource LowerLeftSlashFlipping}" Name="btnLowerLeftSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource LowerRightSlashFlipping}" Name="btnLowerRightSlashFlipping" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource ClockwiseRotation}" Name="btnClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource bigMenuItem}"  Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
+                        <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" Visibility="Collapsed">
+                            <Canvas Name="cColor" Height="60" Background="#222326" >
+                                <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
+                            </Canvas>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Change}" Name="btnColorChange" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource Format}"  Foreground="#ffffff">
+                            <MenuItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <MenuItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <MenuItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <MenuItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource Shape}"  Foreground="#ffffff">
+                            <MenuItem Header="{DynamicResource Square}" Name="miSquare" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                            <MenuItem Header="{DynamicResource Radial}"  Foreground="#ffffff">
+                                <MenuItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                                <MenuItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                             </MenuItem>
-                    <MenuItem Header="{DynamicResource Change}" Name="btnColorChange" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource Format}"  Foreground="#ffffff">
-                        <MenuItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                        <MenuItem Header="{DynamicResource CyanBlue}" Name="btnChangeColorBlue" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                        <MenuItem Header="{DynamicResource PinkWhite}" Name="btnChangeColorPink" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                        <MenuItem Header="{DynamicResource Customized}" Name="btnChangeColorDiy" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            </MenuItem>
-                    <MenuItem Header="{DynamicResource Shape}"  Foreground="#ffffff">
-                        <MenuItem Header="{DynamicResource Square}" Name="miSquare" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                        <MenuItem Header="{DynamicResource Radial}"  Foreground="#ffffff">
-                            <MenuItem Header="{DynamicResource Vertical}" Name="miRadialVertical" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                            <MenuItem Header="{DynamicResource Horizontal}" Name="miRadialHorizontal" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                                </MenuItem>
-                            </MenuItem>
-                    <MenuItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
+                        </MenuItem>
+                        <MenuItem Header="{DynamicResource FillColor}" Name="btnFillColor" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource ColorWithCount}" Name="btnColorWithCount" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Superposition}" Foreground="#ffffff"  FontSize="18" >
                         <MenuItem Header="{DynamicResource ColorSuperposition}" Name="btnCopyToTheEnd" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource ColorSuperpositionFollow}" Name="btnCopyToTheFollow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource AccelerationOrDeceleration}" Name="btnAccelerationOrDeceleration" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Other}" Foreground="#ffffff"  FontSize="18" >
-                    <MenuItem Header="{DynamicResource RemoveTheBorder}" Name="btnRemoveBorder" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
-                    <MenuItem Header="{DynamicResource Disappear}" Name="btnDisappear" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                    <MenuItem Header="{DynamicResource Animation.Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
-                </MenuItem>
-                <MenuItem Header="{DynamicResource Generate}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                    <MenuItem Name="miRhombusDiffusion" Header="{DynamicResource RhombusDiffusion}"  Click="Generate_Click" />
-                    <MenuItem Name="miCross" Header="{DynamicResource CrossDiffusion}"  Click="Generate_Click"/>
-                    <MenuItem Name="miRandomFountain" Header="{DynamicResource RandomFountain}"  Click="Generate_Click"/>
-                </MenuItem>
-                <MenuItem Name="miThirdParty" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" />
-                <MenuItem Name="miMycontent" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" Click="MiMycontent_Click"/>
-                <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
-            </Menu>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Other}" Foreground="#ffffff"  FontSize="18" >
+                        <MenuItem Header="{DynamicResource RemoveTheBorder}" Name="btnRemoveBorder" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Animation}" Foreground="#ffffff"  FontSize="18" >
+                        <MenuItem Header="{DynamicResource Disappear}" Name="btnDisappear" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                        <MenuItem Header="{DynamicResource Animation.Windmill}" Name="btnWindmill" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
+                    </MenuItem>
+                    <MenuItem Header="{DynamicResource Generate}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                        <MenuItem Name="miRhombusDiffusion" Header="{DynamicResource RhombusDiffusion}"  Click="Generate_Click" />
+                        <MenuItem Name="miCross" Header="{DynamicResource CrossDiffusion}"  Click="Generate_Click"/>
+                        <MenuItem Name="miRandomFountain" Header="{DynamicResource RandomFountain}"  Click="Generate_Click"/>
+                    </MenuItem>
+                    <MenuItem Name="miThirdParty" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource ThirdParty}" Foreground="#ffffff"  FontSize="18" />
+                    <MenuItem Name="miMycontent" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" Click="MiMycontent_Click"/>
+                    <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
+                </Menu>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
+                    <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
+                    <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
+                    <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
+                </StackPanel>
+            </DockPanel>
+          
             <Grid Grid.Row="1" SizeChanged="dpShow_SizeChanged" Name="gCenter">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -139,25 +152,13 @@
                         </TabItem>
                     </TabControl>-->
                     </StackPanel>
-                    <Grid VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
-                            <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
-                            <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
-                                <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
-                            <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
-                            <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
-                        </StackPanel>
-                    </Grid>
-                  
                     <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Border HorizontalAlignment="Stretch" CornerRadius="3,3,0,0" BorderBrush="#555555" BorderThickness="2" Grid.Column="1" >
+                <Border HorizontalAlignment="Stretch" Background="{DynamicResource bgColor}" Grid.Column="1" >
                     <!--Background="#262829"-->
                     <Grid Name="gRight" >
                     <Grid.RowDefinitions>
@@ -179,32 +180,32 @@
                 </Popup>
             </Grid>
                 <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
-            <DockPanel Grid.Row="3" Background="#222326">
+            <DockPanel Grid.Row="3" Background="{DynamicResource bgContentColor}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
                     <StackPanel.Effect>
                         <DropShadowEffect Color="#222326"  BlurRadius="20" />
                     </StackPanel.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="15,0,10,0">
-                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="{DynamicResource LineColor}" BorderThickness="2" Padding="5"  MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
                                 <TextBlock  TextAlignment="Center" Width="130" Foreground="White" FontSize="18"  Background="{x:Null}"  Text="{DynamicResource NowTime}"/>
                             </Border>
-                            <Border  BorderBrush="#a8a9a9" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" Background="#1c1e1f">
+                            <Border  BorderBrush="{DynamicResource LineColor}" CornerRadius="0,5,5,0" BorderThickness="0,2,2,2" Padding="5" >
                                 <TextBlock TextAlignment="Center" x:Name="tbTimeNow"  Width="80" Foreground="White" FontSize="18" Text="0" />
                             </Border>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="37" VerticalAlignment="Center" Margin="0,0,15,0">
-                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
+                            <Border Background="Transparent" CornerRadius="5,0,0,5" BorderBrush="{DynamicResource LineColor}" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnLastTimePoint_MouseLeftButtonDown">
                                 <Image Name="btnLastTimePoint" Source="../../Resources/Image/toleft_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                             </Border>
-                            <Border  BorderBrush="#a8a9a9" BorderThickness="0,2,0,2" Padding="5"  Background="#1c1e1f">
+                            <Border  BorderBrush="{DynamicResource LineColor}" BorderThickness="0,2,0,2" Padding="5"  >
                                 <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-                                    <TextBox FontSize="16" Name="tbTimePointCountLeft"  Width="60" Background="#1c1e1f" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
+                                    <TextBox FontSize="16" Name="tbTimePointCountLeft"  Width="60" Background="Transparent" VerticalAlignment="Center" BorderThickness="0" TextAlignment="Right" TextChanged="TimePointCountLeft_TextChanged"/>
                                     <TextBlock Foreground="White"  Background="{x:Null}" Text=" / " VerticalAlignment="Center" />
                                     <TextBlock FontSize="16"  Name="tbTimePointCount" Width="60"  Foreground="White" VerticalAlignment="Center"  Background="{x:Null}"  />
                                 </StackPanel>
                             </Border>
-                            <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="#a8a9a9" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
+                            <Border Background="Transparent" CornerRadius="0,5,5,0" BorderBrush="{DynamicResource LineColor}" BorderThickness="2" Padding="5" MouseLeftButtonDown="BtnNextTimePoint_MouseLeftButtonDown">
                                 <Image Name="btnNextTimePoint" Source="../../Resources/Image/toright_gray.png" Width="20" Height="20" RenderOptions.BitmapScalingMode="Fant"/>
                             </Border>
                         </StackPanel>
@@ -227,7 +228,7 @@
                         Style="{StaticResource ListBoxStyle1}"
                         MouseDoubleClick="LbStep_MouseDoubleClick"  
                     -->
-                        <ListBox SelectionMode="Extended" Background="#222326" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
+                        <ListBox SelectionMode="Extended"  Background="{DynamicResource bgContentColor}" ScrollViewer.ScrollChanged="lbStep_ScrollChanged" Grid.Column="0" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="LbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="LbStep_MouseLeftButtonDown" Width="310">
                             <ListBox.ContextMenu>
                                 <ContextMenu Opened="ContextMenu_Opened" x:Name="lbStepMenu">
                                     <MenuItem Click="CancelParent" Header="{DynamicResource Unparent}" FontSize="14"/>
@@ -243,7 +244,7 @@
                                 </ContextMenu>
                             </ListBox.ContextMenu>
                         </ListBox>
-                        <ScrollViewer Name="svTime" Grid.Column="1" Background="#222326">
+                        <ScrollViewer Name="svTime" Grid.Column="1"  Background="{DynamicResource bgContentColor}">
                             <Grid SizeChanged="cTime_SizeChanged" >
                                 <Canvas Name="cTime" VerticalAlignment="Top" />
                                 <Canvas Name="cTimeLine" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MouseLeave="cTimeLine_MouseLeave" MouseLeftButtonDown="cTime_MouseLeftButtonDown" MouseLeftButtonUp="cTimeLine_MouseLeftButtonUp" MouseMove="cTimeLine_MouseMove"/>
@@ -253,15 +254,15 @@
                     <StackPanel  Grid.Row="1" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMainStep" Visibility="Collapsed">
                         <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="16" Margin="10" Text="Main" TextAlignment="Center"/>
                     </StackPanel>
-                    <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown" Background="#222326" Name="spMusic" >
+                    <StackPanel  Grid.Row="2" MouseLeftButtonDown="SpMainStep_MouseLeftButtonDown"  Background="{DynamicResource bgContentColor}" Name="spMusic" >
                         <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-                            <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
-                            <TextBlock Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="0,10,10,10" Text="{DynamicResource Clear}" TextAlignment="Center" MouseLeftButtonDown="ClearAudio" TextDecorations="Underline" />
+                            <TextBlock Foreground="#F0F0F0" FontSize="18" Margin="10" Text="{DynamicResource Audio}" TextAlignment="Center" MouseLeftButtonDown="ChooseAudio" TextDecorations="Underline" />
+                            <TextBlock Foreground="#F0F0F0" FontSize="18" Margin="0,10,10,10" Text="{DynamicResource Clear}" TextAlignment="Center" MouseLeftButtonDown="ClearAudio" TextDecorations="Underline" />
                             <TextBlock Name="tbMusic" Background="#222326" Foreground="#F0F0F0" FontSize="18" Margin="20,0,0,0"  TextAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     <Grid Background="#222326" Height="45" Grid.Row="3" >
-                        <StackPanel Orientation="Horizontal" Background="#222326">
+                        <StackPanel Orientation="Horizontal" Background="{DynamicResource bgContentColor}">
                             <Image Name="iNewStep" Source="../../Resources/Image/new_white.png" MouseLeftButtonDown="NewStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant"  AllowDrop="True" />
                             <Image Source="../../Resources/Image/copy_white.png" MouseLeftButtonDown="CopyStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />
                             <!--<Image Source="../../Resources/Image/locked_white.png" MouseLeftButtonDown="LockingStep"  Margin="5,0,5,0" Width="25" RenderOptions.BitmapScalingMode="Fant" />-->

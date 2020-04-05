@@ -4473,19 +4473,19 @@ namespace Maker.View.LightScriptUserControl
             nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData());
 
             cTimeLine.Children.Clear();
-            double X1 = 0;
+            double x1 = 0;
             if (Double.IsNaN(_bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth))
             {
-                X1 = 0;
+                x1 = 0;
             }
             else {
-                X1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
+                x1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
             }
-            double X2 = X1+5;
+            //double X2 = X1+5;
             Line line = new Line()
             {
-                X1 = X1,
-                X2 = X2,
+                X1 = x1,
+                X2 = x1,
                 Y1 = 0,
                 Y2 = cTimeLine.ActualHeight,
                 Stroke = new SolidColorBrush(Colors.White),

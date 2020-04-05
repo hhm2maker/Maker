@@ -4,4 +4,7 @@
     <SolidColorBrush x:Key="bgColor" Color="#000000"/>
     <SolidColorBrush x:Key="bgTitleColor" Color="#1F1F1F"/>
     <SolidColorBrush x:Key="bgContentColor" Color="#141414"/>
+    <SolidColorBrush x:Key="LineColor" Color="#434343"/>
+    <SolidColorBrush x:Key="Line2Color" Color="#303030"/>
+
 </ResourceDictionary>
