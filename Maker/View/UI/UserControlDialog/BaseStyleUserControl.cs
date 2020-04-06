@@ -12,7 +12,7 @@ namespace Maker.View.UI.UserControlDialog
 {
     public class BaseStyleUserControl : MakerDialog
     {
-        public ListBox lbMain;
+        public ComboBox cbMain;
         public StackPanel spMain;
         public List<BaseOperationModel> operationModels;
 

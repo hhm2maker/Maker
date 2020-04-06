@@ -134,7 +134,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
-                <Grid  x:Name="gMain"  Grid.Column="0">
+                <Grid  x:Name="gMain"  Grid.Column="0" Background="{DynamicResource bgColor}">
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -142,7 +142,7 @@
                     <!--Background="#1c1a1c"-->
                     <StackPanel x:Name="dpShow" >
                         <DockPanel  Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top">
-                            <Border Name="bLaunchpad"  BorderBrush="#555555" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
+                            <Border Name="bLaunchpad"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />
                             </Border>
                         </DockPanel>

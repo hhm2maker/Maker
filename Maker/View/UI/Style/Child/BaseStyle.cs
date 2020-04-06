@@ -263,12 +263,12 @@ namespace Maker.View.Style.Child
             {
                 return;
             }
-            ListBoxItem box = sw.lbMain.Items[position - 1] as ListBoxItem;
-            ListBoxItem box2 = sw.lbMain.Items[position] as ListBoxItem;
-            sw.lbMain.Items.RemoveAt(position - 1);
-            sw.lbMain.Items.RemoveAt(position - 1);
-            sw.lbMain.Items.Insert(position - 1, box2) ;
-            sw.lbMain.Items.Insert(position, box);
+            ListBoxItem box = sw.cbMain.Items[position - 1] as ListBoxItem;
+            ListBoxItem box2 = sw.cbMain.Items[position] as ListBoxItem;
+            sw.cbMain.Items.RemoveAt(position - 1);
+            sw.cbMain.Items.RemoveAt(position - 1);
+            sw.cbMain.Items.Insert(position - 1, box2) ;
+            sw.cbMain.Items.Insert(position, box);
 
             BaseStyle bd = sw.spMain.Children[position - 1] as BaseStyle;
             BaseStyle bd2 = sw.spMain.Children[position] as BaseStyle;
@@ -284,23 +284,23 @@ namespace Maker.View.Style.Child
             sw.operationModels.Insert(position - 1, bom2);
             sw.operationModels.Insert(position, bom);
 
-            sw.lbMain.SelectedIndex = position - 1;
+            sw.cbMain.SelectedIndex = position - 1;
             sw.OnRefresh();
         }
 
         private void Image2_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
-            if (position == sw.lbMain.Items.Count - 1)
+            if (position == sw.cbMain.Items.Count - 1)
             {
                 return;
             }
-            ListBoxItem box = sw.lbMain.Items[position] as ListBoxItem;
-            ListBoxItem box2 = sw.lbMain.Items[position+1] as ListBoxItem;
-            sw.lbMain.Items.RemoveAt(position);
-            sw.lbMain.Items.RemoveAt(position);
-            sw.lbMain.Items.Insert(position, box2);
-            sw.lbMain.Items.Insert(position+1, box);
+            ListBoxItem box = sw.cbMain.Items[position] as ListBoxItem;
+            ListBoxItem box2 = sw.cbMain.Items[position+1] as ListBoxItem;
+            sw.cbMain.Items.RemoveAt(position);
+            sw.cbMain.Items.RemoveAt(position);
+            sw.cbMain.Items.Insert(position, box2);
+            sw.cbMain.Items.Insert(position+1, box);
 
             BaseStyle bd = sw.spMain.Children[position] as BaseStyle;
             BaseStyle bd2 = sw.spMain.Children[position+1] as BaseStyle;
@@ -316,14 +316,14 @@ namespace Maker.View.Style.Child
             sw.operationModels.Insert(position, bom2);
             sw.operationModels.Insert(position+1, bom);
 
-            sw.lbMain.SelectedIndex = position + 1;
+            sw.cbMain.SelectedIndex = position + 1;
             sw.OnRefresh();
         }
 
         private void Image3_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
-            sw.lbMain.Items.RemoveAt(position);
+            sw.cbMain.Items.RemoveAt(position);
             sw.operationModels.RemoveAt(position);
             sw.spMain.Children.RemoveAt(position);
             sw.OnRefresh();

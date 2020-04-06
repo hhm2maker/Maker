@@ -26,7 +26,7 @@ namespace Maker.View.Style
             InitializeComponent();
             this.mw = mw;
 
-            lbMain = lbCatalog;
+            cbMain = lbCatalog;
             spMain = svMain;
         }
 

@@ -505,7 +505,6 @@ namespace MakerUI.Device
         public int Count
         {
             get { return Children.Count; }
-            set { Count = value; }
         }
 
         /// <summary>
