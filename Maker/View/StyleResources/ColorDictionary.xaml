@@ -2,9 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
     <SolidColorBrush x:Key="bgColor" Color="#000000"/>
-    <SolidColorBrush x:Key="bgTitleColor" Color="#1F1F1F"/>
-    <SolidColorBrush x:Key="bgContentColor" Color="#141414"/>
-    <SolidColorBrush x:Key="LineColor" Color="#434343"/>
-    <SolidColorBrush x:Key="Line2Color" Color="#303030"/>
-
+    <SolidColorBrush x:Key="bgTitleColor" Color="#3C3F41"/>
+    <SolidColorBrush x:Key="bgContentColor" Color="#2B2B2B"/>
+    <SolidColorBrush x:Key="LineColor" Color="#323232"/>
+    <SolidColorBrush x:Key="LineTitleColor" Color="#515151"/>
+    <SolidColorBrush x:Key="DialogBgColor" Color="#4E5052"/>
+    <SolidColorBrush x:Key="DialogTitleColor" Color="#BFBFBF"/>
+    <SolidColorBrush x:Key="DialogContentColor" Color="#BFBFBF"/>
+    <SolidColorBrush x:Key="DialogLinkColor" Color="#5290F5"/>
 </ResourceDictionary>

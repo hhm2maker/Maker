@@ -38,75 +38,76 @@
     <Grid Name="gMost" >
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
-                <Grid Background="{DynamicResource bgTitleColor}"  >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-            <Menu VerticalAlignment="Center" Grid.Column="0">
-                <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                    <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
-                    <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
-                            <Separator />
-                            <MenuItem Header="{DynamicResource Export}">
-                                <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click"/>
-                                <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click"/>
+                <Border Grid.Column="0" BorderBrush="{DynamicResource LineTitleColor}" BorderThickness="0,0,0,1">
+                    <Grid Background="{DynamicResource bgTitleColor}"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Menu VerticalAlignment="Center" >
+                            <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                                <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
+                                <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
                                 <Separator />
-                                <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click"/>
+                                <MenuItem Header="{DynamicResource Export}">
+                                    <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click"/>
+                                    <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click"/>
+                                    <Separator />
+                                    <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click"/>
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem Header="{DynamicResource Exit}" Click="Exit"/>
                             </MenuItem>
-                            <Separator />
-                            <MenuItem Header="{DynamicResource Exit}" Click="Exit"/>
-                        </MenuItem>
-                    <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                        <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
-                    </MenuItem>
-                        <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click"/>
-                        <MenuItem Header="{DynamicResource Play_}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click_1"/>
-                        <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                            <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
-                            <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
-                        </MenuItem>
-                        <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                            <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" />
-                        </MenuItem>
-                </Menu>
-                    <StackPanel Grid.Column="1" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
-                    <Grid Margin="0,5,0,5" Grid.Column="2">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,15,0">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                        <Grid Name="gSearch" Visibility="Collapsed">
-                            <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="5" FontSize="17"/>
-                            <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="5" FontSize="17" BorderThickness="0" />
+                            <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                                <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
+                            </MenuItem>
+                            <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click"/>
+                            <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                                <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
+                                <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
+                            </MenuItem>
+                            <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                                <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" />
+                            </MenuItem>
+                        </Menu>
+                        <StackPanel Grid.Column="1" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
+                        <Grid Margin="0,5,0,5" Grid.Column="2">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                                <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,10,0">
+                                    <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <Grid Name="gSearch" Visibility="Collapsed">
+                                        <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="5" FontSize="17"/>
+                                        <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="5" FontSize="17" BorderThickness="0" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
+                                    <Image Name="iFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                </StackPanel>
+                                <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnMin_Click" Margin="20,0,0,0">
+                                    <Image VerticalAlignment="Center" Source="View/Resources/Image/small.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                </StackPanel>
+                                <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="Label_MouseDoubleClick" Margin="15,0,0,0">
+                                    <Image Name="iMaximized" VerticalAlignment="Center" Source="View/Resources/Image/window_back.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                </StackPanel>
+                                <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnClose_Click" Margin="15,0,10,0">
+                                    <Image VerticalAlignment="Center" Source="View/Resources/Image/close.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                </StackPanel>
+                                <StackPanel Visibility="Collapsed" Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
+                                    <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10,0,15,0"   FontSize="17"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Popup  Name="popFollow" PlacementTarget="{Binding ElementName=spFollow}" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" >
+                                <makerui:ListUserControl x:Name="listUserControl" Background="#222326" Width="300"/>
+                            </Popup>
                         </Grid>
-                    </StackPanel>
-                    <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
-                                <Image Name="iFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                    </StackPanel>
-                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnMin_Click" Margin="20,0,0,0">
-                                <Image VerticalAlignment="Center" Source="View/Resources/Image/small.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                            </StackPanel>
-                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="Label_MouseDoubleClick" Margin="15,0,0,0">
-                                <Image Name="iMaximized" VerticalAlignment="Center" Source="View/Resources/Image/window_back.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                            </StackPanel>
-                            <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnClose_Click" Margin="15,0,10,0">
-                                <Image VerticalAlignment="Center" Source="View/Resources/Image/close.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                            </StackPanel>
-                            <StackPanel Visibility="Collapsed" Name="spLaboratory" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="spLaboratory_MouseLeftButtonDown">
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="15,5,5,5" Source="View/Resources/Image/laboratory.png" Width="22"  RenderOptions.BitmapScalingMode="Fant"  />
-                        <TextBlock  VerticalAlignment="Center" Text="{DynamicResource Laboratory}" Foreground="#FFB8BFC6"  Margin="10,0,15,0"   FontSize="17"/>
-                    </StackPanel>
-                </StackPanel>
-                <Popup  Name="popFollow" PlacementTarget="{Binding ElementName=spFollow}" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" >
-                    <makerui:ListUserControl x:Name="listUserControl" Background="#222326" Width="300"/>
-                </Popup>
-            </Grid>
-        </Grid>
+                    </Grid>
+                </Border>
                 <DockPanel Background="{DynamicResource bgTitleColor}">
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
                         <TextBlock Text="{DynamicResource BPMColon}" Foreground="White" FontSize="18" />
@@ -117,9 +118,10 @@
                         <Image Name="iFile" Visibility="Collapsed" VerticalAlignment="Center" Margin="15,5,0,5" Source="View/Resources/Image/file.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" />
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" />
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                         <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Player}"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Paved}"/>
@@ -128,85 +130,86 @@
                             <ComboBoxItem FontSize="18" Foreground="White" Content="Data"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="3D"/>
                         </ComboBox>
-                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
+                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="20"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
                     </StackPanel>
                 </DockPanel>
                 <DockPanel Height="35" Background="{DynamicResource bgTitleColor}">
-                    <StackPanel Orientation="Horizontal" Margin="10,0,5,0" VerticalAlignment="Center" Name="spPlugs" HorizontalAlignment="Right" />
+                    <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="10,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                 </DockPanel>
             </StackPanel>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >
-        <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <!--Background="#222326" -->
-            <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True" Visibility="Collapsed">
-            <Grid VerticalAlignment="Center">
-            <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
-                <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18" />
-                </Border>
-            </Grid>
-            <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
-            <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
-        </StackPanel>
-        <DockPanel Grid.Row="1" Name="dpCenter">
-                    <Grid >
-                <Grid Name="gRight" HorizontalAlignment="Stretch" />
-                <Grid  Name="gCenter" Visibility="Collapsed"/>
-                <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
-                        <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <Image Source="View/Resources/Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
-                            <Image.ToolTip>
-                                <StackPanel Orientation="Vertical">
-                                </StackPanel>
-                            </Image.ToolTip>
-                        </Image>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Image Source="View/Resources/Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                        <TextBlock Text="{DynamicResource LightScript}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
-                        <Image Source="View/Resources/Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                        <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                    </StackPanel>
-                    <StackPanel   Margin="0,20,20,0" >
-                        <StackPanel Orientation="Horizontal" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,30,0,0" Name="spToolTitle">
-                        <Image Source="View/Resources/Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
-                        <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                    </StackPanel>
-                    <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Visibility="Hidden" Name="bTool">
-                        <StackPanel Name="spTool" />
-                    </Border>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--Background="#222326" -->
+                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True" Visibility="Collapsed">
+                    <Grid VerticalAlignment="Center">
+                        <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                        <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18" />
+                        </Border>
+                    </Grid>
+                    <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
+                    <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
                 </StackPanel>
-                <!--Background="#363b40"-->
-                <Grid Name="gMySetting" Visibility="Collapsed">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"/>
-                    <setting:NewSettingUserControl x:Name="mySettingUserControl" Grid.Column="1"  Margin="0,0,-500,0" HorizontalAlignment="Right"  />
-                </Grid>
+                <DockPanel Grid.Row="1" Name="dpCenter">
+                    <Grid >
+                        <Grid Name="gRight" HorizontalAlignment="Stretch" />
+                        <Grid  Name="gCenter" Visibility="Collapsed"/>
+                        <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="View/Resources/Image/light.png" Width="50" RenderOptions.BitmapScalingMode="Fant"/>
+                                <TextBlock Text="{DynamicResource Light}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                <Image Source="View/Resources/Image/question.png" Width="35" RenderOptions.BitmapScalingMode="Fant" Margin="20,0,0,0" VerticalAlignment="Center">
+                                    <Image.ToolTip>
+                                        <StackPanel Orientation="Vertical">
+                                        </StackPanel>
+                                    </Image.ToolTip>
+                                </Image>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                <Image Source="View/Resources/Image/plus.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                                <TextBlock Text="{DynamicResource LightScript}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  Margin="0,20,20,0">
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                                <Image Source="View/Resources/Image/play.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                                <TextBlock Text="{DynamicResource Play}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel   Margin="0,20,20,0" >
+                                <StackPanel Orientation="Horizontal" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,30,0,0" Name="spToolTitle">
+                                <Image Source="View/Resources/Image/tool.png" Width="50" RenderOptions.BitmapScalingMode="Fant" Margin="5,0,0,0"/>
+                                <TextBlock Text="{DynamicResource Tool}" Foreground="White" FontSize="30" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </StackPanel>
+                            <Border CornerRadius="10" BorderBrush="#d7d7d9" BorderThickness="1" Background="#fefefe" Margin="0,10,0,0" Visibility="Hidden" Name="bTool">
+                                <StackPanel Name="spTool" />
+                            </Border>
+                        </StackPanel>
+                        <!--Background="#363b40"-->
+                        <Grid Name="gMySetting" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Background="Transparent" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"/>
+                            <setting:NewSettingUserControl x:Name="mySettingUserControl" Grid.Column="1"  Margin="0,0,-500,0" HorizontalAlignment="Right"  />
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+                <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
+                <Grid Name="gSetting"/>
+                <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
+                <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
             </Grid>
-        </DockPanel>
-        <StackPanel Name="spBlur"  Background="#90000000" Visibility="Collapsed" />
-        <Grid Name="gSetting"/>
-        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
-        <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
-    </Grid>
         </Grid>
         <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
         <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <Popup  Name="popPlug" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" />
+        <StackPanel Name="spDialog" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical" Margin="0,0,5,5"/>
     </Grid>
     <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </RibbonWindow>

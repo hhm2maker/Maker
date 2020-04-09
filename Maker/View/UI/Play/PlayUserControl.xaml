@@ -15,28 +15,17 @@
     <UserControl.Effect>
         <DropShadowEffect Color="#1c1e1f"  BlurRadius="20" />
     </UserControl.Effect>
-    <Grid Name="gMain">
-        <Button Content="加载" Click="Button_Click"/>
+    <StackPanel Name="gMain" Margin="30">
+        <CheckBox Name="cbModel" IsChecked="true" Foreground="White" Checked="cbModel_Checked" Unchecked="cbModel_Unchecked" Content="Live模式"/>
+        <Button Content="加载" Click="Button_Click" Margin="0,30,0,0"/>
         <Grid Name="gMost" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <DockPanel Background="#262829" Grid.Row="2">
+            <DockPanel Background="#262829">
                 <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
                     <TextBox Name="tbExport" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
                     <Button Content="{DynamicResource Export}" FontSize="14"  Foreground="#f0f0f0" Name="btnImportRealPlayer" Click="btnImportRealPlayer_Click"/>
                 </ToolBar>
             </DockPanel>
-            <DockPanel Background="#262829" Grid.Row="3">
-                <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
-                    <TextBox Name="tbPosition" FontSize="14" Width="500"  Foreground="#f0f0f0"  Background="{x:Null}"/>
-                </ToolBar>
-            </DockPanel>
         </Grid>
-    </Grid>
+    </StackPanel>
 </local:BaseUserControl>
     

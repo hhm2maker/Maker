@@ -240,6 +240,9 @@
       <DependentUpon>CatalogUserControl2.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Base\BaseChildUserControl.cs" />
+    <Compile Include="View\UI\BottomDialog\MessageBottomDialog.xaml.cs">
+      <DependentUpon>MessageBottomDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Decorate\Soundbyte.cs" />
     <Compile Include="View\UI\Device\ColorPanel\ColorPanel.cs" />
     <Compile Include="View\UI\Device\ColorPanel\CompleteColorPanel.xaml.cs">
@@ -726,6 +729,10 @@
     <Page Include="Business\Discarded\CatalogUserControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\BottomDialog\MessageBottomDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Control\FrameUserControl.xaml">
       <SubType>Designer</SubType>
@@ -1875,6 +1882,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\window_maximized.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\play_green.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

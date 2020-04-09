@@ -94,7 +94,6 @@ namespace Maker.View.LightScriptUserControl
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
 
-            LaunchpadPro.brushList = StaticConstant.brushList;
             mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.AddMembrane();

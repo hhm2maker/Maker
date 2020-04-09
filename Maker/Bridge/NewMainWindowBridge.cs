@@ -39,7 +39,6 @@ namespace Maker.Bridge
             InitHint();
             InitHide();
             InitTest();
-            InitVersion();
             InitDevice();
             InitPlugs();
 
@@ -88,13 +87,6 @@ namespace Maker.Bridge
             view.Opacity = view.testConfigModel.Opacity / 100.0;
         }
 
-        /// <summary>
-        /// 初始化版本
-        /// </summary>
-        private void InitVersion()
-        {
-            XmlSerializerBusiness.Load(ref view.versionConfigModel, "Config/version.xml");
-        }
 
         /// <summary>
         /// 关闭操作

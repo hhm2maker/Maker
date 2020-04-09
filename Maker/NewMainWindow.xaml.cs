@@ -36,6 +36,11 @@ using System.Windows.Controls.Ribbon;
 using System.Windows.Media.Imaging;
 using System.Reflection;
 using PlugLib;
+using System.Xml;
+using Sharer.Utils;
+using System.Xml.Linq;
+using Maker.View.UI.BottomDialog;
+using MakerUI.Device;
 
 namespace Maker
 {
@@ -60,14 +65,15 @@ namespace Maker
 
             projectUserControl = new ProjectUserControl(this);
             editUserControl = new EditUserControl(this);
-           
+
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
             //contentUserControls.Add(new LocalUserControl(this));
             //contentUserControls.Add(projectUserControl);
             contentUserControls.Add(editUserControl);
 
-            for (int i = 0; i < contentUserControls.Count; i++) {
+            for (int i = 0; i < contentUserControls.Count; i++)
+            {
                 TextBlock tb = new TextBlock();
                 tb.Padding = new Thickness(10);
                 tb.FontSize = 18;
@@ -78,7 +84,7 @@ namespace Maker
             SetSpFilePosition(0);
         }
 
-     
+
 
         public NormalFileManager normalFileManager;
         public ProjectModel NowProjectModel;
@@ -88,18 +94,19 @@ namespace Maker
         }
 
 
-        public void AddContentUserControl(BaseChildUserControl uc) {
-          
+        public void AddContentUserControl(BaseChildUserControl uc)
+        {
+
             TextBlock tb = new TextBlock();
-                tb.Padding = new Thickness(10);
-                tb.FontSize = 18;
-                tb.Text = (String)Application.Current.Resources[uc.Title];
+            tb.Padding = new Thickness(10);
+            tb.FontSize = 18;
+            tb.Text = (String)Application.Current.Resources[uc.Title];
 
-                tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
-                spContentTitle.Children.Add(tb);
+            tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
+            spContentTitle.Children.Add(tb);
 
-                contentUserControls.Add(uc);
-                SetSpFilePosition(contentUserControls.Count - 1);
+            contentUserControls.Add(uc);
+            SetSpFilePosition(contentUserControls.Count - 1);
         }
 
         private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -135,8 +142,8 @@ namespace Maker
             //    gTop.BeginAnimation(HeightProperty, doubleAnimation);
             //}
 
-            if (filePosition!=-1)
-            (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
+            if (filePosition != -1)
+                (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
             (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             filePosition = position;
 
@@ -166,11 +173,11 @@ namespace Maker
                 };
                 rFile.BeginAnimation(MarginProperty, animation2);
             }
-          
+
         }
 
         public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();
-       
+
         private void Window_Closed(object sender, EventArgs e)
         {
             if (editUserControl.gMain.Children.Count > 0 && editUserControl.gMain.Children[0] is BaseUserControl)
@@ -366,8 +373,8 @@ namespace Maker
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
         }
 
-     
-     
+
+
         /// <summary>
         /// 添加设置页面
         /// </summary>
@@ -396,7 +403,7 @@ namespace Maker
             (sender as MediaElement).Play();
         }
 
-       
+
 
         //private void lbProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -409,7 +416,7 @@ namespace Maker
         //    if (lastSelectIndex != -1) {
         //        ((lbProject.Items[lastSelectIndex] as StackPanel).Children[0] as Rectangle).Visibility = Visibility.Hidden;
         //    }
-           
+
         //    lastSelectIndex = lbProject.SelectedIndex;
 
         //    if (lbProject.SelectedIndex == -1)
@@ -427,7 +434,7 @@ namespace Maker
         public void NewProject(bool isClose)
         {
             String _projectPath = AppDomain.CurrentDomain.BaseDirectory + @"\Project\";
-            NewProjectWindowDialog dialog = new NewProjectWindowDialog(this, _projectPath,isClose);
+            NewProjectWindowDialog dialog = new NewProjectWindowDialog(this, _projectPath, isClose);
             if (dialog.ShowDialog() == true)
             {
                 _projectPath = _projectPath + dialog.fileName;
@@ -455,13 +462,13 @@ namespace Maker
 
                     ProjectModel projectModel = new ProjectModel();
                     projectModel.Bpm = dialog.dBpm;
-                    Business.Currency.XmlSerializerBusiness.Save(projectModel, _projectPath+ @"\project.xml");
+                    Business.Currency.XmlSerializerBusiness.Save(projectModel, _projectPath + @"\project.xml");
 
                     projectConfigModel.Path = dialog.fileName;
                     Business.Currency.XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
 
                     InitProjects();
-    
+
                     if (gMain.Children.Count > 0)
                     {
                         //LoadFileList();
@@ -519,7 +526,7 @@ namespace Maker
                 hintModelDictionary[id].IsHint = false;
         }
 
-  
+
 
         private void cMost_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -537,7 +544,8 @@ namespace Maker
         //    AddSetting(settingUserControl);
         //}
 
-        private void InitProjects() {
+        private void InitProjects()
+        {
             InitProject();
 
             if (basicConfigModel.Model == BasicConfigModel.ModelType.PC)
@@ -550,7 +558,7 @@ namespace Maker
             {
                 iFile.Visibility = Visibility.Visible;
             }
-     
+
             tbBPM.Text = NowProjectModel.Bpm.ToString();
         }
 
@@ -567,29 +575,58 @@ namespace Maker
 
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             //spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
-            spContentTitle.Margin = new Thickness(leftMargin - 10 , 15, leftMargin, 15);
-            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin , 0);
+            spContentTitle.Margin = new Thickness(leftMargin - 10, 15, leftMargin, 15);
+            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin, 0);
 
             //spHead.Visibility = Visibility.Collapsed;
 
             btnMaximize_Click(null, null);
+            LaunchpadPro.brushList = StaticConstant.brushList;
 
             InitPlugs();
+
+            GetVersion();
         }
-       
-        public List<object> Plugs = new List<object>();
+
+        private void GetVersion()
+        {
+            try
+            {
+            // 初始化版本
+            string url = @"https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Version.xml";
+                XDocument xDoc = XDocument.Load(url);
+                XElement xRoot = xDoc.Element("Version");
+                XElement xNowVersion = xRoot.Element("NowVersion");
+                if (xNowVersion != null)
+                {
+                    versionConfigModel.NowVersion = xNowVersion.Value;
+
+                    if (!versionConfigModel.NowVersion.Equals(StaticConstant.NowVersion))
+                    {
+                        spDialog.Children.Add(new MessageBottomDialog());
+                    }
+                }
+            }
+            catch
+            {
+                //new MessageDialog(this, "CheckTheVersionFailed").ShowDialog();
+            }
+        }
+
+        public List<IBasePlug> Plugs = new List<IBasePlug>();
         private void InitPlugs()
         {
             foreach (var item in plugsConfigModel.Plugs)
             {
                 String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path;
-                if (File.Exists(filePath)) {
+                if (File.Exists(filePath))
+                {
                     Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path);
                     Type[] types = ass.GetTypes();
                     Type type = null;
                     foreach (Type t in types)
                     {
-                        if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath)+"." + Path.GetFileNameWithoutExtension(filePath)))
+                        if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath) + "." + Path.GetFileNameWithoutExtension(filePath)))
                         {
                             type = t;
                             break;
@@ -600,18 +637,21 @@ namespace Maker
 
                     //判断是否继承于IGetOperationResult类
                     Type _type = type.GetInterface("PlugLib.IBasePlug");
-                    if (_type == null) {
+                    if (_type == null)
+                    {
                         continue;
                     }
                     Object o = Activator.CreateInstance(type);
-                    Plugs.Add(o);
-                    MethodInfo mi = o.GetType().GetMethod("GetIcon");
-                    BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
-
-                    if (icon != null) {
+                    Plugs.Add(o as IBasePlug);
+                    //MethodInfo mi = o.GetType().GetMethod("GetIcon");
+                    //BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
+                    ImageSource icon = Plugs[Plugs.Count - 1].GetIcon();
+                    if (icon != null)
+                    {
                         Image image = new Image();
-                        image.Width = 30;
-                        image.Height = 30;
+                        image.Width = 25;
+                        image.Height = 25;
+                        image.Margin = new Thickness(10,0,0,0);
                         image.Source = icon;
                         image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                         RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.Fant);
@@ -651,7 +691,8 @@ namespace Maker
         }
 
         private bool isOpeningSettingControl = false;
-        private void OpenSettingControl() {
+        private void OpenSettingControl()
+        {
             if (isOpeningSettingControl)
                 return;
             isOpeningSettingControl = true;
@@ -681,7 +722,7 @@ namespace Maker
             }
             isOpeningSettingControl = false;
         }
-       
+
         [StructLayout(LayoutKind.Sequential)]
         public struct CopyDataStruct
         {
@@ -738,7 +779,8 @@ namespace Maker
                 dSpSearchActualWidth = spSearch.ActualWidth;
                 spSearch.Width = spSearch.ActualWidth;
             }
-            if (spSearch.Width == dSpSearchActualWidth) {
+            if (spSearch.Width == dSpSearchActualWidth)
+            {
                 DoubleAnimation animation = new DoubleAnimation
                 {
                     From = dSpSearchActualWidth,
@@ -751,10 +793,10 @@ namespace Maker
             e.Handled = true;
         }
 
-    
+
         private void tbSearch_LostFocus(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -765,7 +807,8 @@ namespace Maker
             {
                 tbSearchHint.Visibility = Visibility.Collapsed;
             }
-            else {
+            else
+            {
                 tbSearchHint.Visibility = Visibility.Visible;
             }
         }
@@ -818,7 +861,7 @@ namespace Maker
             {
                 strs.Add(blogConfigModel.Shortcuts[i].text);
             }
-            listUserControl.InitData(strs,GoHome,-1);
+            listUserControl.InitData(strs, GoHome, -1);
 
             popFollow.HorizontalOffset = -(300 - spFollow.ActualWidth) / 2;
 
@@ -826,7 +869,8 @@ namespace Maker
             popFollow.IsOpen = true;
         }
 
-        public void GoHome(int position) {
+        public void GoHome(int position)
+        {
             //AddContentUserControl(new HomeUserControl(this, blogConfigModel.Shortcuts[position]));
 
             popFollow.IsOpen = false;
@@ -851,7 +895,8 @@ namespace Maker
         }
 
         public DeviceWindow _deviceWindow;
-        public DeviceWindow deviceWindow {
+        public DeviceWindow deviceWindow
+        {
             get
             {
                 if (_deviceWindow == null)
@@ -860,7 +905,8 @@ namespace Maker
                 }
                 return _deviceWindow;
             }
-            set {
+            set
+            {
                 _deviceWindow = value;
             }
         }
@@ -909,7 +955,8 @@ namespace Maker
                 hintWindow = new HintWindow(this);
                 hintWindow.Show();
             }
-            else {
+            else
+            {
                 hintWindow.Close();
                 hintWindow = null;
             }
@@ -917,7 +964,7 @@ namespace Maker
 
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-             List<Light> mLightList = GetData();
+            List<Light> mLightList = GetData();
 
             UserControl userControl = null;
             if (cbPlay.SelectedIndex == 0)
@@ -930,15 +977,17 @@ namespace Maker
                 if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
                     String strAudioResources = (editUserControl.userControls[3] as ScriptUserControl).AudioResources;
-                    if (!strAudioResources.Contains(@"\")) {
+                    if (!strAudioResources.Contains(@"\"))
+                    {
                         //说明是不完整路径
-                        strAudioResources = LastProjectPath +@"Audio\"+ strAudioResources;
+                        strAudioResources = LastProjectPath + @"Audio\" + strAudioResources;
                     }
                     if (File.Exists(strAudioResources))
                     {
                         userControl = new PlayerUserControl(this, mLightList, strAudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
                     }
-                    else {
+                    else
+                    {
                         userControl = new PlayerUserControl(this, mLightList);
                     }
                 }
@@ -972,7 +1021,7 @@ namespace Maker
             spPlay.Children.Clear();
 
             Point point = iPlay.TranslatePoint(new Point(0, 0), this);
-            spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0,0);
+            spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0, 0);
             spPlay.Children.Add(userControl);
             gToolBackGround.Visibility = Visibility.Visible;
         }
@@ -986,7 +1035,7 @@ namespace Maker
         private void Export_Click(object sender, RoutedEventArgs e)
         {
             List<Light> mLightList = GetData();
-            
+
             //(lbMain.SelectedItem as TreeViewItem).Header.ToString()
             //没有AB集合不能保存
             if (mLightList.Count == 0)
@@ -1025,7 +1074,7 @@ namespace Maker
                     }
                     if (dialog.cbExportType.SelectedIndex == 0)
                     {
-                        ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked,mLightList);
+                        ExportMidi(dialog.tbFileName.Text, (bool)dialog.cbWriteToFile.IsChecked, mLightList);
                     }
                     else if (dialog.cbExportType.SelectedIndex == 1)
                     {
@@ -1035,10 +1084,11 @@ namespace Maker
             }
         }
 
-        private void ExportMidi(String fileName, bool isWriteToFile,List<Light> mLightList)
+        private void ExportMidi(String fileName, bool isWriteToFile, List<Light> mLightList)
         {
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid",editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
-             (ResultFileName) => {
+            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
+             (ResultFileName) =>
+             {
                  if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
                  {
                      if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
@@ -1119,15 +1169,16 @@ namespace Maker
             {
                 return;
             }
-            Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.'))+".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
+            Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')) + ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
         }
 
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
             Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
             int i = 0;
-            foreach (var item in models.Values) {
-                    (item.OperationModels[1] as OneNumberOperationModel).Number = 47 +  59 * i;
+            foreach (var item in models.Values)
+            {
+                (item.OperationModels[1] as OneNumberOperationModel).Number = 47 + 59 * i;
                 i++;
             }
             (editUserControl.userControls[3] as ScriptUserControl).Test();
@@ -1136,8 +1187,9 @@ namespace Maker
 
         private void StackPanel_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
-            GetValueWindowDialog getValueWindowDialog = new GetValueWindowDialog(this,"BPM",NowProjectModel.Bpm.ToString(),typeof(double));
-            if (getValueWindowDialog.ShowDialog() == true) {
+            GetValueWindowDialog getValueWindowDialog = new GetValueWindowDialog(this, "BPM", NowProjectModel.Bpm.ToString(), typeof(double));
+            if (getValueWindowDialog.ShowDialog() == true)
+            {
                 NowProjectModel.Bpm = double.Parse(getValueWindowDialog.Value);
                 tbBPM.Text = NowProjectModel.Bpm.ToString();
                 Business.Currency.XmlSerializerBusiness.Save(NowProjectModel, LastProjectPath + @"\project.xml");
@@ -1158,7 +1210,7 @@ namespace Maker
         {
             Close();
         }
-      
+
         /// <summary>
         /// 最小化窗口
         /// </summary>
@@ -1212,7 +1264,7 @@ namespace Maker
         {
             if (Maximized)
             {
-                btnNormal_Click(null,null);
+                btnNormal_Click(null, null);
             }
             else
             {
@@ -1258,7 +1310,7 @@ namespace Maker
         private void btnNormal_ClickNotPosition(object sender, RoutedEventArgs e)
         {
             iMaximized.Source = new BitmapImage(new Uri("View/Resources/Image/window_maximized.png", UriKind.RelativeOrAbsolute));
-        
+
             Width = rcnormal.Width;
             Height = rcnormal.Height;
 
@@ -1276,7 +1328,8 @@ namespace Maker
             {
                 editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
             }
-            else {
+            else
+            {
                 editUserControl.peuc.NewFileResult2(projectConfigModel.Path + ".playExport");
                 editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
             }
@@ -1288,21 +1341,19 @@ namespace Maker
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void Image_MouseLeftButtonDown_5(object sender, MouseButtonEventArgs e)
         {
             if (File.Exists(LastProjectPath + @"Play\" + projectConfigModel.Path + ".play"))
             {
                 editUserControl.IntoUserControl(projectConfigModel.Path + ".play");
             }
 
-            if (normalFileManager != null) {
+            if (normalFileManager != null)
+            {
                 normalFileManager.NoSelected();
             }
-            
         }
-
-     
     }
 
- 
+
 }

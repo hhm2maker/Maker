@@ -224,7 +224,7 @@ namespace Maker.View.Tool
             if (position != -1)
             {
                 //Console.WriteLine("Hello");
-                mw.editUserControl.playuc.ip = new UI.PlayUserControl.InputPort(mw.editUserControl.playuc, mw.editUserControl.playuc.tbPosition)
+                mw.editUserControl.playuc.ip = new UI.PlayUserControl.InputPort(mw.editUserControl.playuc)
                 {
                     cb = mw.deviceConfigModel.Devices[0].DeviceIn
                 };

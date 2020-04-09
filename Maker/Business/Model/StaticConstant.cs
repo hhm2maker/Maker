@@ -49,5 +49,7 @@ namespace Maker.Model
         /// 主窗体
         /// </summary>
         public static NewMainWindow mw;
+
+        public static String NowVersion = "20200409";
     }
 }

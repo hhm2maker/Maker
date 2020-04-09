@@ -38,10 +38,15 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
-            <DockPanel Margin="0,0,0,20" >
+            <DockPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
                     <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
                     <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
+                    <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
+                    <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
+                    <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
                 </StackPanel>
                 <Menu x:Name="menu" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <MenuItem Header="{DynamicResource Basics}" Style="{DynamicResource bigMenuItem}" FontSize="18">
@@ -122,11 +127,6 @@
                     <MenuItem Name="miMycontent" Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Mycontent}" Foreground="#ffffff"  FontSize="18" Click="MiMycontent_Click"/>
                     <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
                 </Menu>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="15" >
-                    <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
-                    <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
-                    <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
-                </StackPanel>
             </DockPanel>
           
             <Grid Grid.Row="1" SizeChanged="dpShow_SizeChanged" Name="gCenter">
@@ -134,7 +134,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
-                <Grid  x:Name="gMain"  Grid.Column="0" Background="{DynamicResource bgColor}">
+                <Grid  x:Name="gMain"  Grid.Column="0" >
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
@@ -158,7 +158,7 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Border HorizontalAlignment="Stretch" Background="{DynamicResource bgColor}" Grid.Column="1" >
+                <Border HorizontalAlignment="Stretch" Grid.Column="1" >
                     <!--Background="#262829"-->
                     <Grid Name="gRight" >
                     <Grid.RowDefinitions>
@@ -179,7 +179,7 @@
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
                 </Popup>
             </Grid>
-                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="#282828"/>
+                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="{DynamicResource LineColor}"/>
             <DockPanel Grid.Row="3" Background="{DynamicResource bgContentColor}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
                     <StackPanel.Effect>

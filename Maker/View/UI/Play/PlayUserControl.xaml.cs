@@ -28,22 +28,20 @@ namespace Maker.View.UI
     {
         private static NativeMethods.MidiInProc midiInProc;
 
-        private Model nowModel = Model.Launchpad;
-        public Model NowModel
+        private static Model nowModel = Model.Launchpad;
+        public static Model NowModel
         {
             get
             {
                 return nowModel;
             }
-            set
-            {
+            set {
                 nowModel = value;
             }
         }
 
         public enum Model : int
         {
-            None,
             Normal,
             Launchpad,
         }
@@ -260,7 +258,6 @@ namespace Maker.View.UI
 
         public class InputPort
         {
-            public TextBox tbPosition;
             public String cb;
             private PlayUserControl pc;
             private IntPtr handle;
@@ -270,16 +267,18 @@ namespace Maker.View.UI
 
             }
 
-            public InputPort(PlayUserControl pc, TextBox tbPosition)
+            public InputPort(PlayUserControl pc)
             {
                 midiInProc = new NativeMethods.MidiInProc(MidiProc);
                 handle = IntPtr.Zero;
                 this.pc = pc;
-                this.tbPosition = tbPosition;
             }
 
             public void Load() {
-                pc.aaaa.OutputLight(FeedbackToConsole);
+                foreach (var item in pc.iInputAndOutputControls) {
+                    item.OutputLight(FeedbackToConsole);
+                }
+
             }
 
             public static int InputCount
@@ -357,8 +356,7 @@ namespace Maker.View.UI
                      StaticConstant.mw.SetButton((int)position);
                  }
                 ));
-                        KeyEvent((int)position, 0);
-                        tbPosition.Dispatcher.Invoke(new Action(() => { tbPosition.Text = tbPosition.Text + position + " "; }));
+                        KeyEvent((int)position, InputAndOutputControlEnum.KeyModel.KeyDown);
                             //TODO 一键复原教程轨
                             //if (cb.Contains("Pro") && (int)position == 91)
                             //{
@@ -376,7 +374,7 @@ namespace Maker.View.UI
                     }
                     else
                     {
-                        KeyEvent((int)position, 1);
+                        KeyEvent((int)position, InputAndOutputControlEnum.KeyModel.KeyUp);
                     }
 
                     if (pages.Count == 0)
@@ -557,9 +555,9 @@ namespace Maker.View.UI
                 //}
             }
 
-            private void KeyEvent(int position, int openOrClose)
+            private void KeyEvent(int position, InputAndOutputControlEnum.KeyModel keyModel)
             {
-                if (pc.nowModel == Model.Launchpad)
+                if (NowModel == Model.Launchpad)
                 {
                     if (position < 28)
                     {
@@ -570,13 +568,10 @@ namespace Maker.View.UI
                     Operation.FileBusiness.CreateInstance().ReplaceControl(positions, Operation.FileBusiness.CreateInstance().normalArr);
                     position = positions[0].Position;
                 }
-                if (openOrClose == 0)
+
+                foreach (var item in pc.iInputAndOutputControls)
                 {
-                    pc.aaaa.OnInput(position, InputAndOutputControlEnum.KeyModel.KeyDown);
-                }
-                else
-                {
-                    pc.aaaa.OnInput(position, InputAndOutputControlEnum.KeyModel.KeyUp);
+                    item.OnInput(position, keyModel);
                 }
             }
 
@@ -703,13 +698,13 @@ namespace Maker.View.UI
 
             LoadHint();
 
-            MethodInfo mi = StaticConstant.mw.Plugs[0].GetType().GetMethod("GetControl");
-            List<IControl> icon = (List<IControl>)mi.Invoke(StaticConstant.mw.Plugs[0], new Object[] { });
-            aaaa = (IInputAndOutputControl)icon[0];
-            ip.Load();
+            LoadPlugs();
+            if (ip != null) {
+                ip.Load();
+            }
         }
 
-        public IInputAndOutputControl aaaa = null;
+        public List<IInputAndOutputControl> iInputAndOutputControls = new List<IInputAndOutputControl>();
 
         protected override void LoadFileContent()
         {
@@ -876,7 +871,7 @@ namespace Maker.View.UI
             List<Light> downLight = ll;
             for (int j = 0; j < downLight.Count; j++)
             {
-                if (true)
+                if (NowModel == Model.Launchpad)
                 {
                     if (downLight[j].Position >= 28 && downLight[j].Position <= 35)
                     {
@@ -1069,6 +1064,22 @@ namespace Maker.View.UI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoadDevice();
+            LoadPlugs();
+        }
+
+        private void LoadPlugs()
+        {
+            iInputAndOutputControls.Clear();
+            foreach (var item in StaticConstant.mw.Plugs)
+            {
+                foreach (var control in item.GetControl())
+                {
+                    if (control is IInputAndOutputControl)
+                    {
+                        iInputAndOutputControls.Add(control as IInputAndOutputControl);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -1078,6 +1089,17 @@ namespace Maker.View.UI
         {
             mw.deviceWindow.InitMidiIn();
             mw.deviceWindow.InitMidiOut();
+        }
+
+        private void cbModel_Checked(object sender, RoutedEventArgs e)
+        {
+            NowModel = Model.Launchpad;
+        
+        }
+
+        private void cbModel_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NowModel = Model.Normal;
         }
         //private void btnMustOpenMidi_Click(object sender, RoutedEventArgs e)
         //{
