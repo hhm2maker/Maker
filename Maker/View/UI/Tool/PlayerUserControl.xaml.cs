@@ -31,6 +31,18 @@ namespace Maker.View
         private NewMainWindow mw;
         public PlayerLaunchpadPro playLpd;
 
+        public PlayerUserControl()
+        {
+            InitializeComponent();
+        }
+
+        public void SetMainWindow(NewMainWindow mw) {
+            this.mw = mw;
+            InitPlayLaunchpad();
+
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
+        }
+
         public PlayerUserControl(NewMainWindow mw)
         {
             InitializeComponent();
@@ -104,8 +116,8 @@ namespace Maker.View
 
             playLpd.HorizontalAlignment = HorizontalAlignment.Center;
             playLpd.VerticalAlignment = VerticalAlignment.Center;
-            playLpd.Width = 750;
-            playLpd.Height = 750;
+            //playLpd.Width = 750;
+            //playLpd.Height = 750;
             gMain.Children.Add(playLpd);
 
             GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, Business.FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
@@ -191,10 +203,12 @@ namespace Maker.View
 
         public void SetData(List<Light> mActionBeanList) {
             mActionBeanList = Business.LightBusiness.Sort(mActionBeanList);
-          
+
             //for (int i = 0; i < mActionBeanList.Count; i++)
             //    mActionBeanList[i].Position -= 28;
-            playLpd.SetData(mActionBeanList);
+            if (playLpd != null) {
+                playLpd.SetData(mActionBeanList);
+            }
         }
 
         public String DeviceName {
@@ -353,7 +367,6 @@ namespace Maker.View
             }
             playLpd.Play();
             //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
-
         }
     }
 }

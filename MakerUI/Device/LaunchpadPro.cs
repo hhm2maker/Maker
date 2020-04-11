@@ -872,6 +872,31 @@ namespace MakerUI.Device
         /// 设置数据 - 不看时间
         /// </summary>
         /// <param name="mListList"></param>
+        public void MySetData(List<Light> mListList)
+        {
+            //TODO:这个方法临时用来展示灯光
+            ClearAllColorExcept();
+
+            for (int i = 0; i < mListList.Count; i++)
+            {
+                if (mListList[i].Action == 128)
+                {
+                    SetButtonBackground(mListList[i].Position, closeBrush);
+                }
+                else
+                {
+                    if (brushList.Count > mListList[i].Color)
+                    {
+                        SetButtonBackground(mListList[i].Position, brushList[mListList[i].Color]);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 设置数据 - 不看时间
+        /// </summary>
+        /// <param name="mListList"></param>
         public virtual void SetDataToLaunchpad(List<Light> mListList)
         {
             ClearAllColorExcept();

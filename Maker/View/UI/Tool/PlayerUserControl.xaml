@@ -6,12 +6,12 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         >
-    <Grid Name="gMain">
+    <Grid Name="gMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <WrapPanel Grid.Row="1" Background="#535353" VerticalAlignment="Bottom">
+        <WrapPanel Grid.Row="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <ToolBar Background="#535353"  >
                 <TextBox Name="tbBPM" Margin="20,0,10,0" Width="50" FontSize="16"  Background="{x:Null}" Foreground="#FFFFFF" HorizontalContentAlignment="Right">96</TextBox>
                 <TextBlock  Margin="0,0,10,0" Foreground="#F0F0F0" FontSize="16" VerticalAlignment="Center"  Background="{x:Null}" Text="BPM" /> 

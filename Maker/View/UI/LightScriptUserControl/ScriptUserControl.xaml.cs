@@ -33,6 +33,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Maker.View.UI.Dialog.WindowDialog;
 using System.Windows.Shapes;
 using MakerUI.Device;
+using System.Windows.Data;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -93,11 +94,6 @@ namespace Maker.View.LightScriptUserControl
             //svMainBottom.Visibility = Visibility.Visible;
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
-
-            mLaunchpad.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
-            mLaunchpad.AddMembrane();
-            mLaunchpad.IsMembrane = true;
 
             sw = new StyleWindow(this);
             Grid.SetRow(sw, 0);
@@ -238,6 +234,14 @@ namespace Maker.View.LightScriptUserControl
             //iNewStep.ToolTip = toolTip;
 
             InitFormat();
+
+            mLaunchpad.SetMainWindow(mw);
+            mLaunchpad.playLpd.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.playLpd.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
+            mLaunchpad.playLpd.AddMembrane();
+            mLaunchpad.playLpd.IsMembrane = true;
+            tbTimePointCountLeft.Text = tbTimePointCountLeft.Text + " ";
+            UpdateSize();
         }
 
         private void InitFormat()
@@ -2084,7 +2088,9 @@ namespace Maker.View.LightScriptUserControl
         public void SetLaunchpadSize()
         {
             double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 40 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 40;
-            mLaunchpad.Size = minSize;
+            if (mLaunchpad.playLpd != null) {
+                mLaunchpad.playLpd.Size = minSize;
+            }
         }
 
         private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -4522,7 +4528,15 @@ namespace Maker.View.LightScriptUserControl
 
         private void dpShow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            mLaunchpad.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
+            UpdateSize();
+        }
+
+        private void UpdateSize() {
+            if (mLaunchpad.playLpd != null)
+            {
+                mLaunchpad.playLpd.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
+                mLaunchpad.gMain.Width = mLaunchpad.playLpd.Size;
+            }
         }
     }
 }

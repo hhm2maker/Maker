@@ -463,7 +463,9 @@ namespace Maker.Bridge
         public void LoadFrame()
         {
             iuc.mLaunchpadData = Business.LightBusiness.GetNowTimeData(lists,liTime[nowTimePoint - 1]);
-            iuc.mLaunchpad.SetData(iuc.mLaunchpadData);
+            if (iuc.mLaunchpad.playLpd != null) {
+                iuc.mLaunchpad.playLpd.MySetData(iuc.mLaunchpadData);
+            }
 
             iuc.tbTimeNow.Text = liTime[nowTimePoint - 1].ToString();
 

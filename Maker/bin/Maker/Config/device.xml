@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Device xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Devices>
+    <Device deviceIn="2- Launchpad Pro" deviceOut="2- Launchpad Pro" channel="5" />
   </Devices>
 </Device>
