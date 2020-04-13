@@ -125,6 +125,9 @@ namespace Maker.View.Device
                     e.Cancel = true;
                     break;
                 }
+                if (iplay != null) {
+                    iplay.PlayingEvent(NowTime,MaxTime);
+                }
                 worker.ReportProgress(NowTime);//返回进度
                 Thread.Sleep(wait);
             }
@@ -189,7 +192,9 @@ namespace Maker.View.Device
         public override void Pause() {
             if (bIsPause)
             {
-                worker.RunWorkerAsync();
+                if (!worker.IsBusy) {
+                    worker.RunWorkerAsync();
+                }
             }
             else
             {

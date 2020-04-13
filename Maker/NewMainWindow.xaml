@@ -117,7 +117,7 @@
                     <StackPanel  Orientation="Horizontal">
                         <Image Name="iFile" Visibility="Collapsed" VerticalAlignment="Center" Margin="15,5,0,5" Source="View/Resources/Image/file.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
                     </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" />
@@ -130,11 +130,10 @@
                             <ComboBoxItem FontSize="18" Foreground="White" Content="Data"/>
                             <ComboBoxItem FontSize="18" Foreground="White" Content="3D"/>
                         </ComboBox>
-                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,5,5" Source="View/Resources/Image/play.png" Width="20"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
+                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,0,5" Source="View/Resources/Image/play.png" Width="20"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
+                        <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="5,3,5,3"/>
+                        <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </StackPanel>
-                </DockPanel>
-                <DockPanel Height="35" Background="{DynamicResource bgTitleColor}">
-                    <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="10,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                 </DockPanel>
             </StackPanel>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >

@@ -632,6 +632,11 @@ namespace Maker.View.UI.Game
             {
                 //throw new NotImplementedException();
             }
+
+            public void PlayingEvent(int nowTime,int maxTime)
+            {
+                //throw new NotImplementedException();
+            }
         }
 
         private void wMain_Closed(object sender, EventArgs e)

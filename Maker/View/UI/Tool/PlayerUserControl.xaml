@@ -12,21 +12,12 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <ToolBar Background="#535353"  >
-                <TextBox Name="tbBPM" Margin="20,0,10,0" Width="50" FontSize="16"  Background="{x:Null}" Foreground="#FFFFFF" HorizontalContentAlignment="Right">96</TextBox>
-                <TextBlock  Margin="0,0,10,0" Foreground="#F0F0F0" FontSize="16" VerticalAlignment="Center"  Background="{x:Null}" Text="BPM" /> 
-                <Button Name="btnPlay" Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"   Click="btnPlay_Click" Content="{DynamicResource Play}"></Button>
-                <Button Name="btnPause" IsEnabled="False" Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Click="btnPause_Click" Content="{DynamicResource Pause}"></Button>
-                <Button Name="btnStop" Margin="0,0,10,0" Foreground="#F0F0F0" FontSize="16"  Click="btnStop_Click" Content="{DynamicResource Stop}"></Button>
-            </ToolBar>
-            <ToolBar  Background="#535353" >
-                <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Click="ChooseAudio" Content="{DynamicResource SelectionOfAudio}"></Button>
-                <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"   Click="ClearAudio" Content="{DynamicResource ClearAudio}"></Button>
-                <MediaElement  Margin="0,0,0,0" Name="mediaElement" MediaOpened="mediaElement_MediaOpened" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Fill" Visibility="Collapsed" />
-            </ToolBar>
-            <ToolBar  Background="#535353" HorizontalAlignment="Right">
-                <Button  Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Background="#535353" Name="btnHide" Click="btnHide_Click" Content="{DynamicResource Hide}"></Button>
-            </ToolBar>
+            <TextBlock  Margin="0,0,0,0" Foreground="#F0F0F0" FontSize="16" VerticalAlignment="Center"  Background="{x:Null}" Text="BPM:" />
+            <TextBox Name="tbBPM" VerticalContentAlignment="Center"  CaretBrush="White"  Margin="10,0,50,0" Width="50" FontSize="16" Text="96" Background="{x:Null}"  Foreground="#FFFFFF" HorizontalContentAlignment="Right" />
+            <Image Name="btnPlay" MouseLeftButtonDown="btnPlay_Click" RenderOptions.BitmapScalingMode="Fant" Width="30" Source="../../../View/Resources/Image/play_green.png" />
+            <Image Name="btnStop" MouseLeftButtonDown="btnStop_Click"  Margin="10,0,0,0" RenderOptions.BitmapScalingMode="Fant" Width="30" Source="../../../View/Resources/Image/over.png" />
+            <!--<Button Name="btnPause" IsEnabled="False" Margin="0,0,10,0"  Foreground="#F0F0F0" FontSize="16"  Click="btnPause_Click" Content="{DynamicResource Pause}" />-->
+            <MediaElement  Margin="0,0,0,0" Name="mediaElement" MediaOpened="mediaElement_MediaOpened" LoadedBehavior="Manual" UnloadedBehavior="Stop" Stretch="Fill" Visibility="Collapsed" />
         </WrapPanel>
     </Grid>
 </UserControl>

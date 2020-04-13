@@ -28,5 +28,9 @@ namespace Maker.View.Device
         /// 暂停播放事件
         /// </summary>
         void PauseEvent(bool isPause);
+        /// <summary>
+        /// 播放中事件
+        /// </summary>
+        void PlayingEvent(int nowTime,int maxTime);
     }
 }

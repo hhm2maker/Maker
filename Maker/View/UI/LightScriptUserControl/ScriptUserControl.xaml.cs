@@ -4465,7 +4465,36 @@ namespace Maker.View.LightScriptUserControl
             //    //StrokeThickness = 10
             //};
             //cTimeLine.Children.Add(line);
+        }
 
+        //Copy OnDrawTimeLine
+        public void UpdateLine(double nowTime,double maxTime) {
+
+            Application.Current.Dispatcher.Invoke(delegate ()
+            {
+                cTimeLine.Children.Clear();
+                double x1 = 0;
+                if (Double.IsNaN(nowTime * 1.0 / maxTime * cTimeLine.ActualWidth))
+                {
+                    x1 = 0;
+                }
+                else
+                {
+                    x1 = nowTime * 1.0 / maxTime * cTimeLine.ActualWidth;
+                }
+                //double X2 = X1+5;
+                Line line = new Line()
+                {
+                    X1 = x1,
+                    X2 = x1,
+                    Y1 = 0,
+                    Y2 = cTimeLine.ActualHeight,
+                    Stroke = new SolidColorBrush(Colors.White),
+                    //StrokeThickness = 10
+                };
+                cTimeLine.Children.Add(line);
+            });
+           
         }
 
         private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)

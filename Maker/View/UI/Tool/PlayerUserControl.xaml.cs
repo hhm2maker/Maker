@@ -20,13 +20,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Maker.Business.Utils;
 using Operation;
+using Maker.View.LightScriptUserControl;
+using System.Windows.Media.Imaging;
 
 namespace Maker.View
 {
     /// <summary>
     /// PlayerWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class PlayerUserControl : UserControl,IPlay
+    public partial class PlayerUserControl : UserControl, IPlay
     {
         private NewMainWindow mw;
         public PlayerLaunchpadPro playLpd;
@@ -64,7 +66,7 @@ namespace Maker.View
         }
 
         private List<Light> mActionBeanList;
-        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList,String audioResources, double dTime,int nowTimeI)
+        public PlayerUserControl(NewMainWindow mw, List<Light> mActionBeanList, String audioResources, double dTime, int nowTimeI)
         {
             InitializeComponent();
             this.mw = mw;
@@ -90,6 +92,28 @@ namespace Maker.View
 
             //Console.WriteLine(nowTimeI +"---"+ LightBusiness.GetMax(mActionBeanList)+ "---"+dAllTime);
             //Console.WriteLine(MediaElementPosition);
+        }
+
+        public void SetTime(List<Light> mActionBeanList, String audioResources, double dTime, int nowTimeI) {
+            AudioResources = audioResources;
+            this.dTime = dTime;
+            this.mActionBeanList = mActionBeanList;
+            InitPlayLaunchpad();
+            SetData(mActionBeanList);
+
+            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
+
+            playLpd.SmallTime = nowTimeI;
+            //(int)(LightBusiness.GetMax(mActionBeanList) * dTime)  
+            //Console.WriteLine((int)Math.Round(nowTimeP * LightBusiness.GetMax(GetData())));
+
+            if (!AudioResources.Equals(String.Empty))
+            {
+                dAllTime = double.Parse(MediaFileTimeUtil.GetAsfTime(AudioResources, double.Parse(tbBPM.Text)));
+
+                //MediaElementPosition =  dTime * LightBusiness.GetMax(mActionBeanList) / dAllTime;
+                MediaElementPosition = (nowTimeI * 1.0 / dAllTime);
+            }
         }
 
         double MediaElementPosition = 0;
@@ -226,42 +250,11 @@ namespace Maker.View
             //    mw.cuc.tw.cbDevice.Items.Remove(DeviceName);
             //}
         }
-
-        private void btnHide_Click(object sender, RoutedEventArgs e)
-        {
-            DoubleAnimation daV = new DoubleAnimation(1, 0, new Duration(TimeSpan.FromSeconds(0.2)));
-            daV.Completed += DaV_Completed;
-            BeginAnimation(OpacityProperty, daV);
-        }
-
-        private void DaV_Completed(object sender, EventArgs e)
-        {
-            mw.editUserControl.RemoveTool();
-        }
+    
 
         private String AudioResources = String.Empty;
         private double dTime = 0;
-        private void ChooseAudio(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.OpenFileDialog openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            if (mw.strMyLanguage.Equals("en-US"))
-            {
-                openFileDialog1.Filter = "Wav file(*.wav)|*.wav|Mp3 file(*.mp3)|*.mp3|All files(*.*)|*.*";
-            }
-            else {
-                openFileDialog1.Filter = "Wav文件(*.wav)|*.wav|Mp3文件(*.mp3)|*.mp3|所有文件(*.*)|*.*";
-            }
-            openFileDialog1.RestoreDirectory = true;
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                AudioResources = openFileDialog1.FileName;
-            }
-        }
-
-        private void ClearAudio(object sender, RoutedEventArgs e)
-        {
-            AudioResources = String.Empty;
-        }
+        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -270,23 +263,24 @@ namespace Maker.View
 
         public void StartPlayEvent()
         {
-            btnPlay.IsEnabled = false;
+            
         }
 
         public void EndPlayEvent()
         {
-            btnPlay.IsEnabled = true;
+            isPlayOver = true;
+            btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
+            playLpd.ClearAllColorExceptMembrane();
 
-            btnPause.SetResourceReference(ContentProperty, "Pause");
-            btnPause.IsEnabled = false;
             mediaElement.Stop();
             mediaElement.Close();
         }
 
         public void PlayEvent()
         {
-            btnPause.SetResourceReference(ContentProperty, "Pause");
-            btnPause.IsEnabled = true;
+            isPlay = true;
+            btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/pause_green.png", UriKind.RelativeOrAbsolute));
+
 
             if (playLpd is ParagraphIntListPlayerLaunchpadPro || playLpd is ParagraphLightListPlayerLaunchpadPro)
             {
@@ -303,15 +297,20 @@ namespace Maker.View
 
         public void StopEvent()
         {
+            btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
+
             btnPlay.IsEnabled = true;
-            btnPause.SetResourceReference(ContentProperty, "Pause");
-            btnPause.IsEnabled = false;
+            isPlayOver = true;
+            isPlay = false;
         }
+
         public void PauseEvent(bool isPause)
         {
             if (isPause)
             {
-                btnPause.SetResourceReference(ContentProperty, "Pause");
+                isPlay = true;
+                btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
+
                 if (File.Exists(AudioResources))
                 {
                     mediaElement.Play();
@@ -319,7 +318,10 @@ namespace Maker.View
             }
             else
             {
-                btnPause.SetResourceReference(ContentProperty, "Continue");
+                isPlay = false;
+                btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/pause_green.png", UriKind.RelativeOrAbsolute));
+
+
                 if (File.Exists(AudioResources))
                 {
                     mediaElement.Stop();
@@ -327,14 +329,49 @@ namespace Maker.View
             }
         }
 
+        bool isPlay = false;
+        bool isPlayOver = true;
         double dAllTime = 0;
 
         bool isFirst = true;
-        private void btnPlay_Click(object sender, RoutedEventArgs e)
+        private void btnPlay_Click(object sender, MouseButtonEventArgs e)
         {
+            if (isPlayOver)
+            {
+                Play();
+                isPlay = true;
+                isPlayOver = false;
+            }
+            else {
+                btnPause_Click(null, null);
+                isPlay = !isPlay;
+            }
+        }
+
+        private void Play() {
+            if (!(mw.editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+            {
+                String strAudioResources = (mw.editUserControl.userControls[3] as ScriptUserControl).AudioResources;
+                if (!strAudioResources.Contains(@"\"))
+                {
+                    //说明是不完整路径
+                    strAudioResources = mw.LastProjectPath + @"Audio\" + strAudioResources;
+                }
+                if (File.Exists(strAudioResources))
+                {
+                    SetTime((mw.editUserControl.userControls[3] as ScriptUserControl).GetData(), strAudioResources, (mw.editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (mw.editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
+                }
+                else
+                {
+                    SetData((mw.editUserControl.userControls[3] as ScriptUserControl).GetData());
+                }
+            }
+
+
             if (File.Exists(AudioResources))
             {
-                if (isFirst) {
+                if (isFirst)
+                {
                     //初始化进度条
                     mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
                     isFirst = false;
@@ -349,7 +386,7 @@ namespace Maker.View
         }
 
      
-        private void btnStop_Click(object sender, RoutedEventArgs e)
+        private void btnStop_Click(object sender, MouseButtonEventArgs e)
         {
             playLpd.Stop();
         }
@@ -367,6 +404,11 @@ namespace Maker.View
             }
             playLpd.Play();
             //mediaElement.Position = TimeSpan.FromMilliseconds(mediaElement.NaturalDuration.TimeSpan.TotalMilliseconds * dTime);
+        }
+
+        public void PlayingEvent(int nowTime,int maxTime)
+        {
+            (mw.editUserControl.userControls[3] as ScriptUserControl).UpdateLine(nowTime, maxTime);
         }
     }
 }
