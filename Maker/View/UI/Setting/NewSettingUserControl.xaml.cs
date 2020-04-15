@@ -44,7 +44,7 @@ namespace Maker.View.UI.Setting
         /// </summary>
         private void InitHelp()
         {
-            XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
+            //XmlSerializerBusiness.Load(ref helpConfigModel, "Config/help.xml");
         }
 
         private void Image_MouseLeftButtonDown_2(object sender, System.Windows.Input.MouseButtonEventArgs e)

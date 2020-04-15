@@ -240,6 +240,8 @@ namespace Maker.View.LightScriptUserControl
             mLaunchpad.playLpd.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.playLpd.AddMembrane();
             mLaunchpad.playLpd.IsMembrane = true;
+
+            //TODO:
             tbTimePointCountLeft.Text = tbTimePointCountLeft.Text + " ";
             UpdateSize();
         }
@@ -2922,22 +2924,29 @@ namespace Maker.View.LightScriptUserControl
                 return;
             int mINowPosition = iNowPosition - 1;
             int selectedIndex = lbStep.SelectedIndex;
-            //if (mINowPosition == -1)
-            //    mINowPosition = 99;
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
+
+            if (scriptModelDictionarys.Count > mINowPosition)
             {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
-                _bIsEdit = true;
-                isRedo = false;
+                scriptModelDictionary = scriptModelDictionarys[mINowPosition];
+                UpdateStep();
 
                 iNowPosition -= 1;
-                //重新加载
-                LoadFile(System.IO.Path.GetFileName(filePath));
-                if (selectedIndex < lbStep.Items.Count)
-                {
-                    lbStep.SelectedIndex = selectedIndex;
-                }
             }
+
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
+            //{
+            //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
+            //    _bIsEdit = true;
+            //    isRedo = false;
+
+            //    iNowPosition -= 1;
+            //    //重新加载
+            //    LoadFile(System.IO.Path.GetFileName(filePath));
+            //    if (selectedIndex < lbStep.Items.Count)
+            //    {
+            //        lbStep.SelectedIndex = selectedIndex;
+            //    }
+            //}
         }
 
         public bool isRedo = false;
@@ -2948,20 +2957,28 @@ namespace Maker.View.LightScriptUserControl
                 return;
             int mINowPosition = iNowPosition + 1;
             int selectedIndex = lbStep.SelectedIndex;
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
-            {
-                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
-                _bIsEdit = true;
-                isRedo = true;
+
+            if (scriptModelDictionarys.Count > mINowPosition) {
+                scriptModelDictionary = scriptModelDictionarys[mINowPosition];
+                UpdateStep();
 
                 iNowPosition += 1;
-                //重新加载
-                LoadFile(System.IO.Path.GetFileName(filePath));
-                if (selectedIndex < lbStep.Items.Count)
-                {
-                    lbStep.SelectedIndex = selectedIndex;
-                }
             }
+          
+            //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
+            //{
+            //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
+            //    _bIsEdit = true;
+            //    isRedo = true;
+
+            //    iNowPosition += 1;
+            //    //重新加载
+            //    LoadFile(System.IO.Path.GetFileName(filePath));
+            //    if (selectedIndex < lbStep.Items.Count)
+            //    {
+            //        lbStep.SelectedIndex = selectedIndex;
+            //    }
+            //}
         }
 
         private void GetExecutionTime(object sender, MouseButtonEventArgs e)
@@ -4566,6 +4583,18 @@ namespace Maker.View.LightScriptUserControl
                 mLaunchpad.playLpd.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
                 mLaunchpad.gMain.Width = mLaunchpad.playLpd.Size;
             }
+        }
+
+        public List<Dictionary<String, ScriptModel>> scriptModelDictionarys = new List<Dictionary<String, ScriptModel>>();
+        public void SaveScriptModel() {
+            //深度复制实体类
+            Dictionary<String, ScriptModel> _scriptModelDictionary = new Dictionary<string, ScriptModel>();
+            foreach (var item in scriptModelDictionary)
+            {
+                ScriptModel _scriptModel = ObjectCopier.Clone(item.Value);
+                _scriptModelDictionary.Add(item.Key, _scriptModel);
+            }
+            scriptModelDictionarys.Add(_scriptModelDictionary);
         }
     }
 }

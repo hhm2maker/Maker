@@ -148,6 +148,7 @@ namespace Maker.View
             gMain.Width = playLpd.Width;
 
             playLpd.ClearAllColorExcept();
+            playLpd.CanDragMove = true;
             //if (lbMain.SelectedIndex == -1)
             //{
             //    return;
@@ -258,7 +259,7 @@ namespace Maker.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            playLpd.CanDragMove = true;
+
         }
 
         public void StartPlayEvent()
@@ -271,6 +272,9 @@ namespace Maker.View
             isPlayOver = true;
             btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
             playLpd.ClearAllColorExceptMembrane();
+
+            //TODO:
+            (mw.editUserControl.userControls[3] as ScriptUserControl).tbTimePointCountLeft.Text += " ";
 
             mediaElement.Stop();
             mediaElement.Close();
@@ -388,8 +392,12 @@ namespace Maker.View
      
         private void btnStop_Click(object sender, MouseButtonEventArgs e)
         {
+            //TODO:
+            (mw.editUserControl.userControls[3] as ScriptUserControl).tbTimePointCountLeft.Text += " ";
             playLpd.Stop();
+            playLpd.ClearAllColorExcept();
         }
+
         private void btnPause_Click(object sender, RoutedEventArgs e)
         {
             playLpd.Pause();

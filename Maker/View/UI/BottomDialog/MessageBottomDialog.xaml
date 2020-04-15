@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.BottomDialog"
              mc:Ignorable="d" 
-             Width="350" Background="{DynamicResource DialogBgColor}">
+             Width="350" Background="{DynamicResource DialogBgColor}" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,7 +14,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel Margin="10">
-        <TextBlock Foreground="{DynamicResource DialogTitleColor}" Text="有新版本" FontSize="18"/>
+        <DockPanel>
+            <TextBlock Foreground="{DynamicResource DialogTitleColor}" Text="有新版本" FontSize="18"/>
+            <Image Name="iClose" MouseLeftButtonUp="iClose_MouseLeftButtonUp" MouseEnter="iClose_MouseEnter" MouseLeave="iClose_MouseLeave" Visibility="Hidden" Source="../../../View/Resources/Image/Close_no_enter.png" Width="16" Height="16" HorizontalAlignment="Right"/>
+        </DockPanel>
         <TextBlock Margin="0,5,0,0"  FontSize="16">
             <Run Foreground="{DynamicResource DialogContentColor}">Maker已经准备好去</Run>
             <Run Foreground="{DynamicResource DialogLinkColor}" MouseLeftButtonUp="Run_MouseLeftButtonUp">更新</Run>

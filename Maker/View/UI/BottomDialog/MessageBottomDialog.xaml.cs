@@ -72,5 +72,30 @@ namespace Maker.View.UI.BottomDialog
                 throw;
             }
         }
+
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            iClose.Visibility = Visibility.Visible;
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            iClose.Visibility = Visibility.Hidden;
+        }
+
+        private void iClose_MouseEnter(object sender, MouseEventArgs e)
+        {
+            iClose.Source = new BitmapImage(new Uri("../../../View/Resources/Image/close_enter.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void iClose_MouseLeave(object sender, MouseEventArgs e)
+        {
+            iClose.Source = new BitmapImage(new Uri("../../../View/Resources/Image/close_no_enter.png", UriKind.RelativeOrAbsolute));
+        }
+
+        private void iClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            (Parent as Panel).Children.Remove(this);
+        }
     }
 }

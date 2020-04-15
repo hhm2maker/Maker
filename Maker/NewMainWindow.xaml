@@ -46,37 +46,43 @@
                     <Grid Background="{DynamicResource bgTitleColor}"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Menu VerticalAlignment="Center" >
-                            <MenuItem Header="{DynamicResource File}" SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                                <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" />
-                                <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" />
+                            <MenuItem Header="{DynamicResource File}" Foreground="{DynamicResource TitleFontColor}"  SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
+                                <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" Foreground="{DynamicResource TitleFontColor}" />
+                                <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" Foreground="{DynamicResource TitleFontColor}" />
                                 <Separator />
-                                <MenuItem Header="{DynamicResource Export}">
-                                    <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click"/>
-                                    <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click"/>
+                                <MenuItem Header="{DynamicResource Export}" Foreground="{DynamicResource TitleFontColor}" >
+                                    <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
+                                    <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
                                     <Separator />
-                                    <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click"/>
+                                    <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 </MenuItem>
                                 <Separator />
-                                <MenuItem Header="{DynamicResource Exit}" Click="Exit"/>
+                                <MenuItem Header="{DynamicResource Exit}" Click="Exit" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
-                            <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                                <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" />
+                            <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                                <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
-                            <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click"/>
-                            <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                                <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" />
-                                <MenuItem Header="{DynamicResource Device}" Click="Device_Click" />
+                            <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click" Foreground="{DynamicResource TitleFontColor}" />
+                            <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                                <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" Foreground="{DynamicResource TitleFontColor}"  />
+                                <MenuItem Header="{DynamicResource Device}" Click="Device_Click" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
-                            <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18">
-                                <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" />
+                            <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                                <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
                         </Menu>
-                        <StackPanel Grid.Column="1" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
-                        <Grid Margin="0,5,0,5" Grid.Column="2">
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
+                            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                            <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
+                        <Grid Margin="0,5,0,5" Grid.Column="3">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                 <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,10,0">
                                     <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
@@ -109,9 +115,8 @@
                     </Grid>
                 </Border>
                 <DockPanel Background="{DynamicResource bgTitleColor}">
-                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
-                        <TextBlock Text="{DynamicResource BPMColon}" Foreground="White" FontSize="18" />
-                        <TextBlock Name="tbBPM" Foreground="White" FontSize="18" Margin="5,0,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" >
+                        <Image VerticalAlignment="Center" Margin="0,0,15,0" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
                     </StackPanel>
                     <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                     <StackPanel  Orientation="Horizontal">
@@ -131,7 +136,7 @@
                             <ComboBoxItem FontSize="18" Foreground="White" Content="3D"/>
                         </ComboBox>
                         <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,0,5" Source="View/Resources/Image/play.png" Width="20"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
-                        <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="5,3,5,3"/>
+                        <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="15,3,5,3"/>
                         <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </StackPanel>
                 </DockPanel>

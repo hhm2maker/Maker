@@ -50,6 +50,8 @@ namespace Maker.Model
         /// </summary>
         public static NewMainWindow mw;
 
-        public static String NowVersion = "20200409";
+        public static String NowVersion = "20200420";
+
+        public static bool IsNowVersion = false;
     }
 }

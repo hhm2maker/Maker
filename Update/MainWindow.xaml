@@ -13,6 +13,6 @@
         ResizeMode="NoResize">
     <Grid>
         <TextBlock Foreground="#FF5A5A" Margin="20" Name="tbHelp" TextWrapping="Wrap" FontSize="16" />
-        <Button  Click="ToUpdate" Foreground="White" FontSize="20"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Background="{x:Null}" BorderBrush="White" Margin="20" >更新</Button>
+        <Button Name="btnUpdate" Click="ToUpdate" Foreground="White" FontSize="20"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Background="{x:Null}" BorderBrush="White" Margin="20" >更新</Button>
     </Grid>
 </Window>

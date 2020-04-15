@@ -27,7 +27,7 @@ namespace Maker.Bridge
             //view.UpdateData(Business.Currency.OperationUtils.OperationLightDictionaryToMakerLightDictionary(Results.Test(view.scriptModelDictionary)));
             view.UpdateData(Results.Test(view.scriptModelDictionary));
             if (!view._bIsEdit) {
-                view.SaveFile();
+                view.SaveScriptModel();
                 view.CopyFile();
                 view._bIsEdit = false;
             }

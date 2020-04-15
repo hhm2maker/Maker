@@ -147,6 +147,10 @@ namespace Maker.View.UI.MyFile
         public void btnNew_Click(object sender, RoutedEventArgs e)
         {
             BaseUserControl baseUserControl;
+            if (sender == null) {
+                sender = miNewLightScript;
+            }
+
             if (sender == miNewLight)
             {
                 baseUserControl = mw.editUserControl.userControls[0];
@@ -410,7 +414,11 @@ namespace Maker.View.UI.MyFile
 
         private void Image_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
         {
-            btnNew_Click(miNewLightScript, null);
+            NewScript();
+        }
+
+        public void NewScript() {
+            btnNew_Click(null, null);
         }
 
 

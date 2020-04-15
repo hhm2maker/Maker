@@ -12,5 +12,7 @@
     <SolidColorBrush x:Key="DialogLinkColor" Color="#5290F5"/>
     <SolidColorBrush x:Key="DividingLineColor" Color="#515151"/>
     <SolidColorBrush x:Key="RedOverColor" Color="#DA6B57"/>
+    <SolidColorBrush x:Key="TitleFontColor" Color="#BBBBBB"/>
+    <SolidColorBrush x:Key="TitleCenterFontColor" Color="#919191"/>
 
 </ResourceDictionary>

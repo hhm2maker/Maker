@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Maker.Model;
 using Maker.View.Control;
 using Maker.View.UI;
 using Maker.ViewModel;
@@ -72,9 +73,10 @@ namespace Maker.MyApp
             //可以记录日志并转向错误bug窗口友好提示用户
             e.Handled = true;
            System.Windows.MessageBox.Show("消息:" + e.Exception.Message + "\r\n" + e.Exception.StackTrace);
-
-            ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-            log.Error(e.Exception);
+            if (StaticConstant.IsNowVersion) {
+                ILog log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+                log.Error(e.Exception);
+            }
             //mw.ShowMsg();
         }
         protected override void OnSessionEnding(SessionEndingCancelEventArgs e)

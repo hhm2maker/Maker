@@ -605,6 +605,9 @@ namespace Maker
                     {
                         spDialog.Children.Add(new MessageBottomDialog());
                     }
+                    else {
+                        StaticConstant.IsNowVersion = true;
+                    }
                 }
             }
             catch
@@ -1351,6 +1354,13 @@ namespace Maker
             if (normalFileManager != null)
             {
                 normalFileManager.NoSelected();
+            }
+        }
+
+        private void Image_MouseLeftButtonDown_6(object sender, MouseButtonEventArgs e)
+        {
+            if(normalFileManager != null) {
+                normalFileManager.NewScript();    
             }
         }
     }
