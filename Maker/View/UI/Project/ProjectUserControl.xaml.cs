@@ -390,7 +390,7 @@ namespace Maker.View.UI.Project
             //if (mw.cMost.Children.Count == 0)
             //    return;
             //是否是制作灯光的用户控件
-            baseUserControl = (mw.contentUserControls[1] as EditUserControl).gMain.Children[0] as BaseUserControl;
+            baseUserControl = (mw.contentUserControls[1] as EditUserControl).tcMain.Items[0] as BaseUserControl;
 
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -540,8 +540,8 @@ namespace Maker.View.UI.Project
                 mw.SetSpFilePosition(position);
             }
 
-            euc.gMain.Children.Clear();
-            euc.gMain.Children.Add(userControls[index]);
+            euc.tcMain.Items.Clear();
+            euc.tcMain.Items.Add(userControls[index]);
 
             return;
             mw.cMost.Background = new SolidColorBrush(Colors.Transparent);

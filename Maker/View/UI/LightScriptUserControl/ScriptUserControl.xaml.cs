@@ -210,7 +210,7 @@ namespace Maker.View.LightScriptUserControl
         private void Binding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             HideAllPopup();
-          
+
             e.Handled = true;
         }
 
@@ -355,7 +355,8 @@ namespace Maker.View.LightScriptUserControl
         public void UpdateComplement()
         {
             List<String> ls = GetStepNameCollection();
-            for (int i = 0; i < ls.Count; i++) { 
+            for (int i = 0; i < ls.Count; i++)
+            {
                 StackPanel sp = (StackPanel)lbStep.Items[i];
                 DockPanel panel = (DockPanel)sp.Children[0];
 
@@ -365,7 +366,7 @@ namespace Maker.View.LightScriptUserControl
                     Image visibleImage = (Image)panel.Children[0];
                     visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
                 }
-            } 
+            }
         }
         /// <summary>
         /// 更新步骤可见或不可见
@@ -412,27 +413,27 @@ namespace Maker.View.LightScriptUserControl
                 }
 
                 CreateFromStepOperationModel createFromStepOperationModel = (CreateFromStepOperationModel)scriptModelDictionary[ls[i]].OperationModels.Find(model => model is CreateFromStepOperationModel);
-                    if (createFromStepOperationModel != null)
-                    {
+                if (createFromStepOperationModel != null)
+                {
                     //如果是子集
-                        scriptModelDictionary[ls[i]].Visible = scriptModelDictionary[createFromStepOperationModel.StepName].Visible;
-                        DockPanel panel = (DockPanel)sp.Children[0];
-                        Image visibleImage = (Image)panel.Children[0];
-                        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
-                    }
-
-                    //foreach (var scriptModel in scriptModelDictionary)
-                    //{
-                    //    //如果是子集
-                    //    if (scriptModel.Value.Intersection.Contains(ls[i]))
-                    //    {
-                    //        //panel.Margin = new Thickness(30,0,0,0);
-                    //        Image visibleImage = (Image)panel.Children[0];
-                    //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
-                    //        break;
-                    //    }
-                    //}
+                    scriptModelDictionary[ls[i]].Visible = scriptModelDictionary[createFromStepOperationModel.StepName].Visible;
+                    DockPanel panel = (DockPanel)sp.Children[0];
+                    Image visibleImage = (Image)panel.Children[0];
+                    visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
                 }
+
+                //foreach (var scriptModel in scriptModelDictionary)
+                //{
+                //    //如果是子集
+                //    if (scriptModel.Value.Intersection.Contains(ls[i]))
+                //    {
+                //        //panel.Margin = new Thickness(30,0,0,0);
+                //        Image visibleImage = (Image)panel.Children[0];
+                //        visibleImage.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/branch.png", UriKind.RelativeOrAbsolute));
+                //        break;
+                //    }
+                //}
+            }
             //根据父类可见不可见，来改变子类可见不可见
             //for (int i = 0; i < lbStep.Items.Count; i++)
             //{
@@ -452,8 +453,8 @@ namespace Maker.View.LightScriptUserControl
             //        }
             //    }
             //}
-         
-        
+
+
         }
         /// <summary>
         /// 更新锁定
@@ -477,8 +478,8 @@ namespace Maker.View.LightScriptUserControl
                 }
             }
         }
-    
-      
+
+
 
         /// <summary>
         /// 内容是否正确
@@ -954,7 +955,7 @@ namespace Maker.View.LightScriptUserControl
 
             bridge.GetResult();
 
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition - 1) + ".lightScript"))
+            if (iNowPosition > 1)
             {
                 iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_blue.png", UriKind.RelativeOrAbsolute));
             }
@@ -962,7 +963,7 @@ namespace Maker.View.LightScriptUserControl
             {
                 iUnmake.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/revoke_gray.png", UriKind.RelativeOrAbsolute));
             }
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + (iNowPosition + 1) + ".lightScript"))
+            if ((iNowPosition + 1) < scriptModelDictionarys.Count)
             {
                 iRedo.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/redo_blue.png", UriKind.RelativeOrAbsolute));
             }
@@ -972,7 +973,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        public void Test(String stepName,int position)
+        public void Test(String stepName, int position)
         {
             Dictionary<String, ScriptModel> _scriptModelDictionary = new Dictionary<string, ScriptModel>();
             foreach (var item in scriptModelDictionary)
@@ -985,7 +986,7 @@ namespace Maker.View.LightScriptUserControl
             _scriptModelDictionary[stepName].OperationModels.RemoveAt(position);
             bridge.GetBlockResult(stepName, _scriptModelDictionary);
         }
-      
+
 
         public static class ObjectCopier
         {
@@ -1501,7 +1502,7 @@ namespace Maker.View.LightScriptUserControl
             //String oldChildrenCommand = scriptModelDictionary[childName].Value;
             //String myCommand = Environment.NewLine + "\tLightGroup " + childName + "LightGroup = " + parentName + "LightGroup;" + Environment.NewLine;
             //String newChildrenCommand = parentCommand + myCommand + oldChildrenCommand;
-          
+
             //scriptModelDictionary[childName].Value = newChildrenCommand;
             //StackPanel sp = (StackPanel)lbStep.SelectedItem;
             //TextBlock block = (TextBlock)sp.Children[3];
@@ -1657,7 +1658,7 @@ namespace Maker.View.LightScriptUserControl
                 //思考ing，如果不加入这一条，那么走完这个逻辑会选中最后一条，这样也是合理的吧_(:з」∠)_
                 if (lbStep.SelectedItems.Count == 0)
                 {
-                return;
+                    return;
                 }
             }
 
@@ -1753,7 +1754,7 @@ namespace Maker.View.LightScriptUserControl
             UpdateVisible();
             Test();
             lbStep.SelectedIndex = lbStep.Items.Count - 1;
-            lbStep.ScrollIntoView(lbStep.Items[lbStep.Items.Count-1]);
+            lbStep.ScrollIntoView(lbStep.Items[lbStep.Items.Count - 1]);
         }
 
         private void DelStep(object sender, RoutedEventArgs e)
@@ -1820,7 +1821,8 @@ namespace Maker.View.LightScriptUserControl
                 {
                     if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
                     {
-                        if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName)) {
+                        if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName))
+                        {
                             System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
                             return;
                         }
@@ -1938,13 +1940,15 @@ namespace Maker.View.LightScriptUserControl
                           {
                               return (item as CreateFromStepOperationModel).StepName.Equals(GetStepName(sp));
                           }
-                          else {
+                          else
+                          {
                               return false;
                           }
                       }).Count) != 0;
                 });
 
-                if (scriptModel != null) {
+                if (scriptModel != null)
+                {
                     lbStep.SelectedItem = lbStep.Items[i];
                     System.Windows.Forms.MessageBox.Show("该步骤有子类，不允许合并!");
                     return;
@@ -2090,7 +2094,8 @@ namespace Maker.View.LightScriptUserControl
         public void SetLaunchpadSize()
         {
             double minSize = dpShow.ActualWidth < dpShow.ActualHeight - 70 - 40 ? dpShow.ActualWidth : dpShow.ActualHeight - 70 - 40;
-            if (mLaunchpad.playLpd != null) {
+            if (mLaunchpad.playLpd != null)
+            {
                 mLaunchpad.playLpd.Size = minSize;
             }
         }
@@ -2176,8 +2181,8 @@ namespace Maker.View.LightScriptUserControl
                 //spStepControl.ToolTip = null;
 
                 //更新右侧Style
-                 foreach (var item in lbStep.SelectedItems)
-                 {
+                foreach (var item in lbStep.SelectedItems)
+                {
                     StackPanel sp = item as StackPanel;
                     sp.Background = new SolidColorBrush(Colors.Black);
                 }
@@ -2932,7 +2937,8 @@ namespace Maker.View.LightScriptUserControl
 
                 iNowPosition -= 1;
             }
-
+            _bIsEdit = true;
+            Test();
             //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
             //{
             //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
@@ -2958,13 +2964,15 @@ namespace Maker.View.LightScriptUserControl
             int mINowPosition = iNowPosition + 1;
             int selectedIndex = lbStep.SelectedIndex;
 
-            if (scriptModelDictionarys.Count > mINowPosition) {
+            if (scriptModelDictionarys.Count > mINowPosition)
+            {
                 scriptModelDictionary = scriptModelDictionarys[mINowPosition];
                 UpdateStep();
 
                 iNowPosition += 1;
             }
-          
+            _bIsEdit = true;
+            Test();
             //if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript"))
             //{
             //    File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + mINowPosition + ".lightScript", filePath, true);
@@ -3321,8 +3329,8 @@ namespace Maker.View.LightScriptUserControl
             }
             //Import Introduce Final Locked
             scriptModelDictionary.Clear();
-          
-            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce,out String audioResources);
+
+            scriptModelDictionary = bridge.GetScriptModelDictionary(filePath, out String introduce, out String audioResources);
             this.introduce = introduce;
             AudioResources = audioResources;
             tbMusic.Text = AudioResources;
@@ -3351,10 +3359,11 @@ namespace Maker.View.LightScriptUserControl
                 {
                     AddStep(item.Value.Name, createFromStepOperationModel.StepName);
                 }
-                else {
+                else
+                {
                     AddStep(item.Value.Name, "");
                 }
-         
+
             }
             UpdateVisible();
         }
@@ -3430,7 +3439,7 @@ namespace Maker.View.LightScriptUserControl
                 {
                     xScript.SetAttributeValue("complement", "");
                 }
-         
+
                 foreach (var mItem in item.Value.OperationModels)
                 {
                     xScript.Add(mItem.GetXElement());
@@ -3449,19 +3458,6 @@ namespace Maker.View.LightScriptUserControl
                 return;
 
             iNowPosition++;
-
-            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Cache")) {
-                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Cache");
-            }
-            File.Copy(filePath, AppDomain.CurrentDomain.BaseDirectory + @"Cache\" + iNowPosition + ".lightScript", true);
-            if (iNowPosition == 999)
-            {
-                new MessageDialog(mw, "Edit999").ShowDialog();
-                ClearCache();
-                iNowPosition = -1;
-                _bIsEdit = false;
-                Test();
-            }
         }
         /// <summary>
         /// 清除输入控件里的数据
@@ -3502,7 +3498,7 @@ namespace Maker.View.LightScriptUserControl
                     }
                     sp = (StackPanel)element;
                 }
-             
+
             }
             //Test();
         }
@@ -4117,10 +4113,10 @@ namespace Maker.View.LightScriptUserControl
         public void ThirdPartysMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
-           
+
         }
 
-     
+
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox lbMain = sender as ListBox;
@@ -4152,7 +4148,7 @@ namespace Maker.View.LightScriptUserControl
             mw.ShowMakerDialog(hintDialog);
         }
 
-        private void SetupEditPlugIn(ThirdPartySetupsModel thirdPartySetupModel,ListBox lbMain)
+        private void SetupEditPlugIn(ThirdPartySetupsModel thirdPartySetupModel, ListBox lbMain)
         {
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\View\" + thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].View + ".xml")
                          || File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Operation\Dll\" + thirdPartySetupsModel.ThirdPartySetupModels[lbMain.SelectedIndex].Dll + ".dll"))
@@ -4179,7 +4175,7 @@ namespace Maker.View.LightScriptUserControl
             XmlSerializerBusiness.Save(thirdPartyModelsModel, AppDomain.CurrentDomain.BaseDirectory + @"\Operation\DetailedList.xml");
         }
 
-     
+
         private void iRefresh_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Test();
@@ -4187,32 +4183,32 @@ namespace Maker.View.LightScriptUserControl
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
-                String stepName = GetUsableStepName();
-                ScriptModel scriptModel = new ScriptModel();
-                scriptModel.Name = stepName;
-                scriptModel.Value = "";
-                scriptModel.Visible = true;
-                scriptModel.Intersection = new List<string>();
-                scriptModel.Complement = new List<string>();
+            String stepName = GetUsableStepName();
+            ScriptModel scriptModel = new ScriptModel();
+            scriptModel.Name = stepName;
+            scriptModel.Value = "";
+            scriptModel.Visible = true;
+            scriptModel.Intersection = new List<string>();
+            scriptModel.Complement = new List<string>();
 
-                if (sender == miRhombusDiffusion)
-                {
-                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11,1)));
-                }
-                else if (sender == miCross)
-                {
-                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11,1)));
-                }
-                else if (sender == miRandomFountain)
-                {
-                    scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0, 7)));
-                }
-                scriptModelDictionary.Add(stepName, scriptModel);
-                UpdateStep();
+            if (sender == miRhombusDiffusion)
+            {
+                scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel(11, 1)));
+            }
+            else if (sender == miCross)
+            {
+                scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.CrossAutomaticOperationModel(11, 1)));
+            }
+            else if (sender == miRandomFountain)
+            {
+                scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0, 7)));
+            }
+            scriptModelDictionary.Add(stepName, scriptModel);
+            UpdateStep();
 
-                lbStep.SelectedIndex = lbStep.Items.Count - 1;
+            lbStep.SelectedIndex = lbStep.Items.Count - 1;
 
-                Test();
+            Test();
 
         }
 
@@ -4255,7 +4251,7 @@ namespace Maker.View.LightScriptUserControl
 
             scriptModel.OperationModels.Add(
                 new CreateFromQuickOperationModel(0,
-                new List<int> { 11},
+                new List<int> { 11 },
                 12,
                 12,
                new List<int> { 5 },
@@ -4264,7 +4260,7 @@ namespace Maker.View.LightScriptUserControl
 
             scriptModelDictionary.Add(scriptModel.Name, scriptModel);
             UpdateStep();
-          
+
             //如果选中，就在列表选中最后一个
             if (sender == btnFastGenerationAndSelection)
             {
@@ -4312,7 +4308,7 @@ namespace Maker.View.LightScriptUserControl
                 SetAttributeOperationModel setAttributeOperationModel = new SetAttributeOperationModel();
                 setAttributeOperationModel.AttributeOperationModels = new List<SetAttributeOperationModel.AttributeOperationModel>() { new SetAttributeOperationModel.AttributeOperationModel(SetAttributeOperationModel.AttributeOperationModel.AttributeType.TIME, "+0") };
                 scriptModel.OperationModels.Add(setAttributeOperationModel);
-              
+
                 UpdateStep();
                 lbStep.SelectedIndex = lbStep.Items.Count - 1;
                 Test();
@@ -4345,8 +4341,10 @@ namespace Maker.View.LightScriptUserControl
         private void MiMycontent_Click(object sender, RoutedEventArgs e)
         {
             ShowMyContentWindowDialog dialog = new ShowMyContentWindowDialog(this);
-            if (dialog.ShowDialog() == true) {
-                if (dialog.resultFileName.EndsWith(".lightScript")) {
+            if (dialog.ShowDialog() == true)
+            {
+                if (dialog.resultFileName.EndsWith(".lightScript"))
+                {
                     if ((mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName).Equals(filePath))
                     {
                         return;
@@ -4354,11 +4352,11 @@ namespace Maker.View.LightScriptUserControl
                     ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
                     mw.ShowMakerDialog(_dialog);
                 }
-                else 
+                else
                 {
                     String stepName = GetUsableStepName();
                     ScriptModel scriptModel = new ScriptModel();
-                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName,"") };
+                    scriptModel.OperationModels = new List<BaseOperationModel>() { new CreateFromFileOperationModel(dialog.resultFileName, "") };
                     scriptModel.Name = stepName;
                     scriptModel.Value = "";
                     scriptModel.Visible = true;
@@ -4399,7 +4397,8 @@ namespace Maker.View.LightScriptUserControl
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 String fileName = openFileDialog1.FileName;
-                if (fileName.StartsWith(mw.LastProjectPath + @"Audio\")) {
+                if (fileName.StartsWith(mw.LastProjectPath + @"Audio\"))
+                {
                     fileName = fileName.Substring((mw.LastProjectPath + @"Audio\").Length);
                 }
                 AudioResources = fileName;
@@ -4485,7 +4484,8 @@ namespace Maker.View.LightScriptUserControl
         }
 
         //Copy OnDrawTimeLine
-        public void UpdateLine(double nowTime,double maxTime) {
+        public void UpdateLine(double nowTime, double maxTime)
+        {
 
             Application.Current.Dispatcher.Invoke(delegate ()
             {
@@ -4511,7 +4511,7 @@ namespace Maker.View.LightScriptUserControl
                 };
                 cTimeLine.Children.Add(line);
             });
-           
+
         }
 
         private void cTimeLine_MouseLeave(object sender, MouseEventArgs e)
@@ -4519,7 +4519,8 @@ namespace Maker.View.LightScriptUserControl
             bTimeLine = false;
         }
 
-        public void OnDrawTimeLine() {
+        public void OnDrawTimeLine()
+        {
             nowTimeI = _bridge.liTime[_bridge.nowTimePoint - 1];
             nowTimeP = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData());
 
@@ -4529,7 +4530,8 @@ namespace Maker.View.LightScriptUserControl
             {
                 x1 = 0;
             }
-            else {
+            else
+            {
                 x1 = _bridge.liTime[_bridge.nowTimePoint - 1] * 1.0 / Business.LightBusiness.GetMax(GetData()) * cTimeLine.ActualWidth;
             }
             //double X2 = X1+5;
@@ -4560,7 +4562,7 @@ namespace Maker.View.LightScriptUserControl
             scriptModel.Visible = true;
             //scriptModel.Contain = new List<string>() { stepName };
             scriptModelDictionary.Add(stepName, scriptModel);
-          
+
             UpdateStep();
             lbStep.SelectedIndex = lbStep.Items.Count - 1;
             Test();
@@ -4577,16 +4579,22 @@ namespace Maker.View.LightScriptUserControl
             UpdateSize();
         }
 
-        private void UpdateSize() {
+        private void UpdateSize()
+        {
             if (mLaunchpad.playLpd != null)
             {
-                mLaunchpad.playLpd.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
-                mLaunchpad.gMain.Width = mLaunchpad.playLpd.Size;
+                try
+                {
+                    mLaunchpad.playLpd.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
+                    mLaunchpad.gMain.Width = mLaunchpad.playLpd.Size;
+                }
+                catch { }
             }
         }
 
         public List<Dictionary<String, ScriptModel>> scriptModelDictionarys = new List<Dictionary<String, ScriptModel>>();
-        public void SaveScriptModel() {
+        public void SaveScriptModel()
+        {
             //深度复制实体类
             Dictionary<String, ScriptModel> _scriptModelDictionary = new Dictionary<string, ScriptModel>();
             foreach (var item in scriptModelDictionary)

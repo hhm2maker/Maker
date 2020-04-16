@@ -38,7 +38,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="300"/>
             </Grid.RowDefinitions>
-            <DockPanel>
+            <DockPanel Background="{DynamicResource bgTitleColor}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15">
                     <Image Name="iUnmake" Source="../../Resources/Image/revoke_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageUnmake_MouseLeftButtonDown" />
                     <Image Name="iRedo" Margin="10,0,0,0" Source="../../Resources/Image/redo_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="ImageRedo_MouseLeftButtonDown" />
@@ -84,11 +84,11 @@
                         <MenuItem Header="{DynamicResource AntiClockwiseRotation}" Name="btnAntiClockwise" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                     </MenuItem>
                     <MenuItem Style="{DynamicResource bigMenuItem}"  Header="{DynamicResource Color}" Foreground="#ffffff"  FontSize="18" >
-                        <MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" Visibility="Collapsed">
+                        <!--<MenuItem Header="{DynamicResource Color}" Foreground="#ffffff" Visibility="Collapsed">
                             <Canvas Name="cColor" Height="60" Background="#222326" >
                                 <Rectangle  Fill="#000000" Height="30"  Name="rColor" HorizontalAlignment="Center" Width="270" Margin="16,10,10,10"/>
                             </Canvas>
-                        </MenuItem>
+                        </MenuItem>-->
                         <MenuItem Header="{DynamicResource Change}" Name="btnColorChange" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
                         <MenuItem Header="{DynamicResource Format}"  Foreground="#ffffff">
                             <MenuItem Header="{DynamicResource YellowGreen}" Name="btnChangeColorYellow" PreviewMouseLeftButtonDown="EditToScript"  Foreground="#ffffff"/>
@@ -128,19 +128,36 @@
                     <MenuItem Style="{DynamicResource bigMenuItem}" Header="{DynamicResource Library}" Foreground="#ffffff"  FontSize="18" />
                 </Menu>
             </DockPanel>
-          
+
             <Grid Grid.Row="1" SizeChanged="dpShow_SizeChanged" Name="gCenter">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid  x:Name="gMain"  Grid.Column="0" >
+                <Border HorizontalAlignment="Stretch" Grid.Column="0" >
+                    <!--Background="#262829"-->
+                    <Grid Name="gRight" Background="{DynamicResource bgContentColor}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="1" Name="spMyHint" Visibility="Collapsed" Margin="0,15,0,15">
+                            <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                            <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Name="spRefresh" Visibility="Collapsed" Margin="0,15,0,15">
+                            <Button Content="{DynamicResource Refresh}" Click="BtnRefresh_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid  x:Name="gMain"  Grid.Column="1" >
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <StackPanel x:Name="dpShow">
+                    <StackPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
                         <DockPanel  Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top" >
                             <Border Name="bLaunchpad"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
                                 <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
@@ -159,28 +176,12 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Border HorizontalAlignment="Stretch" Grid.Column="1" >
-                    <!--Background="#262829"-->
-                    <Grid Name="gRight" Background="{DynamicResource bgColor}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="1" Name="spMyHint" Visibility="Collapsed" Margin="0,15,0,15">
-                        <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                        <StackPanel Grid.Row="2" Name="spRefresh" Visibility="Collapsed" Margin="0,15,0,15">
-                            <Button Content="{DynamicResource Refresh}" Click="BtnRefresh_Click"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+               
                 <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
                 </Popup>
             </Grid>
-                <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="{DynamicResource LineColor}"/>
+            <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" Height="3" Background="{DynamicResource LineColor}"/>
             <DockPanel Grid.Row="3" Background="{DynamicResource bgContentColor}">
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" >
                     <StackPanel.Effect>

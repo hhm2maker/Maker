@@ -23,7 +23,7 @@
     <Style TargetType="{x:Type MenuItem}">
         <Setter Property="BorderBrush" Value="#e3e3e3"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Height" Value="28"/>
@@ -133,7 +133,7 @@
     <Style x:Key="bigMenuItem" TargetType="{x:Type MenuItem}">
         <Setter Property="BorderBrush" Value="#e3e3e3"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="22"/>
         <Setter Property="Height" Value="28"/>

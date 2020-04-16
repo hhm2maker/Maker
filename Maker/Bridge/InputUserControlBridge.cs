@@ -47,66 +47,66 @@ namespace Maker.Bridge
         /// </summary>
         /// <param name="mLightList"></param>
         public void UpdateForColor(List<Light> mLightList,bool isChild) {
-            iuc.cColor.Children.RemoveRange(1, iuc.cColor.Children.Count - 1);
-            if (isChild) {
-                mLightList = GetRealData(mLightList);
-            }
-            Dictionary<int, int> _color = new Dictionary<int, int>();
-            int count = mLightList.Count;
-            if (count == 0)
-            {
-                iuc.rColor.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
-            }
-            else
-            {
-                for (int i = 0; i < mLightList.Count; i++)
-                {
-                    int c = mLightList[i].Color;
-                    if (c < 0 || c > 127 || mLightList[i].Action == 128)
-                    {
-                        count--;
-                        continue;
-                    }
-                    if (_color.ContainsKey(c))
-                    {
-                        _color[c]++;
-                    }
-                    else
-                    {
-                        _color.Add(c, 1);
-                    }
-                }
-                if (_color.Count > 0)
-                {
-                    LinearGradientBrush brush = new LinearGradientBrush();
-                    brush.StartPoint = new Point(0, 0.5);
-                    brush.EndPoint = new Point(1, 0.5);
-                    double cPosition = 0;
-                    double lPosition = 0;
-                    GradientStopCollection collection = new GradientStopCollection();
-                    mColor.Clear();
-                    foreach (var item in _color)
-                    {
-                        mColor.Add(item.Key);
+            //iuc.cColor.Children.RemoveRange(1, iuc.cColor.Children.Count - 1);
+            //if (isChild) {
+            //    mLightList = GetRealData(mLightList);
+            //}
+            //Dictionary<int, int> _color = new Dictionary<int, int>();
+            //int count = mLightList.Count;
+            //if (count == 0)
+            //{
+            //    iuc.rColor.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < mLightList.Count; i++)
+            //    {
+            //        int c = mLightList[i].Color;
+            //        if (c < 0 || c > 127 || mLightList[i].Action == 128)
+            //        {
+            //            count--;
+            //            continue;
+            //        }
+            //        if (_color.ContainsKey(c))
+            //        {
+            //            _color[c]++;
+            //        }
+            //        else
+            //        {
+            //            _color.Add(c, 1);
+            //        }
+            //    }
+            //    if (_color.Count > 0)
+            //    {
+            //        LinearGradientBrush brush = new LinearGradientBrush();
+            //        brush.StartPoint = new Point(0, 0.5);
+            //        brush.EndPoint = new Point(1, 0.5);
+            //        double cPosition = 0;
+            //        double lPosition = 0;
+            //        GradientStopCollection collection = new GradientStopCollection();
+            //        mColor.Clear();
+            //        foreach (var item in _color)
+            //        {
+            //            mColor.Add(item.Key);
 
-                        GradientStop stop = new GradientStop(StaticConstant.brushList[item.Key-1].Color, cPosition);
-                        collection.Add(stop);
-                        cPosition += (double)item.Value / count;
-                        brush.GradientStops = collection;
-                        iuc.rColor.Fill = brush;
+            //            GradientStop stop = new GradientStop(StaticConstant.brushList[item.Key-1].Color, cPosition);
+            //            collection.Add(stop);
+            //            cPosition += (double)item.Value / count;
+            //            brush.GradientStops = collection;
+            //            iuc.rColor.Fill = brush;
 
-                        Polygon polygon = new Polygon();
-                        polygon.Points = polygonPC;
-                        polygon.Fill = StaticConstant.brushList[item.Key-1];
-                        polygon.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                        polygon.MouseLeftButtonUp += Polygon_MouseLeftButtonUp;
-                        Canvas.SetLeft(polygon, 8 + lPosition);
-                        lPosition += (double)item.Value / count * 270;
-                        Canvas.SetTop(polygon, 30);
-                        iuc.cColor.Children.Add(polygon);
-                    }
-                }
-            }
+            //            Polygon polygon = new Polygon();
+            //            polygon.Points = polygonPC;
+            //            polygon.Fill = StaticConstant.brushList[item.Key-1];
+            //            polygon.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            //            polygon.MouseLeftButtonUp += Polygon_MouseLeftButtonUp;
+            //            Canvas.SetLeft(polygon, 8 + lPosition);
+            //            lPosition += (double)item.Value / count * 270;
+            //            Canvas.SetTop(polygon, 30);
+            //            iuc.cColor.Children.Add(polygon);
+            //        }
+            //    }
+            //}
         }
 
         private List<Light> GetRealData(List<Light> mLightList)
@@ -271,12 +271,12 @@ namespace Maker.Bridge
 
         private void Polygon_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Polygon p = sender as Polygon;
-            iuc.needChangeColor = mColor[iuc.cColor.Children.IndexOf(p)-1];
-            iuc.pColor.PlacementTarget = p;
-            //设置选中项
-            iuc.lbColor.SelectedIndex = mColor[iuc.cColor.Children.IndexOf(p)-1];
-            iuc.pColor.IsOpen = true;
+            //Polygon p = sender as Polygon;
+            //iuc.needChangeColor = mColor[iuc.cColor.Children.IndexOf(p)-1];
+            //iuc.pColor.PlacementTarget = p;
+            ////设置选中项
+            //iuc.lbColor.SelectedIndex = mColor[iuc.cColor.Children.IndexOf(p)-1];
+            //iuc.pColor.IsOpen = true;
         }
         public void UpdateData()
         {
@@ -292,74 +292,67 @@ namespace Maker.Bridge
               
             iuc.mLightDictionary = mLightList;
             this.mLightList = mLightList;
-            List<Light> colorLightList = new List<Light>();
-
+            //List<Light> colorLightList = new List<Light>();
+            //
             //颜色面板
             List<Light> lights = new List<Light>();
             foreach (var item in mLightList)
             {
                 lights.AddRange(item.Value);
             }
-            colorLightList = lights;
-            //if (iuc.lbStep.SelectedIndex == -1)
-            //{
-            //    colorLightList = mLightList;
-            //}
-            //else {
-            //    colorLightList = iuc.RefreshData(iuc.GetStepName());
-            //    colorLightList = GetRealData(colorLightList);
-            //}
-            iuc.cColor.Children.RemoveRange(1, iuc.cColor.Children.Count - 1);
-            Dictionary<int,int> _color = new Dictionary<int, int>();
-            int count = colorLightList.Count;
-            if (count == 0)
-            {
-                iuc.rColor.Fill = new SolidColorBrush(Color.FromArgb(255,0,0,0));
-            }
-            else { 
-            for (int i = 0; i < colorLightList.Count; i++) {
-                int c = colorLightList[i].Color;
-                if (c < 0 || c > 127 || colorLightList[i].Action == 128) {
-                    count--;
-                    continue;
-                }
-                if (_color.ContainsKey(c))
-                {
-                    _color[c]++;
-                }
-                else {
-                    _color.Add(c,1);
-                }
-            }
-            if (_color.Count > 0) {
-                LinearGradientBrush brush = new LinearGradientBrush();
-                brush.StartPoint = new Point(0, 0.5);
-                brush.EndPoint = new Point(1, 0.5);
-                double cPosition = 0;
-                double lPosition = 0;
-                GradientStopCollection collection = new GradientStopCollection();
-                    mColor.Clear();
-                foreach (var item in _color)
-                {
-                    mColor.Add(item.Key);
-                    GradientStop stop = new GradientStop(StaticConstant.brushList[item.Key-1].Color, cPosition);
-                    collection.Add(stop);
-                    cPosition += (double)item.Value / count;
-                    brush.GradientStops = collection;
-                    iuc.rColor.Fill = brush;
+            //colorLightList = lights;
 
-                    Polygon polygon = new Polygon();
-                    polygon.Points = polygonPC;
-                    polygon.Fill = StaticConstant.brushList[item.Key-1];
-                    polygon.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
-                    polygon.MouseLeftButtonUp += Polygon_MouseLeftButtonUp;
-                    Canvas.SetLeft(polygon, 8 + lPosition);
-                    lPosition += (double)item.Value / count * 270;
-                    Canvas.SetTop(polygon, 30);
-                    iuc.cColor.Children.Add(polygon);
-                    }
-                }
-            }
+            //iuc.cColor.Children.RemoveRange(1, iuc.cColor.Children.Count - 1);
+            //Dictionary<int,int> _color = new Dictionary<int, int>();
+            //int count = colorLightList.Count;
+            //if (count == 0)
+            //{
+            //    iuc.rColor.Fill = new SolidColorBrush(Color.FromArgb(255,0,0,0));
+            //}
+            //else { 
+            //for (int i = 0; i < colorLightList.Count; i++) {
+            //    int c = colorLightList[i].Color;
+            //    if (c < 0 || c > 127 || colorLightList[i].Action == 128) {
+            //        count--;
+            //        continue;
+            //    }
+            //    if (_color.ContainsKey(c))
+            //    {
+            //        _color[c]++;
+            //    }
+            //    else {
+            //        _color.Add(c,1);
+            //    }
+            //}
+            //if (_color.Count > 0) {
+            //    LinearGradientBrush brush = new LinearGradientBrush();
+            //    brush.StartPoint = new Point(0, 0.5);
+            //    brush.EndPoint = new Point(1, 0.5);
+            //    double cPosition = 0;
+            //    double lPosition = 0;
+            //    GradientStopCollection collection = new GradientStopCollection();
+            //        mColor.Clear();
+            //    foreach (var item in _color)
+            //    {
+            //        mColor.Add(item.Key);
+            //        GradientStop stop = new GradientStop(StaticConstant.brushList[item.Key-1].Color, cPosition);
+            //        collection.Add(stop);
+            //        cPosition += (double)item.Value / count;
+            //        brush.GradientStops = collection;
+            //        iuc.rColor.Fill = brush;
+
+            //        Polygon polygon = new Polygon();
+            //        polygon.Points = polygonPC;
+            //        polygon.Fill = StaticConstant.brushList[item.Key-1];
+            //        polygon.Stroke = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+            //        polygon.MouseLeftButtonUp += Polygon_MouseLeftButtonUp;
+            //        Canvas.SetLeft(polygon, 8 + lPosition);
+            //        lPosition += (double)item.Value / count * 270;
+            //        Canvas.SetTop(polygon, 30);
+            //        iuc.cColor.Children.Add(polygon);
+            //        }
+            //    }
+            //}
             //时间轴
             iuc.cTime.Children.Clear();
             double actualWidth = iuc.cTime.ActualWidth;

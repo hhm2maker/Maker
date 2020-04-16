@@ -15,6 +15,7 @@ using Maker.Model;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Operation;
+using System.Windows.Media;
 
 namespace Maker.View.UI.Edit
 {
@@ -102,8 +103,13 @@ namespace Maker.View.UI.Edit
 
             if (fileName.EndsWith(".mid"))
             {
-                gMain.Children.Clear();
-                gMain.Children.Add(userControls[0]);
+                tcMain.Items.Clear();
+                TabItem item = new TabItem
+                {
+                    Header = FileName,
+                    Content = userControls[0]
+                };
+                tcMain.Items.Add(item);
             }
             else
             {
@@ -111,13 +117,19 @@ namespace Maker.View.UI.Edit
                 {
                     if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        gMain.Children.Clear();
-                        gMain.Children.Add(userControls[i]);
+                        tcMain.Items.Clear();
+                        TabItem item = new TabItem
+                        {
+                            Header = FileName,
+                            Content = userControls[i]
+                        };
+                        item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
+                        tcMain.Items.Add(item);
                         break;
                     }
                 }
             }
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
+            BaseUserControl baseUserControl = ((TabItem)tcMain.Items[0]).Content as BaseUserControl;
 
             if (!fileName.EndsWith(".lightScript"))
             {
@@ -146,8 +158,13 @@ namespace Maker.View.UI.Edit
 
             if (fileName.EndsWith(".mid"))
             {
-                gMain.Children.Clear();
-                gMain.Children.Add(userControls[0]);
+                tcMain.Items.Clear();
+                TabItem item = new TabItem
+                {
+                    Header = FileName,
+                    Content = userControls[0]
+                };
+                tcMain.Items.Add(item);
             }
             else
             {
@@ -155,14 +172,18 @@ namespace Maker.View.UI.Edit
                 {
                     if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        gMain.Children.Clear();
-                        gMain.Children.Add(userControls[i]);
+                        tcMain.Items.Clear();
+                        TabItem item = new TabItem
+                        {
+                            Header = FileName,
+                            Content = userControls[i]
+                        };
+                        tcMain.Items.Add(item);
                         break;
                     }
                 }
             }
-            BaseUserControl baseUserControl = gMain.Children[0] as BaseUserControl;
-
+            BaseUserControl baseUserControl = tcMain.Items[0] as BaseUserControl;
             if (!fileName.EndsWith(".lightScript"))
             {
 
@@ -186,7 +207,7 @@ namespace Maker.View.UI.Edit
         private List<Light> mLightList = new List<Light>();
         private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
-            if (gMain.Children.Count == 0 || (gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+            if (tcMain.Items.Count == 0 || (tcMain.Items[0] as BaseUserControl).filePath.Equals(String.Empty))
             {
                 if ((userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
@@ -196,9 +217,9 @@ namespace Maker.View.UI.Edit
             }
             else
             {
-                if (userControls[userControls.IndexOf((BaseUserControl)gMain.Children[0])].IsMakerLightUserControl())
+                if (userControls[userControls.IndexOf((BaseUserControl)tcMain.Items[0])].IsMakerLightUserControl())
                 {
-                    BaseMakerLightUserControl baseMakerLightUserControl = gMain.Children[0] as BaseMakerLightUserControl;
+                    BaseMakerLightUserControl baseMakerLightUserControl = tcMain.Items[0] as BaseMakerLightUserControl;
                     mLightList = baseMakerLightUserControl.GetData();
                 }
             }

@@ -65,7 +65,6 @@ namespace Maker
 
             projectUserControl = new ProjectUserControl(this);
             editUserControl = new EditUserControl(this);
-
             //ShowFillMakerDialog(new View.UI.Welcome.WelcomeUserControl(this));
 
             //contentUserControls.Add(new LocalUserControl(this));
@@ -180,10 +179,10 @@ namespace Maker
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (editUserControl.gMain.Children.Count > 0 && editUserControl.gMain.Children[0] is BaseUserControl)
+            if (editUserControl.tcMain.Items.Count > 0 && editUserControl.tcMain.Items[0] is BaseUserControl)
             {
                 //LoadFileList();
-                BaseUserControl baseUserControl = editUserControl.gMain.Children[0] as BaseUserControl;
+                BaseUserControl baseUserControl = editUserControl.tcMain.Items[0] as BaseUserControl;
                 baseUserControl.SaveFile();
             }
 
@@ -1138,7 +1137,7 @@ namespace Maker
         private List<Light> GetData()
         {
             List<Light> mLightList = new List<Light>();
-            if (editUserControl.gMain.Children.Count == 1 || (editUserControl.gMain.Children[0] as BaseUserControl).filePath.Equals(String.Empty))
+            if (editUserControl.tcMain.Items.Count == 1 || (editUserControl.tcMain.Items[0] as BaseUserControl).filePath.Equals(String.Empty))
             {
                 if ((editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
                 {
@@ -1148,9 +1147,9 @@ namespace Maker
             }
             else
             {
-                if (editUserControl.userControls[editUserControl.userControls.IndexOf((BaseUserControl)editUserControl.gMain.Children[0])].IsMakerLightUserControl())
+                if (editUserControl.userControls[editUserControl.userControls.IndexOf((BaseUserControl)editUserControl.tcMain.Items[0])].IsMakerLightUserControl())
                 {
-                    BaseMakerLightUserControl baseMakerLightUserControl = editUserControl.gMain.Children[0] as BaseMakerLightUserControl;
+                    BaseMakerLightUserControl baseMakerLightUserControl = editUserControl.tcMain.Items[0] as BaseMakerLightUserControl;
                     mLightList = baseMakerLightUserControl.GetData();
                 }
             }

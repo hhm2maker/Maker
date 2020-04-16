@@ -14,5 +14,8 @@
     <SolidColorBrush x:Key="RedOverColor" Color="#DA6B57"/>
     <SolidColorBrush x:Key="TitleFontColor" Color="#BBBBBB"/>
     <SolidColorBrush x:Key="TitleCenterFontColor" Color="#919191"/>
+    <SolidColorBrush x:Key="LPDBgColor" Color="#2d2f31"/>
+    <SolidColorBrush x:Key="TabItemTextColor" Color="#c9c9c9"/>
 
+    
 </ResourceDictionary>

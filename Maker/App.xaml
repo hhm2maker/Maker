@@ -10,6 +10,7 @@
       <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="SettingDictionary.xaml" />
                 <ResourceDictionary Source="View\Resources\Language\StringResource.xaml" />
+                <ResourceDictionary Source="View\StyleResources\ColorDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <viewmodel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
         </ResourceDictionary>

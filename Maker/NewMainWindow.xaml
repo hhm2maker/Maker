@@ -12,8 +12,7 @@
         WindowState="Normal"
         Background="{DynamicResource bgColor}"
         Loaded="Window_Loaded"
-        WindowStyle="None"
-        >
+        WindowStyle="None">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="1" ResizeBorderThickness="2,0,2,2" CornerRadius="0" GlassFrameThickness="0" />
     </WindowChrome.WindowChrome>
