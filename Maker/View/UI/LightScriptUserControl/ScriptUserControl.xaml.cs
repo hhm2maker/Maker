@@ -236,13 +236,13 @@ namespace Maker.View.LightScriptUserControl
             InitFormat();
 
             mLaunchpad.SetMainWindow(mw);
+            mLaunchpad.SetScriptUserControl(this);
             mLaunchpad.playLpd.SetLaunchpadBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.playLpd.SetButtonBackground(new SolidColorBrush(Colors.Transparent));
             mLaunchpad.playLpd.AddMembrane();
             mLaunchpad.playLpd.IsMembrane = true;
 
-            //TODO:
-            tbTimePointCountLeft.Text = tbTimePointCountLeft.Text + " ";
+            _bridge.tbTimePointCountLeft_TextChanged();
             UpdateSize();
         }
 

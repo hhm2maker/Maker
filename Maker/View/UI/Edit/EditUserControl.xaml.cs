@@ -99,25 +99,36 @@ namespace Maker.View.UI.Edit
         public void IntoUserControl(String fileName)
         {
             FileName = fileName;
-            mw.ShowFileName(FileName);
 
             if (fileName.EndsWith(".mid"))
             {
-                tcMain.Items.Clear();
                 TabItem item = new TabItem
                 {
                     Header = FileName,
                     Content = userControls[0]
                 };
+                item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
                 tcMain.Items.Add(item);
             }
-            else
+            else if (fileName.EndsWith(".lightScript"))
+            {
+                ScriptUserControl suc = new ScriptUserControl(mw);
+                TabItem item = new TabItem
+                {
+                    Header = FileName,
+                    Content = suc
+                };
+                item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
+                suc.filePath = mw.LastProjectPath + suc._fileType + @"\" + fileName;
+                suc.LoadFile(fileName);
+                tcMain.Items.Add(item);
+            }
+            else 
             {
                 for (int i = 0; i < userControls.Count; i++)
                 {
                     if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        tcMain.Items.Clear();
                         TabItem item = new TabItem
                         {
                             Header = FileName,
@@ -130,7 +141,7 @@ namespace Maker.View.UI.Edit
                 }
             }
             BaseUserControl baseUserControl = ((TabItem)tcMain.Items[0]).Content as BaseUserControl;
-
+            tcMain.SelectedIndex = tcMain.Items.Count -1;
             if (!fileName.EndsWith(".lightScript"))
             {
 
@@ -154,11 +165,9 @@ namespace Maker.View.UI.Edit
         public void IntoUserControl(String fileName,bool checkFileName)
         {
             FileName = fileName;
-            mw.ShowFileName(FileName);
 
             if (fileName.EndsWith(".mid"))
             {
-                tcMain.Items.Clear();
                 TabItem item = new TabItem
                 {
                     Header = FileName,
@@ -172,7 +181,6 @@ namespace Maker.View.UI.Edit
                 {
                     if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        tcMain.Items.Clear();
                         TabItem item = new TabItem
                         {
                             Header = FileName,

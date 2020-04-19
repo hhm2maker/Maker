@@ -141,23 +141,23 @@
                 </DockPanel>
             </StackPanel>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" MinWidth="250"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <!--Background="#222326" -->
-                <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"  Orientation="Vertical" Name="spCenter" Focusable="True" Visibility="Collapsed">
-                    <Grid VerticalAlignment="Center">
-                        <StackPanel Name="spContentTitle" Orientation="Horizontal" HorizontalAlignment="Left"/>
-                        <Border Name="bClose" Width="125"  CornerRadius="20" Background="#ff6058"  HorizontalAlignment="Right" VerticalAlignment="Center">
-                            <TextBlock Text="{DynamicResource Close}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18" />
-                        </Border>
-                    </Grid>
-                    <Rectangle Width="50" Name="rFile" Height="1" Fill="White" HorizontalAlignment="Left"/>
-                    <Rectangle Height="1"  Fill="#555555" HorizontalAlignment="Stretch"/>
+                <StackPanel Orientation="Vertical" Grid.Column="0" RenderTransformOrigin="0,1" >
+                    <TextBlock Text="{DynamicResource File}"/>
+                    <TextBlock Text="{DynamicResource File}"/>
+                    <StackPanel.RenderTransform >
+                            <RotateTransform Angle="90" />
+                        </StackPanel.RenderTransform>
                 </StackPanel>
-                <DockPanel Grid.Row="1" Name="dpCenter">
-                    <Grid >
+                <Grid Name="gLeft" Grid.Column="1"  />
+                <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Background="Transparent" Width="5" />
+                <DockPanel Grid.Column="2" Name="dpCenter" >
+                    <Grid>
                         <Grid Name="gRight" HorizontalAlignment="Stretch" />
                         <Grid  Name="gCenter" Visibility="Collapsed"/>
                         <StackPanel Orientation="Vertical"  HorizontalAlignment="Left" Name="spMain" Visibility="Collapsed">

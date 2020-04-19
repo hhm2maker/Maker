@@ -70,17 +70,7 @@ namespace Maker
             //contentUserControls.Add(new LocalUserControl(this));
             //contentUserControls.Add(projectUserControl);
             contentUserControls.Add(editUserControl);
-
-            for (int i = 0; i < contentUserControls.Count; i++)
-            {
-                TextBlock tb = new TextBlock();
-                tb.Padding = new Thickness(10);
-                tb.FontSize = 18;
-                tb.Text = (String)Application.Current.Resources[contentUserControls[i].Title];
-                tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
-                spContentTitle.Children.Add(tb);
-            }
-            SetSpFilePosition(0);
+            gRight.Children.Add(contentUserControls[0]);
         }
 
 
@@ -90,89 +80,6 @@ namespace Maker
         private void InitProject()
         {
             Business.Currency.XmlSerializerBusiness.Load(ref NowProjectModel, LastProjectPath + "project.xml");
-        }
-
-
-        public void AddContentUserControl(BaseChildUserControl uc)
-        {
-
-            TextBlock tb = new TextBlock();
-            tb.Padding = new Thickness(10);
-            tb.FontSize = 18;
-            tb.Text = (String)Application.Current.Resources[uc.Title];
-
-            tb.MouseLeftButtonDown += Tb_MouseLeftButtonDown;
-            spContentTitle.Children.Add(tb);
-
-            contentUserControls.Add(uc);
-            SetSpFilePosition(contentUserControls.Count - 1);
-        }
-
-        private void Tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            SetSpFilePosition((((sender as TextBlock).Parent) as Panel).Children.IndexOf(sender as TextBlock));
-        }
-
-        public int filePosition = -1;
-        public void SetSpFilePosition(int position)
-        {
-            if (filePosition == position)
-                return;
-
-            //if (contentUserControls[filePosition].IsShowWindowTitle == false && contentUserControls[position].IsShowWindowTitle) {
-            //    //最上面一栏展开
-            //    DoubleAnimation doubleAnimation = new DoubleAnimation
-            //    {
-            //        From = 0,
-            //        To = 56,
-            //        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-            //    };
-            //    gTop.BeginAnimation(HeightProperty, doubleAnimation);
-            //}
-            //if (contentUserControls[filePosition].IsShowWindowTitle && contentUserControls[position].IsShowWindowTitle == false)
-            //{
-            //    //最上面一栏关闭
-            //    DoubleAnimation doubleAnimation = new DoubleAnimation
-            //    {
-            //        From = 56,
-            //        To = 0,
-            //        Duration = TimeSpan.FromMilliseconds(200),  //动画播放时间
-            //    };
-            //    gTop.BeginAnimation(HeightProperty, doubleAnimation);
-            //}
-
-            if (filePosition != -1)
-                (spContentTitle.Children[filePosition] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(169, 169, 169));
-            (spContentTitle.Children[position] as TextBlock).Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            filePosition = position;
-
-            gRight.Children.Clear();
-            gRight.Children.Add(contentUserControls[position]);
-
-            foo();
-            // .net 4.5
-            async void foo()
-            {
-                await Task.Delay(50);
-
-                double _p = 0.0;
-                for (int i = 0; i < position; i++)
-                {
-                    _p += (spContentTitle.Children[i] as TextBlock).ActualWidth;
-                }
-                _p += ((spContentTitle.Children[position] as TextBlock).ActualWidth - 50) / 2;
-                double _p2 = ((spContentTitle.ActualWidth - spContentTitle.ActualWidth) / 2);
-
-                double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
-
-                ThicknessAnimation animation2 = new ThicknessAnimation
-                {
-                    To = new Thickness(_p + _p2 + leftMargin - 10, 0, 0, 0),
-                    Duration = TimeSpan.FromSeconds(0.5),
-                };
-                rFile.BeginAnimation(MarginProperty, animation2);
-            }
-
         }
 
         public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();
@@ -550,7 +457,7 @@ namespace Maker
             if (basicConfigModel.Model == BasicConfigModel.ModelType.PC)
             {
                 normalFileManager = new NormalFileManager(this);
-                dpCenter.Children.Insert(0, normalFileManager);
+                gLeft.Children.Add(normalFileManager);
                 normalFileManager.InitFile();
             }
             else
@@ -574,9 +481,6 @@ namespace Maker
 
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             //spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
-            spContentTitle.Margin = new Thickness(leftMargin - 10, 15, leftMargin, 15);
-            bClose.Margin = new Thickness(leftMargin - 10, 0, leftMargin, 0);
-
             //spHead.Visibility = Visibility.Collapsed;
 
             btnMaximize_Click(null, null);
@@ -1157,10 +1061,6 @@ namespace Maker
             return mLightList;
         }
 
-        public void ShowFileName(String fileName)
-        {
-            tbFileName.Text = fileName;
-        }
 
         private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {

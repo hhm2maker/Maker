@@ -525,20 +525,20 @@ namespace Maker.View.UI.Project
                 }
             }
 
-            EditUserControl euc;
-            if (position == -1)
-            {
-                euc = new EditUserControl(mw);
-                mw.AddContentUserControl(euc);
+            EditUserControl euc = null;
+            //if (position == -1)
+            //{
+            //    euc = new EditUserControl(mw);
+            //    mw.AddContentUserControl(euc);
 
-                mw.SetSpFilePosition(mw.contentUserControls.Count -1);
-            }
-            else
-            {
-                euc = mw.contentUserControls[position] as EditUserControl;
+            //    mw.SetSpFilePosition(mw.contentUserControls.Count -1);
+            //}
+            //else
+            //{
+            //    euc = mw.contentUserControls[position] as EditUserControl;
 
-                mw.SetSpFilePosition(position);
-            }
+            //    mw.SetSpFilePosition(position);
+            //}
 
             euc.tcMain.Items.Clear();
             euc.tcMain.Items.Add(userControls[index]);

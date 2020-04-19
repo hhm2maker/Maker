@@ -31,11 +31,18 @@ namespace Maker.View
     public partial class PlayerUserControl : UserControl, IPlay
     {
         private NewMainWindow mw;
+        private ScriptUserControl suc;
+
         public PlayerLaunchpadPro playLpd;
 
         public PlayerUserControl()
         {
             InitializeComponent();
+        }
+
+        public void SetScriptUserControl(ScriptUserControl suc)
+        {
+            this.suc = suc;
         }
 
         public void SetMainWindow(NewMainWindow mw) {
@@ -273,8 +280,7 @@ namespace Maker.View
             btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
             playLpd.ClearAllColorExceptMembrane();
 
-            //TODO:
-            (mw.editUserControl.userControls[3] as ScriptUserControl).tbTimePointCountLeft.Text += " ";
+            (suc as ScriptUserControl)._bridge.tbTimePointCountLeft_TextChanged();
 
             mediaElement.Stop();
             mediaElement.Close();
@@ -353,9 +359,9 @@ namespace Maker.View
         }
 
         private void Play() {
-            if (!(mw.editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+            if (!(suc as BaseUserControl).filePath.Equals(String.Empty))
             {
-                String strAudioResources = (mw.editUserControl.userControls[3] as ScriptUserControl).AudioResources;
+                String strAudioResources = (suc as ScriptUserControl).AudioResources;
                 if (!strAudioResources.Contains(@"\"))
                 {
                     //说明是不完整路径
@@ -363,11 +369,11 @@ namespace Maker.View
                 }
                 if (File.Exists(strAudioResources))
                 {
-                    SetTime((mw.editUserControl.userControls[3] as ScriptUserControl).GetData(), strAudioResources, (mw.editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (mw.editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
+                    SetTime(suc.GetData(), strAudioResources, suc.nowTimeP, suc.nowTimeI);
                 }
                 else
                 {
-                    SetData((mw.editUserControl.userControls[3] as ScriptUserControl).GetData());
+                    SetData(suc.GetData());
                 }
             }
 

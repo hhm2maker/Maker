@@ -17,7 +17,6 @@
        xmlns:viewmodel="clr-namespace:Maker.ViewModel"
     xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
     DataContext="{Binding Source={StaticResource Locator},Path=Script}"
-    Margin="0,30,0,0"
     Background="{DynamicResource bgContentColor}">
     <!--Background="#1c1a1c"-->
     <UserControl.Resources>

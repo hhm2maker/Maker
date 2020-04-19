@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Maker.View.UI.MyFile"
              mc:Ignorable="d" 
-             Background="{DynamicResource bgTitleColor}"
-             >
+             Background="{DynamicResource bgTitleColor}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,7 +14,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border BorderBrush="#555555" BorderThickness="0,0,2,0">
         <DockPanel >
             <DockPanel DockPanel.Dock="Top" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" Background="#363b40">
                 <StackPanel Orientation="Horizontal"  >
@@ -26,7 +24,7 @@
                     <Image  VerticalAlignment="Center" Margin="20,15,15,15" Source="../../../View/Resources/Image/arrow_down.png" Width="20" RenderOptions.BitmapScalingMode="Fant" />
                 </Grid>
             </DockPanel>
-            <StackPanel Orientation="Horizontal" Width="300" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
                 <Image VerticalAlignment="Center" Margin="20,15,15,0" Source="../../../View/Resources/Image/refresh.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
             </StackPanel>
             <TreeView Name="tvMain" Background="Transparent" FontSize="18"  SelectedItemChanged="TreeView_SelectedItemChanged" BorderThickness="0" Margin="0,10,0,0">
@@ -60,5 +58,4 @@
                 </TreeViewItem>
             </TreeView>
         </DockPanel>
-    </Border>
 </UserControl>
