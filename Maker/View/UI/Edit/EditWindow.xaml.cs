@@ -61,23 +61,23 @@ namespace Maker.View.UI.Edit
 
         private void WriteContent(String filePath)
         {
-            using (FileStream fs = new FileStream(filePath, FileMode.Create)) {
-                using (StreamWriter sw = new StreamWriter(fs)) {
-                    //开始写入
-                    sw.Write(tbContent.Text);
-                    //清空缓冲区
-                    //sw.Flush();
-                    //关闭流
-                    //sw.Close();
-                    //fs.Close();
-                }
-            }
-
-            if ((tbFileName.Text + ".lightScript").Equals(mw.editUserControl.FileName))
-            {
-                mw.editUserControl.IntoUserControl(tbFileName.Text+".lightScript",false);
-                //(mw.editUserControl.gMain.Children[0] as BaseUserControl).LoadFile(filePath);
-            }
+            //using (FileStream fs = new FileStream(filePath, FileMode.Create)) {
+            //    using (StreamWriter sw = new StreamWriter(fs)) {
+            //        //开始写入
+            //        sw.Write(tbContent.Text);
+            //        //清空缓冲区
+            //        //sw.Flush();
+            //        //关闭流
+            //        //sw.Close();
+            //        //fs.Close();
+            //    }
+            //}
+            //
+            //if ((tbFileName.Text + ".lightScript").Equals(mw.editUserControl.FileName))
+            //{
+            //    mw.editUserControl.IntoUserControl(tbFileName.Text+".lightScript",false);
+            //    //(mw.editUserControl.gMain.Children[0] as BaseUserControl).LoadFile(filePath);
+            //}
         }
     }
 }

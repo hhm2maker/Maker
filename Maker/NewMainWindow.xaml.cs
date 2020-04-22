@@ -486,6 +486,8 @@ namespace Maker
             btnMaximize_Click(null, null);
             LaunchpadPro.brushList = StaticConstant.brushList;
 
+            ttfTop.X = -spTop.ActualWidth;
+
             InitPlugs();
 
             GetVersion();
@@ -951,11 +953,11 @@ namespace Maker
             }
             if (sender == miExportMidiFile)
             {
-                ExportMidi(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), false, mLightList);
+                //ExportMidi(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), false, mLightList);
             }
             if (sender == miExportLightFile)
             {
-                ExportLight(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), mLightList);
+                //ExportLight(System.IO.Path.GetFileNameWithoutExtension(editUserControl.FileName), mLightList);
             }
             if (sender == miExportAdvanced)
             {
@@ -992,24 +994,24 @@ namespace Maker
 
         private void ExportMidi(String fileName, bool isWriteToFile, List<Light> mLightList)
         {
-            View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
-             (ResultFileName) =>
-             {
-                 if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
-                 {
-                     if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                     {
-                         Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
-                     }
-                 }
-                 else
-                 {
-                     Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
-                 }
-                 RemoveDialog();
-             }
-            );
-            ShowMakerDialog(newFileDialog);
+           //View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
+           // (ResultFileName) =>
+           // {
+           //     if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
+           //     {
+           //         if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+           //         {
+           //             Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+           //         }
+           //     }
+           //     else
+           //     {
+           //         Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+           //     }
+           //     RemoveDialog();
+           // }
+           //);
+           //ShowMakerDialog(newFileDialog);
         }
 
         private void ExportLight(String fileName, List<Light> mLightList)
@@ -1064,14 +1066,14 @@ namespace Maker
 
         private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
-            List<Light> mLightList = GetData();
-
-            //没有AB集合不能保存
-            if (mLightList.Count == 0)
-            {
-                return;
-            }
-            Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')) + ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
+            //List<Light> mLightList = GetData();
+            //
+            ////没有AB集合不能保存
+            //if (mLightList.Count == 0)
+            //{
+            //    return;
+            //}
+            //Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')) + ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
         }
 
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
@@ -1260,6 +1262,43 @@ namespace Maker
         {
             if(normalFileManager != null) {
                 normalFileManager.NewScript();    
+            }
+        }
+
+        private void StackPanel_MouseLeftButtonDown_4(object sender, MouseButtonEventArgs e)
+        {
+            if (gLeft.Visibility == Visibility.Visible)
+            {
+                spFile.Background = (SolidColorBrush)FindResource("LeftEnterColor");
+
+                gLeft.Visibility = Visibility.Collapsed;
+                gsLeft.Visibility = Visibility.Collapsed;
+            }
+            else {
+                spFile.Background = (SolidColorBrush)FindResource("LeftSelectColor");
+
+                gLeft.Visibility = Visibility.Visible;
+                gsLeft.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (gLeft.Visibility == Visibility.Collapsed)
+            {
+                spFile.Background = (SolidColorBrush)FindResource("LeftEnterColor");
+            }
+        }
+
+        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (gLeft.Visibility == Visibility.Visible)
+            {
+                spFile.Background = (SolidColorBrush)FindResource("LeftSelectColor");
+            }
+            else
+            {
+                spFile.Background = new SolidColorBrush(Colors.Transparent);
             }
         }
     }

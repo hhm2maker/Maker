@@ -124,7 +124,7 @@
                     <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_2" />
+                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" />
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                         <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >
                             <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Player}"/>
@@ -143,19 +143,40 @@
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" MinWidth="250"/>
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <!--Background="#222326" -->
-                <StackPanel Orientation="Vertical" Grid.Column="0" RenderTransformOrigin="0,1" >
-                    <TextBlock Text="{DynamicResource File}"/>
-                    <TextBlock Text="{DynamicResource File}"/>
-                    <StackPanel.RenderTransform >
-                            <RotateTransform Angle="90" />
-                        </StackPanel.RenderTransform>
-                </StackPanel>
-                <Grid Name="gLeft" Grid.Column="1"  />
-                <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Background="Transparent" Width="5" />
+                <Border Grid.Column="0" BorderBrush="{DynamicResource LineColor}" BorderThickness="0,0,2,0" Width="{Binding ElementName=spTop,Path=ActualHeight}" Background="{DynamicResource bgTitleColor}">
+                    <Grid >
+                        <Canvas VerticalAlignment="Bottom" Visibility="Collapsed">
+                            <Canvas.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="270" />
+                                </TransformGroup>
+                            </Canvas.RenderTransform>
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Background="Gray" >Android1</TextBlock>
+                                <TextBlock Background="Gray" >Android2</TextBlock>
+                            </StackPanel>
+                        </Canvas>
+                        <Canvas VerticalAlignment="Top">
+                            <Canvas.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform x:Name="ttfTop" X="{Binding ElementName=spTop,Path=ActualWidth}"/>
+                                    <RotateTransform Angle="270" />
+                                </TransformGroup>
+                            </Canvas.RenderTransform>
+                            <StackPanel Orientation="Horizontal" Name="spTop" >
+                                <StackPanel Name="spFile" Background="{DynamicResource LeftSelectColor}" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_4" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+                                    <TextBlock Margin="10,5,10,5"  Text="{DynamicResource FileManager}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Canvas>
+                    </Grid>
+                </Border>
+                <Grid Name="gLeft" Grid.Column="1" />
+                <GridSplitter Name="gsLeft" Grid.Column="1" VerticalAlignment="Stretch" Background="Transparent" Width="5" />
                 <DockPanel Grid.Column="2" Name="dpCenter" >
                     <Grid>
                         <Grid Name="gRight" HorizontalAlignment="Stretch" />

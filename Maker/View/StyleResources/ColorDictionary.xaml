@@ -16,6 +16,8 @@
     <SolidColorBrush x:Key="TitleCenterFontColor" Color="#919191"/>
     <SolidColorBrush x:Key="LPDBgColor" Color="#2d2f31"/>
     <SolidColorBrush x:Key="TabItemTextColor" Color="#c9c9c9"/>
+    <SolidColorBrush x:Key="LeftSelectColor" Color="#2d2f30"/>
+    <SolidColorBrush x:Key="LeftEnterColor" Color="#353739"/>
 
-    
+
 </ResourceDictionary>
