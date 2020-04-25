@@ -18,6 +18,6 @@
     <SolidColorBrush x:Key="TabItemTextColor" Color="#c9c9c9"/>
     <SolidColorBrush x:Key="LeftSelectColor" Color="#2d2f30"/>
     <SolidColorBrush x:Key="LeftEnterColor" Color="#353739"/>
-
+    <SolidColorBrush x:Key="ChooseLeftColor" Color="#313435"/>
 
 </ResourceDictionary>

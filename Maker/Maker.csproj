@@ -235,6 +235,7 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\UIBusiness\GeneralMainViewBusiness.cs" />
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
+    <Compile Include="View\UI\IControlFile.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl2.xaml.cs">
       <DependentUpon>CatalogUserControl2.xaml</DependentUpon>

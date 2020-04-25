@@ -244,6 +244,11 @@ namespace Maker.View.LightScriptUserControl
 
             _bridge.tbTimePointCountLeft_TextChanged();
             UpdateSize();
+
+            foreach(var item in spLeft.Children){
+                (item as FrameworkElement).Visibility = Visibility.Collapsed;
+            }
+            (spLeft.Children[0]).Visibility = Visibility.Visible;
         }
 
         private void InitFormat()
@@ -4181,7 +4186,7 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-        private void Generate_Click(object sender, RoutedEventArgs e)
+        private void Generate_Click(object sender, MouseButtonEventArgs e)
         {
             String stepName = GetUsableStepName();
             ScriptModel scriptModel = new ScriptModel();
@@ -4240,7 +4245,7 @@ namespace Maker.View.LightScriptUserControl
         }
 
 
-        private void FastGeneration_Click(object sender, RoutedEventArgs e)
+        private void FastGeneration_Click(object sender, MouseButtonEventArgs e)
         {
             ScriptModel scriptModel = new ScriptModel();
             scriptModel.Name = GetUsableStepName();
@@ -4270,7 +4275,7 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-        private void SelectEditor_Click(object sender, RoutedEventArgs e)
+        private void SelectEditor_Click(object sender, MouseButtonEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4315,7 +4320,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void ConditionJudgment_Click(object sender, RoutedEventArgs e)
+        private void ConditionJudgment_Click(object sender, MouseButtonEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4547,7 +4552,7 @@ namespace Maker.View.LightScriptUserControl
             cTimeLine.Children.Add(line);
         }
 
-        private void CopyFromStep_Click(object sender, RoutedEventArgs e)
+        private void CopyFromStep_Click(object sender, MouseEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4603,6 +4608,21 @@ namespace Maker.View.LightScriptUserControl
                 _scriptModelDictionary.Add(item.Key, _scriptModel);
             }
             scriptModelDictionarys.Add(_scriptModelDictionary);
+        }
+
+        int position = 0;
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement frameworkElement = sender as FrameworkElement;
+            Panel panel = (frameworkElement.Parent as Panel);
+            int _position = panel.Children.IndexOf(frameworkElement);
+            if (_position == position)
+            {
+                return;
+            }
+            spLeft.Children[position].Visibility = Visibility.Collapsed;
+            spLeft.Children[_position].Visibility = Visibility.Visible;
+            position = _position;
         }
     }
 }

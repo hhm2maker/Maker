@@ -20,6 +20,10 @@ namespace Maker.View
         protected Panel mainView;
         protected bool bMakerLightUserControl;
 
+        public BaseUserControl GetBaseUserControl(NewMainWindow mw) {
+            return (BaseUserControl)Activator.CreateInstance(GetType(),mw);
+        }
+
         /// <summary>
         /// 是否是制作灯光的控件
         /// </summary>

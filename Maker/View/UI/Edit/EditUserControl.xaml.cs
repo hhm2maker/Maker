@@ -32,7 +32,7 @@ namespace Maker.View.UI.Edit
             this.mw = mw;
             Title = "Edit";
             IsShowWindowTitle = false;
-           
+
             InitUserControl();
         }
         public List<BaseUserControl> userControls = new List<BaseUserControl>();
@@ -97,93 +97,61 @@ namespace Maker.View.UI.Edit
 
         public void IntoUserControl(String fileName)
         {
-            TabItem item;
+            TabItem item = null;
             if (fileName.EndsWith(".mid"))
             {
                 item = new TabItem
                 {
-                    Header = fileName,
                     Content = userControls[0]
                 };
-                item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
-                tcMain.Items.Add(item);
             }
-            else if (fileName.EndsWith(".lightScript"))
+            else
             {
-                ScriptUserControl suc = new ScriptUserControl(mw);
-                TextBlock tb = new TextBlock()
+                for (int i = 0; i < userControls.Count; i++)
                 {
-                    Text = fileName,
-                };
-                item = new TabItem
-                {
-                    Header = tb,
-                    Content = suc
-                };
-                item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
-                suc.filePath = mw.LastProjectPath + suc._fileType + @"\" + fileName;
-                suc.LoadFile(fileName);
-                tcMain.Items.Add(item);
-                suc._bIsEdit = false;
+                    if (fileName.EndsWith(userControls[i]._fileExtension))
+                    {
+                        item = new TabItem
+                        {
+                            Content = userControls[i].GetBaseUserControl(mw)
+                        };
+                        break;
+                    }
+                }
             }
-            else if (fileName.EndsWith(".lightPage"))
+            if (item == null) {
+                return;
+            }
+            item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
+            TextBlock tb = new TextBlock()
             {
-                PageMainUserControl suc = new PageMainUserControl(mw);
-                TextBlock tb = new TextBlock()
-                {
-                    Text = fileName,
-                };
-                item = new TabItem
-                {
-                    Header = tb,
-                    Content = suc
-                };
-                item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
-                suc.filePath = mw.LastProjectPath + suc._fileType + @"\" + fileName;
-                suc.LoadFile(fileName);
-                tcMain.Items.Add(item);
-            }
-            else 
-            {
-                //for (int i = 0; i < userControls.Count; i++)
-                //{
-                    //if (fileName.EndsWith(userControls[i]._fileExtension))
-                    //{
-                        //item = new TabItem
-                        //{
-                            //Header = fileName,
-                            //Content = userControls[i]
-                        //};
-                        //item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
-                        //tcMain.Items.Add(item);
-                        //break;
-                    //}
-                //}
-            }
+                Text = fileName,
+                FontSize = 14,
+            };
+            item.Header = tb;
+            tcMain.Items.Add(item);
+
             tcMain.SelectedIndex = tcMain.Items.Count - 1;
 
-            //BaseUserControl baseUserControl = ((TabItem)tcMain.Items[0]).Content as BaseUserControl;
-            //if (!fileName.EndsWith(".lightScript"))
-            //{
-
-            //}
-            //else
-            //{
-            ////关闭文件选择器
-            ////CloseFileControl();
-            ////baseUserControl = mw.gCenter.Children[0] as BaseUserControl;
-            //if (baseUserControl.filePath.Equals(mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName))
-            //return;
-            //if (baseUserControl is ScriptUserControl)
-            //{
-            //(baseUserControl as ScriptUserControl)._bIsEdit = false;
-            //}
-            //}
-            //baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
-            //baseUserControl.LoadFile(fileName);
+            BaseUserControl baseUserControl = ((TabItem)tcMain.Items[tcMain.SelectedIndex]).Content as BaseUserControl;
+            if (fileName.EndsWith(".lightScript"))
+            {
+                //关闭文件选择器
+                //CloseFileControl();
+                //baseUserControl = mw.gCenter.Children[0] as BaseUserControl;
+                if (baseUserControl.filePath.Equals(mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName))
+                    return;
+                if (baseUserControl is ScriptUserControl)
+                {
+                    (baseUserControl as ScriptUserControl)._bIsEdit = false;
+                }
+            }
+          
+            baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
+            baseUserControl.LoadFile(fileName);
         }
 
-        public void IntoUserControl(String fileName,bool checkFileName)
+        public void IntoUserControl(String fileName, bool checkFileName)
         {
 
             if (fileName.EndsWith(".mid"))

@@ -11,6 +11,7 @@ namespace Maker.View.LightScriptUserControl
 {
     public class BaseLightScriptUserControl : BaseMakerLightUserControl
     {
+  
         public BaseLightScriptUserControl()
         {
             _fileExtension = ".lightScript";
