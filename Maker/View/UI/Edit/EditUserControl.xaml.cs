@@ -119,14 +119,16 @@ namespace Maker.View.UI.Edit
                     }
                 }
             }
-            if (item == null) {
+            if (item == null)
+            {
                 return;
             }
-            item.SetResourceReference(ForegroundProperty, "TabItemTextColor");
             TextBlock tb = new TextBlock()
             {
                 Text = fileName,
                 FontSize = 14,
+                Background = new SolidColorBrush(Colors.Transparent),
+                Foreground = (SolidColorBrush)Resources["TabItemTextColor"]
             };
             item.Header = tb;
             tcMain.Items.Add(item);
@@ -146,7 +148,7 @@ namespace Maker.View.UI.Edit
                     (baseUserControl as ScriptUserControl)._bIsEdit = false;
                 }
             }
-          
+
             baseUserControl.filePath = mw.LastProjectPath + baseUserControl._fileType + @"\" + fileName;
             baseUserControl.LoadFile(fileName);
         }

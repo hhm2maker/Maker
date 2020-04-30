@@ -19,5 +19,6 @@
     <SolidColorBrush x:Key="LeftSelectColor" Color="#2d2f30"/>
     <SolidColorBrush x:Key="LeftEnterColor" Color="#353739"/>
     <SolidColorBrush x:Key="ChooseLeftColor" Color="#313435"/>
-
+    <SolidColorBrush x:Key="ChooseLeftSelectColor" Color="#4b6eaf"/>
+    <SolidColorBrush x:Key="TabItemSelHeadBg" Color="#4e5254"/>
 </ResourceDictionary>

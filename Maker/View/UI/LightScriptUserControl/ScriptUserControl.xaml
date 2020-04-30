@@ -56,17 +56,17 @@
                     </DockPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
                         <StackPanel VerticalAlignment="Stretch">
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Basics}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Time}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Shape}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Color}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Superposition}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Other}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Animation}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Generate}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource ThirdParty}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Mycontent}" Foreground="{DynamicResource TitleFontColor}"/>
-                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Margin="20,0,20,0" Text="{DynamicResource Library}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Basics}" Foreground="{DynamicResource TitleFontColor}" Background="{DynamicResource ChooseLeftSelectColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Time}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Shape}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Color}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Superposition}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Other}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Animation}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Generate}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource ThirdParty}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Mycontent}" Foreground="{DynamicResource TitleFontColor}"/>
+                            <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" FontSize="18" Padding="20,0,20,0" Text="{DynamicResource Library}" Foreground="{DynamicResource TitleFontColor}"/>
                         </StackPanel>
                         <Border HorizontalAlignment="Left" BorderThickness="3,0,0,0" VerticalAlignment="Stretch" BorderBrush="{DynamicResource LineColor}">
                             <StackPanel Name="spLeft" Margin="20,0,20,0">

@@ -4613,13 +4613,16 @@ namespace Maker.View.LightScriptUserControl
         int position = 0;
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            FrameworkElement frameworkElement = sender as FrameworkElement;
+            TextBlock frameworkElement = sender as TextBlock;
             Panel panel = (frameworkElement.Parent as Panel);
             int _position = panel.Children.IndexOf(frameworkElement);
             if (_position == position)
             {
                 return;
             }
+            TextBlock oldFrameworkElement = panel.Children[position] as TextBlock;
+            oldFrameworkElement.Background = new SolidColorBrush(Colors.Transparent);
+            frameworkElement.Background = (SolidColorBrush)Resources["ChooseLeftSelectColor"];
             spLeft.Children[position].Visibility = Visibility.Collapsed;
             spLeft.Children[_position].Visibility = Visibility.Visible;
             position = _position;

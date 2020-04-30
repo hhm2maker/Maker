@@ -41,7 +41,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
-                <Border Grid.Column="0" BorderBrush="{DynamicResource LineTitleColor}" BorderThickness="0,0,0,1">
+                <Border BorderBrush="{DynamicResource LineTitleColor}" BorderThickness="0,0,0,1">
                     <Grid Background="{DynamicResource bgTitleColor}"  >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -113,7 +113,8 @@
                         </Grid>
                     </Grid>
                 </Border>
-                <DockPanel Background="{DynamicResource bgTitleColor}">
+                <Border BorderBrush="{DynamicResource LineColor}" BorderThickness="0,0,0,1">
+                    <DockPanel Background="{DynamicResource bgTitleColor}">
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" >
                         <Image VerticalAlignment="Center" Margin="0,0,15,0" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
                     </StackPanel>
@@ -139,8 +140,10 @@
                         <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </StackPanel>
                 </DockPanel>
+                </Border>
             </StackPanel>
-            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgContentColor}" >
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgTitleColor}" >
+                <!--Background="{DynamicResource bgContentColor}"-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
