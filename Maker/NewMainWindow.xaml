@@ -70,6 +70,7 @@
                             <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" Foreground="{DynamicResource TitleFontColor}"  />
                                 <MenuItem Header="{DynamicResource Device}" Click="Device_Click" Foreground="{DynamicResource TitleFontColor}" />
+                                <MenuItem Name="miPlugins" Click="miPlugins_Click" Header="{DynamicResource Plugins}" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
                             <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" Foreground="{DynamicResource TitleFontColor}" />

@@ -17,13 +17,31 @@ namespace PlugLib
         /// </summary>
         UserControl GetView();
 
+        /// <summary>
+        /// 获取权限申请
+        /// </summary>
+        /// <returns></returns>
         List<Permissions> GetPermissions();
 
+        /// <summary>
+        /// 获取图标
+        /// </summary>
+        /// <returns></returns>
         ImageSource GetIcon();
 
         /// <summary>
         /// 获取控制器
         /// </summary>
         List<IControl> GetControl();
+
+        /// <summary>
+        /// 获取标题
+        /// </summary>
+        String GetTitle();
+
+        /// <summary>
+        /// 获取标题
+        /// </summary>
+        String Version();
     }
 }

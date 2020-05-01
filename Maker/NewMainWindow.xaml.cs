@@ -41,6 +41,7 @@ using Sharer.Utils;
 using System.Xml.Linq;
 using Maker.View.UI.BottomDialog;
 using MakerUI.Device;
+using Maker.View.UI.Plugins;
 
 namespace Maker
 {
@@ -529,42 +530,47 @@ namespace Maker
                 String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path;
                 if (File.Exists(filePath))
                 {
-                    Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path);
-                    Type[] types = ass.GetTypes();
-                    Type type = null;
-                    foreach (Type t in types)
-                    {
-                        if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath) + "." + Path.GetFileNameWithoutExtension(filePath)))
+                    try {
+                        Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path);
+                        Type[] types = ass.GetTypes();
+                        Type type = null;
+                        foreach (Type t in types)
                         {
-                            type = t;
-                            break;
+                            if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath) + "." + Path.GetFileNameWithoutExtension(filePath)))
+                            {
+                                type = t;
+                                break;
+                            }
+                        }
+                        if (type == null)
+                            continue;
+
+                        //判断是否继承于IGetOperationResult类
+                        Type _type = type.GetInterface("PlugLib.IBasePlug");
+                        if (_type == null)
+                        {
+                            continue;
+                        }
+                        Object o = Activator.CreateInstance(type);
+                        Plugs.Add(o as IBasePlug);
+                        //MethodInfo mi = o.GetType().GetMethod("GetIcon");
+                        //BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
+                        ImageSource icon = Plugs[Plugs.Count - 1].GetIcon();
+                        if (icon != null)
+                        {
+                            Image image = new Image();
+                            image.Width = 25;
+                            image.Height = 25;
+                            image.Margin = new Thickness(10, 0, 0, 0);
+                            image.Source = icon;
+                            image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
+                            RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.Fant);
+
+                            spPlugs.Children.Add(image);
                         }
                     }
-                    if (type == null)
-                        continue;
-
-                    //判断是否继承于IGetOperationResult类
-                    Type _type = type.GetInterface("PlugLib.IBasePlug");
-                    if (_type == null)
-                    {
-                        continue;
-                    }
-                    Object o = Activator.CreateInstance(type);
-                    Plugs.Add(o as IBasePlug);
-                    //MethodInfo mi = o.GetType().GetMethod("GetIcon");
-                    //BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
-                    ImageSource icon = Plugs[Plugs.Count - 1].GetIcon();
-                    if (icon != null)
-                    {
-                        Image image = new Image();
-                        image.Width = 25;
-                        image.Height = 25;
-                        image.Margin = new Thickness(10,0,0,0);
-                        image.Source = icon;
-                        image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
-                        RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.Fant);
-
-                        spPlugs.Children.Add(image);
+                    catch (ReflectionTypeLoadException e) {
+                        //TODO 错误提示
                     }
                 }
             }
@@ -1300,6 +1306,11 @@ namespace Maker
             {
                 spFile.Background = new SolidColorBrush(Colors.Transparent);
             }
+        }
+
+        private void miPlugins_Click(object sender, RoutedEventArgs e)
+        {
+            new PluginsWindow(this).Show();
         }
     }
 

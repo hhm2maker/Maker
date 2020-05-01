@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TabControl Name="tcMain" FontSize="18" />
+        <TabControl Name="tcMain" FontSize="18" BorderBrush="Transparent"/>
         <!--<Grid Name="tcMain" >
             <TextBlock Text="{DynamicResource NoFileWasOpened}" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>-->

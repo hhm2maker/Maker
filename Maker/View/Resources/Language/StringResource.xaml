@@ -552,6 +552,7 @@
     <sys:String x:Key="Play lights">Play lights</sys:String>
     <sys:String x:Key="Model">Model</sys:String>
     <sys:String x:Key="Use in live">Use in live</sys:String>
+    <sys:String x:Key="Plugins">Plugins</sys:String>
 
 
 </ResourceDictionary>
