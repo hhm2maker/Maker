@@ -51,6 +51,7 @@
     <Compile Include="IBasePlug.cs" />
     <Compile Include="InputAndOutputControlEnum.cs" />
     <Compile Include="PermissionsClass.cs" />
+    <Compile Include="PlugInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

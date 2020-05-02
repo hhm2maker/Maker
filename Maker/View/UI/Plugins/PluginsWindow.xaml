@@ -21,17 +21,48 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Name="lbMain" Grid.Column="0" BorderBrush="Transparent" Background="Transparent" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}">
+        <ListBox Name="lbMain" SelectionChanged="lbMain_SelectionChanged" Grid.Column="0" BorderBrush="Transparent" Background="Transparent" IsSynchronizedWithCurrentItem="True" ItemsSource="{Binding}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                        <Image Source="{Binding Icon}" Width="30" Margin="0 0 100 0" />
-                        <TextBlock Text="{Binding Title}" Margin="0 0 100 0" />
+                        <Image Source="{Binding Icon}" Width="30"/>
+                        <TextBlock Text="{Binding Title}" FontSize="18" Margin="30,0,0,0" Foreground="{DynamicResource TitleFontColor}" VerticalAlignment="Center"/>
                     </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
         </ListBox>
-        <Border BorderBrush="{DynamicResource DividingLineColor}" Grid.Column="1"/>
-        <StackPanel></StackPanel>
+        <StackPanel Background="{DynamicResource DividingLineColor}" Width="1" Grid.Column="1"/>
+        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="30,30,30,30">
+            <DockPanel HorizontalAlignment="Stretch">
+                <Image Name="iBigIcon" Width="50" DockPanel.Dock="Left"/>
+                <TextBlock Name="tbTitle" Margin="30,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="30,0,0,0" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource BtnGrayBg}" BorderBrush="{DynamicResource BtnGrayBorder}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
+                        <TextBlock Name="tbUnInstall" Foreground="{DynamicResource TitleFontColor}" Text="卸载" />
+                    </Border>
+                    <Border Background="{DynamicResource BtnGreenBg}" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnGreenBg}" BorderThickness="2"  CornerRadius="3" Padding="15,5,15,5">
+                        <TextBlock Name="tbInstall" Foreground="{DynamicResource TitleFontColor}" Text="安装" />
+                    </Border>
+                    <Border Name="bDisable" MouseLeftButtonDown="B_Disable_MouseLeftButtonDown" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnRedBg}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
+                        <TextBlock Foreground="{DynamicResource BtnRedBg}" Text="禁用" />
+                    </Border>
+                    <Border Name="bEnable" MouseLeftButtonDown="B_Enable_MouseLeftButtonDown" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnGreenBg}" BorderThickness="2" CornerRadius="3" Background="{DynamicResource BtnGreenBg}" Padding="15,5,15,5">
+                        <TextBlock Foreground="{DynamicResource TitleFontColor}" Text="启用" />
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+            <DockPanel Margin="0,20,0,0">
+                <TextBlock Text="作者："/>
+                <TextBlock Name="tbAuthor" Margin="20,0,0,0"/>
+            </DockPanel>
+            <DockPanel Margin="0,20,0,0" >
+                <TextBlock Text="权限："/>
+                <TextBlock Name="tbPermissions" Margin="20,0,0,0"/>
+            </DockPanel>
+            <DockPanel Margin="0,20,0,0">
+                <TextBlock Text="描述："/>
+                <TextBlock Name="tbDescribe" Margin="20,0,0,0" TextWrapping = "Wrap"/>
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </Window>

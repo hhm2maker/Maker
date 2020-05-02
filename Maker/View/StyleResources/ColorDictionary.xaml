@@ -22,4 +22,8 @@
     <SolidColorBrush x:Key="ChooseLeftSelectColor" Color="#4b6eaf"/>
     <SolidColorBrush x:Key="TabItemSelHeadBg" Color="#4e5254"/>
     <SolidColorBrush x:Key="PluginsBg" Color="#313335"/>
+    <SolidColorBrush x:Key="BtnGrayBorder" Color="#5e6060"/>
+    <SolidColorBrush x:Key="BtnGrayBg" Color="#4c5052"/>
+    <SolidColorBrush x:Key="BtnGreenBg" Color="#2b7b50"/>
+    <SolidColorBrush x:Key="BtnRedBg" Color="#ff6b68"/>
 </ResourceDictionary>

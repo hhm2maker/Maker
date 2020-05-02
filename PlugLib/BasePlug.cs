@@ -20,24 +20,25 @@ namespace PlugLib
             return null;
         }
 
+        public virtual PlugInfo GetInfo()
+        {
+            PlugInfo plugInfo = new PlugInfo
+            {
+                Title = "",
+                Author = "",
+                Version = "0.0.0"
+            };
+            return plugInfo;
+        }
+
         public virtual List<PermissionsClass.Permissions> GetPermissions()
         {
             return new List<PermissionsClass.Permissions>();
         }
 
-        public virtual string GetTitle()
-        {
-            return "";
-        }
-
         public virtual UserControl GetView()
         {
             return new UserControl();
-        }
-
-        public virtual string Version()
-        {
-            return "0.0.0";
         }
     }
 }

@@ -22,10 +22,6 @@ namespace Maker.Business.Model.Config
 
             }
 
-            public Plug(string path) {
-                Path = path;
-            }
-
             [XmlAttribute("path")]
             public string Path
             {
@@ -33,7 +29,12 @@ namespace Maker.Business.Model.Config
                 set;
             } = "";
 
-          
+            [XmlAttribute("enable")]
+            public bool Enable
+            {
+                get;
+                set;
+            } = false;
         }
     }
 

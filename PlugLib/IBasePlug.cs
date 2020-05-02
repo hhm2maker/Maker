@@ -34,14 +34,12 @@ namespace PlugLib
         /// </summary>
         List<IControl> GetControl();
 
-        /// <summary>
-        /// 获取标题
-        /// </summary>
-        String GetTitle();
 
         /// <summary>
-        /// 获取标题
+        /// 获取基础信息
         /// </summary>
-        String Version();
+        /// <returns></returns>
+        PlugInfo GetInfo();
+     
     }
 }

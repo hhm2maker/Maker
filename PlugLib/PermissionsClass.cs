@@ -17,11 +17,11 @@ namespace PlugLib
         public static string PermissionsExplain(Permissions permissions) {
             if (permissions == Permissions.None)
             {
-                return "不需要任何权限";
+                return "无任何权限";
             }
             else if (permissions == Permissions.InputAndOutput)
             {
-                return "需要输入输出权限";
+                return "输入输出权限";
             }
             else {
                 return "获取说明失败";
