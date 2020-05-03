@@ -71,85 +71,85 @@
                         <Border HorizontalAlignment="Left" BorderThickness="3,0,0,0" VerticalAlignment="Stretch" BorderBrush="{DynamicResource LineColor}">
                             <StackPanel Name="spLeft" Margin="20,0,20,0">
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnFastGeneration" MouseLeftButtonDown="FastGeneration_Click"  Text="{DynamicResource FastGeneration}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnFastGenerationAndSelection" MouseLeftButtonDown="FastGeneration_Click" Text="{DynamicResource FastGenerationAndSelection}" Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnSelectEditorReplace" MouseLeftButtonDown="SelectEditor_Click" Text="{DynamicResource SelectEditor_Replace}" Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnSelectEditorAdd" MouseLeftButtonDown="SelectEditor_Click" Text="{DynamicResource SelectEditor_Add}" Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnConditionJudgmentReplace" MouseLeftButtonDown="ConditionJudgment_Click" Text="{DynamicResource ConditionJudgment_Replace}" Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="ConditionJudgment_Remove" MouseLeftButtonDown="ConditionJudgment_Click" Text="{DynamicResource ConditionJudgment_Remove}" Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock MouseLeftButtonDown="CopyFromStep_Click" Text="{DynamicResource CopyFromStep}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnFastGeneration" MouseLeftButtonDown="FastGeneration_Click" FontSize="18" Text="{DynamicResource FastGeneration}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnFastGenerationAndSelection" MouseLeftButtonDown="FastGeneration_Click" FontSize="18" Text="{DynamicResource FastGenerationAndSelection}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnSelectEditorReplace" MouseLeftButtonDown="SelectEditor_Click" FontSize="18" Text="{DynamicResource SelectEditor_Replace}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnSelectEditorAdd" MouseLeftButtonDown="SelectEditor_Click" FontSize="18" Text="{DynamicResource SelectEditor_Add}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnConditionJudgmentReplace" MouseLeftButtonDown="ConditionJudgment_Click" FontSize="18" Text="{DynamicResource ConditionJudgment_Replace}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="ConditionJudgment_Remove" MouseLeftButtonDown="ConditionJudgment_Click" FontSize="18" Text="{DynamicResource ConditionJudgment_Remove}" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock MouseLeftButtonDown="CopyFromStep_Click" Text="{DynamicResource CopyFromStep}" FontSize="18" Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnReversal" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Reversal}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Text="{DynamicResource LengtheningOrShortening}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnReversal" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Reversal}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock FontSize="18" Text="{DynamicResource LengtheningOrShortening}"  Foreground="{DynamicResource TitleFontColor}"/>
                                     <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                        <TextBlock Name="btnExtendTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource DoubleExtension}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Name="btnShortenTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource DoubleShortening}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Name="btnDiyTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Customized}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnExtendTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource DoubleExtension}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnShortenTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource DoubleShortening}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnDiyTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Customized}"  Foreground="{DynamicResource TitleFontColor}"/>
                                     </StackPanel>
-                                    <TextBlock Name="btnSetStartTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource SetStartTime}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnSetEndTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource EndTime}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnSetAllTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource SetAllTime}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnMatchTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource MatchTotalTimeLattice}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnInterceptTime" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource InterceptTime}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnSetStartTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource SetStartTime}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnSetEndTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource EndTime}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnSetAllTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource SetAllTime}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnMatchTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource MatchTotalTimeLattice}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnInterceptTime" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource InterceptTime}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnVerticalFlipping" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource VerticalFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnHorizontalFlipping" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource HorizontalFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnFold" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Fold}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnLowerLeftSlashFlipping" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource LowerLeftSlashFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnLowerRightSlashFlipping" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource LowerRightSlashFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnClockwise" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource ClockwiseRotation}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnAntiClockwise" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource AntiClockwiseRotation}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnVerticalFlipping" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource VerticalFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnHorizontalFlipping" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource HorizontalFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnFold" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Fold}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnLowerLeftSlashFlipping" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource LowerLeftSlashFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnLowerRightSlashFlipping" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource LowerRightSlashFlipping}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnClockwise" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource ClockwiseRotation}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnAntiClockwise" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource AntiClockwiseRotation}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnColorChange" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Change}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Text="{DynamicResource Format}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnColorChange" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Change}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock FontSize="18" Text="{DynamicResource Format}" Foreground="{DynamicResource TitleFontColor}"/>
                                     <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                        <TextBlock Name="btnChangeColorYellow" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource YellowGreen}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Name="btnChangeColorBlue" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource CyanBlue}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Name="btnChangeColorPink" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource PinkWhite}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Name="btnChangeColorDiy" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Customized}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnChangeColorYellow" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource YellowGreen}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnChangeColorBlue" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource CyanBlue}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnChangeColorPink" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource PinkWhite}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="btnChangeColorDiy" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Customized}"  Foreground="{DynamicResource TitleFontColor}"/>
                                     </StackPanel>
-                                    <TextBlock Text="{DynamicResource Shape}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock FontSize="18" Text="{DynamicResource Shape}"  Foreground="{DynamicResource TitleFontColor}"/>
                                     <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                        <TextBlock Name="miSquare" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Square}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                        <TextBlock Text="{DynamicResource Radial}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock Name="miSquare" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Square}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                        <TextBlock FontSize="18" Text="{DynamicResource Radial}"  Foreground="{DynamicResource TitleFontColor}"/>
                                         <StackPanel Orientation="Vertical" Margin="20,0,0,0">
-                                            <TextBlock Name="miRadialVertical" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Vertical}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                            <TextBlock Name="miRadialHorizontal" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Horizontal}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                            <TextBlock Name="miRadialVertical" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Vertical}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                            <TextBlock Name="miRadialHorizontal" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Horizontal}"  Foreground="{DynamicResource TitleFontColor}"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <TextBlock Name="btnFillColor" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource FillColor}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnColorWithCount" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource ColorWithCount}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnFillColor" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource FillColor}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnColorWithCount" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource ColorWithCount}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnCopyToTheEnd" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource ColorSuperposition}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnCopyToTheFollow" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource ColorSuperpositionFollow}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnAccelerationOrDeceleration" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource AccelerationOrDeceleration}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnCopyToTheEnd" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource ColorSuperposition}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnCopyToTheFollow" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource ColorSuperpositionFollow}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnAccelerationOrDeceleration" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource AccelerationOrDeceleration}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnRemoveBorder" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource RemoveTheBorder}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnRemoveBorder" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource RemoveTheBorder}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="btnDisappear" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Disappear}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="btnWindmill" MouseLeftButtonDown="EditToScript"  Text="{DynamicResource Animation.Windmill}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnDisappear" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Disappear}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="btnWindmill" MouseLeftButtonDown="EditToScript" FontSize="18" Text="{DynamicResource Animation.Windmill}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Name="miRhombusDiffusion" MouseLeftButtonDown="Generate_Click"  Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="miCross" MouseLeftButtonDown="Generate_Click"  Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="miRandomFountain" MouseLeftButtonDown="Generate_Click"  Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="miRhombusDiffusion" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="miCross" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="miRandomFountain" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{DynamicResource ThirdParty}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <MenuItem Name="miThirdParty" />
+                                    <TextBlock FontSize="18" Text="{DynamicResource ThirdParty}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <MenuItem Name="miThirdParty" FontSize="18"/>
                                 </StackPanel>
                                  <StackPanel Orientation="Vertical">
-                                    <TextBlock  Text="{DynamicResource Mycontent}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <MenuItem Name="miMycontent" />
+                                    <TextBlock FontSize="18" Text="{DynamicResource Mycontent}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <MenuItem Name="miMycontent" FontSize="18" />
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{DynamicResource Library}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock FontSize="18" Text="{DynamicResource Library}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

@@ -1072,11 +1072,13 @@ namespace Maker.View.UI
             iInputAndOutputControls.Clear();
             foreach (var item in StaticConstant.mw.Plugs)
             {
-                foreach (var control in item.GetControl())
-                {
-                    if (control is IInputAndOutputControl)
+                if (StaticConstant.mw.plugsConfigModel.Plugs[StaticConstant.mw.Plugs.IndexOf(item)].Enable) {
+                    foreach (var control in item.GetControl())
                     {
-                        iInputAndOutputControls.Add(control as IInputAndOutputControl);
+                        if (control is IInputAndOutputControl)
+                        {
+                            iInputAndOutputControls.Add(control as IInputAndOutputControl);
+                        }
                     }
                 }
             }

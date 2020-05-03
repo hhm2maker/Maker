@@ -26,4 +26,5 @@
     <SolidColorBrush x:Key="BtnGrayBg" Color="#4c5052"/>
     <SolidColorBrush x:Key="BtnGreenBg" Color="#2b7b50"/>
     <SolidColorBrush x:Key="BtnRedBg" Color="#ff6b68"/>
+    <SolidColorBrush x:Key="NoFileBg" Color="#282828"/>
 </ResourceDictionary>

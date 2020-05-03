@@ -16,6 +16,8 @@ using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Operation;
 using System.Windows.Media;
+using Maker.View.UI.Utils;
+using System.Windows.Media.Imaging;
 
 namespace Maker.View.UI.Edit
 {
@@ -97,6 +99,13 @@ namespace Maker.View.UI.Edit
 
         public void IntoUserControl(String fileName)
         {
+            for (int i = 0; i < tcMain.Items.Count; i++) {
+                if (fileName.Equals(TabItem2FileName(tcMain.Items[i] as TabItem))) {
+                    tcMain.SelectedIndex = i;
+                    return;
+                }
+            }
+
             TabItem item = null;
             if (fileName.EndsWith(".mid"))
             {
@@ -123,6 +132,11 @@ namespace Maker.View.UI.Edit
             {
                 return;
             }
+            StackPanel sp = new StackPanel
+            {
+                Orientation = Orientation.Horizontal
+            };
+
             TextBlock tb = new TextBlock()
             {
                 Text = fileName,
@@ -130,7 +144,25 @@ namespace Maker.View.UI.Edit
                 Background = new SolidColorBrush(Colors.Transparent),
                 Foreground = (SolidColorBrush)Resources["TabItemTextColor"]
             };
-            item.Header = tb;
+            sp.Children.Add(tb);
+
+            Grid grid = new Grid
+            {
+                Margin = new Thickness(5, 0, 0, 0)
+            };
+            grid.MouseLeftButtonDown += Grid_MouseLeftButtonDown;
+
+            Image image = new Image()
+            {
+                Width = 15,
+                Height = 15,
+                Source = ResourcesUtils.Resources2BitMap("close_gray.png"),
+            };
+            grid.Children.Add(image);
+
+            sp.Children.Add(grid);
+
+            item.Header = sp;
             tcMain.Items.Add(item);
 
             tcMain.SelectedIndex = tcMain.Items.Count - 1;
@@ -153,9 +185,18 @@ namespace Maker.View.UI.Edit
             baseUserControl.LoadFile(fileName);
         }
 
+        private String TabItem2FileName(TabItem tabItem) {
+            StackPanel sp = (tabItem.Header as StackPanel);
+            return (sp.Children[0] as TextBlock).Text;
+        }
+
+        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tcMain.Items.RemoveAt(tcMain.Items.IndexOf(((sender as Panel).Parent as Panel).Parent));
+        }
+
         public void IntoUserControl(String fileName, bool checkFileName)
         {
-
             if (fileName.EndsWith(".mid"))
             {
                 TabItem item = new TabItem
@@ -301,6 +342,18 @@ namespace Maker.View.UI.Edit
             gTool.Children.RemoveAt(gTool.Children.Count - 1);
             gToolBackGround.Visibility = Visibility.Collapsed;
             HideTool();
+        }
+
+        private void tcMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tcMain.Items.Count == 0)
+            {
+                gNoFile.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                gNoFile.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

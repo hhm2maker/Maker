@@ -42,6 +42,8 @@ using System.Xml.Linq;
 using Maker.View.UI.BottomDialog;
 using MakerUI.Device;
 using Maker.View.UI.Plugins;
+using System.Windows.Documents;
+using static Maker.View.UI.BottomDialog.MessageBottomDialog;
 
 namespace Maker
 {
@@ -498,8 +500,8 @@ namespace Maker
         {
             try
             {
-            // 初始化版本
-            string url = @"https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Version.xml";
+                // 初始化版本
+                string url = @"https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Version.xml";
                 XDocument xDoc = XDocument.Load(url);
                 XElement xRoot = xDoc.Element("Version");
                 XElement xNowVersion = xRoot.Element("NowVersion");
@@ -509,9 +511,10 @@ namespace Maker
 
                     if (!versionConfigModel.NowVersion.Equals(StaticConstant.NowVersion))
                     {
-                        spDialog.Children.Add(new MessageBottomDialog());
+                        AddMessageBottomDialog(new UpdateMessageBottomClass(this));
                     }
-                    else {
+                    else
+                    {
                         StaticConstant.IsNowVersion = true;
                     }
                 }
@@ -522,58 +525,84 @@ namespace Maker
             }
         }
 
+        /// <summary>
+        /// 添加底部弹窗
+        /// </summary>
+        /// <param name="messageBottomDialog"></param>
+        public void AddMessageBottomDialog(MessageBottomClass messageBottomDialog)
+        {
+            spDialog.Children.Add(new MessageBottomDialog(messageBottomDialog));
+        }
+
         public List<IBasePlug> Plugs = new List<IBasePlug>();
         private void InitPlugs()
         {
             foreach (var item in plugsConfigModel.Plugs)
             {
-                String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path;
-                if (File.Exists(filePath))
+                IBasePlug plug = FilePathToPlug(item.Path);
+                if (plug != null)
                 {
-                    try {
-                        Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + item.Path);
-                        Type[] types = ass.GetTypes();
-                        Type type = null;
-                        foreach (Type t in types)
-                        {
-                            if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath) + "." + Path.GetFileNameWithoutExtension(filePath)))
-                            {
-                                type = t;
-                                break;
-                            }
-                        }
-                        if (type == null)
-                            continue;
+                    Plugs.Add(plug);
 
-                        //判断是否继承于IGetOperationResult类
-                        Type _type = type.GetInterface("PlugLib.IBasePlug");
-                        if (_type == null)
-                        {
-                            continue;
-                        }
-                        Object o = Activator.CreateInstance(type);
-                        Plugs.Add(o as IBasePlug);
+                    if (item.Enable) {
                         //MethodInfo mi = o.GetType().GetMethod("GetIcon");
                         //BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
                         ImageSource icon = Plugs[Plugs.Count - 1].GetIcon();
                         if (icon != null)
                         {
-                            Image image = new Image();
-                            image.Width = 25;
-                            image.Height = 25;
-                            image.Margin = new Thickness(10, 0, 0, 0);
-                            image.Source = icon;
+                            Image image = new Image
+                            {
+                                Width = 25,
+                                Height = 25,
+                                Margin = new Thickness(10, 0, 0, 0),
+                                Source = icon
+                            };
                             image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                             RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.Fant);
 
                             spPlugs.Children.Add(image);
                         }
                     }
-                    catch (ReflectionTypeLoadException e) {
-                        //TODO 错误提示
-                    }
                 }
             }
+        }
+
+        public IBasePlug FilePathToPlug(String shortFilPath)
+        {
+            String filePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + shortFilPath;
+            if (File.Exists(filePath))
+            {
+                try
+                {
+                    Assembly ass = Assembly.LoadFile(AppDomain.CurrentDomain.BaseDirectory + @"Plugs\" + shortFilPath);
+                    Type[] types = ass.GetTypes();
+                    Type type = null;
+                    foreach (Type t in types)
+                    {
+                        if (t.ToString().Equals(Path.GetFileNameWithoutExtension(filePath) + "." + Path.GetFileNameWithoutExtension(filePath)))
+                        {
+                            type = t;
+                            break;
+                        }
+                    }
+                    if (type == null)
+                        return null;
+
+                    //判断是否继承于IGetOperationResult类
+                    Type _type = type.GetInterface("PlugLib.IBasePlug");
+                    if (_type == null)
+                    {
+                        return null;
+                    }
+                    Object o = Activator.CreateInstance(type);
+                    return o as IBasePlug;
+                }
+                catch (ReflectionTypeLoadException e)
+                {
+                    //TODO 错误提示
+                }
+            }
+            return null;
         }
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1000,24 +1029,24 @@ namespace Maker
 
         private void ExportMidi(String fileName, bool isWriteToFile, List<Light> mLightList)
         {
-           //View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
-           // (ResultFileName) =>
-           // {
-           //     if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
-           //     {
-           //         if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-           //         {
-           //             Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
-           //         }
-           //     }
-           //     else
-           //     {
-           //         Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
-           //     }
-           //     RemoveDialog();
-           // }
-           //);
-           //ShowMakerDialog(newFileDialog);
+            //View.UI.UserControlDialog.NewFileDialog newFileDialog = new View.UI.UserControlDialog.NewFileDialog(this, false, ".mid", new List<string>(), ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')),
+            // (ResultFileName) =>
+            // {
+            //     if (File.Exists(LastProjectPath + @"Light\" + ResultFileName))
+            //     {
+            //         if (MessageBox.Show("文件已存在，是否覆盖？", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            //         {
+            //             Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"Light\" + ResultFileName, fileName, mLightList, isWriteToFile);
+            //     }
+            //     RemoveDialog();
+            // }
+            //);
+            //ShowMakerDialog(newFileDialog);
         }
 
         private void ExportLight(String fileName, List<Light> mLightList)
@@ -1227,9 +1256,14 @@ namespace Maker
             Maximized = false;
         }
 
-        private void Exit(object sender, RoutedEventArgs e)
+        public void Exit()
         {
             Close();
+        }
+
+        private void Exit(object sender, RoutedEventArgs e)
+        {
+            Exit();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -1266,8 +1300,9 @@ namespace Maker
 
         private void Image_MouseLeftButtonDown_6(object sender, MouseButtonEventArgs e)
         {
-            if(normalFileManager != null) {
-                normalFileManager.NewScript();    
+            if (normalFileManager != null)
+            {
+                normalFileManager.NewScript();
             }
         }
 
@@ -1280,7 +1315,8 @@ namespace Maker
                 gLeft.Visibility = Visibility.Collapsed;
                 gsLeft.Visibility = Visibility.Collapsed;
             }
-            else {
+            else
+            {
                 spFile.Background = (SolidColorBrush)FindResource("LeftSelectColor");
 
                 gLeft.Visibility = Visibility.Visible;

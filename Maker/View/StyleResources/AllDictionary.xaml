@@ -6,7 +6,6 @@
         </ResourceDictionary.MergedDictionaries>
 
     <SolidColorBrush x:Key="boxTextColor" Color="#CFCFCF"/>
-    <SolidColorBrush x:Key="blockTextColor" Color="#A9A9A9"/>
     <SolidColorBrush x:Key="bigBlockTextColor" Color="#999999"/>
     <SolidColorBrush x:Key="normalBorderColor" Color="#7B7B7B"/>
     <SolidColorBrush x:Key="justWhite" Color="#FFFFFF"/>
@@ -30,7 +29,7 @@
     </LinearGradientBrush>
 
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource blockTextColor}"/>
+        <Setter Property="Foreground" Value="{StaticResource TitleFontColor}"/>
         <Setter Property="FontSize" Value="16"/>
     </Style>
     <Style TargetType="{x:Type TextBox}">
