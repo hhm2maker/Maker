@@ -125,14 +125,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Controls.Ribbon" />
     <Reference Include="System.Windows.Forms" />
@@ -143,7 +138,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -235,6 +229,7 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\UIBusiness\GeneralMainViewBusiness.cs" />
     <Compile Include="View\UI\BaseMakerLightUserControl.cs" />
+    <Compile Include="View\UI\BottomDialog\ErrorMessageBottomClass.cs" />
     <Compile Include="View\UI\BottomDialog\RestartMessageBottomClass.cs" />
     <Compile Include="View\UI\BottomDialog\UpdateMessageBottomClass.cs" />
     <Compile Include="View\UI\Dialog\WindowDialog\ConfirmWindowDialog.xaml.cs">
@@ -1378,10 +1373,6 @@
     </Resource>
     <Resource Include="View\Resources\Image\automatic.png" />
     <Resource Include="View\Resources\Image\back.png" />
-    <Resource Include="View\Resources\Image\bg.gif" />
-    <Resource Include="View\Resources\Image\bg2.gif" />
-    <Resource Include="View\Resources\Image\bg3.gif" />
-    <Resource Include="View\Resources\Image\bg4.gif" />
     <Resource Include="View\Resources\Image\bj.jpg" />
     <Resource Include="View\Resources\Image\box.png" />
     <Resource Include="View\Resources\Image\branch.png" />

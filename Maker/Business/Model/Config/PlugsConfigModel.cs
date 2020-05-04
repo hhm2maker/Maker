@@ -13,7 +13,7 @@ namespace Maker.Business.Model.Config
         {
             get;
             set;
-        }
+        } = new List<Plug>();
 
         [XmlType("Plug")]
         public class Plug

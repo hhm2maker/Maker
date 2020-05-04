@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Maker"
         xmlns:setting="clr-namespace:Maker.View.UI.Setting"
         xmlns:makerui="clr-namespace:MakerUI;assembly=MakerUI"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Closed="Window_Closed"
         Title="Maker" 
@@ -53,14 +54,14 @@
                             <MenuItem Header="{DynamicResource File}" Foreground="{DynamicResource TitleFontColor}"  SubmenuOpened="MenuItem_SubmenuOpened" Style="{DynamicResource bigMenuItem}" FontSize="18">
                                 <MenuItem Header="{DynamicResource New}" Name="btnNewFile" Click="btnNewFile_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 <MenuItem Header="{DynamicResource Open}" Name="btnOpenFile" Foreground="{DynamicResource TitleFontColor}" />
-                                <Separator />
+                                <Separator Background="{DynamicResource DividingLineColor}" Height="2"/>
                                 <MenuItem Header="{DynamicResource Export}" Foreground="{DynamicResource TitleFontColor}" >
                                     <MenuItem Name="miExportMidiFile" Header="{DynamicResource MidiFile}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
                                     <MenuItem Name="miExportLightFile" Header="{DynamicResource LightFile}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
-                                    <Separator />
+                                    <Separator Background="{DynamicResource DividingLineColor}" Height="2"/>
                                     <MenuItem Name="miExportAdvanced" Header="{DynamicResource Advanced}" Click="Export_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 </MenuItem>
-                                <Separator />
+                                <Separator Background="{DynamicResource DividingLineColor}" Height="2"/>
                                 <MenuItem Header="{DynamicResource Exit}" Click="Exit" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
                             <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
@@ -238,6 +239,6 @@
         <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <Popup  Name="popPlug" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" />
         <StackPanel Name="spDialog" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical" Margin="0,0,5,5"/>
+        <!--<Image gif:ImageBehavior.AnimatedSource="View/Resources/Image/bg3.gif" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500"/>-->
     </Grid>
-    <!--<Image gif:ImageBehavior.AnimatedSource="../Image/bg3.gif" />-->
 </RibbonWindow>

@@ -13,7 +13,7 @@
              Loaded="UserControl_Loaded"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
-    SizeChanged="DockPanel_SizeChanged"
+    SizeChanged="DockPanel_SizeChanged" 
        xmlns:viewmodel="clr-namespace:Maker.ViewModel"
     xmlns:device="clr-namespace:MakerUI.Device;assembly=MakerUI"
     DataContext="{Binding Source={StaticResource Locator},Path=Script}"
@@ -187,19 +187,17 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <StackPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
-                        <DockPanel  Name="dpLaunchpad" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Top" >
-                            <Border Name="bLaunchpad"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top"  HorizontalAlignment="Center" ClipToBounds="True">
+                    <DockPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
+                            <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
                                 <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
                                 <view:PlayerUserControl x:Name="mLaunchpad" />
                             </Border>
-                        </DockPanel>
                         <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
                         <!--<TabControl BorderThickness="0" TabStripPlacement="Bottom"  >
                             <TabItem Header="Launchpad" Foreground="#ffffff" >
                         </TabItem>
                     </TabControl>-->
-                    </StackPanel>
+                    </DockPanel>
                     <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
                 <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
                     <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>

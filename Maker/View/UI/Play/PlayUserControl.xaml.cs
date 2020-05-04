@@ -692,8 +692,6 @@ namespace Maker.View.UI
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDevice();
-
             Height = mw.gMost.ActualHeight;
 
             LoadHint();
@@ -1063,7 +1061,7 @@ namespace Maker.View.UI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoadDevice();
+            mw.LoadDevice();
             LoadPlugs();
         }
 
@@ -1084,14 +1082,7 @@ namespace Maker.View.UI
             }
         }
 
-        /// <summary>
-        /// 加载设备
-        /// </summary>
-        private void LoadDevice()
-        {
-            mw.deviceWindow.InitMidiIn();
-            mw.deviceWindow.InitMidiOut();
-        }
+      
 
         private void cbModel_Checked(object sender, RoutedEventArgs e)
         {

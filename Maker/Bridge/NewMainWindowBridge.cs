@@ -50,7 +50,13 @@ namespace Maker.Bridge
         /// </summary>
         private void InitPlugs()
         {
-            XmlSerializerBusiness.Load(ref view.plugsConfigModel, "Config/plugs.xml");
+            if (!File.Exists("Config/plugs.xml"))
+            {
+                view.plugsConfigModel = new PlugsConfigModel();
+            }
+            else {
+                XmlSerializerBusiness.Load(ref view.plugsConfigModel, "Config/plugs.xml");
+            }
         }
 
         /// <summary>

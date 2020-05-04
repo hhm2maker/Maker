@@ -8,10 +8,10 @@
         >
     <Grid Name="gMain" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <WrapPanel Grid.Row="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+        <WrapPanel Grid.Row="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20">
             <TextBlock  Margin="0,0,0,0" Foreground="#F0F0F0" FontSize="16" VerticalAlignment="Center"  Background="{x:Null}" Text="BPM:" />
             <TextBox Name="tbBPM" VerticalContentAlignment="Center"  CaretBrush="White"  Margin="10,0,50,0" Width="50" FontSize="16" Text="96" Background="{x:Null}"  Foreground="#FFFFFF" HorizontalContentAlignment="Right" />
             <Image Name="btnPlay" MouseLeftButtonDown="btnPlay_Click" RenderOptions.BitmapScalingMode="Fant" Width="30" Source="../../../View/Resources/Image/play_green.png" />

@@ -127,6 +127,10 @@ namespace Maker.View
 
         private void InitPlayLaunchpad()
         {
+            if (playLpd != null) {
+                return;
+            }
+
             if (mw.playerType == EnumCollection.PlayerType.ParagraphIntList) {
                 playLpd = new ParagraphIntListPlayerLaunchpadPro(this);
             }
@@ -151,8 +155,8 @@ namespace Maker.View
             //playLpd.Height = 750;
             gMain.Children.Add(playLpd);
 
-            GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, Business.FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
-            gMain.Width = playLpd.Width;
+            //GeneralOtherViewBusiness.SetLaunchpadStyle(playLpd, Business.FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + mw.playerDefault));
+            //gMain.Width = playLpd.Width;
 
             playLpd.ClearAllColorExcept();
             playLpd.CanDragMove = true;
@@ -266,7 +270,6 @@ namespace Maker.View
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         public void StartPlayEvent()

@@ -556,4 +556,10 @@
     <sys:String x:Key="Model">模式</sys:String>
     <sys:String x:Key="Use in live">在Live中使用</sys:String>
     <sys:String x:Key="Plugins">插件</sys:String>
+
+
+    <!--错误-->
+    <sys:String x:Key="Error_40001">选择的不是Plugs文件夹下的文件。</sys:String>
+    <sys:String x:Key="Error_40002">非正确文件，可能是与当前版本不匹配等原因。</sys:String>
+
 </ResourceDictionary>

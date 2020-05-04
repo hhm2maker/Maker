@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace Maker.View.UI.Utils
@@ -13,6 +14,11 @@ namespace Maker.View.UI.Utils
             //上面的方法不行
             //return new BitmapImage(new Uri("View/Resources/Image/" + picName, UriKind.RelativeOrAbsolute));
             return new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + picName, UriKind.RelativeOrAbsolute));
+        }
+
+        public static String Resources2String(String resourceName)
+        {
+            return (string)Application.Current.FindResource(resourceName);
         }
     }
 }

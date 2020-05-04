@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -43,6 +44,13 @@ namespace Maker.View.UI.BottomDialog
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
             }
+
+            Thread newThread = new Thread(Begin);
+            newThread.Start();
+        }
+
+        private void Begin()
+        {
             DownloadFile("https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Update.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
             System.Environment.Exit(0);

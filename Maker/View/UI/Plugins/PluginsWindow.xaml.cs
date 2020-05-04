@@ -112,6 +112,8 @@ namespace Maker.View.UI.Plugins
                 iBigIcon.Source = null;
                 tbTitle.Text = "";
                 tbPermissions.Text = "";
+                tbAuthor.Text = "";
+                tbDescribe.Text = "";
 
                 bEnable.Visibility = Visibility.Collapsed;
                 bDisable.Visibility = Visibility.Collapsed;
@@ -171,10 +173,11 @@ namespace Maker.View.UI.Plugins
             {
                 String fileName = openFileDialog.FileName;
                 String basePath = AppDomain.CurrentDomain.BaseDirectory + @"Plugs\";
-                if (fileName.StartsWith(basePath)) {
+                if (fileName.StartsWith(basePath))
+                {
                     fileName = fileName.Substring(basePath.Length);
-                   
-                    for (int i = 0;i< mw.plugsConfigModel.Plugs.Count;i++)
+
+                    for (int i = 0; i < mw.plugsConfigModel.Plugs.Count; i++)
                     {
                         if (mw.plugsConfigModel.Plugs[i].Path.Equals(fileName))
                         {
@@ -190,9 +193,13 @@ namespace Maker.View.UI.Plugins
 
                     bInstall.Visibility = Visibility.Visible;
                 }
+                else {
+                    //选择的不是Plugs文件夹下的文件
+                    mw.AddMessageBottomDialog(new ErrorMessageBottomClass(mw, 40001));
+                }
             }
             else {
-                //选择的不是Plugs文件夹下的文件
+               
             }
         }
 
@@ -209,6 +216,8 @@ namespace Maker.View.UI.Plugins
             mw.Plugs.Add(mw.FilePathToPlug(installPath));
             DataContext = new People(mw.Plugs);
             lbMain.SelectedIndex = lbMain.Items.Count - 1;
+
+            bInstall.Visibility = Visibility.Collapsed;
 
             Restart();
         }
@@ -231,6 +240,7 @@ namespace Maker.View.UI.Plugins
             //lbMain.SelectedIndex = -1;
             //Change();
             DataContext = new People(mw.Plugs);
+            Change();
 
             Restart();
         }

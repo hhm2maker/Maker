@@ -99,8 +99,10 @@ namespace Maker.View.UI.Edit
 
         public void IntoUserControl(String fileName)
         {
-            for (int i = 0; i < tcMain.Items.Count; i++) {
-                if (fileName.Equals(TabItem2FileName(tcMain.Items[i] as TabItem))) {
+            for (int i = 0; i < tcMain.Items.Count; i++)
+            {
+                if (fileName.Equals(TabItem2FileName(tcMain.Items[i] as TabItem)))
+                {
                     tcMain.SelectedIndex = i;
                     return;
                 }
@@ -146,6 +148,16 @@ namespace Maker.View.UI.Edit
             };
             sp.Children.Add(tb);
 
+            TextBlock tbStar = new TextBlock()
+            {
+                Text = " *",
+                FontSize = 14,
+                Background = new SolidColorBrush(Colors.Transparent),
+                Foreground = (SolidColorBrush)Resources["TabItemTextColor"]
+            };
+            tbStar.Visibility = Visibility.Collapsed;
+            sp.Children.Add(tbStar);
+
             Grid grid = new Grid
             {
                 Margin = new Thickness(5, 0, 0, 0)
@@ -185,9 +197,16 @@ namespace Maker.View.UI.Edit
             baseUserControl.LoadFile(fileName);
         }
 
-        private String TabItem2FileName(TabItem tabItem) {
+        private String TabItem2FileName(TabItem tabItem)
+        {
             StackPanel sp = (tabItem.Header as StackPanel);
             return (sp.Children[0] as TextBlock).Text;
+        }
+
+        public void SetChange(int position)
+        {
+            StackPanel sp = ((tcMain.Items[position] as TabItem).Header as StackPanel);
+            (sp.Children[1] as TextBlock).Visibility = Visibility.Visible;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

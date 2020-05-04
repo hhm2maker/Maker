@@ -21,8 +21,8 @@
     </Style>
     <!--菜单项MenuItem样式FIconMenuItem-->
     <Style TargetType="{x:Type MenuItem}">
-        <Setter Property="BorderBrush" Value="#e3e3e3"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DividingLineColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="15"/>
@@ -33,7 +33,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
                     <!--Item-->
-                    <Border  x:Name="border" Background="Transparent" Height="{TemplateBinding Height}" Opacity="1">
+                    <Border  x:Name="border" Background="Transparent"  Height="{TemplateBinding Height}" Opacity="1">
                         <Grid  VerticalAlignment="Center" Margin="{TemplateBinding Margin}" x:Name="Main_Bg">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="icon_col" MaxWidth="35" SharedSizeGroup="MenuItemIconColumnGroup"/>
@@ -55,7 +55,7 @@
                             <!--右指针-->
                             <!--<TextBlock x:Name="PART_Arrow" Grid.Column="3" Text="&#xe605;" Foreground="White" 
                                        FontSize="14" />-->
-                            <Image x:Name="PART_Arrow" Grid.Column="3" Source="../Resources/Image/tochild.png" RenderOptions.BitmapScalingMode="Fant" Width="12" Height="12"
+                            <Image x:Name="PART_Arrow" Grid.Column="3" Source="../../View/Resources/Image/tochild.png" RenderOptions.BitmapScalingMode="Fant" Width="12" Height="12"
                                        />
                             <!--淡出子集菜单容器-->
                             <Popup x:Name="SubMenuPopup" AllowsTransparency="true" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
@@ -131,8 +131,8 @@
     </Style>
 
     <Style x:Key="bigMenuItem" TargetType="{x:Type MenuItem}">
-        <Setter Property="BorderBrush" Value="#e3e3e3"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DividingLineColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="22"/>

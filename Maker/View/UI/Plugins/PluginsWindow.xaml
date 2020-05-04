@@ -28,7 +28,7 @@
                     <DataTemplate>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <Image Source="{Binding Icon}" Width="30"/>
-                            <TextBlock Text="{Binding Title}" FontSize="18" Margin="30,0,0,0" Foreground="{DynamicResource TitleFontColor}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Title}" FontSize="18" Margin="30,0,0,0" Foreground="{StaticResource TitleFontColor}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -40,16 +40,16 @@
                 <Image Name="iBigIcon" Width="50" DockPanel.Dock="Left"/>
                 <TextBlock Name="tbTitle" Margin="30,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right" Margin="30,0,0,0" VerticalAlignment="Center">
-                    <Border Name="bUnInstall" MouseLeftButtonDown="B_UnInstall_MouseLeftButtonDown" Background="{DynamicResource BtnGrayBg}" BorderBrush="{DynamicResource BtnGrayBorder}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
+                    <Border Name="bUnInstall" MouseLeftButtonDown="B_UnInstall_MouseLeftButtonDown" Visibility="Collapsed" Background="{DynamicResource BtnGrayBg}" BorderBrush="{DynamicResource BtnGrayBorder}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
                         <TextBlock Foreground="{DynamicResource TitleFontColor}" Text="卸载" />
                     </Border>
                     <Border Name="bInstall" MouseLeftButtonDown="B_Install_MouseLeftButtonDown" Visibility="Collapsed" Background="{DynamicResource BtnGreenBg}" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnGreenBg}" BorderThickness="2"  CornerRadius="3" Padding="15,5,15,5">
                         <TextBlock Foreground="{DynamicResource TitleFontColor}" Text="安装" />
                     </Border>
-                    <Border Name="bDisable" MouseLeftButtonDown="B_Disable_MouseLeftButtonDown" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnRedBg}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
+                    <Border Name="bDisable" MouseLeftButtonDown="B_Disable_MouseLeftButtonDown" Visibility="Collapsed" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnRedBg}" BorderThickness="2" CornerRadius="3" Padding="15,5,15,5">
                         <TextBlock Foreground="{DynamicResource BtnRedBg}" Text="禁用" />
                     </Border>
-                    <Border Name="bEnable" MouseLeftButtonDown="B_Enable_MouseLeftButtonDown" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnGreenBg}" BorderThickness="2" CornerRadius="3" Background="{DynamicResource BtnGreenBg}" Padding="15,5,15,5">
+                    <Border Name="bEnable" MouseLeftButtonDown="B_Enable_MouseLeftButtonDown" Visibility="Collapsed" Margin="15,0,0,0" BorderBrush="{DynamicResource BtnGreenBg}" BorderThickness="2" CornerRadius="3" Background="{DynamicResource BtnGreenBg}" Padding="15,5,15,5">
                         <TextBlock Foreground="{DynamicResource TitleFontColor}" Text="启用" />
                     </Border>
                 </StackPanel>

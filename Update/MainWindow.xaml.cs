@@ -26,7 +26,7 @@ namespace Update
 
         private void Begin()
         {
-            this.Dispatcher.BeginInvoke((Action)delegate ()
+            Dispatcher.BeginInvoke((Action)delegate ()
             {
                 btnUpdate.Content = "更新中";
             });
@@ -42,7 +42,6 @@ namespace Update
 
         private void ToUpdate()
         {
-
             try
             {
                 //关闭Maker
@@ -64,15 +63,24 @@ namespace Update
                 String nowVersion = versionNowVersion.InnerText;
                 if (nowVersion.Equals("20200409"))
                 {
-                    //Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Tip");
-                    //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/tip0.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip0.png");
-                    //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/tip1.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip1.png");
-                    //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/hide.xml", AppDomain.CurrentDomain.BaseDirectory + @"\Config\hide.xml");
-                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200413\Maker.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Maker.exe");
                     DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200413\MakerUI.dll", AppDomain.CurrentDomain.BaseDirectory + @"\MakerUI.dll");
 
                     nowVersion = "20200413";
                 }
+                if (nowVersion.Equals("20200413"))
+                {
+                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Config\plugs.xml");
+                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\Maker.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Maker.exe");
+                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\PlugLib.dll", AppDomain.CurrentDomain.BaseDirectory + @"\PlugLib.dll");
+
+                    nowVersion = "20200505";
+                }
+
+                //Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Tip");
+                //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/tip0.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip0.png");
+                //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/tip1.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip1.png");
+                //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/hide.xml", AppDomain.CurrentDomain.BaseDirectory + @"\Config\hide.xml");
+
                 //if (nowVersion.Equals("0.0.1.0"))
                 //{
                 //    DownloadFile("http://www.launchpadlight.com/File/Update/0.0.2.0/tip2.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip2.png");

@@ -554,5 +554,9 @@
     <sys:String x:Key="Use in live">Use in live</sys:String>
     <sys:String x:Key="Plugins">Plugins</sys:String>
 
+    
+    <!--Error-->
+    <sys:String x:Key="Error_40001">The selected file is not under the plugs folder.</sys:String>
+    <sys:String x:Key="Error_40002">Incorrect file, which may be caused by mismatch with the current version.</sys:String>
 
 </ResourceDictionary>

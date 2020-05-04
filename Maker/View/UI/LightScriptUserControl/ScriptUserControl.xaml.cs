@@ -954,7 +954,7 @@ namespace Maker.View.LightScriptUserControl
             //Console.WriteLine(Environment.NewLine +builder.ToString()+Environment.NewLine); 
         }
 
-        public void Test()
+        public void TestNotChange()
         {
             spMyHint.Visibility = Visibility.Collapsed;
 
@@ -976,6 +976,18 @@ namespace Maker.View.LightScriptUserControl
             {
                 iRedo.Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/redo_gray.png", UriKind.RelativeOrAbsolute));
             }
+        }
+
+        public void Test()
+        {
+            if (!isChange) {
+                isChange = true;
+
+                TabItem tabItem = (Parent as TabItem);
+                mw.editUserControl.SetChange((tabItem.Parent as TabControl).Items.IndexOf(tabItem));
+            }
+
+            TestNotChange();
         }
 
         public void Test(String stepName, int position)
@@ -2107,6 +2119,8 @@ namespace Maker.View.LightScriptUserControl
 
         private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            //TODO:可以优化
+            return;
             if (mShow == ShowMode.Launchpad)
             {
                 SetLaunchpadSize();
@@ -3348,7 +3362,7 @@ namespace Maker.View.LightScriptUserControl
             //    "LightGroup Step1LightGroup = Create.CreateLightGroup(0, Step1Position, 12, 12, Step1Color, Create.UP,Create.ALL);";
             //SaveFile();
 
-            Test();
+            TestNotChange();
             spRefresh.Visibility = Visibility.Collapsed;
             //mw.SetSpFilePosition(mw.filePosition);
         }
@@ -4590,10 +4604,12 @@ namespace Maker.View.LightScriptUserControl
             {
                 try
                 {
-                    mLaunchpad.playLpd.Size = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
-                    mLaunchpad.gMain.Width = mLaunchpad.playLpd.Size;
+                    //mLaunchpad.gMain.Width = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
+                    mLaunchpad.playLpd.Size = bLaunchpad.ActualWidth < bLaunchpad.ActualHeight ? bLaunchpad.ActualWidth - 99 : bLaunchpad.ActualHeight - 99;
                 }
-                catch { }
+                catch {
+                    //TODO:可以优化
+                }
             }
         }
 

@@ -494,6 +494,8 @@ namespace Maker
             InitPlugs();
 
             GetVersion();
+
+            LoadDevice();
         }
 
         private void GetVersion()
@@ -585,24 +587,34 @@ namespace Maker
                             break;
                         }
                     }
-                    if (type == null)
+                    if (type == null) {
+                        ShowPlugsError();
                         return null;
+                    }
 
                     //判断是否继承于IGetOperationResult类
                     Type _type = type.GetInterface("PlugLib.IBasePlug");
                     if (_type == null)
                     {
+                        ShowPlugsError();
                         return null;
                     }
                     Object o = Activator.CreateInstance(type);
                     return o as IBasePlug;
                 }
-                catch (ReflectionTypeLoadException e)
+                catch (ReflectionTypeLoadException)
                 {
-                    //TODO 错误提示
+                    ShowPlugsError();
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// 展示插件错误的提示窗
+        /// </summary>
+        private void ShowPlugsError() {
+            AddMessageBottomDialog(new ErrorMessageBottomClass(this, 40002));
         }
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1347,6 +1359,15 @@ namespace Maker
         private void miPlugins_Click(object sender, RoutedEventArgs e)
         {
             new PluginsWindow(this).Show();
+        }
+
+        /// <summary>
+        /// 加载设备
+        /// </summary>
+        public void LoadDevice()
+        {
+            deviceWindow.InitMidiIn();
+            deviceWindow.InitMidiOut();
         }
     }
 
