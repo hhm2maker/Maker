@@ -44,6 +44,7 @@ using MakerUI.Device;
 using Maker.View.UI.Plugins;
 using System.Windows.Documents;
 using static Maker.View.UI.BottomDialog.MessageBottomDialog;
+using Maker.View.UI.Utils;
 
 namespace Maker
 {
@@ -468,7 +469,16 @@ namespace Maker
                 iFile.Visibility = Visibility.Visible;
             }
 
+            tbProjectName.Text = projectConfigModel.Path;
             tbBPM.Text = NowProjectModel.Bpm.ToString();
+
+            if (basicConfigModel.UseCache)
+            {
+                miUseCache.Icon = ResourcesUtils.Resources2BitMap("check.png");
+            }
+            else {
+                miUseCache.Icon = null;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -739,7 +749,7 @@ namespace Maker
                 DoubleAnimation animation = new DoubleAnimation
                 {
                     From = dSpSearchActualWidth,
-                    To = 300,
+                    To = 200,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
                 spSearch.BeginAnimation(WidthProperty, animation);
@@ -781,11 +791,11 @@ namespace Maker
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Keyboard.ClearFocus();
-            if (spSearch.Width == 300)
+            if (spSearch.Width == 200)
             {
                 DoubleAnimation animation = new DoubleAnimation
                 {
-                    From = 300,
+                    From = 200,
                     To = dSpSearchActualWidth,
                     Duration = TimeSpan.FromSeconds(0.5),
                 };
@@ -818,7 +828,7 @@ namespace Maker
             }
             listUserControl.InitData(strs, GoHome, -1);
 
-            popFollow.HorizontalOffset = -(300 - spFollow.ActualWidth) / 2;
+            popFollow.HorizontalOffset = -(200 - spFollow.ActualWidth) / 2;
 
             popFollow.IsOpen = false;
             popFollow.IsOpen = true;
@@ -1280,21 +1290,19 @@ namespace Maker
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists(LastProjectPath + @"Play\" + projectConfigModel.Path + ".playExport"))
-            {
-                editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
-            }
-            else
-            {
-                editUserControl.peuc.NewFileResult2(projectConfigModel.Path + ".playExport");
-                editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
-            }
-
-
-            if (normalFileManager != null)
-            {
-                normalFileManager.NoSelected();
-            }
+            //if (File.Exists(LastProjectPath + @"Play\" + projectConfigModel.Path + ".playExport"))
+            //{
+            //    editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
+            //}
+            //else
+            //{
+            //    editUserControl.peuc.NewFileResult2(projectConfigModel.Path + ".playExport");
+            //    editUserControl.IntoUserControl(projectConfigModel.Path + ".playExport");
+            //}
+            //if (normalFileManager != null)
+            //{
+            //    normalFileManager.NoSelected();
+            //}
         }
 
         private void Image_MouseLeftButtonDown_5(object sender, MouseButtonEventArgs e)
@@ -1368,6 +1376,21 @@ namespace Maker
         {
             deviceWindow.InitMidiIn();
             deviceWindow.InitMidiOut();
+        }
+
+        private void UseCache(object sender, RoutedEventArgs e)
+        {
+            basicConfigModel.UseCache = !basicConfigModel.UseCache;
+            if (basicConfigModel.UseCache)
+            {
+                miUseCache.Icon = ResourcesUtils.Resources2BitMap("check.png");
+            }
+            else
+            {
+                miUseCache.Icon = null;
+            }
+
+            Business.Currency.XmlSerializerBusiness.Save(basicConfigModel, "Config/basic.xml");
         }
     }
 

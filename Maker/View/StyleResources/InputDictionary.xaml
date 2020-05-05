@@ -42,8 +42,7 @@
                                 <ColumnDefinition Width="16" x:Name="arrow_col" SharedSizeGroup="MenumItemArrow"/>
                             </Grid.ColumnDefinitions>
                             <!--icon-->
-                            <TextBlock x:Name="PART_Icon" Text="{TemplateBinding Icon}" Foreground="White" Margin="5,1,1,1"
-                                    Width="20"   FontSize="22"/>
+                            <Image x:Name="PART_Icon" Source="{TemplateBinding Icon}" Margin="5,3,1,3" Width="20" RenderOptions.BitmapScalingMode="Fant" />
                             <!--Header-->
                             <ContentPresenter Grid.Column="1" x:Name="txtHeader" Margin="3,1,5,1" MinWidth="90"
                                           RecognizesAccessKey="True" VerticalAlignment="Center" ContentSource="Header"
@@ -104,8 +103,8 @@
                         </Trigger>
                         <!--选中状态，优先级将高于Icon-->
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="PART_Icon" Value="&#xe62a;" Property="Text"></Setter>
-                            <Setter TargetName="PART_Icon" Value="18" Property="FontSize"></Setter>
+                            <!--<Setter TargetName="PART_Icon" Value="&#xe62a;" Property="Text"></Setter>-->
+                            <!--<Setter TargetName="PART_Icon" Value="18" Property="FontSize"></Setter>-->
                             <!--<Setter TargetName="PART_Icon" Value="{StaticResource CheckedForeground}" Property="Foreground"></Setter>-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">

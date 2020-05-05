@@ -67,8 +67,11 @@
                             <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
-                            <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Click="MenuItem_Click" Foreground="{DynamicResource TitleFontColor}" />
-                            <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                            <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                                <MenuItem Name="miUseCache" Header="{DynamicResource UseCache}" Click="UseCache" Foreground="{DynamicResource TitleFontColor}" />
+                                <MenuItem Header="{DynamicResource BuildProject}" Click="MenuItem_Click" Foreground="{DynamicResource TitleFontColor}" />
+                            </MenuItem>
+                                <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" Foreground="{DynamicResource TitleFontColor}"  />
                                 <MenuItem Header="{DynamicResource Device}" Click="Device_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 <MenuItem Name="miPlugins" Click="miPlugins_Click" Header="{DynamicResource Plugins}" Foreground="{DynamicResource TitleFontColor}" />
@@ -78,22 +81,22 @@
                             </MenuItem>
                         </Menu>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
-                            <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                            <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                            <TextBlock VerticalAlignment="Center" Name="tbProjectName" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0"  Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                             <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
                         <Grid Margin="0,5,0,5" Grid.Column="3">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                                 <StackPanel Name="spSearch" Background="Transparent" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Margin="15,0,10,0">
-                                    <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
-                                    <Grid Name="gSearch" Visibility="Collapsed">
-                                        <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  Margin="5" FontSize="17"/>
-                                        <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" Margin="5" FontSize="17" BorderThickness="0" />
+                                    <Image VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/search.png" Width="18"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <Grid Name="gSearch" Visibility="Collapsed" Margin="5,0,0,0">
+                                        <TextBlock Name="tbSearchHint"  Opacity="0.5"  VerticalAlignment="Center" Text="{DynamicResource Search}" Foreground="#FFB8BFC6"  FontSize="15"/>
+                                        <TextBox Name="tbSearch" LostFocus="tbSearch_LostFocus" TextChanged="tbSearch_TextChanged" Background="Transparent" VerticalAlignment="Center"  Foreground="White"  CaretBrush="White" FontSize="15" BorderThickness="0" />
                                     </Grid>
                                 </StackPanel>
                                 <StackPanel Name="spFollow" Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="spFollow_MouseLeftButtonDown" Margin="15,0,15,0">
-                                    <Image Name="iFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />
+                                    <Image Name="iFollow" VerticalAlignment="Center" HorizontalAlignment="Right" Source="View/Resources/Image/follow.png" Width="18"  RenderOptions.BitmapScalingMode="Fant"  />
                                 </StackPanel>
                                 <StackPanel Background="Transparent" Orientation="Horizontal" MouseLeftButtonUp="btnMin_Click" Margin="20,0,0,0">
                                     <Image VerticalAlignment="Center" Source="View/Resources/Image/small.png" Width="20"  RenderOptions.BitmapScalingMode="Fant"  />

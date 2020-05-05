@@ -7,9 +7,6 @@ namespace Maker.Business.Model.Config
     [XmlRoot("Basic")]
     public class BasicConfigModel
     {
-        /// <summary>
-        /// 范围列表显示数字
-        /// </summary>
         [XmlElement("Model", IsNullable = false)]
         public ModelType Model
         {
@@ -22,6 +19,13 @@ namespace Maker.Business.Model.Config
             PC = 0,
             TabletPC = 1,
         }
+
+        [XmlElement("UseCache", IsNullable = false)]
+        public bool UseCache
+        {
+            get;
+            set;
+        } = true;
     }
 
    

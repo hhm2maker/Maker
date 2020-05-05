@@ -16,14 +16,14 @@ namespace Operation
     {
         public static Dictionary<string, List<Light>> Test(Dictionary<String, ScriptModel> scriptModelDictionary)
         {
-            return ScriptFileBusiness.Test(scriptModelDictionary) ;
+            return ScriptFileBusiness.Test(scriptModelDictionary);
         }
         public static List<Light> Test(Dictionary<String, ScriptModel> scriptModelDictionary, String stepName)
         {
-            if(ScriptFileBusiness.Test(scriptModelDictionary, stepName).ContainsKey(stepName))
-               return ScriptFileBusiness.Test(scriptModelDictionary, stepName)[stepName];
+            if (ScriptFileBusiness.Test(scriptModelDictionary, stepName).ContainsKey(stepName))
+                return ScriptFileBusiness.Test(scriptModelDictionary, stepName)[stepName];
             else
-               return new List<Light>();
+                return new List<Light>();
         }
     }
 }

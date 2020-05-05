@@ -144,7 +144,10 @@ namespace Maker.View.Device
             //获取数据
             lightList = Business.LightBusiness.Sort(mActionBeanList);
             if (SmallTime == 0) {
-                SmallTime = lightList[0].Time;
+                if (lightList.Count > 0)
+                {
+                    SmallTime = lightList[0].Time;
+                }
             }
         }
 

@@ -3364,6 +3364,9 @@ namespace Maker.View.LightScriptUserControl
 
             TestNotChange();
             spRefresh.Visibility = Visibility.Collapsed;
+            if (lbStep.SelectedIndex == -1 && lbStep.Items.Count > 0) {
+                lbStep.SelectedIndex = 0;
+            }
             //mw.SetSpFilePosition(mw.filePosition);
         }
 
@@ -4132,7 +4135,6 @@ namespace Maker.View.LightScriptUserControl
         public void ThirdPartysMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DragDrop.DoDragDrop((TreeViewItem)sender, (TreeViewItem)sender, DragDropEffects.Copy);
-
         }
 
 

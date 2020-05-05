@@ -97,7 +97,27 @@ namespace Maker.View.UI.MyFile
                 item.VerticalContentAlignment = VerticalAlignment.Center;
                 tvPage.Items.Add(item);
             }
+
+            if (!File.Exists(mw.LastProjectPath + @"Play\" + mw.projectConfigModel.Path + ".playExport"))
+            {
+                mw.editUserControl.peuc.NewFileResult2(mw.projectConfigModel.Path + ".playExport");
+            }
+
+            if(tviPlayExport == null)
+            {
+                tviPlayExport = new TreeViewItem
+                {
+                    Header = mw.projectConfigModel.Path + ".playExport",
+                };
+                tviPlayExport.FontSize = 16;
+                tviPlayExport.ContextMenu = contextMenu;
+                tviPlayExport.HorizontalContentAlignment = HorizontalAlignment.Left;
+                tviPlayExport.VerticalContentAlignment = VerticalAlignment.Center;
+                tvMain.Items.Add(tviPlayExport);
+            }
         }
+
+        TreeViewItem tviPlayExport;
 
         public ContextMenu contextMenu;
         private void InitContextMenu()
@@ -147,7 +167,8 @@ namespace Maker.View.UI.MyFile
         public void btnNew_Click(object sender, RoutedEventArgs e)
         {
             BaseUserControl baseUserControl;
-            if (sender == null) {
+            if (sender == null)
+            {
                 sender = miNewLightScript;
             }
 
@@ -402,8 +423,8 @@ namespace Maker.View.UI.MyFile
             }
             else
             {
-                 File.Copy(mw.LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
-                    , mw.LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
+                File.Copy(mw.LastProjectPath + needControlBaseUserControl._fileType + @"\" + needControlBaseUserControl.filePath
+                   , mw.LastProjectPath + needControlBaseUserControl._fileType + @"\" + filePath);
                 //needControlListBoxItem.Header = filePath;
                 //needControlBaseUserControl.filePath = filePath;
 
@@ -417,7 +438,8 @@ namespace Maker.View.UI.MyFile
             NewScript();
         }
 
-        public void NewScript() {
+        public void NewScript()
+        {
             btnNew_Click(null, null);
         }
 
@@ -430,11 +452,15 @@ namespace Maker.View.UI.MyFile
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            if (tvMain.SelectedItem == null) {
+            if (tvMain.SelectedItem == null)
+            {
                 return;
             }
-            if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView) {
-                return;
+            if ((((sender as TreeView).SelectedItem) as TreeViewItem).Parent is TreeView)
+            {
+                if ((sender as TreeView).SelectedItem != tviPlayExport) {
+                    return;
+                }
             }
 
             baseFileManager.InitFile((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
@@ -446,7 +472,7 @@ namespace Maker.View.UI.MyFile
             {
                 return;
             }
-            (tvMain.SelectedItem  as TreeViewItem).IsSelected = false;
+            (tvMain.SelectedItem as TreeViewItem).IsSelected = false;
         }
     }
 }
