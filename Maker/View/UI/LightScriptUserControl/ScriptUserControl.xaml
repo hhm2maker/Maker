@@ -39,8 +39,8 @@
             <Grid Grid.Row="0" SizeChanged="dpShow_SizeChanged" Name="gCenter">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="500"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="500"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Width="430" Orientation="Vertical"  Background="{DynamicResource ChooseLeftColor}" VerticalAlignment="Stretch">
                     <DockPanel>
@@ -164,9 +164,32 @@
                     </Menu>
                     -->
                 </StackPanel>
-                <Border HorizontalAlignment="Stretch" Grid.Column="1" >
+                <Grid  x:Name="gMain"  Grid.Column="1" >
+                    <!--<Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>-->
+                    <!--Background="#1c1a1c"-->
+                    <DockPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
+                        <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
+                            <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
+                            <view:PlayerUserControl x:Name="mLaunchpad" />
+                        </Border>
+                        <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
+                        <!--<TabControl BorderThickness="0" TabStripPlacement="Bottom"  >
+                            <TabItem Header="Launchpad" Foreground="#ffffff" >
+                        </TabItem>
+                    </TabControl>-->
+                    </DockPanel>
+                    <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
+                <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
+                    <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
+                </StackPanel>
+            </ScrollViewer>-->
+                </Grid>
+                <Border HorizontalAlignment="Stretch" Grid.Column="2" >
                     <!--Background="#262829"-->
-                    <Grid Name="gRight" Background="{DynamicResource bgContentColor}">
+                    <Grid Name="gRight" Background="{DynamicResource ChooseLeftColor}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="auto"/>
@@ -181,29 +204,7 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                <Grid  x:Name="gMain"  Grid.Column="2" >
-                    <!--<Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>-->
-                    <!--Background="#1c1a1c"-->
-                    <DockPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
-                            <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
-                                <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
-                                <view:PlayerUserControl x:Name="mLaunchpad" />
-                            </Border>
-                        <!--<TextBox Margin="20"  Name="tbMain" SizeChanged="tbMain_SizeChanged" Foreground="#FFFFFF" FontSize="18"   Background="#535353"  IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Style="{DynamicResource TextBoxStyle1}" TextChanged="TextBox_TextChanged" Visibility="Collapsed"/>-->
-                        <!--<TabControl BorderThickness="0" TabStripPlacement="Bottom"  >
-                            <TabItem Header="Launchpad" Foreground="#ffffff" >
-                        </TabItem>
-                    </TabControl>-->
-                    </DockPanel>
-                    <!--<ScrollViewer Name="svMainBottom" HorizontalAlignment="Stretch" Background="#4A4A4A" Template="{DynamicResource ScrollViewerControlTemplate1}" Grid.Row="1" Visibility="Collapsed" HorizontalScrollBarVisibility="Auto">
-                <StackPanel  Background="#535353" Name="spMainBottom" Orientation="Vertical" >
-                    <StackPanel Name="spMainContentBottom" Orientation="Horizontal"/>
-                </StackPanel>
-            </ScrollViewer>-->
-                </Grid>
+            
 
                 <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />

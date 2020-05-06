@@ -98,7 +98,7 @@ namespace Maker.View.Style.Child
                 StackPanel sp = new StackPanel();
                 sp.Margin = new Thickness(20, 10, 20, 0);
                 Border borderTop = new Border();
-                borderTop.SetResourceReference(BackgroundProperty, "bgContentColor");
+                borderTop.SetResourceReference(BackgroundProperty, "bgTitleColor");
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderTop.CornerRadius = new CornerRadius(5);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);
@@ -121,7 +121,7 @@ namespace Maker.View.Style.Child
                 StackPanel sp = new StackPanel();
                 sp.Margin = new Thickness(20, 10, 20, 0);
                 Border borderTop = new Border();
-                borderTop.SetResourceReference(BackgroundProperty, "bgContentColor");
+                borderTop.SetResourceReference(BackgroundProperty, "bgTitleColor");
                 borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
                 borderTop.CornerRadius = new CornerRadius(5, 5, 0, 0);
                 borderTop.Margin = new Thickness(0, 15, 0, 0);

@@ -374,5 +374,16 @@ namespace Maker.View.UI.Edit
                 gNoFile.Visibility = Visibility.Collapsed;
             }
         }
+
+        public void Save() {
+            for (int i = 0; i < tcMain.Items.Count; i++) {
+                BaseUserControl baseUserControl = ((TabItem)tcMain.Items[i]).Content as BaseUserControl;
+                if (baseUserControl != null) {
+                    if (baseUserControl.isChange) {
+                        baseUserControl.SaveFile();
+                    }
+                }
+            }
+        }
     }
 }

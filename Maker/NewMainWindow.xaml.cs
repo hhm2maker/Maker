@@ -1119,20 +1119,7 @@ namespace Maker
             mLightList = Business.LightBusiness.Copy(mLightList);
             return mLightList;
         }
-
-
-        private void Image_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
-        {
-            //List<Light> mLightList = GetData();
-            //
-            ////没有AB集合不能保存
-            //if (mLightList.Count == 0)
-            //{
-            //    return;
-            //}
-            //Business.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"_Cache\_" + editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')) + ".mid", editUserControl.FileName.Substring(0, editUserControl.FileName.LastIndexOf('.')), mLightList, false);
-        }
-
+   
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
             Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
@@ -1169,7 +1156,7 @@ namespace Maker
         /// <param name="e"></param>
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Exit();
         }
 
         /// <summary>
@@ -1280,6 +1267,8 @@ namespace Maker
 
         public void Exit()
         {
+            editUserControl.Save();
+
             Close();
         }
 

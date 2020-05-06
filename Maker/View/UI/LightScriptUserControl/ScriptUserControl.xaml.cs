@@ -3469,6 +3469,18 @@ namespace Maker.View.LightScriptUserControl
                 xScripts.Add(xScript);
             }
             xDoc.Save(filePath);
+
+            if (mw.basicConfigModel.UseCache) {
+                List<Light> mLightList = GetData();
+                
+                //没有AB集合不能保存
+                if (mLightList.Count == 0)
+                {
+                    return;
+                }
+                String fileName = System.IO.Path.GetFileName(filePath);
+                Business.FileBusiness.CreateInstance().WriteMidiFile(mw.LastProjectPath + @"_Cache\_" + fileName.Substring(0, fileName.LastIndexOf('.')) + ".mid", fileName.Substring(0, fileName.LastIndexOf('.')), mLightList, false);
+            }
         }
 
         public void CopyFile()

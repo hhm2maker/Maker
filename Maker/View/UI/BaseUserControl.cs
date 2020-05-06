@@ -20,7 +20,7 @@ namespace Maker.View
         protected Panel mainView;
         protected bool bMakerLightUserControl;
 
-        protected bool isChange = false;
+        public bool isChange = false;
 
         public BaseUserControl GetBaseUserControl(NewMainWindow mw) {
             return (BaseUserControl)Activator.CreateInstance(GetType(),mw);
