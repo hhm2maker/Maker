@@ -398,22 +398,22 @@
                 <Border CornerRadius="3" VerticalAlignment="Stretch" BorderBrush="#555555" BorderThickness="2" Padding="10">
                     <StackPanel Name="spLeft" Orientation="Vertical">
                         <Border  Name="bStyle" Width="50" Height="50" Margin="0,0,0,0" Background="Transparent" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
-                            <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="30" Height="30" />
+                            <Image  Name="iStyle" Source="../../Resources/Image/style_gray.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                         <Border Name="bColor" Width="50"  Height="50"  Margin="0,15,0,0"  Background="Transparent" CornerRadius="3" BorderBrush="#555555" BorderThickness="2"  MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="dpColor_MouseRightButtonUp" >
                             <Canvas  Width="30" Height="30" >
                                 <Canvas Width="28" Height="28"  Background="Red" Canvas.Left="1" Canvas.Top="1" Name="cColor"/>
-                                <Image Name="iColor"  Source="../../Resources/Image/color_black.png" Width="30" Height="30" />
+                                <Image Name="iColor"  Source="../../Resources/Image/color_black.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="Fant" />
                             </Canvas>
                         </Border>
                         <Border Name="bSelect" Width="50" Height="50" Margin="0,15,0,0" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp" MouseRightButtonUp="iSelect2_MouseRightButtonUp"   BorderBrush="#555555" BorderThickness="2"  >
-                            <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" />
+                            <Image  Name="iSelect" Source="../../Resources/Image/select_gray.png" Width="40" Height="40" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                         <Border Name="bPicture"  Width="50" Height="50" Margin="0,15,0,15" Background="Transparent" CornerRadius="3" MouseLeftButtonUp="Canvas_MouseLeftButtonUp"  BorderBrush="#555555" BorderThickness="2" >
-                            <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" />
+                            <Image  Name="iPicture2"  Source="../../Resources/Image/picture_gray.png" Width="40" Height="40" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                         <Border Width="50" Height="50" Margin="0,0,0,0" Background="Transparent" MouseLeftButtonUp="spSaveFile_MouseLeftButtonDown" CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
-                            <Image Source="../../Resources/Image/save_white.png" Width="30" Height="30" />
+                            <Image Source="../../Resources/Image/save_white.png" Width="30" Height="30" RenderOptions.BitmapScalingMode="Fant" />
                         </Border>
                     </StackPanel>
                 </Border>

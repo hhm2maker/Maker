@@ -37,13 +37,14 @@ namespace Maker.Business
         /// 读取Midi文件内容
         /// </summary>
         /// <param name="filePath">Midi文件的内容</param>
-        public List<Light> ReadMidiContent(List<int> mData) {
+        public List<Light> ReadMidiContent(List<int> mData)
+        {
             List<Light> mActionBeanList = new List<Light>();
             //当前记录什么位置
             int nowRecordPosition = 3;
             List<int> listTime = new List<int>();
             Light ab = new Light();
-            for (int i = 0; i < mData.Count ; i++)
+            for (int i = 0; i < mData.Count; i++)
             {
                 //记录时间
                 if (nowRecordPosition == 3)
@@ -358,7 +359,7 @@ namespace Maker.Business
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="mActionBeanList"></param>
-        public void WriteMidiFile(String filePath, String fileName,List<Light> mActionBeanList, bool isWriteToFile)
+        public void WriteMidiFile(String filePath, String fileName, List<Light> mActionBeanList, bool isWriteToFile)
         {
             fileName = "";
             List<char> StartStr = new List<char>
@@ -400,7 +401,7 @@ namespace Maker.Business
             //StartStr.Add((char)Convert.ToInt64("a", 16));
             //StartStr.Add((char)Convert.ToInt64("2c", 16));
             //StartStr.Add((char)Convert.ToInt64("2a", 16));
-          
+
 
             if (isWriteToFile)
             {
@@ -411,7 +412,8 @@ namespace Maker.Business
                 {
                     StartStr.Add((char)(fileName.Length * 2));// 汉字编码2个字节
                 }
-                else {
+                else
+                {
                     StartStr.Add((char)fileName.Length);
                 }
             }
@@ -459,7 +461,7 @@ namespace Maker.Business
                 }
             }
             else
-            { 
+            {
                 Size = Convert.ToString(20 + mActionBeanList.Count * 4, 2);
             }
             for (int j = 0; j < 32 - Size.Length; j++)
@@ -748,7 +750,8 @@ namespace Maker.Business
             return mActionBeanList;
         }
 
-        public List<Light> LightStringToLightList(String lightString) {
+        public List<Light> LightStringToLightList(String lightString)
+        {
             List<Light> lightList = new List<Light>();
             if (lightString.Length != 0)
             {
@@ -786,7 +789,8 @@ namespace Maker.Business
             {
                 File.Create(filePath).Close();
             }
-            else {
+            else
+            {
                 FileStream f = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
                 for (int j = 0; j < str.Length; j++)
                 {
@@ -801,7 +805,7 @@ namespace Maker.Business
         /// </summary>
         /// <param name="filePath">文件路径</param>
         /// <param name="mActionBeanList">需要写入的灯光数组</param>
-        public void WriteUnipadLightFile(String filePath,int bpm , List<Light> mActionBeanList)
+        public void WriteUnipadLightFile(String filePath, int bpm, List<Light> mActionBeanList)
         {
             File.Delete(filePath);
             mActionBeanList = LightBusiness.Sort(mActionBeanList);
@@ -821,20 +825,23 @@ namespace Maker.Business
                     mActionBeanList[j].Time -= jianTime;
                 }
             }
-           
+
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mActionBeanList.Count; i++) {
-                if (mActionBeanList[i].Time != 0) {
+            for (int i = 0; i < mActionBeanList.Count; i++)
+            {
+                if (mActionBeanList[i].Time != 0)
+                {
                     //d 1800
                     //Console.WriteLine(mActionBeanList[i].Time+"---"+(int)(mActionBeanList[i].Time / (bpm * 1.0) * 1000));
-                    sb.Append("d "+ (int)(mActionBeanList[i].Time / (bpm * 1.0)  * 1000) + Environment.NewLine);
+                    sb.Append("d " + (int)(mActionBeanList[i].Time / (bpm * 1.0) * 1000) + Environment.NewLine);
                 }
                 if (mActionBeanList[i].Action == 144)
                 {
                     //o 1 1 a 3
                     sb.Append("o " + mActionBeanList[i].Position % 10 + " " + mActionBeanList[i].Position / 10 + " a " + mActionBeanList[i].Color + Environment.NewLine);
                 }
-                else {
+                else
+                {
                     //f 1 1
                     sb.Append("f " + mActionBeanList[i].Position % 10 + " " + mActionBeanList[i].Position / 10 + Environment.NewLine);
                 }
@@ -853,6 +860,111 @@ namespace Maker.Business
                 }
                 f.Close();
             }
+        }
+
+        /// <summary>
+        /// 读取Light文件
+        /// </summary>
+        /// <param name="filePath">Light文件的路径</param>
+        public List<Light> ReadUnipadLightFile(String filePath, double bpm)
+        {
+            List<Light> mActionBeanList = new List<Light>();//存放AB的集合
+            List<int> mData = new List<int>();//文件字符集合
+            List<String> mAction = new List<String>();
+
+            List<String> lines = new List<string>();
+
+            //获取文件里所有的字节
+            foreach (string str in System.IO.File.ReadAllLines(filePath, Encoding.Default))
+            {
+                lines.Add(str);
+            }
+
+            int waitTime = -1;
+            foreach (string str in lines)
+            {
+                if (str.Equals(String.Empty)) {
+                    continue;
+                }
+                char c = str[0];
+                if (c == 'd')
+                {
+                    if (int.TryParse(str.Substring(1).Trim(), out int _wait))
+                    {
+                        waitTime = (int)(_wait / 1000.0 * (bpm * 1.0));
+                    }
+                }
+                else
+                {
+                    List<int> ints = new List<int>();
+                    String[] strs = str.Substring(1).Trim().Split(' ');
+
+                    foreach (var item in strs)
+                    {
+                        if (int.TryParse(item, out int i))
+                        {
+                            ints.Add(i);
+                        }
+                    }
+
+                    int position = ints[0] * 10 + ints[1];
+
+                    if (waitTime == -1)
+                    {
+                        if (c == 'o')
+                        {
+                            if (ints.Count == 3)
+                            {
+                                mActionBeanList.Add(new Light(0, 144, position, ints[2]));
+                            }
+                            else {
+                                //可能会出现这样的表现形式 - o 4 7 FF0000
+                                mActionBeanList.Add(new Light(0, 144, position, 5));
+                            }
+                        }
+                        else if (c == 'f')
+                        {
+                            mActionBeanList.Add(new Light(0, 128, position, 64));
+                        }
+                    }
+                    else
+                    {
+                        if (c == 'o')
+                        {
+                            if (ints.Count == 3)
+                            {
+                                mActionBeanList.Add(new Light(waitTime, 144, position, ints[2]));
+                            }
+                            else
+                            {
+                                //可能会出现这样的表现形式 - o 4 7 FF0000
+                                mActionBeanList.Add(new Light(waitTime, 144, position, 5));
+                            }
+                            
+                        }
+                        else if (c == 'f')
+                        {
+                            mActionBeanList.Add(new Light(waitTime, 128, position, 64));
+                        }
+                        waitTime = -1;
+                    }
+                }
+            }
+
+            int time = 0;
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                if (mActionBeanList[l].Time == 0)
+                {
+                    mActionBeanList[l].Time = time;
+                }
+                else
+                {
+                    time += mActionBeanList[l].Time;
+                    mActionBeanList[l].Time = time;
+                }
+            }
+            return mActionBeanList;
         }
 
         List<String> strsUnipadLightPosition = new List<string>()
@@ -889,7 +1001,7 @@ namespace Maker.Business
             }
             return filesName;
         }
-     
+
         public List<String> GetDirectorysName(String directoryPath)
         {
             List<String> directorysName = new List<string>();
@@ -976,7 +1088,8 @@ namespace Maker.Business
         /// <returns></returns>
         public String CheckSaveFile(String saveFilePath)
         {
-            if (!File.Exists(saveFilePath)) {
+            if (!File.Exists(saveFilePath))
+            {
                 return "文件不存在";
             }
             FileStream f;
@@ -1049,7 +1162,8 @@ namespace Maker.Business
         /// </summary>
         /// <param name="base64"></param>
         /// <returns></returns>
-        public String Base2String(String base64) {
+        public String Base2String(String base64)
+        {
             byte[] outputb = Convert.FromBase64String(base64);
             return Encoding.UTF8.GetString(outputb);
         }
@@ -1070,7 +1184,8 @@ namespace Maker.Business
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public DeviceModel LoadDeviceModel(String filePath) {
+        public DeviceModel LoadDeviceModel(String filePath)
+        {
             DeviceModel deviceModel = new DeviceModel();
             ConfigBusiness config = new ConfigBusiness(filePath);
             deviceModel.DeviceType = config.Get("DeviceType").Trim();
@@ -1081,21 +1196,24 @@ namespace Maker.Business
                 System.Windows.Media.Color c = System.Windows.Media.Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
                 deviceModel.DeviceBackGround = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, c.R, c.G, c.B));
             }
-            else {
+            else
+            {
                 deviceModel.DeviceBackGround = new ImageBrush(new BitmapImage(new Uri(strBg, UriKind.Absolute)));
             }
             if (Double.TryParse(config.Get("DeviceSize").Trim(), out Double dSize))
             {
                 deviceModel.DeviceSize = dSize;
             }
-            else {
+            else
+            {
                 deviceModel.DeviceSize = 600;
             }
             if (config.Get("IsMembrane").Trim().Equals("true"))
             {
                 deviceModel.IsMembrane = true;
             }
-            else {
+            else
+            {
                 deviceModel.IsMembrane = false;
             }
             return deviceModel;

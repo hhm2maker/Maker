@@ -45,6 +45,7 @@ using Maker.View.UI.Plugins;
 using System.Windows.Documents;
 using static Maker.View.UI.BottomDialog.MessageBottomDialog;
 using Maker.View.UI.Utils;
+using Maker.View.UI.Test;
 
 namespace Maker
 {
@@ -386,6 +387,20 @@ namespace Maker
                         baseUserControl.HideControl();
                     }
                     bridge.SaveFile();
+
+                    String path = dialog.tbUnipad.Text;
+                    if (!path.Equals(String.Empty))
+                    {
+                        if (Directory.Exists(path + @"\KeyLed"))
+                        {
+                            var files = Directory.GetFiles(path + @"\KeyLed");
+                            foreach (var file in files)
+                            {
+                                Business.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
+                                    Business.FileBusiness.CreateInstance().ReadUnipadLightFile(file, dialog.dBpm));
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -506,6 +521,9 @@ namespace Maker
             GetVersion();
 
             LoadDevice();
+
+            //TODO: 仅测试用
+            new TestClass();
         }
 
         private void GetVersion()
@@ -927,76 +945,6 @@ namespace Maker
             }
         }
 
-        private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            List<Light> mLightList = GetData();
-
-            UserControl userControl = null;
-            if (cbPlay.SelectedIndex == 0)
-            {
-                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
-                //bToolChild.Width = deviceModel.DeviceSize;
-                //bToolChild.Height = deviceModel.DeviceSize + 31;
-                //bToolChild.Visibility = Visibility.Visible;
-                //加入播放器页面
-                if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
-                {
-                    String strAudioResources = (editUserControl.userControls[3] as ScriptUserControl).AudioResources;
-                    if (!strAudioResources.Contains(@"\"))
-                    {
-                        //说明是不完整路径
-                        strAudioResources = LastProjectPath + @"Audio\" + strAudioResources;
-                    }
-                    if (File.Exists(strAudioResources))
-                    {
-                        userControl = new PlayerUserControl(this, mLightList, strAudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
-                    }
-                    else
-                    {
-                        userControl = new PlayerUserControl(this, mLightList);
-                    }
-                }
-                else
-                {
-                    userControl = new PlayerUserControl(this, mLightList);
-                }
-            }
-            else if (cbPlay.SelectedIndex == 1)
-            {
-                //加入平铺页面
-                userControl = new ShowPavedUserControl(this, mLightList);
-            }
-            else if (cbPlay.SelectedIndex == 2)
-            {
-                userControl = new ExportUserControl(this, mLightList);
-            }
-            else if (cbPlay.SelectedIndex == 3)
-            {
-                userControl = new ShowPianoRollUserControl(this, mLightList);
-            }
-            else if (cbPlay.SelectedIndex == 4)
-            {
-                userControl = new DataGridUserControl(this, mLightList);
-            }
-            else if (cbPlay.SelectedIndex == 5)
-            {
-                userControl = new My3DUserControl(this, mLightList);
-            }
-
-            spPlay.Children.Clear();
-
-            Point point = iPlay.TranslatePoint(new Point(0, 0), this);
-            spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0, 0);
-            spPlay.Children.Add(userControl);
-            gToolBackGround.Visibility = Visibility.Visible;
-        }
-
-        private void gToolBackGround_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            spPlay.Children.Clear();
-            gToolBackGround.Visibility = Visibility.Collapsed;
-        }
-
         private void Export_Click(object sender, RoutedEventArgs e)
         {
             List<Light> mLightList = GetData();
@@ -1100,24 +1048,39 @@ namespace Maker
         private List<Light> GetData()
         {
             List<Light> mLightList = new List<Light>();
-            if (editUserControl.tcMain.Items.Count == 1 || (editUserControl.tcMain.Items[0] as BaseUserControl).filePath.Equals(String.Empty))
+            if (editUserControl == null || editUserControl.tcMain.Items.Count == 0)
             {
-                if ((editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
-                {
-                    return mLightList;
-                }
-                mLightList = (editUserControl.userControls[3] as BaseMakerLightUserControl).GetData();
+                return new List<Light>();
             }
-            else
+            BaseUserControl baseUserControl = ((editUserControl.tcMain.Items[editUserControl.tcMain.SelectedIndex] as TabItem).Content as BaseUserControl);
+            if (baseUserControl == null) {
+                return new List<Light>();
+            }
+            if (baseUserControl.IsMakerLightUserControl())
             {
-                if (editUserControl.userControls[editUserControl.userControls.IndexOf((BaseUserControl)editUserControl.tcMain.Items[0])].IsMakerLightUserControl())
-                {
-                    BaseMakerLightUserControl baseMakerLightUserControl = editUserControl.tcMain.Items[0] as BaseMakerLightUserControl;
-                    mLightList = baseMakerLightUserControl.GetData();
-                }
+                BaseMakerLightUserControl baseMakerLightUserControl = baseUserControl as BaseMakerLightUserControl;
+                mLightList = baseMakerLightUserControl.GetData();
             }
             mLightList = Business.LightBusiness.Copy(mLightList);
             return mLightList;
+            //if (editUserControl.tcMain.Items.Count == 1 || (editUserControl.tcMain.Items[0] as BaseUserControl).filePath.Equals(String.Empty))
+            //{
+            //    if ((editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+            //    {
+            //        return mLightList;
+            //    }
+            //    mLightList = (editUserControl.userControls[3] as BaseMakerLightUserControl).GetData();
+            //}
+            //else
+            //{
+            //    if (editUserControl.userControls[editUserControl.userControls.IndexOf((BaseUserControl)editUserControl.tcMain.Items[0])].IsMakerLightUserControl())
+            //    {
+            //        BaseMakerLightUserControl baseMakerLightUserControl = editUserControl.tcMain.Items[0] as BaseMakerLightUserControl;
+            //        mLightList = baseMakerLightUserControl.GetData();
+            //    }
+            //}
+            //mLightList = Business.LightBusiness.Copy(mLightList);
+            //return mLightList;
         }
    
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
@@ -1380,6 +1343,100 @@ namespace Maker
             }
 
             Business.Currency.XmlSerializerBusiness.Save(basicConfigModel, "Config/basic.xml");
+        }
+
+
+        private int showModel = -1;
+        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            StackPanel sp = ((sender as TextBlock).Parent) as StackPanel;
+            int position = sp.Children.IndexOf((sender as TextBlock));
+            if (position == showModel)
+            {
+                return;
+            }
+
+            if (showModel != -1)
+            {
+                (sp.Children[showModel] as TextBlock).Background = new SolidColorBrush(Colors.Transparent);
+                (sp.Children[showModel] as TextBlock).Foreground = ResourcesUtils.Resources2Brush(this, "TitleFontColor");
+            }
+
+            showModel = position;
+            (sp.Children[showModel] as TextBlock).Background = ResourcesUtils.Resources2Brush(this, "MainBottomSelect");
+            (sp.Children[showModel] as TextBlock).Foreground = new SolidColorBrush(Colors.White);
+
+            ShowData();
+        }
+
+        private void ShowData()
+        {
+            if (showModel == -1)
+            {
+                return;
+            }
+            List<Light> mLightList = GetData();
+
+            UserControl userControl = null;
+            if (showModel == 0)
+            {
+                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
+                //bToolChild.Width = deviceModel.DeviceSize;
+                //bToolChild.Height = deviceModel.DeviceSize + 31;
+                //bToolChild.Visibility = Visibility.Visible;
+                //加入播放器页面
+                if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
+                {
+                    String strAudioResources = (editUserControl.userControls[3] as ScriptUserControl).AudioResources;
+                    if (!strAudioResources.Contains(@"\"))
+                    {
+                        //说明是不完整路径
+                        strAudioResources = LastProjectPath + @"Audio\" + strAudioResources;
+                    }
+                    if (File.Exists(strAudioResources))
+                    {
+                        userControl = new PlayerUserControl(this, mLightList, strAudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
+                    }
+                    else
+                    {
+                        userControl = new PlayerUserControl(this, mLightList);
+                    }
+                }
+                else
+                {
+                    userControl = new PlayerUserControl(this, mLightList);
+                }
+            }
+            else if (showModel == 1)
+            {
+                //加入平铺页面
+                userControl = new ShowPavedUserControl(this, mLightList);
+            }
+            else if (showModel == 2)
+            {
+                userControl = new ExportUserControl(this, mLightList);
+            }
+            else if (showModel == 3)
+            {
+                userControl = new ShowPianoRollUserControl(this, mLightList);
+            }
+            else if (showModel == 4)
+            {
+                userControl = new DataGridUserControl(this, mLightList);
+            }
+            else if (showModel == 5)
+            {
+                userControl = new My3DUserControl(this, mLightList);
+            }
+
+            spBottomTool.Children.Clear();
+            spBottomTool.Children.Add(userControl);
+
+            //spPlay.Children.Clear();
+            //Point point = iPlay.TranslatePoint(new Point(0, 0), this);
+            //spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0, 0);
+            //spPlay.Children.Add(userControl);
+            //gToolBackGround.Visibility = Visibility.Visible;
         }
     }
 

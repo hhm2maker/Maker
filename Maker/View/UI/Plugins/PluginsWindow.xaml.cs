@@ -169,6 +169,7 @@ namespace Maker.View.UI.Plugins
         private void I_File_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "扩展文件|*.dll|所有文件|*.*";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 String fileName = openFileDialog.FileName;

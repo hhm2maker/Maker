@@ -558,6 +558,7 @@
     <sys:String x:Key="Plugins">插件</sys:String>
     <sys:String x:Key="UseCache">使用缓存</sys:String>
     <sys:String x:Key="BuildProject">生成项目</sys:String>
+    <sys:String x:Key="UnipadColon">Unipad：</sys:String>
 
 
     <!--错误-->

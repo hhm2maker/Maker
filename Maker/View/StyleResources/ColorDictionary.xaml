@@ -27,4 +27,12 @@
     <SolidColorBrush x:Key="BtnGreenBg" Color="#2b7b50"/>
     <SolidColorBrush x:Key="BtnRedBg" Color="#ff6b68"/>
     <SolidColorBrush x:Key="NoFileBg" Color="#282828"/>
+    <SolidColorBrush x:Key="BigTitleBg" Color="#4b4b4b"/>
+    <SolidColorBrush x:Key="BtnBlueBg" Color="#365880"/>
+    <SolidColorBrush x:Key="BtnBlueBorder" Color="#4c708c"/>
+    <SolidColorBrush x:Key="TextBlockBorder" Color="#646464"/>
+    <SolidColorBrush x:Key="TextBlockBg" Color="#45494a"/>
+    <SolidColorBrush x:Key="MainBottomLine" Color="#464646"/>
+    <SolidColorBrush x:Key="MainBottomSelect" Color="#2d2f30"/>
+
 </ResourceDictionary>

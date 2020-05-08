@@ -40,6 +40,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
                 <Border BorderBrush="{DynamicResource LineTitleColor}" BorderThickness="0,0,0,1">
@@ -80,11 +82,7 @@
                                 <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
                         </Menu>
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0,0,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
-                            <TextBlock VerticalAlignment="Center" Name="tbProjectName" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                            <TextBlock VerticalAlignment="Center" Margin="10,0,0,0"  Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                            <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                        </StackPanel>
+                        <TextBlock Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center" Name="tbProjectName" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                         <StackPanel Grid.Column="2" Background="Transparent"  MouseMove="WrapPanel_MouseMove" MouseLeftButtonDown="Canvas_MouseLeftButtonDown"/>
                         <Grid Margin="0,5,0,5" Grid.Column="3">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
@@ -130,18 +128,8 @@
                     <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
                         <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" />
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
-                        <ComboBox Name="cbPlay" SelectedIndex="0" Foreground="White" FontSize="18" Background="#222326" VerticalAlignment="Center" >
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Player}"/>
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Paved}"/>
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource Export}"/>
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="{DynamicResource PianoRoll}"/>
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="Data"/>
-                            <ComboBoxItem FontSize="18" Foreground="White" Content="3D"/>
-                        </ComboBox>
-                        <Image Name="iPlay" VerticalAlignment="Center" Margin="10,5,0,5" Source="View/Resources/Image/play.png" Width="20"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonUp="Image_MouseLeftButtonDown_1" />
-                        <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="15,3,5,3"/>
+                            <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
+                            <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="15,3,5,3"/>
                         <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
                     </StackPanel>
                 </DockPanel>
@@ -237,9 +225,38 @@
                 <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="cMost" MouseLeftButtonDown="cMost_MouseLeftButtonDown"/>
                 <Grid Name="gMain" Background="Transparent" Visibility="Collapsed"/>
             </Grid>
+            <GridSplitter Grid.Row="2" Height="2" Background="{DynamicResource LineColor}" HorizontalAlignment="Stretch" />
+            <Grid Grid.Row="3" Background="{DynamicResource bgTitleColor}" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Background="#3b4754"  >
+                    <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Text="输出" Margin="5" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Name="spBottomTool" Grid.Row="1" />
+                <StackPanel Grid.Row="2" Height="2" Background="{DynamicResource LineColor}" HorizontalAlignment="Stretch" />
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Player}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Paved}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Export}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource PianoRoll}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="Data"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="3D"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>
+                <StackPanel Grid.Row="5">
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
+                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                        <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
         </Grid>
-        <Grid Background="Transparent" Name="gToolBackGround" Visibility="Collapsed" MouseLeftButtonDown="gToolBackGround_MouseLeftButtonDown"/>
-        <StackPanel Name="spPlay" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         <Popup  Name="popPlug" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" />
         <StackPanel Name="spDialog" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical" Margin="0,0,5,5"/>
         <!--<Image gif:ImageBehavior.AnimatedSource="View/Resources/Image/bg3.gif" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="500"/>-->

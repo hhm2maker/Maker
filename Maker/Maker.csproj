@@ -364,6 +364,7 @@
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Test\TestClass.cs" />
     <Compile Include="View\UI\UserControlDialog\BaseStyleUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseStyle.cs" />
     <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />

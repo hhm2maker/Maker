@@ -555,6 +555,8 @@
     <sys:String x:Key="Plugins">Plugins</sys:String>
     <sys:String x:Key="UseCache">Use cache</sys:String>
     <sys:String x:Key="BuildProject">Build project</sys:String>
+    <sys:String x:Key="UnipadColon">Unipad:</sys:String>
+
 
     <!--Error-->
     <sys:String x:Key="Error_40001">The selected file is not under the plugs folder.</sys:String>
