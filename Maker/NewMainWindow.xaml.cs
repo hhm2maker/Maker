@@ -279,11 +279,11 @@ namespace Maker
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.White);
         }
 
+
         private void TextBlock_MouseLeave(object sender, MouseEventArgs e)
         {
             (sender as TextBlock).Foreground = new SolidColorBrush(Colors.Gray);
         }
-
 
 
         /// <summary>
@@ -378,7 +378,6 @@ namespace Maker
                     projectConfigModel.Path = dialog.fileName;
                     Business.Currency.XmlSerializerBusiness.Save(projectConfigModel, "Config/project.xml");
 
-                    InitProjects();
 
                     if (gMain.Children.Count > 0)
                     {
@@ -391,18 +390,59 @@ namespace Maker
                     String path = dialog.tbUnipad.Text;
                     if (!path.Equals(String.Empty))
                     {
+                        //灯光
                         if (Directory.Exists(path + @"\KeyLed"))
                         {
                             var files = Directory.GetFiles(path + @"\KeyLed");
                             foreach (var file in files)
                             {
-                                Business.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
+                                Operation.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
                                     Business.FileBusiness.CreateInstance().ReadUnipadLightFile(file, dialog.dBpm));
                             }
                         }
+                        //声音
+                        if (Directory.Exists(path + @"\Sounds")) {
+                            bool copy = CopyDirectory(path + @"\Sounds", directoryInfoAudio.FullName, true);
+                        }
                     }
+
+                    InitProjects();
                 }
             }
+        }
+
+        private static bool CopyDirectory(string SourcePath, string DestinationPath, bool overwriteexisting)
+        {
+            bool ret = false;
+            try
+            {
+                SourcePath = SourcePath.EndsWith(@"\") ? SourcePath : SourcePath + @"\";
+                DestinationPath = DestinationPath.EndsWith(@"\") ? DestinationPath : DestinationPath + @"\";
+
+                if (Directory.Exists(SourcePath))
+                {
+                    if (Directory.Exists(DestinationPath) == false)
+                        Directory.CreateDirectory(DestinationPath);
+
+                    foreach (string fls in Directory.GetFiles(SourcePath))
+                    {
+                        FileInfo flinfo = new FileInfo(fls);
+                        flinfo.CopyTo(DestinationPath + flinfo.Name, overwriteexisting);
+                    }
+                    foreach (string drs in Directory.GetDirectories(SourcePath))
+                    {
+                        DirectoryInfo drinfo = new DirectoryInfo(drs);
+                        if (CopyDirectory(drs, DestinationPath + drinfo.Name, overwriteexisting) == false)
+                            ret = false;
+                    }
+                }
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                ret = false;
+            }
+            return ret;
         }
 
         public void ShowMakerDialog(MakerDialog makerdialog)

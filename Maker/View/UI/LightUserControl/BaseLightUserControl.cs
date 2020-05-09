@@ -26,7 +26,7 @@ namespace Maker.View.LightUserControl
             }
             else
             {
-                lightList = Business.FileBusiness.CreateInstance().ReadMidiFile(filePath);
+                lightList = Operation.FileBusiness.CreateInstance().ReadMidiFile(filePath);
             }
 
             SetData(lightList);
@@ -48,11 +48,11 @@ namespace Maker.View.LightUserControl
         {
             if (filePath.EndsWith(".light"))
             {
-                Business.FileBusiness.CreateInstance().WriteLightFile(filePath, GetData());
+                Operation.FileBusiness.CreateInstance().WriteLightFile(filePath, GetData());
             }
             else
             {
-                Business.FileBusiness.CreateInstance().WriteMidiFile(filePath, GetData());
+                Operation.FileBusiness.CreateInstance().WriteMidiFile(filePath, GetData());
             }
         }
 

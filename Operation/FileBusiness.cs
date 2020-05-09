@@ -168,6 +168,7 @@ namespace Operation
         public String WriteMidiContent(List<Light> lab)
         {
             ReplaceControl(lab, midiArr);
+        
             lab = LightBusiness.Sort(lab);
             //还原时间
             int NowTime = 0;
@@ -910,7 +911,14 @@ namespace Operation
         {
             for (int k = 0; k < lights.Count; k++)
             {
-                lights[k].Position = arr[lights[k].Position];
+                if (lights[k].Position >= 0)
+                {
+                    lights[k].Position = arr[lights[k].Position];
+                }
+                else
+                {
+                    lights[k].Position = arr[0];
+                }
             }
         }
 
