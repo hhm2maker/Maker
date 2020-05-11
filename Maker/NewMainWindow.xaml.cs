@@ -404,6 +404,13 @@ namespace Maker
                         if (Directory.Exists(path + @"\Sounds")) {
                             bool copy = CopyDirectory(path + @"\Sounds", directoryInfoAudio.FullName, true);
                         }
+
+                        if (File.Exists(path + @"\autoplay"))
+                        {
+                            Operation.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"\Light\" + "autoplay.mid",
+                                Business.FileBusiness.CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm));
+                        }
+
                     }
 
                     InitProjects();

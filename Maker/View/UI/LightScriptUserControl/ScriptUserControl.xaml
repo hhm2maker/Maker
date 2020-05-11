@@ -137,16 +137,16 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Name="miRhombusDiffusion" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="miCross" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <TextBlock Name="miRandomFountain" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RhombusDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="miCross" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource CrossDiffusion}"  Foreground="{DynamicResource TitleFontColor}"/>
+                                    <TextBlock Name="miRandomFountain" MouseLeftButtonDown="Generate_Click" FontSize="18" Text="{DynamicResource RandomFountain}"  Foreground="{DynamicResource TitleFontColor}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock FontSize="18" Text="{DynamicResource ThirdParty}"  Foreground="{DynamicResource TitleFontColor}"/>
                                     <MenuItem Name="miThirdParty" FontSize="18"/>
                                 </StackPanel>
                                  <StackPanel Orientation="Vertical">
-                                    <TextBlock FontSize="18" Text="{DynamicResource Mycontent}"  Foreground="{DynamicResource TitleFontColor}"/>
-                                    <MenuItem Name="miMycontent" FontSize="18" />
+                                    <TextBlock Name="miMycontent" FontSize="18" Text="{DynamicResource Mycontent}" MouseLeftButtonDown="MiMycontent_Click" Foreground="{DynamicResource TitleFontColor}"/>
+                                    <MenuItem  FontSize="18" />
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock FontSize="18" Text="{DynamicResource Library}"  Foreground="{DynamicResource TitleFontColor}"/>

@@ -745,7 +745,6 @@ namespace Maker.Business
                     mActionBeanList[l].Time = time;
                 }
             }
-
             ReplaceControl(mActionBeanList, normalArr);
             return mActionBeanList;
         }
@@ -863,7 +862,7 @@ namespace Maker.Business
         }
 
         /// <summary>
-        /// 读取Light文件
+        /// 读取Unipad灯光文件
         /// </summary>
         /// <param name="filePath">Light文件的路径</param>
         public List<Light> ReadUnipadLightFile(String filePath, double bpm)
@@ -883,7 +882,8 @@ namespace Maker.Business
             int waitTime = -1;
             foreach (string str in lines)
             {
-                if (str.Equals(String.Empty)) {
+                if (str.Equals(String.Empty))
+                {
                     continue;
                 }
                 char c = str[0];
@@ -913,13 +913,21 @@ namespace Maker.Business
                     {
                         if (c == 'o')
                         {
-                            if (ints.Count == 3)
+                            if (strs[0].Equals("mc"))
                             {
-                                mActionBeanList.Add(new Light(0, 144, position, ints[2]));
+                                mActionBeanList.Add(new Light(0, 144, UnipadPositionToNormalPosition(ints[0]), ints[1]));
                             }
-                            else {
-                                //可能会出现这样的表现形式 - o 4 7 FF0000
-                                mActionBeanList.Add(new Light(0, 144, position, 5));
+                            else
+                            {
+                                if (ints.Count == 3)
+                                {
+                                    mActionBeanList.Add(new Light(0, 144, position, ints[2]));
+                                }
+                                else
+                                {
+                                    //可能会出现这样的表现形式 - o 4 7 FF0000
+                                    mActionBeanList.Add(new Light(0, 144, position, 5));
+                                }
                             }
                         }
                         else if (c == 'f')
@@ -931,16 +939,23 @@ namespace Maker.Business
                     {
                         if (c == 'o')
                         {
-                            if (ints.Count == 3)
+                            if (strs[0].Equals("mc"))
                             {
-                                mActionBeanList.Add(new Light(waitTime, 144, position, ints[2]));
+
+                                mActionBeanList.Add(new Light(waitTime, 144, UnipadPositionToNormalPosition(ints[0]), ints[1]));
                             }
                             else
                             {
-                                //可能会出现这样的表现形式 - o 4 7 FF0000
-                                mActionBeanList.Add(new Light(waitTime, 144, position, 5));
+                                if (ints.Count == 3)
+                                {
+                                    mActionBeanList.Add(new Light(waitTime, 144, position, ints[2]));
+                                }
+                                else
+                                {
+                                    //可能会出现这样的表现形式 - o 4 7 FF0000
+                                    mActionBeanList.Add(new Light(waitTime, 144, position, 5));
+                                }
                             }
-                            
                         }
                         else if (c == 'f')
                         {
@@ -964,14 +979,113 @@ namespace Maker.Business
                     mActionBeanList[l].Time = time;
                 }
             }
+            //需要水平翻转
+            Operation.LightGroup operationLightGroup = new Operation.LightGroup();
+            operationLightGroup.AddRange(mActionBeanList.ToArray());
+            operationLightGroup.HorizontalFlipping();
+            mActionBeanList.Clear();
+
+            mActionBeanList.AddRange(operationLightGroup.ToArray());
             return mActionBeanList;
         }
 
-        List<String> strsUnipadLightPosition = new List<string>()
+        public int UnipadPositionToNormalPosition(int position)
         {
-            ""
-        };
+            List<int> unipadPosition = new List<int>() { 24, 23, 22, 21, 20, 19, 18, 17, 25, 26, 27, 28, 29, 30, 31, 32, 16, 15, 14, 13, 12, 11, 10, 9, 1, 2, 3, 4, 5, 6, 7, 8 };
+            List<int> normalPosition = new List<int>() { 91, 92, 93, 94, 95, 96, 97, 98, 80, 70, 60, 50, 40, 30, 20, 10, 89, 79, 69, 59, 49, 39, 29, 19, 1, 2, 3, 4, 5, 6, 7, 8 };
+            int index = unipadPosition.IndexOf(position);
+            if (index != -1)
+            {
+                return normalPosition[index];
+            }
+            return 0;
+        }
 
+        /// <summary>
+        /// 读取Unipad自动播放文件
+        /// </summary>
+        /// <param name="filePath">Light文件的路径</param>
+        public List<Light> ReadUnipadAutoPlayFile(String filePath, double bpm)
+        {
+            List<Light> mActionBeanList = new List<Light>();//存放AB的集合
+            List<int> mData = new List<int>();//文件字符集合
+            List<String> mAction = new List<String>();
+
+            List<String> lines = new List<string>();
+
+            //获取文件里所有的字节
+            foreach (string str in System.IO.File.ReadAllLines(filePath, Encoding.Default))
+            {
+                lines.Add(str);
+            }
+
+            int waitTime = -1;
+            foreach (string str in lines)
+            {
+                if (str.Equals(String.Empty))
+                {
+                    continue;
+                }
+                char c = str[0];
+                if (c == 'd')
+                {
+                    if (int.TryParse(str.Substring(1).Trim(), out int _wait))
+                    {
+                        waitTime = (int)(_wait / 1000.0 * (bpm * 1.0));
+                    }
+                }
+                else if (c == 't')
+                {
+                    List<int> ints = new List<int>();
+                    String[] strs = str.Substring(1).Trim().Split(' ');
+
+                    foreach (var item in strs)
+                    {
+                        if (int.TryParse(item, out int i))
+                        {
+                            ints.Add(i);
+                        }
+                    }
+
+                    int position = ints[0] * 10 + ints[1];
+
+                    if (waitTime == -1)
+                    {
+                        mActionBeanList.Add(new Light(0, 144, position, 5));
+                    }
+                    else
+                    {
+                        mActionBeanList.Add(new Light(waitTime, 144, position, 5));
+                        waitTime = -1;
+                    }
+                }
+                else if (c == 'c') {
+                    // c/chain - 翻页
+                }
+            }
+
+            int time = 0;
+            for (int l = 0; l < mActionBeanList.Count; l++)
+            {
+                if (mActionBeanList[l].Time == 0)
+                {
+                    mActionBeanList[l].Time = time;
+                }
+                else
+                {
+                    time += mActionBeanList[l].Time;
+                    mActionBeanList[l].Time = time;
+                }
+            }
+            //需要水平翻转
+            Operation.LightGroup operationLightGroup = new Operation.LightGroup();
+            operationLightGroup.AddRange(mActionBeanList.ToArray());
+            operationLightGroup.HorizontalFlipping();
+            mActionBeanList.Clear();
+
+            mActionBeanList.AddRange(operationLightGroup.ToArray());
+            return mActionBeanList;
+        }
 
         /// <summary>
         /// 获得文件夹下所有符合条件的文件名
@@ -1226,7 +1340,14 @@ namespace Maker.Business
         {
             for (int k = 0; k < lights.Count; k++)
             {
-                lights[k].Position = arr[lights[k].Position];
+                if (lights[k].Position >= 0)
+                {
+                    lights[k].Position = arr[lights[k].Position];
+                }
+                else
+                {
+                    lights[k].Position = arr[0];
+                }
             }
         }
 
