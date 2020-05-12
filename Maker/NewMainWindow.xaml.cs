@@ -46,6 +46,7 @@ using System.Windows.Documents;
 using static Maker.View.UI.BottomDialog.MessageBottomDialog;
 using Maker.View.UI.Utils;
 using Maker.View.UI.Test;
+using static Maker.Business.FileBusiness;
 
 namespace Maker
 {
@@ -397,7 +398,7 @@ namespace Maker
                             foreach (var file in files)
                             {
                                 Operation.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
-                                    Business.FileBusiness.CreateInstance().ReadUnipadLightFile(file, dialog.dBpm));
+                                    CreateInstance().ReadUnipadLightFile(file, dialog.dBpm));
                             }
                         }
                         //声音
@@ -408,9 +409,12 @@ namespace Maker
                         if (File.Exists(path + @"\autoplay"))
                         {
                             Operation.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"\Light\" + "autoplay.mid",
-                                Business.FileBusiness.CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm));
+                                CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm));
                         }
-
+                        if (File.Exists(path + @"\keySound"))
+                        {
+                            List<UnipadKeySoundModel> keySounds = CreateInstance().ReadUnipadKeySoundFile(path + @"\keySound");
+                        }
                     }
 
                     InitProjects();

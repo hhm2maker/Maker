@@ -1059,7 +1059,8 @@ namespace Maker.Business
                         waitTime = -1;
                     }
                 }
-                else if (c == 'c') {
+                else if (c == 'c')
+                {
                     // c/chain - 翻页
                 }
             }
@@ -1085,6 +1086,83 @@ namespace Maker.Business
 
             mActionBeanList.AddRange(operationLightGroup.ToArray());
             return mActionBeanList;
+        }
+
+        public class UnipadKeySoundModel
+        {
+            int position;
+            String soundFile;
+
+            public UnipadKeySoundModel()
+            {
+
+            }
+
+            public UnipadKeySoundModel(int position, String soundFile)
+            {
+                this.position = position;
+                this.soundFile = soundFile;
+            }
+        }
+
+        /// <summary>
+        /// 读取Unipad音频映射文件
+        /// </summary>
+        /// <param name="filePath">Light文件的路径</param>
+        public List<UnipadKeySoundModel> ReadUnipadKeySoundFile(String filePath)
+        {
+            List<Light> mActionBeanList = new List<Light>();//存放AB的集合
+            List<String> lines = new List<string>();
+            List<String> sounds = new List<string>();
+            //获取文件里所有的字节
+            foreach (string str in System.IO.File.ReadAllLines(filePath, Encoding.Default))
+            {
+                lines.Add(str);
+            }
+
+            foreach (string str in lines)
+            {
+                if (str.Trim().Equals(String.Empty))
+                {
+                    continue;
+                }
+
+                List<int> ints = new List<int>();
+                String[] strs = str.Substring(1).Trim().Split(' ');
+
+                foreach (var item in strs)
+                {
+                    if (int.TryParse(item, out int i))
+                    {
+                        ints.Add(i);
+                    }
+                }
+
+                int position = ints[1] * 10 + ints[2];
+
+                if (strs.Length > 3)
+                {
+                    sounds.Add(strs[3]);
+                }
+                else
+                {
+                    sounds.Add("");
+                }
+                mActionBeanList.Add(new Light(0, 144, position, 5));
+            }
+
+            //需要水平翻转
+            Operation.LightGroup operationLightGroup = new Operation.LightGroup();
+            operationLightGroup.AddRange(mActionBeanList.ToArray());
+            operationLightGroup.HorizontalFlipping();
+
+            List<UnipadKeySoundModel> keySound = new List<UnipadKeySoundModel>();
+            for (int i = 0; i < operationLightGroup.Count; i++)
+            {
+                keySound.Add(new UnipadKeySoundModel(operationLightGroup[i].Position, sounds[i]));
+            }
+
+            return keySound;
         }
 
         /// <summary>
