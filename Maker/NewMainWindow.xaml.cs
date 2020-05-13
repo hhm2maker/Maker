@@ -392,9 +392,10 @@ namespace Maker
                     if (!path.Equals(String.Empty))
                     {
                         //灯光
+                        string[] files = null;
                         if (Directory.Exists(path + @"\KeyLed"))
                         {
-                            var files = Directory.GetFiles(path + @"\KeyLed");
+                            files = Directory.GetFiles(path + @"\KeyLed");
                             foreach (var file in files)
                             {
                                 Operation.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
@@ -405,21 +406,111 @@ namespace Maker
                         if (Directory.Exists(path + @"\Sounds")) {
                             bool copy = CopyDirectory(path + @"\Sounds", directoryInfoAudio.FullName, true);
                         }
-
+                        //自动播放
                         if (File.Exists(path + @"\autoplay"))
                         {
                             Operation.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"\Light\" + "autoplay.mid",
                                 CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm));
                         }
+                        //音频映射文件
+                        List<UnipadKeySoundModel> keySounds = new List<UnipadKeySoundModel>();
                         if (File.Exists(path + @"\keySound"))
                         {
-                            List<UnipadKeySoundModel> keySounds = CreateInstance().ReadUnipadKeySoundFile(path + @"\keySound");
+                            keySounds = CreateInstance().ReadUnipadKeySoundFile(path + @"\keySound");
+                        }
+                        //添加页面
+                        List<List<List<PageButtonModel>>> pages = new List<List<List<PageButtonModel>>>();
+                        //获取分好组的灯光文件
+                        List<List<string>> lights = GetUnipadLightFileGroup(files);
+                        //获取分好组的音频文件
+                        List<List<UnipadKeySoundModel>> sounds = GetUnipadSoundFileGroup(keySounds);
+
+                        for (int i = 0; i < lights.Count; i++) {
+                            //一共有i个页面
+                            List<List<PageButtonModel>> pageModes = new List<List<PageButtonModel>>();
+                            List<string> lightsGroup = new List<string>();
+
+                            for (int j = 0; j < lightsGroup.Count; j++) {
+                                //获取每个组的灯光
+                                int position = FileNameToPosition(Path.GetFileName(lightsGroup[i]));
+
+                                if (pageModes.Count < position)
+                                {
+                                    //添加组
+                                    for (int k = 0; k < position - pageModes.Count; k++)
+                                    {
+                                        pageModes.Add(new List<PageButtonModel>());
+                                    }
+                                }
+                                PageButtonModel pageButtonModel = new PageButtonModel();
+                                pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(lightsGroup[i])+".light", dialog.dBpm));
+                                pageModes[position].Add(pageButtonModel);
+                            }
+
+                            pages.Add(pageModes);
                         }
                     }
 
                     InitProjects();
                 }
             }
+        }
+
+        /// <summary>
+        /// Unipad灯光文件分组
+        /// </summary>
+        private List<List<string>> GetUnipadLightFileGroup(String[] files) {
+            List<List<string>> result = new List<List<string>>();
+            for (int i = 0; i < files.Length; i++) {
+                String[] strs = files[i].Split(' ');
+                if (strs.Length == 0) {
+                    continue;
+                }
+                if (int.TryParse(strs[0], out int iGroup)) {
+                    if (result.Count < iGroup) {
+                        //添加组
+                        for (int j = 0; j < iGroup - result.Count;j++) {
+                            result.Add(new List<string>());
+                        }
+                    }
+                    result[iGroup - 1].Add(files[i]);
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Unipad灯光文件分组
+        /// </summary>
+        private List<List<UnipadKeySoundModel>> GetUnipadSoundFileGroup(List<UnipadKeySoundModel> files)
+        {
+            List<List<UnipadKeySoundModel>> result = new List<List<UnipadKeySoundModel>>();
+            for (int i = 0; i < files.Count; i++)
+            {
+                String[] strs = files[i].SoundFile.Split(' ');
+                if (strs.Length == 0)
+                {
+                    continue;
+                }
+                if (int.TryParse(strs[0], out int iGroup))
+                {
+                    if (result.Count < iGroup)
+                    {
+                        //添加组
+                        for (int j = 0; j < iGroup - result.Count; j++)
+                        {
+                            result.Add(new List<UnipadKeySoundModel>());
+                        }
+                    }
+                    result[iGroup - 1].Add(files[i]);
+                }
+            }
+            return result;
+        }
+
+        private int FileNameToPosition(String fileName) {
+            //TODO
+            return 0;
         }
 
         private static bool CopyDirectory(string SourcePath, string DestinationPath, bool overwriteexisting)

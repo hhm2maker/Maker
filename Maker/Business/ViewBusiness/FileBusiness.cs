@@ -1090,8 +1090,15 @@ namespace Maker.Business
 
         public class UnipadKeySoundModel
         {
-            int position;
-            String soundFile;
+            public int Position {
+                get;
+                set;
+            }
+
+            public String SoundFile {
+                get;
+                set;
+            }
 
             public UnipadKeySoundModel()
             {
@@ -1100,9 +1107,10 @@ namespace Maker.Business
 
             public UnipadKeySoundModel(int position, String soundFile)
             {
-                this.position = position;
-                this.soundFile = soundFile;
+                this.Position = position;
+                this.SoundFile = soundFile;
             }
+
         }
 
         /// <summary>

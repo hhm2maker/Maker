@@ -158,6 +158,10 @@ namespace Maker.View.PageWindow
 
         private void SavePage(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            SavePage(filePath, _pageModes);
+        }
+
+        public void SavePage(String filePath, List<List<PageButtonModel>> _pageModes) {
             File.Delete(filePath);
             XDocument xDoc = new XDocument();
             // 添加根节点
@@ -207,7 +211,6 @@ namespace Maker.View.PageWindow
             // 保存该文档  
             xDoc.Save(filePath);
         }
-
 
         private void AddCount(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
