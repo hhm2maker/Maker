@@ -1088,29 +1088,61 @@ namespace Maker.Business
             return mActionBeanList;
         }
 
-        public class UnipadKeySoundModel
+        public class UnipadKeyValueModel
         {
-            public int Position {
+            public int Group
+            {
                 get;
                 set;
             }
 
-            public String SoundFile {
+            public int Position
+            {
                 get;
                 set;
             }
 
-            public UnipadKeySoundModel()
+            public String SoundFile
+            {
+                get;
+                set;
+            }
+
+            public UnipadKeyValueModel()
             {
 
             }
 
-            public UnipadKeySoundModel(int position, String soundFile)
+            public UnipadKeyValueModel(int group ,int position, String soundFile)
             {
-                this.Position = position;
-                this.SoundFile = soundFile;
+                Position = position;
+                SoundFile = soundFile;
+                Group = group;
+            }
+        }
+
+        public class UnipadKeySoundModel : UnipadKeyValueModel
+        {
+            public UnipadKeySoundModel() : base(){
+
             }
 
+            public UnipadKeySoundModel(int group , int position, String soundFile) : base(group,position, soundFile)
+            {
+
+            }
+        }
+
+        public class UnipadKeyLightModel : UnipadKeyValueModel
+        {
+            public UnipadKeyLightModel() : base(){
+
+            }
+
+            public UnipadKeyLightModel(int group, int position, String soundFile) : base(group, position, soundFile)
+            {
+
+            }
         }
 
         /// <summary>
@@ -1119,6 +1151,8 @@ namespace Maker.Business
         /// <param name="filePath">Light文件的路径</param>
         public List<UnipadKeySoundModel> ReadUnipadKeySoundFile(String filePath)
         {
+            List<UnipadKeySoundModel> keySound = new List<UnipadKeySoundModel>();
+
             List<Light> mActionBeanList = new List<Light>();//存放AB的集合
             List<String> lines = new List<string>();
             List<String> sounds = new List<string>();
@@ -1136,7 +1170,7 @@ namespace Maker.Business
                 }
 
                 List<int> ints = new List<int>();
-                String[] strs = str.Substring(1).Trim().Split(' ');
+                String[] strs = str.Trim().Split(' ');
 
                 foreach (var item in strs)
                 {
@@ -1150,11 +1184,11 @@ namespace Maker.Business
 
                 if (strs.Length > 3)
                 {
-                    sounds.Add(strs[3]);
+                    keySound.Add(new UnipadKeySoundModel(ints[0], 0, strs[3]));
                 }
                 else
                 {
-                    sounds.Add("");
+                    keySound.Add(new UnipadKeySoundModel(ints[0], 0, ""));
                 }
                 mActionBeanList.Add(new Light(0, 144, position, 5));
             }
@@ -1164,10 +1198,9 @@ namespace Maker.Business
             operationLightGroup.AddRange(mActionBeanList.ToArray());
             operationLightGroup.HorizontalFlipping();
 
-            List<UnipadKeySoundModel> keySound = new List<UnipadKeySoundModel>();
             for (int i = 0; i < operationLightGroup.Count; i++)
             {
-                keySound.Add(new UnipadKeySoundModel(operationLightGroup[i].Position, sounds[i]));
+                keySound[i].Position = operationLightGroup[i].Position;
             }
 
             return keySound;
