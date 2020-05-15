@@ -1005,7 +1005,7 @@ namespace Maker.Business
         /// 读取Unipad自动播放文件
         /// </summary>
         /// <param name="filePath">Light文件的路径</param>
-        public List<Light> ReadUnipadAutoPlayFile(String filePath, double bpm)
+        public List<Light> ReadUnipadAutoPlayFile(String filePath, double bpm,ref int position)
         {
             List<Light> mActionBeanList = new List<Light>();//存放AB的集合
             List<int> mData = new List<int>();//文件字符集合
@@ -1154,15 +1154,9 @@ namespace Maker.Business
             List<UnipadKeySoundModel> keySound = new List<UnipadKeySoundModel>();
 
             List<Light> mActionBeanList = new List<Light>();//存放AB的集合
-            List<String> lines = new List<string>();
             List<String> sounds = new List<string>();
             //获取文件里所有的字节
             foreach (string str in System.IO.File.ReadAllLines(filePath, Encoding.Default))
-            {
-                lines.Add(str);
-            }
-
-            foreach (string str in lines)
             {
                 if (str.Trim().Equals(String.Empty))
                 {

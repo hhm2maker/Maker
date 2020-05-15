@@ -398,19 +398,21 @@ namespace Maker
                             files = Directory.GetFiles(path + @"\KeyLed");
                             foreach (var file in files)
                             {
-                                Operation.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath+@"\Light\"+ Path.GetFileName(file)+".light",
+                                Operation.FileBusiness.CreateInstance().WriteLightFile(LastProjectPath + @"\Light\" + Path.GetFileName(file) + ".light",
                                     CreateInstance().ReadUnipadLightFile(file, dialog.dBpm));
                             }
                         }
                         //声音
-                        if (Directory.Exists(path + @"\Sounds")) {
+                        if (Directory.Exists(path + @"\Sounds"))
+                        {
                             bool copy = CopyDirectory(path + @"\Sounds", directoryInfoAudio.FullName, true);
                         }
+                        int defChannel = 1;
                         //自动播放
                         if (File.Exists(path + @"\autoplay"))
                         {
                             Operation.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"\Light\" + "autoplay.mid",
-                                CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm));
+                                CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm,ref defChannel));
                         }
                         //音频映射文件
                         List<UnipadKeySoundModel> keySounds = new List<UnipadKeySoundModel>();
@@ -426,37 +428,20 @@ namespace Maker
                         //获取分好组的音频文件
                         List<List<UnipadKeySoundModel>> sounds = GetUnipadSoundFileGroup(keySounds);
 
-                        for (int i = 0; i < lights.Count; i++) {
+                        for (int i = 0; i < lights.Count; i++)
+                        {
                             //一共有i个页面
                             List<List<PageButtonModel>> pageModes = new List<List<PageButtonModel>>();
                             List<UnipadKeySoundModel> soundsGroup = sounds[i];
                             List<UnipadKeyLightModel> keyLights = FileNameToPosition(lights[i]);
 
-                            for (int j = 0; j < keyLights.Count; j++) {
-                                //获取每个组的灯光
-
-                                int position = keyLights[i].Position;
-
-                                if (pageModes.Count < position)
-                                {
-                                    //添加组
-                                    int needAddCount = position - pageModes.Count +1;
-                                    for (int k = 0; k < needAddCount; k++)
-                                    {
-                                        pageModes.Add(new List<PageButtonModel>());
-                                    }
-                                }
-                                PageButtonModel pageButtonModel = new PageButtonModel();
-                                pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(keyLights[i].SoundFile)+".light", dialog.dBpm));
-                                pageModes[position].Add(pageButtonModel);
-                            }
-
-                            for (int j = 0; j < soundsGroup.Count; j++)
+                            for (int j = 0; j < keyLights.Count; j++)
                             {
                                 //获取每个组的灯光
-                                int position = soundsGroup[i].Position;
 
-                                if (pageModes.Count < position)
+                                int position = keyLights[j].Position;
+
+                                if (pageModes.Count <= position)
                                 {
                                     //添加组
                                     int needAddCount = position - pageModes.Count + 1;
@@ -465,19 +450,50 @@ namespace Maker
                                         pageModes.Add(new List<PageButtonModel>());
                                     }
                                 }
-
-                                List<PageButtonModel> pageButtonModels = pageModes[position];
-                                for (int x = 0; x < pageButtonModels.Count; x++) {
-                                    PageButtonModel _pageButtonModel = pageButtonModels[x];
-                                    _pageButtonModel._down.OperationModels.Add(new AudioFilePlayModel(soundsGroup[i].SoundFile));
-                                }
+                                PageButtonModel pageButtonModel = new PageButtonModel();
+                                pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(keyLights[j].SoundFile) + ".light", dialog.dBpm));
+                                pageModes[position].Add(pageButtonModel);
                             }
 
+                            Dictionary<int, int> dictionary = new Dictionary<int, int>();
+                            for (int j = 0; j < soundsGroup.Count; j++)
+                            {
+                                //获取每个组的灯光
+                                int position = soundsGroup[j].Position;
+                                if (pageModes.Count <= position)
+                                {
+                                    //添加组
+                                    int needAddCount = position - pageModes.Count + 1;
+                                    for (int k = 0; k < needAddCount; k++)
+                                    {
+                                        pageModes.Add(new List<PageButtonModel>());
+                                    }
+                                }
+                                List<PageButtonModel> pageButtonModels = pageModes[position];
+                                if (dictionary.ContainsKey(position))
+                                {
+                                    dictionary[position] = dictionary[position] + 1;
+                                }
+                                else
+                                {
+                                    dictionary.Add(position, 0);
+                                }
+
+                                if (pageButtonModels.Count <= dictionary[position])
+                                {
+                                    int needAddCount = dictionary[position] - pageButtonModels.Count + 1;
+                                    for (int k = 0; k < needAddCount; k++)
+                                    {
+                                        pageButtonModels.Add(new PageButtonModel());
+                                    }
+                                }
+                                pageButtonModels[dictionary[position]]._down.OperationModels.Add(new AudioFilePlayModel(soundsGroup[j].SoundFile));
+                            }
                             pages.Add(pageModes);
                         }
-
-                        for (int i = 0; i < pages.Count; i++) {
-                            editUserControl.puc.SavePage(_projectPath + @"\Play\"+(i+1)+ ".lightPage",pages[i]);
+                        for (int i = 0; i < pages.Count; i++)
+                        {
+                            editUserControl.puc.SavePage(_projectPath + @"\Play\" + (i + 1) + ".lightPage", pages[i]);
                         }
                     }
 
@@ -489,19 +505,25 @@ namespace Maker
         /// <summary>
         /// Unipad灯光文件分组
         /// </summary>
-        private List<List<string>> GetUnipadLightFileGroup(String[] files) {
+        private List<List<string>> GetUnipadLightFileGroup(String[] files)
+        {
             List<List<string>> result = new List<List<string>>();
-            for (int i = 0; i < files.Length; i++) {
+            for (int i = 0; i < files.Length; i++)
+            {
                 String file = Path.GetFileName(files[i]);
                 String[] strs = file.Split(' ');
-                if (strs.Length == 0) {
+                if (strs.Length == 0)
+                {
                     continue;
                 }
-                if (int.TryParse(strs[0], out int iGroup)) {
-                    if (result.Count < iGroup) {
+                if (int.TryParse(strs[0], out int iGroup))
+                {
+                    if (result.Count <= iGroup)
+                    {
                         //添加组
                         int needAddCount = iGroup - result.Count + 1;
-                        for (int j = 0; j < needAddCount; j++) {
+                        for (int j = 0; j < needAddCount; j++)
+                        {
                             result.Add(new List<string>());
                         }
                     }
@@ -519,25 +541,27 @@ namespace Maker
             List<List<UnipadKeySoundModel>> result = new List<List<UnipadKeySoundModel>>();
             for (int i = 0; i < files.Count; i++)
             {
-                    if (result.Count < files[i].Group)
-                    {
+                if (result.Count <= files[i].Group)
+                {
                     //添加组
                     int needAddCount = files[i].Group - result.Count + 1;
                     for (int j = 0; j < needAddCount; j++)
-                        {
-                            result.Add(new List<UnipadKeySoundModel>());
-                        }
+                    {
+                        result.Add(new List<UnipadKeySoundModel>());
                     }
-                    result[files[i].Group - 1].Add(files[i]);
+                }
+                result[files[i].Group - 1].Add(files[i]);
             }
             return result;
         }
 
-        private List<UnipadKeyLightModel> FileNameToPosition(List<String> filePaths) {
+        private List<UnipadKeyLightModel> FileNameToPosition(List<String> filePaths)
+        {
             List<UnipadKeyLightModel> result = new List<UnipadKeyLightModel>();
             List<Light> mActionBeanList = new List<Light>();//存放AB的集合
             List<String> fileNames = new List<string>();
-            for (int i = 0; i < filePaths.Count; i++) {
+            for (int i = 0; i < filePaths.Count; i++)
+            {
                 String fileName = filePaths[i];
                 fileNames.Add(fileName);
                 String[] strs = fileName.Substring(1).Split(' ');
@@ -559,8 +583,9 @@ namespace Maker
             operationLightGroup.AddRange(mActionBeanList.ToArray());
             operationLightGroup.HorizontalFlipping();
 
-            for (int i = 0; i < fileNames.Count; i++) {
-                result.Add(new UnipadKeyLightModel(0,operationLightGroup[i].Position,fileNames[i]));
+            for (int i = 0; i < fileNames.Count; i++)
+            {
+                result.Add(new UnipadKeyLightModel(0, operationLightGroup[i].Position, fileNames[i]));
             }
             return result;
         }
@@ -685,7 +710,8 @@ namespace Maker
             {
                 miUseCache.Icon = ResourcesUtils.Resources2BitMap("check.png");
             }
-            else {
+            else
+            {
                 miUseCache.Icon = null;
             }
         }
@@ -768,7 +794,8 @@ namespace Maker
                 {
                     Plugs.Add(plug);
 
-                    if (item.Enable) {
+                    if (item.Enable)
+                    {
                         //MethodInfo mi = o.GetType().GetMethod("GetIcon");
                         //BitmapFrame icon = (BitmapFrame)mi.Invoke(o, new Object[] { });
                         ImageSource icon = Plugs[Plugs.Count - 1].GetIcon();
@@ -809,7 +836,8 @@ namespace Maker
                             break;
                         }
                     }
-                    if (type == null) {
+                    if (type == null)
+                    {
                         ShowPlugsError();
                         return null;
                     }
@@ -835,7 +863,8 @@ namespace Maker
         /// <summary>
         /// 展示插件错误的提示窗
         /// </summary>
-        private void ShowPlugsError() {
+        private void ShowPlugsError()
+        {
             AddMessageBottomDialog(new ErrorMessageBottomClass(this, 40002));
         }
 
@@ -1247,7 +1276,8 @@ namespace Maker
                 return new List<Light>();
             }
             BaseUserControl baseUserControl = ((editUserControl.tcMain.Items[editUserControl.tcMain.SelectedIndex] as TabItem).Content as BaseUserControl);
-            if (baseUserControl == null) {
+            if (baseUserControl == null)
+            {
                 return new List<Light>();
             }
             if (baseUserControl.IsMakerLightUserControl())
@@ -1276,7 +1306,7 @@ namespace Maker
             //mLightList = Business.LightBusiness.Copy(mLightList);
             //return mLightList;
         }
-   
+
         private void Image_MouseLeftButtonDown_3(object sender, MouseButtonEventArgs e)
         {
             Dictionary<String, ScriptModel> models = (editUserControl.userControls[3] as ScriptUserControl).scriptModelDictionary;
