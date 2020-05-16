@@ -34,5 +34,9 @@
     <SolidColorBrush x:Key="TextBlockBg" Color="#45494a"/>
     <SolidColorBrush x:Key="MainBottomLine" Color="#464646"/>
     <SolidColorBrush x:Key="MainBottomSelect" Color="#2d2f30"/>
+    <SolidColorBrush x:Key="MyContentTitleBg" Color="#3c3f40"/>
+    <SolidColorBrush x:Key="MyContentContentBg" Color="#404040"/>
+    <SolidColorBrush x:Key="MyContentBottomBlueBg" Color="#679def"/>
+    <SolidColorBrush x:Key="MyContentBlueLine" Color="#5887c2"/>
 
 </ResourceDictionary>

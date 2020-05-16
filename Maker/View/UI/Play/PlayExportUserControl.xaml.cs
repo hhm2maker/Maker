@@ -386,6 +386,22 @@ namespace Maker.View.Play
         {
             if (filePath.Equals(String.Empty))
                 return;
+
+            firstPageName = tbFirstPageName.Text;
+
+            if (cbLive.IsChecked == true)
+            {
+                ToSaveFile(filePath,firstPageName, tutorialName, pageNames, "0");
+            }
+            else
+            {
+                ToSaveFile(filePath,firstPageName, tutorialName, pageNames, "1");
+            }
+        }
+
+        public void ToSaveFile(String filePath ,String firstPageName,String tutorialName, List<String> pageNames,String isLive) {
+            if (filePath.Equals(String.Empty))
+                return;
             XDocument doc = new XDocument();
             XElement xnRoot = new XElement("Root");
             doc.Add(xnRoot);
@@ -395,17 +411,16 @@ namespace Maker.View.Play
             };
             xnRoot.Add(xnTutorial);
 
-            firstPageName = tbFirstPageName.Text;
             XElement xnFirstPageName = new XElement("FirstPageName")
             {
                 Value = firstPageName
             };
             xnRoot.Add(xnFirstPageName);
             XElement xnPages = new XElement("Pages");
-            foreach (XElement pageElement in xnPages.Elements("Page"))
-            {
-                pageNames.Add(pageElement.Value);
-            }
+            //foreach (XElement pageElement in xnPages.Elements("Page"))
+            //{
+            //    pageNames.Add(pageElement.Value);
+            //}
             for (int i = 0; i < pageNames.Count; i++)
             {
                 XElement xnPage = new XElement("Page")
@@ -417,13 +432,7 @@ namespace Maker.View.Play
             xnRoot.Add(xnPages);
 
             XElement xnModel = new XElement("Model");
-            if (cbLive.IsChecked == true)
-            {
-                xnModel.Value = "0";
-            }
-            else {
-                xnModel.Value = "1";
-            }
+            xnModel.Value = isLive;
             xnRoot.Add(xnModel);
 
             doc.Save(filePath);

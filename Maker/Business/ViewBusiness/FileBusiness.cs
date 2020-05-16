@@ -1005,7 +1005,7 @@ namespace Maker.Business
         /// 读取Unipad自动播放文件
         /// </summary>
         /// <param name="filePath">Light文件的路径</param>
-        public List<Light> ReadUnipadAutoPlayFile(String filePath, double bpm,ref int position)
+        public List<Light> ReadUnipadAutoPlayFile(String filePath, double bpm,ref int index)
         {
             List<Light> mActionBeanList = new List<Light>();//存放AB的集合
             List<int> mData = new List<int>();//文件字符集合
@@ -1062,6 +1062,13 @@ namespace Maker.Business
                 else if (c == 'c')
                 {
                     // c/chain - 翻页
+                    if (index == -1) {
+                        String[] _strs = str.Split(' ');
+                        if (int.TryParse(_strs[1].Trim(), out int _index))
+                        {
+                            index = _index;
+                        }
+                    }
                 }
             }
 

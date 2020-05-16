@@ -407,7 +407,7 @@ namespace Maker
                         {
                             bool copy = CopyDirectory(path + @"\Sounds", directoryInfoAudio.FullName, true);
                         }
-                        int defChannel = 1;
+                        int defChannel = -1;
                         //自动播放
                         if (File.Exists(path + @"\autoplay"))
                         {
@@ -491,10 +491,18 @@ namespace Maker
                             }
                             pages.Add(pageModes);
                         }
+                        List<String> pageStrs = new List<string>();
                         for (int i = 0; i < pages.Count; i++)
                         {
-                            editUserControl.puc.SavePage(_projectPath + @"\Play\" + (i + 1) + ".lightPage", pages[i]);
+                            editUserControl.puc.SavePage(_projectPath + @"\Play\Page" + (i + 1) + ".lightPage", pages[i]);
+                            pageStrs.Add("Page"+ (i + 1) + ".lightPage");
                         }
+
+                        if (!File.Exists(_projectPath + @"\Play\" + dialog.fileName + ".playExport"))
+                        {
+                            editUserControl.peuc.NewFileResult2(dialog.fileName + ".playExport");
+                        }
+                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page"+ defChannel, "autoplay.mid", pageStrs,"1");
                     }
 
                     InitProjects();

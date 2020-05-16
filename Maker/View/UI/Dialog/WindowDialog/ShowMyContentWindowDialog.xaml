@@ -5,41 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.UI.Dialog.WindowDialog"
         mc:Ignorable="d"
-        Background="#2b2b2b"
+        Background="{DynamicResource MyContentContentBg}"
         Width="800"
         Height="600"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
-        Title="{DynamicResource Mycontent}" >
+        Title="{DynamicResource Mycontent}"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../StyleResources/ColorDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#1f1f1f">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Height="2" Background="Black" VerticalAlignment="Bottom"/>
-            <StackPanel Name="spTitle" Grid.Column="1" Orientation="Horizontal" >
-                <Border BorderBrush="Black" BorderThickness="2,2,2,0" Background="#2b2b2b" MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                    <TextBlock Margin="10,3,10,3" Foreground="White" FontSize="18" Text="{DynamicResource Light}"/>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="0,0,0,2"  MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                    <TextBlock Margin="10,3,10,3" Foreground="White" FontSize="18" Text="{DynamicResource LightScript}"/>
-                </Border>
-                <Border BorderBrush="Black" BorderThickness="0,0,0,2"  MouseLeftButtonDown="Border_MouseLeftButtonDown">
-                    <TextBlock Margin="10,3,10,3" Foreground="White" FontSize="18" Text="{DynamicResource LimitlessLamp}"/>
-                </Border>
-            </StackPanel>
-            <Border Grid.Column="2" Height="2" Background="Black" VerticalAlignment="Bottom"/>
+        <Grid Grid.Row="0" Background="{DynamicResource MyContentTitleBg}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Name="spTitle" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" TextAlignment="Center" Padding="0,10,0,10" Foreground="{DynamicResource TitleFontColor}" FontSize="18" Text="{DynamicResource Light}" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+                <TextBlock Grid.Column="1" TextAlignment="Center" Padding="0,10,0,10" Foreground="{DynamicResource TitleFontColor}" FontSize="18" Text="{DynamicResource LightScript}" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+                <TextBlock Grid.Column="2" TextAlignment="Center"  Padding="0,10,0,10" Foreground="{DynamicResource TitleFontColor}" FontSize="18" Text="{DynamicResource LimitlessLamp}" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+            </Grid>
+            <Grid Name="gLine" Grid.Row="1">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="{DynamicResource LineColor}" Height="2"/>
+            </Grid>
         </Grid>
+      
         <ListBox Name="miChildMycontent" Grid.Row="1" FontSize="16" Background="Transparent" Foreground="#ffffff" BorderBrush="{x:Null}" />
-        <DockPanel  Grid.Row="2" Background="#222326">
-            <Button Name="btnOk" Margin="10" Content="{DynamicResource Ok}" FontSize="20" Foreground="White" Background="#2b2b2b" BorderBrush="#1f1f1f" BorderThickness="2" Padding="5, 2, 5, 2" Width="200" Click="btnOk_Click"/>
-        </DockPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="2" >
+            <StackPanel HorizontalAlignment="Stretch" Background="{DynamicResource LineColor}" Height="2"/>
+            <Button Name="btnOk" Content="{DynamicResource Ok}" HorizontalAlignment="Right" Margin="10" FontSize="20" Foreground="{DynamicResource MyContentBottomBlueBg}" BorderBrush="Transparent" BorderThickness="0" Padding="5, 2, 5, 2" Width="200" Click="btnOk_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

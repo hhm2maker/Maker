@@ -1,4 +1,5 @@
 ﻿using Maker.View.LightScriptUserControl;
+using Maker.View.UI.Utils;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,17 @@ namespace Maker.View.UI.Dialog.WindowDialog
             Owner = suc.mw;
 
             this.suc = suc;
-            InitMyContent(0);
+
+        }
+
+        private void InitLine()
+        {
+            StackPanel sp = new StackPanel();
+            sp.Width = ActualWidth / 3;
+            sp.Height = 5;
+            sp.VerticalAlignment = VerticalAlignment.Bottom;
+            sp.Background = ResourcesUtils.Resources2Brush(this, "MyContentBlueLine");
+            gLine.Children.Add(sp);
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -49,15 +60,15 @@ namespace Maker.View.UI.Dialog.WindowDialog
 
             GeneralOtherViewBusiness.SetStringsAndClickEventToListBox(miChildMycontent, GetMyContent(position, System.IO.Path.GetFileName(suc.filePath)), null, true, 16);
 
-            if (oldPosition != -1) {
-                Border bOld = spTitle.Children[oldPosition] as Border;
-                bOld.Background = new SolidColorBrush(Colors.Transparent);
-                bOld.BorderThickness = new Thickness(0, 0, 0, 2);
-            }
+            //if (oldPosition != -1) {
+            //    Border bOld = spTitle.Children[oldPosition] as Border;
+            //    bOld.Background = new SolidColorBrush(Colors.Transparent);
+            //    bOld.BorderThickness = new Thickness(0, 0, 0, 2);
+            //}
 
-            Border bNew = spTitle.Children[position] as Border;
-            bNew.Background = new SolidColorBrush(Color.FromRgb(43,43,43));
-            bNew.BorderThickness = new Thickness(2, 2, 2, 0);
+            //Border bNew = spTitle.Children[position] as Border;
+            //bNew.Background = new SolidColorBrush(Color.FromRgb(43,43,43));
+            //bNew.BorderThickness = new Thickness(2, 2, 2, 0);
 
             oldPosition = position;
         }
@@ -113,6 +124,13 @@ namespace Maker.View.UI.Dialog.WindowDialog
             resultFileName = (miChildMycontent.SelectedItem as ListBoxItem).Content as String;
             DialogResult = true;
             Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitLine();
+
+            InitMyContent(0);
         }
     }
 }
