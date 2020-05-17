@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -34,22 +35,25 @@ namespace Maker.View.UI.Dialog.WindowDialog
             Owner = suc.mw;
 
             this.suc = suc;
-
         }
 
+        private Rectangle spBlueLine;
         private void InitLine()
         {
-            StackPanel sp = new StackPanel();
-            sp.Width = ActualWidth / 3;
-            sp.Height = 5;
-            sp.VerticalAlignment = VerticalAlignment.Bottom;
-            sp.Background = ResourcesUtils.Resources2Brush(this, "MyContentBlueLine");
-            gLine.Children.Add(sp);
+            rGrayLine.Width = ActualWidth;
+            spBlueLine = new Rectangle
+            {
+                Width = ActualWidth / 3,
+                Height = 5,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Fill = ResourcesUtils.Resources2Brush(this, "MyContentBlueLine")
+            };
+            cLine.Children.Add(spBlueLine);
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-              InitMyContent(((sender as Border).Parent as Panel).Children.IndexOf((sender as Border)));
+              InitMyContent(((sender as TextBlock).Parent as Panel).Children.IndexOf((sender as TextBlock)));
         }
 
         public void InitMyContent(int position)
@@ -59,6 +63,19 @@ namespace Maker.View.UI.Dialog.WindowDialog
                 return;
 
             GeneralOtherViewBusiness.SetStringsAndClickEventToListBox(miChildMycontent, GetMyContent(position, System.IO.Path.GetFileName(suc.filePath)), null, true, 16);
+
+            if (oldPosition == -1) {
+                oldPosition = position;
+                //初始化不需要移动
+                return;
+            }
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                From = oldPosition * (ActualWidth / 3),
+                To = position * (ActualWidth / 3),
+                Duration = TimeSpan.FromSeconds(0.2),
+            };
+            spBlueLine.BeginAnimation(Canvas.LeftProperty, animation);
 
             //if (oldPosition != -1) {
             //    Border bOld = spTitle.Children[oldPosition] as Border;

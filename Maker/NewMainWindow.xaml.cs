@@ -502,7 +502,7 @@ namespace Maker
                         {
                             editUserControl.peuc.NewFileResult2(dialog.fileName + ".playExport");
                         }
-                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page"+ defChannel, "autoplay.mid", pageStrs,"1");
+                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page"+ defChannel+ ".lightPage", "autoplay.mid", pageStrs,"1");
                     }
 
                     InitProjects();

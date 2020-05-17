@@ -763,6 +763,9 @@ namespace Maker.View.UI
             //    threads.Remove(_thread);
             //    return;
             //}
+
+            long _startTime = DateTime.Now.Ticks / 10000;
+
             TimeSpan wait = TimeSpan.FromMilliseconds(1000 / lightFilePlayModel.Bpm);
             for (int i = 0; i <= maxTime; i++)
             {
@@ -805,7 +808,16 @@ namespace Maker.View.UI
                         //Console.WriteLine(MidiDeviceBusiness.midiOutShortMsg(nowOutDeviceIntPtr, (uint)(0x80 + (int.Parse(tbTestPosition.Text) * 0x100) + (60 * 0x10000) + cbPassageway.SelectedIndex)));
                     }
                 }
-                Thread.Sleep(wait);
+
+                if ((1000 / lightFilePlayModel.Bpm) - ((DateTime.Now.Ticks / 10000 - _startTime - (1000 / lightFilePlayModel.Bpm) * (i))) > 0)
+                {
+                    Thread.Sleep(TimeSpan.FromMilliseconds((1000 / lightFilePlayModel.Bpm) - ((DateTime.Now.Ticks / 10000 - _startTime - (1000 / lightFilePlayModel.Bpm) * (i)))));
+                }
+                else {
+                    Thread.Sleep(wait);
+                }
+
+                //Thread.Sleep(TimeSpan.FromMilliseconds(DateTime.Now.Ticks / 10000 - _startTime - (1000 / lightFilePlayModel.Bpm) * i));
             }
         }
 
