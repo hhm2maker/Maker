@@ -458,6 +458,8 @@ namespace Maker.View.UI
                         if (!audio.Equals(String.Empty) && File.Exists(StaticConstant.mw.LastProjectPath + "Audio/" + audio))
                         {
                             MediaPlayer player = new MediaPlayer();
+                            medias.Add(player);
+                            player.MediaEnded += Player_MediaEnded;
                             player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
                             player.Play();
 
@@ -821,6 +823,14 @@ namespace Maker.View.UI
             }
         }
 
+        static List<MediaPlayer> medias = new List<MediaPlayer>();
+
+
+        private static void Player_MediaEnded(object sender, EventArgs e)
+        {
+            medias.Remove(sender as MediaPlayer);
+        }
+
         private static void StopToLaunchpad(object thread)
         {
             Thread _thread = thread as Thread;
@@ -837,6 +847,8 @@ namespace Maker.View.UI
                     if (!audio.Equals(String.Empty) && File.Exists(StaticConstant.mw.LastProjectPath + "Audio/" + audio))
                     {
                         MediaPlayer player = new MediaPlayer();
+                        medias.Add(player);
+                        player.MediaEnded += Player_MediaEnded;
                         player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
                         player.Play();
                         //Dispatcher.BeginInvoke(new Action(delegate
@@ -872,6 +884,7 @@ namespace Maker.View.UI
                 }
             }
         }
+
 
         /// <summary>
         /// 播放灯光
