@@ -412,7 +412,7 @@ namespace Maker
                         if (File.Exists(path + @"\autoplay"))
                         {
                             Operation.FileBusiness.CreateInstance().WriteMidiFile(LastProjectPath + @"\Light\" + "autoplay.mid",
-                                CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm,ref defChannel));
+                                CreateInstance().ReadUnipadAutoPlayFile(path + @"\autoplay", dialog.dBpm, ref defChannel));
                         }
                         //音频映射文件
                         List<UnipadKeySoundModel> keySounds = new List<UnipadKeySoundModel>();
@@ -432,62 +432,168 @@ namespace Maker
                         {
                             //一共有i个页面
                             List<List<PageButtonModel>> pageModes = new List<List<PageButtonModel>>();
-                            List<UnipadKeySoundModel> soundsGroup = sounds[i];
                             List<UnipadKeyLightModel> keyLights = FileNameToPosition(lights[i]);
+                            List<UnipadKeySoundModel> soundsGroup = sounds[i];
+
+                            for (int w = 0; w < 101; w++)
+                            {
+                                pageModes.Add(new List<PageButtonModel>());
+                            }
+
+                            List<List<UnipadKeyLightModel>> llL = new List<List<UnipadKeyLightModel>>();
+                            //初始化
+                            for(int w = 0; w < 101; w++)
+                            {
+                                llL.Add(new List<UnipadKeyLightModel>());
+                            }
 
                             for (int j = 0; j < keyLights.Count; j++)
                             {
-                                //获取每个组的灯光
 
                                 int position = keyLights[j].Position;
-
-                                if (pageModes.Count <= position)
-                                {
-                                    //添加组
-                                    int needAddCount = position - pageModes.Count + 1;
-                                    for (int k = 0; k < needAddCount; k++)
-                                    {
-                                        pageModes.Add(new List<PageButtonModel>());
-                                    }
-                                }
-                                PageButtonModel pageButtonModel = new PageButtonModel();
-                                pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(keyLights[j].SoundFile) + ".light", dialog.dBpm));
-                                pageModes[position].Add(pageButtonModel);
+                                llL[position].Add(keyLights[j]);
                             }
 
-                            Dictionary<int, int> dictionary = new Dictionary<int, int>();
+
+                            List<List<UnipadKeySoundModel>> llS = new List<List<UnipadKeySoundModel>>();
+                            //初始化
+                            for (int w = 0; w < 101; w++)
+                            {
+                                llS.Add(new List<UnipadKeySoundModel>());
+                            }
+
                             for (int j = 0; j < soundsGroup.Count; j++)
                             {
-                                //获取每个组的灯光
                                 int position = soundsGroup[j].Position;
-                                if (pageModes.Count <= position)
-                                {
-                                    //添加组
-                                    int needAddCount = position - pageModes.Count + 1;
-                                    for (int k = 0; k < needAddCount; k++)
-                                    {
-                                        pageModes.Add(new List<PageButtonModel>());
-                                    }
-                                }
-                                List<PageButtonModel> pageButtonModels = pageModes[position];
-                                if (dictionary.ContainsKey(position))
-                                {
-                                    dictionary[position] = dictionary[position] + 1;
-                                }
-                                else
-                                {
-                                    dictionary.Add(position, 0);
-                                }
+                                llS[position].Add(soundsGroup[j]);
+                            }
 
-                                if (pageButtonModels.Count <= dictionary[position])
-                                {
-                                    int needAddCount = dictionary[position] - pageButtonModels.Count + 1;
-                                    for (int k = 0; k < needAddCount; k++)
-                                    {
-                                        pageButtonModels.Add(new PageButtonModel());
+                            for (int w = 0; w < llL.Count; w++)
+                            {
+                                if (llL[w].Count > 0) {
+                                    for (int z = 0; z < llL[w].Count; z++) {
+                                        PageButtonModel pageButtonModel = new PageButtonModel();
+                                        pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(llL[w][z].SoundFile) + ".light", dialog.dBpm));
+                                        pageModes[w].Add(pageButtonModel);
                                     }
                                 }
-                                pageButtonModels[dictionary[position]]._down.OperationModels.Add(new AudioFilePlayModel(soundsGroup[j].SoundFile));
+                            }
+
+                            for (int w = 0; w < llS.Count; w++)
+                            {
+                                if (llS[w].Count > 0)
+                                {
+                                    List<PageButtonModel> pageButtonModels = pageModes[w];
+
+                                    //说明这个按钮上只有声音没有灯光
+                                    //if (pageButtonModels.Count <= w)
+                                    //{
+                                    //    //添加组
+                                    //    int needAddCount = w - pageButtonModels.Count + 1;
+                                    //    for (int k = 0; k < needAddCount; k++)
+                                    //    {
+                                    //        pageButtonModels.Add(new PageButtonModel());
+                                    //    }
+                                    //}
+
+                                    if (pageModes[w].Count == 0)
+                                    {
+                                        for (int z = 0; z < llS[w].Count; z++)
+                                        {
+                                            PageButtonModel pageButtonModel = new PageButtonModel();
+                                            pageButtonModel._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
+                                            pageModes[w].Add(pageButtonModel);
+                                        }
+                                    }
+                                    else {
+                                        for (int z = 0; z < llS[w].Count; z++)
+                                        {
+                                            if (pageButtonModels.Count <= z)
+                                            {
+                                                //先补上灯光在加音乐
+                                                PageButtonModel pageButtonModel = new PageButtonModel();
+                                                pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(llL[w][z % llL[w].Count].SoundFile) + ".light", dialog.dBpm));
+                                                pageButtonModel._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
+                                                pageModes[w].Add(pageButtonModel);
+                                            }
+                                            else {
+                                                pageButtonModels[z]._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
+                                            }
+                                            //if (pageButtonModels[z]._down.OperationModels.Count > z)
+                                            //{
+                                            //    pageButtonModels[z]._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
+                                            //}
+                                            //else
+                                            //{
+                                            //    //先补上灯光在加音乐
+                                            //    //pageButtonModels[w]._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(llL[w][z % llL[w].Count].SoundFile) + ".light", dialog.dBpm));
+                                            //    //pageButtonModels[w]._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
+                                            //}
+                                        }
+                                    }
+                                }
+                            }
+
+                            //for (int j = 0; j < keyLights.Count; j++)
+                            //{
+                            //    //获取每个组的灯光
+
+                            //    int position = keyLights[j].Position;
+
+                            //    if (pageModes.Count <= position)
+                            //    {
+                            //        //添加组
+                            //        int needAddCount = position - pageModes.Count + 1;
+                            //        for (int k = 0; k < needAddCount; k++)
+                            //        {
+                            //            pageModes.Add(new List<PageButtonModel>());
+                            //        }
+                            //    }
+                            //    PageButtonModel pageButtonModel = new PageButtonModel();
+                            //    pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(keyLights[j].SoundFile) + ".light", dialog.dBpm));
+                            //    pageModes[position].Add(pageButtonModel);
+                            //}
+
+                            //Dictionary<int, int> dictionary = new Dictionary<int, int>();
+                            //for (int j = 0; j < soundsGroup.Count; j++)
+                            //{
+                            //    //获取每个组的灯光
+                            //    int position = soundsGroup[j].Position;
+                            //    if (pageModes.Count <= position)
+                            //    {
+                            //        //添加组
+                            //        int needAddCount = position - pageModes.Count + 1;
+                            //        for (int k = 0; k < needAddCount; k++)
+                            //        {
+                            //            pageModes.Add(new List<PageButtonModel>());
+                            //        }
+                            //    }
+                            //    List<PageButtonModel> pageButtonModels = pageModes[position];
+                            //    if (dictionary.ContainsKey(position))
+                            //    {
+                            //        dictionary[position] = dictionary[position] + 1;
+                            //    }
+                            //    else
+                            //    {
+                            //        dictionary.Add(position, 0);
+                            //    }
+
+                            //    if (pageButtonModels.Count <= dictionary[position])
+                            //    {
+                            //        int needAddCount = dictionary[position] - pageButtonModels.Count + 1;
+                            //        for (int k = 0; k < needAddCount; k++)
+                            //        {
+                            //            pageButtonModels.Add(new PageButtonModel());
+                            //        }
+                            //    }
+                            //    pageButtonModels[dictionary[position]]._down.OperationModels.Add(new AudioFilePlayModel(soundsGroup[j].SoundFile));
+                            //}
+
+                            //翻页
+                            for (int j = 0; j < lights.Count; j++) {
+                                PageButtonModel pageButtonModel = new PageButtonModel();
+                                pageButtonModel._down.OperationModels.Add(new GotoPagePlayModel("Page" + (j + 1) + ".lightPage"));
+                                pageModes[89 - j * 10].Add(pageButtonModel);
                             }
                             pages.Add(pageModes);
                         }

@@ -1186,6 +1186,9 @@ namespace Maker.Business
                 if (strs.Length > 3)
                 {
                     keySound.Add(new UnipadKeySoundModel(ints[0], 0, strs[3]));
+                    //for (int i = 0; i < strs.Length - 3; i++) {
+                    //    keySound.Add(new UnipadKeySoundModel(ints[0], 0, strs[3]));
+                    //}
                 }
                 else
                 {

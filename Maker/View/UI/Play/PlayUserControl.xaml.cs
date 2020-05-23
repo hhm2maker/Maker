@@ -460,9 +460,10 @@ namespace Maker.View.UI
                             MediaPlayer player = new MediaPlayer();
                             medias.Add(player);
                             player.MediaEnded += Player_MediaEnded;
+                            player.Volume = 1;
                             player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
                             player.Play();
-
+                            
                             //COM组件 Window Media Player 也是有延迟。
                             //WindowsMediaPlayer axWindowsMediaPlayer1 = new WindowsMediaPlayer();
                             //axWindowsMediaPlayer1.URL = StaticConstant.mw.LastProjectPath + "Audio/" + audio;
