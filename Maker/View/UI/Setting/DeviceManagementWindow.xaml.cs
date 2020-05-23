@@ -36,7 +36,7 @@ namespace Maker.View.Setting
                 if (lbMain.SelectedIndex == -1)
                     return;
                 window = new NewOrUpdateDeviceWindow(suc.mw, 1);
-                window.iniName = lbMain.SelectedItem.ToString();
+                window.xmlName = lbMain.SelectedItem.ToString();
             }
 
             if (window.ShowDialog() == true)
@@ -50,7 +50,7 @@ namespace Maker.View.Setting
             {
                 return;
             }
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".xml"))
             {
                 if (suc.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
                 {
@@ -123,9 +123,9 @@ namespace Maker.View.Setting
             {
                 return;
             }
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".xml"))
             {
-                File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini");
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".xml");
             }
             if (suc.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
             {
@@ -152,7 +152,7 @@ namespace Maker.View.Setting
         {
             lbMain.Items.Clear();
             DirectoryInfo folder = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Device");
-            foreach (FileInfo file in folder.GetFiles("*.ini"))
+            foreach (FileInfo file in folder.GetFiles("*.xml"))
             {
                 lbMain.Items.Add(System.IO.Path.GetFileNameWithoutExtension(file.FullName));
             }

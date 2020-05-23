@@ -14,6 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Maker.Business.Currency;
+using Maker.Business.Model.Config;
+using static Maker.Business.Model.Config.VirtualDeviceModel;
 
 namespace Maker.View.Device
 {
@@ -30,7 +33,7 @@ namespace Maker.View.Device
             Owner = mw;
         }
 
-        public string iniName {
+        public string xmlName {
             get;
             set;
         }
@@ -60,34 +63,27 @@ namespace Maker.View.Device
                 }
                 else
                 {
-                    FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + deviceName + ".ini", FileMode.CreateNew);
-                    fs.Close();
+                    //FileStream fs = new FileStream(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + deviceName + ".xml", FileMode.CreateNew);
+                    //fs.Close();
                 }
             }
             else {
-                deviceName = iniName;
+                deviceName = xmlName;
             }
-            ConfigBusiness config = new ConfigBusiness(@"Device\" + deviceName + ".ini");
-            ComboBoxItem item = (ComboBoxItem)cbDeviceType.SelectedItem;
-            config.Set("DeviceType", item.Content.ToString());
-            config.Set("DeviceBackGround", tbBackGround.Text);
-            Double iDeviceSize = 0.0;
-            try
-            {
-                iDeviceSize = Convert.ToDouble(tbDeviceSize.Text.Trim());
-            }
-            catch {
-                System.Windows.Forms.MessageBox.Show("请输入正确的数字(可以为小数)！");
-            }
-            config.Set("DeviceSize", iDeviceSize.ToString());
+
+            virtualDevice.MyDeviceType = (DeviceType)cbDeviceType.SelectedIndex;
+            virtualDevice.DeviceBackGround = tbBackGround.Text;
+
+
             if (cbMembrane.IsChecked == true)
             {
-                config.Set("IsMembrane", "true");
+                virtualDevice.IsMembrane = true;
             }
             else {
-                config.Set("IsMembrane", "false");
+                virtualDevice.IsMembrane = false;
             }
-            config.Save();
+
+            XmlSerializerBusiness.Load(ref virtualDevice, AppDomain.CurrentDomain.BaseDirectory+ @"Device\" + deviceName + ".xml");
             DialogResult = true;
         }
 
@@ -116,29 +112,32 @@ namespace Maker.View.Device
             }
         }
 
+        VirtualDeviceModel virtualDevice = new VirtualDeviceModel();
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (type == 1)
             {
                 Title = "修改设备";
-                ConfigBusiness config = new ConfigBusiness(@"Device\" + iniName + ".ini");
 
-                tbDeviceName.Text = iniName;
-                if (config.Get("DeviceType").Trim().Equals("Launchpad Pro"))
+                XmlSerializerBusiness.Load(ref virtualDevice, AppDomain.CurrentDomain.BaseDirectory+ @"Device\" + xmlName + ".xml");
+
+                tbDeviceName.Text = xmlName;
+                if (virtualDevice.MyDeviceType == VirtualDeviceModel.DeviceType.LaunchpadPro)
                 {
                     cbDeviceType.SelectedIndex = 0;
                 }
 
-                String strBg = config.Get("DeviceBackGround");
+                String strBg = virtualDevice.DeviceBackGround;
                 tbBackGround.Text = strBg;
                 if (strBg[0] == '#' || strBg.Length == 7)
                 {
                     Color c = Color.FromArgb(255, (byte)Convert.ToInt32(strBg.Substring(1, 2), 16), (byte)Convert.ToInt32(strBg.Substring(3, 2), 16), (byte)Convert.ToInt32(strBg.Substring(5, 2), 16));
                     tbBackGround.Background = new SolidColorBrush(Color.FromArgb(255, c.R, c.G, c.B));
                 }
-                tbDeviceSize.Text = config.Get("DeviceSize");
+
                 try {
-                    if (config.Get("IsMembrane").Equals("true")) {
+                    if (virtualDevice.IsMembrane.Equals("true")) {
                         cbMembrane.IsChecked = true;
                     }
                 }

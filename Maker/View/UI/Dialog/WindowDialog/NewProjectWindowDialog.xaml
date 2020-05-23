@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.Dialog"
         mc:Ignorable="d"
-        ShowInTaskbar="False"
         Background="{DynamicResource bgTitleColor}"
         Loaded="Window_Loaded"
         Width="500"
         Height="480"
         WindowStyle="None" WindowStartupLocation="CenterOwner" >
+
+    <!--ShowInTaskbar="False"-->
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
