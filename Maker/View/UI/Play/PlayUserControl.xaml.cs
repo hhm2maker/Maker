@@ -460,7 +460,7 @@ namespace Maker.View.UI
                             MediaPlayer player = new MediaPlayer();
                             medias.Add(player);
                             player.MediaEnded += Player_MediaEnded;
-                            player.Volume = 1;
+                            player.Volume = 1.0;
                             player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
                             player.Play();
                             
@@ -837,53 +837,62 @@ namespace Maker.View.UI
             Thread _thread = thread as Thread;
             List<object> _objects = threadsStop[_thread];
             //按下
-            BaseButtonModel downModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
-            foreach (var item in downModel.OperationModels)
+            try
             {
-                if (item is AudioFilePlayModel)
+                //TODO：可能-索引超出范围。必须为非负值并小于集合大小。
+                BaseButtonModel downModel = pages[nowPageName][(int)_objects[0]][positions[nowPageName][(int)_objects[0]]]._up;
+                foreach (var item in downModel.OperationModels)
                 {
-                    //翻页
-                    AudioFilePlayModel audioFilePlayModel = item as AudioFilePlayModel;
-                    String audio = audioFilePlayModel.AudioName;
-                    if (!audio.Equals(String.Empty) && File.Exists(StaticConstant.mw.LastProjectPath + "Audio/" + audio))
+                    if (item is AudioFilePlayModel)
                     {
-                        MediaPlayer player = new MediaPlayer();
-                        medias.Add(player);
-                        player.MediaEnded += Player_MediaEnded;
-                        player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
-                        player.Play();
-                        //Dispatcher.BeginInvoke(new Action(delegate
-                        //{
-                        //    MediaElement mediaElement = new MediaElement();
-                        //    mediaElement.Source = new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute);
-                        //    //mediaElement.LoadedBehavior = MediaState.Manual;
-                        //    mediaElement.Stop();
-                        //    mediaElement.Play();
-                        //}));
+                        //翻页
+                        AudioFilePlayModel audioFilePlayModel = item as AudioFilePlayModel;
+                        String audio = audioFilePlayModel.AudioName;
+                        if (!audio.Equals(String.Empty) && File.Exists(StaticConstant.mw.LastProjectPath + "Audio/" + audio))
+                        {
+                            MediaPlayer player = new MediaPlayer();
+                            medias.Add(player);
+                            player.MediaEnded += Player_MediaEnded;
+                            player.Volume = 1;
+                            player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
+                            player.Play();
+                            //Dispatcher.BeginInvoke(new Action(delegate
+                            //{
+                            //    MediaElement mediaElement = new MediaElement();
+                            //    mediaElement.Source = new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute);
+                            //    //mediaElement.LoadedBehavior = MediaState.Manual;
+                            //    mediaElement.Stop();
+                            //    mediaElement.Play();
+                            //}));
+                        }
                     }
-                }
-                else if (item is LightFilePlayModel)
-                {
-                    LightFilePlayModel lightFilePlayModel = item as LightFilePlayModel;
-                    if (!lightFilePlayModel.FileName.Equals(String.Empty) && lights.ContainsKey(lightFilePlayModel.FileName))
+                    else if (item is LightFilePlayModel)
                     {
-                        Thread thread2 = new Thread(
-                   new ParameterizedThreadStart(PlayLight)
-                 );
-                        thread2.Start(lightFilePlayModel);
+                        LightFilePlayModel lightFilePlayModel = item as LightFilePlayModel;
+                        if (!lightFilePlayModel.FileName.Equals(String.Empty) && lights.ContainsKey(lightFilePlayModel.FileName))
+                        {
+                            Thread thread2 = new Thread(
+                       new ParameterizedThreadStart(PlayLight)
+                     );
+                            thread2.Start(lightFilePlayModel);
+                        }
                     }
-                }
-                else if (item is GotoPagePlayModel)
-                {
-                    //翻页
-                    GotoPagePlayModel gotoPagePlayModel = item as GotoPagePlayModel;
-                    String page = gotoPagePlayModel.PageName;
-                    if (!page.Equals(String.Empty))
+                    else if (item is GotoPagePlayModel)
                     {
-                        nowPageName = page;
+                        //翻页
+                        GotoPagePlayModel gotoPagePlayModel = item as GotoPagePlayModel;
+                        String page = gotoPagePlayModel.PageName;
+                        if (!page.Equals(String.Empty))
+                        {
+                            nowPageName = page;
+                        }
                     }
                 }
             }
+            catch {
+
+            }
+         
         }
 
 

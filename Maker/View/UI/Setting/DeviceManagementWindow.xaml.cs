@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Maker.View.LightScriptUserControl;
+using Maker.View.Device;
 
 namespace Maker.View.Setting
 {
@@ -14,33 +16,33 @@ namespace Maker.View.Setting
     /// </summary>
     public partial class DeviceManagementWindow : Window
     {
-        private MainWindow mw;
-        public DeviceManagementWindow(MainWindow mw)
+        private ScriptUserControl suc;
+        public DeviceManagementWindow(ScriptUserControl suc)
         {
             InitializeComponent();
-            this.mw = mw;
-            Owner = mw;
+            this.suc = suc;
+            Owner = suc.mw;
         }
 
         private void NewOrUpdateDevice(object sender, RoutedEventArgs e)
         {
-            //NewOrUpdateDeviceWindow window;
-            //if (sender == btnNewDevice)
-            //{
-            //    window = new NewOrUpdateDeviceWindow(mw, 0);
-            //}
-            //else
-            //{
-            //    if (lbMain.SelectedIndex == -1)
-            //        return;
-            //    window = new NewOrUpdateDeviceWindow(mw, 1);
-            //    window.iniName = lbMain.SelectedItem.ToString();
-            //}
+            NewOrUpdateDeviceWindow window;
+            if (sender == btnNewDevice)
+            {
+                window = new NewOrUpdateDeviceWindow(suc.mw, 0);
+            }
+            else
+            {
+                if (lbMain.SelectedIndex == -1)
+                    return;
+                window = new NewOrUpdateDeviceWindow(suc.mw, 1);
+                window.iniName = lbMain.SelectedItem.ToString();
+            }
 
-            //if (window.ShowDialog() == true)
-            //{
-            //    LoadDeviceFile();
-            //}
+            if (window.ShowDialog() == true)
+            {
+                LoadDeviceFile();
+            }
         }
         private void RunDevice(object sender, RoutedEventArgs e)
         {
@@ -50,7 +52,7 @@ namespace Maker.View.Setting
             }
             if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini"))
             {
-                if (mw.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
+                if (suc.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
                 {
                     System.Windows.Forms.MessageBox.Show("该设备已经被打开了。");
                     //mw.deviceDictionary[lbMain.SelectedItem.ToString()].Topmost = true;
@@ -125,7 +127,7 @@ namespace Maker.View.Setting
             {
                 File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + lbMain.SelectedItem.ToString() + ".ini");
             }
-            if (mw.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
+            if (suc.deviceDictionary.ContainsKey(lbMain.SelectedItem.ToString()))
             {
                 try
                 {
@@ -134,11 +136,11 @@ namespace Maker.View.Setting
                 catch
                 {
                 }
-                mw.deviceDictionary.Remove(lbMain.SelectedItem.ToString());
+                suc.deviceDictionary.Remove(lbMain.SelectedItem.ToString());
             }
-            if (mw.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
+            if (suc.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
             {
-                mw.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
+                suc.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
             }
             lbMain.Items.Remove(lbMain.SelectedItem.ToString());
         }

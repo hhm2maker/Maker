@@ -1382,7 +1382,7 @@ namespace Maker
             }
         }
 
-        private List<Light> GetData()
+        public List<Light> GetData()
         {
             List<Light> mLightList = new List<Light>();
             if (editUserControl == null || editUserControl.tcMain.Items.Count == 0)

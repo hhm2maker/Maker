@@ -34,6 +34,7 @@ using Maker.View.UI.Dialog.WindowDialog;
 using System.Windows.Shapes;
 using MakerUI.Device;
 using System.Windows.Data;
+using Maker.View.Setting;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -4656,6 +4657,20 @@ namespace Maker.View.LightScriptUserControl
             spLeft.Children[position].Visibility = Visibility.Collapsed;
             spLeft.Children[_position].Visibility = Visibility.Visible;
             position = _position;
+        }
+
+        public Dictionary<string, PlayerUserControl> deviceDictionary = new Dictionary<string, PlayerUserControl>();
+
+        private void OpenDeviceManagement(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void cbDevice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbDevice.SelectedIndex == cbDevice.Items.Count - 1) {
+                new DeviceManagementWindow(this).ShowDialog();
+            }
         }
     }
 }

@@ -974,30 +974,30 @@ namespace Maker.View.Control
         }
         private void OpenDeviceManagement(object sender, RoutedEventArgs e)
         {
-            new DeviceManagementWindow(this).ShowDialog();
+            //new DeviceManagementWindow(this).ShowDialog();
         }
         private void ToPlay(object sender, RoutedEventArgs e)
         {
-            if (cbDevice.SelectedIndex == -1)
-            {
-                new DeviceManagementWindow(this).ShowDialog();
-                return;
-            }
-            if (deviceDictionary.ContainsKey(cbDevice.SelectedItem.ToString()))
-            {
-                if (!iuc.RefreshData())
-                    return;
-                deviceDictionary[cbDevice.SelectedItem.ToString()].SetData(iuc.mLightList);
-                //if (!deviceDictionary[cbDevice.SelectedItem.ToString()].IsActive)
-                //{
-                //    deviceDictionary[cbDevice.SelectedItem.ToString()].Show();
-                //}
-                //deviceDictionary[cbDevice.SelectedItem.ToString()].Topmost = true;
-            }
-            else
-            {
-                new MessageDialog(this, "DeviceBOOM").ShowDialog();
-            }
+            //if (cbDevice.SelectedIndex == -1)
+            //{
+            //    new DeviceManagementWindow(this).ShowDialog();
+            //    return;
+            //}
+            //if (deviceDictionary.ContainsKey(cbDevice.SelectedItem.ToString()))
+            //{
+            //    if (!iuc.RefreshData())
+            //        return;
+            //    deviceDictionary[cbDevice.SelectedItem.ToString()].SetData(iuc.mLightList);
+            //    //if (!deviceDictionary[cbDevice.SelectedItem.ToString()].IsActive)
+            //    //{
+            //    //    deviceDictionary[cbDevice.SelectedItem.ToString()].Show();
+            //    //}
+            //    //deviceDictionary[cbDevice.SelectedItem.ToString()].Topmost = true;
+            //}
+            //else
+            //{
+            //    new MessageDialog(this, "DeviceBOOM").ShowDialog();
+            //}
         }
 
         /// <summary>

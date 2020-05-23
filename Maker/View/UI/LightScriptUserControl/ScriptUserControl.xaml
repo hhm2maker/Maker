@@ -165,12 +165,22 @@
                     -->
                 </StackPanel>
                 <Grid  x:Name="gMain"  Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="0,0,0,20" Background="{DynamicResource bgTitleColor}" Orientation="Horizontal">
+                        <ComboBox Name="cbDevice" SelectionChanged="cbDevice_SelectionChanged" Width="150"  BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" >
+                            <Separator />
+                            <ComboBoxItem Content="{DynamicResource Manage}" />
+                        </ComboBox>
+                    </StackPanel>
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <DockPanel x:Name="dpShow" Background="{DynamicResource LPDBgColor}">
+                    <DockPanel x:Name="dpShow" Grid.Row="1" Background="{DynamicResource LPDBgColor}">
                         <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
                             <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
                             <view:PlayerUserControl x:Name="mLaunchpad" />

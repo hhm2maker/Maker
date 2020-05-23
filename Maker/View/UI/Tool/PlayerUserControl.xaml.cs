@@ -362,39 +362,46 @@ namespace Maker.View
         }
 
         private void Play() {
-            if (!(suc as BaseUserControl).filePath.Equals(String.Empty))
+            if (suc == null)
             {
-                String strAudioResources = (suc as ScriptUserControl).AudioResources;
-                if (!strAudioResources.Contains(@"\"))
+                SetData(mw.GetData());
+                playLpd.Play();
+            }
+            else {
+                if (!(suc as BaseUserControl).filePath.Equals(String.Empty))
                 {
-                    //说明是不完整路径
-                    strAudioResources = mw.LastProjectPath + @"Audio\" + strAudioResources;
+                    String strAudioResources = (suc as ScriptUserControl).AudioResources;
+                    if (!strAudioResources.Contains(@"\"))
+                    {
+                        //说明是不完整路径
+                        strAudioResources = mw.LastProjectPath + @"Audio\" + strAudioResources;
+                    }
+                    if (File.Exists(strAudioResources))
+                    {
+                        SetTime(suc.GetData(), strAudioResources, suc.nowTimeP, suc.nowTimeI);
+                    }
+                    else
+                    {
+                        SetData(suc.GetData());
+                    }
                 }
-                if (File.Exists(strAudioResources))
+
+
+                if (File.Exists(AudioResources))
                 {
-                    SetTime(suc.GetData(), strAudioResources, suc.nowTimeP, suc.nowTimeI);
+                    if (isFirst)
+                    {
+                        //初始化进度条
+                        mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
+                        isFirst = false;
+                    }
+
+                    mediaElement.Play();
                 }
                 else
                 {
-                    SetData(suc.GetData());
+                    playLpd.Play();
                 }
-            }
-
-
-            if (File.Exists(AudioResources))
-            {
-                if (isFirst)
-                {
-                    //初始化进度条
-                    mediaElement.Source = new Uri(AudioResources, UriKind.Relative);
-                    isFirst = false;
-                }
-
-                mediaElement.Play();
-            }
-            else
-            {
-                playLpd.Play();
             }
         }
 
