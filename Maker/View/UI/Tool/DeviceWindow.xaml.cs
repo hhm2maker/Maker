@@ -7,6 +7,7 @@ using Maker.Business.Currency;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Linq;
+using Maker.View.UI.Play;
 
 namespace Maker.View.Tool
 {
@@ -232,6 +233,8 @@ namespace Maker.View.Tool
                 //Console.WriteLine("devices-sum:{0}", InputPort.InputCount);
                 mw.editUserControl.playuc.ip.Open(position);
                 mw.editUserControl.playuc.ip.Start();
+
+                mw.SetLog(LogCatUserControl.LogTag.Device, "连接上输入设备", LogCatUserControl.Level.Normal);
             }
             //Console.WriteLine("Bye~");
         }
@@ -245,6 +248,8 @@ namespace Maker.View.Tool
                 MidiDeviceBusiness.midiOutOpen(out IntPtr nowOutDeviceIntPtr, (uint)position, (IntPtr)0, (IntPtr)0, 0);
                 InitPassageway(mw.deviceConfigModel.Devices[chPosition].Channel);
                 UI.PlayUserControl.nowOutDeviceIntPtr = nowOutDeviceIntPtr;
+
+                mw.SetLog(LogCatUserControl.LogTag.Device, "连接上输出设备", LogCatUserControl.Level.Normal);
             }
         }
 

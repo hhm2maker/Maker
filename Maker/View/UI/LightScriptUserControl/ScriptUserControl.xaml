@@ -40,7 +40,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Width="430" Orientation="Vertical"  Background="{DynamicResource ChooseLeftColor}" VerticalAlignment="Stretch">
                     <DockPanel>
@@ -164,7 +164,24 @@
                     </Menu>
                     -->
                 </StackPanel>
-                <Grid  x:Name="gMain"  Grid.Column="1" >
+                <Border HorizontalAlignment="Stretch" Grid.Column="1" Background="{DynamicResource LPDBgColor}">
+                    <!--Background="#262829"-->
+                    <Grid Name="gRight" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="1" Name="spMyHint" Visibility="Collapsed" Margin="0,15,0,15">
+                            <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                            <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Name="spRefresh" Visibility="Collapsed" Margin="0,15,0,15">
+                            <Button Content="{DynamicResource Refresh}" Click="BtnRefresh_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Grid  x:Name="gMain"  Grid.Column="2" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
@@ -180,7 +197,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <DockPanel x:Name="dpShow" Grid.Row="1" Background="{DynamicResource LPDBgColor}">
+                    <DockPanel x:Name="dpShow" Grid.Row="1" Background="{DynamicResource ChooseLeftColor}">
                         <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
                             <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
                             <view:PlayerUserControl x:Name="mLaunchpad" />
@@ -197,25 +214,6 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Border HorizontalAlignment="Stretch" Grid.Column="2" >
-                    <!--Background="#262829"-->
-                    <Grid Name="gRight" Background="{DynamicResource ChooseLeftColor}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <StackPanel Grid.Row="1" Name="spMyHint" Visibility="Collapsed" Margin="0,15,0,15">
-                            <TextBlock Text="您正在快速预览，有可能会出现显示不正确的情况。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                            <TextBlock Text="若要确保数据正确，请刷新数据。" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Name="spRefresh" Visibility="Collapsed" Margin="0,15,0,15">
-                            <Button Content="{DynamicResource Refresh}" Click="BtnRefresh_Click"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-            
-
                 <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
                 </Popup>

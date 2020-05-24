@@ -47,6 +47,8 @@ using static Maker.View.UI.BottomDialog.MessageBottomDialog;
 using Maker.View.UI.Utils;
 using Maker.View.UI.Test;
 using static Maker.Business.FileBusiness;
+using Maker.View.UI.Play;
+using static Maker.View.UI.Play.LogCatUserControl;
 
 namespace Maker
 {
@@ -388,7 +390,7 @@ namespace Maker
                     }
                     bridge.SaveFile();
 
-                    String path = dialog.tbUnipad.Text;
+                    String path = dialog.tbUnipad.Text.Trim();
                     if (!path.Equals(String.Empty))
                     {
                         //灯光
@@ -930,6 +932,8 @@ namespace Maker
                     }
                 }
             }
+
+            SetLog(LogTag.Plug,"载入了"+ spPlugs.Children.Count+"个插件",Level.Normal);
         }
 
         public IBasePlug FilePathToPlug(String shortFilPath)
@@ -1775,6 +1779,61 @@ namespace Maker
             //spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0, 0);
             //spPlay.Children.Add(userControl);
             //gToolBackGround.Visibility = Visibility.Visible;
+        }
+
+        private int bottomModel = -1;
+
+        private void TextBlock_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        {
+            StackPanel sp = ((sender as TextBlock).Parent) as StackPanel;
+            int position = sp.Children.IndexOf((sender as TextBlock));
+            if (position == bottomModel)
+            {
+                return;
+            }
+
+            if (bottomModel != -1)
+            {
+                (sp.Children[bottomModel] as TextBlock).Background = new SolidColorBrush(Colors.Transparent);
+                (sp.Children[bottomModel] as TextBlock).Foreground = ResourcesUtils.Resources2Brush(this, "TitleFontColor");
+            }
+
+            bottomModel = position;
+            (sp.Children[bottomModel] as TextBlock).Background = ResourcesUtils.Resources2Brush(this, "MainBottomSelect");
+            (sp.Children[bottomModel] as TextBlock).Foreground = new SolidColorBrush(Colors.White);
+
+            ShowBottom();
+        }
+
+        private void ShowBottom()
+        {
+            if (bottomModel == -1)
+            {
+                return;
+            }
+
+            if (bottomModel == 0)
+            {
+                ShowData();
+            }
+            else if (bottomModel == 1)
+            {
+                //加入日志页面
+                spBottomTool.Children.Clear();
+                spBottomTool.Children.Add(logCatUserControl);
+            }
+        }
+
+        LogCatUserControl logCatUserControl = new LogCatUserControl();
+
+        public void SetLog(String tag, String content, Level level)
+        {
+            logCatUserControl.SetLog(tag,content,level);
+        }
+
+        public void SetLog(LogTag tag, String content, Level level)
+        {
+            logCatUserControl.SetLog(tag, content, level);
         }
     }
 

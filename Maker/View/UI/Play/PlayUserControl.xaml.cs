@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
+using static Maker.View.UI.Play.LogCatUserControl;
 
 namespace Maker.View.UI
 {
@@ -278,7 +279,7 @@ namespace Maker.View.UI
                 foreach (var item in pc.iInputAndOutputControls) {
                     item.OutputLight(FeedbackToConsole);
                 }
-
+                StaticConstant.mw.SetLog(LogTag.Plug, "载入了" + pc.iInputAndOutputControls + "个输入输出插件", Level.Normal);
             }
 
             public static int InputCount
@@ -347,6 +348,8 @@ namespace Maker.View.UI
 
                     //uint position = ((dwParam1 & 0xFFFF) >> 8) & 0xFF;
                     uint position = l_dw1;
+
+
                     if (dwParam1 > 32767)
                     {
                         StaticConstant.mw.Dispatcher.Invoke(
@@ -356,6 +359,8 @@ namespace Maker.View.UI
                      StaticConstant.mw.SetButton((int)position);
                  }
                 ));
+                        StaticConstant.mw.SetLog(LogTag.Input_Output, "按下了" + position, Level.Normal);
+
                         KeyEvent((int)position, InputAndOutputControlEnum.KeyModel.KeyDown);
                             //TODO 一键复原教程轨
                             //if (cb.Contains("Pro") && (int)position == 91)
@@ -374,6 +379,8 @@ namespace Maker.View.UI
                     }
                     else
                     {
+                        StaticConstant.mw.SetLog(LogTag.Input_Output, "抬起了" + position, Level.Normal);
+
                         KeyEvent((int)position, InputAndOutputControlEnum.KeyModel.KeyUp);
                     }
 
@@ -575,6 +582,8 @@ namespace Maker.View.UI
                 foreach (var item in pc.iInputAndOutputControls)
                 {
                     item.OnInput(position, keyModel);
+
+                    StaticConstant.mw.SetLog(LogTag.Input_Output, "向插件发送了" + position, Level.Normal);
                 }
             }
 
@@ -584,6 +593,8 @@ namespace Maker.View.UI
             /// <param name="value"></param>
             private static void FeedbackToConsole(List<Light> lights)
             {
+                StaticConstant.mw.SetLog(LogTag.Input_Output, "插件发送了灯光", Level.Normal);
+
                 PlaySingleLight(lights);
             }
 
@@ -700,6 +711,7 @@ namespace Maker.View.UI
             LoadHint();
 
             LoadPlugs();
+            
             if (ip != null) {
                 ip.Load();
             }

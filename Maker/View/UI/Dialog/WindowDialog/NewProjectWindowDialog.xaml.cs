@@ -61,6 +61,7 @@ namespace Maker.View.Dialog
             fileName = tbFileName.Text;
             if (directorys.Contains(fileName)) {
                 tbFileName.Focus();
+                new MessageDialog(this, "ExistingSameNameFile").ShowDialog();
                 return;
             }
 

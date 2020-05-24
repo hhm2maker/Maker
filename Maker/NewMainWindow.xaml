@@ -42,6 +42,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0"  >
                 <Border BorderBrush="{DynamicResource LineTitleColor}" BorderThickness="0,0,0,1">
@@ -232,30 +234,29 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Background="#3b4754"  >
-                    <TextBlock TextAlignment="Center" FontSize="18" Foreground="White" Text="输出" Margin="5" HorizontalAlignment="Left"/>
+                <StackPanel Grid.Row="0" Background="#3b4754"  Orientation="Horizontal">
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="{DynamicResource Player}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="{DynamicResource Paved}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="{DynamicResource Export}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="{DynamicResource PianoRoll}"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="Data"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="White" Text="3D"/>
                 </StackPanel>
                 <StackPanel Name="spBottomTool" Grid.Row="1" />
                 <StackPanel Grid.Row="2" Height="2" Background="{DynamicResource LineColor}" HorizontalAlignment="Stretch" />
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Player}"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Paved}"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Export}"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource PianoRoll}"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="Data"/>
-                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_1" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="3D"/>
-                </StackPanel>
-                <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>
-                <StackPanel Grid.Row="5">
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
-                        <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                        <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                    </StackPanel>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="灯光数据"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="日志"/>
                 </StackPanel>
             </Grid>
+            <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>
+            <StackPanel Grid.Row="5" Background="{DynamicResource bgTitleColor}" >
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
+                    <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                    <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Popup  Name="popPlug" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" />
         <StackPanel Name="spDialog" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Vertical" Margin="0,0,5,5"/>

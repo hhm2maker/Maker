@@ -122,10 +122,19 @@ namespace Maker.View.UI.Edit
                 {
                     if (fileName.EndsWith(userControls[i]._fileExtension))
                     {
-                        item = new TabItem
+                        if (userControls[i] is PlayUserControl)
                         {
-                            Content = userControls[i].GetBaseUserControl(mw)
-                        };
+                            item = new TabItem
+                            {
+                                Content = playuc
+                            };
+                        }
+                        else {
+                            item = new TabItem
+                            {
+                                Content = userControls[i].GetBaseUserControl(mw)
+                            };
+                        }
                         break;
                     }
                 }

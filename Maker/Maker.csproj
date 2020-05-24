@@ -349,6 +349,9 @@
     <Compile Include="View\UI\PlayStyle\PlayStyleWindow.xaml.cs">
       <DependentUpon>PlayStyleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Play\LogCatUserControl.xaml.cs">
+      <DependentUpon>LogCatUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Play\TeachingPlayUserControl.cs" />
     <Compile Include="View\UI\Plugins\PluginsWindow.xaml.cs">
       <DependentUpon>PluginsWindow.xaml</DependentUpon>
@@ -820,6 +823,10 @@
     <Page Include="View\UI\PlayStyle\PlayStyleWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Play\LogCatUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Plugins\PluginsWindow.xaml">
       <SubType>Designer</SubType>
