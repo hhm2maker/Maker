@@ -39,13 +39,13 @@ namespace Maker.View.UI.Play
         }
 
         public void SetLog(String tag,String content,Level level) {
-            tbMain.Text += tag + "---" + content;
+            tbMain.Text += tag + "---" + content + content + Environment.NewLine;
             UpdateValue();
         }
 
         public void SetLog(LogTag tag, String content, Level level)
         {
-            tbMain.Text += tag.ToString() + "---" + content;
+            tbMain.Text += tag.ToString() + "---" + content+Environment.NewLine;
             UpdateValue();
         }
 

@@ -279,7 +279,7 @@ namespace Maker.View.UI
                 foreach (var item in pc.iInputAndOutputControls) {
                     item.OutputLight(FeedbackToConsole);
                 }
-                StaticConstant.mw.SetLog(LogTag.Plug, "载入了" + pc.iInputAndOutputControls + "个输入输出插件", Level.Normal);
+                StaticConstant.mw.SetLog(LogTag.Plug, "载入了" + pc.iInputAndOutputControls.Count + "个输入输出插件", Level.Normal);
             }
 
             public static int InputCount

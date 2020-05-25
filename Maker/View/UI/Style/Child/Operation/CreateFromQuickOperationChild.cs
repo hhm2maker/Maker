@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -77,6 +78,27 @@ namespace Maker.View.UI.Style.Child
             }
 
             AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
+
+
+            TextBlock tbMain = GetTexeBlockNoBorder(createFromQuickOperationModel.Interval.ToString(),false);
+            List<Run> runs = new List<Run>
+            {
+                new Run()
+                {
+                    Foreground = (SolidColorBrush)suc.mw.Resources["BtnRedBg"],
+                    Text = "错误码：",
+                },
+                new Run()
+                {
+                    Foreground = (SolidColorBrush)suc.Resources["DialogContentColor"],
+                    Text = "AAAA",
+                },
+            };
+            foreach (var item in runs)
+            {
+                tbMain.Inlines.Add(item);
+            }
+            AddTitleAndControl("IntervalColon", tbMain);
 
             CreateDialog();
         }
