@@ -34,8 +34,8 @@ namespace Maker.View.Style.Child
             SetRoutine();
             AddUIToDialog();
 
-
-            MouseLeftButtonDown += BaseStyle_MouseMove;
+            //TODO：移动位置
+            //MouseLeftButtonDown += BaseStyle_MouseMove;
         }
 
         private void BaseStyle_MouseMove(object sender, MouseEventArgs e)
@@ -464,7 +464,7 @@ namespace Maker.View.Style.Child
         /// </summary>
         /// <param name="textName"></param>
         /// <param name="isIndependent"></param>
-        public ComboBox GetComboBox(List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
+        public static ComboBox GetComboBoxStatic(List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
         {
             ComboBox cb = new ComboBox();
             cb.SelectedIndex = 0;
@@ -490,6 +490,17 @@ namespace Maker.View.Style.Child
             }
             return cb;
         }
+
+        /// <summary>
+        /// 添加组合框
+        /// </summary>
+        /// <param name="textName"></param>
+        /// <param name="isIndependent"></param>
+        public ComboBox GetComboBox(List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
+        {
+            return GetComboBoxStatic(childTextName, selectionChangedEvent);
+        }
+
 
         /// <summary>
         /// 添加组合框

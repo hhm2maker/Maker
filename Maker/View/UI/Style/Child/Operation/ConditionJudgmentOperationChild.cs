@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -101,10 +102,22 @@ namespace Maker.View.UI.Style.Child
                 set;
             }
 
+            public Run RunPosition
+            {
+                get;
+                set;
+            }
+
             public DrawRangeClass(TextBox tbInput)
             {
                 TbInput = tbInput;
             }
+
+            public DrawRangeClass(Run run)
+            {
+                RunPosition = run;
+            }
+
 
             public void DrawRange(object sender, MouseButtonEventArgs e)
             {
@@ -116,7 +129,14 @@ namespace Maker.View.UI.Style.Child
                     {
                         builder.Append(i + " ");
                     }
-                    TbInput.Text = builder.ToString().Trim();
+                    if(TbInput != null)
+                    {
+                        TbInput.Text = builder.ToString().Trim();
+                    }
+                    if (RunPosition != null)
+                    {
+                        RunPosition.Text = builder.ToString().Trim();
+                    }
                 }
             }
         }

@@ -10,13 +10,19 @@ using Maker.View.Style.Child;
 using Maker.Model;
 using Maker.Business;
 using Operation;
+using System.Windows.Documents;
+using static Maker.View.UI.Style.Child.ConditionJudgmentOperationChild;
+using System.Windows.Input;
+using System.Windows.Controls.Primitives;
 
 namespace Maker.View.UI.Style.Child
 {
     public class OperationStyle : BaseStyle
     {
-        protected List<Light> NowData {
-            get {
+        protected List<Light> NowData
+        {
+            get
+            {
                 return StaticConstant.mw.editUserControl.suc.mLaunchpadData;
             }
         }
@@ -24,12 +30,13 @@ namespace Maker.View.UI.Style.Child
         private List<Light> myData = null;
         protected List<Light> MyData
         {
-            get {
+            get
+            {
                 if (myData == null)
                 {
                     //StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
                     StaticConstant.mw.editUserControl.suc.Test(StaticConstant.mw.editUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
-                
+
                     List<int> times = Business.LightBusiness.GetTimeList(NowData);
                     int position = Convert.ToInt32(StaticConstant.mw.editUserControl.suc.tbTimePointCountLeft.Text) - 1;
                     myData = new List<Light>();
@@ -59,9 +66,10 @@ namespace Maker.View.UI.Style.Child
         /// <summary>
         /// 初始化数据
         /// </summary>
-        protected virtual void InitData() {}
+        protected virtual void InitData() { }
 
-        public virtual void Refresh() {
+        public virtual void Refresh()
+        {
             StaticConstant.mw.editUserControl.suc.spMyHint.Visibility = Visibility.Visible;
             StaticConstant.mw.editUserControl.suc.spRefresh.Visibility = Visibility.Visible;
         }
@@ -74,6 +82,184 @@ namespace Maker.View.UI.Style.Child
         public virtual bool ToSave()
         {
             return true;
+        }
+
+        SolidColorBrush solidNormal = (SolidColorBrush)StaticConstant.mw.Resources["Text_Normal"];
+        SolidColorBrush solidOrange = (SolidColorBrush)StaticConstant.mw.Resources["Text_Orange"];
+        SolidColorBrush solidGrey = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey"];
+        SolidColorBrush solidGreyBg = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey_Bg"];
+        SolidColorBrush solidPurple = (SolidColorBrush)StaticConstant.mw.Resources["Text_Purple"];
+
+
+        public class RunModel
+        {
+            public String Title
+            {
+                get;
+                set;
+            }
+            public String Content
+            {
+                get;
+                set;
+            }
+
+            public RunType Type
+            {
+                get;
+                set;
+            }
+
+            public enum RunType
+            {
+                Normal,
+                Position,
+                Color,
+                Combo,
+            }
+
+            public Object Data
+            {
+                get;
+                set;
+            }
+
+            public RunModel() { }
+
+            public RunModel(string title, string content)
+            {
+                Title = title;
+                Content = content;
+                Type = RunType.Normal;
+            }
+
+            public RunModel(string title, string content, RunType type)
+            {
+                Title = title;
+                Content = content;
+                Type = type;
+            }
+
+            public RunModel(string title, string content, RunType type,Object obj)
+            {
+                Title = title;
+                Content = content;
+                Type = type;
+                Data = obj;
+            }
+        }
+
+        List<RunModel> runModels;
+        public List<Run> GetRuns(TextBlock tbMain ,List<RunModel> runModels)
+        {
+            this.runModels = runModels;
+            List<Run> runs = new List<Run>
+            {
+                new Run()
+                {
+                    Foreground = solidNormal,
+                    Text = "Create.FromQuick( ",
+                }
+            };
+            foreach (RunModel item in runModels)
+            {
+                runs.Add(new Run()
+                {
+                    Foreground = solidGrey,
+                    Background = solidGreyBg,
+                    Text = (string)Application.Current.FindResource(item.Title),
+                });
+
+                Run value = new Run()
+                {
+                    Foreground = solidPurple,
+                    Text = item.Content,
+                };
+                runs.Add(value);
+
+                if (item.Type == RunModel.RunType.Position)
+                {
+                    DrawRangeClass drawRangeClass = new DrawRangeClass(value);
+                    value.MouseLeftButtonDown += drawRangeClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.Combo)
+                {
+                    ComboRunClass comboRunClass = new ComboRunClass
+                    {
+                        Data = (List<String>)item.Data,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else
+                {
+                    value.Foreground = solidNormal;
+                }
+
+                if (item != runModels[runModels.Count - 1]) {
+                    runs.Add(GetSplitRun());
+                }
+            }
+            runs.Add(new Run()
+            {
+                Foreground = solidNormal,
+                Text = ");",
+            });
+            return runs;
+        }
+
+
+        public class ComboRunClass
+        {
+            public List<String> Data
+            {
+                get;
+                set;
+            }
+
+            public Run RunCombo
+            {
+                get;
+                set;
+            }
+
+            public TextBlock TbMain {
+                get;
+                set;
+            }
+
+            Popup popup;
+            public void DrawRange(object sender, MouseButtonEventArgs e)
+            {
+                popup = new Popup();
+                popup.PlacementTarget = TbMain;
+                popup.Placement = PlacementMode.Bottom;
+                popup.AllowsTransparency = true;
+                popup.PopupAnimation = PopupAnimation.Fade;
+                popup.StaysOpen = false;
+                ComboBox comboBox = GetComboBoxStatic(Data, Combo_SelectionChanged);
+                comboBox.IsDropDownOpen = true;
+                popup.Child = comboBox;
+                popup.HorizontalOffset = e.GetPosition(TbMain).X;
+                popup.IsOpen = true;
+            }
+
+            private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            {
+                RunCombo.Text = ((ComboBoxItem)(sender as ComboBox).SelectedItem).Content.ToString();
+                popup.IsOpen = false;
+            }
+        }
+
+
+        public Run GetSplitRun()
+        {
+            return new Run()
+            {
+                Foreground = solidOrange,
+                Text = ", ",
+            };
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Maker.View.UI.Style.Child
         private CreateFromQuickOperationModel createFromQuickOperationModel;
         private ScriptUserControl suc;
 
-        private TextBox tbTime, tbPosition, tbInterval, tbContinued,tbColor;
+        private TextBox tbTime, tbPosition, tbInterval, tbContinued, tbColor;
         private ComboBox cbType, cbAction;
         public CreateFromQuickOperationChild(CreateFromQuickOperationModel createFromQuickOperationModel, ScriptUserControl suc)
         {
@@ -35,14 +35,14 @@ namespace Maker.View.UI.Style.Child
             //构建对话框
             tbTime = GetTexeBox(createFromQuickOperationModel.Time.ToString());
             tbTime.Width = 270;
-            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbTime, ViewBusiness.GetImage("calc.png",25) });
+            AddTitleAndControl("TimeColon", new List<FrameworkElement>() { tbTime, ViewBusiness.GetImage("calc.png", 25) });
 
             StringBuilder sbPosition = new StringBuilder();
-            foreach(var item in createFromQuickOperationModel.PositionList)
+            foreach (var item in createFromQuickOperationModel.PositionList)
             {
                 sbPosition.Append(item).Append(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
             }
-            tbPosition = GetTexeBox(sbPosition.ToString().Substring(0, sbPosition.ToString().Length-1));
+            tbPosition = GetTexeBox(sbPosition.ToString().Substring(0, sbPosition.ToString().Length - 1));
             tbPosition.Width = 270;
             DrawRangeClass drawRangeClass = new DrawRangeClass(tbPosition);
             ShowRangeClass showRangeClassPosition = new ShowRangeClass(tbPosition);
@@ -64,11 +64,11 @@ namespace Maker.View.UI.Style.Child
             ShowRangeClass showRangeClassColor = new ShowRangeClass(tbColor);
             AddTitleAndControl("ColorColon", new List<FrameworkElement>() { tbColor, ViewBusiness.GetImage("more_white.png", 25, showRangeClassColor.ShowRangeList) });
 
-            cbType = GetComboBox(new List<String>() { "Up", "Down","UpDown", "DownUp" ,"UpAndDown", "DownAndUp", "FreezeFrame" },null);
+            cbType = GetComboBox(new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" }, null);
             cbType.SelectedIndex = createFromQuickOperationModel.Type;
             AddTitleAndControl("TypeColon", cbType);
 
-            cbAction = GetComboBox(new List<String>() { "All", "Open", "Close"}, null);
+            cbAction = GetComboBox(new List<String>() { "All", "Open", "Close" }, null);
             cbAction.SelectedIndex = createFromQuickOperationModel.Action - 10;
             AddTitleAndControl("ActionColon", cbAction);
 
@@ -79,32 +79,36 @@ namespace Maker.View.UI.Style.Child
 
             AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
 
+            List<RunModel> runModel = new List<RunModel>();
+            runModel.Add(new RunModel("TimeColon", createFromQuickOperationModel.Time.ToString()));
+            runModel.Add(new RunModel("PositionColon", sbPosition.ToString().Substring(0, sbPosition.ToString().Length - 1),RunModel.RunType.Position));
+            runModel.Add(new RunModel("IntervalColon", createFromQuickOperationModel.Interval.ToString()));
+            runModel.Add(new RunModel("DurationColon", createFromQuickOperationModel.Continued.ToString()));
+            runModel.Add(new RunModel("ColorColon", sbColor.ToString().Substring(0, sbColor.ToString().Length - 1)));
+            runModel.Add(new RunModel("TypeColon", ((ComboBoxItem)cbType.SelectedItem).Content.ToString(),RunModel.RunType.Combo, new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" }));
+            runModel.Add(new RunModel("ActionColon", ((ComboBoxItem)cbAction.SelectedItem).Content.ToString(), RunModel.RunType.Combo, new List<String>() { "All", "Open", "Close" }));
 
-            TextBlock tbMain = GetTexeBlockNoBorder(createFromQuickOperationModel.Interval.ToString(),false);
-            List<Run> runs = new List<Run>
-            {
-                new Run()
-                {
-                    Foreground = (SolidColorBrush)suc.mw.Resources["BtnRedBg"],
-                    Text = "错误码：",
-                },
-                new Run()
-                {
-                    Foreground = (SolidColorBrush)suc.Resources["DialogContentColor"],
-                    Text = "AAAA",
-                },
-            };
+            TextBlock tbMain = GetTexeBlockNoBorder("", false);
+            tbMain.FontSize = 18;
+            tbMain.TextWrapping = TextWrapping.Wrap;
+            List<Run> runs = GetRuns(tbMain,runModel);
+
+            SolidColorBrush solidNormal = (SolidColorBrush)suc.mw.Resources["Text_Normal"];
+            SolidColorBrush solidOrange = (SolidColorBrush)suc.mw.Resources["Text_Orange"];
+           
             foreach (var item in runs)
             {
                 tbMain.Inlines.Add(item);
             }
-            AddTitleAndControl("IntervalColon", tbMain);
+            AddUIElement(tbMain);
 
             CreateDialog();
         }
 
-        public class DrawRangeClass {
-            public TextBox TbInput {
+        public class DrawRangeClass
+        {
+            public TextBox TbInput
+            {
                 get;
                 set;
             }
@@ -391,7 +395,8 @@ namespace Maker.View.UI.Style.Child
             }
         }
 
-        public override bool ToSave() {
+        public override bool ToSave()
+        {
             return true;
         }
     }

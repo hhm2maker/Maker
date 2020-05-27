@@ -38,5 +38,12 @@
     <SolidColorBrush x:Key="MyContentContentBg" Color="#404040"/>
     <SolidColorBrush x:Key="MyContentBottomBlueBg" Color="#679def"/>
     <SolidColorBrush x:Key="MyContentBlueLine" Color="#5887c2"/>
+    <SolidColorBrush x:Key="Text_Orange" Color="#CC7832"/>
+    <SolidColorBrush x:Key="Text_Blue" Color="#6897BB"/>
+    <SolidColorBrush x:Key="Text_Purple" Color="#9876AA"/>
+    <SolidColorBrush x:Key="Text_Normal" Color="#A9B7C6"/>
+    <SolidColorBrush x:Key="Text_Grey" Color="#808080"/>
+    <SolidColorBrush x:Key="Text_Grey_Bg" Color="#333333"/>
 
+    
 </ResourceDictionary>
