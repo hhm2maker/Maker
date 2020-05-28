@@ -108,6 +108,12 @@ namespace Maker.View.UI.Style.Child
                 set;
             }
 
+            public OperationStyle Os
+            {
+                get;
+                set;
+            }
+
             public DrawRangeClass(TextBox tbInput)
             {
                 TbInput = tbInput;
@@ -136,6 +142,9 @@ namespace Maker.View.UI.Style.Child
                     if (RunPosition != null)
                     {
                         RunPosition.Text = builder.ToString().Trim();
+                    }
+                    if (Os != null) {
+                        Os.ToRefresh();
                     }
                 }
             }

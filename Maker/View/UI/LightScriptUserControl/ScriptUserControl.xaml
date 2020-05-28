@@ -11,7 +11,7 @@
     xmlns:control="clr-namespace:Maker.View.Control"
     xmlns:pianoroll="clr-namespace:Maker.View.PianoRoll" 
              Loaded="UserControl_Loaded"
-             PreviewKeyDown="UserControl_PreviewKeyDown"
+             KeyDown="UserControl_KeyDown"
              MouseLeftButtonDown="UserControl_MouseLeftButtonDown"
     SizeChanged="DockPanel_SizeChanged" 
        xmlns:viewmodel="clr-namespace:Maker.ViewModel"

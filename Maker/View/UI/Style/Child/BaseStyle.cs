@@ -442,7 +442,8 @@ namespace Maker.View.Style.Child
             {
                 if (dp.Children.Count != 0)
                 {
-                    item.Margin = new Thickness(20,0,0,0);
+                    item.Margin = new Thickness(0,0,0,0);
+                    item.VerticalAlignment = VerticalAlignment.Center;
                 }
                 dp.Children.Add(item);
             }

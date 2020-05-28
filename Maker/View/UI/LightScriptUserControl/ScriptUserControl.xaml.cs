@@ -2230,7 +2230,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void UserControl_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void UserControl_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Delete)
             {

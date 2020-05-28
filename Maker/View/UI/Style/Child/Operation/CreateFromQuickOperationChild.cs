@@ -9,13 +9,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Maker.View.UI.Style.Child
 {
@@ -24,10 +22,11 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "FastGeneration";
         private CreateFromQuickOperationModel createFromQuickOperationModel;
-        private ScriptUserControl suc;
 
         private TextBox tbTime, tbPosition, tbInterval, tbContinued, tbColor;
         private ComboBox cbType, cbAction;
+
+        private List<String> types =new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" };
         public CreateFromQuickOperationChild(CreateFromQuickOperationModel createFromQuickOperationModel, ScriptUserControl suc)
         {
             this.createFromQuickOperationModel = createFromQuickOperationModel;
@@ -77,21 +76,29 @@ namespace Maker.View.UI.Style.Child
                 cbAction.SelectedIndex = 0;
             }
 
-            AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
+            List<RunModel> runModel = new List<RunModel>
+            {
+                new RunModel("TimeColon", createFromQuickOperationModel.Time.ToString()),
+                new RunModel("PositionColon", sbPosition.ToString().Substring(0, sbPosition.ToString().Length - 1), RunModel.RunType.Position),
+                new RunModel("IntervalColon", createFromQuickOperationModel.Interval.ToString()),
+                new RunModel("DurationColon", createFromQuickOperationModel.Continued.ToString()),
+                new RunModel("ColorColon", sbColor.ToString().Substring(0, sbColor.ToString().Length - 1),RunModel.RunType.Color),
+                new RunModel("TypeColon", ((ComboBoxItem)cbType.SelectedItem).Content.ToString(), RunModel.RunType.Combo, new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" }),
+                new RunModel("ActionColon", ((ComboBoxItem)cbAction.SelectedItem).Content.ToString(), RunModel.RunType.Combo, new List<String>() { "All", "Open", "Close" })
+            };
 
-            List<RunModel> runModel = new List<RunModel>();
-            runModel.Add(new RunModel("TimeColon", createFromQuickOperationModel.Time.ToString()));
-            runModel.Add(new RunModel("PositionColon", sbPosition.ToString().Substring(0, sbPosition.ToString().Length - 1),RunModel.RunType.Position));
-            runModel.Add(new RunModel("IntervalColon", createFromQuickOperationModel.Interval.ToString()));
-            runModel.Add(new RunModel("DurationColon", createFromQuickOperationModel.Continued.ToString()));
-            runModel.Add(new RunModel("ColorColon", sbColor.ToString().Substring(0, sbColor.ToString().Length - 1)));
-            runModel.Add(new RunModel("TypeColon", ((ComboBoxItem)cbType.SelectedItem).Content.ToString(),RunModel.RunType.Combo, new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" }));
-            runModel.Add(new RunModel("ActionColon", ((ComboBoxItem)cbAction.SelectedItem).Content.ToString(), RunModel.RunType.Combo, new List<String>() { "All", "Open", "Close" }));
-
-            TextBlock tbMain = GetTexeBlockNoBorder("", false);
+            tbMain = GetTexeBlockNoBorder("", false);
             tbMain.FontSize = 18;
             tbMain.TextWrapping = TextWrapping.Wrap;
-            List<Run> runs = GetRuns(tbMain,runModel);
+
+            tbRight = GetTexeBlockNoBorder("", false);
+            tbRight.FontSize = 18;
+            tbRight.TextWrapping = TextWrapping.Wrap;
+
+            tbEdit = GetTexeBox("");
+            tbEdit.FontSize = 18;
+
+            runs = GetRuns(tbMain,runModel);
 
             SolidColorBrush solidNormal = (SolidColorBrush)suc.mw.Resources["Text_Normal"];
             SolidColorBrush solidOrange = (SolidColorBrush)suc.mw.Resources["Text_Orange"];
@@ -100,10 +107,11 @@ namespace Maker.View.UI.Style.Child
             {
                 tbMain.Inlines.Add(item);
             }
-            AddUIElement(tbMain);
+            AddDockPanel(out DockPanel dp, tbMain, tbEdit,tbRight);
 
             CreateDialog();
         }
+
 
         public class DrawRangeClass
         {
@@ -191,7 +199,8 @@ namespace Maker.View.UI.Style.Child
             }
         }
 
-        private void IvChange_Click(object sender, RoutedEventArgs e)
+
+        protected override void RefreshView()
         {
             char splitNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter;
             char rangeNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatRange;
@@ -200,26 +209,27 @@ namespace Maker.View.UI.Style.Child
             List<int> colors = null;
 
             StringBuilder fastGenerationrRangeBuilder = new StringBuilder();
-            if (suc.rangeDictionary.ContainsKey(tbPosition.Text))
+            String position = runs[5].Text;
+            if (suc.rangeDictionary.ContainsKey(position))
             {
-                for (int i = 0; i < suc.rangeDictionary[tbPosition.Text].Count; i++)
+                for (int i = 0; i < suc.rangeDictionary[position].Count; i++)
                 {
-                    if (i != suc.rangeDictionary[tbPosition.Text].Count - 1)
+                    if (i != suc.rangeDictionary[position].Count - 1)
                     {
-                        fastGenerationrRangeBuilder.Append(suc.rangeDictionary[tbPosition.Text][i] + splitNotation.ToString());
+                        fastGenerationrRangeBuilder.Append(suc.rangeDictionary[position][i] + splitNotation.ToString());
                     }
                     else
                     {
-                        fastGenerationrRangeBuilder.Append(suc.rangeDictionary[tbPosition.Text][i]);
+                        fastGenerationrRangeBuilder.Append(suc.rangeDictionary[position][i]);
                     }
                 }
             }
             else
             {
-                positions = GetTrueContent(tbPosition.Text, splitNotation, rangeNotation);
+                positions = GetTrueContent(position, splitNotation, rangeNotation);
                 if (positions != null)
                 {
-                    fastGenerationrRangeBuilder.Append(tbPosition.Text);
+                    fastGenerationrRangeBuilder.Append(position);
                 }
                 else
                 {
@@ -228,27 +238,28 @@ namespace Maker.View.UI.Style.Child
                     return;
                 }
             }
+            String color = runs[14].Text;
             StringBuilder fastGenerationrColorBuilder = new StringBuilder();
-            if (suc.rangeDictionary.ContainsKey(tbColor.Text))
+            if (suc.rangeDictionary.ContainsKey(color))
             {
-                for (int i = 0; i < suc.rangeDictionary[tbColor.Text].Count; i++)
+                for (int i = 0; i < suc.rangeDictionary[color].Count; i++)
                 {
-                    if (i != suc.rangeDictionary[tbColor.Text].Count - 1)
+                    if (i != suc.rangeDictionary[color].Count - 1)
                     {
-                        fastGenerationrColorBuilder.Append(suc.rangeDictionary[tbColor.Text][i] + splitNotation.ToString());
+                        fastGenerationrColorBuilder.Append(suc.rangeDictionary[color][i] + splitNotation.ToString());
                     }
                     else
                     {
-                        fastGenerationrColorBuilder.Append(suc.rangeDictionary[tbColor.Text][i]);
+                        fastGenerationrColorBuilder.Append(suc.rangeDictionary[color][i]);
                     }
                 }
             }
             else
             {
-                colors = GetTrueContent(tbColor.Text, splitNotation, rangeNotation);
+                colors = GetTrueContent(color, splitNotation, rangeNotation);
                 if (colors != null)
                 {
-                    fastGenerationrColorBuilder.Append(tbColor.Text);
+                    fastGenerationrColorBuilder.Append(color);
                 }
                 else
                 {
@@ -258,9 +269,10 @@ namespace Maker.View.UI.Style.Child
                 }
             }
             object result = null;
+            String time = runs[2].Text;
             try
             {
-                string expression = tbTime.Text;
+                string expression = time;
                 System.Data.DataTable eval = new System.Data.DataTable();
                 result = eval.Compute(expression, "");
             }
@@ -270,22 +282,33 @@ namespace Maker.View.UI.Style.Child
                 tbTime.Focus();
                 return;
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(tbInterval.Text, "^\\d+$"))
+
+            String interval = runs[8].Text;
+            if (!System.Text.RegularExpressions.Regex.IsMatch(interval, "^\\d+$"))
             {
                 tbInterval.Select(0, tbInterval.Text.Length);
                 tbInterval.Focus();
                 return;
             }
-            if (!System.Text.RegularExpressions.Regex.IsMatch(tbContinued.Text, "^\\d+$"))
+            String continued = runs[11].Text;
+            if (!System.Text.RegularExpressions.Regex.IsMatch(continued, "^\\d+$"))
             {
                 tbContinued.Select(0, tbContinued.Text.Length);
                 tbContinued.Focus();
                 return;
             }
-
+            
             //Type
             int type = 0;
-            switch (cbType.SelectedIndex)
+
+            String strType = runs[17].Text;
+            int _type = -1;
+            for (int i = 0; i < types.Count; i++) {
+                if (((string)Application.Current.FindResource(types[i])).Equals(strType)) {
+                    _type = i;
+                }
+            }
+            switch (_type)
             {
                 case -1:
                     return;
@@ -330,25 +353,24 @@ namespace Maker.View.UI.Style.Child
 
             createFromQuickOperationModel.Time = (int)result;
             createFromQuickOperationModel.PositionList = positions;
-            createFromQuickOperationModel.Interval = int.Parse(tbInterval.Text);
-            createFromQuickOperationModel.Continued = int.Parse(tbContinued.Text);
+            createFromQuickOperationModel.Interval = int.Parse(interval);
+            createFromQuickOperationModel.Continued = int.Parse(continued);
             createFromQuickOperationModel.ColorList = colors;
             createFromQuickOperationModel.Type = type;
             createFromQuickOperationModel.Action = action;
 
             //suc.UpdateStep();
-            suc.Test();
+            //RefreshView();
         }
 
-
-        /// <summary>
-        /// 内容是否正确
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="split"></param>
-        /// <param name="range"></param>
-        /// <returns></returns>
-        public List<int> GetTrueContent(String content, char split, char range)
+            /// <summary>
+            /// 内容是否正确
+            /// </summary>
+            /// <param name="content"></param>
+            /// <param name="split"></param>
+            /// <param name="range"></param>
+            /// <returns></returns>
+            public List<int> GetTrueContent(String content, char split, char range)
         {
             try
             {

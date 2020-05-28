@@ -14,11 +14,19 @@ using System.Windows.Documents;
 using static Maker.View.UI.Style.Child.ConditionJudgmentOperationChild;
 using System.Windows.Input;
 using System.Windows.Controls.Primitives;
+using Maker.View.LightScriptUserControl;
+using Maker.View.UI.Style.Child.Base;
 
 namespace Maker.View.UI.Style.Child
 {
     public class OperationStyle : BaseStyle
     {
+        protected ScriptUserControl suc;
+        protected List<Run> runs = new List<Run>();
+        protected TextBlock tbMain = null;
+        protected TextBlock tbRight = null;
+        protected TextBox tbEdit = null;
+
         protected List<Light> NowData
         {
             get
@@ -153,6 +161,10 @@ namespace Maker.View.UI.Style.Child
         public List<Run> GetRuns(TextBlock tbMain ,List<RunModel> runModels)
         {
             this.runModels = runModels;
+
+            tbEdit.Visibility = Visibility.Collapsed;
+            tbEdit.LostFocus += TbEdit_LostFocus;
+
             List<Run> runs = new List<Run>
             {
                 new Run()
@@ -180,21 +192,35 @@ namespace Maker.View.UI.Style.Child
                 if (item.Type == RunModel.RunType.Position)
                 {
                     DrawRangeClass drawRangeClass = new DrawRangeClass(value);
+                    drawRangeClass.Os = this;
                     value.MouseLeftButtonDown += drawRangeClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.Color)
+                {
+                    ColorRunClass comboRunClass = new ColorRunClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
                 }
                 else if (item.Type == RunModel.RunType.Combo)
                 {
                     ComboRunClass comboRunClass = new ComboRunClass
                     {
                         Data = (List<String>)item.Data,
+                        Os = this,
                         RunCombo = value,
                         TbMain = tbMain,
                     };
                     value.MouseLeftButtonUp += comboRunClass.DrawRange;
                 }
-                else
+                else if(item.Type == RunModel.RunType.Normal)
                 {
                     value.Foreground = solidNormal;
+                    value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
                 }
 
                 if (item != runModels[runModels.Count - 1]) {
@@ -209,49 +235,44 @@ namespace Maker.View.UI.Style.Child
             return runs;
         }
 
-
-        public class ComboRunClass
+        protected Run selectRun;
+        private void Value_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            public List<String> Data
-            {
-                get;
-                set;
+            int position = runs.IndexOf((Run)sender);
+
+            if (position == -1) {
+                return;
             }
 
-            public Run RunCombo
-            {
-                get;
-                set;
+            tbMain.Inlines.Clear();
+            for (int i = 0; i < position; i++) {
+                tbMain.Inlines.Add(runs[i]);
             }
 
-            public TextBlock TbMain {
-                get;
-                set;
-            }
-
-            Popup popup;
-            public void DrawRange(object sender, MouseButtonEventArgs e)
+            selectRun = runs[position];
+            tbEdit.Visibility = Visibility.Visible;
+            tbEdit.Text = selectRun.Text;
+            tbEdit.Focus();
+            for (int i = position+1; i < runs.Count; i++)
             {
-                popup = new Popup();
-                popup.PlacementTarget = TbMain;
-                popup.Placement = PlacementMode.Bottom;
-                popup.AllowsTransparency = true;
-                popup.PopupAnimation = PopupAnimation.Fade;
-                popup.StaysOpen = false;
-                ComboBox comboBox = GetComboBoxStatic(Data, Combo_SelectionChanged);
-                comboBox.IsDropDownOpen = true;
-                popup.Child = comboBox;
-                popup.HorizontalOffset = e.GetPosition(TbMain).X;
-                popup.IsOpen = true;
-            }
-
-            private void Combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            {
-                RunCombo.Text = ((ComboBoxItem)(sender as ComboBox).SelectedItem).Content.ToString();
-                popup.IsOpen = false;
+                tbRight.Inlines.Add(runs[i]);
             }
         }
 
+        private void TbEdit_LostFocus(object sender, RoutedEventArgs e)
+        {
+            selectRun.Text = (sender as TextBox).Text;
+            tbEdit.Text = "";
+            tbRight.Inlines.Clear();
+            tbEdit.Visibility = Visibility.Collapsed;
+
+            tbMain.Inlines.Clear();
+            for (int i = 0; i < runs.Count; i++)
+            {
+                tbMain.Inlines.Add(runs[i]);
+            }
+            ToRefresh();
+        }
 
         public Run GetSplitRun()
         {
@@ -260,6 +281,15 @@ namespace Maker.View.UI.Style.Child
                 Foreground = solidOrange,
                 Text = ", ",
             };
+        }
+
+        protected virtual void RefreshView() {
+            
+        }
+
+        public void ToRefresh() {
+            RefreshView();
+            suc.Test();
         }
     }
 }
