@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maker.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Maker.View.UIBusiness
 {
     public class  GeneralMainViewBusiness
     {
-        private readonly int fontSize = 16;
+        private static readonly int fontSize = 16;
 
         private static GeneralMainViewBusiness _generalMainViewBusiness = null;
         public static GeneralMainViewBusiness CreateInstance()
@@ -69,6 +70,23 @@ namespace Maker.View.UIBusiness
             {
                 FontSize = fontSize,
                 Background = null,
+                CaretBrush = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
+                Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
+                Margin = new Thickness(0, 10, 0, 0),
+                Padding = new Thickness(3)
+            };
+            return tb;
+        }
+
+        /// <summary>
+        /// 添加输入框
+        /// </summary>
+        public static TextBox GetTextBoxStatic()
+        {
+            TextBox tb = new TextBox
+            {
+                FontSize = fontSize,
+                Background = (SolidColorBrush)StaticConstant.mw.Resources["ScriptHintBg"],
                 CaretBrush = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
                 Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255)),
                 Margin = new Thickness(0, 10, 0, 0),

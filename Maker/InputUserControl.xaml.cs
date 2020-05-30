@@ -2947,23 +2947,23 @@ namespace Maker
 
         private void DrawRange(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DrawRangeDialog dialog = new DrawRangeDialog(mw);
-            StringBuilder builder = new StringBuilder();
-            if (dialog.ShowDialog() == true)
-            {
-                foreach (int i in dialog.Content)
-                {
-                    builder.Append(i + " ");
-                }
-                if (sender == btnFastGenerationrDraw)
-                {
-                    tbFastGenerationrRange.Text = builder.ToString().Trim();
-                }
-                if (sender == btnIfPositionDraw)
-                {
-                    tbIfPosition.Text = builder.ToString().Trim();
-                }
-            }
+            //DrawRangeDialog dialog = new DrawRangeDialog(mw);
+            //StringBuilder builder = new StringBuilder();
+            //if (dialog.ShowDialog() == true)
+            //{
+            //    foreach (int i in dialog.Content)
+            //    {
+            //        builder.Append(i + " ");
+            //    }
+            //    if (sender == btnFastGenerationrDraw)
+            //    {
+            //        tbFastGenerationrRange.Text = builder.ToString().Trim();
+            //    }
+            //    if (sender == btnIfPositionDraw)
+            //    {
+            //        tbIfPosition.Text = builder.ToString().Trim();
+            //    }
+            //}
         }
 
         private void LbStep_SelectionChanged(object sender, SelectionChangedEventArgs e)

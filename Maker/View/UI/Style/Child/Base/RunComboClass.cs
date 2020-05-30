@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Maker.View.UI.Style.Child.Base
 {
-    public class ComboRunClass
+    public class RunComboClass
     {
         public OperationStyle Os
         {
@@ -39,16 +39,18 @@ namespace Maker.View.UI.Style.Child.Base
         public void DrawRange(object sender, MouseButtonEventArgs e)
         {
             if (popup == null) {
-                popup = new Popup();
-                popup.PlacementTarget = TbMain;
-                popup.Placement = PlacementMode.Bottom;
-                popup.AllowsTransparency = true;
-                popup.PopupAnimation = PopupAnimation.Fade;
-                popup.StaysOpen = false;
+                popup = new Popup
+                {
+                    PlacementTarget = TbMain,
+                    Placement = PlacementMode.Bottom,
+                    AllowsTransparency = true,
+                    PopupAnimation = PopupAnimation.Fade,
+                    StaysOpen = false
+                };
                 comboBox = BaseStyle.GetComboBoxStatic(Data, Combo_SelectionChanged);
                 popup.Child = comboBox;
-                popup.HorizontalOffset = e.GetPosition(TbMain).X;
             }
+            popup.HorizontalOffset = e.GetPosition(TbMain).X;
             comboBox.IsDropDownOpen = true;
             popup.IsOpen = true;
         }

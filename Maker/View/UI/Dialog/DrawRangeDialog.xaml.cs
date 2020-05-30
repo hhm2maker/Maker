@@ -18,13 +18,19 @@ namespace Maker.View.Dialog
     /// <summary>
     /// DrawRangeDialog.xaml 的交互逻辑
     /// </summary>
-    public partial class DrawRangeDialog : Window
+    public partial class DrawRangeDialog : UserControl
     {
-        public DrawRangeDialog(Window mw)
+        ContextMenu contextMenu;
+        public DrawRangeDialog(Window mw, ContextMenu contextMenu, Feedback feedback)
         {
             InitializeComponent();
-            Owner = mw;
+
+            this.contextMenu = contextMenu;
+            this.feedback = feedback;
         }
+
+        public delegate void Feedback(List<int> value);
+        Feedback feedback;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -33,7 +39,7 @@ namespace Maker.View.Dialog
             mLaunchpad.SetCanDraw(true);
         }
 
-        public new List<int> Content {
+        public List<int> MyContent {
             get;
             set;
         }
@@ -43,21 +49,21 @@ namespace Maker.View.Dialog
             {
                 if (mLaunchpad.trackingValue.Count != 0)
                 {
-                    Content = mLaunchpad.trackingValue.ToList();
+                    MyContent = mLaunchpad.trackingValue.ToList();
                 }
                 else {
-                    Content = mLaunchpad.GetNumbers();
+                    MyContent = mLaunchpad.GetNumbers();
                 }
             }
             else {
-                Content = mLaunchpad.GetNumbers();
+                MyContent = mLaunchpad.GetNumbers();
             }
-           
-            DialogResult = true;
+
+            feedback(MyContent);
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
+            contextMenu.IsOpen = false;
         }
     }
 }

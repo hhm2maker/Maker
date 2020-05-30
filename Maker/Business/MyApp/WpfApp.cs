@@ -30,6 +30,19 @@ namespace Maker.MyApp
                 Source = new Uri(@"View\Resources\Language\StringResource.xaml", UriKind.Relative)
             };
             System.Windows.Application.Current.Resources.MergedDictionaries.Add(englishResourceDictionary);
+            //样式资源
+            ResourceDictionary inputResourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(@"View\StyleResources\InputDictionary.xaml", UriKind.Relative)
+            };
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(inputResourceDictionary);
+            //颜色资源
+            ResourceDictionary colorResourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(@"View\StyleResources\ColorDictionary.xaml", UriKind.Relative)
+            };
+            System.Windows.Application.Current.Resources.MergedDictionaries.Add(colorResourceDictionary);
+
             //初始化MVVMLight
             ViewModelLocator viewModelLocator = new ViewModelLocator();
             System.Windows.Application.Current.Resources.Add("Locator", viewModelLocator);

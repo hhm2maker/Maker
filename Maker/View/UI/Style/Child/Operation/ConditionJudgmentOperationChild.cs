@@ -127,26 +127,26 @@ namespace Maker.View.UI.Style.Child
 
             public void DrawRange(object sender, MouseButtonEventArgs e)
             {
-                DrawRangeDialog dialog = new DrawRangeDialog(StaticConstant.mw);
-                StringBuilder builder = new StringBuilder();
-                if (dialog.ShowDialog() == true)
-                {
-                    foreach (int i in dialog.Content)
-                    {
-                        builder.Append(i + " ");
-                    }
-                    if(TbInput != null)
-                    {
-                        TbInput.Text = builder.ToString().Trim();
-                    }
-                    if (RunPosition != null)
-                    {
-                        RunPosition.Text = builder.ToString().Trim();
-                    }
-                    if (Os != null) {
-                        Os.ToRefresh();
-                    }
-                }
+                //DrawRangeDialog dialog = new DrawRangeDialog(StaticConstant.mw);
+                //StringBuilder builder = new StringBuilder();
+                //if (dialog.ShowDialog() == true)
+                //{
+                //    foreach (int i in dialog.MyContent)
+                //    {
+                //        builder.Append(i + " ");
+                //    }
+                //    if(TbInput != null)
+                //    {
+                //        TbInput.Text = builder.ToString().Trim();
+                //    }
+                //    if (RunPosition != null)
+                //    {
+                //        RunPosition.Text = builder.ToString().Trim();
+                //    }
+                //    if (Os != null) {
+                //        Os.ToRefresh();
+                //    }
+                //}
             }
         }
 

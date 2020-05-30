@@ -164,7 +164,7 @@
                     </Menu>
                     -->
                 </StackPanel>
-                <Border HorizontalAlignment="Stretch" Grid.Column="1" Background="{DynamicResource LPDBgColor}">
+                <Border HorizontalAlignment="Stretch" Grid.Column="1" Background="{DynamicResource bgContentColor}">
                     <!--Background="#262829"-->
                     <Grid Name="gRight" >
                         <Grid.RowDefinitions>
@@ -197,7 +197,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>-->
                     <!--Background="#1c1a1c"-->
-                    <DockPanel x:Name="dpShow" Grid.Row="1" Background="{DynamicResource ChooseLeftColor}">
+                    <DockPanel x:Name="dpShow" Grid.Row="1" Background="{DynamicResource LPDBgColor}">
                         <Border Name="bLaunchpad" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="{DynamicResource bgContentColor}" BorderThickness="2" CornerRadius="20" Margin="20"  DockPanel.Dock="Top" ClipToBounds="True">
                             <!--<device:LaunchpadPro x:Name="mLaunchpad" Size="600" Data="{Binding Model.NowLightLight}" />-->
                             <view:PlayerUserControl x:Name="mLaunchpad" />

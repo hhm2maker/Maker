@@ -26,14 +26,13 @@
         <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="15"/>
-        <Setter Property="Height" Value="28"/>
         <Setter Property="Width" Value="Auto"/>
         <Setter Property="Margin" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
                     <!--Item-->
-                    <Border  x:Name="border" Background="Transparent"  Height="{TemplateBinding Height}" Opacity="1">
+                    <Border  x:Name="border" Background="{DynamicResource bgTitleColor}"  Height="{TemplateBinding Height}" Opacity="1">
                         <Grid  VerticalAlignment="Center" Margin="{TemplateBinding Margin}" x:Name="Main_Bg">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition x:Name="icon_col" MaxWidth="35" SharedSizeGroup="MenuItemIconColumnGroup"/>
@@ -135,8 +134,6 @@
         <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontSize" Value="22"/>
-        <Setter Property="Height" Value="28"/>
-        <Setter Property="Width" Value="Auto"/>
         <Setter Property="Margin" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -162,8 +159,8 @@
                                        FontSize="{TemplateBinding FontSize}"
                                        VerticalAlignment="Center" Visibility="Visible" Foreground="White" />
                             <!--右指针-->
-                            <TextBlock x:Name="PART_Arrow" Grid.Column="3" Text="&#xe605;" Foreground="White" 
-                                       FontSize="14" />
+                            <Image x:Name="PART_Arrow" Grid.Column="3" Source="../../View/Resources/Image/tochild.png" RenderOptions.BitmapScalingMode="Fant" Width="12" Height="12"
+                                       />
                             <!--淡出子集菜单容器-->
                             <Popup x:Name="SubMenuPopup" AllowsTransparency="true" IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}" 
                                         Placement="Bottom"  Focusable="false" VerticalOffset="0"
@@ -239,7 +236,7 @@
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
         <Setter Property="BorderBrush" Value="#e3e3e3"/>
-        <Setter Property="Background" Value="#282828"/>
+        <Setter Property="Background"  Value="{DynamicResource bgTitleColor}"/>
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -268,7 +265,42 @@
             </Setter.Value>
         </Setter>
     </Style>
-     <Style TargetType="ToolTip">
+    <Style x:Key="myContextMenu" TargetType="{x:Type ContextMenu}">
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="BorderBrush" Value="#e3e3e3"/>
+        <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <!--<Setter Property="ItemContainerStyle" Value="{StaticResource DefaultMenuItem}"/>-->
+        <!--<Setter Property="ItemContainerStyle" Value="{StaticResource bigMenuItem}"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Grid>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Margin="5"
+                                BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                Grid.IsSharedSizeScope="True" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                KeyboardNavigation.TabNavigation="Cycle" />
+                        </Border>
+                    </Grid>
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow" Value="True">
+                            <Setter TargetName="Border" Property="Effect" Value="{StaticResource DefaultDropShadow}">
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="ToolTip">
         <Setter Property="Background" Value="#282828"/>
         <Setter Property="Padding" Value="6"/>
         <Setter Property="BorderThickness" Value="1"/>

@@ -21,7 +21,7 @@ namespace Maker.View.UI.Style.Child
 {
     public class OperationStyle : BaseStyle
     {
-        protected ScriptUserControl suc;
+        public ScriptUserControl suc;
         protected List<Run> runs = new List<Run>();
         protected TextBlock tbMain = null;
         protected TextBlock tbRight = null;
@@ -191,13 +191,18 @@ namespace Maker.View.UI.Style.Child
 
                 if (item.Type == RunModel.RunType.Position)
                 {
-                    DrawRangeClass drawRangeClass = new DrawRangeClass(value);
-                    drawRangeClass.Os = this;
-                    value.MouseLeftButtonDown += drawRangeClass.DrawRange;
+                    RunPositionClass comboRunClass = new RunPositionClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
                 }
                 else if (item.Type == RunModel.RunType.Color)
                 {
-                    ColorRunClass comboRunClass = new ColorRunClass
+                    RunColorClass comboRunClass = new RunColorClass
                     {
                         Data = (List<String>)item.Data,
                         Os = this,
@@ -208,7 +213,7 @@ namespace Maker.View.UI.Style.Child
                 }
                 else if (item.Type == RunModel.RunType.Combo)
                 {
-                    ComboRunClass comboRunClass = new ComboRunClass
+                    RunComboClass comboRunClass = new RunComboClass
                     {
                         Data = (List<String>)item.Data,
                         Os = this,

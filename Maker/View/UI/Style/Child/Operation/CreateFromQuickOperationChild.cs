@@ -128,16 +128,16 @@ namespace Maker.View.UI.Style.Child
 
             public void DrawRange(object sender, MouseButtonEventArgs e)
             {
-                DrawRangeDialog dialog = new DrawRangeDialog(StaticConstant.mw);
-                StringBuilder builder = new StringBuilder();
-                if (dialog.ShowDialog() == true)
-                {
-                    foreach (int i in dialog.Content)
-                    {
-                        builder.Append(i + " ");
-                    }
-                    TbInput.Text = builder.ToString().Trim();
-                }
+                //DrawRangeDialog dialog = new DrawRangeDialog(StaticConstant.mw);
+                //StringBuilder builder = new StringBuilder();
+                //if (dialog.ShowDialog() == true)
+                //{
+                //    foreach (int i in dialog.MyContent)
+                //    {
+                //        builder.Append(i + " ");
+                //    }
+                //    TbInput.Text = builder.ToString().Trim();
+                //}
             }
         }
 
@@ -212,6 +212,7 @@ namespace Maker.View.UI.Style.Child
             String position = runs[5].Text;
             if (suc.rangeDictionary.ContainsKey(position))
             {
+                positions = suc.rangeDictionary[position];
                 for (int i = 0; i < suc.rangeDictionary[position].Count; i++)
                 {
                     if (i != suc.rangeDictionary[position].Count - 1)
@@ -240,8 +241,10 @@ namespace Maker.View.UI.Style.Child
             }
             String color = runs[14].Text;
             StringBuilder fastGenerationrColorBuilder = new StringBuilder();
+
             if (suc.rangeDictionary.ContainsKey(color))
             {
+                colors = suc.rangeDictionary[color];
                 for (int i = 0; i < suc.rangeDictionary[color].Count; i++)
                 {
                     if (i != suc.rangeDictionary[color].Count - 1)

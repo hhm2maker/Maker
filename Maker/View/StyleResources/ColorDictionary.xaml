@@ -44,6 +44,9 @@
     <SolidColorBrush x:Key="Text_Normal" Color="#A9B7C6"/>
     <SolidColorBrush x:Key="Text_Grey" Color="#808080"/>
     <SolidColorBrush x:Key="Text_Grey_Bg" Color="#333333"/>
+    <SolidColorBrush x:Key="ScriptHintBg" Color="#46484a"/>
+    <SolidColorBrush x:Key="ScriptHintBorder" Color="#565656"/>
 
-    
+
+
 </ResourceDictionary>
