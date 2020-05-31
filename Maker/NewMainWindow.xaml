@@ -8,7 +8,7 @@
         xmlns:makerui="clr-namespace:MakerUI;assembly=MakerUI"
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
-        Closed="Window_Closed"
+        Closing="Window_Closing"
         Title="Maker" 
         WindowState="Normal"
         Background="{DynamicResource bgColor}"
@@ -75,7 +75,7 @@
                                 <MenuItem Name="miUseCache" Header="{DynamicResource UseCache}" Click="UseCache" Foreground="{DynamicResource TitleFontColor}" />
                                 <MenuItem Header="{DynamicResource BuildProject}" Click="MenuItem_Click" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
-                                <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                            <MenuItem Header="{DynamicResource Setting}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource Setting}" Click="Setting_Click" Foreground="{DynamicResource TitleFontColor}"  />
                                 <MenuItem Header="{DynamicResource Device}" Click="Device_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 <MenuItem Name="miPlugins" Click="miPlugins_Click" Header="{DynamicResource Plugins}" Foreground="{DynamicResource TitleFontColor}" />
@@ -120,21 +120,20 @@
                 </Border>
                 <Border BorderBrush="{DynamicResource LineColor}" BorderThickness="0,0,0,1">
                     <DockPanel Background="{DynamicResource bgTitleColor}">
-                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" >
-                        <Image VerticalAlignment="Center" Margin="0,0,15,0" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
-                    </StackPanel>
-                    <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
-                    <StackPanel  Orientation="Horizontal">
-                        <Image Name="iFile" Visibility="Collapsed" VerticalAlignment="Center" Margin="15,5,0,5" Source="View/Resources/Image/file.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
-                    </StackPanel>
-                    <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
-                        <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
-                            <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/hint_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
-                            <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="15,3,5,3"/>
-                        <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                    </StackPanel>
-                </DockPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" >
+                            <Image VerticalAlignment="Center" Margin="0,0,15,0" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
+                        </StackPanel>
+                        <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
+                        <StackPanel  Orientation="Horizontal">
+                            <Image Name="iFile" Visibility="Collapsed" VerticalAlignment="Center" Margin="15,5,0,5" Source="View/Resources/Image/file.png" Width="25" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_4" />
+                        </StackPanel>
+                        <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
+                            <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
+                            <Image VerticalAlignment="Center" Margin="5,5,0,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
+                            <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="10,3,5,3"/>
+                            <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </DockPanel>
                 </Border>
             </StackPanel>
             <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource bgTitleColor}" >
@@ -248,6 +247,7 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="灯光数据"/>
                     <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="日志"/>
+                    <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Hint}"/>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>

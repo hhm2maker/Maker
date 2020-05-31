@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,81 +13,45 @@ namespace Maker.View.UI.Style.Child
     public partial class InterceptTimeOperationChild : OperationStyle
     {
         public override string Title { get; set; } = "InterceptTime";
+        public override StyleType FunType { get; set; } = StyleType.Edit;
+
         private InterceptTimeOperationModel interceptTimeOperationModel;
-        public InterceptTimeOperationChild(InterceptTimeOperationModel interceptTimeOperationModel)
+
+        public InterceptTimeOperationChild(InterceptTimeOperationModel interceptTimeOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.interceptTimeOperationModel = interceptTimeOperationModel;
-            //构建对话框
-            tbStart = GetTexeBox(interceptTimeOperationModel.Start.ToString());
-            AddTitleAndControl("StartColon", tbStart);
-            tbEnd = GetTexeBox(interceptTimeOperationModel.End.ToString());
-            AddTitleAndControl("EndColon", tbEnd);
-
-            tbStart.LostFocus += TbStart_LostFocus;
-            tbEnd.LostFocus += TbEnd_LostFocus;
-
-            CreateDialog();
+            ToCreate();
         }
 
-        public TextBox tbStart,tbEnd;
-
-        public override bool ToSave() {
-            if (tbStart.Text.Equals(String.Empty))
-            {
-                tbStart.Focus();
-                return false;
-            }
-            if (int.TryParse(tbStart.Text, out int iStart))
-            {
-                interceptTimeOperationModel.Start = iStart;
-            }
-            else
-            {
-                tbStart.Focus();
-                return false;
-            }
-            if (int.TryParse(tbEnd.Text, out int iEnd))
-            {
-                interceptTimeOperationModel.End = iEnd;
-                return true;
-            }
-            else
-            {
-                tbEnd.Focus();
-                return false;
-            }
-        }
-
-        private void TbStart_LostFocus(object sender, RoutedEventArgs e)
+        protected override List<RunModel> UpdateData()
         {
-            if (int.TryParse((sender as TextBox).Text, out int num))
+            return new List<RunModel>
             {
-                if (num == interceptTimeOperationModel.Start)
-                    return;
-
-                interceptTimeOperationModel.Start = num;
-                    NeedRefresh();
-            }
-            else
-            {
-                tbStart.Text = interceptTimeOperationModel.Start.ToString();
-            }
+                new RunModel("StartColon", interceptTimeOperationModel.Start.ToString()),
+                new RunModel("EndColon", interceptTimeOperationModel.End.ToString()),
+            };
         }
 
-        private void TbEnd_LostFocus(object sender, RoutedEventArgs e)
+        protected override void RefreshView()
         {
-            if (int.TryParse((sender as TextBox).Text, out int num))
+            //Start
+            String strStart = runs[2].Text;
+            if (!int.TryParse(strStart, out int iStart))
             {
-                if (num == interceptTimeOperationModel.End)
-                    return;
+                iStart = interceptTimeOperationModel.Start;
+            }
 
-                interceptTimeOperationModel.End = num;
-                NeedRefresh();
-            }
-            else
+            //End
+            String strEnd = runs[5].Text;
+            if (!int.TryParse(strEnd, out int iEnd))
             {
-                tbStart.Text = interceptTimeOperationModel.End.ToString();
+                iEnd = interceptTimeOperationModel.End;
             }
+
+            interceptTimeOperationModel.Start = iStart;
+            interceptTimeOperationModel.End = iEnd;
+
+            UpdateData();
         }
     }
 }

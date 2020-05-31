@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
+using Maker.View.LightScriptUserControl;
 
 namespace Maker.View.UI.Style.Child
 {
@@ -17,7 +18,7 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "Play lights";
         private GotoPagePlayModel gotoPagePlayModel;
-        public GotoPagePlayChild(GotoPagePlayModel gotoPagePlayModel)
+        public GotoPagePlayChild(GotoPagePlayModel gotoPagePlayModel, ScriptUserControl suc):base(suc)
         {
             this.gotoPagePlayModel = gotoPagePlayModel;
             //构建对话框

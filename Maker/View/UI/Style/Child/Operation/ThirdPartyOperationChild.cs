@@ -1,6 +1,7 @@
 ﻿using Maker.Business.Model;
 using Maker.Business.Model.OperationModel;
 using Maker.Model;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "ThirdParty";
         private ThirdPartyOperationModel thirdPartyOperationModel;
-        public ThirdPartyOperationChild(ThirdPartyOperationModel thirdPartyOperationModel)
+        public ThirdPartyOperationChild(ThirdPartyOperationModel thirdPartyOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.thirdPartyOperationModel = thirdPartyOperationModel;
             //构建对话框

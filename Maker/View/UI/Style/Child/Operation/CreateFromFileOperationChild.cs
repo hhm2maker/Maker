@@ -1,5 +1,6 @@
 ﻿using Maker.Business;
 using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Maker.View.UI.Style.Child
         private CreateFromFileOperationModel createFromFileOperationModel;
 
         private TextBox tbFileName;
-        public CreateFromFileOperationChild(CreateFromFileOperationModel createFromStepOperationModel)
+        public CreateFromFileOperationChild(CreateFromFileOperationModel createFromStepOperationModel, ScriptUserControl suc) : base(suc)
         {
             createFromFileOperationModel =  createFromStepOperationModel;
             //构建对话框

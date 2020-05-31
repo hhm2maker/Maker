@@ -26,7 +26,6 @@ namespace Maker.View.Style
             InitializeComponent();
             this.mw = mw;
 
-            cbMain = lbCatalog;
             spMain = svMain;
         }
 
@@ -36,14 +35,12 @@ namespace Maker.View.Style
 
         public void SetData(List<BaseOperationModel> operationModels)
         {
-            lbCatalog.Items.Clear();
             svMain.Children.Clear();
 
             this.operationModels = operationModels;
 
             foreach (var item in operationModels)
             {
-                lbCatalog.SelectedIndex = 0;
 
                 if (item is ConditionJudgmentOperationModel)
                 {
@@ -51,19 +48,19 @@ namespace Maker.View.Style
                 }
                 else if (item is SetAttributeOperationModel)
                 {
-                    svMain.Children.Add(new SetAttributeOperationChild(item as SetAttributeOperationModel));
+                    svMain.Children.Add(new SetAttributeOperationChild(item as SetAttributeOperationModel,mw));
                 }
                 else if (item is CreateFromAutomaticOperationModel)
                 {
-                    svMain.Children.Add(new CreateFromAutomaticOperationChild(item as CreateFromAutomaticOperationModel));
+                    svMain.Children.Add(new CreateFromAutomaticOperationChild(item as CreateFromAutomaticOperationModel, mw));
                 }
                 else if (item is CreateFromFileOperationModel)
                 {
-                    svMain.Children.Add(new CreateFromFileOperationChild(item as CreateFromFileOperationModel));
+                    svMain.Children.Add(new CreateFromFileOperationChild(item as CreateFromFileOperationModel, mw));
                 }
                 else if (item is CreateFromStepOperationModel)
                 {
-                    svMain.Children.Add(new CreateFromStepOperationChild(item as CreateFromStepOperationModel));
+                    svMain.Children.Add(new CreateFromStepOperationChild(item as CreateFromStepOperationModel, mw));
                 }
                 else if (item is CreateFromQuickOperationModel)
                 {
@@ -71,111 +68,93 @@ namespace Maker.View.Style
                 }
                 else if (item is VerticalFlippingOperationModel)
                 {
-                    svMain.Children.Add(new VerticalFlippingOperationChild());
+                    svMain.Children.Add(new VerticalFlippingOperationChild(mw));
                 }
                 else if (item is HorizontalFlippingOperationModel)
                 {
-                    svMain.Children.Add(new HorizontalFlippingOperationChild());
+                    svMain.Children.Add(new HorizontalFlippingOperationChild(mw));
                 }
                 else if (item is LowerLeftSlashFlippingOperationModel)
                 {
-                    svMain.Children.Add(new LowerLeftSlashFlippingOperationChild());
+                    svMain.Children.Add(new LowerLeftSlashFlippingOperationChild(mw));
                 }
                 else if (item is LowerRightSlashFlippingOperationModel)
                 {
-                    svMain.Children.Add(new LowerRightSlashFlippingOperationChild());
+                    svMain.Children.Add(new LowerRightSlashFlippingOperationChild(mw));
                 }
                 else if (item is ClockwiseOperationModel)
                 {
-                    svMain.Children.Add(new ClockwiseOperationChild());
+                    svMain.Children.Add(new ClockwiseOperationChild(mw));
                 }
                 else if (item is AntiClockwiseOperationModel)
                 {
-                    svMain.Children.Add(new AntiClockwiseOperationChild());
+                    svMain.Children.Add(new AntiClockwiseOperationChild(mw));
                 }
                 else if (item is RemoveBorderOperationModel)
                 {
-                    svMain.Children.Add(new RemoveBorderOperationChild());
+                    svMain.Children.Add(new RemoveBorderOperationChild(mw));
                 }
                 else if (item is ReversalOperationModel)
                 {
-                    svMain.Children.Add(new ReversalOperationChild());
+                    svMain.Children.Add(new ReversalOperationChild(mw));
                 }
                 else if (item is ChangeTimeOperationModel)
                 {
-                    svMain.Children.Add(new ChangeTimeOperationChild(item as ChangeTimeOperationModel));
+                    svMain.Children.Add(new ChangeTimeOperationChild(item as ChangeTimeOperationModel, mw));
                 }
                 else if (item is FoldOperationModel)
                 {
-                    svMain.Children.Add(new FoldOperationChild(item as FoldOperationModel));
+                    svMain.Children.Add(new FoldOperationChild(item as FoldOperationModel, mw));
                 }
                 else if (item is SetEndTimeOperationModel)
                 {
-                    svMain.Children.Add(new SetEndTimeOperationChild(item as SetEndTimeOperationModel));
+                    svMain.Children.Add(new SetEndTimeOperationChild(item as SetEndTimeOperationModel, mw));
                 }
                 else if (item is ShapeColorOperationModel)
                 {
-                    svMain.Children.Add(new ShapeColorOperationChild(item as ShapeColorOperationModel));
+                    svMain.Children.Add(new ShapeColorOperationChild(item as ShapeColorOperationModel, mw));
                 }
                 else if (item is OneNumberOperationModel)
                 {
-                    svMain.Children.Add(new OneNumberOperationChild(item as OneNumberOperationModel));
+                    svMain.Children.Add(new OneNumberOperationChild(item as OneNumberOperationModel, mw));
                 }
                 else if (item is ChangeColorOperationModel)
                 {
-                    svMain.Children.Add(new ColorOperationChild(item as ChangeColorOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(item as ChangeColorOperationModel, mw));
                 }
                 else if (item is CopyToTheEndOperationModel)
                 {
-                    svMain.Children.Add(new ColorOperationChild(item as CopyToTheEndOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(item as CopyToTheEndOperationModel, mw));
                 }
                 else if (item is CopyToTheFollowOperationModel)
                 {
-                    svMain.Children.Add(new ColorOperationChild(item as CopyToTheFollowOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(item as CopyToTheFollowOperationModel, mw));
                 }
                 else if (item is AccelerationOrDecelerationOperationModel)
                 {
-                    svMain.Children.Add(new ColorOperationChild(item as AccelerationOrDecelerationOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(item as AccelerationOrDecelerationOperationModel, mw));
                 }
                 else if (item is AnimationDisappearOperationModel)
                 {
-                    svMain.Children.Add(new AnimationDisappearOperationChild(item as AnimationDisappearOperationModel));
+                    svMain.Children.Add(new AnimationDisappearOperationChild(item as AnimationDisappearOperationModel, mw)); ;
                 }
                 else if (item is ColorWithCountOperationModel)
                 {
-                    svMain.Children.Add(new ColorOperationChild(item as ColorWithCountOperationModel));
+                    svMain.Children.Add(new ColorOperationChild(item as ColorWithCountOperationModel, mw));
                 }
                 else if (item is AnimationDisappearOperationModel)
                 {
-                    svMain.Children.Add(new AnimationDisappearOperationChild(item as AnimationDisappearOperationModel));
+                    svMain.Children.Add(new AnimationDisappearOperationChild(item as AnimationDisappearOperationModel, mw));
                 }
                 else if (item is InterceptTimeOperationModel)
                 {
-                    svMain.Children.Add(new InterceptTimeOperationChild(item as InterceptTimeOperationModel));
+                    svMain.Children.Add(new InterceptTimeOperationChild(item as InterceptTimeOperationModel, mw));
                 }
                 else if (item is ThirdPartyOperationModel)
                 {
-                    svMain.Children.Add(new ThirdPartyOperationChild(item as ThirdPartyOperationModel));
+                    svMain.Children.Add(new ThirdPartyOperationChild(item as ThirdPartyOperationModel, mw));
                 }
                 (svMain.Children[svMain.Children.Count -1] as BaseStyle).sw = this;
-
-                ListBoxItem mItem = new ListBoxItem()
-                {
-                    BorderThickness = new Thickness(1),
-                    BorderBrush = new SolidColorBrush(Color.FromArgb(255, 40, 40, 40)),
-                    Background = new SolidColorBrush(Colors.Transparent),
-                };
-                TextBlock box = new TextBlock
-                {
-                    FontSize = 16,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240)),
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                };
-                mItem.Content = box;
-                //mItem.MouseLeftButtonDown += Box_Click;
-                lbCatalog.Items.Add(mItem);
-
-                box.SetResourceReference(TextBlock.TextProperty, (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Title);
             }
             //if (svMain.Children.Count != 0){
             //    (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Margin = new Thickness(0,0,0,20);
@@ -184,22 +163,7 @@ namespace Maker.View.Style
 
         public void SetData(List<BaseOperationModel> operationModels,bool isNew)
         {
-            lbCatalog.Items.Clear();
             SetData(operationModels);
-            if (isNew) {
-                //是新增的
-                lbCatalog.SelectedIndex = lbCatalog.Items.Count-1;
-            }
-        }
-
-        private void Box_Click(object sender, MouseButtonEventArgs e)
-        {
-            lbCatalog.SelectedItem = sender;
-        }
-
-        private void lbCatalog_MouseEnter(object sender, MouseEventArgs e)
-        {
-            lbCatalog.IsEnabled = CanSave();
         }
 
         private bool CanSave() {
@@ -272,13 +236,6 @@ namespace Maker.View.Style
             int bigPosition = oldPosition > newPosition ? oldPosition : newPosition;
             int smallPosition = oldPosition < newPosition ? oldPosition : newPosition;
           
-            ListBoxItem box = cbMain.Items[smallPosition] as ListBoxItem;
-            ListBoxItem box2 = cbMain.Items[bigPosition] as ListBoxItem;
-            cbMain.Items.RemoveAt(bigPosition);
-            cbMain.Items.RemoveAt(smallPosition);
-            cbMain.Items.Insert(smallPosition, box2);
-            cbMain.Items.Insert(bigPosition, box);
-
             BaseStyle bd = spMain.Children[smallPosition] as BaseStyle;
             BaseStyle bd2 = spMain.Children[bigPosition] as BaseStyle;
             spMain.Children.RemoveAt(bigPosition);
@@ -293,7 +250,6 @@ namespace Maker.View.Style
             operationModels.Insert(smallPosition, bom2);
             operationModels.Insert(bigPosition, bom);
 
-            cbMain.SelectedIndex = newPosition;
             OnRefresh();
 
             //Console.WriteLine(nowPoint.X + "---" + nowPoint.Y);

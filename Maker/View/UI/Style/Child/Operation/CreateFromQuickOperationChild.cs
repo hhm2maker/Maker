@@ -24,7 +24,7 @@ namespace Maker.View.UI.Style.Child
         private List<String> types = new List<String>() { "Up", "Down", "UpDown", "DownUp", "UpAndDown", "DownAndUp", "FreezeFrame" };
         private List<String> actions = new List<String>() { "All", "Open", "Close" };
 
-        public CreateFromQuickOperationChild(CreateFromQuickOperationModel createFromQuickOperationModel, ScriptUserControl suc)
+        public CreateFromQuickOperationChild(CreateFromQuickOperationModel createFromQuickOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.createFromQuickOperationModel = createFromQuickOperationModel;
             this.suc = suc;
@@ -227,60 +227,6 @@ namespace Maker.View.UI.Style.Child
 
             //suc.UpdateStep();
             //RefreshView();
-        }
-
-        /// <summary>
-        /// 内容是否正确
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="split"></param>
-        /// <param name="range"></param>
-        /// <returns></returns>
-        public List<int> GetTrueContent(String content, char split, char range)
-        {
-            try
-            {
-                List<int> nums = new List<int>();
-                string[] strSplit = content.Split(split);
-                for (int i = 0; i < strSplit.Length; i++)
-                {
-                    if (strSplit[i].Contains(range))
-                    {
-                        String[] TwoNumber = null;
-                        TwoNumber = strSplit[i].Split(range);
-
-                        int One = int.Parse(TwoNumber[0]);
-                        int Two = int.Parse(TwoNumber[1]);
-                        if (One < Two)
-                        {
-                            for (int k = One; k <= Two; k++)
-                            {
-                                nums.Add(k);
-                            }
-                        }
-                        else if (One > Two)
-                        {
-                            for (int k = One; k >= Two; k--)
-                            {
-                                nums.Add(k);
-                            }
-                        }
-                        else
-                        {
-                            nums.Add(One);
-                        }
-                    }
-                    else
-                    {
-                        nums.Add(int.Parse(strSplit[i]));
-                    }
-                }
-                return nums;
-            }
-            catch
-            {
-                return null;
-            }
         }
 
         public override bool ToSave()

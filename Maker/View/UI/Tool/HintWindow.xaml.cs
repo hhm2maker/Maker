@@ -17,7 +17,7 @@ namespace Maker.View.UI.Tool
     /// <summary>
     /// HintWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class HintWindow : Window
+    public partial class HintWindow : UserControl
     {
         private NewMainWindow mw;
         public HintWindow(NewMainWindow mw)
@@ -29,32 +29,32 @@ namespace Maker.View.UI.Tool
 
         int position = 1;
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            mw.hintWindowConfigModel.IsFirst = false;
-            mw.hintWindowConfigModel.Top = (int)Top;
-            mw.hintWindowConfigModel.Left = (int)Left;
-            mw.hintWindowConfigModel.Width = (int)ActualWidth;
-            if(position != 0) { 
-                mw.hintWindowConfigModel.Height = (int)ActualHeight;
-            }
-            mw.hintWindowConfigModel.Position = position;
-        }
+        //private void Window_Closed(object sender, EventArgs e)
+        //{
+        //    mw.hintWindowConfigModel.IsFirst = false;
+        //    mw.hintWindowConfigModel.Top = (int)Top;
+        //    mw.hintWindowConfigModel.Left = (int)Left;
+        //    mw.hintWindowConfigModel.Width = (int)ActualWidth;
+        //    if(position != 0) { 
+        //        mw.hintWindowConfigModel.Height = (int)ActualHeight;
+        //    }
+        //    mw.hintWindowConfigModel.Position = position;
+        //}
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (!mw.hintWindowConfigModel.IsFirst)
             {
-                Top = mw.hintWindowConfigModel.Top;
-                Left = mw.hintWindowConfigModel.Left;
-                Width = mw.hintWindowConfigModel.Width;
-                position = mw.hintWindowConfigModel.Position;
+                //Top = mw.hintWindowConfigModel.Top;
+                //Left = mw.hintWindowConfigModel.Left;
+                //Width = mw.hintWindowConfigModel.Width;
+                //position = mw.hintWindowConfigModel.Position;
 
                 UpdateImage();
             }
             else
             {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                //WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
             mw.hintWindowConfigModel.IsFirst = false;
         }

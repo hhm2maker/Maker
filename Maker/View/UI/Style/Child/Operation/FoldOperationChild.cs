@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,73 +13,75 @@ namespace Maker.View.UI.Style.Child
     public partial class FoldOperationChild : OperationStyle
     {
         public override string Title { get; set; } = "Fold";
+        public override StyleType FunType { get; set; } = StyleType.Edit;
+
         private FoldOperationModel foldOperationModel;
-        public FoldOperationChild(FoldOperationModel foldOperationModel)
+
+        private List<String> orientations = new List<String>() { "Vertical", "Horizontal" };
+
+        public FoldOperationChild(FoldOperationModel foldOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.foldOperationModel = foldOperationModel;
-            //构建对话框
-            cbOrientation = GetComboBox(new List<string>() { "Vertical", "Horizontal" }, null);
-            AddTitleAndControl("OrientationColon", cbOrientation);
-
-            tbStartPosition = GetTexeBox(foldOperationModel.StartPosition.ToString());
-            AddTitleAndControl("StartPositionColon", tbStartPosition);
-            tbSpan = GetTexeBox(foldOperationModel.Span.ToString());
-            AddTitleAndControl("SpanColon", tbSpan);
-
-            CreateDialog();
-
-            if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.VERTICAL) {
-                cbOrientation.SelectedIndex = 0;
-            }
-            else if (foldOperationModel.MyOrientation == FoldOperationModel.Orientation.HORIZONTAL)
-            {
-                cbOrientation.SelectedIndex = 1;
-            }
-
-            cbOrientation.SelectionChanged += CbOperation_SelectionChanged;
+            ToCreate();
         }
 
-        private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected override List<RunModel> UpdateData()
         {
-            if (cbOrientation.SelectedIndex == 0) {
-                foldOperationModel.MyOrientation = FoldOperationModel.Orientation.VERTICAL;
-            }
-            else if (cbOrientation.SelectedIndex == 1)
+            return new List<RunModel>
             {
-                foldOperationModel.MyOrientation = FoldOperationModel.Orientation.HORIZONTAL;
-            }
+                new RunModel("OrientationColon", (string)Application.Current.FindResource(orientations[(int)foldOperationModel.MyOrientation - 20]), RunModel.RunType.Combo, orientations),
+                new RunModel("StartPositionColon", foldOperationModel.StartPosition.ToString()),
+                new RunModel("SpanColon", foldOperationModel.Span.ToString()),
+            };
         }
 
-        public TextBox tbStartPosition,tbSpan;
-        public ComboBox cbOrientation;
-
-        public override bool ToSave() {
-            if (tbStartPosition.Text.Equals(String.Empty))
+        protected override void RefreshView()
+        {
+            //Orientation
+            FoldOperationModel.Orientation orientation = 0;
+            String strOrientation = runs[2].Text;
+            int _orientation = -1;
+            for (int i = 0; i < orientations.Count; i++)
             {
-                tbStartPosition.Focus();
-                return false;
-            }
-            if (int.TryParse(tbStartPosition.Text, out int startPosition))
-            {
-                foldOperationModel.StartPosition = startPosition;
-            }
-            else
-            {
-                tbStartPosition.Focus();
-                return false;
-            }
-            if (int.TryParse(tbSpan.Text, out int span))
-            {
-                foldOperationModel.Span = span;
-                return true;
-            }
-            else
-            {
-                tbStartPosition.Focus();
-                return false;
+                if (((string)Application.Current.FindResource(orientations[i])).Equals(strOrientation))
+                {
+                    _orientation = i;
+                    break;
+                }
             }
 
-           
+            switch (_orientation)
+            {
+                case -1:
+                    orientation = FoldOperationModel.Orientation.VERTICAL;
+                    break;
+                case 0:
+                    orientation = FoldOperationModel.Orientation.VERTICAL;
+                    break;
+                case 1:
+                    orientation = FoldOperationModel.Orientation.HORIZONTAL;
+                    break;
+            }
+
+            //StartPosition
+            String strStartPosition = runs[5].Text;
+            if (!int.TryParse(strStartPosition, out int startPosition))
+            {
+                startPosition = foldOperationModel.StartPosition;
+            }
+
+            //Span
+            String strSpan = runs[8].Text;
+            if (!int.TryParse(strSpan, out int span))
+            {
+                span = foldOperationModel.Span;
+            }
+
+            foldOperationModel.MyOrientation = orientation;
+            foldOperationModel.StartPosition = startPosition;
+            foldOperationModel.Span = span;
+
+            UpdateData();
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace Maker.View.Style.Child
 {
-    
+
     public class BaseStyle : UserControl
     {
         public BaseStyleUserControl sw;
@@ -29,9 +29,12 @@ namespace Maker.View.Style.Child
             set;
         } = StyleType.Edit;
 
-        public enum StyleType {
+        public enum StyleType
+        {
             Create,
             Edit,
+            Animation,
+            Generate,
         }
 
         protected virtual bool OnlyTitle
@@ -90,157 +93,119 @@ namespace Maker.View.Style.Child
 
         private StackPanel spContacts = new StackPanel();
 
-        private StackPanel GetTitle()
-        {
-            return ((Content as StackPanel).Children[0] as Border).Child as StackPanel;
-            //if (OnlyTitle)
-            //{
-            //    return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
-            //}
-            //else {
-            //    return 
-            //}
-        }
+        //private StackPanel GetTitle()
+        //{
+        //    return ((Content as StackPanel).Children[0] as Border).Child as StackPanel;
+        //    //if (OnlyTitle)
+        //    //{
+        //    //    return (((Content as StackPanel).Children[0] as Border).Child as DockPanel).Children[1] as StackPanel;
+        //    //}
+        //    //else {
+        //    //    return 
+        //    //}
+        //}
 
         private void AddParentPanel()
         {
-            DockPanel dp;
-            if (OnlyTitle)
-            {
-                StackPanel sp = new StackPanel();
-                sp.Margin = new Thickness(20, 10, 20, 0);
-                Border borderTop = new Border();
-                borderTop.SetResourceReference(BackgroundProperty, "bgTitleColor");
-                borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderTop.CornerRadius = new CornerRadius(5);
-                borderTop.Margin = new Thickness(0, 15, 0, 0);
-
-                dp = new DockPanel();
-
-                TextBlock tbTitle = new TextBlock();
-                tbTitle.Foreground = new SolidColorBrush(Colors.White);
-                tbTitle.Margin = new Thickness(10);
-                tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
-                dp.Children.Add(tbTitle);
-
-                borderTop.Child = dp;
-
-                sp.Children.Add(borderTop);
-                AddChild(sp);
-            }
-            else
-            {
-                StackPanel sp = new StackPanel();
-                sp.Margin = new Thickness(20, 10, 20, 0);
-                Border borderTop = new Border();
-                borderTop.SetResourceReference(BackgroundProperty, "bgTitleColor");
-                borderTop.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderTop.CornerRadius = new CornerRadius(5, 5, 0, 0);
-                borderTop.Margin = new Thickness(0, 15, 0, 0);
-
-                StackPanel spTitle = new StackPanel();
-                spTitle.Orientation = Orientation.Vertical;
-
-                dp = new DockPanel();
-
-                spTitle.Children.Add(dp);
-
-                TextBlock tbTitle = new TextBlock();
-                tbTitle.Foreground = new SolidColorBrush(Colors.White);
-                tbTitle.Margin = new Thickness(10);
-                tbTitle.SetResourceReference(TextBlock.TextProperty, Title);
-                dp.Children.Add(tbTitle);
-
-                borderTop.Child = spTitle;
-
-                sp.Children.Add(borderTop);
-
-                Border borderBottom = new Border();
-                borderBottom.SetResourceReference(BackgroundProperty, "bgContentColor");
-                borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
-                borderBottom.CornerRadius = new CornerRadius(0, 0, 5, 5);
-
-                spContacts.Orientation = Orientation.Vertical;
-                spContacts.Margin = new Thickness(10);
-                borderBottom.Child = spContacts;
-
-                sp.Children.Add(borderBottom);
-                AddChild(sp);
-            }
-            StackPanel spRight = new StackPanel();
+            StackPanel sp = new StackPanel();
+            sp.Orientation = Orientation.Horizontal;
+            sp.Margin = new Thickness(20, 0, 20, 0);
 
             StackPanel spTopImage = new StackPanel();
 
-            spTopImage.HorizontalAlignment = HorizontalAlignment.Right;
+            spTopImage.VerticalAlignment = VerticalAlignment.Center;
             spTopImage.Orientation = Orientation.Horizontal;
             Image image = new Image
             {
-                Width = 20,
+                Width = 18,
                 Margin = new Thickness(0, 0, 10, 0),
                 VerticalAlignment = VerticalAlignment.Center,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_up.png", UriKind.RelativeOrAbsolute))
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/move.png", UriKind.RelativeOrAbsolute))
             };
-            image.MouseLeftButtonDown += Image_MouseLeftButtonDown;
-            Image image2 = new Image
-            {
-                Width = 20,
-                Margin = new Thickness(0, 0, 15, 0),
-                VerticalAlignment = VerticalAlignment.Center,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/arrow_down.png", UriKind.RelativeOrAbsolute))
-            };
-            image2.MouseLeftButtonDown += Image2_MouseLeftButtonDown;
+            image.MouseLeftButtonDown += BaseStyle_MouseMove;
             Image image3 = new Image
             {
-                Width = 20,
+                Width = 18,
                 Margin = new Thickness(0, 0, 10, 0),
                 VerticalAlignment = VerticalAlignment.Center,
-                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/reduce.png", UriKind.RelativeOrAbsolute))
+                Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/more_two_white.png", UriKind.RelativeOrAbsolute))
             };
-            image3.MouseLeftButtonDown += Image3_MouseLeftButtonDown;
+            image3.MouseLeftButtonUp += Image3_MouseLeftButtonDown;
+
+            ContextMenu contextMenu = new ContextMenu();
+            image3.ContextMenu = contextMenu;
+            MenuItem menuItem = new MenuItem();
+            menuItem.SetResourceReference(HeaderedItemsControl.HeaderProperty, "Delete");
+            menuItem.Click += MenuItem_Click;
+            contextMenu.Items.Add(menuItem);
+
             spTopImage.Children.Add(image);
-            spTopImage.Children.Add(image2);
             spTopImage.Children.Add(image3);
             RenderOptions.SetBitmapScalingMode(image, BitmapScalingMode.HighQuality);
-            RenderOptions.SetBitmapScalingMode(image2, BitmapScalingMode.HighQuality);
             RenderOptions.SetBitmapScalingMode(image3, BitmapScalingMode.HighQuality);
-            spRight.VerticalAlignment = VerticalAlignment.Center;
-            spRight.Children.Add(spTopImage);
-            dp.Children.Add(spRight);
+            sp.Children.Add(spTopImage);
+
+            StackPanel spTitle = new StackPanel();
+            spTitle.Orientation = Orientation.Vertical;
+
+            sp.Children.Add(spTitle);
+
+            Border borderBottom = new Border();
+            borderBottom.HorizontalAlignment = HorizontalAlignment.Stretch;
+            borderBottom.VerticalAlignment = VerticalAlignment.Center;
+            borderBottom.CornerRadius = new CornerRadius(0, 0, 5, 5);
+
+            spContacts.Orientation = Orientation.Vertical;
+            spContacts.Margin = new Thickness(10);
+            borderBottom.Child = spContacts;
+
+            sp.Children.Add(borderBottom);
+            AddChild(sp);
         }
 
-        protected void AddTitleImage(List<String> imageUris,List<MouseButtonEventHandler> es)
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (imageUris.Count != es.Count)
-            {
-                return;
-            }
-            StackPanel sp = GetTitle();
-            StackPanel spBottomImage = new StackPanel();
-            spBottomImage.Margin = new Thickness(0,0,35,10);
-            spBottomImage.HorizontalAlignment = HorizontalAlignment.Right;
-
-            spBottomImage.Orientation = Orientation.Horizontal;
-            for (int i = imageUris.Count -1 ; i >=0; i--) {
-                Image iv = new Image
-                {
-                    Width = 20,
-                    Height = 20,
-                    Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/"+ imageUris[i], UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill
-                };
-                if (i == imageUris.Count - 1)
-                {
-                    iv.Margin = new Thickness(0, 0, 10, 0);
-                }
-                else {
-                    iv.Margin = new Thickness(0, 0, 10, 0);
-                }
-                RenderOptions.SetBitmapScalingMode(iv, BitmapScalingMode.Fant);
-                spBottomImage.Children.Insert(0, iv);
-                iv.MouseLeftButtonDown += es[i];
-            }
-            sp.Children.Add(spBottomImage);
+            int position = (Parent as StackPanel).Children.IndexOf(this);
+            sw.operationModels.RemoveAt(position);
+            sw.spMain.Children.RemoveAt(position);
+            sw.OnRefresh();
         }
+
+        //protected void AddTitleImage(List<String> imageUris, List<MouseButtonEventHandler> es)
+        //{
+        //    if (imageUris.Count != es.Count)
+        //    {
+        //        return;
+        //    }
+        //    StackPanel sp = GetTitle();
+        //    StackPanel spBottomImage = new StackPanel();
+        //    spBottomImage.Margin = new Thickness(0, 0, 35, 10);
+        //    spBottomImage.HorizontalAlignment = HorizontalAlignment.Right;
+
+        //    spBottomImage.Orientation = Orientation.Horizontal;
+        //    for (int i = imageUris.Count - 1; i >= 0; i--)
+        //    {
+        //        Image iv = new Image
+        //        {
+        //            Width = 20,
+        //            Height = 20,
+        //            Source = new BitmapImage(new Uri("pack://application:,,,/View/Resources/Image/" + imageUris[i], UriKind.RelativeOrAbsolute)),
+        //            Stretch = Stretch.Fill
+        //        };
+        //        if (i == imageUris.Count - 1)
+        //        {
+        //            iv.Margin = new Thickness(0, 0, 10, 0);
+        //        }
+        //        else
+        //        {
+        //            iv.Margin = new Thickness(0, 0, 10, 0);
+        //        }
+        //        RenderOptions.SetBitmapScalingMode(iv, BitmapScalingMode.Fant);
+        //        spBottomImage.Children.Insert(0, iv);
+        //        iv.MouseLeftButtonDown += es[i];
+        //    }
+        //    sp.Children.Add(spBottomImage);
+        //}
 
         //protected Image GetImage(String imageUris,int size, MouseButtonEventHandler e)
         //{
@@ -253,7 +218,7 @@ namespace Maker.View.Style.Child
         //    };
         //    image.MouseLeftButtonDown += e;
         //    return image;
-             
+
         //}
 
 
@@ -275,12 +240,7 @@ namespace Maker.View.Style.Child
             {
                 return;
             }
-            ListBoxItem box = sw.cbMain.Items[position - 1] as ListBoxItem;
-            ListBoxItem box2 = sw.cbMain.Items[position] as ListBoxItem;
-            sw.cbMain.Items.RemoveAt(position - 1);
-            sw.cbMain.Items.RemoveAt(position - 1);
-            sw.cbMain.Items.Insert(position - 1, box2) ;
-            sw.cbMain.Items.Insert(position, box);
+
 
             BaseStyle bd = sw.spMain.Children[position - 1] as BaseStyle;
             BaseStyle bd2 = sw.spMain.Children[position] as BaseStyle;
@@ -290,61 +250,47 @@ namespace Maker.View.Style.Child
             sw.spMain.Children.Insert(position, bd);
 
             BaseOperationModel bom = sw.operationModels[position - 1] as BaseOperationModel;
-            BaseOperationModel bom2 = sw.operationModels[position ] as BaseOperationModel;
+            BaseOperationModel bom2 = sw.operationModels[position] as BaseOperationModel;
             sw.operationModels.RemoveAt(position - 1);
             sw.operationModels.RemoveAt(position - 1);
             sw.operationModels.Insert(position - 1, bom2);
             sw.operationModels.Insert(position, bom);
 
-            sw.cbMain.SelectedIndex = position - 1;
             sw.OnRefresh();
         }
 
         private void Image2_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int position = (Parent as StackPanel).Children.IndexOf(this);
-            if (position == sw.cbMain.Items.Count - 1)
-            {
-                return;
-            }
-            ListBoxItem box = sw.cbMain.Items[position] as ListBoxItem;
-            ListBoxItem box2 = sw.cbMain.Items[position+1] as ListBoxItem;
-            sw.cbMain.Items.RemoveAt(position);
-            sw.cbMain.Items.RemoveAt(position);
-            sw.cbMain.Items.Insert(position, box2);
-            sw.cbMain.Items.Insert(position+1, box);
 
             BaseStyle bd = sw.spMain.Children[position] as BaseStyle;
-            BaseStyle bd2 = sw.spMain.Children[position+1] as BaseStyle;
+            BaseStyle bd2 = sw.spMain.Children[position + 1] as BaseStyle;
             sw.spMain.Children.RemoveAt(position);
             sw.spMain.Children.RemoveAt(position);
             sw.spMain.Children.Insert(position, bd2);
-            sw.spMain.Children.Insert(position+1, bd);
+            sw.spMain.Children.Insert(position + 1, bd);
 
             BaseOperationModel bom = sw.operationModels[position] as BaseOperationModel;
-            BaseOperationModel bom2 = sw.operationModels[position+1] as BaseOperationModel;
+            BaseOperationModel bom2 = sw.operationModels[position + 1] as BaseOperationModel;
             sw.operationModels.RemoveAt(position);
             sw.operationModels.RemoveAt(position);
             sw.operationModels.Insert(position, bom2);
-            sw.operationModels.Insert(position+1, bom);
+            sw.operationModels.Insert(position + 1, bom);
 
-            sw.cbMain.SelectedIndex = position + 1;
             sw.OnRefresh();
         }
 
         private void Image3_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            int position = (Parent as StackPanel).Children.IndexOf(this);
-            sw.cbMain.Items.RemoveAt(position);
-            sw.operationModels.RemoveAt(position);
-            sw.spMain.Children.RemoveAt(position);
-            sw.OnRefresh();
+            (sender as Image).ContextMenu.IsOpen = true; 
+
         }
 
         /// <summary>
         /// 常规设置
         /// </summary>
-        public void SetRoutine() {
+        public void SetRoutine()
+        {
             //Background = new SolidColorBrush(Color.FromArgb(255, 38, 39, 41));
         }
         /// <summary>
@@ -352,27 +298,33 @@ namespace Maker.View.Style.Child
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void SetSize(double width,double height) {
+        public void SetSize(double width, double height)
+        {
             //spContacts.Width = width;
             spContacts.Height = height;
             //Width = width + 140;
             Height = height + 60;
         }
-       
-       
-        protected List<UIElement> _UI =new List<UIElement>();
-        public int UICount {
-            get {
+
+
+        protected List<UIElement> _UI = new List<UIElement>();
+        public int UICount
+        {
+            get
+            {
                 return _UI.Count;
-            } 
+            }
         }
 
         /// <summary>
         /// 添加控件到对话框
         /// </summary>
-        private void AddUIToDialog() {
-            foreach (FrameworkElement ui in _UI) {
-                if (_UI.IndexOf(ui) != 0) {
+        private void AddUIToDialog()
+        {
+            foreach (FrameworkElement ui in _UI)
+            {
+                if (_UI.IndexOf(ui) != 0)
+                {
                     ui.Margin = new Thickness(0, 10, 0, 0);
                 }
                 spContacts.Children.Add(ui);
@@ -388,14 +340,14 @@ namespace Maker.View.Style.Child
             _UI.RemoveAt(position);
         }
 
-        public void AddUIToDialog(FrameworkElement ui,int position)
+        public void AddUIToDialog(FrameworkElement ui, int position)
         {
-            _UI.Insert(position,ui);
+            _UI.Insert(position, ui);
             if (_UI.IndexOf(ui) != 0)
             {
                 ui.Margin = new Thickness(0, 10, 0, 0);
             }
-            spContacts.Children.Insert(position,ui);
+            spContacts.Children.Insert(position, ui);
         }
 
         /// <summary>
@@ -406,7 +358,7 @@ namespace Maker.View.Style.Child
             _UI.Add(GeneralMainViewBusiness.CreateInstance().GetTopHintTextBlock(textName));
         }
 
-        public BaseStyle GetButton(String textName, RoutedEventHandler routedEventHandler,out Button btn)
+        public BaseStyle GetButton(String textName, RoutedEventHandler routedEventHandler, out Button btn)
         {
             btn = ViewBusiness.GetButton(textName, routedEventHandler);
             return this;
@@ -416,7 +368,8 @@ namespace Maker.View.Style.Child
         {
             StackPanel sp = new StackPanel();
             sp.Orientation = Orientation.Vertical;
-            foreach (var item in frameworkElements) {
+            foreach (var item in frameworkElements)
+            {
                 sp.Children.Add(item);
             }
             return sp;
@@ -454,7 +407,7 @@ namespace Maker.View.Style.Child
             {
                 if (dp.Children.Count != 0)
                 {
-                    item.Margin = new Thickness(0,0,0,0);
+                    item.Margin = new Thickness(0, 0, 0, 0);
                     item.VerticalAlignment = VerticalAlignment.Center;
                 }
                 dp.Children.Add(item);
@@ -486,7 +439,7 @@ namespace Maker.View.Style.Child
             cb.Foreground = new SolidColorBrush(Colors.White);
             cb.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
             cb.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
-            cb.Padding = new Thickness(10,5,10,5);
+            cb.Padding = new Thickness(10, 5, 10, 5);
             //cb.Margin = new Thickness(16, 0, 0, 0);
             foreach (String child in childTextName)
             {
@@ -520,7 +473,7 @@ namespace Maker.View.Style.Child
         /// </summary>
         /// <param name="textName"></param>
         /// <param name="isIndependent"></param>
-        public ComboBox GetComboBox(List<String> childTextName, int index,SelectionChangedEventHandler selectionChangedEvent)
+        public ComboBox GetComboBox(List<String> childTextName, int index, SelectionChangedEventHandler selectionChangedEvent)
         {
             ComboBox cb = new ComboBox();
             cb.SelectedIndex = 0;
@@ -556,7 +509,7 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 16;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
-       
+
             tb.Text = textName;
             _UI.Add(tb);
         }
@@ -566,13 +519,13 @@ namespace Maker.View.Style.Child
         /// </summary>
         public Border GetTexeBlock(String textContent)
         {
-            return GetTexeBlock(textContent,false);
+            return GetTexeBlock(textContent, false);
         }
 
         /// <summary>
         /// 添加标题和值
         /// </summary>
-        public Border GetTexeBlock(String textContent,bool isResourceReference)
+        public Border GetTexeBlock(String textContent, bool isResourceReference)
         {
             Border border = new Border();
             border.Margin = new Thickness(5, 0, 0, 0);
@@ -593,7 +546,7 @@ namespace Maker.View.Style.Child
             {
                 tbContent.Text = textContent;
             }
-            
+
             border.Child = tbContent;
 
             return border;
@@ -607,7 +560,7 @@ namespace Maker.View.Style.Child
             TextBlock tbContent = new TextBlock();
             tbContent.Margin = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
-            tbContent.Foreground = new SolidColorBrush(Color.FromRgb(200,200,200));
+            tbContent.Foreground = new SolidColorBrush(Color.FromRgb(200, 200, 200));
             if (isResourceReference)
             {
                 tbContent.SetResourceReference(TextBlock.TextProperty, textContent);
@@ -619,7 +572,7 @@ namespace Maker.View.Style.Child
             return tbContent;
         }
 
-       
+
         public TextBox GetTexeBox(String textContent)
         {
             TextBox tbContent = new TextBox();
@@ -628,7 +581,7 @@ namespace Maker.View.Style.Child
             tbContent.Background = new SolidColorBrush(Color.FromRgb(43, 43, 43));
             tbContent.BorderBrush = new SolidColorBrush(Color.FromRgb(31, 31, 31));
             tbContent.Margin = new Thickness(5, 0, 0, 0);
-            tbContent.Padding = new Thickness(5,2,5,2);
+            tbContent.Padding = new Thickness(5, 2, 5, 2);
             tbContent.FontSize = 16;
             tbContent.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
             tbContent.Text = textContent;
@@ -638,10 +591,10 @@ namespace Maker.View.Style.Child
 
         public void AddTitleAndControl(String textTitle, FrameworkElement frameworkElement)
         {
-            AddTitleAndControl(textTitle,new List<FrameworkElement>() { frameworkElement });
+            AddTitleAndControl(textTitle, new List<FrameworkElement>() { frameworkElement });
         }
 
-        public BaseStyle AddTitleAndControl(String textTitle, FrameworkElement frameworkElement,Orientation orientation)
+        public BaseStyle AddTitleAndControl(String textTitle, FrameworkElement frameworkElement, Orientation orientation)
         {
             StackPanel dp = new StackPanel();
             dp.Orientation = orientation;
@@ -655,17 +608,17 @@ namespace Maker.View.Style.Child
 
         public void AddTitleAndControl(String textTitle, bool isResourceReference, FrameworkElement frameworkElement)
         {
-            AddTitleAndControl(textTitle, isResourceReference,new List<FrameworkElement>() { frameworkElement });
+            AddTitleAndControl(textTitle, isResourceReference, new List<FrameworkElement>() { frameworkElement });
         }
 
-        public void AddTitleAndControl(String textTitle,bool isResourceReference, List<FrameworkElement> frameworkElements)
+        public void AddTitleAndControl(String textTitle, bool isResourceReference, List<FrameworkElement> frameworkElements)
         {
             DockPanel dp = new DockPanel();
-            
+
             dp.Children.Add(GetTitle(textTitle, isResourceReference));
             foreach (var item in frameworkElements)
             {
-                item.Margin = new Thickness(0,0,5,0);
+                item.Margin = new Thickness(0, 0, 5, 0);
                 dp.Children.Add(item);
             }
 
@@ -682,7 +635,7 @@ namespace Maker.View.Style.Child
         /// </summary>
         /// <param name="textName"></param>
         /// <param name="isIndependent"></param>
-        public void AddTitleAndComboBox(String titleName,List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
+        public void AddTitleAndComboBox(String titleName, List<String> childTextName, SelectionChangedEventHandler selectionChangedEvent)
         {
             ComboBox cb = new ComboBox();
             cb.SelectedIndex = 0;
@@ -703,14 +656,15 @@ namespace Maker.View.Style.Child
             _UI.Add(cb);
         }
 
-        private TextBlock GetTitle(String textTitle) {
-            return GetTitle(textTitle,true);
+        private TextBlock GetTitle(String textTitle)
+        {
+            return GetTitle(textTitle, true);
         }
 
         private TextBlock GetTitle(String textTitle, bool isResourceReference)
         {
             TextBlock tbTitle = new TextBlock();
-            tbTitle.Margin = new Thickness(0,0,5,0);
+            tbTitle.Margin = new Thickness(0, 0, 5, 0);
             tbTitle.VerticalAlignment = VerticalAlignment.Center;
             tbTitle.FontSize = 16;
             tbTitle.Foreground = new SolidColorBrush(Color.FromArgb(255, 240, 240, 240));
@@ -733,7 +687,7 @@ namespace Maker.View.Style.Child
             TextBlock tb = new TextBlock();
             tb.FontSize = 14;
             tb.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 90, 90));
-          
+
             tb.SetResourceReference(TextBlock.TextProperty, textName);
             tb.TextWrapping = TextWrapping.Wrap;
             _UI.Add(tb);
@@ -752,7 +706,7 @@ namespace Maker.View.Style.Child
         /// </summary>
         /// <param name="textName"></param>
         /// <param name="isIndependent"></param>
-        public void AddCheckBox(String textName,bool isIndependent)
+        public void AddCheckBox(String textName, bool isIndependent)
         {
             _UI.Add(UIViewBusiness.GetCheckBox(textName, isIndependent));
         }
@@ -765,18 +719,20 @@ namespace Maker.View.Style.Child
             _UI.Add(uie);
             return this;
         }
-   
+
         /// <summary>
         /// 得到指定位置的控件
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
-        public UIElement Get(int position) {
+        public UIElement Get(int position)
+        {
             return spContacts.Children[position];
         }
 
 
-        protected GeneralMainViewBusiness ViewBusiness {
+        protected GeneralMainViewBusiness ViewBusiness
+        {
             get { return GeneralMainViewBusiness.CreateInstance(); }
         }
     }

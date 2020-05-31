@@ -27,7 +27,6 @@ namespace Maker.View.Style
             InitializeComponent();
             this.mw = mw;
 
-            cbMain = lbCatalog;
             spMain = svMain;
         }
       
@@ -47,15 +46,15 @@ namespace Maker.View.Style
 
                 if (item is LightFilePlayModel)
                 {
-                    svMain.Children.Add(new LightFilePlayChild(item as LightFilePlayModel));
+                    svMain.Children.Add(new LightFilePlayChild(item as LightFilePlayModel, null));
                 }
                 else if (item is GotoPagePlayModel)
                 {
-                    svMain.Children.Add(new GotoPagePlayChild(item as GotoPagePlayModel));
+                    svMain.Children.Add(new GotoPagePlayChild(item as GotoPagePlayModel, null));
                 }
                 else if (item is AudioFilePlayModel)
                 {
-                    svMain.Children.Add(new AudioFilePlayChild(item as AudioFilePlayModel));
+                    svMain.Children.Add(new AudioFilePlayChild(item as AudioFilePlayModel, null));
                 }
 
 

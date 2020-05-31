@@ -3,6 +3,7 @@ using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Control;
 using Maker.View.Device;
+using Maker.View.LightScriptUserControl;
 using MakerUI.Device;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Maker.View.UI.Style.Child.Operation
 
         private LaunchpadPro mLaunchpad = new LaunchpadPro();
         private List<TextBox> textBoxs = new List<TextBox>();
-        public ShapeColorOperationChild(ShapeColorOperationModel shapeColorOperationModel)
+        public ShapeColorOperationChild(ShapeColorOperationModel shapeColorOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.shapeColorOperationModel = shapeColorOperationModel;
 

@@ -71,7 +71,7 @@
                     <!--触发器-->
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#535353" TargetName="Main_Bg"/>
+                            <Setter Property="Background" Value="{DynamicResource ChooseLeftSelectColor}" TargetName="Main_Bg"/>
                         </Trigger>
                         <!--TopLevelHeader:第一级菜单（有子菜单）-->
                         <Trigger Property="Role" Value="TopLevelHeader">
@@ -235,9 +235,9 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-        <Setter Property="BorderBrush" Value="#e3e3e3"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DividingLineColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background"  Value="{DynamicResource bgTitleColor}"/>
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />
@@ -269,9 +269,9 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-        <Setter Property="BorderBrush" Value="#e3e3e3"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource DividingLineColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="Background" Value="{DynamicResource bgTitleColor}"/>
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />

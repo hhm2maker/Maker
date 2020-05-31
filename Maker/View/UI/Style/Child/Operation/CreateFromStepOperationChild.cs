@@ -17,7 +17,7 @@ namespace Maker.View.UI.Style.Child
         private CreateFromStepOperationModel createFromStepOperationModel;
 
         public TextBox tbStepName;
-        public CreateFromStepOperationChild(CreateFromStepOperationModel createFromStepOperationModel)
+        public CreateFromStepOperationChild(CreateFromStepOperationModel createFromStepOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.createFromStepOperationModel =  createFromStepOperationModel;
             //构建对话框

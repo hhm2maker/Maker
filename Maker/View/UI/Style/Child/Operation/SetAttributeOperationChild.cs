@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using Maker.ViewBusiness;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Maker.View.UI.Style.Child
     {
         public override string Title { get; set; } = "SetAttribute";
         private SetAttributeOperationModel setAttributeOperationModel;
-        public SetAttributeOperationChild(SetAttributeOperationModel setAttributeOperationModel)
+        public SetAttributeOperationChild(SetAttributeOperationModel setAttributeOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.setAttributeOperationModel = setAttributeOperationModel;
             //构建对话框
@@ -44,7 +45,8 @@ namespace Maker.View.UI.Style.Child
 
             CreateDialog();
 
-            AddTitleImage(new List<String>() { "add_white.png", "reduce.png" }, new List<System.Windows.Input.MouseButtonEventHandler>() { IvAdd_MouseLeftButtonDown, IvReduce_MouseLeftButtonDown });
+            //TODO
+            //AddTitleImage(new List<String>() { "add_white.png", "reduce.png" }, new List<System.Windows.Input.MouseButtonEventHandler>() { IvAdd_MouseLeftButtonDown, IvReduce_MouseLeftButtonDown });
         }
 
         private void IvChange_Click(object sender, RoutedEventArgs e)

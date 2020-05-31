@@ -125,7 +125,6 @@ namespace Maker.View.Style.Child
                     builder.Append("Diy-");
                     if (tbColorFormatDiy.Text.Trim().Equals(String.Empty))
                     {
-                        window.lbCatalog.SelectedIndex = position;
                         tbColorFormatDiy.Focus();
                         return null;
                     }
@@ -152,7 +151,6 @@ namespace Maker.View.Style.Child
                 }
                 if (tbColorShapeNumber.Text.Trim().Equals(String.Empty))
                 {
-                    window.lbCatalog.SelectedIndex = position;
                     tbColorShapeNumber.Focus();
                     return null;
                 }

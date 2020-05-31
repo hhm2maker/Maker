@@ -1432,7 +1432,9 @@
     <Resource Include="View\Resources\Image\micolor.png" />
     <Resource Include="View\Resources\Image\minmax.png" />
     <Resource Include="View\Resources\Image\miother.png" />
-    <Resource Include="View\Resources\Image\more.png" />
+    <Resource Include="View\Resources\Image\more.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Resources\Image\mycontent.png" />
     <Resource Include="View\Resources\Image\new_white.png" />
     <Resource Include="View\Resources\Image\novisible.png" />
@@ -1934,6 +1936,14 @@
     <Resource Include="View\Resources\Image\close_gray.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\more_two_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\move.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -247,10 +247,10 @@ namespace Maker.View.LightScriptUserControl
             _bridge.tbTimePointCountLeft_TextChanged();
             UpdateSize();
 
-            foreach(var item in spLeft.Children){
-                (item as FrameworkElement).Visibility = Visibility.Collapsed;
-            }
-            (spLeft.Children[0]).Visibility = Visibility.Visible;
+            //foreach(var item in spLeft.Children){
+            //    (item as FrameworkElement).Visibility = Visibility.Collapsed;
+            //}
+            //(spLeft.Children[0]).Visibility = Visibility.Visible;
         }
 
         private void InitFormat()
@@ -2191,7 +2191,6 @@ namespace Maker.View.LightScriptUserControl
             {
                 //_bridge.UpdateForColor(mLightList, false);
                 AddStepControlToolTip();
-                sw.lbCatalog.Items.Clear();
                 sw.svMain.Children.Clear();
             }
             else
@@ -4216,7 +4215,7 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-        private void Generate_Click(object sender, MouseButtonEventArgs e)
+        private void Generate_Click(object sender, RoutedEventArgs e)
         {
             String stepName = GetUsableStepName();
             ScriptModel scriptModel = new ScriptModel();
@@ -4275,7 +4274,7 @@ namespace Maker.View.LightScriptUserControl
         }
 
 
-        private void FastGeneration_Click(object sender, MouseButtonEventArgs e)
+        private void FastGeneration_Click(object sender, RoutedEventArgs e)
         {
             ScriptModel scriptModel = new ScriptModel();
             scriptModel.Name = GetUsableStepName();
@@ -4305,7 +4304,7 @@ namespace Maker.View.LightScriptUserControl
             Test();
         }
 
-        private void SelectEditor_Click(object sender, MouseButtonEventArgs e)
+        private void SelectEditor_Click(object sender, RoutedEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4350,7 +4349,7 @@ namespace Maker.View.LightScriptUserControl
             }
         }
 
-        private void ConditionJudgment_Click(object sender, MouseButtonEventArgs e)
+        private void ConditionJudgment_Click(object sender, RoutedEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4582,7 +4581,7 @@ namespace Maker.View.LightScriptUserControl
             cTimeLine.Children.Add(line);
         }
 
-        private void CopyFromStep_Click(object sender, MouseEventArgs e)
+        private void CopyFromStep_Click(object sender, RoutedEventArgs e)
         {
             if (lbStep.SelectedIndex == -1)
             {
@@ -4642,23 +4641,23 @@ namespace Maker.View.LightScriptUserControl
             scriptModelDictionarys.Add(_scriptModelDictionary);
         }
 
-        int position = 0;
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            TextBlock frameworkElement = sender as TextBlock;
-            Panel panel = (frameworkElement.Parent as Panel);
-            int _position = panel.Children.IndexOf(frameworkElement);
-            if (_position == position)
-            {
-                return;
-            }
-            TextBlock oldFrameworkElement = panel.Children[position] as TextBlock;
-            oldFrameworkElement.Background = new SolidColorBrush(Colors.Transparent);
-            frameworkElement.Background = (SolidColorBrush)Resources["ChooseLeftSelectColor"];
-            spLeft.Children[position].Visibility = Visibility.Collapsed;
-            spLeft.Children[_position].Visibility = Visibility.Visible;
-            position = _position;
-        }
+        //int position = 0;
+        //private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    TextBlock frameworkElement = sender as TextBlock;
+        //    Panel panel = (frameworkElement.Parent as Panel);
+        //    int _position = panel.Children.IndexOf(frameworkElement);
+        //    if (_position == position)
+        //    {
+        //        return;
+        //    }
+        //    TextBlock oldFrameworkElement = panel.Children[position] as TextBlock;
+        //    oldFrameworkElement.Background = new SolidColorBrush(Colors.Transparent);
+        //    frameworkElement.Background = (SolidColorBrush)Resources["ChooseLeftSelectColor"];
+        //    spLeft.Children[position].Visibility = Visibility.Collapsed;
+        //    spLeft.Children[_position].Visibility = Visibility.Visible;
+        //    position = _position;
+        //}
 
         public Dictionary<string, PlayerUserControl> deviceDictionary = new Dictionary<string, PlayerUserControl>();
 

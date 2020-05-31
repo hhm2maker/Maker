@@ -556,6 +556,7 @@
     <sys:String x:Key="UseCache">Use cache</sys:String>
     <sys:String x:Key="BuildProject">Build project</sys:String>
     <sys:String x:Key="UnipadColon">Unipad:</sys:String>
+    <sys:String x:Key="Hint">Hint</sys:String>
 
 
     <!--Error-->

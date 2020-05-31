@@ -92,14 +92,15 @@ namespace Maker
 
         public List<BaseChildUserControl> contentUserControls = new List<BaseChildUserControl>();
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (editUserControl.tcMain.Items.Count > 0 && editUserControl.tcMain.Items[0] is BaseUserControl)
-            {
-                //LoadFileList();
-                BaseUserControl baseUserControl = editUserControl.tcMain.Items[0] as BaseUserControl;
-                baseUserControl.SaveFile();
-            }
+            editUserControl.Save();
+            //if (editUserControl.tcMain.Items.Count > 0 && editUserControl.tcMain.Items[0] is BaseUserControl)
+            //{
+            //    //LoadFileList();
+            //    BaseUserControl baseUserControl = editUserControl.tcMain.Items[0] as BaseUserControl;
+            //    baseUserControl.SaveFile();
+            //}
 
             //if (!projectUserControl.userControls[3].filePath.Equals(String.Empty))
             //{
@@ -1271,21 +1272,6 @@ namespace Maker
             }
         }
 
-        private HintWindow hintWindow = null;
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (hintWindow == null)
-            {
-                hintWindow = new HintWindow(this);
-                hintWindow.Show();
-            }
-            else
-            {
-                hintWindow.Close();
-                hintWindow = null;
-            }
-        }
-
         private void Export_Click(object sender, RoutedEventArgs e)
         {
             List<Light> mLightList = GetData();
@@ -1822,7 +1808,19 @@ namespace Maker
                 spBottomTool.Children.Clear();
                 spBottomTool.Children.Add(logCatUserControl);
             }
+            else if (bottomModel == 2)
+            {
+                //加入提示页面
+                if (hintWindow == null)
+                {
+                    hintWindow = new HintWindow(this);
+                }
+                spBottomTool.Children.Clear();
+                spBottomTool.Children.Add(hintWindow);
+            }
         }
+
+        private HintWindow hintWindow = null;
 
         LogCatUserControl logCatUserControl = new LogCatUserControl();
 
@@ -1835,6 +1833,7 @@ namespace Maker
         {
             logCatUserControl.SetLog(tag, content, level);
         }
+
     }
 
 

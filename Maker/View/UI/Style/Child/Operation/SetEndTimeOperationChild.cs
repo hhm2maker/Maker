@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,90 +13,77 @@ namespace Maker.View.UI.Style.Child
     public partial class SetEndTimeOperationChild : OperationStyle
     {
         public override string Title { get; set; } = "EndTime";
+        public override StyleType FunType { get; set; } = StyleType.Edit;
+
         private SetEndTimeOperationModel setEndTimeOperationModel;
-        public SetEndTimeOperationChild(SetEndTimeOperationModel setEndTimeOperationModel)
+
+        private List<String> types = new List<String>() { "All", "End", "AllAndEnd" };
+
+        public SetEndTimeOperationChild(SetEndTimeOperationModel setEndTimeOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.setEndTimeOperationModel =  setEndTimeOperationModel;
-            //构建对话框
-            cbType = GetComboBox(new List<string>() { "All", "End", "AllAndEnd" }, null);
-            AddTitleAndControl("TypeColon", cbType);
-            tbValue = GetTexeBox(setEndTimeOperationModel.Value.ToString());
-            AddTitleAndControl("ValueColon", tbValue);
-
-            CreateDialog();
-
-            if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALL)
-            {
-                cbType.SelectedIndex = 0;
-            }
-            else if (setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.END)
-            {
-                cbType.SelectedIndex = 1;
-            }
-            else if(setEndTimeOperationModel.MyType == SetEndTimeOperationModel.Type.ALLANDEND)
-            {
-                cbType.SelectedIndex = 2;
-            }
-            tbValue.Text = setEndTimeOperationModel.Value.ToString();
-
-            tbValue.LostFocus += TbNumber_LostFocus;
-            cbType.SelectionChanged += CbOperation_SelectionChanged;
+            ToCreate();
         }
 
-        private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        protected override List<RunModel> UpdateData()
         {
-            if (cbType.SelectedIndex == 0) {
-                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.ALL;
-            }
-            else if (cbType.SelectedIndex == 1)
+            return new List<RunModel>
             {
-                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.END;
-            }
-            else if (cbType.SelectedIndex == 2)
-            {
-                setEndTimeOperationModel.MyType = SetEndTimeOperationModel.Type.ALLANDEND;
-            }
-
-            NeedRefresh();
+                new RunModel("TypeColon", (string)Application.Current.FindResource(types[(int)setEndTimeOperationModel.MyType - 40]), RunModel.RunType.Combo, types),
+                new RunModel("ValueColon", setEndTimeOperationModel.Value),
+            };
         }
 
-        public TextBox tbValue;
-        public ComboBox cbType;
-
-        public override bool ToSave() {
-            if (tbValue.Text.Equals(String.Empty))
-            {
-                tbValue.Focus();
-                return false;
-            }
-            setEndTimeOperationModel.Value = tbValue.Text;
-            return true;
-        }
-
-        private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
+        protected override void RefreshView()
         {
-            String strNumber = tbValue.Text.Trim();
-            if (strNumber[0] == '+' || strNumber[0] == '-')
+            //Type
+            SetEndTimeOperationModel.Type type = 0;
+            String strType = runs[2].Text;
+            int _type = -1;
+            for (int i = 0; i < types.Count; i++)
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber.Substring(1), "^\\d+$"))
+                if (((string)Application.Current.FindResource(types[i])).Equals(strType))
                 {
-                    tbValue.Select(0, tbValue.Text.Length);
-                    tbValue.Focus();
-                    return;
+                    _type = i;
+                    break;
+                }
+            }
+
+            switch (_type)
+            {
+                case -1:
+                    type = SetEndTimeOperationModel.Type.ALL;
+                    break;
+                case 0:
+                    type = SetEndTimeOperationModel.Type.ALL;
+                    break;
+                case 1:
+                    type = SetEndTimeOperationModel.Type.END;
+                    break;
+                case 2:
+                    type = SetEndTimeOperationModel.Type.ALLANDEND;
+                    break;
+            }
+            //Multiple
+            String strPolyploidy = runs[5].Text;
+            if (strPolyploidy[0] == '+' || strPolyploidy[0] == '-')
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy.Substring(1), "^\\d+$"))
+                {
+                    strPolyploidy = setEndTimeOperationModel.Value;
                 }
             }
             else
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(strNumber, "^\\d+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy, "^\\d+$"))
                 {
-                    tbValue.Select(0, tbValue.Text.Length);
-                    tbValue.Focus();
-                    return;
+                    strPolyploidy = setEndTimeOperationModel.Value;
                 }
             }
-            setEndTimeOperationModel.Value = strNumber;
+            setEndTimeOperationModel.MyType = type;
+            setEndTimeOperationModel.Value = strPolyploidy;
 
-            NeedRefresh();
+            UpdateData();
         }
     }
 }

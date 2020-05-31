@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Business.Model.OperationModel;
 using Maker.Model;
+using Maker.View.LightScriptUserControl;
 using Operation;
 using System;
 using System.Collections.Generic;
@@ -20,32 +21,80 @@ namespace Maker.View.UI.Style.Child
         private ColorOperationModel changeColorOperationModel;
 
         private ListBox lb;
-        public ColorOperationChild(ColorOperationModel changeColorOperationModel)
+        public ColorOperationChild(ColorOperationModel changeColorOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.changeColorOperationModel = changeColorOperationModel;
 
             Title = changeColorOperationModel.HintString;
-            //构建对话框
-         
-            lb = new ListBox();
-            lb.Padding = new Thickness(-5,0,-5,0);
-            lb.Background = new SolidColorBrush(Colors.Transparent);
-            lb.BorderBrush = new SolidColorBrush(Colors.Transparent);
-            lb.HorizontalContentAlignment = HorizontalAlignment.Stretch;
-            for (int i = 0; i < changeColorOperationModel.Colors.Count; i++)
-            {
-                Add(i);
-            }
-            AddUIElement(lb);
 
-            CreateDialog();
-            AddTitleImage(new List<String>() { "add_white.png", "reduce.png" }, new List<System.Windows.Input.MouseButtonEventHandler>() { IvAdd_MouseLeftButtonDown , IvReduce_MouseLeftButtonDown });
+            ToCreate();
+            //构建对话框
+            //lb = new ListBox();
+            //lb.Padding = new Thickness(-5,0,-5,0);
+            //lb.Background = new SolidColorBrush(Colors.Transparent);
+            //lb.BorderBrush = new SolidColorBrush(Colors.Transparent);
+            //lb.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            //for (int i = 0; i < changeColorOperationModel.Colors.Count; i++)
+            //{
+            //    Add(i);
+            //}
+            //AddUIElement(lb);
+            //
+            //CreateDialog();
+            //TODO
+            //AddTitleImage(new List<String>() { "add_white.png", "reduce.png" }, new List<System.Windows.Input.MouseButtonEventHandler>() { IvAdd_MouseLeftButtonDown , IvReduce_MouseLeftButtonDown });
+        }
+
+        protected override List<RunModel> UpdateData()
+        {
+            StringBuilder sbColor = new StringBuilder();
+            foreach (var item in changeColorOperationModel.Colors)
+            {
+                sbColor.Append(item).Append(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
+            }
+
+            return new List<RunModel>
+            {
+                new RunModel("ColorColon", sbColor.ToString().Substring(0, sbColor.ToString().Length - 1),RunModel.RunType.Color),
+            };
+        }
+
+        protected override void RefreshView()
+        {
+            char splitNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter;
+            char rangeNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatRange;
+
+            //Color
+            List<int> colors = null;
+
+            String color = runs[2].Text;
+
+            if (suc.rangeDictionary.ContainsKey(color))
+            {
+                colors = suc.rangeDictionary[color];
+            }
+            else
+            {
+                colors = GetTrueContent(color, splitNotation, rangeNotation);
+                if (colors != null)
+                {
+
+                }
+                else
+                {
+                    colors = changeColorOperationModel.Colors;
+                }
+            }
+
+            changeColorOperationModel.Colors = colors;
+
+            UpdateData();
         }
 
         private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             changeColorOperationModel.Colors.Add(5);
-            Add(changeColorOperationModel.Colors.Count-1);
+            Add(changeColorOperationModel.Colors.Count - 1);
             Refresh();
         }
 
@@ -118,7 +167,7 @@ namespace Maker.View.UI.Style.Child
         public override void Refresh()
         {
             base.Refresh();
-            List<Light> nowLl = Business.LightBusiness.Copy(MyData); 
+            List<Light> nowLl = Business.LightBusiness.Copy(MyData);
 
             List<int> geshihua = changeColorOperationModel.Colors;
             NewColorList.AddRange(OldColorList.ToArray());
@@ -182,7 +231,8 @@ namespace Maker.View.UI.Style.Child
             StaticConstant.mw.editUserControl.suc.mLaunchpad.SetData(nowLl);
         }
 
-        private void Add(int i) {
+        private void Add(int i)
+        {
             Grid grid = new Grid();
             grid.HorizontalAlignment = HorizontalAlignment.Stretch;
             ColumnDefinition columnDefinition = new ColumnDefinition();
@@ -225,12 +275,13 @@ namespace Maker.View.UI.Style.Child
 
         private void CbOperation_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         public ComboBox cbOperation;
 
-        public override bool ToSave() {
+        public override bool ToSave()
+        {
             //if (tbColors.Text.Equals(String.Empty))
             //{
             //    tbColors.Focus();

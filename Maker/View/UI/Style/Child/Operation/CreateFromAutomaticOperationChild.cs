@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,57 +12,75 @@ namespace Maker.View.UI.Style.Child
 {
     public partial class CreateFromAutomaticOperationChild : OperationStyle
     {
-        public override string Title { get; set; } = "Generate";
+        public override StyleType FunType { get; set; } = StyleType.Generate;
+
         private CreateFromAutomaticOperationModel createFromAutomaticOperationModel;
 
-        private TextBox tbOne,tbTwo;
-        public CreateFromAutomaticOperationChild(CreateFromAutomaticOperationModel createFromAutomaticOperationModel)
+        public CreateFromAutomaticOperationChild(CreateFromAutomaticOperationModel createFromAutomaticOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.createFromAutomaticOperationModel = createFromAutomaticOperationModel;
-            //构建对话框
             if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("RhombusDiffusion", true));
-                tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position.ToString());
-                AddTitleAndControl("PositionColon", tbOne);
-                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Continued.ToString());
-                AddTitleAndControl("DurationColon", tbTwo);
+                Title = "RhombusDiffusion";
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("CrossDiffusion", true));
-                tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position.ToString());
-                AddTitleAndControl("PositionColon", tbOne);
-                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued.ToString());
-                AddTitleAndControl("DurationColon", tbTwo);
+                Title = "CrossDiffusion";
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("RandomFountain",true));
-                tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min.ToString());
-                AddTitleAndControl("MinColon", tbOne);
-                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max.ToString());
-                AddTitleAndControl("MaxColon", tbTwo);
+                Title = "RandomFountain";
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
             {
-                AddTitleAndControl("TypeColon", GetTexeBlock("BilateralDiffusion", true));
-                tbOne = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Position.ToString());
-                AddTitleAndControl("PositionColon", tbOne);
-                tbTwo = GetTexeBox((createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Continued.ToString());
-                AddTitleAndControl("DurationColon", tbTwo);
+                Title = "BilateralDiffusion";
             }
-
-            tbOne.LostFocus += TbNumber_LostFocus;
-            tbTwo.LostFocus += TbNumber_LostFocus;
-
-            CreateDialog();
+            ToCreate();
         }
 
-        private void TbNumber_LostFocus(object sender, RoutedEventArgs e)
+        protected override List<RunModel> UpdateData()
         {
-            if (sender == tbOne) {
-                if (int.TryParse(tbOne.Text,out int result)) {
+            if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
+            {
+                return new List<RunModel>
+                {
+                    new RunModel("PositionColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position.ToString()),
+                    new RunModel("DurationColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Continued.ToString()),
+                };
+            }
+            else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
+            {
+                return new List<RunModel>
+                {
+                    new RunModel("PositionColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position.ToString()),
+                    new RunModel("DurationColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued.ToString()),
+                };
+            }
+            else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
+            {
+                return new List<RunModel>
+                {
+                    new RunModel("MinColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min.ToString()),
+                    new RunModel("MaxColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max.ToString()),
+                };
+            }
+            else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
+            {
+                return new List<RunModel>
+                {
+                    new RunModel("PositionColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Position.ToString()),
+                    new RunModel("DurationColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel).Continued.ToString()),
+                };
+            }
+
+            return new List<RunModel>();
+        }
+
+        protected override void RefreshView()
+        {
+            {
+                if (int.TryParse(runs[2].Text, out int result))
+                {
                     if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
                     {
                         (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position = result;
@@ -75,14 +94,9 @@ namespace Maker.View.UI.Style.Child
                         (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min = result;
                     }
                 }
-                else {
-                    tbOne.Select(0, tbOne.Text.Length);
-                    tbOne.Focus();
-                    return;
-                }
-            }else if (sender == tbTwo)
+            }
             {
-                if (int.TryParse(tbTwo.Text, out int result))
+                if (int.TryParse(runs[6].Text, out int result))
                 {
                     if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
                     {
@@ -97,15 +111,10 @@ namespace Maker.View.UI.Style.Child
                         (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max = result;
                     }
                 }
-                else
-                {
-                    tbTwo.Select(0, tbTwo.Text.Length);
-                    tbTwo.Focus();
-                    return;
-                }
             }
 
-            NeedRefresh();
+            UpdateData();
         }
+
     }
 }

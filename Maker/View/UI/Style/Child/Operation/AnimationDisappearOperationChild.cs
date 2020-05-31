@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,56 +13,48 @@ namespace Maker.View.UI.Style.Child
     public partial class AnimationDisappearOperationChild : OperationStyle
     {
         public override string Title { get; set; } = "Disappear";
+        public override StyleType FunType { get; set; } = StyleType.Animation;
+
         private AnimationDisappearOperationModel animationDisappearOperationModel;
-        public AnimationDisappearOperationChild(AnimationDisappearOperationModel animationDisappearOperationModel)
+
+        private List<String> types = new List<String>() { "Serpentine"};
+
+        public AnimationDisappearOperationChild(AnimationDisappearOperationModel animationDisappearOperationModel, ScriptUserControl suc) : base(suc)
         {
             this.animationDisappearOperationModel =  animationDisappearOperationModel;
-            //构建对话框
-            cbType = GetComboBox(new List<string>() { "Serpentine" }, null);
-            AddTitleAndControl("TypeColon", cbType);
-
-            tbStartTime = GetTexeBox(animationDisappearOperationModel.StartTime.ToString());
-            AddTitleAndControl("StartTimeColon", tbStartTime);
-            tbInterval = GetTexeBox(animationDisappearOperationModel.Interval.ToString());
-            AddTitleAndControl("IntervalColon", tbInterval);
-        
-            CreateDialog();
+            ToCreate();
         }
-      
 
-        public TextBox tbStartTime, tbInterval;
-        public ComboBox cbType;
+        protected override List<RunModel> UpdateData()
+        {
+            return new List<RunModel>
+            {
+                new RunModel("TypeColon", (string)Application.Current.FindResource(types[0]), RunModel.RunType.Combo, types),
+                new RunModel("StartTimeColon", animationDisappearOperationModel.StartTime.ToString()),
+                new RunModel("IntervalColon", animationDisappearOperationModel.Interval.ToString()),
+            };
+        }
 
-        public override bool ToSave() {
-            if (tbStartTime.Text.Equals(String.Empty))
+        protected override void RefreshView()
+        {
+            //StartTime
+            String strStartTime = runs[5].Text;
+            if (!int.TryParse(strStartTime, out int iStartTime))
             {
-                tbStartTime.Focus();
-                return false;
+                iStartTime = animationDisappearOperationModel.StartTime;
             }
-            if (int.TryParse(tbStartTime.Text, out int iStartTime))
+
+            //Interval
+            String strInterval = runs[5].Text;
+            if (!int.TryParse(strInterval, out int iInterval))
             {
-                animationDisappearOperationModel.StartTime = iStartTime;
+                iInterval = animationDisappearOperationModel.Interval;
             }
-            else
-            {
-                tbStartTime.Focus();
-                return false;
-            }
-            if (tbInterval.Text.Equals(String.Empty))
-            {
-                tbInterval.Focus();
-                return false;
-            }
-            if (int.TryParse(tbInterval.Text, out int iInterval))
-            {
-                animationDisappearOperationModel.Interval = iInterval;
-                return true;
-            }
-            else
-            {
-                tbInterval.Focus();
-                return false;
-            }
+
+            animationDisappearOperationModel.StartTime = iStartTime;
+            animationDisappearOperationModel.Interval = iInterval;
+
+            UpdateData();
         }
     }
 }

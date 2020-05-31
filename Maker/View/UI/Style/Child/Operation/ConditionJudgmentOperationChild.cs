@@ -29,7 +29,7 @@ namespace Maker.View.UI.Style.Child
 
         private TextBox tbIfTime, tbIfPosition, tbIfColor, tbThenTime, tbThenPosition, tbThenColor;
         private ComboBox cbOperator, cbAction;
-        public ConditionJudgmentOperationChild(ConditionJudgmentOperationModel conditionJudgmentOperationModel, ScriptUserControl suc)
+        public ConditionJudgmentOperationChild(ConditionJudgmentOperationModel conditionJudgmentOperationModel, ScriptUserControl suc):base(suc)
         {
             this.conditionJudgmentOperationModel = conditionJudgmentOperationModel;
             this.suc = suc;
