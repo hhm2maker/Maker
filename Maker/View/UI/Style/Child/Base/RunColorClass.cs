@@ -15,7 +15,7 @@ namespace Maker.View.UI.Style.Child.Base
 
         public override UIElement GetContent()
         {
-            ColorPanel colorPanel = new ColorPanel();
+            ColorPanel colorPanel = new ColorPanel(10);
             colorPanel.SelectionChanged += ColorPanel_SelectionChanged;
             return colorPanel;
         }

@@ -13,7 +13,7 @@
        >
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
         <StackPanel Margin="20" >
-            <device:DrawLaunchpadPro Width="350" Height="350" x:Name="mLaunchpad" />
+            <device:DrawLaunchpadPro Size="350" x:Name="mLaunchpad" />
             <CheckBox  FontSize="14"   Foreground="White" Background="White"  VerticalAlignment="Center"  Name="cbTrackingRecord" Content="{DynamicResource TrackingRecord}"></CheckBox>
         </StackPanel>
         <StackPanel>

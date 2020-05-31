@@ -12,10 +12,16 @@ namespace Maker.View.UI.Style.Child
     public partial class ChangeTimeOperationChild : OperationStyle
     {
         public override string Title { get; set; } = "ChangeTime";
+        public override StyleType FunType { get; set; } = StyleType.Edit;
+
         private ChangeTimeOperationModel changeTimeOperationModel;
+
+        private List<String> operations = new List<String>() { "Extend", "Shorten" };
+
         public ChangeTimeOperationChild(ChangeTimeOperationModel changeTimeOperationModel)
         {
             this.changeTimeOperationModel =  changeTimeOperationModel;
+            ToCreate();
             //构建对话框
             cbOperation = GetComboBox(new List<string>() { "Extend", "Shorten" }, null);
             AddTitleAndControl("OperationColon", cbOperation);
@@ -34,6 +40,50 @@ namespace Maker.View.UI.Style.Child
             }
             tbPolyploidy.LostFocus += TbPolyploidy_LostFocus;
             cbOperation.SelectionChanged += CbOperation_SelectionChanged;
+        }
+
+        protected override List<RunModel> UpdateData()
+        {
+            return new List<RunModel>
+            {
+                new RunModel("OperationColon", (string)Application.Current.FindResource(operations[(int)changeTimeOperationModel.MyOperator]), RunModel.RunType.Combo, operations),
+                new RunModel("PolyploidyColon", changeTimeOperationModel.Multiple.ToString()),
+            };
+        }
+
+        protected override void RefreshView()
+        {
+            //Operation
+            ChangeTimeOperationModel.Operation operation = 0;
+            String strOperation = runs[2].Text;
+            int _operation = -1;
+            for (int i = 0; i < operations.Count; i++)
+            {
+                if (((string)Application.Current.FindResource(operations[i])).Equals(strOperation))
+                {
+                    _operation = i;
+                    break;
+                }
+            }
+
+            switch (_operation)
+            {
+                case -1:
+                    operation = ChangeTimeOperationModel.Operation.MULTIPLICATION;
+                    break;
+                case 0:
+                    operation = ChangeTimeOperationModel.Operation.MULTIPLICATION;
+                    break;
+                case 1:
+                    operation = ChangeTimeOperationModel.Operation.MULTIPLICATION;
+                    break;
+            }
+
+            changeTimeOperationModel.MyOperator = operation;
+            createFromQuickOperationModel.Interval = int.Parse(interval);
+            createFromQuickOperationModel.Continued = int.Parse(continued);
+
+            UpdateData();
         }
 
         private void TbPolyploidy_LostFocus(object sender, RoutedEventArgs e)

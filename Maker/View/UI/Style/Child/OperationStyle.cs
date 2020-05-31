@@ -27,6 +27,31 @@ namespace Maker.View.UI.Style.Child
         protected TextBlock tbRight = null;
         protected TextBox tbEdit = null;
 
+        public OperationStyle(ScriptUserControl suc) {
+            this.suc = suc;
+        }
+
+        public void ToCreate() {
+            //构建基础控件
+            tbMain = GetTexeBlockNoBorder("", false);
+            tbMain.FontSize = 18;
+            tbMain.TextWrapping = TextWrapping.Wrap;
+
+            tbRight = GetTexeBlockNoBorder("", false);
+            tbRight.FontSize = 18;
+            tbRight.TextWrapping = TextWrapping.Wrap;
+
+            tbEdit = GetTexeBox("");
+            tbEdit.FontSize = 18;
+
+            ToUpdateData();
+
+            AddDockPanel(out DockPanel dp, tbMain, tbEdit, tbRight);
+
+            CreateDialog();
+        }
+
+
         protected List<Light> NowData
         {
             get
@@ -97,7 +122,9 @@ namespace Maker.View.UI.Style.Child
         SolidColorBrush solidGrey = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey"];
         SolidColorBrush solidGreyBg = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey_Bg"];
         SolidColorBrush solidPurple = (SolidColorBrush)StaticConstant.mw.Resources["Text_Purple"];
+        SolidColorBrush solidBlue = (SolidColorBrush)StaticConstant.mw.Resources["Text_Blue"];
 
+        
 
         public class RunModel
         {
@@ -124,6 +151,7 @@ namespace Maker.View.UI.Style.Child
                 Position,
                 Color,
                 Combo,
+                Calc,
             }
 
             public Object Data
@@ -158,7 +186,7 @@ namespace Maker.View.UI.Style.Child
         }
 
         List<RunModel> runModels;
-        public List<Run> GetRuns(TextBlock tbMain ,List<RunModel> runModels)
+        public List<Run> GetRuns(String title,String funType,TextBlock tbMain ,List<RunModel> runModels)
         {
             this.runModels = runModels;
 
@@ -170,7 +198,7 @@ namespace Maker.View.UI.Style.Child
                 new Run()
                 {
                     Foreground = solidNormal,
-                    Text = "Create.FromQuick( ",
+                    Text = (string)Application.Current.FindResource(funType)+"."+(string)Application.Current.FindResource(title)+"( ",
                 }
             };
             foreach (RunModel item in runModels)
@@ -225,6 +253,11 @@ namespace Maker.View.UI.Style.Child
                 else if(item.Type == RunModel.RunType.Normal)
                 {
                     value.Foreground = solidNormal;
+                    value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
+                }
+                else if (item.Type == RunModel.RunType.Calc)
+                {
+                    value.Foreground = solidBlue;
                     value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
                 }
 
@@ -288,8 +321,31 @@ namespace Maker.View.UI.Style.Child
             };
         }
 
+        protected virtual List<RunModel> UpdateData()
+        {
+            return null;
+        }
+
         protected virtual void RefreshView() {
             
+        }
+
+        public void ToUpdateData() {
+            List<RunModel> runModel = UpdateData();
+            if (runModel == null) {
+                return;
+            }
+            ResetMainText(runModel);
+        }
+
+        private void ResetMainText(List<RunModel> runModel) {
+            runs = GetRuns(Title, FunType.ToString(), tbMain, runModel);
+
+            tbMain.Inlines.Clear();
+            foreach (var item in runs)
+            {
+                tbMain.Inlines.Add(item);
+            }
         }
 
         public void ToRefresh() {

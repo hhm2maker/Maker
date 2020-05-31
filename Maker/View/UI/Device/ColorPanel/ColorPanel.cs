@@ -10,11 +10,19 @@ namespace Maker.View
     public class ColorPanel : ListBox
     {
         public ColorPanel(){
+            Create(8);
+        }
+
+        public ColorPanel(int size){
+            Create(size);
+        }
+
+        private void Create(int size) {
             Background = new SolidColorBrush(Colors.Transparent);
 
             //Style = (System.Windows.Style)FindResource("ListBoxStyle1");//TabItemStyle 这个样式是引用的资源文件中的样式名称
             FrameworkElementFactory factory = new FrameworkElementFactory(typeof(UniformGrid));
-            factory.SetValue(UniformGrid.ColumnsProperty, 8);
+            factory.SetValue(UniformGrid.ColumnsProperty, size);
             ItemsPanelTemplate itemsPanelTemplate = new ItemsPanelTemplate(factory);
             ItemsPanel = itemsPanelTemplate;
             for (int i = 0; i < StaticConstant.brushList.Count; i++)

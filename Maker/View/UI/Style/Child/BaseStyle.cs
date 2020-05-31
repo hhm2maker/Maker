@@ -22,6 +22,18 @@ namespace Maker.View.Style.Child
             get;
             set;
         } = "";
+
+        public virtual StyleType FunType
+        {
+            get;
+            set;
+        } = StyleType.Edit;
+
+        public enum StyleType {
+            Create,
+            Edit,
+        }
+
         protected virtual bool OnlyTitle
         {
             get;

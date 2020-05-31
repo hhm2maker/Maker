@@ -58,8 +58,10 @@ namespace Maker.View.UI.Style.Child.Base
 
                 contextMenu.Items.Add(new Separator());
 
-                MenuItem menuItemList = new MenuItem();
-                menuItemList.Header = "列表";
+                MenuItem menuItemList = new MenuItem
+                {
+                    Header = "列表"
+                };
                 foreach (var item in Os.suc.rangeDictionary)
                 {
                     MenuItem _menuItem = new MenuItem();
