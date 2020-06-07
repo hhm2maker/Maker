@@ -31,7 +31,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Window.Background>
-        <ImageBrush ImageSource="../../../View/Resources/Image/main_bg.jpg" Stretch="UniformToFill"/>
+        <ImageBrush ImageSource="../../../View/Resources/Image/main_bg.jpg" Stretch="None"/>
     </Window.Background>
     <Grid>
         <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >

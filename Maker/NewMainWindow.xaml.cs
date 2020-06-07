@@ -49,6 +49,7 @@ using Maker.View.UI.Test;
 using static Maker.Business.FileBusiness;
 using Maker.View.UI.Play;
 using static Maker.View.UI.Play.LogCatUserControl;
+using System.Text;
 
 namespace Maker
 {
@@ -973,11 +974,36 @@ namespace Maker
                 }
                 catch (ReflectionTypeLoadException)
                 {
+                    //WriteRefleError(e);
                     ShowPlugsError();
                 }
             }
             return null;
         }
+
+        //private static void WriteRefleError(ReflectionTypeLoadException ex)
+        //{
+        //    var sb = new StringBuilder();
+        //    foreach (var exSub in ex.LoaderExceptions)
+        //    {
+        //        sb.AppendLine(exSub.Message);
+        //        var exFileNotFound = exSub as FileNotFoundException;
+        //        if (exFileNotFound != null)
+        //        {
+        //            if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+        //            {
+        //                sb.AppendLine("异常日志：Fusion Log:");
+        //                sb.AppendLine(exFileNotFound.FusionLog);
+        //            }
+        //        }
+        //        sb.AppendLine();
+        //    }
+        //    var errorMessage = sb.ToString();
+        //    //Write Log info...
+        //    //Display or log the error based on your application.
+        //    Console.WriteLine(errorMessage);
+        //}
+
 
         /// <summary>
         /// 展示插件错误的提示窗
@@ -989,15 +1015,21 @@ namespace Maker
 
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+
             int position = spPlugs.Children.IndexOf(sender as Image);
             var item = plugsConfigModel.Plugs[position];
 
             Object o = Plugs[position];
             MethodInfo mi = o.GetType().GetMethod("GetView");
             UserControl view = (UserControl)mi.Invoke(o, new Object[] { });
-            popPlug.Child = view;
-            popPlug.PlacementTarget = sender as Image;
-            popPlug.IsOpen = true;
+
+            Window window = new Window();
+            window.WindowState = WindowState.Maximized;
+            window.Content = view;
+            window.Show();
+            //popPlug.Child = view;
+            //popPlug.PlacementTarget = sender as Image;
+            //popPlug.IsOpen = true;
         }
 
         public void SetButton(int position)
