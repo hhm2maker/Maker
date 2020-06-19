@@ -233,6 +233,9 @@
     <Compile Include="View\UI\BottomDialog\ErrorMessageBottomClass.cs" />
     <Compile Include="View\UI\BottomDialog\RestartMessageBottomClass.cs" />
     <Compile Include="View\UI\BottomDialog\UpdateMessageBottomClass.cs" />
+    <Compile Include="View\UI\Data\ShowDataUserControl.xaml.cs">
+      <DependentUpon>ShowDataUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Dialog\WindowDialog\ConfirmWindowDialog.xaml.cs">
       <DependentUpon>ConfirmWindowDialog.xaml</DependentUpon>
     </Compile>
@@ -757,6 +760,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UI\Control\LiveUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Data\ShowDataUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

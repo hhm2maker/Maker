@@ -50,6 +50,7 @@ using static Maker.Business.FileBusiness;
 using Maker.View.UI.Play;
 using static Maker.View.UI.Play.LogCatUserControl;
 using System.Text;
+using Maker.View.UI.Data;
 
 namespace Maker
 {
@@ -836,7 +837,7 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (projectConfigModel.Path.Equals(String.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
+            if (projectConfigModel.Path.Equals(string.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
             {
                 NewProject(false);
             }
@@ -981,28 +982,28 @@ namespace Maker
             return null;
         }
 
-        //private static void WriteRefleError(ReflectionTypeLoadException ex)
-        //{
-        //    var sb = new StringBuilder();
-        //    foreach (var exSub in ex.LoaderExceptions)
-        //    {
-        //        sb.AppendLine(exSub.Message);
-        //        var exFileNotFound = exSub as FileNotFoundException;
-        //        if (exFileNotFound != null)
-        //        {
-        //            if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
-        //            {
-        //                sb.AppendLine("异常日志：Fusion Log:");
-        //                sb.AppendLine(exFileNotFound.FusionLog);
-        //            }
-        //        }
-        //        sb.AppendLine();
-        //    }
-        //    var errorMessage = sb.ToString();
-        //    //Write Log info...
-        //    //Display or log the error based on your application.
-        //    Console.WriteLine(errorMessage);
-        //}
+        private static void WriteRefleError(ReflectionTypeLoadException ex)
+        {
+            var sb = new StringBuilder();
+            foreach (var exSub in ex.LoaderExceptions)
+            {
+                sb.AppendLine(exSub.Message);
+                var exFileNotFound = exSub as FileNotFoundException;
+                if (exFileNotFound != null)
+                {
+                    if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+                    {
+                        sb.AppendLine("异常日志：Fusion Log:");
+                        sb.AppendLine(exFileNotFound.FusionLog);
+                    }
+                }
+                sb.AppendLine();
+            }
+            var errorMessage = sb.ToString();
+            //Write Log info...
+            //Display or log the error based on your application.
+            Console.WriteLine(errorMessage);
+        }
 
 
         /// <summary>
@@ -1023,13 +1024,26 @@ namespace Maker
             MethodInfo mi = o.GetType().GetMethod("GetView");
             UserControl view = (UserControl)mi.Invoke(o, new Object[] { });
 
-            Window window = new Window();
-            window.WindowState = WindowState.Maximized;
-            window.Content = view;
-            window.Show();
-            //popPlug.Child = view;
-            //popPlug.PlacementTarget = sender as Image;
-            //popPlug.IsOpen = true;
+            if ((o as IBasePlug).GetShowModel() == ShowModel.Popup)
+            {
+                popPlug.Child = view;
+                popPlug.PlacementTarget = sender as Image;
+                popPlug.IsOpen = true;
+            }
+            else {
+                Window window = new Window();
+                window.Title = (o as IBasePlug).GetInfo().Title;
+                window.WindowState = WindowState.Maximized;
+                window.Content = view;
+                window.Closing += Window_Closing1;
+                window.Show();
+                Hide();
+            }
+        }
+
+        private void Window_Closing1(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Show();
         }
 
         public void SetButton(int position)
@@ -1706,99 +1720,6 @@ namespace Maker
         }
 
 
-        private int showModel = -1;
-        private void TextBlock_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-            StackPanel sp = ((sender as TextBlock).Parent) as StackPanel;
-            int position = sp.Children.IndexOf((sender as TextBlock));
-            if (position == showModel)
-            {
-                return;
-            }
-
-            if (showModel != -1)
-            {
-                (sp.Children[showModel] as TextBlock).Background = new SolidColorBrush(Colors.Transparent);
-                (sp.Children[showModel] as TextBlock).Foreground = ResourcesUtils.Resources2Brush(this, "TitleFontColor");
-            }
-
-            showModel = position;
-            (sp.Children[showModel] as TextBlock).Background = ResourcesUtils.Resources2Brush(this, "MainBottomSelect");
-            (sp.Children[showModel] as TextBlock).Foreground = new SolidColorBrush(Colors.White);
-
-            ShowData();
-        }
-
-        private void ShowData()
-        {
-            if (showModel == -1)
-            {
-                return;
-            }
-            List<Light> mLightList = GetData();
-
-            UserControl userControl = null;
-            if (showModel == 0)
-            {
-                //DeviceModel deviceModel =  FileBusiness.CreateInstance().LoadDeviceModel(AppDomain.CurrentDomain.BaseDirectory + @"Device\" + playerDefault);
-                //bToolChild.Width = deviceModel.DeviceSize;
-                //bToolChild.Height = deviceModel.DeviceSize + 31;
-                //bToolChild.Visibility = Visibility.Visible;
-                //加入播放器页面
-                if (!(editUserControl.userControls[3] as BaseUserControl).filePath.Equals(String.Empty))
-                {
-                    String strAudioResources = (editUserControl.userControls[3] as ScriptUserControl).AudioResources;
-                    if (!strAudioResources.Contains(@"\"))
-                    {
-                        //说明是不完整路径
-                        strAudioResources = LastProjectPath + @"Audio\" + strAudioResources;
-                    }
-                    if (File.Exists(strAudioResources))
-                    {
-                        userControl = new PlayerUserControl(this, mLightList, strAudioResources, (editUserControl.userControls[3] as ScriptUserControl).nowTimeP, (editUserControl.userControls[3] as ScriptUserControl).nowTimeI);
-                    }
-                    else
-                    {
-                        userControl = new PlayerUserControl(this, mLightList);
-                    }
-                }
-                else
-                {
-                    userControl = new PlayerUserControl(this, mLightList);
-                }
-            }
-            else if (showModel == 1)
-            {
-                //加入平铺页面
-                userControl = new ShowPavedUserControl(this, mLightList);
-            }
-            else if (showModel == 2)
-            {
-                userControl = new ExportUserControl(this, mLightList);
-            }
-            else if (showModel == 3)
-            {
-                userControl = new ShowPianoRollUserControl(this, mLightList);
-            }
-            else if (showModel == 4)
-            {
-                userControl = new DataGridUserControl(this, mLightList);
-            }
-            else if (showModel == 5)
-            {
-                userControl = new My3DUserControl(this, mLightList);
-            }
-
-            spBottomTool.Children.Clear();
-            spBottomTool.Children.Add(userControl);
-
-            //spPlay.Children.Clear();
-            //Point point = iPlay.TranslatePoint(new Point(0, 0), this);
-            //spPlay.Margin = new Thickness(0, point.Y + SystemParameters.CaptionHeight, 0, 0);
-            //spPlay.Children.Add(userControl);
-            //gToolBackGround.Visibility = Visibility.Visible;
-        }
-
         private int bottomModel = -1;
 
         private void TextBlock_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
@@ -1832,7 +1753,12 @@ namespace Maker
 
             if (bottomModel == 0)
             {
-                ShowData();
+                if (showDataUserControl == null)
+                {
+                    showDataUserControl = new ShowDataUserControl(this);
+                }
+                spBottomTool.Children.Clear();
+                spBottomTool.Children.Add(showDataUserControl);
             }
             else if (bottomModel == 1)
             {
@@ -1855,6 +1781,8 @@ namespace Maker
         private HintWindow hintWindow = null;
 
         LogCatUserControl logCatUserControl = new LogCatUserControl();
+        ShowDataUserControl showDataUserControl = null;
+
 
         public void SetLog(String tag, String content, Level level)
         {
