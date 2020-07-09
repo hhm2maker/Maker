@@ -1838,12 +1838,14 @@ namespace Maker.View.LightScriptUserControl
                 String parentName = GetParentName(panel);
                 foreach (var item in scriptModelDictionary)
                 {
-                    if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
-                    {
-                        if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName))
+                    if (item.Value.OperationModels.Count > 0) {
+                        if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
                         {
-                            System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
-                            return;
+                            if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName))
+                            {
+                                System.Windows.Forms.MessageBox.Show("选中项为其他项的父类，请先解除父子关系之后再删除!");
+                                return;
+                            }
                         }
                     }
                 }
@@ -4671,6 +4673,14 @@ namespace Maker.View.LightScriptUserControl
             if (cbDevice.SelectedIndex == cbDevice.Items.Count - 1) {
                 new DeviceManagementWindow(this).ShowDialog();
             }
+        }
+
+        private void iSave_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            SaveFile();
+
+            TabItem tabItem = (Parent as TabItem);
+            mw.editUserControl.SetChange((tabItem.Parent as TabControl).Items.IndexOf(tabItem),false);
         }
     }
 }

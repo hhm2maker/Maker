@@ -51,7 +51,7 @@ namespace Maker.View.UI.BottomDialog
 
         private void Begin()
         {
-            DownloadFile("https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Update.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
+            DownloadFile("https://www.hhm2maker.com/wp-content/Maker/Update/Update.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Update.exe");
             System.Environment.Exit(0);
         }

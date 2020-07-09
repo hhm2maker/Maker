@@ -36,9 +36,16 @@ namespace PlugLib
             return new List<PermissionsClass.Permissions>();
         }
 
+        public virtual ShowModel GetShowModel()
+        {
+            return ShowModel.Popup;
+        }
+
         public virtual UserControl GetView()
         {
             return new UserControl();
         }
+
+
     }
 }

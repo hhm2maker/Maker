@@ -40,6 +40,9 @@ namespace PlugLib
         /// </summary>
         /// <returns></returns>
         PlugInfo GetInfo();
-     
+
+        ShowModel GetShowModel();
+
+
     }
 }

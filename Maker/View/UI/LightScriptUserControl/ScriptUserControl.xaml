@@ -296,6 +296,7 @@
                                 <Image Margin="20,0,0,0" Name="iExecutionTime"  MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/executiontime_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetExecutionTime" />
                                 <Image Margin="10,0,0,0" Name="iCompleteScript" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/completescript_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="GetCompleteScript" />
                                 <Image Margin="20,0,0,0" Name="iIntroduce" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/introduce_gray.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="MiIntroduce_MouseLeftButtonDown" />
+                                <Image Margin="20,0,15,0" Name="iSave" MouseEnter="Image_MouseEnter" MouseLeave="Image_MouseLeave" Source="../../Resources/Image/save_white.png" Width="25"  RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="iSave_MouseLeftButtonDown" />
                             </StackPanel>
                         </StackPanel>
                    

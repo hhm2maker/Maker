@@ -447,7 +447,7 @@ namespace Maker
 
                             List<List<UnipadKeyLightModel>> llL = new List<List<UnipadKeyLightModel>>();
                             //初始化
-                            for(int w = 0; w < 101; w++)
+                            for (int w = 0; w < 101; w++)
                             {
                                 llL.Add(new List<UnipadKeyLightModel>());
                             }
@@ -475,8 +475,10 @@ namespace Maker
 
                             for (int w = 0; w < llL.Count; w++)
                             {
-                                if (llL[w].Count > 0) {
-                                    for (int z = 0; z < llL[w].Count; z++) {
+                                if (llL[w].Count > 0)
+                                {
+                                    for (int z = 0; z < llL[w].Count; z++)
+                                    {
                                         PageButtonModel pageButtonModel = new PageButtonModel();
                                         pageButtonModel._down.OperationModels.Add(new LightFilePlayModel(Path.GetFileName(llL[w][z].SoundFile) + ".light", dialog.dBpm));
                                         pageModes[w].Add(pageButtonModel);
@@ -510,7 +512,8 @@ namespace Maker
                                             pageModes[w].Add(pageButtonModel);
                                         }
                                     }
-                                    else {
+                                    else
+                                    {
                                         for (int z = 0; z < llS[w].Count; z++)
                                         {
                                             if (pageButtonModels.Count <= z)
@@ -521,7 +524,8 @@ namespace Maker
                                                 pageButtonModel._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
                                                 pageModes[w].Add(pageButtonModel);
                                             }
-                                            else {
+                                            else
+                                            {
                                                 pageButtonModels[z]._down.OperationModels.Add(new AudioFilePlayModel(llS[w][z].SoundFile));
                                             }
                                             //if (pageButtonModels[z]._down.OperationModels.Count > z)
@@ -595,7 +599,8 @@ namespace Maker
                             //}
 
                             //翻页
-                            for (int j = 0; j < lights.Count; j++) {
+                            for (int j = 0; j < lights.Count; j++)
+                            {
                                 PageButtonModel pageButtonModel = new PageButtonModel();
                                 pageButtonModel._down.OperationModels.Add(new GotoPagePlayModel("Page" + (j + 1) + ".lightPage"));
                                 pageModes[89 - j * 10].Add(pageButtonModel);
@@ -606,17 +611,22 @@ namespace Maker
                         for (int i = 0; i < pages.Count; i++)
                         {
                             editUserControl.puc.SavePage(_projectPath + @"\Play\Page" + (i + 1) + ".lightPage", pages[i]);
-                            pageStrs.Add("Page"+ (i + 1) + ".lightPage");
+                            pageStrs.Add("Page" + (i + 1) + ".lightPage");
                         }
 
                         if (!File.Exists(_projectPath + @"\Play\" + dialog.fileName + ".playExport"))
                         {
                             editUserControl.peuc.NewFileResult2(dialog.fileName + ".playExport");
                         }
-                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page"+ defChannel+ ".lightPage", "autoplay.mid", pageStrs,"1");
+                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page" + defChannel + ".lightPage", "autoplay.mid", pageStrs, "1");
                     }
 
                     InitProjects();
+                }
+            }
+            else {
+                if (!isClose) {
+                    Close();
                 }
             }
         }
@@ -837,15 +847,6 @@ namespace Maker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (projectConfigModel.Path.Equals(string.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
-            {
-                NewProject(false);
-            }
-            else
-            {
-                InitProjects();
-            }
-
             double leftMargin = (ActualWidth - (ActualWidth / 4 + 640)) / 2;
             //spHead.Margin = new Thickness(leftMargin, 30, leftMargin, 30);
             //spHead.Visibility = Visibility.Collapsed;
@@ -863,6 +864,15 @@ namespace Maker
 
             //TODO: 仅测试用
             new TestClass();
+
+            if (projectConfigModel.Path.Equals(string.Empty) || !Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path))
+            {
+                NewProject(false);
+            }
+            else
+            {
+                InitProjects();
+            }
         }
 
         private void GetVersion()
@@ -870,7 +880,7 @@ namespace Maker
             try
             {
                 // 初始化版本
-                string url = @"https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/Version.xml";
+                string url = @"https://www.hhm2maker.com/wp-content/Maker/Update/Version.xml";
                 XDocument xDoc = XDocument.Load(url);
                 XElement xRoot = xDoc.Element("Version");
                 XElement xNowVersion = xRoot.Element("NowVersion");

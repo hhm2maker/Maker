@@ -41,7 +41,7 @@ namespace Maker.View.UI.Style.Child
                 AddUIElement(GetDockPanel(new List<FrameworkElement> { cb, tb, ViewBusiness.GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }));
             }
 
-            AddUIElement(ViewBusiness.GetButton("Change", IvChange_Click));
+            AddUIElement(GetDockPanel(new List<FrameworkElement> { ViewBusiness.GetButton("Add", IvAdd_MouseLeftButtonDown), ViewBusiness.GetButton("Delete", IvReduce_MouseLeftButtonDown),ViewBusiness.GetButton("Change", IvChange_Click)}));
 
             CreateDialog();
 
@@ -167,7 +167,7 @@ namespace Maker.View.UI.Style.Child
             }
         }
 
-        private void IvAdd_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void IvAdd_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             ComboBox cb = null;
             if (setAttributeOperationModel.AttributeOperationModels.Count == 0)
@@ -209,7 +209,7 @@ namespace Maker.View.UI.Style.Child
             AddUIToDialog(GetDockPanel(new List<FrameworkElement> { cb, tb, ViewBusiness.GetImage("check_gray.png", 25, IvCheck_MouseLeftButtonDown) }), UICount - 1);
         }
 
-        private void IvReduce_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void IvReduce_MouseLeftButtonDown(object sender, RoutedEventArgs e)
         {
             if (checkedPositions.Count == 0)
                 return;

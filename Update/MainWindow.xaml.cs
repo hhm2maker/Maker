@@ -21,7 +21,7 @@ namespace Update
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             tbHelp.Text = "1.理论上软件更新不会破坏原有文件，但是请对重要文件进行备份(如.lightScript文件等)。" + Environment.NewLine
-                + "2.如果更新不成功，可通过访问官网：https://www.hhm2maker.com/手动下载最新版本。";
+                + "2.如果更新不成功，可通过访问官网：https://www.hhm2maker.com/ 手动下载最新版本。";
         }
 
         private void Begin()
@@ -61,20 +61,20 @@ namespace Update
                 XmlNode versionNowVersion = versionRoot.SelectSingleNode("NowVersion");
 
                 String nowVersion = versionNowVersion.InnerText;
-                if (nowVersion.Equals("20200409"))
+                if (nowVersion.Equals("20200704"))
                 {
-                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200413\MakerUI.dll", AppDomain.CurrentDomain.BaseDirectory + @"\MakerUI.dll");
+                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content/Maker/Update/20200704/Maker.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Maker.exe");
 
-                    nowVersion = "20200413";
+                    nowVersion = "20200705";
                 }
-                if (nowVersion.Equals("20200413"))
-                {
-                    File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Config\plugs.xml");
-                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\Maker.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Maker.exe");
-                    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\PlugLib.dll", AppDomain.CurrentDomain.BaseDirectory + @"\PlugLib.dll");
+                //if (nowVersion.Equals("20200413"))
+                //{
+                //    File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"\Config\plugs.xml");
+                //    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\Maker.exe", AppDomain.CurrentDomain.BaseDirectory + @"\Maker.exe");
+                //    DownloadFile(@"https://www.hhm2maker.com/wordpress/wp-content\Maker/Update\20200505\PlugLib.dll", AppDomain.CurrentDomain.BaseDirectory + @"\PlugLib.dll");
 
-                    nowVersion = "20200505";
-                }
+                //    nowVersion = "20200505";
+                //}
 
                 //Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Tip");
                 //DownloadFile("http://www.launchpadlight.com/File/Update/0.0.1.0/tip0.png", AppDomain.CurrentDomain.BaseDirectory + @"\Tip\tip0.png");

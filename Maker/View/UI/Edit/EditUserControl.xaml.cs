@@ -214,13 +214,30 @@ namespace Maker.View.UI.Edit
 
         public void SetChange(int position)
         {
+            SetChange(position, true);
+        }
+
+        public void SetChange(int position,bool isShow)
+        {
             StackPanel sp = ((tcMain.Items[position] as TabItem).Header as StackPanel);
-            (sp.Children[1] as TextBlock).Visibility = Visibility.Visible;
+            if (isShow)
+            {
+                (sp.Children[1] as TextBlock).Visibility = Visibility.Visible;
+            }
+            else {
+                (sp.Children[1] as TextBlock).Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            tcMain.Items.RemoveAt(tcMain.Items.IndexOf(((sender as Panel).Parent as Panel).Parent));
+            int position = tcMain.Items.IndexOf(((sender as Panel).Parent as Panel).Parent);
+            StackPanel sp = ((tcMain.Items[position] as TabItem).Header as StackPanel);
+            if ((sp.Children[1] as TextBlock).Visibility == Visibility.Visible)
+            {
+                ((tcMain.Items[position] as TabItem).Content as BaseUserControl).SaveFile();
+            }
+            tcMain.Items.RemoveAt(position);
         }
 
         public void IntoUserControl(String fileName, bool checkFileName)

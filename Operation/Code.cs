@@ -42,7 +42,7 @@ namespace Operation
             //添加内容名称
             foreach (var scriptModel in scriptModelDictionary)
             {
-                if (scriptModel.Value.Visible && !childCollection.Contains(scriptModel.Key))
+                if (scriptModel.Value.Visible && !childCollection.Contains(scriptModel.Key) && scriptModel.Value.OperationModels.Count>0)
                 {
                     sb.Append("LightGroup " + scriptModel.Key + "LightGroup = " + scriptModel.Key + "();");
                     if (scriptModel.Value.Intersection != null)
@@ -80,7 +80,7 @@ namespace Operation
             //添加具体内容
             foreach (var scriptModel in scriptModelDictionary)
             {
-                if (scriptModel.Value.Visible)
+                if (scriptModel.Value.Visible && scriptModel.Value.OperationModels.Count > 0)
                 {
                     sb.Append("public LightGroup " + scriptModel.Key + "(){");
                     //if (!scriptModel.Value.Parent.Equals(String.Empty))
