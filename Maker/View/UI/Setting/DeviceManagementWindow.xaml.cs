@@ -138,10 +138,10 @@ namespace Maker.View.Setting
                 }
                 suc.deviceDictionary.Remove(lbMain.SelectedItem.ToString());
             }
-            if (suc.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
-            {
-                suc.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
-            }
+            //if (suc.cbDevice.Items.Contains(lbMain.SelectedItem.ToString()))
+            //{
+            //    suc.cbDevice.Items.Remove(lbMain.SelectedItem.ToString());
+            //}
             lbMain.Items.Remove(lbMain.SelectedItem.ToString());
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)

@@ -9,7 +9,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        <ComboBox Margin="20,20,0,0" Grid.Row="0" MouseEnter="lbCatalog_MouseEnter" Padding="0"  Grid.Column="0" DockPanel.Dock="Top" FontSize="16" Background="#535353" Foreground="#f0f0f0" Name="lbCatalog" BorderBrush="#FF424242" />
+        <!--<ComboBox Margin="20,20,0,0" Grid.Row="0" MouseEnter="lbCatalog_MouseEnter" Padding="0"  Grid.Column="0" DockPanel.Dock="Top" FontSize="16" Background="#535353" Foreground="#f0f0f0" Name="lbCatalog" BorderBrush="#FF424242" />-->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
                 <StackPanel  Name="svMain" Margin="0,0,0,20"/>
             </ScrollViewer>

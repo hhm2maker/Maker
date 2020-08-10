@@ -982,7 +982,8 @@ namespace Maker.View.LightScriptUserControl
 
         public void Test()
         {
-            if (!isChange) {
+            if (!isChange)
+            {
                 isChange = true;
 
                 TabItem tabItem = (Parent as TabItem);
@@ -1838,7 +1839,8 @@ namespace Maker.View.LightScriptUserControl
                 String parentName = GetParentName(panel);
                 foreach (var item in scriptModelDictionary)
                 {
-                    if (item.Value.OperationModels.Count > 0) {
+                    if (item.Value.OperationModels.Count > 0)
+                    {
                         if (item.Value.OperationModels[0] is CreateFromStepOperationModel)
                         {
                             if ((item.Value.OperationModels[0] as CreateFromStepOperationModel).StepName.Equals(stepName))
@@ -3367,7 +3369,8 @@ namespace Maker.View.LightScriptUserControl
 
             TestNotChange();
             spRefresh.Visibility = Visibility.Collapsed;
-            if (lbStep.SelectedIndex == -1 && lbStep.Items.Count > 0) {
+            if (lbStep.SelectedIndex == -1 && lbStep.Items.Count > 0)
+            {
                 lbStep.SelectedIndex = 0;
             }
             //mw.SetSpFilePosition(mw.filePosition);
@@ -3473,9 +3476,10 @@ namespace Maker.View.LightScriptUserControl
             }
             xDoc.Save(filePath);
 
-            if (mw.basicConfigModel.UseCache) {
+            if (mw.basicConfigModel.UseCache)
+            {
                 List<Light> mLightList = GetData();
-                
+
                 //没有AB集合不能保存
                 if (mLightList.Count == 0)
                 {
@@ -4525,6 +4529,10 @@ namespace Maker.View.LightScriptUserControl
 
             Application.Current.Dispatcher.Invoke(delegate ()
             {
+                if (cTimeLine == null)
+                {
+                    return;
+                }
                 cTimeLine.Children.Clear();
                 double x1 = 0;
                 if (Double.IsNaN(nowTime * 1.0 / maxTime * cTimeLine.ActualWidth))
@@ -4624,7 +4632,8 @@ namespace Maker.View.LightScriptUserControl
                     //mLaunchpad.gMain.Width = gCenter.ActualWidth < gCenter.ActualHeight ? gCenter.ActualWidth - 99 : gCenter.ActualHeight - 99;
                     mLaunchpad.playLpd.Size = bLaunchpad.ActualWidth < bLaunchpad.ActualHeight ? bLaunchpad.ActualWidth - 99 : bLaunchpad.ActualHeight - 99;
                 }
-                catch {
+                catch
+                {
                     //TODO:可以优化
                 }
             }
@@ -4665,22 +4674,23 @@ namespace Maker.View.LightScriptUserControl
 
         private void OpenDeviceManagement(object sender, MouseButtonEventArgs e)
         {
-            
+
         }
 
-        private void cbDevice_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbDevice.SelectedIndex == cbDevice.Items.Count - 1) {
-                new DeviceManagementWindow(this).ShowDialog();
-            }
-        }
+        //private void cbDevice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (cbDevice.SelectedIndex == cbDevice.Items.Count - 1)
+        //    {
+        //        new DeviceManagementWindow(this).ShowDialog();
+        //    }
+        //}
 
         private void iSave_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             SaveFile();
 
             TabItem tabItem = (Parent as TabItem);
-            mw.editUserControl.SetChange((tabItem.Parent as TabControl).Items.IndexOf(tabItem),false);
+            mw.editUserControl.SetChange((tabItem.Parent as TabControl).Items.IndexOf(tabItem), false);
         }
     }
 }

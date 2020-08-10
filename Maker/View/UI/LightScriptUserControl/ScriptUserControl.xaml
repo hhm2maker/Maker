@@ -167,10 +167,10 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Margin="0,0,0,20" Background="{DynamicResource bgTitleColor}" Orientation="Horizontal">
-                        <ComboBox Name="cbDevice" SelectionChanged="cbDevice_SelectionChanged" Width="150"  BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545" ItemContainerStyle="{StaticResource ComboBoxItemStyle1}" >
+                        <!--<ComboBox Name="cbDevice" SelectionChanged="cbDevice_SelectionChanged" Width="150"  BorderBrush="#666666"  Foreground="{StaticResource boxTextColor}" Background="#454545" >
                             <Separator />
                             <ComboBoxItem Content="{DynamicResource Manage}" />
-                        </ComboBox>
+                        </ComboBox>-->
                     </StackPanel>
                     <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

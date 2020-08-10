@@ -36,13 +36,13 @@ namespace Maker.View.Style
 
         public void SetData(List<BaseOperationModel> operationModels)
         {
-            lbCatalog.Items.Clear();
+            //lbCatalog.Items.Clear();
             svMain.Children.Clear();
             this.operationModels = operationModels;
 
             foreach (var item in operationModels)
             {
-                lbCatalog.SelectedIndex = 0;
+                //lbCatalog.SelectedIndex = 0;
 
                 if (item is LightFilePlayModel)
                 {
@@ -74,7 +74,7 @@ namespace Maker.View.Style
                 };
                 mItem.Content = box;
                 //mItem.MouseLeftButtonDown += Box_Click;
-                lbCatalog.Items.Add(mItem);
+                //lbCatalog.Items.Add(mItem);
 
                 box.SetResourceReference(TextBlock.TextProperty, (svMain.Children[svMain.Children.Count - 1] as BaseStyle).Title);
             }
@@ -85,22 +85,22 @@ namespace Maker.View.Style
 
         public void SetData(List<BaseOperationModel> operationModels,bool isNew)
         {
-            lbCatalog.Items.Clear();
+            //lbCatalog.Items.Clear();
             SetData(operationModels);
             if (isNew) {
                 //是新增的
-                lbCatalog.SelectedIndex = lbCatalog.Items.Count-1;
+                //lbCatalog.SelectedIndex = lbCatalog.Items.Count-1;
             }
         }
 
         private void Box_Click(object sender, MouseButtonEventArgs e)
         {
-            lbCatalog.SelectedItem = sender;
+            //lbCatalog.SelectedItem = sender;
         }
 
         private void lbCatalog_MouseEnter(object sender, MouseEventArgs e)
         {
-            lbCatalog.IsEnabled = CanSave();
+            //lbCatalog.IsEnabled = CanSave();
         }
 
         private bool CanSave() {

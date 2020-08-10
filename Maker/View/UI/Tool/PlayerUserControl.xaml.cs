@@ -108,7 +108,7 @@ namespace Maker.View
             InitPlayLaunchpad();
             SetData(mActionBeanList);
 
-            tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
+            //tbBPM.Text = mw.NowProjectModel.Bpm.ToString();
 
             playLpd.SmallTime = nowTimeI;
             //(int)(LightBusiness.GetMax(mActionBeanList) * dTime)  
@@ -283,7 +283,9 @@ namespace Maker.View
             btnPlay.Source = new BitmapImage(new Uri("../../../View/Resources/Image/play_green.png", UriKind.RelativeOrAbsolute));
             playLpd.ClearAllColorExceptMembrane();
 
-            (suc as ScriptUserControl)._bridge.tbTimePointCountLeft_TextChanged();
+            if (suc != null) {
+                (suc as ScriptUserControl)._bridge.tbTimePointCountLeft_TextChanged();
+            }
 
             mediaElement.Stop();
             mediaElement.Close();

@@ -305,14 +305,14 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="500"/>
         </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                <device:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad"  />
-            </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <device:LaunchpadPro Width="600" Height="600" x:Name="mLaunchpad"  />
+        </StackPanel>
         <ScrollViewer  Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" VerticalAlignment="Stretch">
-                <StackPanel Orientation="Vertical" Name="spRight" Background="#222326">
-                    <Border BorderThickness="1" BorderBrush="#282828">
-                        <StackPanel Orientation="Vertical">
-                            <Border BorderBrush="#282828" BorderThickness="0,0,1,0">
+            <StackPanel Orientation="Vertical" Name="spRight" Background="#222326">
+                <Border BorderThickness="1" BorderBrush="#282828">
+                    <StackPanel Orientation="Vertical">
+                        <Border BorderBrush="#282828" BorderThickness="0,0,1,0">
                             <StackPanel Margin="10">
                                 <DockPanel>
                                     <StackPanel  Height="35" Orientation="Horizontal" >
@@ -321,8 +321,8 @@
                                     </StackPanel>
                                     <Image Source="../../../View/Resources/Image/save_gray.png" Width="25" Height="25" MouseLeftButtonDown="SavePage" RenderOptions.BitmapScalingMode="Fant"  Margin="0,0,20,0" HorizontalAlignment="Right"/>
                                 </DockPanel>
-                             
-                                    <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">
+
+                                <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">
                                     <TextBlock  Text ="{DynamicResource CountColon}" TextAlignment="Left" VerticalAlignment="Center"/>
                                     <Image Source="../../../View/Resources/Image/toleft_gray.png" Width="20" Height="20" MouseLeftButtonDown="LastCount" RenderOptions.BitmapScalingMode="Fant"/>
                                     <TextBlock Name="tbCount" Text="{Binding Count}" VerticalAlignment="Center"  Margin="20,0,20,0"   Foreground="#ffffff" Width="100" FontSize="18" />
@@ -330,12 +330,12 @@
                                     <Image Source="../../../View/Resources/Image/add_gray.png" Margin="30,0,20,0" Width="20" Height="20" MouseLeftButtonDown="AddCount" RenderOptions.BitmapScalingMode="Fant"/>
                                     <Image Source="../../../View/Resources/Image/delete_gray.png" Width="20" Height="20" MouseLeftButtonDown="RemoveCount" RenderOptions.BitmapScalingMode="Fant"/>
                                 </StackPanel>
-                                    <StackPanel Height="35" Orientation="Horizontal"  Margin="0,10,0,0" >
+                                <StackPanel Height="35" Orientation="Horizontal"  Margin="0,10,0,0" >
                                     <TextBlock  Text ="{DynamicResource TypeColon}" TextAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnDownButton"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnLoopButton" Margin="20,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
-                                        <Button Style="{DynamicResource NormalButton}" Name="btnUpButton" Margin="20,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
-                                    </StackPanel>
+                                    <Button Style="{DynamicResource NormalButton}" Name="btnDownButton"  Content="{DynamicResource DownButton}"  Click="TypeButton_Click"/>
+                                    <Button Style="{DynamicResource NormalButton}" Name="btnLoopButton" Margin="20,0,0,0"  Content="{DynamicResource LoopButton}" Click="TypeButton_Click"/>
+                                    <Button Style="{DynamicResource NormalButton}" Name="btnUpButton" Margin="20,0,0,0"  Content="{DynamicResource UpButton}" Click="TypeButton_Click"/>
+                                </StackPanel>
                                 <StackPanel Height="35" Orientation="Horizontal"  Margin="0,20,0,0" >
                                     <TextBlock  Text ="{DynamicResource Add}" TextAlignment="Left" FontSize="18" VerticalAlignment="Center"/>
                                     <Button Name="btnAddLight" Style="{DynamicResource NormalButton}" Content="{DynamicResource Light}"  Click="Add"/>
@@ -343,10 +343,10 @@
                                     <Button Name="btnAddGoto" Style="{DynamicResource NormalButton}" Margin="20,0,0,0"  Content="{DynamicResource Goto}" Click="Add"/>
                                 </StackPanel>
                             </StackPanel>
-                            </Border>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </view:BaseUserControl>

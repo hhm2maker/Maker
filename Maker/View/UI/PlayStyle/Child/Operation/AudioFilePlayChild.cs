@@ -61,7 +61,7 @@ namespace Maker.View.UI.Style.Child
 
         private void RemoveLight(object sender, RoutedEventArgs e)
         {
-            if (audioFilePlayModel.AudioName.Equals(String.Empty)) {
+            if (audioFilePlayModel.AudioName == null || audioFilePlayModel.AudioName.Equals(String.Empty)) {
                 return;
             }
             tbPageName.Text = "";

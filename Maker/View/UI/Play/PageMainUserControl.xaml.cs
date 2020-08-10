@@ -224,6 +224,7 @@ namespace Maker.View.PageWindow
             int position = int.Parse(tbPosition.Text);
             _pageModes[position].Add(new PageButtonModel());
             view.Count = view.Count + 1;
+            RefreshContent();
         }
 
         private void RemoveCount(object sender, System.Windows.Input.MouseButtonEventArgs e)
