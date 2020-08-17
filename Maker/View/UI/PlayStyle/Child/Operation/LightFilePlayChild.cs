@@ -61,7 +61,7 @@ namespace Maker.View.UI.Style.Child
             List<String> fileNames = new List<string>();
             fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(StaticConstant.mw.LastProjectPath + @"\Light", new List<string>() { ".light" }));
             fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(StaticConstant.mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(StaticConstant.mw.LastProjectPath + @"\Midi", new List<string>() { ".mid" }));
+            fileNames.AddRange(FileBusiness.CreateInstance().GetFilesName(StaticConstant.mw.LastProjectPath + @"\Light", new List<string>() { ".mid" }));
             ShowLightListDialog dialog = new ShowLightListDialog(StaticConstant.mw, tbFileName.Text, fileNames);
             if (dialog.ShowDialog() == true)
             {

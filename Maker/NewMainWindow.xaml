@@ -70,6 +70,7 @@
                             </MenuItem>
                             <MenuItem Header="{DynamicResource Tool}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource CalcTime}" Click="CalcTime_Click" Foreground="{DynamicResource TitleFontColor}" />
+                                <MenuItem Header="{DynamicResource CheckProperties}" Click="CheckProperties" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
                             <MenuItem Header="{DynamicResource Build}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Name="miUseCache" Header="{DynamicResource UseCache}" Click="UseCache" Foreground="{DynamicResource TitleFontColor}" />

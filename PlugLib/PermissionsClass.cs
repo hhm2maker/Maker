@@ -12,6 +12,8 @@ namespace PlugLib
         {
             None = 0,
             InputAndOutput = 1,
+            ProjectInfo = 2,
+            Page = 3,
         }
 
         public static string PermissionsExplain(Permissions permissions) {
@@ -22,6 +24,14 @@ namespace PlugLib
             else if (permissions == Permissions.InputAndOutput)
             {
                 return "输入输出权限";
+            }
+            else if (permissions == Permissions.ProjectInfo)
+            {
+                return "项目信息权限";
+            }
+            else if (permissions == Permissions.Page)
+            {
+                return "页权限";
             }
             else {
                 return "获取说明失败";

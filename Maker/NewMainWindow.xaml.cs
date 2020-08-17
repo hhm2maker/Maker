@@ -51,6 +51,9 @@ using Maker.View.UI.Play;
 using static Maker.View.UI.Play.LogCatUserControl;
 using System.Text;
 using Maker.View.UI.Data;
+using Operation.Model;
+using static PlugLib.PermissionsClass;
+using Maker.View.PageWindow;
 
 namespace Maker
 {
@@ -1034,6 +1037,44 @@ namespace Maker
             MethodInfo mi = o.GetType().GetMethod("GetView");
             UserControl view = (UserControl)mi.Invoke(o, new Object[] { });
 
+            MethodInfo miPermissions = o.GetType().GetMethod("GetPermissions");
+            List<Permissions> permissions = (List<Permissions>)miPermissions.Invoke(o, new Object[] { });
+            if (permissions.Contains(Permissions.ProjectInfo))
+            {
+                MethodInfo miProjectInfo = o.GetType().GetMethod("SetProjectInfo");
+                ProjectInfo projectInfo = new ProjectInfo();
+                projectInfo.Name = projectConfigModel.Path;
+                projectInfo.Bpm = NowProjectModel.Bpm;
+
+                miProjectInfo.Invoke(o, new Object[] { projectInfo });
+            }
+            if (permissions.Contains(Permissions.Page))
+            {
+                List<List<PageButtonModel>> mLightList = new List<List<PageButtonModel>>();
+                if (editUserControl != null && editUserControl.tcMain.Items.Count != 0)
+                {
+                    PageMainUserControl baseUserControl = ((editUserControl.tcMain.Items[editUserControl.tcMain.SelectedIndex] as TabItem).Content as PageMainUserControl);
+                    if (baseUserControl != null)
+                    {
+                        MethodInfo miProjectInfo = o.GetType().GetMethod("SetPageModel");
+                        miProjectInfo.Invoke(o, new Object[] { Path.GetFileName(baseUserControl.filePath), baseUserControl._pageModes });
+
+                        MethodInfo miControls = o.GetType().GetMethod("GetControl");
+                        List<IControl>  li = (List<IControl>)miControls.Invoke(o, new Object[] {  });
+                        if (li.Count > 0 && li[0] is IPageControl) {
+                            ((IPageControl)li[0]).GetResult(FeedbackToConsole);
+                        }
+                    }
+                    else { 
+                        return;
+                    }
+                }
+                else {
+                    return;    
+                }
+            }
+            
+
             if ((o as IBasePlug).GetShowModel() == ShowModel.Popup)
             {
                 popPlug.Child = view;
@@ -1048,6 +1089,21 @@ namespace Maker
                 window.Closing += Window_Closing1;
                 window.Show();
                 Hide();
+            }
+        }
+
+
+        /// <summary>
+        /// 静态回调方法
+        /// </summary>
+        /// <param name="value"></param>
+        private void FeedbackToConsole(List<List<PageButtonModel>> pageButtonModels)
+        {
+            PageMainUserControl baseUserControl = ((editUserControl.tcMain.Items[editUserControl.tcMain.SelectedIndex] as TabItem).Content as PageMainUserControl);
+            if (baseUserControl != null)
+            {
+                baseUserControl._pageModes = pageButtonModels;
+                baseUserControl.RefreshContent();
             }
         }
 
@@ -1804,6 +1860,10 @@ namespace Maker
             logCatUserControl.SetLog(tag, content, level);
         }
 
+        private void CheckProperties(object sender, RoutedEventArgs e)
+        {
+            ShowMakerDialog(new CheckPropertiesDialog(this, GetData()));
+        }
     }
 
 

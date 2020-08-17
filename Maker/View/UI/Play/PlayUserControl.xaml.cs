@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
+using Operation.Model;
 using static Maker.View.UI.Play.LogCatUserControl;
 
 namespace Maker.View.UI

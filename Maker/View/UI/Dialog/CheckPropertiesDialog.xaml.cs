@@ -128,5 +128,23 @@ namespace Maker.View.Dialog
         {
             mw.RemoveDialog();
         }
+
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //StringBuilder sbPosition = new StringBuilder();
+            //foreach (var item in mColor)
+            //{
+            //    sbPosition.Append(item).Append(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
+            //}
+            if (mColor.Count == 0) {
+                return;
+            }
+            StringBuilder sbColor = new StringBuilder();
+            foreach (var item in mColor)
+            {
+                sbColor.Append(item).Append(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
+            }
+            Clipboard.SetDataObject(sbColor.ToString());
+        }
     }
 }

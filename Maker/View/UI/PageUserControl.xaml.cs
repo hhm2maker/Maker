@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using static Maker.Model.EnumCollection;
+using Operation.Model;
 
 namespace Maker.View
 {

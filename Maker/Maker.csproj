@@ -216,7 +216,6 @@
     <Compile Include="Business\ChildBusiness\PlayUserControl\Play\PlayUserControl.cs" />
     <Compile Include="Business\Model\ExeModel.cs" />
     <Compile Include="Business\Model\HistoricalModel.cs" />
-    <Compile Include="Business\Model\PageButtonModel.cs" />
     <Compile Include="Model\ScriptUserControlModel.cs" />
     <Compile Include="Model\FrameUserControlModel.cs" />
     <Compile Include="NewMainWindow.xaml.cs">

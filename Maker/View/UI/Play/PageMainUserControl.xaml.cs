@@ -5,6 +5,7 @@ using Maker.View.Control;
 using Maker.View.Dialog;
 using Maker.View.Style;
 using Maker.View.UI.Style;
+using Operation.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,7 +62,7 @@ namespace Maker.View.PageWindow
             mLaunchpad.SetButtonClickEvent(Button_MouseLeftButtonDown);
         }
 
-        private List<List<PageButtonModel>> _pageModes = new List<List<PageButtonModel>>();
+        public List<List<PageButtonModel>> _pageModes = new List<List<PageButtonModel>>();
 
         public void LoadFileData(string filePath)
         {
@@ -240,7 +241,7 @@ namespace Maker.View.PageWindow
 
         int position;
 
-        private void RefreshContent()
+        public void RefreshContent()
         {
             if (view.Count == 0)
             {

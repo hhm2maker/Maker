@@ -4,6 +4,7 @@ using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.UI.UserControlDialog;
 using Operation;
+using Operation.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;

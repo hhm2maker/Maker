@@ -47,10 +47,13 @@
   <ItemGroup>
     <Compile Include="BasePlug.cs" />
     <Compile Include="IControl.cs" />
+    <Compile Include="PageControlEnum.cs" />
+    <Compile Include="IPageControl.cs" />
     <Compile Include="IInputAndOutputControl.cs" />
     <Compile Include="IBasePlug.cs" />
     <Compile Include="InputAndOutputControlEnum.cs" />
     <Compile Include="PermissionsClass.cs" />
+    <Compile Include="ProjectInfo.cs" />
     <Compile Include="PlugInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowModel.cs" />

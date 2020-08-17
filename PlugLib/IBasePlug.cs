@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Operation.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,6 +44,8 @@ namespace PlugLib
 
         ShowModel GetShowModel();
 
+        void SetProjectInfo(ProjectInfo projectInfo);
 
+        void SetPageModel(String pageName, List<List<PageButtonModel>> pageButtonModels);
     }
 }

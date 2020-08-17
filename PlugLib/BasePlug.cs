@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Operation.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,15 @@ namespace PlugLib
             return new UserControl();
         }
 
+        public virtual void SetPageModel(String pageName,List<List<PageButtonModel>> pageButtonModels)
+        {
+            
+        }
 
+
+        public virtual void SetProjectInfo(ProjectInfo projectInfo)
+        {
+            
+        }
     }
 }
