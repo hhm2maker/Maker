@@ -149,6 +149,7 @@ namespace Maker.View.UI
             pages.Clear();
             positions.Clear();
             lights.Clear();
+            wpPage.Children.Clear();
 
             DirectoryInfo d = new DirectoryInfo(mw.LastProjectPath);
             XDocument _doc = XDocument.Load(filePath);
@@ -179,6 +180,13 @@ namespace Maker.View.UI
             nowPageName = _pages.Attribute("first").Value;
             foreach (XElement pageElement in _pages.Elements("Page"))
             {
+                Button btn = new Button();
+                btn.Content = pageElement.Attribute("name").Value;
+                btn.Width = 200;
+                btn.Margin = new Thickness(0, 0, 10, 0);
+                btn.Click += Btn_Click;
+                wpPage.Children.Add(btn);
+
                 Dictionary<int, List<PageButtonModel>> mDictionaryListButton = new Dictionary<int, List<PageButtonModel>>();
                 Dictionary<int, int> mDictionaryPosition = new Dictionary<int, int>();
                 foreach (XElement buttonsElement in pageElement.Elements("Buttons"))
@@ -254,6 +262,11 @@ namespace Maker.View.UI
             //    LightBusiness.Print(item.Value);
             //    Console.WriteLine("----------");
             //}
+        }
+
+        private void Btn_Click(object sender, RoutedEventArgs e)
+        {
+            nowPageName = ((Button)sender).Content.ToString();
         }
 
         public InputPort ip;
@@ -465,13 +478,22 @@ namespace Maker.View.UI
                         String audio = audioFilePlayModel.AudioName;
                         if (!audio.Equals(String.Empty) && File.Exists(StaticConstant.mw.LastProjectPath + "Audio/" + audio))
                         {
-                            MediaPlayer player = new MediaPlayer();
-                            medias.Add(player);
-                            player.MediaEnded += Player_MediaEnded;
-                            player.Volume = 1.0;
-                            player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
-                            player.Play();
-                            
+                            WavPlayer.mciPlay(StaticConstant.mw.LastProjectPath + "Audio/" + audio);
+                            //System.Media.SoundPlayer player = new System.Media.SoundPlayer();
+                            //medias2.Add(player);
+                            //player.SoundLocation = StaticConstant.mw.LastProjectPath + "Audio/" + audio;
+                            //player.LoadAsync();
+                            //player.Play();
+
+                            //pc.PlayAudio(audio);
+
+                            //MediaPlayer player = new MediaPlayer();
+                            //medias.Add(player);
+                            //player.MediaEnded += Player_MediaEnded;
+                            //player.Volume = 1.0;
+                            //player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
+                            //player.Play();
+
                             //COM组件 Window Media Player 也是有延迟。
                             //WindowsMediaPlayer axWindowsMediaPlayer1 = new WindowsMediaPlayer();
                             //axWindowsMediaPlayer1.URL = StaticConstant.mw.LastProjectPath + "Audio/" + audio;
@@ -564,6 +586,30 @@ namespace Maker.View.UI
                 //        }
                 //    }
                 //}
+            }
+
+            public Stream FileToStream(string fileName)
+
+            {
+
+                // 打开文件
+
+                FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                // 读取文件的 byte[]
+
+                byte[] bytes = new byte[fileStream.Length];
+
+                fileStream.Read(bytes, 0, bytes.Length);
+
+                fileStream.Close();
+
+                // 把 byte[] 转换成 Stream
+
+                Stream stream = new MemoryStream(bytes);
+
+                return stream;
+
             }
 
             private void KeyEvent(int position, InputAndOutputControlEnum.KeyModel keyModel)
@@ -748,10 +794,11 @@ namespace Maker.View.UI
                 MediaElement mediaElement = new MediaElement();
                 mediaElement.Source = new Uri(StaticConstant.mw.LastProjectPath + @"Audio\" + audio, UriKind.RelativeOrAbsolute);
                 mediaElement.LoadedBehavior = MediaState.Manual;
-                mediaElement.MediaEnded += MediaElement_MediaEnded;
+                //mediaElement.MediaEnded += MediaElement_MediaEnded;
                 //mediaElement.UnloadedBehavior = MediaState.Stop;
                 //mediaElement.Stop();
-                gMain.Children.Add(mediaElement);
+                medias2.Add(mediaElement);
+                //gMain.Children.Add(mediaElement);
                 mediaElement.Play();
             }));
         }
@@ -838,6 +885,7 @@ namespace Maker.View.UI
         }
 
         static List<MediaPlayer> medias = new List<MediaPlayer>();
+        static List<MediaElement> medias2 = new List<MediaElement>();
 
 
         private static void Player_MediaEnded(object sender, EventArgs e)
@@ -867,7 +915,7 @@ namespace Maker.View.UI
                             medias.Add(player);
                             player.MediaEnded += Player_MediaEnded;
                             player.Volume = 1;
-                            player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.RelativeOrAbsolute));
+                            player.Open(new Uri(StaticConstant.mw.LastProjectPath + "Audio/" + audio, UriKind.Absolute));
                             player.Play();
                             //Dispatcher.BeginInvoke(new Action(delegate
                             //{
@@ -1016,7 +1064,7 @@ namespace Maker.View.UI
             byte[] sx = new byte[str.Length];
             for (int i = 0; i < str.Length; i++)
             {
-                sx[i] = (byte)int.Parse(str[i]);
+                sx[i] = (byte)int.Parse(str[i].Trim());
             }
             //byte[] sx = {240, 0 ,32, 41, 2 ,16 ,11 ,99 ,63 ,63 ,63 ,247 }; // GM On sysex
             //PREVIOUS CODE
@@ -1141,6 +1189,11 @@ namespace Maker.View.UI
         private void cbModel_Unchecked(object sender, RoutedEventArgs e)
         {
             NowModel = Model.Normal;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            LoadExeXml();
         }
         //private void btnMustOpenMidi_Click(object sender, RoutedEventArgs e)
         //{

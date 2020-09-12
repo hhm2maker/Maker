@@ -987,6 +987,9 @@ namespace Maker.View.LightScriptUserControl
                 isChange = true;
 
                 TabItem tabItem = (Parent as TabItem);
+                if (tabItem == null) {
+                    return;
+                }
                 mw.editUserControl.SetChange((tabItem.Parent as TabControl).Items.IndexOf(tabItem));
             }
 
@@ -4389,7 +4392,7 @@ namespace Maker.View.LightScriptUserControl
                     {
                         return;
                     }
-                    ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
+                    ImportLibraryDialog _dialog = new ImportLibraryDialog(mw, this,mw.LastProjectPath + @"\LightScript\" + dialog.resultFileName);
                     mw.ShowMakerDialog(_dialog);
                 }
                 else

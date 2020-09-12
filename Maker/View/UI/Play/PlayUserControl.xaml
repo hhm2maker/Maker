@@ -17,7 +17,11 @@
     </UserControl.Effect>
     <StackPanel Name="gMain" Margin="30">
         <CheckBox Name="cbModel" IsChecked="true" Foreground="White" Checked="cbModel_Checked" Unchecked="cbModel_Unchecked" Content="Live模式"/>
-        <Button Content="加载" Click="Button_Click" Margin="0,30,0,0"/>
+        <StackPanel Orientation="Horizontal"  Margin="0,30,0,0">
+            <Button Content="加载设备" Click="Button_Click" />
+            <Button Content="加载演奏文件" Click="Button_Click_1" Margin="10,0,0,0"/>
+        </StackPanel>
+        <WrapPanel Name="wpPage" Orientation="Horizontal"  Margin="0,30,0,0"/>
         <Grid Name="gMost" Visibility="Collapsed">
             <DockPanel Background="#262829">
                 <ToolBar  Background="#262829" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">

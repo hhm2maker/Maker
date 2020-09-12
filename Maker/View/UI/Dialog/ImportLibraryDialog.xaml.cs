@@ -1,6 +1,7 @@
 ﻿using Maker.Business;
 using Maker.Model;
 using Maker.View.Control;
+using Maker.View.LightScriptUserControl;
 using Maker.View.UI.UserControlDialog;
 using Operation;
 using System;
@@ -18,10 +19,13 @@ namespace Maker.View.Dialog
     {
         private String fileName;
         private NewMainWindow mw;
-        public ImportLibraryDialog(NewMainWindow mw, String fileName)
+        private ScriptUserControl suc;
+
+        public ImportLibraryDialog(NewMainWindow mw, ScriptUserControl suc ,String fileName)
         {
             InitializeComponent();
             this.mw = mw;
+            this.suc = suc;
             this.fileName = fileName;
         }
 
@@ -32,11 +36,11 @@ namespace Maker.View.Dialog
             FileInfo fileInfo = new FileInfo(fileName);
             if (lbMain.SelectedItem.ToString().Equals("Main"))
             {
-                mw.editUserControl.suc.NewFromImport(fileInfo.Name, "");
+                suc.NewFromImport(fileInfo.Name, "");
             }
             else
             {
-                mw.editUserControl.suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
+                suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
             }
             mw.RemoveDialog();
         }

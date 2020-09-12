@@ -718,6 +718,7 @@
     <Compile Include="View\UI\MakerpjUserControl.xaml.cs">
       <DependentUpon>MakerpjUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WavPlayer.cs" />
     <Page Include="Business\Discarded\CatalogUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

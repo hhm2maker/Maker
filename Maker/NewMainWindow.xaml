@@ -245,6 +245,8 @@
             <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>
             <StackPanel Grid.Row="5" Background="{DynamicResource bgTitleColor}" >
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
+                    <TextBlock Name="tbProgress" VerticalAlignment="Center" Margin="0,0,10,0"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
+                    <ProgressBar Name="pbBottom" Width="100" Height="10" Margin="0,0,10,0"/>
                     <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                     <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                 </StackPanel>

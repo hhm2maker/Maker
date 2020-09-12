@@ -54,6 +54,7 @@ using Maker.View.UI.Data;
 using Operation.Model;
 using static PlugLib.PermissionsClass;
 using Maker.View.PageWindow;
+using System.Threading;
 
 namespace Maker
 {
@@ -627,8 +628,10 @@ namespace Maker
                     InitProjects();
                 }
             }
-            else {
-                if (!isClose) {
+            else
+            {
+                if (!isClose)
+                {
                     Close();
                 }
             }
@@ -949,7 +952,7 @@ namespace Maker
                 }
             }
 
-            SetLog(LogTag.Plug,"载入了"+ spPlugs.Children.Count+"个插件",Level.Normal);
+            SetLog(LogTag.Plug, "载入了" + spPlugs.Children.Count + "个插件", Level.Normal);
         }
 
         public IBasePlug FilePathToPlug(String shortFilPath)
@@ -1060,20 +1063,23 @@ namespace Maker
                         miProjectInfo.Invoke(o, new Object[] { Path.GetFileName(baseUserControl.filePath), baseUserControl._pageModes });
 
                         MethodInfo miControls = o.GetType().GetMethod("GetControl");
-                        List<IControl>  li = (List<IControl>)miControls.Invoke(o, new Object[] {  });
-                        if (li.Count > 0 && li[0] is IPageControl) {
+                        List<IControl> li = (List<IControl>)miControls.Invoke(o, new Object[] { });
+                        if (li.Count > 0 && li[0] is IPageControl)
+                        {
                             ((IPageControl)li[0]).GetResult(FeedbackToConsole);
                         }
                     }
-                    else { 
+                    else
+                    {
                         return;
                     }
                 }
-                else {
-                    return;    
+                else
+                {
+                    return;
                 }
             }
-            
+
 
             if ((o as IBasePlug).GetShowModel() == ShowModel.Popup)
             {
@@ -1081,7 +1087,8 @@ namespace Maker
                 popPlug.PlacementTarget = sender as Image;
                 popPlug.IsOpen = true;
             }
-            else {
+            else
+            {
                 Window window = new Window();
                 window.Title = (o as IBasePlug).GetInfo().Title;
                 window.WindowState = WindowState.Maximized;
@@ -1852,7 +1859,7 @@ namespace Maker
 
         public void SetLog(String tag, String content, Level level)
         {
-            logCatUserControl.SetLog(tag,content,level);
+            logCatUserControl.SetLog(tag, content, level);
         }
 
         public void SetLog(LogTag tag, String content, Level level)
@@ -1863,6 +1870,26 @@ namespace Maker
         private void CheckProperties(object sender, RoutedEventArgs e)
         {
             ShowMakerDialog(new CheckPropertiesDialog(this, GetData()));
+        }
+
+        public void SetProgress(string content, double value)
+        {
+            Dispatcher.BeginInvoke((ThreadStart)delegate
+            {
+                pbBottom.Value = value;
+
+                if (content.Equals(String.Empty))
+                {
+                    tbProgress.Text = "";
+                    pbBottom.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    pbBottom.Value = value;
+                }
+            }
+            );
+
         }
     }
 
