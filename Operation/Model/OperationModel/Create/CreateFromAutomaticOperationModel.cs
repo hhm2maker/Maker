@@ -115,22 +115,16 @@ namespace Maker.Business.Model.OperationModel
         [Serializable]
         public class RandomFountainAutomaticOperationModel : BaseAutomatic
         {
-            public int Min
+            public List<int> Position
             {
                 get;
                 set;
             }
 
-            public int Max
+      
+            public RandomFountainAutomaticOperationModel(List<int> position)
             {
-                get;
-                set;
-            }
-
-            public RandomFountainAutomaticOperationModel(int min, int max)
-            {
-                Min = min;
-                Max = max;
+                Position = position;
             }
         }
 
@@ -153,7 +147,12 @@ namespace Maker.Business.Model.OperationModel
             }
             else if (int.Parse(xEdit.Attribute("automaticType").Value) == 2)
             {
-                MyBaseAutomatic = new RandomFountainAutomaticOperationModel(int.Parse(xEdit.Attribute("min").Value), int.Parse(xEdit.Attribute("max").Value));
+                List<int> positions = new List<int>();
+                for (int i = 0; i < xEdit.Attribute("position").Value.Length; i++)
+                {
+                    positions.Add(xEdit.Attribute("position").Value[i] - 33);
+                }
+                MyBaseAutomatic = new RandomFountainAutomaticOperationModel(positions);
             }
             else if(int.Parse(xEdit.Attribute("automaticType").Value) == 3)
             {
@@ -175,8 +174,13 @@ namespace Maker.Business.Model.OperationModel
             }
             if (MyAutomaticType == AutomaticType.RandomFountain)
             {
-                xVerticalFlipping.SetAttributeValue("max", (MyBaseAutomatic as RandomFountainAutomaticOperationModel).Max);
-                xVerticalFlipping.SetAttributeValue("min", (MyBaseAutomatic as RandomFountainAutomaticOperationModel).Min);
+                StringBuilder sbPositions = new StringBuilder();
+                List<int> PositionList = (MyBaseAutomatic as RandomFountainAutomaticOperationModel).Position;
+                for (int i = 0; i < PositionList.Count; i++)
+                {
+                    sbPositions.Append((char)(PositionList[i] + 33));
+                }
+                xVerticalFlipping.SetAttributeValue("position", sbPositions.ToString());
             }
 
             return xVerticalFlipping;

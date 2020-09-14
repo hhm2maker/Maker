@@ -20,13 +20,13 @@ namespace Operation
         public static int ALL = 10;
         public static int OPEN = 11;
         public static int CLOSE = 12;
-        
+
         public static LightGroup CreateLightGroup(CreateFromQuickOperationModel createFromQuickOperationModel)
         {
             LightGroup _lightGroup = new LightGroup();
-                //时间
-                List<int> _position = new List<int>();
-                _position.AddRange(createFromQuickOperationModel.PositionList.ToArray());
+            //时间
+            List<int> _position = new List<int>();
+            _position.AddRange(createFromQuickOperationModel.PositionList.ToArray());
             if (createFromQuickOperationModel.Type == UP)
             {
                 if (createFromQuickOperationModel.Action == ALL)
@@ -425,7 +425,7 @@ namespace Operation
             return _lightGroup;
         }
 
-       
+
         public static LightGroup CreateFromLightScriptFile(string fileName, string stepName)
         {
             ProjectConfigModel projectConfigModel = new ProjectConfigModel();
@@ -435,7 +435,7 @@ namespace Operation
             {
                 return FileBusiness.CreateInstance().ReadMidiFile(midPath);
             }
-            return ScriptFileBusiness.FileToLight(AppDomain.CurrentDomain.BaseDirectory + @"Project\"+ projectConfigModel.Path + @"\LightScript\"+fileName,stepName);
+            return ScriptFileBusiness.FileToLight(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\LightScript\" + fileName, stepName);
         }
 
         public static LightGroup CreateFromLightFile(string fileName)
@@ -458,13 +458,13 @@ namespace Operation
             XmlSerializerBusiness.Load(ref projectConfigModel, "Config/project.xml");
             return FileBusiness.CreateInstance().ReadLimitlessLampFile(AppDomain.CurrentDomain.BaseDirectory + @"Project\" + projectConfigModel.Path + @"\LimitlessLamp\" + fileName);
         }
-      
+
         public static int RHOMBUSDIFFUSION = 20;
         public static int CROSS = 21;
         public static int RANDOMFOUNTAIN = 22;
         public static int BILATERALDIFFUSION = 23;
-        
-        public static LightGroup Automatic(int automaticType,params int[] nums)
+
+        public static LightGroup Automatic(int automaticType, params int[] nums)
         {
             if (automaticType == RHOMBUSDIFFUSION)
             {
@@ -472,31 +472,57 @@ namespace Operation
             }
             else if (automaticType == CROSS)
             {
-                return Cross(nums[0], nums[1],false);
+                return Cross(nums[0], nums[1], false);
             }
             else if (automaticType == RANDOMFOUNTAIN)
             {
-                return RandomFountain(nums[0],nums[1],true);
+                return RandomFountain(true, nums);
             }
             else if (automaticType == BILATERALDIFFUSION)
             {
-                return Cross(nums[0], nums[1],true);
+                return Cross(nums[0], nums[1], true);
             }
 
             return null;
         }
 
-        private static LightGroup RandomFountain(int max, int min, bool containBorder)
+        private static LightGroup RandomFountain(bool containBorder, params int[] nums)
         {
             //Random类默认的无参构造函数可以根据当前系统时钟为种子,进行一系列算法得出要求范围内的伪随机数.
             LightGroup mLl = new LightGroup();
             List<List<int>> lli = IntCollection.VerticalIntList.ToList();
             List<int> list = new List<int>();
-            Random rd = new Random();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < nums.Count(); i++)
             {
-                list.Add(rd.Next(min, max + 1));
+                if (nums[i] < 0)
+                {
+                    list.Add(0);
+                }
+                else if (nums[i] > 9)
+                {
+                    list.Add(9);
+                }
+                else
+                {
+                    list.Add(nums[i]);
+                }
+
+                if (list.Count == 10)
+                {
+                    break;
+                }
             }
+      
+            for (int i = nums.Count(); i < 11; i++)
+            {
+                list.Add(0);
+            }
+
+            foreach (var item in list)
+            {
+                Console.WriteLine(item);
+            }
+
             int plus = 16;
             int count = list.Max();
             int now = 0;
@@ -533,7 +559,7 @@ namespace Operation
             all.Add(new List<int>() { 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 });
             all.Add(new List<int>() { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 });
             all.Add(new List<int>() { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 });
-            all.Add(new List<int>() {0,1,2,3,4,5,6,7,8,9 });
+            all.Add(new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 
             int positionX = 0;//一行第几个
             int positionY = 0;//第几列
@@ -638,7 +664,7 @@ namespace Operation
             }
         }
 
-        private static LightGroup Cross(int startPosition,int continued,bool isTwo)
+        private static LightGroup Cross(int startPosition, int continued, bool isTwo)
         {
             if (startPosition >= 100)
                 return null;
@@ -654,7 +680,7 @@ namespace Operation
                 if (startPosition % 10 > 4)
                 {
                     bRight = false;
-                   
+
                 }
                 else
                 {
@@ -705,7 +731,7 @@ namespace Operation
                 if (bBottom)
                 {
                     //最下面
-                    if (iBottom <10)
+                    if (iBottom < 10)
                     {
                         bBottom = false;
                     }
@@ -716,13 +742,13 @@ namespace Operation
                     if (bBottom)
                     {
                         mLl.Add(new Light(count * plus, 144, iBottom, 5));
-                        mLl.Add(new Light((count + continued) * plus , 128, iBottom, 64));
+                        mLl.Add(new Light((count + continued) * plus, 128, iBottom, 64));
                     }
                 }
                 if (bLeft)
                 {
                     //最左面
-                    if (iLeft % 10 ==0)
+                    if (iLeft % 10 == 0)
                     {
                         bLeft = false;
                     }
@@ -739,7 +765,7 @@ namespace Operation
                 if (bRight)
                 {
                     //最右面
-                   if (iRight % 10 == 9)
+                    if (iRight % 10 == 9)
                     {
                         bRight = false;
                     }

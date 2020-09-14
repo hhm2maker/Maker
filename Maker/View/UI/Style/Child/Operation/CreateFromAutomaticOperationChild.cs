@@ -1,4 +1,5 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.Model;
 using Maker.View.LightScriptUserControl;
 using System;
 using System.Collections.Generic;
@@ -58,10 +59,15 @@ namespace Maker.View.UI.Style.Child
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
             {
+                StringBuilder sbPosition = new StringBuilder();
+                List<int> PositionList = (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Position;
+                foreach (var item in PositionList)
+                {
+                    sbPosition.Append(item).Append(StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter);
+                }
                 return new List<RunModel>
                 {
-                    new RunModel("MinColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min.ToString()),
-                    new RunModel("MaxColon", (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max.ToString()),
+                    new RunModel("PositionColon", sbPosition.ToString().Substring(0, sbPosition.ToString().Length - 1), RunModel.RunType.Position),
                 };
             }
             else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
@@ -79,19 +85,59 @@ namespace Maker.View.UI.Style.Child
         protected override void RefreshView()
         {
             {
-                if (int.TryParse(runs[2].Text, out int result))
+                if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
                 {
-                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
+                    char splitNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatDelimiter;
+                    char rangeNotation = StaticConstant.mw.projectUserControl.suc.StrInputFormatRange;
+
+                    List<int> positions = null;
+
+                    StringBuilder fastGenerationrRangeBuilder = new StringBuilder();
+                    String position = runs[2].Text;
+                    if (suc.rangeDictionary.ContainsKey(position))
                     {
-                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position = result;
+                        positions = suc.rangeDictionary[position];
+                        for (int i = 0; i < suc.rangeDictionary[position].Count; i++)
+                        {
+                            if (i != suc.rangeDictionary[position].Count - 1)
+                            {
+                                fastGenerationrRangeBuilder.Append(suc.rangeDictionary[position][i] + splitNotation.ToString());
+                            }
+                            else
+                            {
+                                fastGenerationrRangeBuilder.Append(suc.rangeDictionary[position][i]);
+                            }
+                        }
                     }
-                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
+                    else
                     {
-                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position = result;
+                        positions = GetTrueContent(position, splitNotation, rangeNotation);
+                        if (positions != null)
+                        {
+                            fastGenerationrRangeBuilder.Append(position);
+                        }
+                        else
+                        {
+                            positions = (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Position;
+                        }
                     }
-                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
+                    (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Position = positions;
+
+                    UpdateData();
+                    return;
+                }
+                else
+                {
+                    if (int.TryParse(runs[2].Text, out int result))
                     {
-                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min = result;
+                        if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel)
+                        {
+                            (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RhombusDiffusionAutomaticOperationModel).Position = result;
+                        }
+                        if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
+                        {
+                            (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Position = result;
+                        }
                     }
                 }
             }
@@ -105,10 +151,6 @@ namespace Maker.View.UI.Style.Child
                     if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.CrossAutomaticOperationModel)
                     {
                         (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.CrossAutomaticOperationModel).Continued = result;
-                    }
-                    if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
-                    {
-                        (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max = result;
                     }
                 }
             }

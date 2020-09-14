@@ -568,8 +568,22 @@ namespace Operation
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel)
                     {
-                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Max +
-                            "," + (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Min + ");");
+                        StringBuilder positionBuild = new StringBuilder();
+                        positionBuild.Append("new List<int>(){");
+
+                        List<int> PositionList = (createFromAutomaticOperationModel.MyBaseAutomatic as CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel).Position;
+                        for (int i = 0; i < PositionList.Count; i++)
+                        {
+                            if (i != PositionList.Count - 1)
+                            {
+                                positionBuild.Append(PositionList[i] + ",");
+                            }
+                            else
+                            {
+                                positionBuild.Append(PositionList[i] + "}");
+                            }
+                        }
+                        sb.Append(Environment.NewLine + "\tLightGroup " + _name + "LightGroup = Create.Automatic(Create.RANDOMFOUNTAIN," + positionBuild.ToString() + ".ToArray());");
                     }
                     else if (createFromAutomaticOperationModel.MyBaseAutomatic is CreateFromAutomaticOperationModel.BilateralDiffusionAutomaticOperationModel)
                     {

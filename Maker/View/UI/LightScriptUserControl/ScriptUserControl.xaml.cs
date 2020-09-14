@@ -4244,7 +4244,7 @@ namespace Maker.View.LightScriptUserControl
             }
             else if (sender == miRandomFountain)
             {
-                scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(0, 7)));
+                scriptModel.OperationModels.Add(new CreateFromAutomaticOperationModel(new CreateFromAutomaticOperationModel.RandomFountainAutomaticOperationModel(new List<int>() { 0 })));
             }
             scriptModelDictionary.Add(stepName, scriptModel);
             UpdateStep();
