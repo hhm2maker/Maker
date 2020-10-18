@@ -3,6 +3,7 @@ using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Dialog;
 using Maker.View.UI.UserControlDialog;
+using Maker.View.UI.Utils;
 using Operation;
 using Operation.Model;
 using System;
@@ -203,7 +204,7 @@ namespace Maker.View.Play
                 xRoot.Add(xModel);
 
                 //Pages
-                XElement xPages = new XElement("Pages");      
+                XElement xPages = new XElement("Pages");
                 XAttribute xFirst = new XAttribute("first", firstPageName);
                 xPages.Add(xFirst);
                 xRoot.Add(xPages);
@@ -382,7 +383,7 @@ namespace Maker.View.Play
                 xDoc.Save(mw.LastProjectPath + @"Play\" + d.Name + ".play");
 
                 IsBuild = false;
-                StaticConstant.mw.SetProgress("" , 0);
+                StaticConstant.mw.SetProgress("", 0);
             }));
             thread.Start();
 
@@ -500,7 +501,7 @@ namespace Maker.View.Play
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            bCenter.Width = mw.ActualWidth / 4 + 330;
+            tbCenter.Width = mw.ActualWidth / 4 + 330;
         }
 
         private void ToSaveFile(object sender, MouseEventArgs e)
@@ -511,6 +512,94 @@ namespace Maker.View.Play
             //    NewFile(sender, e);
             //}
             SaveFile();
+        }
+
+        private void tbCenter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbCenter.SelectionStart != 0)
+            {
+                if (tbCenter.Text[tbCenter.SelectionStart - 1] == '<')
+                {
+                    ContextMenu menu = new ContextMenu();
+                    if (tbCenter.Text.Substring(0, tbCenter.SelectionStart).Contains("<Pages>")){
+                        {
+                            MenuItem menuItem = new MenuItem();
+                            menuItem.Header = ResourcesUtils.Resources2String("Page");
+                            menu.Items.Add(menuItem);
+                        }
+                    }
+                    else {
+                        {
+                            MenuItem menuItem = new MenuItem();
+                            menuItem.Header = ResourcesUtils.Resources2String("Tutorial");
+                            menuItem.Click += MenuItem_Click;
+                            menu.Items.Add(menuItem);
+                        }
+                        {
+                            MenuItem menuItem = new MenuItem();
+                            menuItem.Header = ResourcesUtils.Resources2String("FirstPage");
+                            menu.Items.Add(menuItem);
+                        }
+                        {
+                            MenuItem menuItem = new MenuItem();
+                            menuItem.Header = ResourcesUtils.Resources2String("Page");
+                            menuItem.Click += MenuItem_Click;
+                            menu.Items.Add(menuItem);
+                        }
+                        {
+                            MenuItem menuItem = new MenuItem();
+                            menuItem.Header = ResourcesUtils.Resources2String("Model");
+                            menu.Items.Add(menuItem);
+                        }
+                    }
+
+                    tbCenter.ContextMenu = menu;
+
+                    menu.IsOpen = true;
+                }
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem) {
+                String strs = (sender as MenuItem).Header.ToString();
+                if (strs.Equals(ResourcesUtils.Resources2String("Tutorial")))
+                {
+                    if (tbCenter.SelectionStart != 0)
+                    {
+                        string s = tbCenter.Text;
+                        int idx = tbCenter.SelectionStart;
+                        s = s.Insert(idx, "Tutorial></Tutorial>");
+
+                        tbCenter.Text = s;
+                        tbCenter.SelectionStart = idx + 9;
+                        tbCenter.Focus();
+                    }
+                    else
+                    {
+                        tbCenter.Text = "<Tutorial></Tutorial>";
+                    }
+                }
+                else if (strs.Equals(ResourcesUtils.Resources2String("Page")))
+                {
+                    if (tbCenter.SelectionStart != 0)
+                    {
+                        string s = tbCenter.Text;
+                        int idx = tbCenter.SelectionStart;
+                        s = s.Insert(idx, "Pages></Pages>");
+
+                        tbCenter.Text = s;
+                        tbCenter.SelectionStart = idx + 6;
+                        tbCenter.Focus();
+                    }
+                    else
+                    {
+                        tbCenter.Text = "<Pages></Pages>";
+                    }
+                }
+
+            }
         }
     }
 }

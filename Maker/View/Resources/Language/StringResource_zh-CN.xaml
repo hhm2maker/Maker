@@ -450,8 +450,8 @@
     <sys:String x:Key="SendMail">发送邮件</sys:String>
     <sys:String x:Key="ModelColon">模式：</sys:String>
     <sys:String x:Key="Create">创造</sys:String>
-    <sys:String x:Key="TutorialColon">辅助：</sys:String>
-    <sys:String x:Key="FirstPageColon">首页：</sys:String>
+    <sys:String x:Key="Tutorial">辅助</sys:String>
+    <sys:String x:Key="FirstPage">首页</sys:String>
     <sys:String x:Key="Mycontent">我的内容</sys:String>
     <sys:String x:Key="MatchTotalTimeLattice">匹配时间</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">时间总格数：</sys:String>

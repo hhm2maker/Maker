@@ -518,11 +518,6 @@ namespace Operation
                 list.Add(0);
             }
 
-            foreach (var item in list)
-            {
-                Console.WriteLine(item);
-            }
-
             int plus = 16;
             int count = list.Max();
             int now = 0;

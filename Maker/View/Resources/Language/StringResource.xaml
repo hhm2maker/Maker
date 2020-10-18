@@ -447,8 +447,8 @@
     <sys:String x:Key="SendMail">Send mail</sys:String>
     <sys:String x:Key="ModelColon">Model:</sys:String>
     <sys:String x:Key="Create">Create</sys:String>
-    <sys:String x:Key="TutorialColon">Tutorial:</sys:String>
-    <sys:String x:Key="FirstPageColon">First page:</sys:String>
+    <sys:String x:Key="Tutorial">Tutorial</sys:String>
+    <sys:String x:Key="FirstPage">First page</sys:String>
     <sys:String x:Key="Mycontent">My content</sys:String>
     <sys:String x:Key="MatchTotalTimeLattice">Match time</sys:String>
     <sys:String x:Key="TotalTimeLatticeColon">Total time lattice:</sys:String>
