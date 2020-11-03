@@ -55,6 +55,7 @@ using Operation.Model;
 using static PlugLib.PermissionsClass;
 using Maker.View.PageWindow;
 using System.Threading;
+using Maker.View.Play;
 
 namespace Maker
 {
@@ -1886,10 +1887,16 @@ namespace Maker
                 else
                 {
                     pbBottom.Value = value;
+                    pbBottom.Visibility = Visibility.Visible;
                 }
             }
             );
 
+        }
+
+        private void Build(object sender, MouseButtonEventArgs e)
+        {
+            PlayExportUserControl.CreateInstance(this).Build();
         }
     }
 

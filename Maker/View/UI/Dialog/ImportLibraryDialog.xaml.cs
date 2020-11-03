@@ -20,13 +20,24 @@ namespace Maker.View.Dialog
         private String fileName;
         private NewMainWindow mw;
         private ScriptUserControl suc;
+        public delegate void FinishEvent(String fileName,String stepName);
+        private FinishEvent finishEvent;
 
-        public ImportLibraryDialog(NewMainWindow mw, ScriptUserControl suc ,String fileName)
+        public ImportLibraryDialog(NewMainWindow mw, ScriptUserControl suc, String fileName)
         {
             InitializeComponent();
             this.mw = mw;
             this.suc = suc;
             this.fileName = fileName;
+        }
+
+        public ImportLibraryDialog(NewMainWindow mw, ScriptUserControl suc ,String fileName, FinishEvent finishEvent)
+        {
+            InitializeComponent();
+            this.mw = mw;
+            this.suc = suc;
+            this.fileName = fileName;
+            this.finishEvent = finishEvent;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -36,11 +47,25 @@ namespace Maker.View.Dialog
             FileInfo fileInfo = new FileInfo(fileName);
             if (lbMain.SelectedItem.ToString().Equals("Main"))
             {
-                suc.NewFromImport(fileInfo.Name, "");
+                if (finishEvent == null)
+                {
+                    suc.NewFromImport(fileInfo.Name, "");
+                }
+                else {
+                    finishEvent(fileInfo.Name, "");
+                }
             }
             else
             {
-                suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
+                if (finishEvent == null)
+                {
+                    suc.NewFromImport(fileInfo.Name, lbMain.SelectedItem.ToString());
+                }
+                else
+                {
+                    finishEvent(fileInfo.Name, lbMain.SelectedItem.ToString());
+                }
+                
             }
             mw.RemoveDialog();
         }

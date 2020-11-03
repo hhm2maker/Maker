@@ -130,6 +130,7 @@
                         </StackPanel>
                         <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
                             <Image VerticalAlignment="Center" Margin="5,5,15,5" Source="View/Resources/Image/cache.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_3" Visibility="Collapsed"/>
+                            <Image VerticalAlignment="Center" Margin="5,5,5,5" Source="View/Resources/Image/icon_edit.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Build"/>
                             <Image VerticalAlignment="Center" Margin="5,5,0,5" Source="View/Resources/Image/play_green.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_5" />
                             <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="10,3,5,3"/>
                             <StackPanel Name="spPlugs" Orientation="Horizontal" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Right" />
@@ -246,7 +247,7 @@
             <StackPanel Grid.Row="5" Background="{DynamicResource bgTitleColor}" >
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,20,0" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_3">
                     <TextBlock Name="tbProgress" VerticalAlignment="Center" Margin="0,0,10,0"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
-                    <ProgressBar Name="pbBottom" Width="100" Height="10" Margin="0,0,10,0"/>
+                    <ProgressBar Name="pbBottom" Width="100" Height="10" Margin="0,0,10,0" Visibility="Collapsed"/>
                     <TextBlock VerticalAlignment="Center" Text="{DynamicResource BPMColon}" Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                     <TextBlock VerticalAlignment="Center" Name="tbBPM"  Foreground="{DynamicResource TitleCenterFontColor}" FontSize="16" />
                 </StackPanel>

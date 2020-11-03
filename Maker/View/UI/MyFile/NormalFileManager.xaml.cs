@@ -462,7 +462,6 @@ namespace Maker.View.UI.MyFile
                     return;
                 }
             }
-
             baseFileManager.InitFile((((sender as TreeView).SelectedItem) as TreeViewItem).Header.ToString());
         }
 

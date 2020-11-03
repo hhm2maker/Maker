@@ -15,18 +15,19 @@ using System.Windows.Input;
 using System.Windows.Controls.Primitives;
 using Maker.View.LightScriptUserControl;
 using Maker.View.UI.Style.Child.Base;
+using Maker.View.Play;
 
 namespace Maker.View.UI.Style.Child
 {
-    public class OperationStyle : BaseStyle
+    public class ExportStyle : BaseStyle
     {
-        public ScriptUserControl suc;
+        public PlayExportUserControl suc;
         protected List<Run> runs = new List<Run>();
         protected TextBlock tbMain = null;
         protected TextBlock tbRight = null;
         protected TextBox tbEdit = null;
 
-        public OperationStyle(ScriptUserControl suc) {
+        public ExportStyle(PlayExportUserControl suc) {
             this.suc = suc;
         }
 
@@ -59,41 +60,6 @@ namespace Maker.View.UI.Style.Child
             }
         }
 
-        private List<Light> myData = null;
-        protected List<Light> MyData
-        {
-            get
-            {
-                if (myData == null)
-                {
-                    //StaticConstant.mw.projectUserControl.suc.Test(StaticConstant.mw.projectUserControl.suc.GetStepName(), StaticConstant.mw.projectUserControl.suc.sw.lbCatalog.SelectedIndex);
-                    StaticConstant.mw.editUserControl.suc.Test(StaticConstant.mw.editUserControl.suc.GetStepName(), (Parent as Panel).Children.IndexOf(this));
-
-                    List<int> times = Business.LightBusiness.GetTimeList(NowData);
-                    int position = Convert.ToInt32(StaticConstant.mw.editUserControl.suc.tbTimePointCountLeft.Text) - 1;
-                    myData = new List<Light>();
-                    for (int i = 0; i < NowData.Count; i++)
-                    {
-                        if (NowData[i].Time == times[position])
-                        {
-                            myData.Add(new Light(NowData[i].Time, NowData[i].Action, NowData[i].Position, NowData[i].Color));
-                        }
-                    }
-
-                    InitData();
-
-                    //清除其他model的缓存数据
-                    for (int i = 0; i < (Parent as Panel).Children.Count; i++)
-                    {
-                        if (i != (Parent as Panel).Children.IndexOf(this) && (Parent as Panel).Children[i] is OperationStyle)
-                        {
-                            ((Parent as Panel).Children[i] as OperationStyle).myData = null;
-                        }
-                    }
-                }
-                return myData;
-            }
-        }
 
         /// <summary>
         /// 初始化数据
@@ -122,8 +88,6 @@ namespace Maker.View.UI.Style.Child
         SolidColorBrush solidGreyBg = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey_Bg"];
         SolidColorBrush solidPurple = (SolidColorBrush)StaticConstant.mw.Resources["Text_Purple"];
         SolidColorBrush solidBlue = (SolidColorBrush)StaticConstant.mw.Resources["Text_Blue"];
-
-        
 
 
         List<RunModel> runModels;
@@ -158,40 +122,7 @@ namespace Maker.View.UI.Style.Child
                 };
                 runs.Add(value);
 
-                if (item.Type == RunModel.RunType.Position)
-                {
-                    RunPositionClass comboRunClass = new RunPositionClass
-                    {
-                        Data = (List<String>)item.Data,
-                        Os = this,
-                        RunCombo = value,
-                        TbMain = tbMain,
-                    };
-                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
-                }
-                else if (item.Type == RunModel.RunType.Color)
-                {
-                    RunColorClass comboRunClass = new RunColorClass
-                    {
-                        Data = (List<String>)item.Data,
-                        Os = this,
-                        RunCombo = value,
-                        TbMain = tbMain,
-                    };
-                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
-                }
-                else if (item.Type == RunModel.RunType.Combo)
-                {
-                    RunComboClass comboRunClass = new RunComboClass
-                    {
-                        Data = (List<String>)item.Data,
-                        Os = this,
-                        RunCombo = value,
-                        TbMain = tbMain,
-                    };
-                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
-                }
-                else if(item.Type == RunModel.RunType.Normal)
+                if(item.Type == RunModel.RunType.Normal)
                 {
                     value.Foreground = solidNormal;
                     value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
@@ -203,15 +134,15 @@ namespace Maker.View.UI.Style.Child
                 }
                 else if (item.Type == RunModel.RunType.File)
                 {
-                    RunFileClass comboRunClass = new RunFileClass
-                    {
-                        Data = (List<String>)item.Data,
-                        Os = this,
-                        Runs = runs,
-                        RunCombo = value,
-                        TbMain = tbMain,
-                    };
-                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                    //RunFileClass comboRunClass = new RunFileClass
+                    //{
+                    //    Data = (List<String>)item.Data,
+                    //    Os = this,
+                    //    Runs = runs,
+                    //    RunCombo = value,
+                    //    TbMain = tbMain,
+                    //};
+                    //value.MouseLeftButtonUp += comboRunClass.DrawRange;
                 }
                 else if (item.Type == RunModel.RunType.Show)
                 {
@@ -309,7 +240,6 @@ namespace Maker.View.UI.Style.Child
 
         public void ToRefresh() {
             RefreshView();
-            suc.Test();
         }
 
         /// <summary>

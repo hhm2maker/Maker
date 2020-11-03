@@ -36,6 +36,7 @@ using MakerUI.Device;
 using System.Windows.Data;
 using Maker.View.Setting;
 using Maker.View.UIBusiness;
+using Maker.View.UI.Style;
 
 namespace Maker.View.LightScriptUserControl
 {
@@ -97,11 +98,11 @@ namespace Maker.View.LightScriptUserControl
             thirdPartys = GetThirdParty();
             InitThirdParty(thirdPartys, ThirdPartysMenuItem_Click);
 
-            sw = new StyleWindow(this);
+            sw = new ScriptStyleUserControl(this);
             Grid.SetRow(sw, 0);
             gRight.Children.Add(sw);
         }
-        public StyleWindow sw;
+        public ScriptStyleUserControl sw;
 
         /// <summary>
         /// 第三方插件列表
@@ -2179,7 +2180,7 @@ namespace Maker.View.LightScriptUserControl
         {
             if (lbStep.SelectedIndex == -1 || scriptModelDictionary[GetStepName()].OperationModels.Count == 0)
                 return;
-            StyleWindow style = new StyleWindow(this);
+            ScriptStyleUserControl style = new ScriptStyleUserControl(this);
             style.SetData(scriptModelDictionary[GetStepName()].OperationModels);
             mw.AddSetting(style);
         }

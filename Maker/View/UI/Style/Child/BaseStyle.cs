@@ -17,6 +17,67 @@ namespace Maker.View.Style.Child
     {
         public BaseStyleUserControl sw;
 
+
+        public class RunModel
+        {
+            public String Title
+            {
+                get;
+                set;
+            }
+            public String Content
+            {
+                get;
+                set;
+            }
+
+            public RunType Type
+            {
+                get;
+                set;
+            }
+
+            public enum RunType
+            {
+                Normal,
+                Position,
+                Color,
+                Combo,
+                Calc,
+                File,
+                Show,
+            }
+
+            public Object Data
+            {
+                get;
+                set;
+            }
+
+            public RunModel() { }
+
+            public RunModel(string title, string content)
+            {
+                Title = title;
+                Content = content;
+                Type = RunType.Normal;
+            }
+
+            public RunModel(string title, string content, RunType type)
+            {
+                Title = title;
+                Content = content;
+                Type = type;
+            }
+
+            public RunModel(string title, string content, RunType type, Object obj)
+            {
+                Title = title;
+                Content = content;
+                Type = type;
+                Data = obj;
+            }
+        }
         public virtual string Title
         {
             get;

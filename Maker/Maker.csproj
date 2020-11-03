@@ -370,38 +370,45 @@
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Style\Child\Base\RunFileClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunPositionClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunColorClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunComboClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunContentClass.cs" />
+    <Compile Include="View\UI\Style\Child\Export\PagesExportChild.cs" />
+    <Compile Include="View\UI\Style\Child\Export\FirstPageExportChild.cs" />
+    <Compile Include="View\UI\Style\Child\Export\TutorialFileExportChild.cs" />
+    <Compile Include="View\UI\Style\Child\ExportStyle.cs" />
+    <Compile Include="View\UI\Style\ExportStyleUserControl.cs" />
+    <Compile Include="View\UI\Style\ScriptStyleUserControl.cs" />
     <Compile Include="View\UI\Test\TestClass.cs" />
     <Compile Include="View\UI\UserControlDialog\BaseStyleUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseStyle.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\ReversalOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\CreateFromFileOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\CreateFromAutomaticOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\ConditionJudgmentOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\ShapeColorOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\SetAttributeOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\CreateFromStepOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\AnimationDisappearOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\CreateFromQuickOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\ThirdPartyOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\InterceptTimeOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\ColorOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\SetEndTimeOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\OneNumberOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\FoldOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\Operation\ChangeTimeOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\AntiClockwiseOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\ClockwiseOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\RemoveBorderOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\LowerRightSlashFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\LowerLeftSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\ReversalOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\CreateFromFileOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\CreateFromAutomaticOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\ConditionJudgmentOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\ShapeColorOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\SetAttributeOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\CreateFromStepOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\AnimationDisappearOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\CreateFromQuickOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\ThirdPartyOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\InterceptTimeOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\ColorOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\SetEndTimeOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\OneNumberOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\FoldOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\Operation\ChangeTimeOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\AntiClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\ClockwiseOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\RemoveBorderOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\LowerRightSlashFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\LowerLeftSlashFlippingOperationChild.cs" />
     <Compile Include="View\UI\Style\Child\OperationStyle.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\VerticalFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\HorizontalFlippingOperationChild.cs" />
-    <Compile Include="View\UI\Style\Child\NoOperation\NoOperationStyle.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\VerticalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\HorizontalFlippingOperationChild.cs" />
+    <Compile Include="View\UI\Style\Child\Script\NoOperation\NoOperationStyle.cs" />
     <Compile Include="View\UI\TestW.xaml.cs">
       <DependentUpon>TestW.xaml</DependentUpon>
     </Compile>
@@ -672,8 +679,8 @@
     <Compile Include="View\UI\Style\Child\ColorChild.xaml.cs">
       <DependentUpon>ColorChild.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UI\Style\StyleWindow.xaml.cs">
-      <DependentUpon>StyleWindow.xaml</DependentUpon>
+    <Compile Include="View\UI\Style\BaseStyleWindow.xaml.cs">
+      <DependentUpon>BaseStyleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\Tool\CalcTimeWindow.xaml.cs">
       <DependentUpon>CalcTimeWindow.xaml</DependentUpon>
@@ -1295,7 +1302,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UI\Style\StyleWindow.xaml">
+    <Page Include="View\UI\Style\BaseStyleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1951,6 +1958,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\Image\move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\Image\icon_edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

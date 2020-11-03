@@ -32,7 +32,6 @@
                                 </Border>
                             </StackPanel>
                         </Grid>
-                            
                     </Border>
                     <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="0,15,0,0">
                         <Grid >
@@ -77,10 +76,19 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <TextBox Grid.Column="1" Name="tbCenter" TextChanged="tbCenter_TextChanged" FontSize="18"/>
+        <StackPanel Grid.Column="1" Name="spCenter" Background="Transparent">
+            <StackPanel.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="btnFastGeneration" Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Tutorial}"  Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Name="btnFastGenerationAndSelection" Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource FirstPage}" Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Page}" Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Model}" Foreground="{DynamicResource TitleFontColor}"/>
+                </ContextMenu>
+            </StackPanel.ContextMenu>
+        </StackPanel>
         <StackPanel Grid.Column="2" Width="300" Orientation="Vertical">
             <Border Width="300" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
-                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Border Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="ToLoadFile">
                             <TextBlock Text="{DynamicResource Load}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
                         </Border>
@@ -89,12 +97,6 @@
                         </Border>
                     </StackPanel>
                 </Border>
-            <Border Margin="0,15,0,0"  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
-                <Border  CornerRadius="20" Background="#3399ff" Margin="15"  MouseLeftButtonDown="GenerateExe">
-                    <TextBlock Text="{DynamicResource Build}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                </Border>
-            </Border>
         </StackPanel>
     </Grid>
-    
 </view:BaseUserControl>

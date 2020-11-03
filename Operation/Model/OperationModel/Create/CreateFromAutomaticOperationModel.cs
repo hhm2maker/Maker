@@ -163,7 +163,6 @@ namespace Maker.Business.Model.OperationModel
         public override XElement GetXElement()
         {
             XElement xVerticalFlipping = new XElement("CreateFromAutomatic");
-            Console.WriteLine();
             xVerticalFlipping.SetAttributeValue("automaticType", (int)MyAutomaticType);
             if (MyAutomaticType == AutomaticType.RhombusDiffusion
                 || MyAutomaticType == AutomaticType.Cross

@@ -102,7 +102,7 @@ namespace Maker.View.Style.Child
             }
         }
 
-        public override String GetString(StyleWindow window,int position) {
+        public override String GetString(BaseStyleWindow window,int position) {
             StringBuilder builder = new StringBuilder();
             builder.Append("Color=");
             if (rbColorTypeFormat.IsChecked == true)

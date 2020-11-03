@@ -2,6 +2,7 @@
 using Maker.Business.Model.OperationModel;
 using Maker.Model;
 using Maker.View.Dialog;
+using Maker.View.UI.Style;
 using Maker.View.UI.UserControlDialog;
 using Maker.View.UI.Utils;
 using Operation;
@@ -106,20 +107,29 @@ namespace Maker.View.Play
             lbPages.Items.Clear();
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
-            tutorialName = xnroot.Element("Tutorial").Value;
-            tbTutorialName.Text = tutorialName;
-            firstPageName = xnroot.Element("FirstPageName").Value;
-            tbFirstPageName.Text = firstPageName;
 
-            pageNames.Clear();
-            XElement xnPages = xnroot.Element("Pages");
-            foreach (XElement pageElement in xnPages.Elements("Page"))
+            List<BaseOperationModel> operationModels = new List<BaseOperationModel>();
+            foreach (var xElement in xnroot.Elements())
             {
-                pageNames.Add(pageElement.Value);
-            }
-            for (int i = 0; i < pageNames.Count; i++)
-            {
-                lbPages.Items.Add(pageNames[i]);
+                BaseOperationModel baseOperationModel = null;
+                if (xElement.Name.ToString().Equals("TutorialFile"))
+                {
+                    baseOperationModel = new TutorialFileExportModel();
+                }
+                if (xElement.Name.ToString().Equals("FirstPage"))
+                {
+                    baseOperationModel = new FirstPageExportModel();
+                }
+                if (xElement.Name.ToString().Equals("Pages"))
+                {
+                    baseOperationModel = new PagesExportModel();
+                }
+
+                if (baseOperationModel != null)
+                {
+                    baseOperationModel.SetXElement(xElement);
+                    operationModels.Add(baseOperationModel);
+                }
             }
 
             String model = xnroot.Element("Model").Value;
@@ -131,11 +141,27 @@ namespace Maker.View.Play
             {
                 cbLive.IsChecked = false;
             }
-        }
+            /*       tutorialName = xnroot.Element("Tutorial").Value;
+                   tbTutorialName.Text = tutorialName;
+                   firstPageName = xnroot.Element("FirstPageName").Value;
+                   tbFirstPageName.Text = firstPageName;
 
-        private void GenerateExe(object sender, MouseEventArgs e)
-        {
-            GenerateLaunchpadLightProject();
+                   pageNames.Clear();
+                   XElement xnPages = xnroot.Element("Pages");
+                   foreach (XElement pageElement in xnPages.Elements("Page"))
+                   {
+                       pageNames.Add(pageElement.Value);
+                   }
+                   for (int i = 0; i < pageNames.Count; i++)
+                   {
+                       lbPages.Items.Add(pageNames[i]);
+                   }
+
+                 */
+
+            ExportStyleUserControl exportStyleUserControl = new ExportStyleUserControl(this);
+            exportStyleUserControl.SetData(operationModels);
+            spCenter.Children.Add(exportStyleUserControl);
         }
 
         private void ToLoadFile(object sender, MouseEventArgs e)
@@ -154,6 +180,29 @@ namespace Maker.View.Play
         }
 
         bool IsBuild = false;
+        private static PlayExportUserControl playExportUserControl = null;
+
+        public static PlayExportUserControl CreateInstance(NewMainWindow mw)
+        {
+            if (playExportUserControl == null)
+            {
+                playExportUserControl = new PlayExportUserControl(mw);
+            }
+
+            if (!File.Exists(mw.LastProjectPath + @"Play\" + mw.projectConfigModel.Path + ".playExport"))
+            {
+                mw.editUserControl.peuc.NewFileResult2(mw.projectConfigModel.Path + ".playExport");
+            }
+            playExportUserControl.LoadFile(mw.LastProjectPath + @"Play\" + mw.projectConfigModel.Path + ".playExport");
+
+            return playExportUserControl;
+        }
+
+        public void Build()
+        {
+            GenerateLaunchpadLightProject();
+        }
+
         private void GenerateLaunchpadLightProject()
         {
             if (IsBuild)
@@ -501,7 +550,7 @@ namespace Maker.View.Play
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tbCenter.Width = mw.ActualWidth / 4 + 330;
+            spCenter.Width = mw.ActualWidth / 4 + 330;
         }
 
         private void ToSaveFile(object sender, MouseEventArgs e)
@@ -514,92 +563,98 @@ namespace Maker.View.Play
             SaveFile();
         }
 
-        private void tbCenter_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnFastGeneration_Click(object sender, RoutedEventArgs e)
         {
-            if (tbCenter.SelectionStart != 0)
-            {
-                if (tbCenter.Text[tbCenter.SelectionStart - 1] == '<')
-                {
-                    ContextMenu menu = new ContextMenu();
-                    if (tbCenter.Text.Substring(0, tbCenter.SelectionStart).Contains("<Pages>")){
-                        {
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = ResourcesUtils.Resources2String("Page");
-                            menu.Items.Add(menuItem);
-                        }
-                    }
-                    else {
-                        {
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = ResourcesUtils.Resources2String("Tutorial");
-                            menuItem.Click += MenuItem_Click;
-                            menu.Items.Add(menuItem);
-                        }
-                        {
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = ResourcesUtils.Resources2String("FirstPage");
-                            menu.Items.Add(menuItem);
-                        }
-                        {
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = ResourcesUtils.Resources2String("Page");
-                            menuItem.Click += MenuItem_Click;
-                            menu.Items.Add(menuItem);
-                        }
-                        {
-                            MenuItem menuItem = new MenuItem();
-                            menuItem.Header = ResourcesUtils.Resources2String("Model");
-                            menu.Items.Add(menuItem);
-                        }
-                    }
 
-                    tbCenter.ContextMenu = menu;
-
-                    menu.IsOpen = true;
-                }
-            }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is MenuItem) {
-                String strs = (sender as MenuItem).Header.ToString();
-                if (strs.Equals(ResourcesUtils.Resources2String("Tutorial")))
-                {
-                    if (tbCenter.SelectionStart != 0)
-                    {
-                        string s = tbCenter.Text;
-                        int idx = tbCenter.SelectionStart;
-                        s = s.Insert(idx, "Tutorial></Tutorial>");
+        /* 
+       private void tbCenter_TextChanged(object sender, TextChangedEventArgs e)
+       {
+           if (tbCenter.SelectionStart != 0)
+           {
+               if (tbCenter.Text[tbCenter.SelectionStart - 1] == '<')
+               {
+                   ContextMenu menu = new ContextMenu();
+                   if (tbCenter.Text.Substring(0, tbCenter.SelectionStart).Contains("<Pages>")){
+                       {
+                           MenuItem menuItem = new MenuItem();
+                           menuItem.Header = ResourcesUtils.Resources2String("Page");
+                           menu.Items.Add(menuItem);
+                       }
+                   }
+                   else {
+                       {
+                           MenuItem menuItem = new MenuItem();
+                           menuItem.Header = ResourcesUtils.Resources2String("Tutorial");
+                           menuItem.Click += MenuItem_Click;
+                           menu.Items.Add(menuItem);
+                       }
+                       {
+                           MenuItem menuItem = new MenuItem();
+                           menuItem.Header = ResourcesUtils.Resources2String("FirstPage");
+                           menu.Items.Add(menuItem);
+                       }
+                       {
+                           MenuItem menuItem = new MenuItem();
+                           menuItem.Header = ResourcesUtils.Resources2String("Page");
+                           menuItem.Click += MenuItem_Click;
+                           menu.Items.Add(menuItem);
+                       }
+                       {
+                           MenuItem menuItem = new MenuItem();
+                           menuItem.Header = ResourcesUtils.Resources2String("Model");
+                           menu.Items.Add(menuItem);
+                       }
+                   }
 
-                        tbCenter.Text = s;
-                        tbCenter.SelectionStart = idx + 9;
-                        tbCenter.Focus();
-                    }
-                    else
-                    {
-                        tbCenter.Text = "<Tutorial></Tutorial>";
-                    }
-                }
-                else if (strs.Equals(ResourcesUtils.Resources2String("Page")))
-                {
-                    if (tbCenter.SelectionStart != 0)
-                    {
-                        string s = tbCenter.Text;
-                        int idx = tbCenter.SelectionStart;
-                        s = s.Insert(idx, "Pages></Pages>");
+                   tbCenter.ContextMenu = menu;
 
-                        tbCenter.Text = s;
-                        tbCenter.SelectionStart = idx + 6;
-                        tbCenter.Focus();
-                    }
-                    else
-                    {
-                        tbCenter.Text = "<Pages></Pages>";
-                    }
-                }
+                   menu.IsOpen = true;
+               }
+           }
+       }
 
-            }
-        }
+     private void MenuItem_Click(object sender, RoutedEventArgs e)
+       {
+           if (sender is MenuItem) {
+               String strs = (sender as MenuItem).Header.ToString();
+               if (strs.Equals(ResourcesUtils.Resources2String("Tutorial")))
+               {
+                   if (tbCenter.SelectionStart != 0)
+                   {
+                       string s = tbCenter.Text;
+                       int idx = tbCenter.SelectionStart;
+                       s = s.Insert(idx, "Tutorial></Tutorial>");
+
+                       tbCenter.Text = s;
+                       tbCenter.SelectionStart = idx + 9;
+                       tbCenter.Focus();
+                   }
+                   else
+                   {
+                       tbCenter.Text = "<Tutorial></Tutorial>";
+                   }
+               }
+               else if (strs.Equals(ResourcesUtils.Resources2String("Page")))
+               {
+                   if (tbCenter.SelectionStart != 0)
+                   {
+                       string s = tbCenter.Text;
+                       int idx = tbCenter.SelectionStart;
+                       s = s.Insert(idx, "Pages></Pages>");
+
+                       tbCenter.Text = s;
+                       tbCenter.SelectionStart = idx + 6;
+                       tbCenter.Focus();
+                   }
+                   else
+                   {
+                       tbCenter.Text = "<Pages></Pages>";
+                   }
+               }
+
+           }
+       }*/
     }
 }

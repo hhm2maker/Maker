@@ -5,7 +5,7 @@ namespace Maker.View.Style.Child
 {
     public  class BaseChild:UserControl
     {
-        public virtual string GetString(StyleWindow window,int position) {
+        public virtual string GetString(BaseStyleWindow window,int position) {
             return "";
         }
         public virtual void SetString(String[] _content)
