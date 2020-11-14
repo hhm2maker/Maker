@@ -62,7 +62,7 @@ namespace Maker.View.UI.Style.Child.Base
                 {
                     Header = "列表"
                 };
-                foreach (var item in Os.suc.rangeDictionary)
+                foreach (var item in (Os as OperationStyle).suc.rangeDictionary)
                 {
                     MenuItem _menuItem = new MenuItem();
                     _menuItem.Header = item.Key;

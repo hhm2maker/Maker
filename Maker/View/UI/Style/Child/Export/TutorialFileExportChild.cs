@@ -30,7 +30,7 @@ namespace Maker.View.UI.Style.Child
         {
             return new List<RunModel>
             {
-                new RunModel("ValueColon", tutorialFileExportModel.TutorialName,RunType.Normal),
+                new RunModel("ValueColon", tutorialFileExportModel.TutorialName,RunType.File),
             };
         }
 

@@ -563,4 +563,8 @@
     <sys:String x:Key="Error_40001">The selected file is not under the plugs folder.</sys:String>
     <sys:String x:Key="Error_40002">Incorrect file, which may be caused by mismatch with the current version.</sys:String>
 
+
+    <sys:String x:Key="Normal">Normal</sys:String>
+    <sys:String x:Key="Live">Live</sys:String>
+    <sys:String x:Key="LoadTemplate">Load template</sys:String>
 </ResourceDictionary>

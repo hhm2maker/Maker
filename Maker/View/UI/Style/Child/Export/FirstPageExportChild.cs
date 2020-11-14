@@ -29,59 +29,13 @@ namespace Maker.View.UI.Style.Child
         {
             return new List<RunModel>
             {
-                new RunModel("ValueColon", tutorialFileExportModel.TutorialName),
+                new RunModel("ValueColon", tutorialFileExportModel.FirstPageName,RunModel.RunType.PageFile,false),
             };
         }
 
         protected override void RefreshView()
         {
-            ////Type
-            //SetEndTimeOperationModel.Type type = 0;
-            //String strType = runs[2].Text;
-            //int _type = -1;
-            //for (int i = 0; i < types.Count; i++)
-            //{
-            //    if (((string)Application.Current.FindResource(types[i])).Equals(strType))
-            //    {
-            //        _type = i;
-            //        break;
-            //    }
-            //}
-
-            //switch (_type)
-            //{
-            //    case -1:
-            //        type = SetEndTimeOperationModel.Type.ALL;
-            //        break;
-            //    case 0:
-            //        type = SetEndTimeOperationModel.Type.ALL;
-            //        break;
-            //    case 1:
-            //        type = SetEndTimeOperationModel.Type.END;
-            //        break;
-            //    case 2:
-            //        type = SetEndTimeOperationModel.Type.ALLANDEND;
-            //        break;
-            //}
-            ////Multiple
-            //String strPolyploidy = runs[5].Text;
-            //if (strPolyploidy[0] == '+' || strPolyploidy[0] == '-')
-            //{
-            //    if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy.Substring(1), "^\\d+$"))
-            //    {
-            //        strPolyploidy = setEndTimeOperationModel.Value;
-            //    }
-            //}
-            //else
-            //{
-            //    if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy, "^\\d+$"))
-            //    {
-            //        strPolyploidy = setEndTimeOperationModel.Value;
-            //    }
-            //}
-            //setEndTimeOperationModel.MyType = type;
-            //setEndTimeOperationModel.Value = strPolyploidy;
-
+            tutorialFileExportModel.FirstPageName = runs[2].Text;
             UpdateData();
         }
     }

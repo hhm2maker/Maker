@@ -122,7 +122,9 @@
                 <Border BorderBrush="{DynamicResource LineColor}" BorderThickness="0,0,0,1">
                     <DockPanel Background="{DynamicResource bgTitleColor}">
                         <StackPanel Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" >
-                            <Image VerticalAlignment="Center" Margin="0,0,15,0" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
+                            <Image VerticalAlignment="Center" Source="View/Resources/Image/file_white.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown_6"/>
+                            <StackPanel Background="{DynamicResource DividingLineColor}" VerticalAlignment="Stretch" Width="2" Margin="5,3,5,3"/>
+                            <Image VerticalAlignment="Center" Source="View/Resources/Image/save_gray.png" Width="20" RenderOptions.BitmapScalingMode="Fant" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                         </StackPanel>
                         <TextBlock Name="tbFileName" Foreground="White" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" />
                         <StackPanel  Orientation="Horizontal">

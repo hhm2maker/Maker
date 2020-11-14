@@ -35,80 +35,13 @@ namespace Maker.View.Play
             mainView = gMain;
             //HideControl();
         }
-        private String tutorialName = String.Empty;
-        private String firstPageName = String.Empty;
-        private List<String> pageNames = new List<string>();
-        private void btnSelectFile_Click(object sender, MouseEventArgs e)
-        {
-            List<String> fileNames = new List<string>();
-            ShowLightListDialog dialog;
-            if (sender == btnSelectFileTutorial)
-            {
-                dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames);
-                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
-                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
-            }
-            else
-            {
-                dialog = new ShowLightListDialog(mw, tbTutorialName.Text, fileNames, true);
-                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
-            }
 
-            if (dialog.ShowDialog() == true)
-            {
-                if (sender == btnSelectFileTutorial)
-                {
-                    tbTutorialName.Text = dialog.selectItem;
-                    tutorialName = tbTutorialName.Text;
-                }
-                else if (sender == btnSelectFileFirstPage)
-                {
-                    tbFirstPageName.Text = dialog.selectItem;
-                    firstPageName = tbTutorialName.Text;
-                }
-                else if (sender == btnSelectFilePages)
-                {
-                    for (int i = 0; i < dialog.lbMain.SelectedItems.Count; i++)
-                    {
-                        if (lbPages.Items.Contains(dialog.lbMain.SelectedItems[i]))
-                        {
-                            continue;
-                        }
-                        lbPages.Items.Add(dialog.lbMain.SelectedItems[i]);
-                        pageNames.Add(dialog.lbMain.SelectedItems[i].ToString());
-                    }
-                }
-            }
-        }
-        private void btnRemoveFile_Click(object sender, MouseEventArgs e)
-        {
-            if (sender == btnRemoveFileTutorial)
-            {
-                tbTutorialName.Text = String.Empty;
-                tutorialName = String.Empty;
-            }
-            else if (sender == btnRemoveFileFirstPage)
-            {
-                tbFirstPageName.Text = String.Empty;
-                firstPageName = String.Empty;
-            }
-            else if (sender == btnRemoveFilePages)
-            {
-                while (lbPages.SelectedItems.Count > 0)
-                {
-                    pageNames.RemoveAt(lbPages.SelectedIndex);
-                    lbPages.Items.RemoveAt(lbPages.SelectedIndex);
-                }
-            }
-        }
-
+        List<BaseOperationModel> operationModels = new List<BaseOperationModel>();
         protected override void LoadFileContent()
         {
-            lbPages.Items.Clear();
             XDocument doc = XDocument.Load(filePath);
             XElement xnroot = doc.Element("Root");
 
-            List<BaseOperationModel> operationModels = new List<BaseOperationModel>();
             foreach (var xElement in xnroot.Elements())
             {
                 BaseOperationModel baseOperationModel = null;
@@ -124,6 +57,10 @@ namespace Maker.View.Play
                 {
                     baseOperationModel = new PagesExportModel();
                 }
+                if (xElement.Name.ToString().Equals("Model"))
+                {
+                    baseOperationModel = new ModelExportModel();
+                }
 
                 if (baseOperationModel != null)
                 {
@@ -132,41 +69,20 @@ namespace Maker.View.Play
                 }
             }
 
-            String model = xnroot.Element("Model").Value;
-            if (model.Equals("0"))
-            {
-                cbLive.IsChecked = true;
-            }
-            else
-            {
-                cbLive.IsChecked = false;
-            }
-            /*       tutorialName = xnroot.Element("Tutorial").Value;
-                   tbTutorialName.Text = tutorialName;
-                   firstPageName = xnroot.Element("FirstPageName").Value;
-                   tbFirstPageName.Text = firstPageName;
+            Test();
 
-                   pageNames.Clear();
-                   XElement xnPages = xnroot.Element("Pages");
-                   foreach (XElement pageElement in xnPages.Elements("Page"))
-                   {
-                       pageNames.Add(pageElement.Value);
-                   }
-                   for (int i = 0; i < pageNames.Count; i++)
-                   {
-                       lbPages.Items.Add(pageNames[i]);
-                   }
+            exportStyleUserControl = new ExportStyleUserControl(this);
 
-                 */
-
-            ExportStyleUserControl exportStyleUserControl = new ExportStyleUserControl(this);
-            exportStyleUserControl.SetData(operationModels);
+            spCenter.Children.Clear();
             spCenter.Children.Add(exportStyleUserControl);
+
+            RefreshView();
         }
 
-        private void ToLoadFile(object sender, MouseEventArgs e)
+        ExportStyleUserControl exportStyleUserControl;
+        private void RefreshView()
         {
-            mw.ShowMakerDialog(new ListDialog(mw, Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
+            exportStyleUserControl.SetData(operationModels);
         }
 
         private void lbMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -203,6 +119,10 @@ namespace Maker.View.Play
             GenerateLaunchpadLightProject();
         }
 
+        bool bIsLive = true;
+        string tutorialName = string.Empty;
+        string firstPageName = string.Empty;
+        List<string> pageNames = new List<string>();
         private void GenerateLaunchpadLightProject()
         {
             if (IsBuild)
@@ -213,9 +133,6 @@ namespace Maker.View.Play
 
             StaticConstant.mw.SetProgress("保存文件", 0);
             SaveFile();
-
-            bool bIsLive = cbLive.IsChecked == true ? true : false;
-            firstPageName = tbFirstPageName.Text;
 
             Thread thread = new Thread(new ThreadStart(() =>
             {
@@ -435,8 +352,6 @@ namespace Maker.View.Play
                 StaticConstant.mw.SetProgress("", 0);
             }));
             thread.Start();
-
-
         }
 
         LightScriptBusiness business = new LightScriptBusiness();
@@ -471,59 +386,32 @@ namespace Maker.View.Play
 
         public override void SaveFile()
         {
-            if (filePath.Equals(string.Empty))
-                return;
-
-            firstPageName = tbFirstPageName.Text;
-
-            if (cbLive.IsChecked == true)
-            {
-                ToSaveFile(filePath, firstPageName, tutorialName, pageNames, "0");
-            }
-            else
-            {
-                ToSaveFile(filePath, firstPageName, tutorialName, pageNames, "1");
-            }
+            ToSaveFile(filePath);
         }
 
-        public void ToSaveFile(String filePath, String firstPageName, String tutorialName, List<String> pageNames, String isLive)
+        public void ToSaveFile(String filePath)
         {
             if (filePath.Equals(String.Empty))
                 return;
             XDocument doc = new XDocument();
             XElement xnRoot = new XElement("Root");
             doc.Add(xnRoot);
-            XElement xnTutorial = new XElement("Tutorial")
-            {
-                Value = tutorialName
-            };
-            xnRoot.Add(xnTutorial);
 
-            XElement xnFirstPageName = new XElement("FirstPageName")
+            foreach (var mItem in operationModels)
             {
-                Value = firstPageName
-            };
-            xnRoot.Add(xnFirstPageName);
-            XElement xnPages = new XElement("Pages");
-            //foreach (XElement pageElement in xnPages.Elements("Page"))
-            //{
-            //    pageNames.Add(pageElement.Value);
-            //}
-            for (int i = 0; i < pageNames.Count; i++)
-            {
-                XElement xnPage = new XElement("Page")
-                {
-                    Value = pageNames[i]
-                };
-                xnPages.Add(xnPage);
+                xnRoot.Add(mItem.GetXElement());
             }
-            xnRoot.Add(xnPages);
-
-            XElement xnModel = new XElement("Model");
-            xnModel.Value = isLive;
-            xnRoot.Add(xnModel);
-
             doc.Save(filePath);
+        }
+
+        public void ToSaveFile(String filePath, String firstPageName, String tutorialName, List<String> pageNames, bool isLive)
+        {
+            operationModels.Clear();
+            operationModels.Add(new FirstPageExportModel(firstPageName));
+            operationModels.Add(new TutorialFileExportModel(tutorialName));
+            operationModels.Add(new PagesExportModel(pageNames));
+            operationModels.Add(new ModelExportModel(isLive));
+            ToSaveFile(filePath);
         }
 
         protected override void CreateFile(String filePath)
@@ -534,38 +422,126 @@ namespace Maker.View.Play
             XElement xRoot = new XElement("Root");
             // 添加节点使用Add
             xDoc.Add(xRoot);
-            // 创建一个按钮加到root中
-            XElement xTutorial = new XElement("Tutorial");
-            xRoot.Add(xTutorial);
-            XElement xFirstPageName = new XElement("FirstPageName");
-            xRoot.Add(xFirstPageName);
-            XElement xPages = new XElement("Pages");
-            xRoot.Add(xPages);
-            XElement xModel = new XElement("Model");
-            xModel.Value = "0";
-            xRoot.Add(xModel);
             // 保存该文档  
             xDoc.Save(filePath);
         }
 
         private void BaseUserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            spCenter.Width = mw.ActualWidth / 4 + 330;
+            spCenter.Width = mw.ActualWidth / 2;
         }
 
-        private void ToSaveFile(object sender, MouseEventArgs e)
+        private void GenerationModel(object sender, RoutedEventArgs e)
         {
-            //<MenuItem Click="btnNew_Click" Name="miPlayExport"  Header="{DynamicResource PlayExport}"  FontSize="16" Foreground="#f0f0f0"  />
-            //if (filePath.Equals(String.Empty))
-            //{
-            //    NewFile(sender, e);
-            //}
-            SaveFile();
+            if (sender == miModel)
+            {
+                operationModels.Add(new ModelExportModel());
+                return;
+            }
+
+            List<string> fileNames = new List<string>();
+            ShowLightListDialog dialog;
+            if (sender == miTutorial)
+            {
+                dialog = new ShowLightListDialog(mw, "", fileNames);
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Light", new List<string>() { ".light", ".mid" }));
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\LightScript", new List<string>() { ".lightScript" }));
+            }
+            else
+            {
+                dialog = new ShowLightListDialog(mw, "", fileNames, true);
+                fileNames.AddRange(Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + @"\Play", new List<string>() { ".lightPage" }));
+            }
+
+            if (dialog.ShowDialog() == true)
+            {
+                if (sender == miTutorial)
+                {
+                    operationModels.Add(new TutorialFileExportModel(dialog.selectItem));
+                }
+                else if (sender == miFirstPage)
+                {
+                    operationModels.Add(new FirstPageExportModel(dialog.selectItem));
+                }
+                else if (sender == miPage)
+                {
+                    operationModels.Add(new PagesExportModel(dialog.selectItems));
+                    /* for (int i = 0; i < dialog.lbMain.SelectedItems.Count; i++)
+                         {
+                             if (lbPages.Items.Contains(dialog.lbMain.SelectedItems[i]))
+                             {
+                                 continue;
+                             }
+                             lbPages.Items.Add(dialog.lbMain.SelectedItems[i]);
+                             pageNames.Add(dialog.lbMain.SelectedItems[i].ToString());
+                         }*/
+                }
+            }
+            RefreshView();
         }
 
-        private void btnFastGeneration_Click(object sender, RoutedEventArgs e)
+        private void menuCenter_Opened(object sender, RoutedEventArgs e)
         {
+            miTutorial.IsEnabled = true;
+            miFirstPage.IsEnabled = true;
+            miPage.IsEnabled = true;
+            miModel.IsEnabled = true;
 
+            List<string> pages = Operation.FileBusiness.CreateInstance().GetFilesName(StaticConstant.mw.LastProjectPath + @"Play\", new List<string>() { ".lightPage" });
+            if (pages.Count == 0)
+            {
+                miFirstPage.IsEnabled = false;
+                miPage.IsEnabled = false;
+            }
+            foreach (BaseOperationModel baseOperationModel in operationModels)
+            {
+                if (baseOperationModel is TutorialFileExportModel)
+                {
+                    miTutorial.IsEnabled = false;
+                }
+                if (baseOperationModel is FirstPageExportModel)
+                {
+                    miFirstPage.IsEnabled = false;
+                }
+                if (baseOperationModel is PagesExportModel)
+                {
+                    miPage.IsEnabled = false;
+                }
+                if (baseOperationModel is ModelExportModel)
+                {
+                    miModel.IsEnabled = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        public void Test() {
+            foreach (BaseOperationModel baseOperationModel in operationModels)
+            {
+                if (baseOperationModel is TutorialFileExportModel)
+                {
+                    tutorialName = (baseOperationModel as TutorialFileExportModel).TutorialName;
+                }
+                if (baseOperationModel is FirstPageExportModel)
+                {
+                    firstPageName = (baseOperationModel as FirstPageExportModel).FirstPageName;
+                }
+                if (baseOperationModel is PagesExportModel)
+                {
+                    pageNames = (baseOperationModel as PagesExportModel).Pages;
+                }
+                if (baseOperationModel is ModelExportModel)
+                {
+                    bIsLive = (baseOperationModel as ModelExportModel).Model == 0;
+                }
+            }
+        }
+
+        private void LoadTemplate(object sender, RoutedEventArgs e)
+        {
+            mw.ShowMakerDialog(new ListDialog(mw, Business.FileBusiness.CreateInstance().GetFilesName(mw.LastProjectPath + "Play", new List<string>() { ".playExport" }), lbMain_SelectionChanged, "点击加载预置导出方案"));
         }
 
         /* 

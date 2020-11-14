@@ -319,7 +319,6 @@
                                         <TextBlock  Text="{DynamicResource PositionColon}" TextAlignment="Left" VerticalAlignment="Center"/>
                                         <TextBlock Margin="30,0,0,0" Name="tbPosition" Text="-1" Foreground="#ffffff" Width="100" FontSize="18"  VerticalAlignment="Center"/>
                                     </StackPanel>
-                                    <Image Source="../../../View/Resources/Image/save_gray.png" Width="25" Height="25" MouseLeftButtonDown="SavePage" RenderOptions.BitmapScalingMode="Fant"  Margin="0,0,20,0" HorizontalAlignment="Right"/>
                                 </DockPanel>
 
                                 <StackPanel  Height="35" Orientation="Horizontal"  Margin="0,10,0,0">

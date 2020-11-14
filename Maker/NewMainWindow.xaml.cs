@@ -623,7 +623,7 @@ namespace Maker
                         {
                             editUserControl.peuc.NewFileResult2(dialog.fileName + ".playExport");
                         }
-                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page" + defChannel + ".lightPage", "autoplay.mid", pageStrs, "1");
+                        editUserControl.peuc.ToSaveFile(_projectPath + @"\Play\" + dialog.fileName + ".playExport", "Page" + defChannel + ".lightPage", "autoplay.mid", pageStrs, false);
                     }
 
                     InitProjects();
@@ -1897,6 +1897,21 @@ namespace Maker
         private void Build(object sender, MouseButtonEventArgs e)
         {
             PlayExportUserControl.CreateInstance(this).Build();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            List<Light> mLightList = new List<Light>();
+            if (editUserControl == null || editUserControl.tcMain.Items.Count == 0)
+            {
+                return;
+            }
+            BaseUserControl baseUserControl = ((editUserControl.tcMain.Items[editUserControl.tcMain.SelectedIndex] as TabItem).Content as BaseUserControl);
+            if (baseUserControl == null)
+            {
+                return;
+            }
+            baseUserControl.SaveFile();
         }
     }
 

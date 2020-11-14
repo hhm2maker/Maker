@@ -44,16 +44,14 @@ namespace Maker.View.Dialog
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (lbMain.SelectedIndex == -1)
-                return;
-            selectItem = lbMain.SelectedItem.ToString();
-            DialogResult = true;
+            Ok();
         }
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
         }
         public String selectItem = String.Empty;
+        public List<string> selectItems = new List<string>();
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < lightName.Count; i++) {
@@ -66,9 +64,21 @@ namespace Maker.View.Dialog
         }
         private void lbMain_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Ok();
+        }
+
+        private void Ok() {
             if (lbMain.SelectedIndex == -1)
                 return;
             selectItem = lbMain.SelectedItem.ToString();
+
+            selectItems.Clear();
+
+            foreach (var item in lbMain.SelectedItems)
+            {
+                selectItems.Add(item.ToString());
+            }
+
             DialogResult = true;
         }
     }

@@ -9,6 +9,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Windows.Media;
 using Maker.View.UI.UserControlDialog;
+using System.Windows.Controls.Primitives;
 
 namespace Maker.View
 {
@@ -154,20 +155,31 @@ namespace Maker.View
         {
             File.Delete(GetFileDirectory() + filePath);
         }
-      
+
+        Popup pop;
         /// <summary>
         /// 添加文件
         /// </summary>
         public virtual void NewFile(object sender, RoutedEventArgs e)
         {
             String _filePath = GetFileDirectory();
-            UI.UserControlDialog.NewFileDialog newFileDialog = new UI.UserControlDialog.NewFileDialog(mw,false, _fileExtension, FileBusiness.CreateInstance().GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension,"", NewFileResult);
-            mw.ShowMakerDialog(newFileDialog);
+            if (pop == null) {
+                UI.Pop.NewFileDialog newFileDialog = new UI.Pop.NewFileDialog(mw, false, _fileExtension, FileBusiness.CreateInstance().GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension, "", NewFileResult);
+
+                pop = new Popup();
+                pop.StaysOpen = false;
+                pop.Child = newFileDialog;
+                pop.Placement = PlacementMode.Center;
+                mw.gRight.Children.Add(pop);
+                pop.HorizontalAlignment = HorizontalAlignment.Center;
+                pop.VerticalAlignment = VerticalAlignment.Top;
+            }
+            pop.IsOpen = true;
         }
 
         public void NewFileResult(String filePath)
         {
-            mw.RemoveDialog();
+            pop.IsOpen = false;
             String _filePath = GetFileDirectory();
 
             _filePath = _filePath + filePath;

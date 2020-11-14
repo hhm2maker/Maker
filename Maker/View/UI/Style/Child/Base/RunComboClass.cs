@@ -10,7 +10,7 @@ namespace Maker.View.UI.Style.Child.Base
 {
     public class RunComboClass
     {
-        public OperationStyle Os
+        public BaseStyle Os
         {
             get;
             set;

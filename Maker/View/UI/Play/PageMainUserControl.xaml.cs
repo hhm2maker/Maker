@@ -157,7 +157,7 @@ namespace Maker.View.PageWindow
             RefreshContent();
         }
 
-        private void SavePage(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        public override void SaveFile()
         {
             SavePage(filePath, _pageModes);
         }

@@ -395,7 +395,7 @@ namespace Maker.View.UI.MyFile
             mw.RemoveDialog();
             String _filePath = needControlBaseUserControl.GetFileDirectory();
 
-            _filePath = _filePath + filePath;
+            _filePath += filePath;
             if (File.Exists(_filePath))
             {
                 new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();
@@ -415,7 +415,7 @@ namespace Maker.View.UI.MyFile
             mw.RemoveDialog();
             String _filePath = needControlBaseUserControl.GetFileDirectory();
 
-            _filePath = _filePath + filePath;
+            _filePath += filePath;
             if (File.Exists(_filePath))
             {
                 new MessageDialog(mw, "ExistingSameNameFile").ShowDialog();

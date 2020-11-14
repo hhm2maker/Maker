@@ -73,10 +73,17 @@ namespace Maker.View.UI.Style.Child.Operation
 
             AddUIElement(GetDockPanel(mLaunchpad, GetVerticalStackPanel(frameworkElements))).
             AddUIElement(GetHorizontalStackPanel(new List<FrameworkElement>() { ViewBusiness.GetButton("Preview", Preview), ViewBusiness.GetButton("PasteValue", PasteRangeListContent) }));
+            GetButton("Save", ToSave, out Button btn);
+            AddUIElement(btn);
 
             CreateDialog();
         }
 
+        private void ToSave(object sender, RoutedEventArgs e)
+        {
+            ToSave();
+            suc.Test();
+        }
         /// <summary>
         /// 数字转笔刷
         /// </summary>
@@ -198,8 +205,8 @@ namespace Maker.View.UI.Style.Child.Operation
             if (shapeColorOperationModel.MyShapeType == ShapeColorOperationModel.ShapeType.SQUARE)
             {
                 List<List<int>> lli = new List<List<int>>();
-                lli.Add(new List<int>() { 44,45,54,55 });
-                lli.Add(new List<int>() { 33,34,35,36,43,46,53,56,63,64,65,66});
+                lli.Add(new List<int>() { 44, 45, 54, 55 });
+                lli.Add(new List<int>() { 33, 34, 35, 36, 43, 46, 53, 56, 63, 64, 65, 66 });
                 lli.Add(new List<int>() { 22, 23, 24, 25, 26, 27, 32, 37, 42, 47, 52, 57, 62, 67, 72, 73, 74, 75, 76, 77 });
                 lli.Add(new List<int>() { 11, 12, 13, 14, 15, 16, 17, 18, 21, 28, 31, 38, 41, 48, 51, 58, 61, 68, 71, 78, 81, 82, 83, 84, 85, 86, 87, 88 });
                 lli.Add(new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 10, 19, 20, 29, 30, 39, 40, 49, 50, 59, 60, 69, 70, 79, 80, 89, 91, 92, 93, 94, 95, 96, 97, 98 });
@@ -269,16 +276,16 @@ namespace Maker.View.UI.Style.Child.Operation
                 }
 
                 List<List<int>> lli = new List<List<int>>();
-                lli.Add(new List<int>() { 91,92,93,94,95,96,97,98 });
-                lli.Add(new List<int>() { 80,81,82,83,84,85,86,87,88,89 });
-                lli.Add(new List<int>() { 70, 71, 72,73, 74, 75, 76, 77, 78, 79 });
-                lli.Add(new List<int>() { 60, 61, 62,63, 64, 65, 66, 67, 68, 69 });
+                lli.Add(new List<int>() { 91, 92, 93, 94, 95, 96, 97, 98 });
+                lli.Add(new List<int>() { 80, 81, 82, 83, 84, 85, 86, 87, 88, 89 });
+                lli.Add(new List<int>() { 70, 71, 72, 73, 74, 75, 76, 77, 78, 79 });
+                lli.Add(new List<int>() { 60, 61, 62, 63, 64, 65, 66, 67, 68, 69 });
                 lli.Add(new List<int>() { 50, 51, 52, 53, 54, 55, 56, 57, 58, 59 });
-                lli.Add(new List<int>() { 40, 41, 42,43, 44, 45, 46, 47, 48, 49 });
-                lli.Add(new List<int>() { 30, 31, 32,33, 34, 35, 36, 37, 38, 39 });
+                lli.Add(new List<int>() { 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 });
+                lli.Add(new List<int>() { 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 });
                 lli.Add(new List<int>() { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 });
-                lli.Add(new List<int>() { 10, 11, 12, 13, 14, 15,16, 17, 18, 19 });
-                lli.Add(new List<int>() { 10, 1, 12, 13, 14, 15, 16, 17, 18});
+                lli.Add(new List<int>() { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 });
+                lli.Add(new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
                 if (numberOne != 0)
                 {
                     for (int i = 0; i < lli[0].Count; i++)
@@ -390,7 +397,7 @@ namespace Maker.View.UI.Style.Child.Operation
                 lli.Add(new List<int>() { 7, 17, 27, 37, 47, 57, 67, 77, 87, 97 });
                 lli.Add(new List<int>() { 8, 18, 28, 38, 48, 58, 68, 78, 88, 98 });
                 lli.Add(new List<int>() { 19, 29, 39, 49, 59, 69, 79, 89 });
-              
+
                 if (numberOne != 0)
                 {
                     for (int i = 0; i < lli[0].Count; i++)

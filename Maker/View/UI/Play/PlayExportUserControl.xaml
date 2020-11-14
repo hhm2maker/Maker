@@ -6,97 +6,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Maker.View.Play"
         mc:Ignorable="d"
-    Loaded="BaseUserControl_Loaded"
-        >
-    <Grid HorizontalAlignment="Center" Margin="0,30,0,0">
+    Loaded="BaseUserControl_Loaded">
+    <Grid HorizontalAlignment="Center" Name="gMain">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" CornerRadius="3" VerticalAlignment="Top" BorderBrush="#555555" BorderThickness="2" Margin="0,0,15,0">
-            <Grid Name="gMain" Margin="15">
-                <StackPanel Orientation="Vertical">
-                    <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" >
-                        <Grid>
-                            <StackPanel Orientation="Horizontal" Margin="15">
-                                <TextBlock Foreground="White" FontSize="16" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{DynamicResource Tutorial}" />
-                                <TextBlock FontSize="16" Name="tbTutorialName" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White" Width="200" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                  <Border Name="btnSelectFileTutorial" Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="btnSelectFile_Click" >
-                                    <TextBlock Text="{DynamicResource Select}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                                <Border Name="btnRemoveFileTutorial" Width="125"  CornerRadius="20" Background="#55acee" Margin="0,15,15,15" MouseLeftButtonDown="btnRemoveFile_Click">
-                                    <TextBlock Text="{DynamicResource Remove}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="0,15,0,0">
-                        <Grid >
-                            <StackPanel Orientation="Horizontal"  Margin="15">
-                                <TextBlock Foreground="White" FontSize="16" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{DynamicResource FirstPage}" />
-                                <TextBlock FontSize="16" Name="tbFirstPageName" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White" Width="200" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Border Name="btnSelectFileFirstPage" Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="btnSelectFile_Click" >
-                                    <TextBlock Text="{DynamicResource Select}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                                <Border Name="btnRemoveFileFirstPage" Width="125"  CornerRadius="20" Background="#55acee" Margin="0,15,15,15" MouseLeftButtonDown="btnRemoveFile_Click">
-                                    <TextBlock Text="{DynamicResource Remove}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="0,15,0,0">
-                        <Grid >
-                            <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" Margin="15" >
-                                <TextBlock Foreground="White" FontSize="16" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0" Text="{DynamicResource Page}" />
-                                <ListBox FontSize="16" Name="lbPages" Background="{x:Null}" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White"  Width="200" SelectionMode="Multiple"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                <Border Name="btnSelectFilePages" Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="btnSelectFile_Click" >
-                                    <TextBlock Text="{DynamicResource Select}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                                <Border Name="btnRemoveFilePages" Width="125"  CornerRadius="20" Background="#55acee" Margin="0,15,15,15" MouseLeftButtonDown="btnRemoveFile_Click">
-                                    <TextBlock Text="{DynamicResource Remove}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                    <Border  CornerRadius="3" BorderBrush="#555555" BorderThickness="2" Margin="0,15,0,0">
-                        <Grid>
-                            <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" Margin="15" >
-                                <TextBlock Foreground="White" FontSize="16" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,5" Text="{DynamicResource Model}" />
-                                <CheckBox Name="cbLive" FontSize="16" IsChecked="True" Content="{DynamicResource Use in live}" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center"  Foreground="White"   />
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </StackPanel>
-            </Grid>
-        </Border>
-        <StackPanel Grid.Column="1" Name="spCenter" Background="Transparent">
+        <StackPanel Grid.Column="0" Name="spCenter" Background="{DynamicResource bgContentColor}">
             <StackPanel.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Name="btnFastGeneration" Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Tutorial}"  Foreground="{DynamicResource TitleFontColor}"/>
-                    <MenuItem Name="btnFastGenerationAndSelection" Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource FirstPage}" Foreground="{DynamicResource TitleFontColor}"/>
-                    <MenuItem Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Page}" Foreground="{DynamicResource TitleFontColor}"/>
-                    <MenuItem Click="btnFastGeneration_Click" FontSize="16" Header="{DynamicResource Model}" Foreground="{DynamicResource TitleFontColor}"/>
+                <ContextMenu Name="menuCenter" Opened="menuCenter_Opened">
+                    <MenuItem Name="miTutorial" Click="GenerationModel" FontSize="16" Header="{DynamicResource Tutorial}"  Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Name="miFirstPage" Click="GenerationModel" FontSize="16" Header="{DynamicResource FirstPage}" Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Name="miPage" Click="GenerationModel" FontSize="16" Header="{DynamicResource Page}" Foreground="{DynamicResource TitleFontColor}"/>
+                    <MenuItem Name="miModel" Click="GenerationModel" FontSize="16" Header="{DynamicResource Model}" Foreground="{DynamicResource TitleFontColor}"/>
+                    <Separator />
+                    <MenuItem Click="LoadTemplate" FontSize="16" Header="{DynamicResource LoadTemplate}" Foreground="{DynamicResource TitleFontColor}"/>
                 </ContextMenu>
             </StackPanel.ContextMenu>
-        </StackPanel>
-        <StackPanel Grid.Column="2" Width="300" Orientation="Vertical">
-            <Border Width="300" CornerRadius="3" BorderBrush="#555555" BorderThickness="2">
-                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                    <Border Width="125"  CornerRadius="20" Background="#4267b2" Margin="15" MouseLeftButtonDown="ToLoadFile">
-                            <TextBlock Text="{DynamicResource Load}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                        </Border>
-                    <Border Width="125"  CornerRadius="20" Background="#55acee" Margin="0,15,15,15" MouseLeftButtonDown="ToSaveFile">
-                            <TextBlock Text="{DynamicResource Save}" Foreground="White" Margin="0,10,0,10" HorizontalAlignment="Center" FontSize="18"/>
-                        </Border>
-                    </StackPanel>
-                </Border>
         </StackPanel>
     </Grid>
 </view:BaseUserControl>

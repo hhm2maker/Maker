@@ -120,7 +120,7 @@ namespace Maker.View.UI.Style.Child.Base
 
         private void ContextMenu_Closed(object sender, RoutedEventArgs e)
         {
-            if (needClose)
+            if (needClose && Os!= null)
             {
                 RunCombo.Text = tb.Text.ToString();
                 contextMenu.IsOpen = false;

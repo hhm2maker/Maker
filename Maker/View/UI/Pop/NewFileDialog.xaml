@@ -1,0 +1,26 @@
+﻿<local:MakerDialog x:Class="Maker.View.UI.Pop.NewFileDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Maker.View.UI.UserControlDialog"
+             mc:Ignorable="d" 
+             Background="#363b40"
+             Width="400"
+             Loaded="MakerDialog_Loaded">
+    <Border BorderBrush="#616161" BorderThickness="1">
+        <StackPanel Orientation="Vertical">
+            <Border Background="#4a4e52" Height="25" BorderBrush="#616161" BorderThickness="0,0,0,1">
+                <TextBlock Foreground="#bbbbbb" Text="{DynamicResource New}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border Height="25" Background="#3c3f41" BorderBrush="#616161" BorderThickness="0,0,0,1">
+                <TextBox Name="tbNumber" VerticalAlignment="Center" Background="{x:Null}" BorderThickness="0" FontSize="14" CaretBrush="#bbbbbb"  Foreground="#f0f0f0" TextChanged="tbNumber_TextChanged" KeyDown="tbNumber_KeyDown"/>
+            </Border>
+            <Border Background="#45494a" Height="10" BorderBrush="#616161" BorderThickness="0,0,0,1" />
+            <ListBox Background="#3c3f41" HorizontalAlignment="Stretch" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="lbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="lbStep_MouseLeftButtonDown">
+                <ListBoxItem Content="Light"  Foreground="#bbbbbb" Padding="5"/>
+                <ListBoxItem Content="LightScript"  Foreground="#bbbbbb" Padding="5"/>
+            </ListBox>
+        </StackPanel>
+    </Border>
+</local:MakerDialog>

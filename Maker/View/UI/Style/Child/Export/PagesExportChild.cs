@@ -27,63 +27,25 @@ namespace Maker.View.UI.Style.Child
         protected override List<RunModel> UpdateData()
         {
             List<RunModel> runModels = new List<RunModel>();
-
-            foreach (string str in pagesExportModel.Pages) {
-                runModels.Add(new RunModel("ValueColon", str));
+            string strs = "";
+            foreach (string str in pagesExportModel.Pages)
+            {
+                strs += str + ",";
             }
+            runModels.Add(new RunModel("ValueColon", strs.Substring(0, strs.Length - 1), RunModel.RunType.PageFile,true));
 
             return runModels;
         }
 
         protected override void RefreshView()
         {
-            ////Type
-            //SetEndTimeOperationModel.Type type = 0;
-            //String strType = runs[2].Text;
-            //int _type = -1;
-            //for (int i = 0; i < types.Count; i++)
-            //{
-            //    if (((string)Application.Current.FindResource(types[i])).Equals(strType))
-            //    {
-            //        _type = i;
-            //        break;
-            //    }
-            //}
-
-            //switch (_type)
-            //{
-            //    case -1:
-            //        type = SetEndTimeOperationModel.Type.ALL;
-            //        break;
-            //    case 0:
-            //        type = SetEndTimeOperationModel.Type.ALL;
-            //        break;
-            //    case 1:
-            //        type = SetEndTimeOperationModel.Type.END;
-            //        break;
-            //    case 2:
-            //        type = SetEndTimeOperationModel.Type.ALLANDEND;
-            //        break;
-            //}
-            ////Multiple
-            //String strPolyploidy = runs[5].Text;
-            //if (strPolyploidy[0] == '+' || strPolyploidy[0] == '-')
-            //{
-            //    if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy.Substring(1), "^\\d+$"))
-            //    {
-            //        strPolyploidy = setEndTimeOperationModel.Value;
-            //    }
-            //}
-            //else
-            //{
-            //    if (!System.Text.RegularExpressions.Regex.IsMatch(strPolyploidy, "^\\d+$"))
-            //    {
-            //        strPolyploidy = setEndTimeOperationModel.Value;
-            //    }
-            //}
-            //setEndTimeOperationModel.MyType = type;
-            //setEndTimeOperationModel.Value = strPolyploidy;
-
+            string[] strs = runs[2].Text.Split(',');
+            pagesExportModel.Pages.Clear();
+            foreach (var item in strs)
+            {
+                pagesExportModel.Pages.Add(item);
+            }
+          
             UpdateData();
         }
     }

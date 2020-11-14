@@ -1,4 +1,7 @@
 ﻿using Maker.Business.Model.OperationModel;
+using Maker.Model;
+using Maker.View.UI.Style.Child;
+using Maker.View.UI.Style.Child.Base;
 using Maker.View.UI.UserControlDialog;
 using Maker.View.UIBusiness;
 using Maker.ViewBusiness;
@@ -6,17 +9,241 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static Maker.View.UI.Style.Child.Base.RunPageFileClass;
 
 namespace Maker.View.Style.Child
 {
-
     public class BaseStyle : UserControl
     {
+        protected List<Run> runs = new List<Run>();
+        protected TextBlock tbMain = null;
+        protected TextBlock tbRight = null;
+        protected TextBox tbEdit = null;
+
+        protected SolidColorBrush solidNormal = (SolidColorBrush)StaticConstant.mw.Resources["Text_Normal"];
+        protected SolidColorBrush solidOrange = (SolidColorBrush)StaticConstant.mw.Resources["Text_Orange"];
+        protected SolidColorBrush solidGrey = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey"];
+        protected SolidColorBrush solidGreyBg = (SolidColorBrush)StaticConstant.mw.Resources["Text_Grey_Bg"];
+        protected SolidColorBrush solidPurple = (SolidColorBrush)StaticConstant.mw.Resources["Text_Purple"];
+        protected SolidColorBrush solidBlue = (SolidColorBrush)StaticConstant.mw.Resources["Text_Blue"];
+
         public BaseStyleUserControl sw;
 
+        protected List<RunModel> runModels;
+        public List<Run> GetRuns(String title, String funType, TextBlock tbMain, List<RunModel> runModels)
+        {
+            this.runModels = runModels;
+
+            tbEdit.Visibility = Visibility.Collapsed;
+            tbEdit.LostFocus += TbEdit_LostFocus;
+
+            List<Run> runs = new List<Run>
+            {
+                new Run()
+                {
+                    Foreground = solidNormal,
+                    Text = (string)Application.Current.FindResource(funType)+"."+(string)Application.Current.FindResource(title)+"( ",
+                }
+            };
+            foreach (RunModel item in runModels)
+            {
+                runs.Add(new Run()
+                {
+                    Foreground = solidGrey,
+                    Background = solidGreyBg,
+                    Text = (string)Application.Current.FindResource(item.Title),
+                });
+
+                Run value = new Run()
+                {
+                    Foreground = solidPurple,
+                    Text = item.Content,
+                };
+                runs.Add(value);
+
+                if (item.Type == RunModel.RunType.Position)
+                {
+                    RunPositionClass comboRunClass = new RunPositionClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this as OperationStyle,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.Color)
+                {
+                    RunColorClass comboRunClass = new RunColorClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this as OperationStyle,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.Combo)
+                {
+                    RunComboClass comboRunClass = new RunComboClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if(item.Type == RunModel.RunType.Normal)
+                {
+                    value.Foreground = solidNormal;
+                    value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
+                }
+                else if (item.Type == RunModel.RunType.Calc)
+                {
+                    value.Foreground = solidBlue;
+                    value.MouseLeftButtonUp += Value_MouseLeftButtonUp;
+                }
+                else if (item.Type == RunModel.RunType.Combo)
+                {
+                    RunComboClass comboRunClass = new RunComboClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.File)
+                {
+                    RunFileClass comboRunClass = new RunFileClass
+                    {
+                        Data = (List<String>)item.Data,
+                        Os = this as OperationStyle,
+                        Runs = runs,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.PageFile)
+                {
+                    RunPageFileClass comboRunClass = new RunPageFileClass
+                    {
+                        IsMultiple = (bool)item.Data,
+                        Os = this,
+                        Runs = runs,
+                        RunCombo = value,
+                        TbMain = tbMain,
+                    };
+                    value.MouseLeftButtonUp += comboRunClass.DrawRange;
+                }
+                else if (item.Type == RunModel.RunType.Show)
+                {
+                    value.Foreground = solidGrey;
+                }
+               
+                if (item != runModels[runModels.Count - 1])
+                {
+                    runs.Add(GetSplitRun());
+                }
+            }
+            runs.Add(new Run()
+            {
+                Foreground = solidNormal,
+                Text = ");",
+            });
+            return runs;
+        }
+
+        public Run GetSplitRun()
+        {
+            return new Run()
+            {
+                Foreground = solidOrange,
+                Text = ", ",
+            };
+        }
+
+        protected virtual void RefreshView()
+        {
+
+        }
+
+        public virtual void ToRefresh() {
+            RefreshView();
+        }
+        protected virtual List<RunModel> UpdateData()
+        {
+            return null;
+        }
+
+        protected Run selectRun;
+        private void Value_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int position = runs.IndexOf((Run)sender);
+
+            if (position == -1)
+            {
+                return;
+            }
+
+            tbMain.Inlines.Clear();
+            for (int i = 0; i < position; i++)
+            {
+                tbMain.Inlines.Add(runs[i]);
+            }
+
+            selectRun = runs[position];
+            tbEdit.Visibility = Visibility.Visible;
+            tbEdit.Text = selectRun.Text;
+            tbEdit.Focus();
+            for (int i = position + 1; i < runs.Count; i++)
+            {
+                tbRight.Inlines.Add(runs[i]);
+            }
+        }
+
+        private void TbEdit_LostFocus(object sender, RoutedEventArgs e)
+        {
+            selectRun.Text = (sender as TextBox).Text;
+            tbEdit.Text = "";
+            tbRight.Inlines.Clear();
+            tbEdit.Visibility = Visibility.Collapsed;
+
+            tbMain.Inlines.Clear();
+            for (int i = 0; i < runs.Count; i++)
+            {
+                tbMain.Inlines.Add(runs[i]);
+            }
+            ToRefresh();
+        }
+
+        public void ToUpdateData()
+        {
+            List<RunModel> runModel = UpdateData();
+            if (runModel == null)
+            {
+                return;
+            }
+            ResetMainText(runModel);
+        }
+
+        private void ResetMainText(List<RunModel> runModel)
+        {
+            runs = GetRuns(Title, FunType.ToString(), tbMain, runModel);
+
+            tbMain.Inlines.Clear();
+            foreach (var item in runs)
+            {
+                tbMain.Inlines.Add(item);
+            }
+        }
 
         public class RunModel
         {
@@ -45,6 +272,7 @@ namespace Maker.View.Style.Child
                 Combo,
                 Calc,
                 File,
+                PageFile,
                 Show,
             }
 
@@ -231,6 +459,62 @@ namespace Maker.View.Style.Child
             sw.spMain.Children.RemoveAt(position);
             sw.OnRefresh();
         }
+
+
+        /// <summary>
+        /// 内容是否正确
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="split"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public List<int> GetTrueContent(String content, char split, char range)
+        {
+            try
+            {
+                List<int> nums = new List<int>();
+                string[] strSplit = content.Split(split);
+                for (int i = 0; i < strSplit.Length; i++)
+                {
+                    if (strSplit[i].Contains(range+""))
+                    {
+                        String[] TwoNumber = null;
+                        TwoNumber = strSplit[i].Split(range);
+
+                        int One = int.Parse(TwoNumber[0]);
+                        int Two = int.Parse(TwoNumber[1]);
+                        if (One < Two)
+                        {
+                            for (int k = One; k <= Two; k++)
+                            {
+                                nums.Add(k);
+                            }
+                        }
+                        else if (One > Two)
+                        {
+                            for (int k = One; k >= Two; k--)
+                            {
+                                nums.Add(k);
+                            }
+                        }
+                        else
+                        {
+                            nums.Add(One);
+                        }
+                    }
+                    else
+                    {
+                        nums.Add(int.Parse(strSplit[i]));
+                    }
+                }
+                return nums;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
 
         //protected void AddTitleImage(List<String> imageUris, List<MouseButtonEventHandler> es)
         //{

@@ -59,6 +59,10 @@ namespace Maker.View.UI.Style
                 {
                     svMain.Children.Add(new PagesExportChild(item as PagesExportModel, mw));
                 }
+                else if (item is ModelExportModel)
+                {
+                    svMain.Children.Add(new ModelExportChild(item as ModelExportModel, mw));
+                }
                 if (svMain.Children.Count == 0) {
                     continue;
                 }
