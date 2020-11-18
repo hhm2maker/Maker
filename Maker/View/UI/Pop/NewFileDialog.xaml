@@ -18,8 +18,10 @@
             </Border>
             <Border Background="#45494a" Height="10" BorderBrush="#616161" BorderThickness="0,0,0,1" />
             <ListBox Background="#3c3f41" HorizontalAlignment="Stretch" Focusable="True" Name="lbStep" Style="{DynamicResource ListBoxStyle1}" SelectionChanged="lbStep_SelectionChanged" BorderBrush="#383838" FontSize="14" MouseLeftButtonDown="lbStep_MouseLeftButtonDown">
-                <ListBoxItem Content="Light"  Foreground="#bbbbbb" Padding="5"/>
-                <ListBoxItem Content="LightScript"  Foreground="#bbbbbb" Padding="5"/>
+                <ListBoxItem Content="{DynamicResource Light}"  Foreground="#bbbbbb" Padding="5" IsEnabled="False" />
+                <ListBoxItem Content="{DynamicResource LightScript}"  Foreground="#bbbbbb" Padding="5" IsEnabled="False" />
+                <ListBoxItem Content="{DynamicResource LimitlessLamp}"  Foreground="#bbbbbb" Padding="5" IsEnabled="False" />
+                <ListBoxItem Content="{DynamicResource Page}"  Foreground="#bbbbbb" Padding="5" IsEnabled="False" />
             </ListBox>
         </StackPanel>
     </Border>

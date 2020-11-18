@@ -38,10 +38,28 @@ namespace Maker.View.UI.Pop
             this.extension = extension;
             this.notContains = notContains;
             this.fileType = fileType;
+
+            if (extension.Equals(".light")) {
+                lbStep.SelectedIndex = 0;
+            }
+            else if (extension.Equals(".lightScript"))
+            {
+                lbStep.SelectedIndex = 1;
+            }
+            else if (extension.Equals(".limitlessLamp"))
+            {
+                lbStep.SelectedIndex = 2;
+            }
+            else if (extension.Equals(".lightPage"))
+            {
+                lbStep.SelectedIndex = 3;
+            }
+
             if (!defaultName.Equals(String.Empty))
             {
                 tbNumber.Text = defaultName;
             }
+            
             this.toReturnResult = toReturnResult;
         }
 
@@ -57,9 +75,9 @@ namespace Maker.View.UI.Pop
                 return;
             }
             fileName = tbNumber.Text;
-            if (!fileName.EndsWith(fileType))
+            if (!fileName.EndsWith(extension))
             {
-                fileName += fileType;
+                fileName += extension;
             }
             if (notContains.Contains(fileName))
             {
@@ -82,9 +100,9 @@ namespace Maker.View.UI.Pop
         private void tbNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             fileName = tbNumber.Text;
-            if (!fileName.EndsWith(fileType))
+            if (!fileName.EndsWith(extension))
             {
-                fileName += fileType;
+                fileName += extension;
             }
         }
 

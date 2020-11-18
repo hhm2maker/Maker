@@ -358,6 +358,9 @@
     <Compile Include="View\UI\Plugins\PluginsWindow.xaml.cs">
       <DependentUpon>PluginsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Pop\NewFileDialog.xaml.cs">
+      <DependentUpon>NewFileDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\Project\FastLaunchpadProUserControl.xaml.cs">
       <DependentUpon>FastLaunchpadProUserControl.xaml</DependentUpon>
     </Compile>
@@ -370,6 +373,7 @@
     <Compile Include="View\UI\Setting\NewSettingUserControl.xaml.cs">
       <DependentUpon>NewSettingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UI\Style\Child\Base\RunPageFileClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunFileClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunPositionClass.cs" />
     <Compile Include="View\UI\Style\Child\Base\RunColorClass.cs" />
@@ -377,6 +381,7 @@
     <Compile Include="View\UI\Style\Child\Base\RunContentClass.cs" />
     <Compile Include="View\UI\Style\Child\Export\PagesExportChild.cs" />
     <Compile Include="View\UI\Style\Child\Export\FirstPageExportChild.cs" />
+    <Compile Include="View\UI\Style\Child\Export\ModelExportChild.cs" />
     <Compile Include="View\UI\Style\Child\Export\TutorialFileExportChild.cs" />
     <Compile Include="View\UI\Style\Child\ExportStyle.cs" />
     <Compile Include="View\UI\Style\ExportStyleUserControl.cs" />
@@ -849,6 +854,10 @@
     <Page Include="View\UI\Plugins\PluginsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UI\Pop\NewFileDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Project\FastLaunchpadProUserControl.xaml">
       <SubType>Designer</SubType>

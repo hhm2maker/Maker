@@ -43,7 +43,7 @@ namespace Maker.View.Dialog
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Width = mw.ActualWidth - 300;
-            Height = mw.gMost.ActualHeight - 50;
+            Height = mw.gMost.ActualHeight - 100;
         }
 
             private void btnOk_Click(object sender, RoutedEventArgs e)
@@ -111,6 +111,9 @@ namespace Maker.View.Dialog
             XElement xRows = new XElement("Rows");
             xRows.Value = "1";
             xRoot.Add(xRows);
+            XElement xInterval = new XElement("Interval");
+            xInterval.Value = "12";
+            xRoot.Add(xInterval);
             XElement xPoints = new XElement("Points");
             xRoot.Add(xPoints);
             // 保存该文档  

@@ -164,7 +164,7 @@ namespace Maker.View
         {
             String _filePath = GetFileDirectory();
             if (pop == null) {
-                UI.Pop.NewFileDialog newFileDialog = new UI.Pop.NewFileDialog(mw, false, _fileExtension, FileBusiness.CreateInstance().GetFilesName(filePath, new List<string>() { _fileExtension }), _fileExtension, "", NewFileResult);
+                UI.Pop.NewFileDialog newFileDialog = new UI.Pop.NewFileDialog(mw, false, _fileExtension, FileBusiness.CreateInstance().GetFilesName(filePath, new List<string>() { _fileExtension }), _fileType, "", NewFileResult);
 
                 pop = new Popup();
                 pop.StaysOpen = false;
