@@ -86,6 +86,8 @@ namespace Maker
             //contentUserControls.Add(projectUserControl);
             contentUserControls.Add(editUserControl);
             gRight.Children.Add(contentUserControls[0]);
+
+            gitWindow = new GitUserControl(this);
         }
 
 
@@ -1796,7 +1798,7 @@ namespace Maker
 
         private int bottomModel = -1;
 
-        private void TextBlock_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
+        public void TextBlock_MouseLeftButtonDown_2(object sender, MouseButtonEventArgs e)
         {
             StackPanel sp = ((sender as TextBlock).Parent) as StackPanel;
             int position = sp.Children.IndexOf((sender as TextBlock));
@@ -1850,9 +1852,16 @@ namespace Maker
                 spBottomTool.Children.Clear();
                 spBottomTool.Children.Add(hintWindow);
             }
+            else if (bottomModel == 3)
+            {
+                //加入Git页面
+                spBottomTool.Children.Clear();
+                spBottomTool.Children.Add(gitWindow);
+            }
         }
 
         private HintWindow hintWindow = null;
+        private GitUserControl gitWindow = null;
 
         LogCatUserControl logCatUserControl = new LogCatUserControl();
         ShowDataUserControl showDataUserControl = null;
@@ -1913,7 +1922,15 @@ namespace Maker
             }
             baseUserControl.SaveFile();
         }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            gitWindow.GetVersion();
+        }
+
+        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            gitWindow.Commit();
+        }
     }
-
-
 }

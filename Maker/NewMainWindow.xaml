@@ -81,6 +81,10 @@
                                 <MenuItem Header="{DynamicResource Device}" Click="Device_Click" Foreground="{DynamicResource TitleFontColor}" />
                                 <MenuItem Name="miPlugins" Click="miPlugins_Click" Header="{DynamicResource Plugins}" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
+                            <MenuItem Header="Git" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
+                                <MenuItem Header="{DynamicResource Version}" Click="MenuItem_Click_1" Foreground="{DynamicResource TitleFontColor}"  />
+                                <MenuItem Header="Commit" Click="MenuItem_Click_2" Foreground="{DynamicResource TitleFontColor}"  />
+                            </MenuItem>
                             <MenuItem Header="{DynamicResource Help}" Style="{DynamicResource bigMenuItem}" FontSize="18" Foreground="{DynamicResource TitleFontColor}" >
                                 <MenuItem Header="{DynamicResource Appreciate}" Click="StackPanel_MouseLeftButtonDown_2" Foreground="{DynamicResource TitleFontColor}" />
                             </MenuItem>
@@ -243,6 +247,7 @@
                     <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="灯光数据"/>
                     <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="日志"/>
                     <TextBlock MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="{DynamicResource Hint}"/>
+                    <TextBlock Name="tbGit" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown_2" Width="100" Padding="0,3,0,3" TextAlignment="Center" FontSize="18" Foreground="{DynamicResource TitleFontColor}" Text="Git"/>
                 </StackPanel>
             </Grid>
             <StackPanel Grid.Row="4" Background="{DynamicResource MainBottomLine}" Height="1" HorizontalAlignment="Stretch"/>

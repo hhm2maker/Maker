@@ -194,7 +194,8 @@
                 </StackPanel>
             </ScrollViewer>-->
                 </Grid>
-                <Popup  PlacementTarget="{Binding ElementName=cColor}" Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
+                <!--PlacementTarget="{Binding ElementName=cColor}"-->
+                <Popup Name="pColor" Placement="Bottom"  AllowsTransparency="True" PopupAnimation="Fade"  StaysOpen="False" Visibility="Collapsed">
                     <view:ColorPanel x:Name="lbColor" Margin="20,15,20,0" Height="320" Width="220" Style="{DynamicResource ListBoxStyle1}" Background="#535353" />
                 </Popup>
             </Grid>

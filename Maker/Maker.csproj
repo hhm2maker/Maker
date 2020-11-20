@@ -161,6 +161,7 @@
     <Compile Include="Bridge\BaseBridge.cs" />
     <Compile Include="Bridge\NewMainWindowBridge.cs" />
     <Compile Include="Bridge\ScriptUserControlBridge.cs" />
+    <Compile Include="Business\CommandRunner.cs" />
     <Compile Include="Business\Currency\XmlSerializerBusiness.cs" />
     <Compile Include="Business\Discarded\CatalogUserControl.xaml.cs">
       <DependentUpon>CatalogUserControl.xaml</DependentUpon>
@@ -237,6 +238,9 @@
     </Compile>
     <Compile Include="View\UI\Dialog\WindowDialog\ConfirmWindowDialog.xaml.cs">
       <DependentUpon>ConfirmWindowDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UI\Git\GitWindow.xaml.cs">
+      <DependentUpon>GitWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UI\IControlFile.cs" />
     <Compile Include="View\UI\BaseUserControl.cs" />
@@ -387,6 +391,9 @@
     <Compile Include="View\UI\Style\ExportStyleUserControl.cs" />
     <Compile Include="View\UI\Style\ScriptStyleUserControl.cs" />
     <Compile Include="View\UI\Test\TestClass.cs" />
+    <Compile Include="View\UI\Tool\GitUserControl.xaml.cs">
+      <DependentUpon>GitUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UI\UserControlDialog\BaseStyleUserControl.cs" />
     <Compile Include="View\UI\Style\Child\BaseStyle.cs" />
     <Compile Include="View\UI\Style\Child\Script\NoOperation\ReversalOperationChild.cs" />
@@ -811,6 +818,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UI\Git\GitWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\UI\LightUserControl\FrameUserControl2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -884,6 +895,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\UI\Tool\DeviceWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\UI\Tool\GitUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
